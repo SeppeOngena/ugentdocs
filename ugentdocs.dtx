@@ -22,36 +22,42 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{uantwerpendocs.dtx}
+\ProvidesFile{ugentdocs.dtx}
 %</driver>
-%<@@=uantwerpendocs>
-%<ct|bmt|pt|rp|le|ex|bmr>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<clo>\ProvidesFile{uantwerpencommonoptions.clo}
-%<cls>\ProvidesPackage{uantwerpencolorlogoscheme}
-%<ct>\ProvidesClass{uantwerpencoursetext}
-%<bmt>\ProvidesClass{uantwerpenbamathesis}
-%<pt>\ProvidesClass{uantwerpenphdthesis}
-%<rp>\ProvidesClass{uantwerpenreport}
-%<le>\ProvidesClass{uantwerpenletter}
-%<ex>\ProvidesClass{uantwerpenexam}
-%<bmr>\ProvidesPackage{beamerthemeuantwerpen}
-%<cls|ct|bmt|pt|rp|le|ex|bmr>    [2026/04/06 v4.12 .dtx skeleton file]
+%<@@=ugentdocs>
+%<crs|bmt|phd|rp|le|ex|bmr>\NeedsTeXFormat{LaTeX2e}
+%<clo>\ProvidesFile{ugentcommon.clo}
+%<col>\ProvidesPackage{ugentcolor}
+%<crs>\ProvidesClass{ugentcourse}
+%<bmt>\ProvidesClass{ugentthesis}
+%<phd>\ProvidesClass{ugentdissertation}
+%<rp>\ProvidesClass{ugentreport}
+%<le>\ProvidesClass{ugentletter}
+%<ex>\ProvidesClass{ugentexam}
+%<bmr>\ProvidesPackage{beamerthemeugent}
+%<col|crs|bmt|phd|rp|le|ex|bmr>    [2026/07/03 v1.0.0 .dtx skeleton file]
 %<*driver>
 \documentclass[a4paper,10pt]{ltxdoc}
+%
+\def\fileversion{v1.0.0}
+\def\filedate{2026/04/06}
+%
 \usepackage{geometry}
 \usepackage{newpxtext,newpxmath}
-\def\fileversion{v4.12}
-\def\filedate{2026/04/06}
 \usepackage{makeidx}
 \usepackage{alltt}
 \usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{metalogo}
+\usepackage{xstring}
+%
 \IfFileExists{tocbibind.sty}{\usepackage{tocbibind}}{}
 \IfFileExists{hyperref.sty}{\usepackage[bookmarksopen]{hyperref}}{}
+%
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
+%
 \ExplSyntaxOn
 \str_new:N \l__myverbatim_arg_str
 \NewDocumentEnvironment { imacro } { v }
@@ -63,77 +69,19 @@
   {
   }
 \ExplSyntaxOff
+%
 \begin{document}
-  \DocInput{uantwerpendocs.dtx}
+  \DocInput{ugentdocs.dtx}
 \end{document}
 %</driver>
 % \fi
 %
-% \changes{v1.0}{2013/05/11}{\@ Consolidated uacoursetext class and
-% uamasterthesis class}
-% \changes{v1.1}{2013/05/29}{\@ Small bugfixes and 'filled' option}
-% \changes{v1.2}{2014/08/22}{\@ Added lmodern package and increased
-% headheight to 13.7pt to please Fancyhdr}
-% \changes{v1.3}{2015/12/31}{\@ Minor bugfixes, abondonment of a few
-% packages, font freedom}
-% \changes{v1.4}{2016/01/07}{\@ Implemented uantwerpenletter class}
-% \changes{v1.5}{2016/01/11}{\@ Replaced bottom arcs in footer of
-% letter by official PDF versions}
-% \changes{v1.6}{2016/02/04}{\@ Added diploma codes for Faculty of
-% Applied Economics}
-% \changes{v1.7}{2016/05/01}{\@ Added babel translations of elements
-% of master's thesis title page}
-% \changes{v1.8}{2017/01/08}{\@ Corrected minor typographic mistakes,
-% added signature and solved problems with shell escape}
-% \changes{v1.81}{2017/01/08}{\@ Bugfixes for release v1.8}
-% \changes{v1.9}{2018/03/02}{\@ Integrated uantwerpenexam class into
-% package} 
-% \changes{v2.0}{2018/05/16}{\@ Implemented uantwerpenphdthesis class
-% into package} 
-% \changes{v2.1}{2018/06/20}{\@ Bugfix release after promotion event
-% on research day}
-% \changes{v2.2}{2018/10/23}{\@ Improved visibility of chapter numbers
-% by adding a white outline}
-% \changes{v2.3}{2019/03/27}{\@ Reworked masterthesis to bamathesis and minor bug fixes}
-% \changes{v2.4}{2019/04/10}{\@ Added option for diploma without specialization for EM}
-% \changes{v3.0}{2021/02/05}{\@ Adapted to the new house style of
-% UAntwerpen and added a beamer template}
-% \changes{v3.1}{2021/03/21}{\@ Renamed generic images to be unique
-% for TexLive distribution}
-% \changes{v3.2}{2021/03/21}{\@ Small bugfixes (e.g., frame numbering
-% instead of page numbering)}
-% \changes{v4.00}{2021/07/11}{\@ Last update of house style (phdthesis
-% coursetext and bamathesis), added uantwerpenreport class,
-% improvements based on use feedback
-% and major rework to benefit from expl3, removed all diploma codes
-% to ease maintainability}
-% \changes{v4.01}{2021/08/03}{\@ Adapted coursetext again to
-% universitas agreement + added bleed version for phd texts + small bugfixes}
-% \changes{v4.02}{2021/10/04}{\@ Added in-style bamathesis class}
-% \changes{v4.03}{2021/11/11}{\@ Small bugfixes and corrections to
-% optional fields of letter class}
-% \changes{v4.04}{2022/04/04}{\@ Made titlepages insensitive to
-% parindent and parskip settings + small bugfixes}
-% \changes{v4.05}{2023/04/10}{\@ Small bugfixes: more robust fonts for
-% overleaf, added some missing degrees}
-% \changes{v4.06}{2024/04/09}{\@ Solved font issue on title page of
-% exams, improved gender neutralilty of PhD jury chair, allowed for
-% multiple degree programs for exams and course texts, corrected
-% disclaimers, replaced 'basic usage' in documentation by heavily
-% commented examples}
-% \changes{v4.07}{2024/06/13}{\@ Minor bugfixes on the request of the library}
-% \changes{v4.08}{2024/08/27}{\@ Minor bugfixes on the request of the Antwerp Doctoral School}
-% \changes{v4.09}{2025/04/08}{\@ Minor bugfixes on the request of users}
-% \changes{v4.10}{2025/05/29}{\@ Updated PhD template to comply with
-% new PhD regulations (regarding defense date, DOI number, scientific integrity
-% clause, embargo clauses and copyright disclaimer)}
-% \changes{v4.11}{2025/06/03}{\@ Removed spurious 'check-declarations' expl3 debugging option, as this breaks other packages}
-% \changes{v4.12}{2026/04/06}{\@ Allowed for double use of degree specification and corrected title spacings in examples; improved protective scoping in beamertheme; adopted l3build; corrected camerareadydocumentation; enabled making a book cover for phd class}
 % \DoNotIndex{\newcommand,\newenvironment,\begin,\bfseries,\draw,\clip,\else,\fi,\if,\fill,\filldraw,\ifthenelse,\ifx,\textwidth,\node,\\,\@empty,\@tempdima,\@tempdimb,\@tempswatrue,\{,\},\ ,\bf,\BODY,\break,\Alph,\and,\define@key,\color,\dx,\dy,\g,\gdef,\hbox,\tiny,\scriptsize,\footnotesize,\small,\normalsize,\large,\Large,\LARGE,\huge,\Huge,\l,\LaTeX,\let,\p@,\relax,\renewcommand,\Requirepackage,\textbf,\textsf,\texttt,\textbackslash,\vspace,\hspace,\hfill,\hskip,\vskip,\hline,\vrule,\typeout,\usebox,\end,\paperheight,\paperwidth,\par,\NewDocumentCommand,\seq}
+%
 % \setlength{\parindent}{0em}
 % \addtolength{\parskip}{0.5\baselineskip}
 %
-% \title{The |uantwerpendocs| classes\thanks{Thanks to Paul Levrie for testing and proofreading.}}
+% \title{The |ugentdocs| classes\thanks{Thanks to Paul Levrie for testing and proofreading.}}
 % \author{Walter Daems (|walter.daems@uantwerpen.be|)}
 % \date{release \filedate{} --- \fileversion{}}
 %
@@ -163,7 +111,7 @@
 % \section{Synopsis}
 % The |coursetext|, |bamathesis| and |phdthesis| 
 % classes\footnote{For readability the class names have been
-% abbreviated by omitting the |uantwerpen| prefix} are 
+% abbreviated by omitting the |ugent| prefix} are 
 % an extension of the standard \LaTeX{} |book| class.  They are
 % intended to be used for writing course texts and master's or PhD
 % theses. They provides a title page that is compliant to the
@@ -191,7 +139,7 @@
 %
 %      The documentation for the beamer theme is embedded in the
 %      demo/user-guide presentation
-%      |beamerthemeuantwerpenuserguide.pdf|.
+%      |beamerthemeugentuserguide.pdf|.
 %
 %      Template files for all of the formats can be found below in
 %      section~\ref{sec:basicusage}.
@@ -223,7 +171,7 @@
 % \LaTeX{} compiler.
 %
 % You will notice that as of version 4.0 |expl3| and |xparse| are part
-% of the game. Indeed, the uantwerpendocs package will be slowly
+% of the game. Indeed, the ugentdocs package will be slowly
 % refactored to \LaTeX3{} to prepare for a package that is easier to
 % maintain. However, the \LaTeX3{} constructs are never exposed to the
 % user of the classes. So: don't worry about it!
@@ -284,7 +232,7 @@
 % \item exam class
 % \end{itemize}
 %
-% In the second part, we will describe the uantwerpen beamer theme that can be
+% In the second part, we will describe the ugent beamer theme that can be
 % used to make PDF slides.
 %
 % \clearpage
@@ -308,7 +256,7 @@
 % \label{sec:classopt}
 % The classes have several options. They are listed below.
 % After every option, it has been indicated to which class the option
-% applies (between square brackets, without prefix uantwerpen).
+% applies (between square brackets, without prefix ugent).
 % \changes{v1.1}{2013/05/28}{Added option user documentation}
 %
 % \DescribeMacro{xx(x)} [letter / coursetext / bamathesis / phdthesis
@@ -523,13 +471,13 @@
 % the document type to 'project'.
 %
 % \begin{center}
-%  % This data comes from uantwerpendocs-doctype.data
+%  % This data comes from ugentdocs-doctype.data
 %  \begingroup
 %  \catcode`\^^M=13%
 %  \def^^M{~\\}%
 %  \catcode`\==4 %~
 %  \begin{longtable}{p{3cm}p{8.5cm}}%
-%       \toprule  argument \\ \midrule ~\input{uantwerpendocs-doctype.data}
+%       \toprule  argument \\ \midrule ~\input{ugentdocs-doctype.data}
 %       \bottomrule%
 %  \end{longtable}%
 %  \endgroup
@@ -539,13 +487,13 @@
 % This allows to specify the official degree through an
 % abbreviation. Using this abbreviation 
 % \begin{center}
-%  % This data comes from uantwerpendocs-degree.data
+%  % This data comes from ugentdocs-degree.data
 %  \begingroup
 %  \catcode`\^^M=13%
 %  \def^^M{~\\}%
 %  \catcode`\==4 %~
 %  \begin{longtable}{p{3cm}p{8.5cm}}%
-%       \toprule  argument & degree \\ \midrule \input{uantwerpendocs-degree.data}
+%       \toprule  argument & degree \\ \midrule \input{ugentdocs-degree.data}
 %       \bottomrule%
 %  \end{longtable}%
 %  \endgroup
@@ -813,13 +761,13 @@
 %
 % \changes{v4.06}{}{added quite some info to the examples}
 %
-% \subsubsection{\texttt{uantwerpencoursetext}}
+% \subsubsection{\texttt{ugentcourse}}
 %
 % \changes{v2.5}{}{changed publisher to universitas in example}
 % \begin{verbatim}
 %<*ct-example> 
 \documentclass[ti,a4paper,11pt,oneside,openright,cameraready,filled]
-              {uantwerpencoursetext}
+              {ugentcourse}
 
 %% ti           specifies the department, change to the letter combination of
 %%              your department
@@ -968,13 +916,13 @@
 % \end{verbatim}
 % 
 % 
-% \subsubsection{\texttt{uantwerpenbamathesis}}
+% \subsubsection{\texttt{ugentthesis}}
 %
 % \changes{v4.04}{2022/04/04}{Added some suggestions for a two column
 % summary of a bamathesis}
 % \begin{verbatim}
 %<*bmt-example> 
-\documentclass[ti,a4paper,11pt,twoside,openright]{uantwerpenbamathesis}
+\documentclass[ti,a4paper,11pt,twoside,openright]{ugentthesis}
 
 %% ti           specifies the department, change to the letter combination of
 %%              your department - currently only ti (for FTI) and we
@@ -1144,12 +1092,12 @@
 % \end{verbatim}
 % 
 %
-% \subsubsection{\texttt{uantwerpenphdthesis}}
+% \subsubsection{\texttt{ugentdissertation}}
 %
 % \paragraph{Dutch}
 % \begin{verbatim}
-%<*pt-example1> 
-\documentclass[ti,10pt,twoside,openright,filled]{uantwerpenphdthesis}
+%<*phd-example1> 
+\documentclass[bw,10pt,twoside,openright,filled]{ugentdissertation}
 
 %% ti            specifies the department, change to the letter combination of
 %%               your department
@@ -1185,16 +1133,16 @@
 \iftutex
 %% Just an example of font-scheme: this is in no way a recommended font
 %% scheme!
-\usepackage{cmbright}
-\usepackage{fontspec}
-\setmainfont
-[UprightFont = *,
- BoldFont = *b,
- ItalicFont = *i,
- BoldItalicFont = *z,
-]
-{calibri}
-\usepackage{sansmathaccent}
+%%\usepackage{cmbright}
+%%\usepackage{fontspec}
+%%\setmainfont
+%%[UprightFont = *,
+%% BoldFont = *b,
+%% ItalicFont = *i,
+%% BoldItalicFont = *z,
+%%]
+%%{calibri}
+%%\usepackage{sansmathaccent}
 \fi
 
 %% load the proper language(s) (last language will trigger the language
@@ -1334,13 +1282,13 @@
 \makefinalpage
 
 \end{document}
-%</pt-example1> 
+%</phd-example1> 
 % \end{verbatim}
 %
 % \paragraph{English}
 % \begin{verbatim}
-%<*pt-example2> 
-\documentclass[ti,10pt,twoside,openright,filled,cameraready]{uantwerpenphdthesis}
+%<*phd-example2> 
+\documentclass[ti,10pt,twoside,openright,filled,cameraready]{ugentdissertation}
 
 %% ti            specifies the department, change to the letter combination of
 %%               your department
@@ -1494,14 +1442,14 @@
 \makefinalpage
 
 \end{document}
-%</pt-example2> 
+%</phd-example2> 
 % \end{verbatim}
 %
-% \subsubsection{\texttt{uantwerpenreport}}
+% \subsubsection{\texttt{ugentreport}}
 %
 % \begin{verbatim}
 %<*rp-example>
-\documentclass[10pt,twoside,openright,filled]{uantwerpenreport}
+\documentclass[10pt,twoside,openright,filled]{ugentreport}
 
 %% 10pt          sets the font size, 10pt is ok for a phd manuscript
 %% twoside       if you want a two-sided document, change to oneside if you
@@ -1626,13 +1574,13 @@
 % \end{verbatim}
 %
 %
-% \subsubsection{\texttt{uantwerpenletter}}
+% \subsubsection{\texttt{ugentletter}}
 % 
 % \paragraph{Plain example}
 %
 % \begin{verbatim}
 %<*le-example> 
-\documentclass[ti,a4paper]{uantwerpenletter}
+\documentclass[ti,a4paper]{ugentletter}
 
 %% ti           specifies the department, change to the letter combination of
 %%              your department
@@ -1741,11 +1689,11 @@ their details enclosed.
 % Probably, one has to write many letters. The sender details will be
 % most certainly valid for many an occasion. Therefore, you might want
 % to consider putting this default setup in a configuration file,
-% e.g. \texttt{uantwerpenletter.cfg}:
+% e.g. \texttt{ugentletter.cfg}:
 %
 % \begin{verbatim}
 %<*le-cfg>
-%% configuration file for uantwerpenletter class
+%% configuration file for ugentletter class
 
 %% you can put your font setup in the configuration file!
 \iftutex
@@ -1779,7 +1727,7 @@ their details enclosed.
 %
 % The file can then be loaded in the preamble of your letter as follows:
 % \begin{verbatim}
-% \input{uantwerpenletter.cfg}
+% \input{ugentletter.cfg}
 % \end{verbatim}
 %
 % After loading this configuration file, you may override some
@@ -1790,7 +1738,7 @@ their details enclosed.
 % \LaTeX\ search path (most often this search path can be set with an
 % environment variable \texttt{TEXINPUTS}).
 %
-% \subsubsection{\texttt{uantwerpenexam}}
+% \subsubsection{\texttt{ugentexam}}
 %
 % Below you can find two examples:
 % \begin{itemize}
@@ -1803,7 +1751,7 @@ their details enclosed.
 % \paragraph{Single column}
 % \begin{verbatim}
 %<*ex-example1> 
-\documentclass[ti,a4paper,10pt]{uantwerpenexam}
+\documentclass[ti,a4paper,10pt]{ugentexam}
 
 %% ti           specifies the department, change to the letter combination of
 %%              your department
@@ -1964,7 +1912,7 @@ een b\'echamel saus:
 %
 % \begin{verbatim}
 %<*ex-example2> 
-\documentclass[ti,a4paper,10pt]{uantwerpenexam}
+\documentclass[ti,a4paper,10pt]{ugentexam}
 
 %% ti           specifies the department, change to the letter combination of
 %%              your department
@@ -2219,8 +2167,8 @@ een b\'echamel saus:
 %
 % \subsection{Common options}
 %
-% Colors appear in any document, so let's define them in common in a
-% separate package
+% Colors and logos appear in any document, so let's define them in a
+% common package
 %    \begin{macrocode}
 %<*clo>
 \newif\if@neutralcolors
@@ -2336,7 +2284,7 @@ een b\'echamel saus:
 %
 % \subsection{Color scheme}
 %    \begin{macrocode}
-%<*cls>
+%<*col>
 \if@cmyk
 %% UAntwerpen
 \definecolor{uauamain}{cmyk}{0.00,0.96,0.82,0.01}
@@ -2416,7 +2364,7 @@ een b\'echamel saus:
 \colorlet{sidecolor}{ua\fselector side}
 \colorlet{basecolor}{uauaside}
 \fi
-%</cls>
+%</col>
 %    \end{macrocode}
 %
 % \subsection{Class inheritance}
@@ -2425,48 +2373,37 @@ een b\'echamel saus:
 % For convenience, we'll derive from the standard \LaTeX{} |book|, 
 % |letter| and |article| class. 
 % 
-% \changes{v1.0}{2013/05/11}{Added option titlepagetableonly}
-% \changes{v1.0}{2013/05/11}{Added option titlepagenoartwork}
-% \changes{v1.0}{2013/05/11}{Added option qr}
-% \changes{v1.4}{2016/01/07}{Implemented letter class}
-% \changes{v1.9}{2018/03/02}{Implemented uantwerpenexam class}
-% \changes{v2.0}{2018/03/02}{Implemented uantwerpenphdthesis class}
-% \changes{v4.00}{2021/05/01}{Removed option qr again}
-% \changes{v4.00}{2021/07/11}{Removed options titlepagetableonly and
-% titlepagenoartwork}
-% \changes{v4.01}{2021/08/03}{Added option cameraready}
-% \changes{v4.04}{2022/04/04}{Added option bare to phd text classes}
 %
 % Before loading the class, we provide the extra options.
 % 
 %    \begin{macrocode}
-%<*ct>
+%<*crs>
 \newif\if@modern
 \@modernfalse
 \DeclareOption{modern}{\@moderntrue}
-%</ct>
-%<*ct|rp>      
+%</crs>
+%<*crs|rp>      
 \newif\if@copyright
 \DeclareOption{copyright}{\@copyrighttrue}
-%</ct|rp>
+%</crs|rp>
 %
-%<*ct|bmt|pt|rp|le>
+%<*crs|bmt|phd|rp|le>
 \newif\if@filled
 \DeclareOption{filled}{\@filledtrue}
-%</ct|bmt|pt|rp|le>
+%</crs|bmt|phd|rp|le>
 %
 %<*ex>
 \newif\if@examiner
 \DeclareOption{examiner}{\@examinertrue}
 %</ex>
-%<*ct|pt>
+%<*crs|phd>
 \newif\if@cameraready
 \DeclareOption{cameraready}{\@camerareadytrue}
-%</ct|pt>
-%<*pt>
+%</crs|phd>
+%<*phd>
 \newif\if@bare
 \DeclareOption{bare}{\@baretrue}
-%</pt>
+%</phd>
 %<*le>
 \newif\if@nofoldline
 \DeclareOption{nofoldline}{\@nofoldlinetrue}
@@ -2478,16 +2415,16 @@ een b\'echamel saus:
 % We load the |book| class for course texts, reports and PhD theses, and the
 % scrbook class for bachelor and master theses.
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp>
-\input{uantwerpencommonoptions.clo}
+%<*crs|bmt|phd|rp>
+\input{ugentcommon.clo}
 \ExecuteOptions{a4paper,11pt,final,oneside,openright}
 \ProcessOptions\relax
-%</ct|bmt|pt|rp>
-%<ct|pt|rp>\LoadClassWithOptions{book}
+%</crs|bmt|phd|rp>
+%<crs|phd|rp>\LoadClassWithOptions{book}
 %<bmt>\LoadClassWithOptions{scrbook}
 % We load the |letter| class for letters
 %<*le> 
-\input{uantwerpencommonoptions.clo}
+\input{ugentcommon.clo}
 \ExecuteOptions{a4paper,10pt,final,oneside,openright}
 \ProcessOptions
 \LoadClassWithOptions{letter}
@@ -2495,7 +2432,7 @@ een b\'echamel saus:
 %</le>
 % We load the |article| class for exams
 %<*ex>
-\input{uantwerpencommonoptions.clo}
+\input{ugentcommon.clo}
 \ExecuteOptions{a4paper,twoside,10pt}
 \ProcessOptions
 \LoadClassWithOptions{article}
@@ -2507,11 +2444,11 @@ een b\'echamel saus:
 % and with a decent paragraph spacing.
 % 
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex>      
+%<*crs|bmt|phd|rp|le|ex>      
 \setlength{\parindent}{0pt}
 \addtolength{\parskip}{0.75\baselineskip}
 \setcounter{secnumdepth}{3}
-%</ct|bmt|pt|rp|le|ex> 
+%</crs|bmt|phd|rp|le|ex> 
 %    \end{macrocode}
 % 
 % \subsection{Auxiliary packages}
@@ -2519,24 +2456,22 @@ een b\'echamel saus:
 % appropriate auxiliary packages that have proven their value.
 %
 % \subsubsection{Geometry}
-% Let's reduce the margins to 1 inch each for the documents that are
-% unlikely to be glue bound:
+% Following the report office template:
 %    \begin{macrocode}
-%<*ct|rp|ex>      
 \RequirePackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
-%</ct|rp|ex>
-% Let's follow the instructions by ADS for the (marginal(!) glue provision):
-%<*pt>
 \RequirePackage[paperwidth=180mm,paperheight=260mm,
                 top=2.5cm,bottom=2.5cm,left=2.6cm,right=1.8cm,twoside]
+%<*crs|rp|ex>      
+%</crs|rp|ex>
+% Margin glue provision for PhD:
+%<*phd>
                 {geometry}
-%</pt>
-% Also, let's follow the office templates for the bachelor's and
-% master's theses:
+%</phd>
+% Following the bachelor's and master's theses office template:
 %<*bmt>      
 \RequirePackage[top=2.6cm, bottom=2.5cm, left=3.5cm, right=1.6cm]{geometry}
 %</bmt>
-% Letters are a little bit different:
+% Following letter office template:
 %<*le>      
 \RequirePackage[top=1in, bottom=1in, left=1.34in, right=1in]{geometry}
 \RequirePackage[normalem]{ulem}
@@ -2546,49 +2481,35 @@ een b\'echamel saus:
 % \subsubsection{Preparing for \LaTeX3}
 % Let's make things a bit easier for me.
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex>      
+%<*crs|bmt|phd|rp|le|ex>      
 \RequirePackage{expl3}
 %\RequirePackage[check-declarations]{expl3} % I use this during debug phase
 \RequirePackage{xparse}
-%</ct|bmt|pt|rp|le|ex>
+%</crs|bmt|phd|rp|le|ex>
 %    \end{macrocode}
 %
 % \subsubsection{Font packages}
-% Note that the use of cmbright is no
-% longer imposed (as of v1.3). Using a good font is now up to the
-% user. The packages 'newpxtext/newpxmath' and 'cmbright' are highly
-% recommended.
-% For writing letters, 'Calibri' is the official font of the
-% University of Antwerp.
-% \changes{v1.2}{2014/08/22}{Added lmodern package to please MikTeX}
-% \changes{v1.3}{2015/12/31}{Abandoned use of cmbright - no more
-% font dictatorship for theses and courses}
+% UGent Panno Text (and its Medium and SemiLight variants) should always be installed (and the document compiled using Lua\LaTeX) as they are used in the logo's. For the document itself, it is recommended to use UGent Panno Text as well, which is set through |\setmainfont{UGent Panno Text}|. However, Arial is also a valid official alternative and can override UGent Panno Text by adding |\setmainfont{Arial}| to the beginning of your document. UGent uses Arial as default for Word and PowerPoint templates as these are distributed outside Ghent University. This is not applicable for \LaTeX however, as pdf's are always generated. Thus, UGent Panno Text is used everywhere.
+%
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le>      
-% no more font code
-%</ct|bmt|pt|rp|le>
+%<*crs|bmt|phd|rp|le>      
+% \RequirePackage{fontspec}
+% \setmainfont{UGent Panno Text}
+%</crs|bmt|phd|rp|le>
 %    \end{macrocode}
 %
 % \subsubsection{Boilerplate packages}
 % 
 % Some boilerplate packages and an empty macro to test against
 % (using|\ifx|)
-% \changes{v1.8}{2017/01/08}{Added missing packages ifmtarg and
-% shellesc}
-% \changes{v1.81}{2017/01/09}{Apparently shellesc is still missing from
-% quite a number of installations, therefore, conditional loading}
-% \changes{v1.9}{2018/03/02}{Added etoolbox for convenience reasons}
-% \changes{v2.0}{2018/03/14}{Removed package ifmtarg because
-% unreliable}
-% \changes{v3.0}{2021/02/05}{Added iftex}
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex>
+%<*crs|bmt|phd|rp|le|ex>
 \RequirePackage{iftex}
 \RequirePackage{xstring}
 \RequirePackage{etoolbox}
 \RequirePackage{ifthen}
 \IfFileExists{shellesc.sty}{\RequirePackage{shellesc}}{}
-%</ct|bmt|pt|rp|le|ex> 
+%</crs|bmt|phd|rp|le|ex> 
 %    \end{macrocode}
 % 
 % \subsubsection{Graphics packages}
@@ -2597,9 +2518,10 @@ een b\'echamel saus:
 % in handy for regular use as well.
 %
 % Some packages for coursetext and bamathesis:
-% \changes{v1.3}{2015/12/31}{Added inclusion of background package}
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex>      
+%<*crs|bmt|phd|rp|le|ex>  
+\RequirePackage{fontspec}
+\RequirePackage{hyphenat}    
 \RequirePackage{graphicx}
 \RequirePackage{graphbox}
 \RequirePackage{soul}
@@ -2609,67 +2531,43 @@ een b\'echamel saus:
 \usetikzlibrary{positioning,calc}
 \RequirePackage{eso-pic}
 \RequirePackage{zref-totpages}
-%</ct|bmt|pt|rp|le|ex>
-%<*ct|rp>
+%</crs|bmt|phd|rp|le|ex>
+%<*crs|rp>
 \if@copyright
 \RequirePackage[contents={},color=lightgray,scale=3]{background}
 \fi
-%</ct|rp>
+%</crs|rp>
 %    \end{macrocode}
 %
-% \subsubsection{UAntwerpen color and logo scheme}
+% \subsubsection{UGent color and logo scheme}
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex>
-\RequirePackage{uantwerpencolorlogoscheme}
-%</ct|bmt|pt|rp|le|ex> 
+%<*crs|bmt|phd|rp|le|ex>
+\RequirePackage{ugentcolor}
+%</crs|bmt|phd|rp|le|ex> 
 %    \end{macrocode}
 
 % \subsubsection{Header/Footer}
 % 
 % The de-facto standard for headers and footers:
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex>      
+%<*crs|bmt|phd|rp|le|ex>      
 \RequirePackage{fancyhdr}
-%</ct|bmt|pt|rp|le|ex> 
+%</crs|bmt|phd|rp|le|ex> 
 %    \end{macrocode}
 % 
 % \subsection{Colors}
 %
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex> 
-\definecolor{lightgray}{cmyk}      {0.00,0.00,0.00,0.05}
+%<*crs|bmt|phd|rp|le|ex> 
+\definecolor{lightgray}{cmyk}      {0.00,0.00,0.00,0.10}
 \definecolor{darkgray}{cmyk}       {0.00,0.00,0.00,0.80}
-\definecolor{watermark}{cmyk}      {0.00,0.00,0.00,0.05}
-%</ct|bmt|pt|rp|le|ex>
-%    \end{macrocode}
-%
-% \subsection{Fancy highlighting}
-% \changes{v4.02}{2021/10/04}{Added highlighting facilities}
-% Though I'm not keen on highlighting, the style gurus have decided to
-% put highlighting in the titles of the bachelor's and master's
-% theses. The macro blow highlights a token sequence using white text
-% on the main color.
-%    \begin{macrocode}
-%<*bmt>
-\newcommand\@uantwerpendocshl[1]{%
-  \begin{lrbox}{\@tempboxa}#1\end{lrbox}\@uantwerpendocshlbox{\@tempboxa}}
-\newcommand{\@uantwerpendocshlbox}[1]{%
-  \tikz{%
-    \pgfpathrectangle{\pgfpoint{1pt}{0pt}}{\pgfpoint{\wd #1}{\ht #1}}%
-    \pgfusepath{use as bounding box}%
-    \node[anchor=base
-    west,align=center,fill=maincolor,text=white,outer sep=0pt,inner
-    xsep=5pt, inner ysep=0pt,minimum height=\ht\strutbox+1pt]
-    {\raisebox{1pt}{\strut}\strut\usebox{#1}};
-  }%
-}
-%</bmt>
+\definecolor{watermark}{cmyk}      {0.00,0.00,0.00,0.10}
+%</crs|bmt|phd|rp|le|ex>
 %    \end{macrocode}
 %
 % \subsection{Fancy inset texts and quotes}
-% \changes{v4.02}{2021/10/04}{Added some fancy inset texts and quotes}
 %    \begin{macrocode}
-%<*bmt|pt|ct|rp>
+%<*bmt|phd|crs|rp>
 \newcommand\insettext[1]{
   \textcolor{basecolor}{
     \begin{tabular}{@{\hskip3ex\textcolor{maincolor}{\vrule width 2.5pt}%
@@ -2695,12 +2593,11 @@ een b\'echamel saus:
     #1
   }
 }
-%</bmt|pt|ct|rp>
+%</bmt|phd|crs|rp>
 %    \end{macrocode}
 %
 % 
 % \subsection{Camera-ready version}
-% \changes{v4.01}{2021/08/03}{Added cameraready option}
 % For the course texts, this means printing no artwork (as universitas
 % prints your front page on a pre-printed color page)
 % This is taken care of by the titlepage and finalpage environments,
@@ -2709,11 +2606,11 @@ een b\'echamel saus:
 % For PhD texts, this means providing bleed space. We implemented this
 % using the very fine |crop| package.
 %    \begin{macrocode}
-%<*pt>
+%<*phd>
 \if@cameraready
 \RequirePackage[cam,center,width=21truecm,height=29.7truecm]{crop}
 \fi
-%</pt> 
+%</phd> 
 %    \end{macrocode}
 %
 %
@@ -2721,7 +2618,7 @@ een b\'echamel saus:
 %
 % Let's start by defining our dictionary:
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex>
+%<*crs|bmt|phd|rp|le|ex>
 \ExplSyntaxOn
 \prop_new:N \g_@@_data_prop
 %</ct|bmt|pt|rp|le|ex>%
@@ -2736,15 +2633,15 @@ een b\'echamel saus:
 \NewDocumentCommand{\uantwerpendocsPROP}{m}{
   \str_uppercase:f { \prop_item:Nn \g_@@_data_prop{#1} }
 }
-%</ct|bmt|pt|rp|le|ex>%
+%</crs|bmt|phd|rp|le|ex>%
 %    \end{macrocode}
 %
 % To this end, we use the following parsing infrastructure:
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex>
 \NewDocumentCommand{\uantwerpendocspropread}{m}{
   \@@_datareader:n { #1 }
 }
+%<*crs|bmt|phd|rp|le|ex>
 \cs_generate_variant:Nn \prop_gput:Nnn{ Nxx }
 \cs_new_nopar:Npn \@@_dataparser:w #1 = #2!! {
   \tl_set:Nn \l_tmpa_tl {#1}
@@ -2753,15 +2650,15 @@ een b\'echamel saus:
   \tl_trim_spaces:N \l_tmpb_tl
   \prop_gput:Nxx \g_@@_data_prop { \l_tmpa_tl} { \l_tmpb_tl }
 }
-%</ct|bmt|pt|rp|le|ex>
+%</crs|bmt|phd|rp|le|ex>
 %    \end{macrocode}
 % invoked by the following data file reader:
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex>
 \ior_new:N \l_@@_data_ior
 \cs_new_nopar:Nn \@@_datareader:n {
   \ior_open:Nn \l_@@_data_ior { uantwerpendocs-#1.data }
   \ior_str_map_inline:Nn \l_@@_data_ior {
+%<*crs|bmt|phd|rp|le|ex>
     \regex_match:nnTF {=} {##1} {
       \@@_dataparser:w ##1!!
     }
@@ -2769,33 +2666,28 @@ een b\'echamel saus:
   }
   \ior_close:N \l_@@_data_ior
 }
-%</ct|bmt|pt|rp|le|ex>
+%</crs|bmt|phd|rp|le|ex>
 %    \end{macrocode}
-% By default, we load the generic (not yet!) and the english data file:
+% By default, we load the generic (not yet implemented!) and the english data file:
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex>
+%<*crs|bmt|phd|rp|le|ex>
 \clist_map_inline:nn {en} {
   \@@_datareader:n { #1 }
 }
 %\prop_show:N \g_@@_data_prop
 \ExplSyntaxOff
-%</ct|bmt|pt|rp|le|ex>
+%</crs|bmt|phd|rp|le|ex>
 %    \end{macrocode}
 %
 % \subsection{Babel provisions}
 %
-% \changes{v1.7}{2016/05/01}{Added babel tags of elements
-% of master's thesis title page}
-% \changes{v4.00}{2021/05/01}{Total rewrite of this part based on
-% expl3}
 % We will fill the dictionary from the generic data file (for elements
 % that should not be translated, currently empty) and the language
 % specific data files (for elements that can be translated).
 %
 %
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex>
-\newcommand*\@logo{\logopos}
+%<*crs|bmt|phd|rp|le|ex>
 \AtBeginDocument{
   \makeatother
   \@ifpackageloaded{babel}{
@@ -2811,7 +2703,7 @@ een b\'echamel saus:
   \uantwerpendocspropread{doctype}
   \makeatletter
 }
-%</ct|bmt|pt|rp|le|ex> 
+%</crs|bmt|phd|rp|le|ex> 
 %    \end{macrocode}
 %
 % The English data can be found below:
@@ -2938,9 +2830,7 @@ weightname         = Gewicht
 %</nldata>
 %    \end{macrocode}
 %
-%
 % \subsection{Bachelor and Master document types}
-% \changes{v4.02}{2021/10/04}{Added bachelor/master document types}
 %    \begin{macrocode}
 %<*doctypedata>
 nl-ba = Bachelorproef
@@ -2953,14 +2843,14 @@ en-pr = Project report
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-%<*bmt|ct|pt|ex>
+%<*bmt|crs|phd|ex>
 \ExplSyntaxOn
 \cs_generate_variant:Nn \prop_item:Nn{ Nx }
 \NewDocumentCommand{\uantwerpendocsdoctype}{m}{
   \prop_item:Nx \g_@@_data_prop { #1 }
 }
 \ExplSyntaxOff
-%</bmt|ct|pt|ex> 
+%</bmt|crs|phd|ex> 
 %    \end{macrocode}
 %
 % \subsection{Bachelor and Master disclaimers}
@@ -3078,38 +2968,17 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-%<*bmt|ct|pt|ex>
+%<*bmt|crs|phd|ex>
 \ExplSyntaxOn
 \NewDocumentCommand{\uantwerpendocsdegree}{m}{
   \prop_item:Nx \g_@@_data_prop { #1 }
 }
 \ExplSyntaxOff
-%</bmt|ct|pt|ex> 
+%</bmt|crs|phd|ex> 
 %    \end{macrocode}
 %
 % \subsection{Tags}
-% 
-% \begin{imacro}{\facultyacronym}
-%   The |facultyacronym| sets the faculty acronym tag
-%   |\@facultyacronym| that is used in the header/footer
-%   information. The correct acronym also sets the faculty's name
-%   correctly.
 %
-% \changes{v3.0}{2021/02/05}{Changed REC in RE, TEW in BE and WET in WE
-% (according to official naming scheme)}
-% \changes{v4.00}{2021/05/01}{This function is now obsolete}
-%    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex>      
-\newcommand*{\facultyacronym}[1]{
-  \PackageError{uantwerpendocs}
-  {The '\protect\facultyacronym{}' macro is no longer available. Use
-    your faculty abbreviation in lowercase as class options instead}
-  {The interface of uantwerpendocs 4.0 has been changed. See
-    the uantwerpendocs manual under section '5.2 The class options explained'} 
-}
-%</ct|bmt|pt|rp|le|ex> 
-%    \end{macrocode}
-% \end{imacro}
 %
 % \begin{imacro}{\department}
 %   The |department| sets the department's name tag
@@ -3118,12 +2987,12 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %
 % \changes{v4.04}{2022/04/04}{Added department name}
 %    \begin{macrocode}
-%<*ct|bmt|pt>
+%<*crs|bmt|phd>
 \newcommand*{\@department}{}
 \newcommand*{\department}[1]{
   \renewcommand*\@department{#1}
 }
-%</ct|bmt|pt> 
+%</crs|bmt|phd> 
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3134,31 +3003,24 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %
 %
 % \begin{imacro}{\titel}
-%   \changes{v4.04}{2022/04/04}{Added dutch translation option to
 %   phdtext class}
 %   This macro sets the |\@titel| tag that later will be used on
 %   the Dutch translation of the title page. Moreover, using this tag,
 %   will trigger the generation of a secondary Dutch title page.
 %   Only use this tag in an English thesis!
 %    \begin{macrocode}
-%<*pt>
+%<*phd>
 \newcommand*{\@titel}{}
 \newcommand*{\titel}[1]{%
   \renewcommand*\@titel{#1}
 }
-%</pt> 
+%</phd>
 %    \end{macrocode}
 % \end{imacro}
 % 
 % \begin{imacro}{\subtitle}
-%   \changes{v2.1}{2018/06/20}{Added subtitle to phd text}
-%   \changes{v2.1}{2018/06/20}{Ensured that subtitle is really
-%   optional by adding default space value}
-%   This macro sets the |\@subtitle| tag that later will be used on
-%   the title page, in the header/footer and to set the appropriate
-%   |hyperref| tag  (if it is loaded).
 %    \begin{macrocode}
-%<*ct|pt|rp>
+%<*crs|phd|rp>
 \newcommand*{\@subtitle}{~}
 \newcommand*{\@subtitleshort}{~}
 \newcommand*{\subtitle}[2][]{%
@@ -3169,12 +3031,11 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \renewcommand*{\@subtitleshort}{#1}
   \fi
 }
-%</ct|pt|rp> 
+%</crs|phd|rp> 
 %    \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\subtitel}
-%   \changes{v4.04}{2022/04/04}{Added dutch translation option to
 %   phdtext class}
 %   This macro sets the |\@subtitel| tag that later will be used on
 %   the Dutch translation of the title page. It will not trigger the
@@ -3182,12 +3043,12 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   by using the |\titel| command.
 %   Only use this tag in an English thesis!
 %    \begin{macrocode}
-%<*pt>
+%<*phd>
 \newcommand*{\@subtitel}{}
 \newcommand*{\subtitel}[1]{%
   \renewcommand*\@subtitel{#1}
 }
-%</pt> 
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3213,10 +3074,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   This macro sets the |\@courseversion| tag that later will be used
 %   on the title page and in the header/footer.
 %    \begin{macrocode}
-%<*ct>      
+%<*crs>      
 \newcommand*{\@courseversion}{}
 \newcommand*{\courseversion}[1]{\renewcommand*{\@courseversion}{#1}}
-%</ct> 
+%</crs> 
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3224,26 +3085,21 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   This macro sets the |\@versionyear| tag that later will be used on
 %   the title page and in the copyright message.
 %    \begin{macrocode}
-%<*ct|rp>      
+%<*crs|rp>      
 \newcommand*{\@versionyear}{}
 \newcommand*{\versionyear}[1]{\renewcommand*{\@versionyear}{#1}}
-%</ct|rp> 
+%</crs|rp> 
 %    \end{macrocode}
 % \end{imacro}
 % 
 % \begin{imacro}{\publisher}
 %   This macro sets the |\@publisher| tag that later will be used on
 %   the title page.
-%   \changes{v2.5}{}{changed publisher to universitas in default}
 %    \begin{macrocode}
-%<*ct>      
-\newcommand{\@publisher}{Universitas Cursusdienst |
-  Prinsesstraat 16 |
-  2000 Antwerpen |
-  T +32 3 233 23 73 |
-  E info@cursusdienst.be}
+%<*crs>      
+\newcommand{\@publisher}{}
 \newcommand*{\publisher}[1]{\renewcommand*{\@publisher}{#1}}
-%</ct> 
+%</crs> 
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3251,10 +3107,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   This macro sets the |\@publishercode| tag that later will be used on
 %   the title page.
 %    \begin{macrocode}
-%<*ct>      
+%<*crs>      
 \newcommand*{\@publishercode}{}
 \newcommand*{\publishercode}[1]{\renewcommand*{\@publishercode}{#1}}
-%</ct> 
+%</crs> 
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3274,10 +3130,8 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   notes.
 %   Use the macro multiple times for multiple lecturers. The order
 %   will be preserved.
-%   Note that as of v4.0 all lecturers are specified using the same
-%   macro!
 %    \begin{macrocode}
-%<*ct|ex>
+%<*crs|ex>
 \ExplSyntaxOn
 \seq_new:N \g_@@_lecturers
 \cs_new:Nn \@@_addlecturer:n {
@@ -3303,7 +3157,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 }
 
 \ExplSyntaxOff
-%</ct|ex> 
+%</crs|ex> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3323,16 +3177,16 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \begin{imacro}{\affiliation}
 %   The |affiliation| tag allows to specify the affiliation of the author.
 %    \begin{macrocode}
-%<*pt|rp>
+%<*phd|rp>
 \newcommand\@affiliation{
-  \PackageError{uantwerpendocs}
+  \PackageError{ugentdocs}
   {Please, define the affiliation of the author using the
     '\protect\affiliation{}' command in the preamble of your
     document.}
-  {See the uantwerpendocs manual}
+  {See the ugentdocs manual}
 }
 \newcommand\affiliation[1]{\renewcommand\@affiliation{#1}}
-%</pt|rp>
+%</phd|rp>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3340,10 +3194,8 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   This macro allows to specify one or more supervisors with their
 %   affiliation. This can be done by invoking the macro as many times
 %   as needed.
-%   Note that as of v4.0 all supervisors are specified using the same
-%   macro!
 %    \begin{macrocode}
-%<*bmt|pt>      
+%<*bmt|phd>      
 \ExplSyntaxOn
 \seq_new:N \g_@@_supervisors
 \seq_new:N \g_@@_supervisorswithaffiliation
@@ -3370,7 +3222,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \fi:
   \fi:
 }
-%</bmt|pt> 
+%</bmt|phd> 
 %<*bmt>
 \seq_new:N \g_@@_cosupervisors
 \seq_new:N \g_@@_cosupervisorswithaffiliation
@@ -3423,14 +3275,14 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \fi:
 }
 %</bmt>
-%<*pt>
+%<*phd>
 \AtBeginDocument{
   \seq_gpush:Nn \g_@@_supervisors {}
   \seq_greverse:N \g_@@_supervisors
   \seq_gpush:Nn \g_@@_supervisorswithaffiliation {}
   \seq_greverse:N \g_@@_supervisorswithaffiliation
 }
-%</pt>
+%</phd>
 %<*bmt>
 \AtBeginDocument{
   \seq_gpush:Nn \g_@@_supervisors {}
@@ -3447,30 +3299,28 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \seq_greverse:N \g_@@_extsupervisorswithaffiliation
 }
 %</bmt>
-%<*bmt|pt>
+%<*bmt|phd>
 \ExplSyntaxOff
-%</bmt|pt> 
+%</bmt|phd> 
 %    \end{macrocode}
 % \end{imacro}
 % 
 % \begin{imacro}{\jurychair}
-% \changes{v4.06}{}{Improved genderneutrality by substituting chairman
-% by chair}
 %   This macro sets the |\@jurychair| tag that later will be used on
 %   the data page.
 %    \begin{macrocode}
-%<*pt>      
+%<*phd>      
 \newcommand*{\@jurychair}{
-  \PackageError{uantwerpendocs}
+  \PackageError{ugentdocs}
   {Please, define a chair of the jury using the
     '\protect\jurychair{}' command in the preamble of your
     document.} 
-  {See the uantwerpendocs manual}
+  {See the ugentdocs manual}
 }
 \newcommand*{\@jurychairaff}{}
 \newcommand*{\jurychair}[2]{
   \renewcommand*{\@jurychair}{#1}\renewcommand*{\@jurychairaff}{#2}}
-%</pt> 
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3478,11 +3328,8 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   This macro allows for the registration of jury members and their
 %   affiliation. This can be done by invoking the macro as many times
 %   as needed.
-%   Note that as of v4.0 all jurymembers are specified using the same
-%   macro!
-%
 %    \begin{macrocode}
-%<*pt>
+%<*phd>
 \ExplSyntaxOn
 \seq_new:N \g_@@_jurymemberswithaffiliation
 \cs_new:Nn \@@_addjurymember:nn {
@@ -3498,25 +3345,9 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \seq_greverse:N \g_@@_jurymemberswithaffiliation
 }
 \ExplSyntaxOff
-%</pt> 
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
-% 
-% \begin{imacro}{\phddegree}
-%   This macro has been discontinued. Use |\degree| instead.
-%
-%    \begin{macrocode}
-%<*pt>
-\newcommand*\phddegree{
-  \PackageError{uantwerpendocs}
-  {The '\protect\phddegree{}' macro is no longer available. Use
-    '\protect\degree{}' instead}
-  {The interface of uantwerpendocs 4.0 has been changed. Use the
-    '\protect\degree' macro to specify your degree in full text (see
-    the uantwerpendocs manual)'}
-}
-%</pt>
-%
 %
 % \begin{imacro}{\degree}
 %   This macro sets the |\@degree| tag that later will
@@ -3525,19 +3356,17 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   impossible), while a course text and an exam allow for multiple
 %   degrees (to be specified in the desired order).
 %    \begin{macrocode}
-%<*bmt|pt>
+%<*bmt|phd>
 \newcommand*\@degree{
-  \PackageError{uantwerpendocs}
+  \PackageError{ugentdocs}
   {Please, specify the offical degree description using
     the '\protect\degree{}'  macro in the preamble of your document.}
-  {See the uantwerpendocs manual}
+  {See the ugentdocs manual}
 }
 \newcommand*\degree[1]{\renewcommand*\@degree{#1}}
-%</bmt|pt>
+%</bmt|phd>
 %
-% \changes{v4.06}{}{Allowed for specification of multiple degrees for
-% course texts and exams}
-%<*ct|ex>
+%<*crs|ex>
 \ExplSyntaxOn
 \seq_new:N \g_@@_degrees
 \cs_new:Nn \@@_adddegree:n {
@@ -3554,7 +3383,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \let\degree\relax
 }
 \ExplSyntaxOff
-%</ct|ex> 
+%</crs|ex> 
 
 %    \end{macrocode}
 % \end{imacro}
@@ -3564,17 +3393,17 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   be used on the title pages.
 %
 %    \begin{macrocode}
-%<*bmt|pt|ct|ex>
+%<*bmt|phd|crs|ex>
 \newcommand*\@bamadoctype{
-  \PackageError{uantwerpendocs}
+  \PackageError{ugentdocs}
   {Please, specify the offical document type, either using
     the '\protect\bamadoctype{}'  macro or the '\protect\bamadegree{}'
     macro in the preamble of your document.}
-  {See the uantwerpendocs manual}}
+  {See the ugentdocs manual}}
 \newcommand*\bamadoctype[1]{
-  \renewcommand*\@bamadoctype{\uantwerpendocsdoctype{#1}}
+  \renewcommand*\@bamadoctype{\ugentdocsdoctype{#1}}
 }
-%</bmt|pt|ct|ex>
+%</bmt|phd|crs|ex>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3583,60 +3412,27 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   be used on the title pages.
 %
 %    \begin{macrocode}
-%<*bmt|pt|ct|ex>
+%<*bmt|phd|crs|ex>
 \ExplSyntaxOn
-\seq_new:N \g__uantwerpendocs_degreechunks
+\seq_new:N \g__ugentdocs_degreechunks
 \NewDocumentCommand{\bamadegree}{m}{
   \regex_extract_all:nnN { [^-]+ } { #1 } \g_@@_degreechunks
   \bamadoctype{\seq_item:Nn \g_@@_degreechunks {2} - \seq_item:Nn \g_@@_degreechunks {3}}
-  \degree{\uantwerpendocsdegree{#1}}
+  \degree{\ugentdocsdegree{#1}}
 }
 \ExplSyntaxOff
-%</bmt|pt|ct|ex>
-%    \end{macrocode}
-% \end{imacro}
-%
-%
-% \begin{imacro}{\programme}
-%   This macro is no longer in use.
-%
-% \changes{v2.5}{}{Shortened 'voorbereidingsprogramma' and
-% 'schakelprogramma' tags}
-% \changes{v4.00}{}{Discontinued, use |\textbackslash{}degree\{\}| instead}
-%
-%    \begin{macrocode}
-%<*ct|pt|ex>      
-\newcommand*{\programme}[3]{
-  \PackageError{uantwerpendocs}
-  {The '\protect\programme{}{}{}' macro is no longer available. Use
-    '\protect\degree{}' instead}
-  {The interface of uantwerpendocs 4.0 has been changed. Use the
-    '\protect\degree' macro to specify your degree in full text (see
-    the uantwerpendocs manual)'} 
-}
-%</ct|pt|ex> 
+%</bmt|phd|crs|ex>
 %    \end{macrocode}
 % \end{imacro}
 % 
+%
 % \begin{imacro}{\course}
 %   Four the |coursetext| class, this macro sets one or more
 %   courses. 
 %   and |\@course| tags that later will be used on the title
 %   page.
-%   Note that as of v4.0 all courses are specified using the same
-%   macro!
 %    \begin{macrocode}
-%<*ct>
-\newcommand*\coursei[2]{
-  PackageError{uantwerpendocs}
-  {The '\protect\coursei{}' macro is no longer available. Use
-    '\protect\course{}' instead (multiple times if you need to)}
-  {The interface of uantwerpendocs 4.0 has been changed. Use the
-    '\protect\course macro instead of the \protect\coursei,
-    \protect\courseii, \protect\courseiii and \protect\courseiv macros
-    that existed earlier (see
-    the uantwerpendocs manual)'}
-}
+%<*crs>
 \ExplSyntaxOn
 \seq_new:N \g_@@_courseswithcodes
 \cs_new:Nn \@@_addcourse:nn {
@@ -3652,7 +3448,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \seq_greverse:N \g_@@_courseswithcodes
 }
 \ExplSyntaxOff
-%</ct>
+%</crs>
 %    \end{macrocode}
 %   For the |exam| class (assuming that an exam only holds for a
 %   single course), the situation is simple and we assume only a
@@ -3668,40 +3464,17 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
-% 
-% \begin{imacro}{\diploma}
-%   This macro sets the official diploma description into the
-%   |\@diploma| tag that later will be used on the title page. 
-%   \changes{v1.1}{2013/05/21}{Fixed typo on programme's name
-%   (e-umlaut)}
-%   \changes{v1.6}{2016/02/04}{Added diploma codes}
-%   \changes{v2.3}{2019/03/27}{Added diploma level}
-%   \changes{v2.4}{2019/04/10}{Added code for Master EM without
-%   specialization}
-%   \changes{v4.00}{2021/07/11}{Discontinued: removed all diploma codes}
-%    \begin{macrocode}
-%<*bmt|pt>
-\newcommand*{\diploma}[1]{
-  \PackageError{uantwerpendocs}
-  {The '\protect\diploma{}' macro is no longer available. Use
-    '\protect\degree{}' instead}
-  {The interface of uantwerpendocs 4.0 has been changed. Use the
-    '\protect\degree' macro to specify your degree in full text (see
-    the uantwerpendocs manual)'}
-}
-%</bmt|pt> 
-%    \end{macrocode}
-% \end{imacro}
+
 % 
 % \begin{imacro}{\defensedate}
 %   This macro sets the |\@defensedate| tags that later will
 %   be used on the title page.  It must contain day, month and year
 %   of the public defense.
 %    \begin{macrocode}
-%<*pt>      
+%<*phd>      
 \newcommand*\@defensedate{ERROR - specify day, month and year}
 \newcommand*{\defensedate}[1]{\renewcommand*\@defensedate{#1}}
-%</pt> 
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3709,10 +3482,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   This macro sets the |\@defenselocation| tags that later will
 %   be used on the title page. 
 %    \begin{macrocode}
-%<*pt>      
-\newcommand*\@defenselocation{Antwerpen}
+%<*phd>      
+\newcommand*\@defenselocation{Ghent}
 \newcommand*{\defenselocation}[1]{\renewcommand*\@defenselocation{#1}}
-%</pt> 
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3721,10 +3494,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   This macro sets the |\@titlepageimage| tags that later will
 %   be used on the title page, to include the graphics.
 %    \begin{macrocode}
-%<*ct|pt|rp>      
+%<*crs|phd|rp>      
 \newcommand*\@titlepageimage{}
 \newcommand*\titlepageimage[1]{\renewcommand*\@titlepageimage{#1}}
-%</ct|pt|rp> 
+%</crs|phd|rp> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3732,7 +3505,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   This macro causes the full embargo message to be printed in
 %   colofon of your thesis.
 %    \begin{macrocode}
-%<*pt>
+%<*phd>
 \newif\if@fullembargo
 \@fullembargofalse
 \newif\if@tempembargo
@@ -3741,7 +3514,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \@tempembargofalse
   \@fullembargotrue
 }
-%</pt> 
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3750,7 +3523,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   colofon of your thesis using the first argument of the macro as
 %   start date and the second argument as the end date.
 %    \begin{macrocode}
-%<*pt>
+%<*phd>
 \newif\if@tempembargo
 \@tempembargofalse
 \ExplSyntaxOn
@@ -3769,7 +3542,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \tl_gset_eq:NN \embargotempend \l_@@_embargoenddate_tl
 }
 \ExplSyntaxOff
-%</pt> 
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3778,10 +3551,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   be used on the data page. If you don't have a doi number, just
 %   don't specify one (i.e. don't use this macro).
 %    \begin{macrocode}
-%<*pt>      
+%<*phd>      
 \newcommand*{\@doi}{}
 \newcommand*{\doi}[1]{\renewcommand*{\@doi}{\url{#1}}}
-%</pt> 
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3789,10 +3562,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   This macro sets the |\@academicyear| tag that later will be used on
 %   the title page.
 %    \begin{macrocode}
-%<*ct|bmt|ex>      
+%<*crs|bmt|phd|ex>      
 \newcommand*{\@academicyear}{XXX-YYYY}
 \newcommand*{\academicyear}[1]{\renewcommand*{\@academicyear}{#1}}
-%</ct|bmt|ex> 
+%</crs|bmt|phd|ex> 
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3800,10 +3573,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   This macro sets the |\@copyrightnotices| tag that later will be
 %   used on the back of the title page.
 %    \begin{macrocode}
-%<*ct|rp>      
+%<*crs|rp>      
 \newcommand{\@copyrightnotices}{}
 \newcommand{\copyrightnotices}[1]{\renewcommand{\@copyrightnotices}{#1}}
-%</ct|rp>
+%</crs|rp>
 %<*bmt>
 \newcommand{\@copyrightnotices}{\disclaimer{\@bamadoctype}}
 %</bmt> 
@@ -3847,7 +3620,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \begin{imacro}{\email}
 %   This macro allows for the registration of contact email addresses
 %   for a letter. This can be done by invoking the macro as many times
-%   as needed (as of v4.2)
+%   as needed.
 %
 %    \begin{macrocode}
 %<*le>
@@ -3877,7 +3650,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \begin{imacro}{\phone}
 %   This macro allows for the registration of contact phone numbers
 %   for a letter. This can be done by invoking the macro as many times
-%   as needed (as of v4.2)
+%   as needed.
 %
 %    \begin{macrocode}
 %<*le>
@@ -3907,7 +3680,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \begin{imacro}{\fax}
 %   This macro allows for the registration of contact fax numbers
 %   for a letter. This can be done by invoking the macro as many times
-%   as needed (as of v4.2)
+%   as needed.
 %
 %    \begin{macrocode}
 %<*le>
@@ -3937,7 +3710,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \begin{imacro}{\mobile}
 %   This macro allows for the registration of contact mobile numbers
 %   for a letter. This can be done by invoking the macro as many times
-%   as needed (as of v4.2)
+%   as needed.
 %
 %    \begin{macrocode}
 %<*le>
@@ -4046,7 +3819,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \end{imacro}
 %
 % \begin{imacro}{\signature}
-% \changes{v1.8}{2017/01/08}{Added signature}
 %   This macro sets the |\@signature| tag that will be used to finish
 %   the letter. By default this corresponds to a decent amount of
 %   vertical white space 
@@ -4085,16 +3857,16 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   This macro will set the |\@address| tag that will be used in
 %   the letter's heading text (in the area of the envelope's window).
 %    \begin{macrocode}
-%<*pt|rp|le>
+%<*phd|rp|le>
 \newcommand*{\@address}{
-  \PackageError{uantwerpendocs}
+  \PackageError{ugentdocs}
   {Please, set your multi-line address and contact details using the
     '\protect\address{}' command in the preamble of your document}
-  {See the uantwerpendocs manual}
+  {See the ugentdocs manual}
 }
-%</pt|rp|le>
+%</phd|rp|le>
 %
-%<pt|rp>\newcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
+%<phd|rp>\newcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
 %<le>\renewcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
 %    \end{\macrocode}
 % \end{imacro}
@@ -4207,9 +3979,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   If no optional first argument is given (or the default
 %   'separatepage' is given), the extra info will start on a new page
 %   an will be terminated by a clearpage.
-%   \changes{v2.1}{2018/06/20}{Changed default to empty}
-%   \changes{v2.3}{2019/03/27}{The command \textbackslash{}extrainfo
-%   now allows for an extra (optional)  first argument 'firstpage'}
 %    \begin{macrocode}
 %<*ex>
 \newcommand{\@extrainfo}{}
@@ -4225,10 +3994,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
       \renewcommand{\@extrainfo}{#2}
     }
     {
-      \PackageError{uantwerpendocs}
+      \PackageError{ugentdocs}
       {The first (optional) argument of '\protect\extrainfo' can
         only be 'separatepage' or 'firstpage'}
-      {See the uantwerpendocs manual)'} 
+      {See the ugentdocs manual)'} 
     }
   }
 }
@@ -4260,7 +4029,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 \cs_new_nopar:Npn \@@_reversevideo:f #1
 {
   \seq_set_split:Nnf \l_title_seq {~} { #1 }
-  \seq_set_map:NNn \l_title_seq \l_title_seq {\@uantwerpendocshl{##1}}
+  \seq_set_map:NNn \l_title_seq \l_title_seq {##1}
   \seq_use:Nnnn \l_title_seq { ~ } { ~ } { ~ }
 }
 \NewDocumentCommand{\reversevideo}{m}{
@@ -4274,7 +4043,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % The |fancyhdr| package is used to make a decent header and footer.
 % The header and footer of the |coursetext| class are defined to be:
 %    \begin{macrocode}
-%<*ct>      
+%<*crs>      
 \if@twoside
 \lhead[\small\thepage]{\slshape\small\rightmark}
 \chead[]{}
@@ -4300,7 +4069,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \cfoot[\small\thepage]{\small\thepage}
   \rfoot[]{} 
 }
-%</ct> 
+%</crs> 
 %    \end{macrocode}
 % 
 % The header and footer of the |bamathesis| class are
@@ -4312,7 +4081,11 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \renewcommand*{\headrulewidth}{0pt}
   \renewcommand*{\footrulewidth}{0pt}
   \newsavebox\smallogo
-  \savebox\smallogo{\raisebox{-1ex}{\includegraphics[width=2.5cm]{\logopos}}}
+  \savebox\smallogo{\raisebox{-1ex}{
+  		\begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+  		\@ugentlogo{2.5cm}{ugent@main}{0.0}
+  		\end{tikzpicture}%
+  	}
   \if@twoside
   \lhead[]{\footnotesize\slshape\rightmark}
   \chead[]{}
@@ -4336,7 +4109,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %
 % The header and foter of the |phdthesis| and |report| are defined to be:
 %    \begin{macrocode}
-%<*pt|rp>
+%<*phd|rp>
 \if@twoside
   \lhead[\small\thepage]{\slshape\small\rightmark}
   \chead[]{}
@@ -4357,10 +4130,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \chead[]{}
   \rhead[]{}
   \lfoot[]{}
-  \cfoot[\small\tehpage]{\small\thepage}
+  \cfoot[\small\thepage]{\small\thepage}
   \rfoot[]{} 
 }
-%</pt|rp>
+%</phd|rp>
 %    \end{macrocode}
 %
 % The header and footer of the |letter| class are
@@ -4396,21 +4169,18 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %    \end{macrocode}
 
 % Some common code remains:
-% \changes{v1.1}{2013/05/28}{Made raggedright conditional on option
-% 'filled', because it can't be undone}
-% \changes{v1.2}{2014/08/22}{Increased headheight to please Fancyhdr}
 %    \begin{macrocode}
-%<*ct>
+%<*crs>
 \setlength{\headheight}{13.7pt}
 \renewcommand*{\headrulewidth}{1pt}
 \renewcommand*{\footrulewidth}{1pt}
 \pagenumbering{arabic}
-%</ct>
-%<*pt|rp|le>
+%</crs>
+%<*phd|rp|le>
 \setlength{\headheight}{13.7pt}
 \renewcommand*{\headrulewidth}{0pt}
 \renewcommand*{\footrulewidth}{0pt}
-%</pt|rp|le>
+%</phd|rp|le>
 %<*ex>
 \setlength{\headheight}{13.7pt}
 \renewcommand*{\headrulewidth}{0pt}
@@ -4420,13 +4190,13 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % Remains to take care of filling
 % 
 %    \begin{macrocode}
-%<*ct|mt|pt|rp|le>
+%<*crs|bmt|phd|rp|le>
 \if@filled\else
   \raggedright
 \fi
 \raggedbottom
 \onecolumn
-%</ct|mt|pt|rp|le>
+%</crs|bmt|phd|rp|le>
 %    \end{macrocode}
 %
 % \subsection{Copyright notice}
@@ -4434,17 +4204,17 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \begin{imacro}{\@crnotice}
 %   This is the standard text that will be used for the |\@crnotice| tag.
 %    \begin{macrocode}
-%<*ct|rp>
+%<*crs|rp>
 \newcommand{\@crnotice}{
   {
     \setlength\parindent{0em}
     This document has been typeset using \LaTeX{} and the
-    \texttt{uantwerpendocs} package.\\
+    \texttt{ugentdocs} package.\\
     \@copyrightnotices
 
-%</ct|rp>
-%<ct>    \@courseversion
-%<*ct|rp>
+%</crs|rp>
+%<crs>    \@courseversion
+%<*crs|rp>
 
     CONFIDENTIAL AND PROPRIETARY.
 
@@ -4452,7 +4222,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
     \uantwerpendocsprop{arr}.
   }
 }
-%</ct|rp>
+%</crs|rp>
 %<*bmt>
 \newcommand{\@crnotice}{
   \@copyrightnotices
@@ -4464,12 +4234,8 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %
 % \subsection{Fancy chapter headers for the phdthesis and report class}
 %
-% \changes{v2.1}{2018/06/20}{Added appropriate
-% \textbackslash{}appendix command}
-% \changes{v2.2}{2018/10/23}{Added white chapter number outline}
-% \changes{v2.2}{2018/10/23}{Corrected spacing}
 %    \begin{macrocode}
-%<*pt|rp>
+%<*phd|rp>
 \def\@makechapterhead#1{%
   \vspace*{1ex}%
   \begin{flushright}
@@ -4511,13 +4277,11 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \renewcommand*{\thechapter}{\Alph{chapter}}
   \renewcommand*\chaptername\appendixname
 }
-%</pt|rp>
+%</phd|rp>
 %    \end{macrocode}
 %
 % \subsection{Fancy chapter headers for the bamathesis class}
 %
-% \changes{v4.02}{2021/10/04}{Now using scrbook for bamathesis, with
-% colored chapter and section titles}
 %    \begin{macrocode}
 %<*bmt>
 \addtokomafont{section}{\color{basecolor}}
@@ -4534,10 +4298,8 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %
 % \begin{imacro}{\maketitle}
 % The macro for the coursetext class:
-%   \changes{v1.7}{2016/05/01}{Embedded babel translations of keywords
-%   into title page}
 %    \begin{macrocode}
-%<*ct>
+%<*crs>
 \renewcommand\maketitle{%
   \pagestyle{empty}
   \begin{titlepage}
@@ -4695,7 +4457,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   ~\par\relax
   \clearpage
   \if@copyright
-  \backgroundsetup{contents={Copyright University of Antwerp, All
+  \backgroundsetup{contents={Copyright Ghent University, All
       Rights Reserved}}
   \fi
   \vspace*{\stretch{1}}
@@ -4712,17 +4474,15 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \pagestyle{fancy}
   \thispagestyle{empty}
 }
-%</ct> 
+%</crs> 
 %    \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\makefinalpage}
 %   Below, one can find the code for the final page of the
 %   |coursetext| class:
-%   \changes{v1.3}{2015/12/31}{Changed eso-pic for tikz}
-%   \changes{v1.8}{2016/07/06}{Inserted blank one but last page}
 %    \begin{macrocode}
-%<*ct>
+%<*crs>
 \newcommand\makefinalpage{
   \if@cameraready
   \else
@@ -4751,17 +4511,13 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   ~
   \fi
 }
-%</ct> 
+%</crs> 
 %    \end{macrocode}
 % \end{imacro}
 % 
 % \begin{imacro}{\maketitle}
 %   And next, the code for the title page of the
 %   |bamathesis| class: 
-%   \changes{v1.3}{2015/12/31}{Changed eso-pic for tikz}
-%   \changes{v1.7}{2016/05/01}{Embedded babel translations of keywords
-%   into title page}
-%   \changes{v4.09}{2025/04/08}{You can now leave the subtitle blank without annoying empty reverse video}
 %    \begin{macrocode}
 %<*bmt>
 \renewcommand\maketitle{%
@@ -4851,7 +4607,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \begin{imacro}{\makefinalpage}
 %   Below, one can find the code for the final page of the
 %   |bamathesis| class: 
-%   \changes{v1.3}{2015/12/31}{Changed eso-pic for tikz}
 %    \begin{macrocode}
 %<*bmt>
 \newcommand\makefinalpage{
@@ -4869,18 +4624,8 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \begin{imacro}{\maketitle}
 %   Below, one can find the code for the title page of the
 %   |phdthesis| class:
-%   \changes{v2.0}{2018/03/14}{Implemented title page}
-%   \changes{v2.1}{2018/06/20}{Corrected information page (p4) jury
-%   spacing}
-%   \changes{v2.5}{2019/10/18}{Corrected formatting in case of absent
-%   ISBN or depot number}
-%   \changes{v4.10}{2025/05/30}{Removed ISBN and depot number}
-%   \changes{v4.10}{2025/05/30}{Added DOI number}
-%   \changes{v4.10}{2025/05/30}{Added research integrity clause to colofon}
-%   \changes{v4.10}{2025/05/30}{Added temporary embargo option}
-%   \changes{v4.10}{2025/05/30}{Added full embargo option}
 %    \begin{macrocode}
-%<*pt>
+%<*phd>
 \ExplSyntaxOn
 \tl_new:N \embargotempwithdates
 \newcommand\prepmaketitle{
@@ -5080,7 +4825,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \pagestyle{fancy}
   \thispagestyle{empty}
 }
-%</pt> 
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -5088,9 +4833,8 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \begin{imacro}{\makebookcover}
 %   This macro creates a book cover. It only works if you don't specify the cameraready and bare
 %   class options, as this cover loads the first and last page of your PDF.
-% \changes{v4.12}{2026/04/06}{Introduced makebookcover macro for PhD class}
 %    \begin{macrocode}
-%<*pt>
+%<*phd>
 \ExplSyntaxOn
 \msg_new:nnnn { bookcover } { spine-too-small }
     { The~spine~width~(#1mm)~is~too~small. }
@@ -5124,7 +4868,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
     \newif\if@neutralcolors\@neutralcolorsfalse
     \newif\if@printonspine---printonspine---
     \makeatother
-    \usepackage{uantwerpencolorlogoscheme}
+    \usepackage{ugentcolor}
     \renewcommand{\familydefault}{\sfdefault}
     \newbookcovercomponenttype{title}{
       \vspace{2em}\centering
@@ -5184,7 +4928,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \iow_close:N \g_@@_coverfile_iow
 }
 \ExplSyntaxOff
-%</pt> 
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -5192,9 +4936,8 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \begin{imacro}{\makefinalpage}
 %   Below, one can find the code for the final page of the
 %   |phdthesis| class:
-% \changes{v2.0}{2018/03/14}{Implemented final page}
 %    \begin{macrocode}
-%<*pt>
+%<*phd>
 \newcommand\makefinalpage{
   \if@bare\else
   \cleardoublepage
@@ -5213,7 +4956,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   ~
   \fi
 }
-%</pt> 
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -5340,7 +5083,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \begin{imacro}{\makefinalpage}
 %   Below, one can find the code for the final page of the
 %   |phdthesis| class:
-% \changes{v2.0}{2018/03/14}{Implemented final page}
 %    \begin{macrocode}
 %<*rp>
 \newcommand\makefinalpage{
@@ -5371,8 +5113,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % The top of the letter is generated using the |\maketitle|
 % command. 
 %
-% \changes{v1.5}{2016/01/11}{Implemented new footer}
-% \changes{v1.8}{2016/01/08}{Allowed for empty senderrole}
 %    \begin{macrocode}
 %<*le>
 \newcommand\maketitle{%
@@ -5428,9 +5168,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \end{imacro}
 %
 % The trailer of the page is automatically generated at the end of the document:
-% \changes{v1.8}{2016/01/08}{Allowed for empty senderrole}
-% \changes{v4.09}{2025/04/08}{Now using ccname en enclname to make trailer language independent}
-% \changes{v4.09}{2025/04/08}{Allowed continuation of letter after closing it to allow for providing extras in the same document}
 %    \begin{macrocode}
 %<*le>
 \newif\ifletterclosed
@@ -5457,9 +5194,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %
 % \subsection{Title page for the exam class}
 %
-% \changes{v2.1}{2018/06/20}{Corrected spacing in title + exampart}
-% \changes{v2.3}{2019/03/27}{Now Groep has been replaced by Reeks to be consistent with UAntwerpen PC-room nomenclature}
-% \changes{v2.3}{2019/03/27}{Added boxes to fill out name and docket number}
 % \begin{imacro}{\maketitle}
 % The title page of the exam class is generated using the |\maketitle|
 % command. 
@@ -5643,7 +5377,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   typesets the question in two columns, the left column taking the
 %   English variant of the question and the right column taking the
 %   Dutch variant.
-%   \changes{v2.1}{2018/06/20}{\@ Increased intercolumn spacing for engdut}
 %    \begin{macrocode}
 %<*ex>      
 \newcommand{\engdut}[2]{%
@@ -5665,8 +5398,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \end{imacro}
 % 
 % 
-% \changes{v2.1}{2018/06/20}{Allow for setting the multiple choice
-% mark symbol}
 % \begin{imacro}{\setmcsymbol}
 %   sets the symbol to be used as multiple choice mark (by default a
 %   square).
@@ -5678,7 +5409,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %    \end{macrocode}
 % \end{imacro}
 % 
-% \changes{v2.1}{2018/06/20}{Corrected erroneous line breaking}
 % \begin{imacro}{\mc}
 %   typesets a multiple choice answer candidate (monolingual, i.e. in a
 %   single column).
@@ -5697,7 +5427,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %    \end{macrocode}
 % \end{imacro}
 % 
-% \changes{v2.1}{2018/06/20}{Corrected erroneous line breaking}
 % 
 % \begin{imacro}{\engdutmc}
 %   typesets a multiple choice answer candidate in two columns, the left
@@ -5732,7 +5461,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %   not easiy, one has to provide the number of centimeters below the
 %   bottom of the page, one wants to start the fill-out squares.
 %   
-%   \changes{v2.5}{}{Corrected for 'one page too early' in solutionspagepartial}
 %   
 %    \begin{macrocode}
 %<*ex>      
@@ -5797,7 +5525,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % 
 % \subsection{References}
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp>
+%<*crs|bmt|phd|rp>
 \AtBeginDocument{
   \@ifpackageloaded{hyperref}{
     \hypersetup{
@@ -5815,7 +5543,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
     }
   }{}
 }
-%</ct|bmt|pt|rp> 
+%</crs|bmt|phd|rp> 
 %    \end{macrocode}
 %
 % \clearpage
@@ -5826,7 +5554,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \begin{verbatim}
 %<*bmrug> 
 \documentclass[aspectratio=1610]{beamer}
-\usetheme[ti]{uantwerpen}
+\usetheme[ti]{ugent}
 \usepackage[english]{babel}
 
 % The packages below are for demonstration purpose only.
@@ -5887,14 +5615,14 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 \begin{frame}
   {Using our beamer theme}
 
-  The \texttt{uantwerpen} beamer theme is distributed by CTAN. It
+  The \texttt{ugent} beamer theme is distributed by CTAN. It
   should be installed with your \TeX{} distribution by default.
   
   You can load the package in your preamble as:
   
   \begin{codesnippet}
     \command{documentclass}[aspectratio=1610]\{beamer\}\\
-    \command{usetheme}[theme-options-go-here]\{uantwerpen\}\\
+    \command{usetheme}[theme-options-go-here]\{ugent\}\\
     \command{usepackage}[english]\{babel\}
   \end{codesnippet}
 
@@ -6147,7 +5875,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \heading{Not taking any advice?}\\
   You can fiddle with the colors, but do so in smart way.
   Use \command{setbeamercolor}. You can see how it is used in the
-  \texttt{beamercolorthemeuantwerpen.sty} file.
+  \texttt{beamercolorthemeugent.sty} file.
 \end{frame}
 
 \begin{frame}[t]
@@ -6669,11 +6397,11 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 \@nofontsfalse
 \DeclareOption{nofonts}{\@nofontstrue}
 
-\input{uantwerpencommonoptions.clo}
+\input{ugentcommon.clo}
 
 \ProcessOptions
 
-\RequirePackage{uantwerpencolorlogoscheme}
+\RequirePackage{ugentcolor}
 
 \AtBeginDocument{
   \def\appropriatelogo{\logopos}
@@ -6695,10 +6423,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   text margin right=.8cm
 }
 
-\usecolortheme{uantwerpen}
-\usefonttheme{uantwerpen}
-\useinnertheme{uantwerpen}
-\useoutertheme{uantwerpen}
+\usecolortheme{ugent}
+\usefonttheme{ugent}
+\useinnertheme{ugent}
+\useoutertheme{ugent}
 
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{blocks}[rounded][shadow=true]
@@ -6722,7 +6450,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 
 \mode<presentation>
 
-\RequirePackage{uantwerpencolorlogoscheme}
+\RequirePackage{ugentcolor}
 
 %% define main color
 \setbeamercolor{palette primary}{fg=maincolor}
@@ -6791,7 +6519,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %    \end{macrocode}
 % 
 % \subsubsection{Beamer font theme}
-% \changes{v4.05}{2023/04/10}{robust font code for overleaf}
 % 
 %    \begin{macrocode}
 %<*bmrfont>      
@@ -6966,7 +6693,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 \newif\if@noround
 \@noroundfalse
 
-\newcommand*\uantwerpenleftshape[3][]{
+\newcommand*\ugentleftshape[3][]{
   \newcommand\mycradius{0.05*(\getlength{\paperheight}-1.6)}%
   \coordinate (bl) at #2;
   \coordinate (tr) at #3;
@@ -6977,7 +6704,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   arc(-90:-180:{\mycradius}) -- cycle;
   \fi
 }
-\newcommand*\uantwerpenrightshape[3][]{
+\newcommand*\ugentrightshape[3][]{
   \newcommand\mycradius{0.05*(\getlength{\paperheight}-1.6)}%
   \coordinate (bl) at #2;
   \coordinate (tr) at #3;
@@ -6996,9 +6723,9 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \end{tikzpicture}
 }
 
-\newcommand\uantwerpencallout[4][]{
+\newcommand\ugentcallout[4][]{
   \begin{tikzpicture}
-    \uantwerpenleftshape[fill=black,fill opacity=0.0,text opacity=1,text=white,#1]
+    \ugentleftshape[fill=black,fill opacity=0.0,text opacity=1,text=white,#1]
                         {({-#2/2},-{#3/2})}{({#2/2},{#3/2})}
     \node[align=left,anchor=center] at (0,0) { \callout\\ #4 };
   \end{tikzpicture}
@@ -7019,7 +6746,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \end{tikzpicture}
 }
 
-\newcommand*\uantwerpenicon[1][scale=1]{
+\newcommand*\ugenticon[1][scale=1]{
   \includegraphics[#1]{\iconfile}
 }
 
@@ -7248,10 +6975,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % 4. frame is typeset
 %%%%%%%%%%%%
 
-\def\ps@uantwerpen@titlepage{%
+\def\ps@ugent@titlepage{%
   \setbeamercolor{title in title page}{parent=palette primary}
   \setbeamertemplate{footline}[empty]
-  \@nameuse{ps@uantwerpen}
+  \@nameuse{ps@ugent}
 }
 
 \defbeamertemplate*{background canvas}{negativefill}[1]
@@ -7268,7 +6995,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\pw,\ph);
-    \uantwerpenleftshape[fill=maincolor]{(0.8,0.8)}{(\pw-0.8,\ph-0.8)}
+    \ugentleftshape[fill=maincolor]{(0.8,0.8)}{(\pw-0.8,\ph-0.8)}
   \end{tikzpicture}
 }
 
@@ -7289,7 +7016,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \begin{tikzpicture}
     \clip (0,0) rectangle (\pw,\ph);
     \begin{scope}
-      \uantwerpenleftshape[clip]{(0.8,0.8)}{(\pw-0.8,\ph-0.8)}
+      \ugentleftshape[clip]{(0.8,0.8)}{(\pw-0.8,\ph-0.8)}
       \node[align=center] at  (0.5*\pw,0.5*\ph) {#1};
     \end{scope}
   \end{tikzpicture}%
@@ -7306,7 +7033,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \begin{tikzpicture}
     \clip (0,0) rectangle (\pw,\ph);
     \begin{scope}
-      \uantwerpenleftshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
+      \ugentleftshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
       \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
     \end{scope}
   \end{tikzpicture}
@@ -7343,7 +7070,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \begin{tikzpicture}
     \clip (0,0) rectangle (\pw,\ph);
     \begin{scope}[shift={(0.5*\pw,0)}]
-      \uantwerpenrightshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
+      \ugentrightshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
       \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
     \end{scope}
   \end{tikzpicture}
@@ -7361,7 +7088,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \begin{tikzpicture}
     \clip (0,0) rectangle (\pw,\ph);
     \begin{scope}[shift={(0.75*\pw,0)}]
-      \uantwerpenrightshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
+      \ugentrightshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
       \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
     \end{scope}
   \end{tikzpicture}
@@ -7379,7 +7106,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \begin{tikzpicture}
     \clip (0,0) rectangle (\pw,\ph);
     \begin{scope}[shift={(0,0.5*\ph)}]
-      \uantwerpenleftshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
+      \ugentleftshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
       \node[align=center] at  (0.8+0.5*\dx,0.5*\dy) {#1};
     \end{scope}
   \end{tikzpicture}
@@ -7397,7 +7124,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \begin{tikzpicture}
     \clip (0,0) rectangle (\pw,\ph);
     \begin{scope}[shift={(0,0.8)}]
-    \uantwerpenleftshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
+    \ugentleftshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
     \node[align=center] at  (0.8+0.5*\dx,0.5*\dy) {#1};
     \end{scope}
   \end{tikzpicture}
@@ -7416,11 +7143,11 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 
 \defbeamertemplate*{title page}{main}[1][]
 {%
-  \thispagestyle{uantwerpen@titlepage}%
+  \thispagestyle{ugent@titlepage}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
     \node[anchor=center] at  (0.5*\textwidth,0.75*\ph)
-    {\includegraphics[height=.9\logounitheight]{\logopos}};
+    {\includegraphics[height=.9\logounit]{\logopos}};
     \node[
     text width=0.98\textwidth,
     text=basecolor,
@@ -7483,11 +7210,11 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 
 \defbeamertemplate*{title page}{negativefill}[1][]
 {
-  \thispagestyle{uantwerpen@titlepage}
+  \thispagestyle{ugent@titlepage}
   \begin{tikzpicture}
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
     \node[anchor=center] at  (0.5*\textwidth,0.75*\ph)
-    {\includegraphics[height=.9\logounitheight]{\logomonowhite}};
+    {\includegraphics[height=.9\logounit]{\logomonowhite}};
     \node[
     draw,rectangle,
     text width=0.98\textwidth,
@@ -7604,7 +7331,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \hbox{\begin{beamercolorbox}
       [wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,left,leftskip=.8cm
       plus1fill]{author in head/foot}% 
-      \includegraphics[height=0.35\logounitheight]{\appropriatelogo}
+      \includegraphics[height=0.35\logounit]{\appropriatelogo}
       \hskip0pt plus 1filll ~
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,
@@ -7675,15 +7402,15 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 \newdimen\yupright
 \newdimen\xcurrent
 \newdimen\ycurrent
-\newcommand*\extractloleftuadocs[1]{\path  (#1);\pgfgetlastxy{\xloleft}{\yloleft};}
-\newcommand*\extractuprightuadocs[1]{\path (#1);\pgfgetlastxy{\xupright}{\yupright};}
-\newcommand*\extractcurrentuadocs[1]{\path (#1);\pgfgetlastxy{\xcurrent}{\ycurrent};}
+\newcommand*\extractloleftugentdocs[1]{\path  (#1);\pgfgetlastxy{\xloleft}{\yloleft};}
+\newcommand*\extractuprightugentdocs[1]{\path (#1);\pgfgetlastxy{\xupright}{\yupright};}
+\newcommand*\extractcurrentugentdocs[1]{\path (#1);\pgfgetlastxy{\xcurrent}{\ycurrent};}
 
 \DeclareRobustCommand\place{\@ifnextchar[{\@place}{\@place[align=left] }}
 \def\@place[#1] at (#2,#3)#4{
   \begin{tikzpicture}[overlay,remember picture]
-    \extractloleftuadocs{$(current page.south west)$}
-    \extractuprightuadocs{$(current page.north east)$}
+    \extractloleftugentdocs{$(current page.south west)$}
+    \extractuprightugentdocs{$(current page.north east)$}
     \node[#1] at
     ({\xloleft*(1-#2)+\xupright*#2},{\yloleft*(1-#3)+\yupright*#3}) {#4};
   \end{tikzpicture}
