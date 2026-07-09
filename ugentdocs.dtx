@@ -2177,89 +2177,263 @@ een b\'echamel saus:
 
 \newcommand*\colormodel{rgb}
 \newif\if@cmyk
-\@cmykfalse
-\DeclareOption{cmyk}{\renewcommand*\colormodel{cmyk}\@cmyktrue}
-\DeclareOption{rgb}{\renewcommand*\colormodel{rgb}\@cmykfalse}
+	\@cmykfalse
+	\DeclareOption{cmyk}{\renewcommand*\colormodel{cmyk}\@cmyktrue}
+	\DeclareOption{rgb}{\renewcommand*\colormodel{rgb}\@cmykfalse} 
 
-\newcommand*\facinenglish[1]{\renewcommand\@faculty{#1}}
-\newcommand*\facindutch[1]{
-  \AtBeginDocument{
-    \makeatother
-    \@ifpackageloaded{babel}{
-      \addto\captionsdutch{\renewcommand*\@faculty{#1}}
-    }{}
-    \makeatletter
-  }
-}
-\newcommand*\fselector{ua}
+
+\newcommand*\fselector{~}
 \newcommand*\lselector{en}
-\newlength\logounitheight
-\setlength\logounitheight{0.8cm}
 
-\newcommand*\@faculty{~}
-\DeclareOption{be}{
-  \renewcommand*\fselector{be}
-  \setlength\logounitheight{1cm}
-  \facinenglish{Faculty of Business and Economics}
-  \facindutch{Faculteit Bedrijfswetenschappen en Economie}
+% Faculty logo spacing and text
+
+\newcommand*\ficon{~}
+
+\newcommand*\flogotext{% TODO this may give an error
+	\StrSubstitute{
+		\ugdTRANSLATE{faculty}~\ugdTRANSLATE{facultyof}~\ugdTRANSLATE{org-\fselector}
+	}{IJ}{Ĳ}
 }
-\DeclareOption{fbd}{
-  \renewcommand*\fselector{fbd}
-  \setlength\logounitheight{1cm}
-  \facinenglish{Faculty of Pharmaceutical, Biomedical and Veterinary Sciences}
-  \facindutch{Faculteit Farmaceutische, Biomedische en Diergeneeskundige
-      Wetenschappen}
+\newcommand*\flogosubtext{~}
+
+\newlength\logounit			\setlength\logounit			{0.75cm}
+\newlength\ficonw			\setlength\ficonw			{\logounit}
+\newlength\flogospace		\setlength\flogospace		{0.116cm}
+\newlength\ftextmarginextra	\setlength\ftextmarginextra	{0cm}
+\newlength\ftextwen
+\newlength\ftextwnl
+
+
+\newcommand*\@faculty{
+	\dictionary{faculty}~\dictionary{facultyof}~\dictionary{org-\fselector}
 }
-\DeclareOption{ggw}{
-  \renewcommand*\fselector{ggw}
-  \setlength\logounitheight{1cm}
-  \facinenglish{
-    Faculty of Medicine and Health Sciences}
-  \facindutch{Faculteit Geneeskunde en Gezondheidswetenschappen}
+
+\DeclareOption{bw}{
+  \renewcommand*\fselector{bw}
+  \renewcommand*\ficon{
+  	\path[nonzero rule,line width=0.1pt] (10.63, 13.2).. controls (9.21, 13.2) and (8.06, 12.05) .. (8.06, 10.63).. controls (8.06, 9.21) and (9.21, 8.06) .. (10.63, 8.06).. controls (12.05, 8.06) and (13.2, 9.21) .. (13.2, 10.63).. controls (13.2, 12.05) and (12.05, 13.2) .. (10.63, 13.2) -- cycle(11.95, 10.63).. controls (11.95, 9.9) and (11.36, 9.31) .. (10.63, 9.31).. controls (9.9, 9.31) and (9.3, 9.9) .. (9.3, 10.63).. controls (9.3, 11.36) and (9.9, 11.96) .. (10.63, 11.96).. controls (11.36, 11.96) and (11.95, 11.36) .. (11.95, 10.63);			
+  	\path[nonzero rule,line width=0.1pt] (16.01, 20.1).. controls (14.59, 20.1) and (13.44, 18.95) .. (13.44, 17.53).. controls (13.44, 16.11) and (14.59, 14.96) .. (16.01, 14.96).. controls (17.43, 14.96) and (18.58, 16.11) .. (18.58, 17.53).. controls (18.58, 18.95) and (17.43, 20.1) .. (16.01, 20.1) -- cycle(17.34, 17.53).. controls (17.34, 16.8) and (16.74, 16.2) .. (16.01, 16.2).. controls (15.28, 16.2) and (14.69, 16.8) .. (14.69, 17.53).. controls (14.69, 18.26) and (15.28, 18.85) .. (16.01, 18.85).. controls (16.74, 18.85) and (17.34, 18.26) .. (17.34, 17.53);
+  	\path[nonzero rule,line width=0.1pt] (10.63, 20.01).. controls (10.92, 20.01) and (11.2, 19.99) .. (11.49, 19.97) -- (11.6, 21.21).. controls (11.28, 21.24) and (10.96, 21.26) .. (10.63, 21.26).. controls (4.76, 21.26) and (-0.0, 16.5) .. (-0.0, 10.63).. controls (-0.0, 4.76) and (4.76, 0.0) .. (10.63, 0.0).. controls (16.5, 0.0) and (21.26, 4.76) .. (21.26, 10.63).. controls (21.26, 11.86) and (21.04, 13.04) .. (20.66, 14.14) -- (19.48, 13.72).. controls (19.82, 12.75) and (20.01, 11.72) .. (20.01, 10.63).. controls (20.01, 5.45) and (15.81, 1.25) .. (10.63, 1.25).. controls (5.45, 1.25) and (1.25, 5.45) .. (1.25, 10.63).. controls (1.25, 15.81) and (5.45, 20.01) .. (10.63, 20.01);  	
+  	\path[nonzero rule,line width=0.1pt] (10.63, 17.52).. controls (10.84, 17.52) and (11.05, 17.51) .. (11.26, 17.49) -- (11.37, 18.73).. controls (11.13, 18.75) and (10.88, 18.77) .. (10.63, 18.77).. controls (6.14, 18.77) and (2.49, 15.12) .. (2.49, 10.63).. controls (2.49, 6.14) and (6.14, 2.49) .. (10.63, 2.49).. controls (15.12, 2.49) and (18.77, 6.14) .. (18.77, 10.63).. controls (18.77, 11.57) and (18.6, 12.47) .. (18.3, 13.31) -- (17.13, 12.9).. controls (17.38, 12.19) and (17.52, 11.43) .. (17.52, 10.63).. controls (17.52, 6.83) and (14.43, 3.74) .. (10.63, 3.74).. controls (6.83, 3.74) and (3.74, 6.83) .. (3.74, 10.63).. controls (3.74, 14.43) and (6.83, 17.52) .. (10.63, 17.52);
+  }
+  \renewcommand*\flogotext{\ugdTRANSLATE{faculty}~\ugdTRANSLATE{facultyof}\\\ugdTRANSLATE{org-\fselector}}
+  \setlength\ftextwen{6\logounit}
+  \setlength\ftextwnl{8\logounit}
 }
-\DeclareOption{lw}{
-  \renewcommand*\fselector{lw}
-  \setlength\logounitheight{1cm}
-  \facinenglish{Faculty of Arts}
-  \facindutch{Faculteit Letteren en Wijsbegeerte}
+\DeclareOption{di}{
+	\renewcommand*\fselector{di}
+	\renewcommand*\ficon{
+		\path[nonzero rule,line width=0.1pt] (9.23, 8.22).. controls (6.84, 6.21) and (5.24, 3.3) .. (4.99, -0.0) -- (6.24, -0.0).. controls (6.49, 2.92) and (7.92, 5.5) .. (10.04, 7.28) -- (9.23, 8.22);
+		\path[nonzero rule,line width=0.1pt] (11.14, 12.31).. controls (6.3, 10.2) and (2.84, 5.53) .. (2.49, -0.0) -- (3.74, -0.0).. controls (4.09, 5.02) and (7.25, 9.27) .. (11.66, 11.18) -- (11.14, 12.31);
+		\path[nonzero rule,line width=0.1pt] (16.57, 20.06) -- (12.45, 15.4).. controls (5.54, 13.53) and (0.4, 7.4) .. (-0.0, -0.0) -- (1.25, -0.0).. controls (1.65, 6.96) and (6.58, 12.7) .. (13.14, 14.31) -- (15.93, 17.46) -- (19.66, 2.47) -- (16.55, 2.47) -- (13.6, 6.0) -- (12.64, 5.21) -- (15.97, 1.22) -- (21.26, 1.22) -- (16.57, 20.06);
+	}
+	\renewcommand*\flogosubtext{accredited by EAEVE}
+	\setlength\ftextwen{5\logounit}
+	\setlength\ftextwnl{5\logounit}
 }
-\DeclareOption{ow}{
-  \renewcommand*\fselector{ow}
-  \setlength\logounitheight{1cm}
-  \facinenglish{Faculty of Design Sciences}
-  \facindutch{Faculteit Ontwerpwetenschappen}
+\DeclareOption{ea}{
+  \renewcommand*\fselector{ea}
+  \renewcommand*\ficon{
+  	\path[nonzero rule,line width=0.1pt] (0.0, 0.0) -- (1.25, 0.0) -- (1.25, 3.68) -- (0.0, 3.68) -- (0.0, 0.0);
+  	\path[nonzero rule,line width=0.1pt] (2.49, 0.0) -- (3.74, 0.0) -- (3.74, 8.22) -- (2.49, 8.22) -- (2.49, 0.0);
+  	\path[nonzero rule,line width=0.1pt] (4.99, 0.0) -- (6.24, 0.0) -- (6.24, 12.76) -- (4.99, 12.76) -- (4.99, -0.0);
+  	\path[nonzero rule,line width=0.1pt] (8.33, 21.26) -- (7.48, 21.26) -- (7.48, 0.0) -- (8.73, 0.0) -- (8.73, 19.09) -- (15.76, 12.06) -- (15.76, -0.0) -- (17.01, -0.0) -- (17.01, 12.58) -- (8.33, 21.26);
+  }
+  \setlength\ficonw{0.6cm}
+  \setlength\ftextwen{6\logounit}
+  \setlength\ftextwnl{9\logounit}
 }
 \DeclareOption{re}{
   \renewcommand*\fselector{re}
-  \setlength\logounitheight{1cm}
-  \facinenglish{Faculty of Law}
-  \facindutch{Faculteit Rechten}
-}
-\DeclareOption{sw}{
-  \renewcommand*\fselector{sw}
-  \setlength\logounitheight{1cm}
-  \facinenglish{Faculty of Social Sciences}
-  \facindutch{Faculteit Sociale Wetenschappen}
- }
-\DeclareOption{ti}{
-  \renewcommand*\fselector{ti}
-  \setlength\logounitheight{1cm}
-  \facinenglish{Faculty of Applied Engineering}
-  \facindutch{Faculteit Toegepaste Ingenieurswetenschappen}
+  \renewcommand*\ficon{
+	  \path[nonzero rule,line width=0.1pt] (8.66, 4.99) -- (4.92, 13.18) -- (3.73, 13.18) -- (-0.0, 4.99) -- (1.37, 4.99) -- (4.33, 11.48) -- (7.29, 4.99) -- (8.66, 4.99);
+	  \path[nonzero rule,line width=0.1pt] (21.26, 4.99) -- (17.53, 13.18) -- (16.34, 13.18) -- (12.6, 4.99) -- (13.97, 4.99) -- (16.93, 11.48) -- (19.89, 4.99) -- (21.26, 4.99);
+	  \path[nonzero rule,line width=0.1pt] (8.66, 1.25) -- (-0.0, 1.25) -- (1.25, 0.0) -- (7.41, 0.0) -- (8.66, 1.25);
+	  \path[nonzero rule,line width=0.1pt] (21.26, 1.25) -- (12.6, 1.25) -- (13.85, -0.0) -- (20.01, -0.0) -- (21.26, 1.25);
+	  \path[nonzero rule,line width=0.1pt] (8.66, 3.74) -- (-0.0, 3.74) -- (-0.0, 2.49) -- (8.66, 2.49) -- (8.66, 3.74);
+	  \path[nonzero rule,line width=0.1pt] (4.3, 14.42) -- (16.96, 14.42) -- (16.39, 15.67) -- (4.87, 15.67) -- (4.3, 14.42);
+	  \path[nonzero rule,line width=0.1pt] (21.26, 3.74) -- (12.6, 3.74) -- (12.6, 2.49) -- (21.26, 2.49) -- (21.26, 3.74);
+	  \path[nonzero rule,line width=0.1pt] (12.6, 21.26) -- (8.66, 21.26) -- (8.66, 20.01) -- (10.01, 20.01) -- (10.01, 16.92) -- (11.25, 16.92) -- (11.25, 20.01) -- (12.6, 20.01) -- (12.6, 21.26);
+	}
+	\renewcommand*\flogotext{\ugdTRANSLATE{faculty}~\ugdTRANSLATE{facultyof}\\\ugdTRANSLATE{org-\fselector}}
+	\setlength\ftextwen{5\logounit}
+	\setlength\ftextwnl{6\logounit}
+	\setlength\ftextmarginextra{0.1cm}
 }
 \DeclareOption{we}{
   \renewcommand*\fselector{we}
-  \setlength\logounitheight{1cm}
-  \facinenglish{Faculty of Science}
-  \facindutch{Faculteit Wetenschappen}
+  \renewcommand*\ficon{
+  	\path[nonzero rule,line width=0.1pt] (9.96, 6.85).. controls (9.33, 6.47) and (8.61, 6.24) .. (7.82, 6.24).. controls (5.57, 6.24) and (3.74, 8.06) .. (3.74, 10.32).. controls (3.74, 11.78) and (4.53, 13.05) .. (5.69, 13.77) -- (4.79, 14.67).. controls (3.41, 13.71) and (2.49, 12.13) .. (2.49, 10.32).. controls (2.49, 7.37) and (4.88, 4.99) .. (7.82, 4.99).. controls (9.44, 4.99) and (10.86, 5.72) .. (11.84, 6.85) -- (9.96, 6.85);
+  	\path[nonzero rule,line width=0.1pt] (13.4, 6.85).. controls (12.24, 4.99) and (10.18, 3.74) .. (7.82, 3.74).. controls (4.19, 3.74) and (1.25, 6.69) .. (1.25, 10.32).. controls (1.25, 12.47) and (2.29, 14.37) .. (3.89, 15.57) -- (3.0, 16.46).. controls (1.18, 15.02) and (-0.0, 12.81) .. (-0.0, 10.32).. controls (-0.0, 6.0) and (3.5, 2.49) .. (7.82, 2.49).. controls (10.9, 2.49) and (13.55, 4.27) .. (14.83, 6.85) -- (13.4, 6.85);
+  	\path[nonzero rule,line width=0.1pt] (2.6, 18.62) -- (7.21, 14.01) -- (8.09, 14.89) -- (3.48, 19.5) -- (2.6, 18.62);
+  	\path[nonzero rule,line width=0.1pt] (4.36, 20.38) -- (8.97, 15.77) -- (9.86, 16.65) -- (5.25, 21.26) -- (4.36, 20.38);
+  	\path[nonzero rule,line width=0.1pt] (8.09, 13.12) -- (8.98, 12.24) -- (11.62, 14.89) -- (10.74, 15.77) -- (8.09, 13.12);
+  	\path[nonzero rule,line width=0.1pt] (9.63, 8.1) -- (15.87, 8.1) -- (15.87, 9.34) -- (9.63, 9.34) -- (9.63, 8.1);
+  	\path[nonzero rule,line width=0.1pt] (2.53, 0.0) -- (13.12, 0.0) -- (11.87, 1.25) -- (3.78, 1.25) -- (2.53, 0.0);	
+   }
+  \setlength\ficonw{0.56cm}
+  \renewcommand*\flogotext{\ugdTRANSLATE{faculty}\\\ugdTRANSLATE{facultyof}~\ugdTRANSLATE{org-\fselector}}
+  \setlength\ftextwen{3\logounit}
+  \setlength\ftextwnl{4\logounit}
 }
-\DeclareOption{iob}{
-  \renewcommand*\fselector{iob}
-  \setlength\logounitheight{1cm}
-  \facinenglish{Institute of Development Policy}
-  \facindutch{Instituut voor Ontwikkelingsbeleid- en beheer}
+\DeclareOption{pp}{
+  \renewcommand*\fselector{pp}
+  \renewcommand*\ficon{
+  	\path[nonzero rule,line width=0.1pt] (15.86, 14.19).. controls (15.86, 14.27) and (15.88, 14.35) .. (15.88, 14.43).. controls (15.88, 18.2) and (12.82, 21.26) .. (9.05, 21.26).. controls (5.28, 21.26) and (2.22, 18.2) .. (2.22, 14.43).. controls (2.22, 12.92) and (2.72, 11.54) .. (3.55, 10.41) -- (4.56, 8.96) -- (0.0, 0.0) -- (1.4, 0.0) -- (6.01, 9.07) -- (4.56, 11.14).. controls (3.88, 12.07) and (3.47, 13.2) .. (3.47, 14.43).. controls (3.48, 17.51) and (5.97, 20.01) .. (9.05, 20.01).. controls (12.13, 20.01) and (14.62, 17.51) .. (14.63, 14.43).. controls (14.63, 14.28) and (14.6, 14.13) .. (14.59, 13.99) -- (14.59, 13.99) -- (14.59, 13.98) -- (15.89, 11.05) -- (14.34, 11.05) -- (13.72, 6.96) -- (11.59, 6.96) -- (10.96, 5.72) -- (14.79, 5.72) -- (15.42, 9.8) -- (17.2, 9.8) -- (17.57, 10.32) -- (15.86, 14.19);
+	\path[nonzero rule,line width=0.1pt] (7.46, 9.18) -- (2.79, 0.0) -- (4.19, 0.0) -- (8.91, 9.29) -- (6.57, 12.62).. controls (6.19, 13.13) and (5.97, 13.75) .. (5.96, 14.43).. controls (5.97, 16.13) and (7.35, 17.51) .. (9.05, 17.52).. controls (9.08, 17.52) and (9.1, 17.51) .. (9.13, 17.51) -- (9.13, 18.76).. controls (9.1, 18.76) and (9.08, 18.77) .. (9.05, 18.77).. controls (6.66, 18.76) and (4.72, 16.83) .. (4.72, 14.43).. controls (4.72, 13.48) and (5.04, 12.6) .. (5.56, 11.88) -- (7.46, 9.18);
+  }
+  \setlength\ficonw{0.62cm}
+  \setlength\ftextwen{6\logounit}
+  \setlength\ftextwnl{7\logounit}
+  \setlength\ftextmarginextra{0.25cm}
 }
-\newcommand*\@facultyacronym{\expandafter\uppercase\expandafter{\fselector}}
+\DeclareOption{lw}{
+  \renewcommand*\fselector{lw}
+  \renewcommand*\ficon{
+  	\path[nonzero rule,line width=0.1pt] (11.25, 7.21).. controls (11.62, 7.42) and (12.05, 7.54) .. (12.5, 7.54) -- (20.01, 7.54) -- (20.01, 20.01) -- (12.5, 20.01).. controls (11.81, 20.01) and (11.25, 19.45) .. (11.25, 18.77) -- cycle(10.01, 18.77).. controls (10.01, 19.45) and (9.45, 20.01) .. (8.76, 20.01) -- (1.25, 20.01) -- (1.25, 7.54) -- (8.76, 7.54).. controls (9.21, 7.54) and (9.64, 7.42) .. (10.01, 7.21) -- cycle(8.76, 6.29) -- (-0.0, 6.29) -- (-0.0, 21.26) -- (8.76, 21.26).. controls (9.51, 21.26) and (10.17, 20.92) .. (10.63, 20.4).. controls (11.09, 20.92) and (11.75, 21.26) .. (12.5, 21.26) -- (21.26, 21.26) -- (21.26, 6.29) -- (12.5, 6.29).. controls (11.75, 6.29) and (11.09, 5.97) .. (10.63, 5.45).. controls (10.17, 5.97) and (9.51, 6.29) .. (8.76, 6.29);
+  	\path[nonzero rule,line width=0.1pt] (8.76, 5.05).. controls (9.51, 5.05) and (10.17, 4.72) .. (10.63, 4.2).. controls (11.09, 4.72) and (11.75, 5.05) .. (12.5, 5.05) -- (21.26, 5.05) -- (20.01, 3.8) -- (12.5, 3.8).. controls (11.75, 3.8) and (11.09, 3.47) .. (10.63, 2.96).. controls (10.17, 3.47) and (9.51, 3.8) .. (8.76, 3.8) -- (1.25, 3.8) -- (-0.0, 5.05) -- (8.76, 5.05);
+  	\path[nonzero rule,line width=0.1pt] (8.76, 17.52) -- (2.49, 17.52) -- (2.49, 16.27) -- (8.76, 16.27) -- (8.76, 17.52);
+  	\path[nonzero rule,line width=0.1pt] (8.76, 15.02) -- (2.49, 15.02) -- (2.49, 13.78) -- (8.76, 13.78) -- (8.76, 15.02);
+  	\path[nonzero rule,line width=0.1pt] (8.76, 12.53) -- (2.49, 12.53) -- (2.49, 11.28) -- (8.76, 11.28) -- (8.76, 12.53);
+  }
+  \setlength\ftextwen{4\logounit}
+  \setlength\ftextwnl{5\logounit}
+}
+\DeclareOption{eb}{
+  \renewcommand*\fselector{eb}
+  \renewcommand*\ficon{
+  	\path[nonzero rule,line width=0.1pt] (12.47, 7.95) -- (12.47, 2.49) -- (13.72, 2.49) -- (13.72, 7.95) -- (12.47, 7.95);
+  	\path[nonzero rule,line width=0.1pt] (9.98, 15.91) -- (9.98, 2.49) -- (11.23, 2.49) -- (11.23, 15.91) -- (9.98, 15.91);
+  	\path[nonzero rule,line width=0.1pt] (7.48, 13.26) -- (7.48, 2.49) -- (8.73, 2.49) -- (8.73, 13.26) -- (7.48, 13.26);
+  	\path[nonzero rule,line width=0.1pt] (4.99, 9.28) -- (4.99, 2.49) -- (6.24, 2.49) -- (6.24, 9.28) -- (4.99, 9.28);
+  	\path[nonzero rule,line width=0.1pt] (2.49, 13.26) -- (2.49, 2.49) -- (3.74, 2.49) -- (3.74, 13.26) -- (2.49, 13.26);
+  	\path[nonzero rule,line width=0.1pt] (17.52, 1.25) -- (1.25, 1.25) -- (1.25, 21.26) -- (0.0, 21.26) -- (0.0, -0.0) -- (18.77, -0.0) -- (17.52, 1.25);
+  }
+  \setlength\ficonw{0.662cm}
+  \setlength\ftextwen{6\logounit}
+  \setlength\ftextwnl{5\logounit}
+  \setlength\ftextmarginextra{0.16cm}
+ }
+\DeclareOption{ps}{
+  \renewcommand*\fselector{ps}
+  \renewcommand*\ficon{
+  	\path[nonzero rule,line width=0.1pt] (10.0, 2.5) -- (10.0, 3.75).. controls (8.04, 3.93) and (6.19, 4.94) .. (4.99, 6.64) -- (3.91, 6.02).. controls (5.35, 3.92) and (7.61, 2.68) .. (10.0, 2.5);
+  	\path[nonzero rule,line width=0.1pt] (10.0, 1.25).. controls (7.18, 1.44) and (4.5, 2.9) .. (2.84, 5.39) -- (1.76, 4.77).. controls (3.66, 1.88) and (6.75, 0.19) .. (10.0, -0.0) -- (10.0, 1.25);
+  	\path[nonzero rule,line width=0.1pt] (10.0, 5.01) -- (10.0, 6.28).. controls (8.91, 6.44) and (7.9, 6.99) .. (7.18, 7.9) -- (6.08, 7.27).. controls (7.04, 5.96) and (8.47, 5.18) .. (10.0, 5.01);
+  	\path[nonzero rule,line width=0.1pt] (3.29, 7.09) -- (4.38, 7.72).. controls (3.55, 9.5) and (3.5, 11.62) .. (4.37, 13.5) -- (3.29, 14.12).. controls (2.2, 11.84) and (2.25, 9.25) .. (3.29, 7.09);
+  	\path[nonzero rule,line width=0.1pt] (2.2, 6.47).. controls (0.96, 9.0) and (0.89, 12.06) .. (2.21, 14.75) -- (1.13, 15.37).. controls (-0.42, 12.28) and (-0.33, 8.76) .. (1.12, 5.85) -- (2.2, 6.47);
+  	\path[nonzero rule,line width=0.1pt] (5.46, 8.35) -- (6.56, 8.98).. controls (6.16, 10.01) and (6.13, 11.16) .. (6.56, 12.24) -- (5.46, 12.87).. controls (4.81, 11.39) and (4.85, 9.75) .. (5.46, 8.35);
+  	\path[nonzero rule,line width=0.1pt] (17.96, 14.12) -- (16.87, 13.5).. controls (17.7, 11.71) and (17.75, 9.6) .. (16.87, 7.72) -- (17.95, 7.09).. controls (19.05, 9.38) and (18.99, 11.96) .. (17.96, 14.12);
+  	\path[nonzero rule,line width=0.1pt] (19.04, 14.75).. controls (20.29, 12.21) and (20.36, 9.16) .. (19.03, 6.47) -- (20.11, 5.85).. controls (21.67, 8.94) and (21.58, 12.46) .. (20.12, 15.37) -- (19.04, 14.75);
+  	\path[nonzero rule,line width=0.1pt] (15.79, 12.87) -- (14.69, 12.23).. controls (15.09, 11.21) and (15.12, 10.05) .. (14.69, 8.98) -- (15.79, 8.34).. controls (16.44, 9.82) and (16.4, 11.46) .. (15.79, 12.87);
+  	\path[nonzero rule,line width=0.1pt] (17.34, 6.01) -- (16.25, 6.64).. controls (15.11, 5.03) and (13.31, 3.94) .. (11.25, 3.75) -- (11.25, 2.5).. controls (13.77, 2.7) and (15.98, 4.04) .. (17.34, 6.01);
+  	\path[nonzero rule,line width=0.1pt] (18.42, 5.39).. controls (16.84, 3.04) and (14.24, 1.45) .. (11.25, 1.26) -- (11.25, 0.01).. controls (14.7, 0.21) and (17.7, 2.04) .. (19.5, 4.76) -- (18.42, 5.39);
+  	\path[nonzero rule,line width=0.1pt] (15.16, 7.27) -- (14.06, 7.9).. controls (13.38, 7.04) and (12.39, 6.44) .. (11.25, 6.28) -- (11.25, 5.0).. controls (12.85, 5.18) and (14.25, 6.03) .. (15.16, 7.27);
+  }
+  \setlength\ftextwen{5\logounit}
+  \setlength\ftextwnl{6\logounit}
+}
+\DeclareOption{ge}{
+  \renewcommand*\fselector{ge}
+  \renewcommand*\ficon{
+  	\path[nonzero rule,line width=0.1pt] (17.44, 9.99) -- (17.68, 8.74) -- (21.26, 8.74) -- (21.26, 9.99) -- (17.44, 9.99);
+  	\path[nonzero rule,line width=0.1pt] (3.08, 6.25) -- (-0.0, 6.25) -- (-0.0, 5.0) -- (3.32, 5.0) -- (3.08, 6.25);
+  	\path[nonzero rule,line width=0.1pt] (9.68, 21.26) -- (6.2, 3.28) -- (5.14, 8.75) -- (-0.0, 8.75) -- (-0.0, 7.5) -- (4.11, 7.5) -- (5.56, -0.0) -- (6.83, -0.0) -- (10.95, 21.26) -- (9.68, 21.26);
+  	\path[nonzero rule,line width=0.1pt] (16.65, 7.5) -- (13.98, 21.26) -- (12.22, 21.26) -- (8.1, -0.0) -- (9.37, -0.0) -- (13.1, 19.25) -- (15.62, 6.25) -- (21.26, 6.25) -- (21.26, 7.5) -- (16.65, 7.5);
+  }
+  \setlength\ftextwen{5\logounit}
+  \setlength\ftextwnl{7\logounit}
+}
+\DeclareOption{fw}{
+  \renewcommand*\fselector{fw}
+  \renewcommand*\ficon{
+  	\path[nonzero rule,line width=0.1pt] (11.22, 5.61) -- (11.22, 10.01) -- (9.98, 10.01) -- (9.98, 5.61).. controls (9.98, 3.2) and (8.02, 1.25) .. (5.61, 1.25).. controls (3.2, 1.25) and (1.25, 3.2) .. (1.25, 5.61) -- (1.25, 10.01) -- (0.0, 10.01) -- (0.0, 5.61).. controls (0.0, 2.51) and (2.51, -0.0) .. (5.61, -0.0).. controls (8.71, -0.0) and (11.22, 2.51) .. (11.22, 5.61);
+  	\path[nonzero rule,line width=0.1pt] (11.22, 15.65) -- (11.22, 11.25) -- (9.98, 11.25) -- (9.98, 15.65).. controls (9.98, 18.06) and (8.02, 20.01) .. (5.61, 20.01).. controls (3.2, 20.01) and (1.25, 18.06) .. (1.25, 15.65) -- (1.25, 11.25) -- (0.0, 11.25) -- (0.0, 15.65).. controls (0.0, 18.75) and (2.51, 21.26) .. (5.61, 21.26).. controls (8.71, 21.26) and (11.22, 18.75) .. (11.22, 15.65);
+  	\path[nonzero rule,line width=0.1pt] (6.24, 15.65) -- (6.24, 11.25) -- (4.99, 11.25) -- (4.99, 15.65).. controls (4.99, 15.99) and (5.27, 16.27) .. (5.61, 16.27).. controls (5.96, 16.27) and (6.24, 15.99) .. (6.24, 15.65);
+  	\path[nonzero rule,line width=0.1pt] (8.73, 15.65) -- (8.73, 11.25) -- (7.48, 11.25) -- (7.48, 15.65).. controls (7.48, 16.68) and (6.65, 17.52) .. (5.61, 17.52).. controls (4.58, 17.52) and (3.74, 16.68) .. (3.74, 15.65) -- (3.74, 11.25) -- (2.49, 11.25) -- (2.49, 15.65).. controls (2.49, 17.37) and (3.89, 18.77) .. (5.61, 18.77).. controls (7.33, 18.77) and (8.73, 17.37) .. (8.73, 15.65);  	
+  }
+  \setlength\ficonw{0.396cm}
+  \setlength\ftextwen{6\logounit}
+  \setlength\ftextwnl{6\logounit}
+  \setlength\ftextmarginextra{0.16cm}
+}
+\newcommand{\ugenticon}{
+	\path[nonzero rule,line width=0.1pt] (11.25, 18.07) -- (10.01, 18.07) -- (10.01, 9.98) -- (11.25, 9.98) -- (11.25, 18.07);
+	\path[nonzero rule,line width=0.1pt] (8.76, 18.07) -- (7.51, 18.07) -- (7.51, 9.98) -- (8.76, 9.98) -- (8.76, 18.07);
+	\path[nonzero rule,line width=0.1pt] (6.27, 18.07) -- (5.02, 18.07) -- (5.02, 9.98) -- (6.27, 9.98) -- (6.27, 18.07);
+	\path[nonzero rule,line width=0.1pt] (3.77, 18.07) -- (2.52, 18.07) -- (2.52, 9.98) -- (3.77, 9.98) -- (3.77, 18.07);
+	\path[nonzero rule,line width=0.1pt] (13.75, 18.07) -- (12.5, 18.07) -- (12.5, 9.98) -- (13.75, 9.98) -- (13.75, 18.07);
+	\path[nonzero rule,line width=0.1pt] (16.24, 18.07) -- (14.99, 18.07) -- (14.99, 9.98) -- (16.24, 9.98) -- (16.24, 18.07);
+	\path[nonzero rule,line width=0.1pt] (18.74, 18.07) -- (17.49, 18.07) -- (17.49, 9.98) -- (18.74, 9.98) -- (18.74, 18.07);
+	\path[nonzero rule,line width=0.1pt] (20.01, 7.48) -- (1.25, 7.48) -- (1.25, 8.73) -- (20.01, 8.73) -- (20.01, 7.48);
+	\path[nonzero rule,line width=0.1pt] (18.74, 19.32) -- (2.52, 19.32) -- (1.28, 20.57) -- (19.98, 20.57) -- (18.74, 19.32);
+	\path[nonzero rule,line width=0.1pt] (21.26, 4.99) -- (0.0, 4.99) -- (0.0, 6.24) -- (21.26, 6.24) -- (21.26, 4.99);
+	\path[nonzero rule,line width=0.1pt] (21.26, 22.58) -- (10.63, 26.35) -- (0.0, 22.58) -- (0.0, 21.26) -- (10.63, 25.02) -- (21.26, 21.26) -- (21.26, 22.58);	
+}
+
+\newcommand*\@facultyacronym{
+	\uppercase{\fselector}
+}
+
+\AtBeginDocument{
+\newfontface\logotextface{UGent Panno Text Medium}[LetterSpace=-0.75]
+\newfontface\logosubtextface{UGent Panno Text SemiLight}[LetterSpace=0.1]
+}
+
+\newlength{\ftextw}
+\AtBeginDocument{
+	\def\@tmp{nl}
+	\ifx\lselector\@tmp
+	\setlength{\ftextw}{\ftextwnl}
+	\else
+	\setlength{\ftextw}{\ftextwen}
+	\fi
+}
+
+\newcommand*{\@faclogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
+	\pgfmathsetmacro{\flogoscale}{#1/3/\logounit}
+	\pgfmathsetmacro{\flogoxshift}{-#3*(3*\logounit+\ftextw)*\flogoscale}	
+	
+	\begin{scope}[	y=1pt, x=1pt, inner sep=0pt, outer sep=0pt,
+					shift={(\flogoxshift, 0.0cm)},yscale=\flogoscale,xscale=\flogoscale,
+					every node/.append style={scale=\flogoscale, color=#2} ]
+		%\draw[step=\logounit,black,thin] (0,0) grid (3*\logounit+\ftextw,3*\logounit); % logo grid
+		\begin{scope}[shift={(\logounit,\logounit)},every path/.append style={fill=#2}]
+			\ficon
+		\end{scope}
+		
+		\node[	anchor=south west, align=left,
+		 	  	text width=\ftextw+\ftextmarginextra,
+		 		font = \logotextface\fontsize{13.6pt}{12.4pt}\selectfont]
+			 at (\logounit+\ficonw+\flogospace,\logounit)
+			 {\spaceskip=0.0825cm \flogotext};
+			 
+		\node[	anchor=south west, align=left,
+				text width=\ftextw,
+		 		font=\logosubtextface\fontsize{7.45pt}{8pt}\selectfont]
+		 	at (\logounit+\ficonw+\flogospace+0.019cm,\logounit-0.34cm)
+		    {\spaceskip=0.054cm \flogosubtext};
+	\end{scope}
+}
+
+\newcommand*\ugentlogotext{\edef\@tmp{\ugdTRANSLATE{org-ugent}}\nohyphens{\@tmp}
+}
+
+\newcommand*{\@ugentlogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
+	\pgfmathsetmacro{\logoscale}{#1/4/\logounit}%
+	\pgfmathsetmacro{\logoxshift}{-#3*(5*\logounit)*\logoscale}	
+	\begin{scope}[y=1pt, x=1pt,
+		shift={(\logoxshift, 0.0cm)},
+		yscale=\logoscale,xscale=\logoscale, every node/.append style={scale=\logoscale, color=#2}, inner sep=0pt, outer sep=0pt]
+		%\draw[step=\logounit,black,thin] (0,0) grid (5*\logounit,4*\logounit); % logo grid
+		\begin{scope}[shift={(\logounit,2*\logounit)},every path/.append style={fill=#2}]
+			\ugenticon
+		\end{scope}
+		
+		\node[anchor=south west, text width=3*\logounit, align=left, font = \logotextface\fontsize{13.6pt}{12.5pt}\selectfont] at (\logounit-0.03cm,\logounit-0.005cm) {\spaceskip=0.0825cm%
+			\ugentlogotext};
+	\end{scope}
+	}
 
 \AtBeginDocument{
   \makeatother
@@ -2269,16 +2443,8 @@ een b\'echamel saus:
     }{}
   }
   \makeatletter
-  
-  \newcommand*\logopos{Logos/logo-uantwerpen-\fselector-\lselector-\colormodel-pos}
-  \newcommand*\logoposua{Logos/logo-uantwerpen-ua-\lselector-\colormodel-pos}
-  \newcommand*\logoneg{Logos/logo-uantwerpen-\fselector-\lselector-\colormodel-neg}
-  \newcommand*\logonegua{Logos/logo-uantwerpen-ua-\lselector-\colormodel-neg}
-  \newcommand*\logomonowhite{Logos/logo-uantwerpen-\fselector-\lselector-\colormodel-mono-white}
-  \newcommand*\logomonowhiteua{Logos/logo-uantwerpen-ua-\lselector-\colormodel-mono-white}
-  \newcommand*\iconfile{Logos/icon-uantwerpen-\fselector-\colormodel}
-  \newcommand*\iconfileua{Logos/icon-uantwerpen-ua-\colormodel}
 }
+
 %</clo>
 %    \end{macrocode}
 %
@@ -2286,83 +2452,49 @@ een b\'echamel saus:
 %    \begin{macrocode}
 %<*col>
 \if@cmyk
-%% UAntwerpen
-\definecolor{uauamain}{cmyk}{0.00,0.96,0.82,0.01}
-\definecolor{uauaside}{cmyk}{1.00,0.71,0.00,0.51}
-%% Faculteit Bedrijfswetenschappen en Economie
-\definecolor{uabemain}{cmyk}{0.58,0.00,1.00,0.04}
-\definecolor{uabeside}{cmyk}{0.29,0.04,0.41,0.00}
-%% Faculteit Farmaceutische, Biomedische en Diergeneeskundige Wetenschappen
-\definecolor{uafbdmain}{cmyk}{0.65,0.03,0.00,0.00}
-\definecolor{uafbdside}{cmyk}{0.33,0.03,0.00,0.00}
-%% Faculteit Geneeskunde en Gezondheidswetenschappen
-\definecolor{uaggwmain}{cmyk}{0.61,0.55,0.00,0.00}
-\definecolor{uaggwside}{cmyk}{0.21,0.27,0.03,0.00}
-%% Faculteit Letteren en Wijsbegeerte
-\definecolor{ualwmain}{cmyk}{0.00,0.27,0.85,0.00}
-\definecolor{ualwside}{cmyk}{0.00,0.16,0.51,0.00}
-%% Faculteit Ontwerpwetenschappen
-\definecolor{uaowmain}{cmyk}{0.53,0.25,0.26,0.05}
-\definecolor{uaowside}{cmyk}{0.25,0.08,0.16,0.00}
-%% Faculteit Rechten
-\definecolor{uaremain}{cmyk}{0.10,1.00,0.90,0.05}
-\definecolor{uareside}{cmyk}{0.04,0.45,0.36,0.00}
-%% Faculteit Sociale Wetenschappen
-\definecolor{uaswmain}{cmyk}{0.08,0.00,1.00,0.26}
-\definecolor{uaswside}{cmyk}{0.20,0.11,0.50,0.00}
-%% Faculteit Toegepaste Ingenieurswetenschappen
-\definecolor{uatimain}{cmyk}{0.31,1.00,0.00,0.01}
-\definecolor{uatiside}{cmyk}{0.11,0.30,0.02,0.00}
-%% Faculteit Wetenschappen
-\definecolor{uawemain}{cmyk}{1.00,0.20,0.00,0.25}
-\definecolor{uaweside}{cmyk}{0.40,0.08,0.00,0.10}
-%% IOB
-\definecolor{uaiobmain}{cmyk}{0.05,0.75,1.00,0.00}
-\definecolor{uaiobside}{cmyk}{0.40,0.08,0.00,0.10}
+%% UGent
+\definecolor{ugent@main}	{cmyk}{1.00,0.40,0.00,0.00} % UGent Blue
+\definecolor{ugent@accent}	{cmyk}{0.00,0.10,1.00,0.00} % UGent Yellow
+%% Faculties
+\definecolor{ugent@lw}		{cmyk}{0.00,0.32,1.00,0.00} % Arts and Philosophy
+\definecolor{ugent@re}		{cmyk}{0.00,0.87,0.85,0.00} % Law and Criminology
+\definecolor{ugent@we}		{cmyk}{0.75,0.00,0.10,0.03} % Sciences
+\definecolor{ugent@ge}		{cmyk}{0.00,0.69,0.29,0.00} % Medicine and Health Sciences
+\definecolor{ugent@ea}		{cmyk}{0.49,0.13,0.00,0.00} % Engineering and Architecture
+\definecolor{ugent@eb}		{cmyk}{0.31,0.05,1.00,0.00} % Economics and Business Administration
+\definecolor{ugent@di}		{cmyk}{0.44,0.70,0.00,0.00} % Veterinary Medicine
+\definecolor{ugent@pp}		{cmyk}{0.00,0.61,0.97,0.00} % Psychology and Educational Sciences
+\definecolor{ugent@bw}		{cmyk}{0.74,0.00,0.29,0.00} % Bioscience Engineering
+\definecolor{ugent@fw}		{cmyk}{0.16,0.83,0.00,0.00} % Pharmaceutical Sciences
+\definecolor{ugent@ps}		{cmyk}{0.71,0.00,1.00,0.00} % Political and Social Sciences
+
 \else
-%% UAntwerpen
-\definecolor{uauamain}{RGB}{234,44,56}
-\definecolor{uauaside}{RGB}{0,46,101}
-%% Faculteit Bedrijfswetenschappen en Economie
-\definecolor{uabemain}{RGB}{101,168,18}
-\definecolor{uabeside}{RGB}{185,213,169}
-%% Faculteit Farmaceutische, Biomedische en Diergeneeskundige Wetenschappen
-\definecolor{uafbdmain}{RGB}{68,184,243}
-\definecolor{uafbdside}{RGB}{181,221,247}
-%% Faculteit Geneeskunde en Gezondheidswetenschappen
-\definecolor{uaggwmain}{RGB}{117,117,203}
-\definecolor{uaggwside}{RGB}{198,182,210}
-%% Faculteit Letteren en Wijsbegeerte
-\definecolor{ualwmain}{RGB}{241,181,61}
-\definecolor{ualwside}{RGB}{255,218,145}
-%% Faculteit Ontwerpwetenschappen
-\definecolor{uaowmain}{RGB}{130,161,173}
-\definecolor{uaowside}{RGB}{200,217,216}
-%% Faculteit Rechten
-\definecolor{uaremain}{RGB}{210,8,36}
-\definecolor{uareside}{RGB}{237,157,144}
-%% Faculteit Sociale Wetenschappen
-\definecolor{uaswmain}{RGB}{173,165,0}
-\definecolor{uaswside}{RGB}{215,211,148}
-%% Faculteit Toegepaste Ingenieurswetenschappen
-\definecolor{uatimain}{RGB}{177,0,151}
-\definecolor{uatiside}{RGB}{221,184,210}
-%% Faculteit Wetenschappen
-\definecolor{uawemain}{RGB}{0,108,169}
-\definecolor{uaweside}{RGB}{151,192,223}
-%% IOB
-\definecolor{uaiobmain}{RGB}{230,98,8}
-\definecolor{uaiobside}{RGB}{151,192,223}
+%% UGent
+\definecolor{ugent@main}	{RGB}{30,100,200}	% UGent Blue
+\definecolor{ugent@accent}	{RGB}{0,46,101}		% UGent Yellow
+%% Faculties
+\definecolor{ugent@lw}		{RGB}{241,164,43} 	% Arts and Philosophy
+\definecolor{ugent@re}		{RGB}{220,78,40} 	% Law and Criminology 
+\definecolor{ugent@we}		{RGB}{45,140,168} 	% Sciences
+\definecolor{ugent@ge}		{RGB}{232,94,113} 	% Medicine and Health Sciences
+\definecolor{ugent@ea}		{RGB}{139,190,232} 	% Engineering and Architecture
+\definecolor{ugent@eb}		{RGB}{174,176,80} 	% Economics and Business Administration
+\definecolor{ugent@di}		{RGB}{130,84,145} 	% Veterinary Medicine
+\definecolor{ugent@pp}		{RGB}{251,126,58} 	% Psychology and Educational Sciences
+\definecolor{ugent@bw}		{RGB}{39,171,173} 	% Bioscience Engineering
+\definecolor{ugent@fw}		{RGB}{190,81,144} 	% Pharmaceutical Sciences
+\definecolor{ugent@ps}		{RGB}{113,168,96} 	% Political and Social Sciences
 \fi
+
 %%
 \if@neutralcolors
-\colorlet{maincolor}{uauaside}
-\colorlet{sidecolor}{uauamain}
-\colorlet{basecolor}{uauaside}
+\colorlet{maincolor}{ugent@main}
+\colorlet{sidecolor}{white}
+\colorlet{basecolor}{ugent@main!10}
 \else
-\colorlet{maincolor}{ua\fselector main}
-\colorlet{sidecolor}{ua\fselector side}
-\colorlet{basecolor}{uauaside}
+\colorlet{maincolor}{ugent@\fselector}
+\colorlet{sidecolor}{white}
+\colorlet{basecolor}{ugent@\fselector!10}
 \fi
 %</col>
 %    \end{macrocode}
@@ -2621,14 +2753,14 @@ een b\'echamel saus:
 %<*crs|bmt|phd|rp|le|ex>
 \ExplSyntaxOn
 \prop_new:N \g_@@_data_prop
-%</ct|bmt|pt|rp|le|ex>%
+%</crs|bmt|phd|rp|le|ex>%
 %    \end{macrocode}
 %
 % The dictionary can be accessed using the following document command:
 %    \begin{macrocode}
-%<*ct|bmt|pt|rp|le|ex>
 \NewDocumentCommand{\uantwerpendocsprop}{m}{
   \prop_item:Nn \g_@@_data_prop{#1}
+%<*crs|bmt|phd|rp|le|ex>
 }
 \NewDocumentCommand{\uantwerpendocsPROP}{m}{
   \str_uppercase:f { \prop_item:Nn \g_@@_data_prop{#1} }
@@ -4327,14 +4459,14 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 
           
            \node
-           [anchor=west,text width=13.75cm,align=left,font=\Huge,uauaside]
+           [anchor=west,text width=13.75cm,align=left,font=\Huge,ugent@main]
           at (2.125,27) 
           {
             \textsf{\textbf{\@title}}
           };
 
           \node
-          [anchor=west,text width=13.75cm,align=left,font=\Large,uauaside]
+          [anchor=west,text width=13.75cm,align=left,font=\Large,ugent@main]
           at (2.125,25.5) 
           {
             \textsf{\textbf{\@subtitle}}
@@ -4347,7 +4479,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 
           
           \node
-          [anchor=west,text width=13.75cm,align=left,font=\large,uauaside]
+          [anchor=west,text width=13.75cm,align=left,font=\large,ugent@main]
           at (2.125,22)
           {\textsf{\jointcourseswithcodes{\\}}};
           
@@ -4375,18 +4507,20 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
                 \@publishercode}}\\
           \textsf{\@publisher}};
           
-          \node[anchor=west] at (2.125,1.313)
-          {\includegraphics[width=4.75cm]{\logopos}};
+          \begin{scope}[shift={(2.125, 1.313)}]
+          \@ugentlogo{4.75cm}{ugent@main}{0.0} % TODO might need to fix vertalign
+          \end{scope}
         \end{tikzpicture}
         \else
         \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
           \clip (0,0) rectangle(\paperwidth,\paperheight);
           \if@cameraready
           \else
-          \fill[uauamain] (0,29.7) -- (2.2,29.7) -- (2.2,21.435) arc
+          \fill[ugent@main] (0,29.7) -- (2.2,29.7) -- (2.2,21.435) arc
           (0:-90:0.235) -- (0,21.2) -- cycle;
-          \node[anchor=west] at (2.2,1.8)
-          {\includegraphics[width=5.2cm]{\logoposua}};
+          \begin{scope}[shift={(2.2, 1.8)}]
+          \@ugentlogo{5.2cm}{ugent@main}{0.0} % TODO might need to fix vertalign
+          \end{scope}
           \fi
 
           \node
@@ -4416,7 +4550,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
           \node 
           [anchor=north west,below=of title,
           text width=14.75cm,align=left,
-          yshift=-0.5cm,color=uauamain] (author)
+          yshift=-0.5cm,color=ugent@main] (author)
           {
             \fontsize{18}{24}\selectfont{\textsf{\@author}}
           };
@@ -4503,7 +4637,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
       \else
       \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
         \clip (0,0) rectangle(\paperwidth,\paperheight);
-        \fill[uauamain] (0,21.2) rectangle (21,29.7);
+        \fill[ugent@main] (0,21.2) rectangle (21,29.7);
       \end{tikzpicture}
       \fi
     }
@@ -4576,10 +4710,9 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
           {\@companylogo};
           \fi
 
-
-          \node[anchor=south west] at
-          (1.6cm,1.5cm)
-          {\includegraphics[width=6.2cm]{\logopos}};
+		  \begin{scope}[shift={(1.6cm,1.5cm)}]
+    	  	\@ugentlogo{6.2cm}{ugent@main}{0.0}
+          \end{scope}
         \end{tikzpicture}
       }
     }
@@ -4663,14 +4796,14 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
           \end{scope}
 
           \node
-          [anchor=west,text width=13.75cm,align=left,font=\Huge,uauaside]
+          [anchor=west,text width=13.75cm,align=left,font=\Huge,ugent@main]
           at (2.125,23.5) 
           {
             \textsf{\textbf{\@title}}
           };
 
           \node
-          [anchor=west,text width=13.75cm,align=left,font=\Large,uauaside]
+          [anchor=west,text width=13.75cm,align=left,font=\Large,ugent@main]
           at (2.125,21.5) 
           {
             \textsf{\textbf{\@subtitle}}
@@ -4706,17 +4839,17 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
           \textsf{\textbf{\@faculty{}  \ifx\@department\empty\else |
               \@department{} \fi | \@defenselocation, \@defensedate}}};
           
-          \node[anchor=west] at
-          (2.125,1.313)
-          {\includegraphics[width=4.75cm]{\logoposua}};
+          \begin{scope}[shift={(2.125,1.313)}] % TODO might need vertalign fix
+          	\@ugentlogo{4.75cm}{ugent@main}{0.0}
+          \end{scope}
 
           \if@tempembargo
-            \node[anchor=east,font=\large\bfseries,uauaside] at (
             (17,1.313) {\uantwerpendocsPROP{confidential}};
+            \node[anchor=east,font=\large\bfseries,ugent@main] at (
           \else
             \if@fullembargo
-              \node[anchor=east,font=\large\bfseries,uauaside] at (
               (17,1.313) {\uantwerpendocsPROP{confidential}};
+              \node[anchor=east,font=\large\bfseries,ugent@main] at (
             \fi
           \fi
         \end{tikzpicture}
@@ -4727,7 +4860,9 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \cleardoublepage
   \fi
   \begin{center}
-    \includegraphics[width=4.75cm]{\logoposua}
+  	\begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+  	\@ugentlogo{4.75cm}{ugent@main}{0.0}
+  	\end{tikzpicture}%
     \vfill
     \@faculty\\
     \@department\par
@@ -4873,7 +5008,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
     \newbookcovercomponenttype{title}{
       \vspace{2em}\centering
       \rotatebox[origin=c]{-90}{
-        \fontsize{15}{0}\selectfont\color{uauaside}\textbf{\vphantom{Ag}---arg---1}
+        \fontsize{15}{0}\selectfont\color{ugent@main}\textbf{\vphantom{Ag}---arg---1}
       }
       \vfill
     }
@@ -4885,7 +5020,11 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
       \vspace{13mm+2em}
     }
     \newbookcovercomponenttype{logo}{
-      \vfill\hfill\includegraphics[width=5mm]{---arg---1}\hfill\vspace{5mm}
+    	\vfill\hfill
+    	\begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+    	\@ugentlogo{5mm}{---arg---1}{0.0}
+    	\end{tikzpicture}%
+        \hfill\vspace{5mm}
     }
     \begin{document}
     \begin{bookcover}
@@ -4896,7 +5035,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
       \if@printonspine
       \bookcovercomponent{title}{spine}{---title---}
       \bookcovercomponent{author}{spine}{---author---}
-      \bookcovercomponent{logo}{spine}{icon-uantwerpen-ua-cmyk}
+      \bookcovercomponent{logo}{spine}{ugent@main}
       \fi
       \makeatother
       \bookcovercomponent{normal}{back}[-1mm,0mm,0mm,0mm]{
@@ -4996,14 +5135,14 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
           \end{scope}
 
           \node
-          [anchor=west,text width=17cm,align=left,font=\Huge,uauaside]
+          [anchor=west,text width=17cm,align=left,font=\Huge,ugent@main]
           at (2.125,\paperheight-3cm) 
           {
             \textsf{\textbf{\@title}}
           };
 
           \node
-          [anchor=west,text width=17cm,align=left,font=\Large,uauaside]
+          [anchor=west,text width=17cm,align=left,font=\Large,ugent@main]
           at (2.125,\paperheight-5cm) 
           {
             \textsf{\textbf{\@subtitle}}
@@ -5032,9 +5171,9 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
                 | \@versionyear}\\
               \@address}};
           
-          \node[anchor=west] at
-          (2.125,1.313)
-          {\includegraphics[width=4.75cm]{\logopos}};
+          \begin{scope}[shift={(2.125,1.313)}] % TODO might need vertalign fix
+          \@ugentlogo{4.75cm}{ugent@main}{0.0}
+          \end{scope}
         \end{tikzpicture}
       }
     }
@@ -5042,7 +5181,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   ~\par\relax
   \cleardoublepage
   \begin{center}
-    \includegraphics[width=4.75cm]{\logopos}
+  	
+    \begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+    \@ugentlogo{4.75cm}{ugent@main}{0.0}
+    \end{tikzpicture}%
     \vfill
     \@affiliation\\
     \@extra\par
@@ -5123,9 +5265,9 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
       \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
         \clip (0,0) rectangle(\paperwidth,\paperheight);
         \path (current page.north west) +(1.8cm,-1.2cm) 
-        node[anchor=north west] {
-          \includegraphics[height=1.1cm]{\@logo} 
-        };
+        \begin{scope} % TODO the use of scope here may be very wrong
+          \@ugentlogo{1.1cm}{ugent@main}{0.0}
+        \end{scope}{
         \if@nofoldline\else
         \draw (current page.north west)
         +(1cm,-98mm) -- +(1.5cm,-98mm);
@@ -5143,7 +5285,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
     }
   }
   ~\\[3ex]
-  \textcolor{uauaside}{\textbf{\@sender}}
+  \textcolor{ugent@main}{\textbf{\@sender}}
   \ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
   \@faculty{}
   \ifx\@unit\@empty\else\\* \@unit\fi~\\[1.75ex]
@@ -5292,7 +5434,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
         };
         
         \node
-        [anchor=base west,uauamain,
+        [anchor=base west,ugent@main,
         text width={\paperwidth-5cm},align=left,font=\LARGE]
         at (2.125,{\paperheight-6.5cm})
         {\textsf{\textbf{\@author}}};
@@ -5318,8 +5460,9 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
         {\textsf{\jointdegrees{\\}{\\}}\\
           \textsf{\textbf{\@faculty{}}}};
         
-        \node[anchor=west] at (2.125,1.313)
-        {\includegraphics[width=4.75cm]{\logopos}};
+        \begin{scope}[shift={(2.125,1.313)}]
+        	\@ugentlogo{4.75cm}{ugent@main}{0.0}
+        \end{scope}
       \end{tikzpicture}
     }
   }
@@ -6404,7 +6547,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 \RequirePackage{ugentcolor}
 
 \AtBeginDocument{
-  \def\appropriatelogo{\logopos}
+  \def\appropriatelogo{\@ugentlogo{2.5cm}{ugent@main}{0.0}}
   \def\appropriateslidenumber{%
     \usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
@@ -6455,12 +6598,12 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %% define main color
 \setbeamercolor{palette primary}{fg=maincolor}
 \setbeamercolor{palette secondary}{fg=sidecolor}
-\setbeamercolor{palette tertiary}{fg=uauaside}
-\setbeamercolor{palette quaternary}{fg=uauamain}
+\setbeamercolor{palette tertiary}{fg=ugent@accent}
+\setbeamercolor{palette quaternary}{fg=ugent@main}
 
 \setbeamercolor{normal text}{fg=basecolor}
 \setbeamercolor{inverse normal text}{fg=white!95!maincolor}
-\setbeamercolor{alerted text}{fg=uauamain}
+\setbeamercolor{alerted text}{fg=ugent@main}
 \setbeamercolor{example text}{}
 
 \setbeamercolor{heading}{fg=basecolor}
