@@ -1,5 +1,5 @@
-# The `ugentdocs` LaTeX package
-Forked from `uantwerpendocs v4.12`
+# The `ugentdocs` $\LaTeX$ package
+Forked from `uantwerpendocs v4.12` by Walter Daems ([CTAN](https://ctan.org/pkg/uantwerpendocs))
 
 >[!WARNING]
 > This repository is a WIP, see the [ugentdocs 1.0 project](https://github.com/users/SeppeOngena/projects/1) for current progress towards v1.0
