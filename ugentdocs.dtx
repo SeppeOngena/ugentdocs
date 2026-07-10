@@ -2190,9 +2190,9 @@ een b\'echamel saus:
 \newcommand*\ficon{~}
 
 \newcommand*\flogotext{% TODO this may give an error
-	\StrSubstitute{
-		\ugdTRANSLATE{faculty}~\ugdTRANSLATE{facultyof}~\ugdTRANSLATE{org-\fselector}
-	}{IJ}{Ĳ}
+	%\StrSubstitute{
+		\translatekey[uppercase]{faculty}~\translatekey[uppercase]{facultyof}\translatekey[uppercase,expand]{org-\fselector}
+	%}{IJ}{Ĳ}
 }
 \newcommand*\flogosubtext{~}
 
@@ -2205,7 +2205,7 @@ een b\'echamel saus:
 
 
 \newcommand*\@faculty{
-	\dictionary{faculty}~\dictionary{facultyof}~\dictionary{org-\fselector}
+	\translatekey{faculty}~\translatekey{facultyof}\translatekey[expand]{org-\fselector}
 }
 
 \DeclareOption{bw}{
@@ -2216,7 +2216,7 @@ een b\'echamel saus:
   	\path[nonzero rule,line width=0.1pt] (10.63, 20.01).. controls (10.92, 20.01) and (11.2, 19.99) .. (11.49, 19.97) -- (11.6, 21.21).. controls (11.28, 21.24) and (10.96, 21.26) .. (10.63, 21.26).. controls (4.76, 21.26) and (-0.0, 16.5) .. (-0.0, 10.63).. controls (-0.0, 4.76) and (4.76, 0.0) .. (10.63, 0.0).. controls (16.5, 0.0) and (21.26, 4.76) .. (21.26, 10.63).. controls (21.26, 11.86) and (21.04, 13.04) .. (20.66, 14.14) -- (19.48, 13.72).. controls (19.82, 12.75) and (20.01, 11.72) .. (20.01, 10.63).. controls (20.01, 5.45) and (15.81, 1.25) .. (10.63, 1.25).. controls (5.45, 1.25) and (1.25, 5.45) .. (1.25, 10.63).. controls (1.25, 15.81) and (5.45, 20.01) .. (10.63, 20.01);  	
   	\path[nonzero rule,line width=0.1pt] (10.63, 17.52).. controls (10.84, 17.52) and (11.05, 17.51) .. (11.26, 17.49) -- (11.37, 18.73).. controls (11.13, 18.75) and (10.88, 18.77) .. (10.63, 18.77).. controls (6.14, 18.77) and (2.49, 15.12) .. (2.49, 10.63).. controls (2.49, 6.14) and (6.14, 2.49) .. (10.63, 2.49).. controls (15.12, 2.49) and (18.77, 6.14) .. (18.77, 10.63).. controls (18.77, 11.57) and (18.6, 12.47) .. (18.3, 13.31) -- (17.13, 12.9).. controls (17.38, 12.19) and (17.52, 11.43) .. (17.52, 10.63).. controls (17.52, 6.83) and (14.43, 3.74) .. (10.63, 3.74).. controls (6.83, 3.74) and (3.74, 6.83) .. (3.74, 10.63).. controls (3.74, 14.43) and (6.83, 17.52) .. (10.63, 17.52);
   }
-  \renewcommand*\flogotext{\ugdTRANSLATE{faculty}~\ugdTRANSLATE{facultyof}\\\ugdTRANSLATE{org-\fselector}}
+  \renewcommand*\flogotext{\translatekey[uppercase]{faculty}~\translatekey[uppercase]{facultyof}\\\translatekey[uppercase,expand]{org-\fselector}}
   \setlength\ftextwen{6\logounit}
   \setlength\ftextwnl{8\logounit}
 }
@@ -2255,7 +2255,7 @@ een b\'echamel saus:
 	  \path[nonzero rule,line width=0.1pt] (21.26, 3.74) -- (12.6, 3.74) -- (12.6, 2.49) -- (21.26, 2.49) -- (21.26, 3.74);
 	  \path[nonzero rule,line width=0.1pt] (12.6, 21.26) -- (8.66, 21.26) -- (8.66, 20.01) -- (10.01, 20.01) -- (10.01, 16.92) -- (11.25, 16.92) -- (11.25, 20.01) -- (12.6, 20.01) -- (12.6, 21.26);
 	}
-	\renewcommand*\flogotext{\ugdTRANSLATE{faculty}~\ugdTRANSLATE{facultyof}\\\ugdTRANSLATE{org-\fselector}}
+	\renewcommand*\flogotext{\translatekey[uppercase]{faculty}~\translatekey[uppercase]{facultyof}\\\translatekey[uppercase,expand]{org-\fselector}}
 	\setlength\ftextwen{5\logounit}
 	\setlength\ftextwnl{6\logounit}
 	\setlength\ftextmarginextra{0.1cm}
@@ -2272,7 +2272,7 @@ een b\'echamel saus:
   	\path[nonzero rule,line width=0.1pt] (2.53, 0.0) -- (13.12, 0.0) -- (11.87, 1.25) -- (3.78, 1.25) -- (2.53, 0.0);	
    }
   \setlength\ficonw{0.56cm}
-  \renewcommand*\flogotext{\ugdTRANSLATE{faculty}\\\ugdTRANSLATE{facultyof}~\ugdTRANSLATE{org-\fselector}}
+  \renewcommand*\flogotext{\translatekey[uppercase]{faculty}\\\translatekey[uppercase]{facultyof}\translatekey[uppercase,expand]{org-\fselector}}
   \setlength\ftextwen{3\logounit}
   \setlength\ftextwnl{4\logounit}
 }
@@ -2416,7 +2416,7 @@ een b\'echamel saus:
 	\end{scope}
 }
 
-\newcommand*\ugentlogotext{\edef\@tmp{\ugdTRANSLATE{org-ugent}}\nohyphens{\@tmp}
+\newcommand*\ugentlogotext{\edef\@tmp{\translatekey[uppercase]{org-ugent}}\nohyphens{\@tmp}
 }
 
 \newcommand*{\@ugentlogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
@@ -2752,51 +2752,85 @@ een b\'echamel saus:
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp|le|ex>
 \ExplSyntaxOn
-\prop_new:N \g_@@_data_prop
+\prop_new:N \g_@@_dict_keys
+\seq_new:N \g_@@_loaded_dicts
 %</crs|bmt|phd|rp|le|ex>%
 %    \end{macrocode}
 %
 % The dictionary can be accessed using the following document command:
 %    \begin{macrocode}
-\NewDocumentCommand{\uantwerpendocsprop}{m}{
-  \prop_item:Nn \g_@@_data_prop{#1}
 %<*crs|bmt|phd|rp|le|ex>
+\cs_new:Npn \_@@_translate:nn #1#2 {
+	\tl_set:Nx \l_@@_key_cased { \prop_item:Nn \g_@@_dict_keys {#2} }
+	\tl_if_empty:nF {#1} {
+		\str_case:nnF {#1}{
+			{uppercase}{\tl_set:Nx \l_@@_key_cased{\str_uppercase:f{\l_@@_key_cased}}}
+			{lowercase}{\tl_set:Nx \l_@@_key_cased{\str_lowercase:f{\l_@@_key_cased}}}
+		}{
+		}
+	}
+	\tl_use:N \l_@@_key_cased
 }
-\NewDocumentCommand{\uantwerpendocsPROP}{m}{
-  \str_uppercase:f { \prop_item:Nn \g_@@_data_prop{#1} }
+\cs_generate_variant:Nn \_@@_translate:nn { xn, xx }
+
+\bool_new:N \l_@@_expand_bool
+\tl_new:N \l_@@_case_tl
+
+\NewDocumentCommand{\translatekey}{O{} m}{
+	\bool_set_false:N \l_@@_expand_bool
+	\tl_clear:N \l_@@_case_tl
+	\clist_map_inline:nn {#1} {
+		\str_case:nnF {##1}{
+		  {expand}    { \bool_set_true:N \l_@@_expand_bool 		}
+		  {uppercase} { \tl_set:Nn \l_@@_case_tl {uppercase} 	}
+		  {lowercase} { \tl_set:Nn \l_@@_case_tl {lowercase} 	}
+		}{
+		  \msg_error:nnn {ugentdocs}{Unknown~translatekey~option}{##1}
+		}
+	}
+	\bool_if:NTF \l_@@_expand_bool {
+	  \_@@_translate:xx {\l_@@_case_tl} {#2}
+	}{ 
+	  \_@@_translate:xn {\l_@@_case_tl} {#2}
+	}
 }
 %</crs|bmt|phd|rp|le|ex>%
 %    \end{macrocode}
 %
 % To this end, we use the following parsing infrastructure:
 %    \begin{macrocode}
-\NewDocumentCommand{\uantwerpendocspropread}{m}{
-  \@@_datareader:n { #1 }
-}
 %<*crs|bmt|phd|rp|le|ex>
-\cs_generate_variant:Nn \prop_gput:Nnn{ Nxx }
-\cs_new_nopar:Npn \@@_dataparser:w #1 = #2!! {
-  \tl_set:Nn \l_tmpa_tl {#1}
-  \tl_set:Nn \l_tmpb_tl {#2}
+\NewDocumentCommand{\useugentdocsdictionary}{m}{
+  \seq_if_in:NnTF \g_@@_loaded_dicts {#1}{
+  }{
+  	\@@_dictreader:n {#1}
+  	\seq_gput_right:Nn \g_@@_loaded_dicts {#1}
+  }
+}	
+
+\cs_generate_variant:Nn \prop_gput:Nnn{Nxx}
+\cs_new_nopar:Npn \@@_dictparser:w #1 = #2!! {
+  \tl_set:Nn \l_tmpa_tl{#1}
+  \tl_set:Nn \l_tmpb_tl{#2}
   \tl_trim_spaces:N \l_tmpa_tl
   \tl_trim_spaces:N \l_tmpb_tl
-  \prop_gput:Nxx \g_@@_data_prop { \l_tmpa_tl} { \l_tmpb_tl }
+  \prop_gput:Nxx \g_@@_dict_keys{\l_tmpa_tl}{\l_tmpb_tl}
 }
 %</crs|bmt|phd|rp|le|ex>
 %    \end{macrocode}
 % invoked by the following data file reader:
 %    \begin{macrocode}
-\ior_new:N \l_@@_data_ior
-\cs_new_nopar:Nn \@@_datareader:n {
-  \ior_open:Nn \l_@@_data_ior { uantwerpendocs-#1.data }
-  \ior_str_map_inline:Nn \l_@@_data_ior {
 %<*crs|bmt|phd|rp|le|ex>
+\ior_new:N \l_@@_dict_ior
+\cs_new_nopar:Nn \@@_dictreader:n {
+  \ior_open:Nn \l_@@_dict_ior { ugentdocs-#1.dict}
+  \ior_str_map_inline:Nn \l_@@_dict_ior {
     \regex_match:nnTF {=} {##1} {
-      \@@_dataparser:w ##1!!
+      \@@_dictparser:w ##1!!
     }
     {}
   }
-  \ior_close:N \l_@@_data_ior
+  \ior_close:N \l_@@_dict_ior
 }
 %</crs|bmt|phd|rp|le|ex>
 %    \end{macrocode}
@@ -2804,9 +2838,10 @@ een b\'echamel saus:
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp|le|ex>
 \clist_map_inline:nn {en} {
-  \@@_datareader:n { #1 }
+  \@@_dictreader:n { #1 }
+  \seq_gput_right:Nn \g_@@_loaded_dicts { #1 }
 }
-%\prop_show:N \g_@@_data_prop
+%\prop_show:N \g_@@_dict_keys
 \ExplSyntaxOff
 %</crs|bmt|phd|rp|le|ex>
 %    \end{macrocode}
@@ -2824,34 +2859,36 @@ een b\'echamel saus:
   \makeatother
   \@ifpackageloaded{babel}{
     \addto\captionsenglish{%
-      \uantwerpendocspropread{en}
+      \useugentdocsdictionary{en}
     }
     \addto\captionsdutch{%
-      \uantwerpendocspropread{nl}
+      \useugentdocsdictionary{nl}
     }
   }
   {}
-  \uantwerpendocspropread{degree}
-  \uantwerpendocspropread{doctype}
+  \useugentdocsdictionary{degree}
+  \useugentdocsdictionary{doctype}
   \makeatletter
 }
 %</crs|bmt|phd|rp|le|ex> 
 %    \end{macrocode}
 %
-% The English data can be found below:
+% The English dictionary can be found below:
 %    \begin{macrocode}
-%<*endata>
-org-be   = Faculty of Business and Economics
-org-fbd  = Faculty of Pharmaceutical, Biomedical and Veterinary Sciences
+%<*endict>
+faculty  = Faculty
+facultyof= of~
+org-bw   = Bioscience Engineering
+org-fbd  = Pharmaceutical, Biomedical and Veterinary Sciences
 org-ggw  = Medicine and Health Sciences
-org-lw   = Faculty of Arts
-org-ow   = Faculty of Design Sciences
-org-re   = Faculty of Law
-org-sw   = Faculty of Social Sciences
-org-ti   = Faculty of Applied Engineering
-org-we   = Faculty of Science
-org-iob  = Institute of Development Policy
-org-ua   = University of Antwerp
+org-lw   = Arts
+org-ow   = Design Sciences
+org-re   = Law
+org-sw   = Social Sciences
+org-ti   = Applied Engineering
+org-we   = Science
+org-iob  = Development Policy
+org-ugent   = Ghent University
 arr                = All rights reserved
 crdisclaimer       = Copyright disclaimer
 arrphd             = The author allows to consult and copy parts of this work for personal use. Further reproduction or transmission in any form or by any means, without the prior permission of the author is strictly forbidden.
@@ -2860,6 +2897,7 @@ embargofull        = The author of this thesis declares that this document is ma
 embargotemp        = The author of this thesis declares that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 confidential       = confidential
 of                 = of
+degreein		   = in
 domainname         = uantwerp.be
 datename           = Date
 subjectname        = Subject
@@ -2872,6 +2910,7 @@ phdname            = PhD
 thesisname         = Thesis
 mthesisname        = Master's thesis
 bthesisname        = Bachelor's thesis
+prname			   = Project report
 lecturername       = Lecturer
 lecturersname      = Lecturers
 supervisorname     = Supervisor
@@ -2897,23 +2936,25 @@ bmthesisname  = Thesis to obtain the degree of
 pthesisnamei  = Thesis submitted for the degree of
 pthesisnameii = at the University of Antwerp to be defended by
 weightname         = Weight
-%</endata>
+%</endict>
 %    \end{macrocode}
 %
-% The Dutch data can be found below:
+% The Dutch dictionary can be found below:
 %    \begin{macrocode}
-%<*nldata>
-org-be   = Faculteit Bedrijfswetenschappen en Economie
-org-fbd  = Faculteit Farmaceutische, Biomedische en Diergeneeskundige Wetenschappen
-org-ggw  = Faculteit Geneeskunde en Gezondheidswetenschappen
-org-lw   = Faculteit Letteren en Wijsbegeerte
-org-ow   = Faculteit Ontwerpwetenschappen
-org-re   = Faculteit Rechten
-org-sw   = Faculteit Sociale Wetenschappen
-org-ti   = Faculteit Toegepaste Ingenieurswetenschappen
-org-we   = Faculteit Wetenschappen
+%<*nldict>
+faculty  = Faculteit
+facultyof= 
+org-bw   = Bio-ingenieurswetenschappen
+org-fbd  = Farmaceutische, Biomedische en Diergeneeskundige Wetenschappen
+org-ggw  = Geneeskunde en Gezondheidswetenschappen
+org-lw   = Letteren en Wijsbegeerte
+org-ow   = Ontwerpwetenschappen
+org-re   = Rechten
+org-sw   = Sociale Wetenschappen
+org-ti   = Toegepaste Ingenieurswetenschappen
+org-we   = Wetenschappen
 org-iob  = Instituut voor Ontwikkelingsbeleid- en beheer
-org-ua   = Universiteit Antwerpen
+org-ugent   = Universiteit Gent
 arr                = Alle rechten voorbehouden
 crdisclaimer       = Copyright disclaimer
 arrphd             = De auteur staat toe dat delen van dit werk geraadpleegd en gekopieerd worden voor persoonlijk gebruik. Verdere reproductie of transmissie zonder voorafgaande toestemming van de auteur in eender welke vorm of op eender welke manier is strikt verboden.
@@ -2922,6 +2963,7 @@ embargofull        = De auteur van dit proefschrift verklaart dat dit document c
 embargotemp        = De auteur van dit proefschrift verklaart dat dit document confidentieel is van __START__ tot en met __END__ (embargoperiode), en vrij beschikbaar wordt na deze embargoperiode. Tijdens de embargoperiode is de inhoud van dit doctoraatsproefschrift confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
 confidential       = confidentieel
 of                 = van
+degreein		   = in de
 domainname         = uantwerpen.be
 datename           = Onderwerp
 subjectname        = Datum
@@ -2934,6 +2976,7 @@ phdname            = Doctoraat
 thesisname         = Afstudeerproef
 mthesisname        = Masterproef
 bthesisname        = Bachelorproef
+prname			   = Projectverslag
 lecturername       = Titularis
 lecturersname      = Titularissen
 supervisorname     = Promotor
@@ -2959,27 +3002,27 @@ bmthesisname  = Proefschrift tot het behalen van de graad van
 pthesisnamei  = Proefschrift voorgelegd tot het behalen van de graad van
 pthesisnameii = aan de Universiteit Antwerpen te verdedigen door
 weightname         = Gewicht
-%</nldata>
+%</nldict>
 %    \end{macrocode}
 %
 % \subsection{Bachelor and Master document types}
 %    \begin{macrocode}
-%<*doctypedata>
+%<*doctypedict>
 nl-ba = Bachelorproef
 nl-ma = Masterproef
 nl-pr = Projectverslag
 en-ba = Bachelor's thesis
 en-ma = Master's thesis
 en-pr = Project report
-%</doctypedata> 
+%</doctypedict> 
 %    \end{macrocode}
 %
 %    \begin{macrocode}
 %<*bmt|crs|phd|ex>
 \ExplSyntaxOn
-\cs_generate_variant:Nn \prop_item:Nn{ Nx }
-\NewDocumentCommand{\uantwerpendocsdoctype}{m}{
-  \prop_item:Nx \g_@@_data_prop { #1 }
+\cs_generate_variant:Nn \prop_item:Nn{Nx}
+\NewDocumentCommand{\ugentdocsdoctype}{m}{
+	\prop_item:Nx \g_@@_dict_keys { #1 }
 }
 \ExplSyntaxOff
 %</bmt|crs|phd|ex> 
@@ -3049,7 +3092,7 @@ en-pr = Project report
 % mode for FTI}
 %
 %    \begin{macrocode}
-%<*degreedata>
+%<*degreedict>
 ti-nl-ba-bk	=	Bachelor of Science in de industriële wetenschappen: bouwkunde
 ti-nl-ba-ch	=	Bachelor of Science in de industriële wetenschappen: chemie
 ti-nl-ba-em	=	Bachelor of Science in de industriële wetenschappen: elektromechanica
@@ -3096,14 +3139,14 @@ we-en-ma-fy	=	Master of Science in physics
 we-nl-ba-wi	=	Bachelor of Science in wiskunde
 we-nl-ma-wifw	=	Master of Science in wiskunde: fundamentele wiskunde
 we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskunde
-%</degreedata> 
+%</degreedict> 
 %    \end{macrocode}
 %
 %    \begin{macrocode}
 %<*bmt|crs|phd|ex>
 \ExplSyntaxOn
-\NewDocumentCommand{\uantwerpendocsdegree}{m}{
-  \prop_item:Nx \g_@@_data_prop { #1 }
+\NewDocumentCommand{\ugentdocsdegree}{m}{
+  \prop_item:Nx \g_@@_dict_keys { #1 }
 }
 \ExplSyntaxOff
 %</bmt|crs|phd|ex> 
@@ -3135,7 +3178,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %
 %
 % \begin{imacro}{\titel}
-%   phdtext class}
 %   This macro sets the |\@titel| tag that later will be used on
 %   the Dutch translation of the title page. Moreover, using this tag,
 %   will trigger the generation of a secondary Dutch title page.
@@ -3168,7 +3210,6 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \end{imacro}
 %
 % \begin{imacro}{\subtitel}
-%   phdtext class}
 %   This macro sets the |\@subtitel| tag that later will be used on
 %   the Dutch translation of the title page. It will not trigger the
 %   generation of a secondary Dutch title page. That can only be done
@@ -3276,13 +3317,14 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \seq_use:Nn \g_@@_lecturers { #1 }
 }
 \NewDocumentCommand{\lecturersname}{}{
-  \if_int_compare:w \seq_count:N \g_@@_lecturers > 1
-  \uantwerpendocsprop{lecturersname}
-  \else:
-  \if_int_compare:w \seq_count:N \g_@@_lecturers > 0
-  \uantwerpendocsprop{lecturername}
-  \fi
-  \fi:
+  \int_compare:nNnTF {\seq_count:N \g_@@_lecturers} > {1}{
+    \translatekey{lecturersname}
+  }{
+  	\int_compare:nNnTF {\seq_count:N \g_@@_lecturers} > {0}{
+    \translatekey{lecturername}
+  	}{
+  	}
+  }
 }
 \AtBeginDocument{
   \seq_greverse:N \g_@@_lecturers
@@ -3345,14 +3387,14 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \seq_use:Nnnn \g_@@_supervisorswithaffiliation { #2 } { #1 } { #2 }
 }
 \NewDocumentCommand{\supervisorsname}{m}{
-  \if_int_compare:w \seq_count:N \g_@@_supervisors > 2
-  \uantwerpendocsprop{supervisorsname} #1
-  \else:
-  \if_int_compare:w \seq_count:N \g_@@_supervisors = 2
-  \uantwerpendocsprop{supervisorname} #1
-  \else:
-  \fi:
-  \fi:
+  \int_compare:nNnTF { \seq_count:N \g_@@_supervisors } > {2} {
+  	\translatekey{supervisorsname} #1
+  }{
+    \int_compare:nNnTF { \seq_count:N \g_@@_supervisors } = {2} {
+  		\translatekey{supervisorname} #1
+  	}{
+  	}
+  }
 }
 %</bmt|phd> 
 %<*bmt>
@@ -3372,14 +3414,14 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \seq_use:Nnnn \g_@@_cosupervisorswithaffiliation { #2 } { #1 } { #2 }
 }
 \NewDocumentCommand{\cosupervisorsname}{m}{
-  \if_int_compare:w \seq_count:N \g_@@_cosupervisors > 2
-  \uantwerpendocsprop{cosupervisorsname} #1
-  \else:
-  \if_int_compare:w \seq_count:N \g_@@_cosupervisors = 2
-  \uantwerpendocsprop{cosupervisorname} #1
-  \else:
-  \fi:
-  \fi:
+  \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors} > {2} {
+  	\translatekey{cosupervisorsname} #1
+  }{
+    \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors} = {2} {
+  	  \translatekey{cosupervisorname} #1
+  	}{
+  	}
+  }
 }
 \seq_new:N \g_@@_extsupervisors
 \seq_new:N \g_@@_extsupervisorswithaffiliation
@@ -3397,14 +3439,14 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \seq_use:Nnnn \g_@@_extsupervisorswithaffiliation { #2 } { #1 } { #2 }
 }
 \NewDocumentCommand{\extsupervisorsname}{m}{
-  \if_int_compare:w \seq_count:N \g_@@_extsupervisors > 2
-  \uantwerpendocsprop{extsupervisorsname} #1
-  \else:
-  \if_int_compare:w \seq_count:N \g_@@_extsupervisors = 2
-  \uantwerpendocsprop{extsupervisorname} #1
-  \else:
-  \fi:
-  \fi:
+  \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors} > {2}{
+  	\translatekey{extsupervisorsname} #1
+  }{
+    \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors} = {2}{
+  	  \translatekey{extsupervisorname} #1
+  	}{
+    }
+  }
 }
 %</bmt>
 %<*phd>
@@ -4086,11 +4128,11 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \seq_use:Nn \g_@@_rooms { #1 }
 }
 \NewDocumentCommand{\roomsname}{}{
-  \if_int_compare:w \seq_count:N \g_@@_rooms > 1
-  \uantwerpendocsprop{roomsname}
-  \else:
-  \uantwerpendocsprop{roomname}
-  \fi:
+  \int_compare:nNnTF {\seq_count:N \g_@@_rooms} > {1}{
+    \translatekey{roomsname}
+  }{
+  	\translatekey{roomname}
+  }
 }
 \AtBeginDocument{
   \seq_greverse:N \g_@@_rooms
@@ -4180,7 +4222,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 \lhead[\small\thepage]{\slshape\small\rightmark}
 \chead[]{}
 \rhead[\slshape\small\leftmark]{\small\thepage}
-\lfoot[\small\uantwerpendocsprop{org-ua} -- \@facultyacronym]{\small\@courseversion}
+\lfoot[\small\translatekey{org-ugent} -- \@facultyacronym]{\small\@courseversion}
 \cfoot[]{}
 \rfoot[]{\small\@title{}\ifdefvoid{\@subtitleshort}{}{ --- \@subtitleshort}}
 \else
@@ -4188,7 +4230,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 \chead[]{}
 \rhead[]{\small\thepage}
 \lfoot[]{\small\@courseversion}
-\cfoot[]{\small\uantwerpendocsprop{org-ua} -- \@facultyacronym}
+\cfoot[]{\small\translatekey{org-ugent} -- \@facultyacronym}
 \rfoot[]{\small\@title{}}
 \fi
 \fancypagestyle{plain}{%
@@ -4277,8 +4319,8 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 \rhead[]{}
 \lfoot[\small\textcolor{gray}{\@date}]{\textcolor{gray}{\@date}}
 \cfoot[]{}
-\rfoot[\small\textcolor{gray}{\pagename~\thepage~\uantwerpendocsprop{of}~\ztopages}]
-  {\small\textcolor{gray}{\pagename~\thepage~\uantwerpendocsprop{of}~\ztotpages}}
+\rfoot[\small\textcolor{gray}{\pagename~\thepage~\translatekey{of}~\ztotpages}]
+  {\small\textcolor{gray}{\pagename~\thepage~\translatekey{of}~\ztotpages}}
 %</le>
 %    \end{macrocode}
 %
@@ -4350,8 +4392,8 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 
     CONFIDENTIAL AND PROPRIETARY.
 
-    \copyright{} \@versionyear{} \uantwerpendocsprop{org-ua},
-    \uantwerpendocsprop{arr}.
+    \copyright{} \@versionyear{} \translatekey{org-ugent},
+    \translatekey{arr}.
   }
 }
 %</crs|rp>
@@ -4527,7 +4569,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
           [anchor=north west,text width=14.75cm,align=left]
           at (5,27.1)
           {
-            \fontsize{16}{20}\selectfont\textsf{\textbf{\uantwerpendocsprop{acyearname}}}\\[1ex]
+            \fontsize{16}{20}\selectfont\textsf{\textbf{\translatekey{acyearname}}}\\[1ex]
             \fontsize{16}{20}\selectfont\textsf{\@academicyear}
           };
 
@@ -4667,7 +4709,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
           [anchor=north east,align=right]
           at (\paperwidth-1.6cm,\paperheight-2.6cm)
           {\bfseries\large
-            \uantwerpendocsprop{acyearname}\\[.75ex]\Large\@academicyear};
+            \translatekey{acyearname}\\[.75ex]\Large\@academicyear};
           \node (title)
           [anchor=north west,align=left,
           text width={\paperwidth-5.1cm},font=\Huge,text=white,
@@ -4763,7 +4805,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 \tl_new:N \embargotempwithdates
 \newcommand\prepmaketitle{
   \tl_new:N \l_@@_embargotemp_tl
-  \tl_set:Nx \l_@@_embargotemp_tl {\prop_item:Nn \g_@@_data_prop{embargotemp}}
+  \tl_set:Nx \l_@@_embargotemp_tl {\prop_item:Nn \g_@@_dict_keys{embargotemp}}
   \regex_replace_all:nVN {__START__} \embargotempstart \l_@@_embargotemp_tl
   \regex_replace_all:nVN {__END__} \embargotempend \l_@@_embargotemp_tl
   \regex_replace_all:nnN {\~} {\ } \l_@@_embargotemp_tl
@@ -4834,7 +4876,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 
           \node[white,anchor=west,text width=14.5cm,align=left,font=\small]
           at (2.55,3.7)
-          {\textsf{\uantwerpendocsprop{pthesisnamei}
+          {\textsf{\translatekey{pthesisnamei}
               \@degree{}}\\
           \textsf{\textbf{\@faculty{}  \ifx\@department\empty\else |
               \@department{} \fi | \@defenselocation, \@defensedate}}};
@@ -4844,12 +4886,12 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
           \end{scope}
 
           \if@tempembargo
-            (17,1.313) {\uantwerpendocsPROP{confidential}};
             \node[anchor=east,font=\large\bfseries,ugent@main] at (
+            (17,1.313) {\translatekey[uppercase]{confidential}};
           \else
             \if@fullembargo
-              (17,1.313) {\uantwerpendocsPROP{confidential}};
               \node[anchor=east,font=\large\bfseries,ugent@main] at (
+              (17,1.313) {\translatekey[uppercase]{confidential}};
             \fi
           \fi
         \end{tikzpicture}
@@ -4870,17 +4912,17 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
     \Huge\@title\par
     \large\@subtitle\par
     \vfill
-    \normalsize\uantwerpendocsprop{pthesisnamei}\\
+    \normalsize\translatekey{pthesisnamei}\\
     \@degree\\
-    \uantwerpendocsprop{pthesisnameii}\\
+    \translatekey{pthesisnameii}\\
     \medskip
     \textbf{\@author}
     \vfill
     \if@tempembargo
-      \uantwerpendocsPROP{confidential}
+      \translatekey[uppercase]{confidential}
     \else
       \if@fullembargo
-        \uantwerpendocsPROP{confidential}
+        \translatekey[uppercase]{confidential}
       \fi
     \fi
     \vfill
@@ -4895,14 +4937,14 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
     \end{minipage}
   \end{center}
   \clearpage
-  \noindent\textbf{\uantwerpendocsprop{juryname}}\hfill\\[1ex]
-  \textit{\uantwerpendocsprop{jurychairname}}\hfill\break
+  \noindent\textbf{\translatekey{juryname}}\hfill\\[1ex]
+  \textit{\translatekey{jurychairname}}\hfill\break
   \@jurychair{}\ifdefvoid{\@jurychairaff}{}{, \@jurychairaff}\\
   \hfill\break
   \textit{\supervisorsname{}}\hfill\break
   \jointsupervisorswithaffiliation{\\}{\\}
   \hfill\break
-  \textit{\uantwerpendocsprop{jurymembersname}}\hfill\break
+  \textit{\translatekey{jurymembersname}}\hfill\break
   \jointjurymembers{\\}
   \hfill\break
   \vfill
@@ -4912,18 +4954,18 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \@affiliation\\
   \@address\\
   \vfill
-  \noindent \uantwerpendocsprop{integrityclause}\\~\\
+  \noindent \translatekey{integrityclause}\\~\\
   \vfill
   \if@fullembargo
-    \noindent \uantwerpendocsprop{embargofull}
+    \noindent \translatekey{embargofull}
     \vfill
   \fi
   \if@tempembargo
     \noindent \embargotempwithdates
     \vfill
   \fi
-  \noindent\textbf{\uantwerpendocsprop{crdisclaimer}}\\[0.75ex]
-  \uantwerpendocsprop{arrphd}
+  \noindent\textbf{\translatekey{crdisclaimer}}\\[0.75ex]
+  \translatekey{arrphd}
   \ifdefempty{\@doi}{}{
       ~\\[-\baselineskip]
       \vfill
@@ -5204,7 +5246,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \@address\\
   \vfill
   \copyright{} \@versionyear{} \@author\\
-  \uantwerpendocsprop{arr}.
+  \translatekey{arr}.
   \vfill
   \setcounter{footnote}{0}%
   \global\let\thanks\relax
@@ -5298,9 +5340,9 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \begin{tikzpicture}[anchor=north west,align=left,outer sep=0,inner sep=0]
     \path
     (0,0) node { \scriptsize \strut
-      \textcolor{gray}{\uppercase\expandafter{\uantwerpendocsprop{datename}} } }
+      \textcolor{gray}{\translatekey[uppercase]{datename}} }
     (4cm,0) node { \scriptsize \strut
-      \textcolor{gray}{\uppercase\expandafter{\uantwerpendocsprop{subjectname}} } }
+      \textcolor{gray}{\translatekey[uppercase]{subjectname}} }
     (0,-2.5ex) node { \strut \@date }
     (4cm,-2.5ex) node[align=left] { \strut \@subject };
   \end{tikzpicture}~\\[4ex]
@@ -5373,19 +5415,19 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
         at (2.125,{\paperheight-5cm}) 
         {%
           \fontsize{12}{18}\selectfont%
-          \textsf{\uantwerpendocsprop{seriesname} \@examgroupnumber{} \hfill \@examdate{}}
+          \textsf{\translatekey{seriesname} \@examgroupnumber{} \hfill \@examdate{}}
         };
 
         \node[anchor=south west,align=left,inner sep=0pt] at (3,21)
         {%
           \fontsize{14}{19}\selectfont%
-          \textsf{\uantwerpendocsprop{examname}}
+          \textsf{\translatekey{examname}}
         };
         
         \node[anchor=south west,align=left,inner sep=0pt] at (3,19)
         {%
           \fontsize{12}{18}\selectfont%
-          \textsf{\uantwerpendocsprop{lastname}}
+          \textsf{\translatekey{lastname}}
         };
         \foreach \nn in {0,1,...,33} {
           \draw[fill=white] (3,18) ++({0.5*\nn},0) rectangle +(0.5,0.8);
@@ -5394,7 +5436,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
         \node[anchor=south west,align=left,inner sep=0pt] at (3,17)
         {%
           \fontsize{12}{18}\selectfont%
-          \textsf{\uantwerpendocsprop{firstname}}
+          \textsf{\translatekey{firstname}}
         };
         
         \foreach \nn in {0,1,...,23} {
@@ -5404,7 +5446,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
         \node[anchor=south west,align=left,inner sep=0pt] at (16,17)
         {%
           \fontsize{12}{18}\selectfont%
-          \textsf{\uantwerpendocsprop{docketname}}
+          \textsf{\translatekey{docketname}}
         };
         \foreach \nn in {0,1,...,7} {
           \draw[fill=white] (16,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
@@ -5414,15 +5456,15 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
         at (3,14)
         {%
           \fontsize{12}{21}\selectfont%
-          \textsf{\uantwerpendocsprop{examdurationname}: \@examlength}
+          \textsf{\translatekey{examdurationname}: \@examlength}
         };
         \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
         at (3,11)
         {%
           \fontsize{12}{15}\selectfont%
           \textsf{\begin{tabular}{@{}l@{}ll}%
-            \uantwerpendocsprop{examstartname}& : & \@tstart\\
-            \uantwerpendocsprop{examendname}  & : & \@tend
+            \translatekey{examstartname}& : & \@tstart\\
+            \translatekey{examendname}  & : & \@tend
           \end{tabular}}
         };
         
@@ -5508,7 +5550,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \hspace{\fill}
   \begin{tabular}{|c|}
     \hline 
-    \small \uantwerpendocsprop{weightname}: #1\\
+    \small \translatekey{weightname}: #1\\
     \hline
   \end{tabular}\\
 }
