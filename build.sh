@@ -4,4 +4,4 @@ rm -rf ./build
 mkdir ./build
 cp ugentdocs.dtx ugentdocs.ins ./build/
 cd ./build
-tex ugentdocs.ins
+lualatex ugentdocs.ins
