@@ -822,7 +822,7 @@
 %%     elektronica-ICT}
 %% (2) by specifying the correct code, to fetch the text from a table
 %%     with correct degree mentions
-\bamadegree{ti-en-ma-ei}
+\degree{Master of Science in de industri\"ele wetenschappen: elektronica-ICT}
 %% you can even add multiple degrees and mix the two ways!
 
 %% you can specify multiple courses:
@@ -969,7 +969,8 @@
 \usepackage{multicol}
 
 %% specify your degree
-\bamadegree{ti-en-ba-em}
+\degree{Master Of Science in de Bio-ingenieurswetenschappen: Milieutechnologie}
+\doctype{mathesis}
 %% You can specify your degree manually here, using \degree{}
 %% if you don't trust 'the system'
 
@@ -2190,9 +2191,9 @@ een b\'echamel saus:
 \newcommand*\ficon{~}
 
 \newcommand*\flogotext{% TODO this may give an error
-	%\StrSubstitute{
+	\StrSubstitute{
 		\translatekey[uppercase]{faculty}~\translatekey[uppercase]{facultyof}\translatekey[uppercase,expand]{org-\fselector}
-	%}{IJ}{Ĳ}
+	}{IJ}{Ĳ}
 }
 \newcommand*\flogosubtext{~}
 
@@ -2888,8 +2889,6 @@ een b\'echamel saus:
     }
   }
   {}
-  \useugentdocsdictionary{degree}
-  \useugentdocsdictionary{doctype}
   \makeatletter
 }
 %</crs|bmt|phd|rp|le|ex> 
@@ -2898,75 +2897,89 @@ een b\'echamel saus:
 % The English dictionary can be found below:
 %    \begin{macrocode}
 %<*endict>
-faculty  = Faculty
-facultyof= of~
-org-bw   = Bioscience Engineering
-org-fbd  = Pharmaceutical, Biomedical and Veterinary Sciences
-org-ggw  = Medicine and Health Sciences
-org-lw   = Arts
-org-ow   = Design Sciences
-org-re   = Law
-org-sw   = Social Sciences
-org-ti   = Applied Engineering
-org-we   = Science
-org-iob  = Development Policy
-org-ugent   = Ghent University
+org-ugent	= Ghent University
+domain		= ugent.be
+faculty		= Faculty
+facultyof	= of~
+org-bw		= Bioscience Engineering
+org-lw		= Arts and Philosophy
+org-re		= Law and Criminology
+org-we		= Sciences
+org-ge		= Medicine and Health Sciences
+org-ea		= Engineering and Architecture
+org-eb		= Economics and Business Administration
+org-di		= Veterinary Medicine
+org-pp		= Psychology and Educational Sciences
+org-fw		= Pharmaceutical Sciences
+org-ps		= Political and Social Sciences
 
-confidential       = confidential
-of                 = of
-degreein		   = in
-domainname         = uantwerp.be
-datename           = Date
-subjectname        = Subject
-acyearname         = Academic year
-baname             = Bachelor of Science
-spname             = Switching Programme
-vpname             = Preparatory Programme
-maname             = Master of Science
-phdname            = PhD
-thesisname         = Thesis
-mthesisname        = Master's thesis
-bthesisname        = Bachelor's thesis
-prname			   = Project report
-lecturername       = Lecturer
-lecturersname      = Lecturers
-supervisorname     = Supervisor
-supervisorsname    = Supervisors
-cosupervisorname   = Cosupervisor
-cosupervisorsname  = Cosupervisors
-extsupervisorname  = External supervisor
-extsupervisorsname = External supervisors
-examname           = Exam --- Examen
-seriesname         = Series
-lastname           = Last name --- Naam
-firstname          = First name --- Voornaam
-docketname         = Docket No. --- Rolnr.
-roomname           = Room --- Lokaal
-roomsname          = Rooms --- Lokalen
-examstartname      = Start --- Begin
-examendname        = End --- Einde
-examdurationname   = Exam duration --- Duur van het examen
-juryname           = Jury
-jurymembersname    = Members
-jurychairname      = Chair
-weightname         = Weight
+date		= Date
+acyear		= Academic year
+subject		= Subject
+of			= of
+the			= the
 
-bmthesisname  = Thesis to obtain the degree of
-pthesisnamei  = Thesis submitted for the degree of
-pthesisnameii = at the University of Antwerp to be defended by
+baprog		= Bachelor's programme
+sprog		= Linking Course
+vprog		= Preparatory Course
+maprog		= Master's programme
+phdprog		= PhD
 
-arr                = All rights reserved
-crdisclaimer       = Copyright disclaimer
+thesis		= Thesis
+mathesis	= Master's dissertation
+bathesis	= Bachelor's dissertation
+phdthesis	= Doctoral dissertation
+projreport	= Project report
 
-arrphd             = The author allows to consult and copy parts of this work for personal use. Further reproduction or transmission in any form or by any means, without the prior permission of the author is strictly forbidden.
+bmprefix	= Thesis to obtain the degree of
+phdprefix	= Dissertation submitted for the degree of
+phdsuffix	= at Ghent University to be defended by
+badegree	= Bachelor
+madegree	= Master
+phddegree	= Doctor
 
-integrityclause    = The PhD researcher and supervisor(s) declare that the PhD research was conducted according to the principles of scientific integrity, as mentioned in the general PhD regulations and charter for PhD researchers of UAntwerp and the integrity charter for PhD researchers and supervisors affiliated with the University of Antwerp.
+lecturer		= Lecturer
+lecturers		= Lecturers
+examiner		= Examiner
+examiners		= Examiners
+supervisor		= Supervisor
+supervisors		= Supervisors
+cosupervisor	= Cosupervisor
+cosupervisors	= Cosupervisors
+extsupervisor	= External supervisor
+extsupervisors	= External supervisors
+jury			= Jury
+jurymembers		= Members
+jurychair		= Chair
+dean			= Dean
+rector			= Rector
 
-embargofull        = The author of this thesis declares that this document is marked confidential. The content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+exam			= Exam --- Examen
+series			= Series
+lastname		= Last name --- Naam
+firstname		= First name --- Voornaam
+studentnumber	= Student number
+docket			= Docket No. --- Rolnr.
+room			= Room --- Lokaal
+rooms			= Rooms --- Lokalen
+examstart		= Start --- Begin
+examend			= End --- Einde
+examduration	= Exam duration --- Duur van het examen
+weight			= Weight
 
-embargotemp        = The author of this thesis declares that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+confidential	= confidential
+arr				= All rights reserved
+crdisclaimer	= Copyright disclaimer
 
-bamadisclaimner	   =  This document is an examination document that has not been corrected for any errors identified. Without prior written permission of both the supervisor(s) and the author(s), any copying, using or realizing this publication or parts thereof is prohibited. For requests for information regarding the copying and/or use and/or realisation of parts of this publication, please contact to the university at which the author is registered.
+arrphd			= The author allows to consult and copy parts of this work for personal use. Further reproduction or transmission in any form or by any means, without the prior permission of the author is strictly forbidden.
+
+integrityclause	= The PhD researcher and supervisor(s) declare that the PhD research was conducted according to the principles of scientific integrity, as mentioned in the general PhD regulations and charter for PhD researchers of Ghent University and the integrity charter for PhD researchers and supervisors affiliated with Ghent University.
+
+embargofull		= The author of this thesis declares that this document is marked confidential. The content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+
+embargotemp		= The author of this thesis declares that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+
+bamadisclaimer	=  This document is an examination document that has not been corrected for any errors identified. Without prior written permission of both the supervisor(s) and the author(s), any copying, using or realizing this publication or parts thereof is prohibited. For requests for information regarding the copying and/or use and/or realisation of parts of this publication, please contact to the university at which the author is registered.
 __NEWLINE__
 Prior written permission from the supervisor(s) is also required for the use for industrial or commercial utility of the (original) methods, products, circuits and programs described in this thesis,  and for the submission of this publication for participation in scientific prizes or competitions.
 __NEWLINE__
@@ -2977,75 +2990,89 @@ This document is in accordance with the faculty regulations related to this exam
 % The Dutch dictionary can be found below:
 %    \begin{macrocode}
 %<*nldict>
-faculty  = Faculteit
-facultyof= 
-org-bw   = Bio-ingenieurswetenschappen
-org-fbd  = Farmaceutische, Biomedische en Diergeneeskundige Wetenschappen
-org-ggw  = Geneeskunde en Gezondheidswetenschappen
-org-lw   = Letteren en Wijsbegeerte
-org-ow   = Ontwerpwetenschappen
-org-re   = Rechten
-org-sw   = Sociale Wetenschappen
-org-ti   = Toegepaste Ingenieurswetenschappen
-org-we   = Wetenschappen
-org-iob  = Instituut voor Ontwikkelingsbeleid- en beheer
-org-ugent   = Universiteit Gent
+org-ugent	= Universiteit Gent
+domain		= ugent.be
+faculty		= Faculteit
+facultyof	= 
+org-bw		= Bio-ingenieurswetenschappen
+org-lw		= Letteren en Wijsbegeerte
+org-re		= Recht en Criminologie
+org-we		= Wetenschappen
+org-ge		= Geneeskunde en Gezondheidswetenschappen
+org-ea		= Ingenieurswetenschappen en Architectuur
+org-eb		= Economie en Bedrijfskunde
+org-di		= Diergeneeskunde
+org-pp		= Psychologie and Pedagogische Wetenschappen
+org-fw		= Farmaceutische Wetenschappen
+org-ps		= Politieke en Sociale Wetenschappen
 
-confidential       = confidentieel
-of                 = van
-degreein		   = in de
-domainname         = uantwerpen.be
-datename           = Onderwerp
-subjectname        = Datum
-acyearname         = Academiejaar
-baname             = Bachelor of Science
-spname             = Schakelprogramma
-vpname             = Voorbereidingsprogramma
-maname             = Master of Science
-phdname            = Doctoraat
-thesisname         = Afstudeerproef
-mthesisname        = Masterproef
-bthesisname        = Bachelorproef
-prname			   = Projectverslag
-lecturername       = Titularis
-lecturersname      = Titularissen
-supervisorname     = Promotor
-supervisorsname    = Promotoren
-cosupervisorname   = Copromotor
-cosupervisorsname  = Copromotoren
-extsupervisorname  = Externe Promotor
-extsupervisorsname = Externe Promotoren
-examname           = Examen
-seriesname         = Reeks
-lastname           = Naam
-firstname          = Voornaam
-docketname         = Rolnr.
-roomname           = Lokaal
-roomsname          = Lokalen
-examstartname      = Begin
-examendname        = Einde
-examdurationname   = Duur van het examen
-juryname           = Jury
-jurymembersname    = Leden
-jurychairname      = Voorzitter
-weightname         = Gewicht
+date		= Datum
+acyear		= Academiejaar
+subject		= Onderwerp
+of			= van
+the			= de
 
-bmthesisname  = Proefschrift tot het behalen van de graad van
-pthesisnamei  = Proefschrift voorgelegd tot het behalen van de graad van
-pthesisnameii = aan de Universiteit Antwerpen te verdedigen door
+baprog		= Bacheloropleiding
+sprog		= Schakelprogramma
+vprog		= Voorbereidingsprogramma
+maprog		= Masteropleiding
+phdprog		= Doctoraat
 
-arr                = Alle rechten voorbehouden
-crdisclaimer       = Copyright disclaimer
+thesis		= Afstudeerproef
+mathesis	= Masterproef
+bathesis	= Bachelorproef
+phdthesis	= Doctoraat
+projreport	= Projectverslag
 
-arrphd             = De auteur staat toe dat delen van dit werk geraadpleegd en gekopieerd worden voor persoonlijk gebruik. Verdere reproductie of transmissie zonder voorafgaande toestemming van de auteur in eender welke vorm of op eender welke manier is strikt verboden.
+bmprefix	= Proefschrift tot het behalen van de graad van
+phdprefix	= Proefschrift voorgelegd tot het behalen van de graad van
+phdsuffix	= aan de Universiteit Gent te verdedigen door
+badegree	= Bachelor
+madegree	= Master
+phddegree	= Doctor
 
-integrityclause    = De doctoraatsonderzoeker en promotor(en) verklaren dat het doctoraatsonderzoek werd uitgevoerd volgens de principes van de wetenschappelijke integriteit, zoals vermeld in het algemeen doctoraatsreglement en algemeen charter van de doctorandus van UAntwerpen en het integriteitscharter voor doctorandi en promotoren verbonden aan de Universiteit Antwerpen.
+lecturer		= Lesgever
+lecturers		= Lesgevers
+examiner		= Examinator
+examiners		= Examinators
+supervisor		= Promotor
+supervisors		= Promotoren
+cosupervisor	= Copromotor
+cosupervisors	= Copromotoren
+extsupervisor	= Externe Promotor
+extsupervisors	= Externe Promotoren
+jury			= Jury
+jurymembers		= Members
+jurychair		= Voorzitter
+dean			= Decaan
+rector			= Rector
 
-embargofull        = De auteur van dit proefschrift verklaart dat dit document confidentieel is. De inhoud van dit doctoraatsproefschrift is confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+exam			= Examen
+series			= Reeks
+lastname		= Achternaam
+firstname		= Voornaam
+studentnumber	= Studentennummer
+docket			= Rolnr.
+room			= Lokaal
+rooms			= Lokalen
+examstart		= Begin
+examend			= Einde
+examduration	= Duur van het examen
+weight			= Gewicht
 
-embargotemp        = De auteur van dit proefschrift verklaart dat dit document confidentieel is van __START__ tot en met __END__ (embargoperiode), en vrij beschikbaar wordt na deze embargoperiode. Tijdens de embargoperiode is de inhoud van dit doctoraatsproefschrift confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+confidential	= confidentieel
+arr				= Alle rechten voorbehouden
+crdisclaimer	= Copyright disclaimer
 
-bamadisclaimer	   = Dit document is een examendocument dat niet werd gecorrigeerd voor eventueel vastgestelde fouten. Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopiëren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen tot of informatie i.v.m. het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, wendt u tot de universiteit waaraan de auteur is ingeschreven.
+arrphd			= De auteur staat toe dat delen van dit werk geraadpleegd en gekopieerd worden voor persoonlijk gebruik. Verdere reproductie of transmissie zonder voorafgaande toestemming van de auteur in eender welke vorm of op eender welke manier is strikt verboden.
+
+integrityclause	= De doctoraatsonderzoeker en promotor(en) verklaren dat het doctoraatsonderzoek werd uitgevoerd volgens de principes van de wetenschappelijke integriteit, zoals vermeld in het algemeen doctoraatsreglement en algemeen charter van de doctorandus van de UGent en het integriteitscharter voor doctorandi en promotoren verbonden aan de Universiteit Gent.
+
+embargofull		= De auteur van dit proefschrift verklaart dat dit document confidentieel is. De inhoud van dit doctoraatsproefschrift is confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+
+embargotemp		= De auteur van dit proefschrift verklaart dat dit document confidentieel is van __START__ tot en met __END__ (embargoperiode), en vrij beschikbaar wordt na deze embargoperiode. Tijdens de embargoperiode is de inhoud van dit doctoraatsproefschrift confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+
+bamadisclaimer	=  Dit document is een examendocument dat niet werd gecorrigeerd voor eventueel vastgestelde fouten. Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopiëren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen tot of informatie i.v.m. het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, wendt u tot de universiteit waaraan de auteur is ingeschreven.
 __NEWLINE__
 Voorafgaande schriftelijke toestemming van de promotor(en) is eveneens vereist voor het aanwenden van de in dit afstudeerwerk beschreven (originele) methoden, producten, schakelingen en programma's voor industrieel of commercieel nut en voor de inzending van deze publicatie ter deelname aan wetenschappelijke prijzen of wedstrijden. 
 __NEWLINE__
@@ -3053,98 +3080,6 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %</nldict>
 %    \end{macrocode}
 %
-% \subsection{Bachelor and Master document types}
-%    \begin{macrocode}
-%<*doctypedict>
-nl-ba = Bachelorproef
-nl-ma = Masterproef
-nl-pr = Projectverslag
-en-ba = Bachelor's thesis
-en-ma = Master's thesis
-en-pr = Project report
-%</doctypedict> 
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-%<*bmt|crs|phd|ex>
-\ExplSyntaxOn
-\cs_generate_variant:Nn \prop_item:Nn{Nx}
-\NewDocumentCommand{\ugentdocsdoctype}{m}{
-	\prop_item:Nx \g_@@_dict_keyvals_prop { #1 }
-}
-\ExplSyntaxOff
-%</bmt|crs|phd|ex> 
-%    \end{macrocode}
-%
-%
-%
-% \subsection{Educational degrees}
-%
-% \changes{v4.02}{2021/10/04}{Added bachelor/master degrees of FTI and
-% FWET}
-% \changes{v4.05}{2023/04/10}{Added bachelor degrees (dutch!) in english
-% mode for FTI}
-%
-%    \begin{macrocode}
-%<*degreedict>
-ti-nl-ba-bk	=	Bachelor of Science in de industriële wetenschappen: bouwkunde
-ti-nl-ba-ch	=	Bachelor of Science in de industriële wetenschappen: chemie
-ti-nl-ba-em	=	Bachelor of Science in de industriële wetenschappen: elektromechanica
-ti-nl-ba-ei	=	Bachelor of Science in de industriële wetenschappen: elektronica-ICT
-ti-en-ba-bk	=	Bachelor of Science in de industriële wetenschappen: bouwkunde
-ti-en-ba-ch	=	Bachelor of Science in de industriële wetenschappen: chemie
-ti-en-ba-em	=	Bachelor of Science in de industriële wetenschappen: elektromechanica
-ti-en-ba-ei	=	Bachelor of Science in de industriële wetenschappen: elektronica-ICT
-ti-nl-ma-bk	=	Master of Science in de industriële wetenschappen: bouwkunde
-ti-nl-ma-bch	=	Master of Science in de industriële wetenschappen: biochemie
-ti-nl-ma-ch	=	Master of Science in de industriële wetenschappen: chemie
-ti-nl-ma-em	=	Master of Science in de industriële wetenschappen: elektromechanica
-ti-nl-ma-ei	=	Master of Science in de industriële wetenschappen: elektronica-ICT
-ti-en-ma-ei	=	Master of Science in Electronics and ICT Engineering Technology
-ti-nl-eduma-wtstem	=	Educatieve master of Science in de wetenschappen en technologie: STEM
-we-nl-eduma-wtstem	=	Educatieve master of Science in de wetenschappen en technologie: STEM
-we-nl-eduma-wtbchbt	=	Educatieve master of Science in de wetenschappen en technologie: biochemie en biotechnologie
-we-nl-eduma-wtbio	=	Educatieve master of Science in de wetenschappen en technologie: biologie
-we-nl-eduma-wtch	=	Educatieve master of Science in de wetenschappen en technologie: chemie
-we-nl-eduma-wtfy	=	Educatieve master of Science in de wetenschappen en technologie: fysica
-we-nl-eduma-wtinf	=	Educatieve master of Science in de wetenschappen en technologie: informatica
-we-nl-eduma-wtwi	=	Educatieve master of Science in de wetenschappen en technologie: wiskunde
-we-nl-ba-bircg	=	Bachelor of Science in de bio-ingenieurswetenschappen: cel- en genbiotechnologie
-we-nl-ba-birvt	=	Bachelor of Science in de bio-ingenieurswetenschappen: chemie en voedingstechnologie
-we-nl-ba-birlb	=	Bachelor of Science in de bio-ingenieurswetenschappen: land- en bosbeheer
-we-nl-ba-birmt	=	Bachelor of Science in de bio-ingenieurswetenschappen: milieutechnologie
-we-nl-ba-bio	=	Bachelor of Science in de biologie
-we-nl-ma-bioeg	=	Master of Science in de biologie: evolutie en gedragsbiologie
-we-en-ma-biocr	=	Master of Science in biology: biodiversity, conservation and restoration
-we-en-ma-biogcb	=	Master of Science in biology: global change biology
-we-en-ma-biomb	=	Master of Science in molecular biology
-we-nl-ba-ch	=	Bachelor of Science in de chemie
-we-en-ma-ch	=	Master of Science in chemistry
-we-nl-ba-inf	=	Bachelor of Science in de informatica
-we-en-ma-infcn	=	Master of Science in computer science: computer networks
-we-en-ma-infdsai	=	Master of Science in computer science: data science and artificial intelligence
-we-en-ma-infse	=	Master of Science in computer science: software engineering
-we-nl-ma-infcn	=	Master of Science in de informatica: computernetwerken
-we-nl-ma-infdsai	=	Master of Science in de informatica: data science en artificiële intelligentie
-we-nl-ma-infse	=	Master of Science in de informatica: software engineering
-we-nl-ba-fy	=	Bachelor of Science in de fysica
-we-nl-ma-fy	=	Master of Science in de fysica
-we-en-ma-fy	=	Master of Science in physics
-we-nl-ba-wi	=	Bachelor of Science in wiskunde
-we-nl-ma-wifw	=	Master of Science in wiskunde: fundamentele wiskunde
-we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskunde
-%</degreedict> 
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-%<*bmt|crs|phd|ex>
-\ExplSyntaxOn
-\NewDocumentCommand{\ugentdocsdegree}{m}{
-  \prop_item:Nx \g_@@_dict_keyvals_prop { #1 }
-}
-\ExplSyntaxOff
-%</bmt|crs|phd|ex> 
-%    \end{macrocode}
 %
 % \subsection{Tags}
 %
@@ -3293,7 +3228,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 % \end{imacro}
 %
 % \begin{imacro}{\lecturer}
-%   This macro adds lecturers (Dutch: titularissen) to the course
+%   This macro adds lecturers (Dutch: lesgevers) to the course
 %   notes.
 %   Use the macro multiple times for multiple lecturers. The order
 %   will be preserved.
@@ -3312,10 +3247,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 }
 \NewDocumentCommand{\lecturersname}{}{
   \int_compare:nNnTF {\seq_count:N \g_@@_lecturers} > {1}{
-    \translatekey{lecturersname}
+    \translatekey{lecturers}
   }{
   	\int_compare:nNnTF {\seq_count:N \g_@@_lecturers} > {0}{
-    \translatekey{lecturername}
+    \translatekey{lecturer}
   	}{
   	}
   }
@@ -3382,10 +3317,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 }
 \NewDocumentCommand{\supervisorsname}{m}{
   \int_compare:nNnTF { \seq_count:N \g_@@_supervisors } > {2} {
-  	\translatekey{supervisorsname} #1
+  	\translatekey{supervisors} #1
   }{
     \int_compare:nNnTF { \seq_count:N \g_@@_supervisors } = {2} {
-  		\translatekey{supervisorname} #1
+  		\translatekey{supervisor} #1
   	}{
   	}
   }
@@ -3409,10 +3344,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 }
 \NewDocumentCommand{\cosupervisorsname}{m}{
   \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors} > {2} {
-  	\translatekey{cosupervisorsname} #1
+  	\translatekey{cosupervisors} #1
   }{
     \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors} = {2} {
-  	  \translatekey{cosupervisorname} #1
+  	  \translatekey{cosupervisor} #1
   	}{
   	}
   }
@@ -3434,10 +3369,10 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 }
 \NewDocumentCommand{\extsupervisorsname}{m}{
   \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors} > {2}{
-  	\translatekey{extsupervisorsname} #1
+  	\translatekey{extsupervisors} #1
   }{
     \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors} = {2}{
-  	  \translatekey{extsupervisorname} #1
+  	  \translatekey{extsupervisor} #1
   	}{
     }
   }
@@ -3556,44 +3491,24 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %    \end{macrocode}
 % \end{imacro}
 %
-% \begin{imacro}{\bamadoctype}
-%   This macro sets the |\@bamadoctype| tag that later will
+% \begin{imacro}{\doctype}
+%   This macro sets the |\@doctype| tag that later will
 %   be used on the title pages.
 %
 %    \begin{macrocode}
 %<*bmt|phd|crs|ex>
-\newcommand*\@bamadoctype{
+\newcommand*\@doctype{
   \PackageError{ugentdocs}
-  {Please, specify the offical document type, either using
-    the '\protect\bamadoctype{}'  macro or the '\protect\bamadegree{}'
-    macro in the preamble of your document.}
+  {Please, specify the offical document type using
+    the '\protect\doctype{}'  macro in the preamble of your document.}
   {See the ugentdocs manual}}
-\newcommand*\bamadoctype[1]{
-  \renewcommand*\@bamadoctype{\ugentdocsdoctype{#1}}
+\newcommand*\doctype[1]{
+  \renewcommand*\@doctype{\translatekey{#1}}
 }
-%</bmt|phd|crs|ex>
-%    \end{macrocode}
-% \end{imacro}
-%
-% \begin{imacro}{\bamadegree}
-%   This macro sets the |\@bamadoctype| and |\@degree| tags that later will
-%   be used on the title pages.
-%
-%    \begin{macrocode}
-%<*bmt|phd|crs|ex>
-\ExplSyntaxOn
-\seq_new:N \g__ugentdocs_degreechunks
-\NewDocumentCommand{\bamadegree}{m}{
-  \regex_extract_all:nnN { [^-]+ } { #1 } \g_@@_degreechunks
-  \bamadoctype{\seq_item:Nn \g_@@_degreechunks {2} - \seq_item:Nn \g_@@_degreechunks {3}}
-  \degree{\ugentdocsdegree{#1}}
-}
-\ExplSyntaxOff
 %</bmt|phd|crs|ex>
 %    \end{macrocode}
 % \end{imacro}
 % 
-%
 % \begin{imacro}{\course}
 %   Four the |coursetext| class, this macro sets one or more
 %   courses. 
@@ -3746,7 +3661,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 \newcommand{\copyrightnotices}[1]{\renewcommand{\@copyrightnotices}{#1}}
 %</crs|rp>
 %<*bmt>
-\newcommand{\@copyrightnotices}{Disclaimer \@bamadoctype \newline\newline \translatekey{bamadisclaimer}}
+\newcommand{\@copyrightnotices}{Disclaimer \@doctype \newline\newline \translatekey{bamadisclaimer}}
 %</bmt> 
 %    \end{macrocode}
 % \end{imacro}
@@ -4123,9 +4038,9 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 }
 \NewDocumentCommand{\roomsname}{}{
   \int_compare:nNnTF {\seq_count:N \g_@@_rooms} > {1}{
-    \translatekey{roomsname}
+    \translatekey{rooms}
   }{
-  	\translatekey{roomname}
+  	\translatekey{room}
   }
 }
 \AtBeginDocument{
@@ -4259,14 +4174,14 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \chead[]{}
   \rhead[\footnotesize\slshape\leftmark]{}
   %\lfoot[\footnotesize\thepage~\textcolor{maincolor}{\textbf{|}}]{\usebox\smallogo}
-  \cfoot[\footnotesize\@bamadoctype]{\footnotesize\@bamadoctype}
+  \cfoot[\footnotesize\@doctype]{\footnotesize\@doctype}
   %\rfoot[\usebox\smallogo]{\footnotesize\textcolor{maincolor}{\textbf{|}}~\thepage}
   \else
   \lhead[]{\footnotesize\slshape\leftmark}
   \chead[]{}
   \rhead[]{}
   %\lfoot[]{\usebox\smallogo}
-  \cfoot[]{\footnotesize\@bamadoctype}
+  \cfoot[]{\footnotesize\@doctype}
   \rfoot[]{\footnotesize\textcolor{maincolor}{\textbf{|}}~\thepage}
   \fi
   \fancypagestyle{plain}{\pagestyle{fancy}}
@@ -4563,7 +4478,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
           [anchor=north west,text width=14.75cm,align=left]
           at (5,27.1)
           {
-            \fontsize{16}{20}\selectfont\textsf{\textbf{\translatekey{acyearname}}}\\[1ex]
+            \fontsize{16}{20}\selectfont\textsf{\textbf{\translatekey{acyear}}}\\[1ex]
             \fontsize{16}{20}\selectfont\textsf{\@academicyear}
           };
 
@@ -4703,7 +4618,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
           [anchor=north east,align=right]
           at (\paperwidth-1.6cm,\paperheight-2.6cm)
           {\bfseries\large
-            \translatekey{acyearname}\\[.75ex]\Large\@academicyear};
+            \translatekey{acyear}\\[.75ex]\Large\@academicyear};
           \node (title)
           [anchor=north west,align=left,
           text width={\paperwidth-5.1cm},font=\Huge,text=white,
@@ -4723,7 +4638,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
           [anchor=west,align=left,
           text width={\paperwidth-5.1cm},font=\normalsize]
           at (3.5cm,12cm)
-          {\textsf{\@bamadoctype}\\%
+          {\textsf{\@doctype}\\%
             \textsf{\textbf{\@degree}}
           };
 
@@ -4870,7 +4785,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 
           \node[white,anchor=west,text width=14.5cm,align=left,font=\small]
           at (2.55,3.7)
-          {\textsf{\translatekey{pthesisnamei}
+          {\textsf{\translatekey{phdprefix}
               \@degree{}}\\
           \textsf{\textbf{\@faculty{}  \ifx\@department\empty\else |
               \@department{} \fi | \@defenselocation, \@defensedate}}};
@@ -4906,9 +4821,9 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
     \Huge\@title\par
     \large\@subtitle\par
     \vfill
-    \normalsize\translatekey{pthesisnamei}\\
+    \normalsize\translatekey{phdprefix}\\
     \@degree\\
-    \translatekey{pthesisnameii}\\
+    \translatekey{phdsuffix}\\
     \medskip
     \textbf{\@author}
     \vfill
@@ -4931,14 +4846,14 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
     \end{minipage}
   \end{center}
   \clearpage
-  \noindent\textbf{\translatekey{juryname}}\hfill\\[1ex]
-  \textit{\translatekey{jurychairname}}\hfill\break
+  \noindent\textbf{\translatekey{jury}}\hfill\\[1ex]
+  \textit{\translatekey{jurychair}}\hfill\break
   \@jurychair{}\ifdefvoid{\@jurychairaff}{}{, \@jurychairaff}\\
   \hfill\break
   \textit{\supervisorsname{}}\hfill\break
   \jointsupervisorswithaffiliation{\\}{\\}
   \hfill\break
-  \textit{\translatekey{jurymembersname}}\hfill\break
+  \textit{\translatekey{jurymembers}}\hfill\break
   \jointjurymembers{\\}
   \hfill\break
   \vfill
@@ -5334,9 +5249,9 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \begin{tikzpicture}[anchor=north west,align=left,outer sep=0,inner sep=0]
     \path
     (0,0) node { \scriptsize \strut
-      \textcolor{gray}{\translatekey[uppercase]{datename}} }
+      \textcolor{gray}{\translatekey[uppercase]{date}} }
     (4cm,0) node { \scriptsize \strut
-      \textcolor{gray}{\translatekey[uppercase]{subjectname}} }
+      \textcolor{gray}{\translatekey[uppercase]{subject}} }
     (0,-2.5ex) node { \strut \@date }
     (4cm,-2.5ex) node[align=left] { \strut \@subject };
   \end{tikzpicture}~\\[4ex]
@@ -5409,13 +5324,13 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
         at (2.125,{\paperheight-5cm}) 
         {%
           \fontsize{12}{18}\selectfont%
-          \textsf{\translatekey{seriesname} \@examgroupnumber{} \hfill \@examdate{}}
+          \textsf{\translatekey{series} \@examgroupnumber{} \hfill \@examdate{}}
         };
 
         \node[anchor=south west,align=left,inner sep=0pt] at (3,21)
         {%
           \fontsize{14}{19}\selectfont%
-          \textsf{\translatekey{examname}}
+          \textsf{\translatekey{exam}}
         };
         
         \node[anchor=south west,align=left,inner sep=0pt] at (3,19)
@@ -5440,7 +5355,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
         \node[anchor=south west,align=left,inner sep=0pt] at (16,17)
         {%
           \fontsize{12}{18}\selectfont%
-          \textsf{\translatekey{docketname}}
+          \textsf{\translatekey{docket}}
         };
         \foreach \nn in {0,1,...,7} {
           \draw[fill=white] (16,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
@@ -5450,15 +5365,15 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
         at (3,14)
         {%
           \fontsize{12}{21}\selectfont%
-          \textsf{\translatekey{examdurationname}: \@examlength}
+          \textsf{\translatekey{examduration}: \@examlength}
         };
         \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
         at (3,11)
         {%
           \fontsize{12}{15}\selectfont%
           \textsf{\begin{tabular}{@{}l@{}ll}%
-            \translatekey{examstartname}& : & \@tstart\\
-            \translatekey{examendname}  & : & \@tend
+            \translatekey{examstart}& : & \@tstart\\
+            \translatekey{examend}  & : & \@tend
           \end{tabular}}
         };
         
@@ -5544,7 +5459,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \hspace{\fill}
   \begin{tabular}{|c|}
     \hline 
-    \small \translatekey{weightname}: #1\\
+    \small \translatekey{weight}: #1\\
     \hline
   \end{tabular}\\
 }
