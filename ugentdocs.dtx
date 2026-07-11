@@ -922,7 +922,7 @@
 % summary of a bamathesis}
 % \begin{verbatim}
 %<*bmt-example> 
-\documentclass[ti,a4paper,11pt,twoside,openright]{ugentthesis}
+\documentclass[bw,a4paper,11pt,twoside,openright]{ugentthesis}
 
 %% ti           specifies the department, change to the letter combination of
 %%              your department - currently only ti (for FTI) and we
@@ -953,15 +953,15 @@
 \iftutex
 %% Just an example of font-scheme: this is in no way a recommended font
 %% scheme!
-\usepackage{fontspec}
-\setmainfont
-[UprightFont = *,
- BoldFont = *b,
- ItalicFont = *i,
- BoldItalicFont = *z,
-]
-{calibri}
-\usepackage{sansmathaccent}
+%%\usepackage{fontspec}
+%%\setmainfont
+%%[UprightFont = *,
+%% BoldFont = *b,
+%% ItalicFont = *i,
+%% BoldItalicFont = *z,
+%%]
+%%{calibri}
+%%\usepackage{sansmathaccent}
 \fi
 
 %% Use this package if you need to provide a twocolumn summary at the
@@ -2911,12 +2911,7 @@ org-ti   = Applied Engineering
 org-we   = Science
 org-iob  = Development Policy
 org-ugent   = Ghent University
-arr                = All rights reserved
-crdisclaimer       = Copyright disclaimer
-arrphd             = The author allows to consult and copy parts of this work for personal use. Further reproduction or transmission in any form or by any means, without the prior permission of the author is strictly forbidden.
-integrityclause    = The PhD researcher and supervisor(s) declare that the PhD research was conducted according to the principles of scientific integrity, as mentioned in the general PhD regulations and charter for PhD researchers of UAntwerp and the integrity charter for PhD researchers and supervisors affiliated with the University of Antwerp.
-embargofull        = The author of this thesis declares that this document is marked confidential. The content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
-embargotemp        = The author of this thesis declares that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+
 confidential       = confidential
 of                 = of
 degreein		   = in
@@ -2954,10 +2949,28 @@ examdurationname   = Exam duration --- Duur van het examen
 juryname           = Jury
 jurymembersname    = Members
 jurychairname      = Chair
+weightname         = Weight
+
 bmthesisname  = Thesis to obtain the degree of
 pthesisnamei  = Thesis submitted for the degree of
 pthesisnameii = at the University of Antwerp to be defended by
-weightname         = Weight
+
+arr                = All rights reserved
+crdisclaimer       = Copyright disclaimer
+
+arrphd             = The author allows to consult and copy parts of this work for personal use. Further reproduction or transmission in any form or by any means, without the prior permission of the author is strictly forbidden.
+
+integrityclause    = The PhD researcher and supervisor(s) declare that the PhD research was conducted according to the principles of scientific integrity, as mentioned in the general PhD regulations and charter for PhD researchers of UAntwerp and the integrity charter for PhD researchers and supervisors affiliated with the University of Antwerp.
+
+embargofull        = The author of this thesis declares that this document is marked confidential. The content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+
+embargotemp        = The author of this thesis declares that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+
+bamadisclaimner	   =  This document is an examination document that has not been corrected for any errors identified. Without prior written permission of both the supervisor(s) and the author(s), any copying, using or realizing this publication or parts thereof is prohibited. For requests for information regarding the copying and/or use and/or realisation of parts of this publication, please contact to the university at which the author is registered.
+__NEWLINE__
+Prior written permission from the supervisor(s) is also required for the use for industrial or commercial utility of the (original) methods, products, circuits and programs described in this thesis,  and for the submission of this publication for participation in scientific prizes or competitions.
+__NEWLINE__
+This document is in accordance with the faculty regulations related to this examination document and the Code of Conduct. The text has been reviewed by the supervisor and the attendant.
 %</endict>
 %    \end{macrocode}
 %
@@ -2977,12 +2990,7 @@ org-ti   = Toegepaste Ingenieurswetenschappen
 org-we   = Wetenschappen
 org-iob  = Instituut voor Ontwikkelingsbeleid- en beheer
 org-ugent   = Universiteit Gent
-arr                = Alle rechten voorbehouden
-crdisclaimer       = Copyright disclaimer
-arrphd             = De auteur staat toe dat delen van dit werk geraadpleegd en gekopieerd worden voor persoonlijk gebruik. Verdere reproductie of transmissie zonder voorafgaande toestemming van de auteur in eender welke vorm of op eender welke manier is strikt verboden.
-integrityclause    = De doctoraatsonderzoeker en promotor(en) verklaren dat het doctoraatsonderzoek werd uitgevoerd volgens de principes van de wetenschappelijke integriteit, zoals vermeld in het algemeen doctoraatsreglement en algemeen charter van de doctorandus van UAntwerpen en het integriteitscharter voor doctorandi en promotoren verbonden aan de Universiteit Antwerpen.
-embargofull        = De auteur van dit proefschrift verklaart dat dit document confidentieel is. De inhoud van dit doctoraatsproefschrift is confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
-embargotemp        = De auteur van dit proefschrift verklaart dat dit document confidentieel is van __START__ tot en met __END__ (embargoperiode), en vrij beschikbaar wordt na deze embargoperiode. Tijdens de embargoperiode is de inhoud van dit doctoraatsproefschrift confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+
 confidential       = confidentieel
 of                 = van
 degreein		   = in de
@@ -3020,10 +3028,28 @@ examdurationname   = Duur van het examen
 juryname           = Jury
 jurymembersname    = Leden
 jurychairname      = Voorzitter
+weightname         = Gewicht
+
 bmthesisname  = Proefschrift tot het behalen van de graad van
 pthesisnamei  = Proefschrift voorgelegd tot het behalen van de graad van
 pthesisnameii = aan de Universiteit Antwerpen te verdedigen door
-weightname         = Gewicht
+
+arr                = Alle rechten voorbehouden
+crdisclaimer       = Copyright disclaimer
+
+arrphd             = De auteur staat toe dat delen van dit werk geraadpleegd en gekopieerd worden voor persoonlijk gebruik. Verdere reproductie of transmissie zonder voorafgaande toestemming van de auteur in eender welke vorm of op eender welke manier is strikt verboden.
+
+integrityclause    = De doctoraatsonderzoeker en promotor(en) verklaren dat het doctoraatsonderzoek werd uitgevoerd volgens de principes van de wetenschappelijke integriteit, zoals vermeld in het algemeen doctoraatsreglement en algemeen charter van de doctorandus van UAntwerpen en het integriteitscharter voor doctorandi en promotoren verbonden aan de Universiteit Antwerpen.
+
+embargofull        = De auteur van dit proefschrift verklaart dat dit document confidentieel is. De inhoud van dit doctoraatsproefschrift is confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+
+embargotemp        = De auteur van dit proefschrift verklaart dat dit document confidentieel is van __START__ tot en met __END__ (embargoperiode), en vrij beschikbaar wordt na deze embargoperiode. Tijdens de embargoperiode is de inhoud van dit doctoraatsproefschrift confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+
+bamadisclaimer	   = Dit document is een examendocument dat niet werd gecorrigeerd voor eventueel vastgestelde fouten. Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopiëren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen tot of informatie i.v.m. het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, wendt u tot de universiteit waaraan de auteur is ingeschreven.
+__NEWLINE__
+Voorafgaande schriftelijke toestemming van de promotor(en) is eveneens vereist voor het aanwenden van de in dit afstudeerwerk beschreven (originele) methoden, producten, schakelingen en programma's voor industrieel of commercieel nut en voor de inzending van deze publicatie ter deelname aan wetenschappelijke prijzen of wedstrijden. 
+__NEWLINE__
+Dit document is in overeenstemming met het facultair reglement gerelateerd aan dit examendocument en de gedragscode. De tekst werd nagekeken door de promotor en de begeleider.
 %</nldict>
 %    \end{macrocode}
 %
@@ -3050,60 +3076,6 @@ en-pr = Project report
 %</bmt|crs|phd|ex> 
 %    \end{macrocode}
 %
-% \subsection{Bachelor and Master disclaimers}
-% \changes{v4.02}{2021/10/04}{Added bachelor/master disclaimers}
-%    \begin{macrocode}
-%<*bmt>
-\newcommand\disclaimer[1]{
-  Disclaimer #1\newline\newline
-  This document is an examination document that has not been
-  corrected for any errors identified. Without prior written
-  permission of both the supervisor(s) and the author(s), any copying,
-  copying, using or realizing this publication or parts thereof
-  is prohibited. For requests for information regarding the copying
-  and/or use and/or realisation of parts of this publication, please
-  contact to the university at which the author is registered.
-  \newline\newline
-  Prior written permission from the supervisor(s) is also
-  required for the use for industrial or commercial utility of the
-  (original) methods, products, circuits and programs described in this
-  thesis,  and for the submission of this publication for participation
-  in scientific prizes or competitions.
-  \newline\newline
-  This document is in accordance with the faculty regulations related to this
-  examination document and the Code of Conduct. The text has been reviewed
-  by the supervisor and the attendant.
-}
-\AtBeginDocument{
-  \makeatother
-  \@ifpackageloaded{babel}{
-    \addto\captionsdutch{%
-      \renewcommand\disclaimer[1]{
-        Disclaimer #1\newline\newline
-        Dit document is een examendocument dat niet werd gecorrigeerd voor
-        eventueel vastgestelde fouten. Zonder voorafgaande schriftelijke
-        toestemming van zowel de promotor(en) als de auteur(s) is overnemen,
-        kopiëren, gebruiken of realiseren van deze uitgave of gedeelten ervan
-        verboden. Voor aanvragen tot of informatie i.v.m. het overnemen en/of
-        gebruik en/of realisatie van gedeelten uit deze publicatie, wendt u
-        tot de universiteit waaraan de auteur is ingeschreven.
-        \newline\newline
-        Voorafgaande schriftelijke toestemming van de promotor(en) is eveneens
-        vereist voor het aanwenden van de in dit afstudeerwerk beschreven
-        (originele) methoden, producten, schakelingen en programma's voor
-        industrieel of commercieel nut en voor de inzending van deze
-        publicatie ter deelname aan wetenschappelijke prijzen of wedstrijden.
-        \newline\newline
-        Dit document is in overeenstemming met het facultair reglement
-        gerelateerd aan dit examendocument en de gedragscode. De tekst werd
-        nagekeken door de promotor en de begeleider.
-      }
-    }
-  }{}
-  \makeatletter
-}
-%</bmt>
-%    \end{macrocode}
 %
 %
 % \subsection{Educational degrees}
@@ -3774,7 +3746,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 \newcommand{\copyrightnotices}[1]{\renewcommand{\@copyrightnotices}{#1}}
 %</crs|rp>
 %<*bmt>
-\newcommand{\@copyrightnotices}{\disclaimer{\@bamadoctype}}
+\newcommand{\@copyrightnotices}{Disclaimer \@bamadoctype \newline\newline \translatekey{bamadisclaimer}}
 %</bmt> 
 %    \end{macrocode}
 % \end{imacro}
@@ -4276,24 +4248,24 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
   \setlength{\headheight}{13.7pt}
   \renewcommand*{\headrulewidth}{0pt}
   \renewcommand*{\footrulewidth}{0pt}
-  \newsavebox\smallogo
-  \savebox\smallogo{\raisebox{-1ex}{
-  		\begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
-  		\@ugentlogo{2.5cm}{ugent@main}{0.0}
-  		\end{tikzpicture}%
-  	}
+  %\newsavebox\smallogo
+  %\savebox\smallogo{\raisebox{-1ex}{ % TODO this doesn't work
+  %		\begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+  %		\@ugentlogo{2.5cm}{ugent@main}{0.0}
+  %		\end{tikzpicture}%
+  %	}
   \if@twoside
   \lhead[]{\footnotesize\slshape\rightmark}
   \chead[]{}
   \rhead[\footnotesize\slshape\leftmark]{}
-  \lfoot[\footnotesize\thepage~\textcolor{maincolor}{\textbf{|}}]{\usebox\smallogo}
+  %\lfoot[\footnotesize\thepage~\textcolor{maincolor}{\textbf{|}}]{\usebox\smallogo}
   \cfoot[\footnotesize\@bamadoctype]{\footnotesize\@bamadoctype}
-  \rfoot[\usebox\smallogo]{\footnotesize\textcolor{maincolor}{\textbf{|}}~\thepage}
+  %\rfoot[\usebox\smallogo]{\footnotesize\textcolor{maincolor}{\textbf{|}}~\thepage}
   \else
   \lhead[]{\footnotesize\slshape\leftmark}
   \chead[]{}
   \rhead[]{}
-  \lfoot[]{\usebox\smallogo}
+  %\lfoot[]{\usebox\smallogo}
   \cfoot[]{\footnotesize\@bamadoctype}
   \rfoot[]{\footnotesize\textcolor{maincolor}{\textbf{|}}~\thepage}
   \fi
