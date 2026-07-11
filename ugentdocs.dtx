@@ -2752,8 +2752,9 @@ een b\'echamel saus:
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp|le|ex>
 \ExplSyntaxOn
-\prop_new:N \g_@@_dict_keys
-\seq_new:N \g_@@_loaded_dicts
+\prop_new:N \g_@@_dict_keyvals_prop
+\seq_new:N  \g_@@_loaded_dicts_seq
+\seq_new:N  \l_@@_value_paragraphs_seq
 %</crs|bmt|phd|rp|le|ex>%
 %    \end{macrocode}
 %
@@ -2761,15 +2762,16 @@ een b\'echamel saus:
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp|le|ex>
 \cs_new:Npn \_@@_translate:nn #1#2 {
-	\tl_set:Nx \l_@@_key_cased { \prop_item:Nn \g_@@_dict_keys {#2} }
+	\tl_set:Nx \l_@@_value_cased_tl { \prop_item:Nn \g_@@_dict_keyvals_prop {#2} }
 	\tl_if_empty:nF {#1} {
 		\str_case:nnF {#1}{
-			{uppercase}{\tl_set:Nx \l_@@_key_cased{\str_uppercase:f{\l_@@_key_cased}}}
-			{lowercase}{\tl_set:Nx \l_@@_key_cased{\str_lowercase:f{\l_@@_key_cased}}}
+			{uppercase}{\tl_set:Nx \l_@@_value_cased_tl{\str_uppercase:f{\l_@@_value_cased_tl}}}
+			{lowercase}{\tl_set:Nx \l_@@_value_cased_tl{\str_lowercase:f{\l_@@_value_cased_tl}}}
 		}{
 		}
 	}
-	\tl_use:N \l_@@_key_cased
+	\regex_split:nVN { __NEWLINE__ } \l_@@_value_cased_tl \l_@@_value_paragraphs_seq
+	\seq_use:Nn \l_@@_value_paragraphs_seq { \newline\newline }
 }
 \cs_generate_variant:Nn \_@@_translate:nn { xn, xx }
 
@@ -2801,20 +2803,31 @@ een b\'echamel saus:
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp|le|ex>
 \NewDocumentCommand{\useugentdocsdictionary}{m}{
-  \seq_if_in:NnTF \g_@@_loaded_dicts {#1}{
+  \seq_if_in:NnTF \g_@@_loaded_dicts_seq {#1}{
   }{
   	\@@_dictreader:n {#1}
-  	\seq_gput_right:Nn \g_@@_loaded_dicts {#1}
+  	\seq_gput_right:Nn \g_@@_loaded_dicts_seq {#1}
   }
 }	
 
+\tl_new:N \l_@@_key_tl
+\tl_new:N \l_@@_value_tl
+\bool_new:N \l_@@_keyval_flushpending_bool
+
+\cs_new_nopar:Nn \@@_flush_value: {
+	\bool_if:NT \l_@@_keyval_flushpending_bool {
+		\tl_trim_spaces:N \l_@@_value_tl
+		\prop_gput:Nxx \g_@@_dict_keyvals_prop { \l_@@_key_tl } { \l_@@_value_tl }
+		\bool_set_false:N \l_@@_keyval_flushpending_bool
+	}
+}
+
 \cs_generate_variant:Nn \prop_gput:Nnn{Nxx}
-\cs_new_nopar:Npn \@@_dictparser:w #1 = #2!! {
-  \tl_set:Nn \l_tmpa_tl{#1}
-  \tl_set:Nn \l_tmpb_tl{#2}
-  \tl_trim_spaces:N \l_tmpa_tl
-  \tl_trim_spaces:N \l_tmpb_tl
-  \prop_gput:Nxx \g_@@_dict_keys{\l_tmpa_tl}{\l_tmpb_tl}
+\cs_new_nopar:Npn \@@_dictparser:w #1 = #2 \q_stop {
+  \tl_set:Nn \l_@@_key_tl{#1}
+  \tl_set:Nn \l_@@_value_tl{#2}
+  \tl_trim_spaces:N \l_@@_key_tl
+  \tl_trim_spaces:N \l_@@_value_tl
 }
 %</crs|bmt|phd|rp|le|ex>
 %    \end{macrocode}
@@ -2823,14 +2836,23 @@ een b\'echamel saus:
 %<*crs|bmt|phd|rp|le|ex>
 \ior_new:N \l_@@_dict_ior
 \cs_new_nopar:Nn \@@_dictreader:n {
-  \ior_open:Nn \l_@@_dict_ior { ugentdocs-#1.dict}
-  \ior_str_map_inline:Nn \l_@@_dict_ior {
-    \regex_match:nnTF {=} {##1} {
-      \@@_dictparser:w ##1!!
-    }
-    {}
-  }
-  \ior_close:N \l_@@_dict_ior
+	\bool_set_false:N \l_@@_keyval_flushpending_bool
+	\ior_open:Nn \l_@@_dict_ior { ugentdocs-#1.dict }
+	\ior_str_map_inline:Nn \l_@@_dict_ior {
+		\tl_if_blank:nTF {##1}{
+	 		\@@_flush_value: 
+		}{
+			\regex_match:nnTF {=} {##1}{
+				\@@_flush_value:
+				\@@_dictparser:w ##1 \q_stop
+				\bool_set_true:N \l_@@_keyval_flushpending_bool
+			}{
+				\tl_put_right:Nx \l_@@_value_tl { ~ ##1 } 
+			}
+		}
+	}
+	\@@_flush_value:
+	\ior_close:N \l_@@_dict_ior
 }
 %</crs|bmt|phd|rp|le|ex>
 %    \end{macrocode}
@@ -2839,9 +2861,9 @@ een b\'echamel saus:
 %<*crs|bmt|phd|rp|le|ex>
 \clist_map_inline:nn {en} {
   \@@_dictreader:n { #1 }
-  \seq_gput_right:Nn \g_@@_loaded_dicts { #1 }
+  \seq_gput_right:Nn \g_@@_loaded_dicts_seq { #1 }
 }
-%\prop_show:N \g_@@_dict_keys
+%\prop_show:N \g_@@_dict_keyvals_prop
 \ExplSyntaxOff
 %</crs|bmt|phd|rp|le|ex>
 %    \end{macrocode}
@@ -3022,7 +3044,7 @@ en-pr = Project report
 \ExplSyntaxOn
 \cs_generate_variant:Nn \prop_item:Nn{Nx}
 \NewDocumentCommand{\ugentdocsdoctype}{m}{
-	\prop_item:Nx \g_@@_dict_keys { #1 }
+	\prop_item:Nx \g_@@_dict_keyvals_prop { #1 }
 }
 \ExplSyntaxOff
 %</bmt|crs|phd|ex> 
@@ -3146,7 +3168,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 %<*bmt|crs|phd|ex>
 \ExplSyntaxOn
 \NewDocumentCommand{\ugentdocsdegree}{m}{
-  \prop_item:Nx \g_@@_dict_keys { #1 }
+  \prop_item:Nx \g_@@_dict_keyvals_prop { #1 }
 }
 \ExplSyntaxOff
 %</bmt|crs|phd|ex> 
@@ -4805,7 +4827,7 @@ we-nl-ma-wiftw	=	Master of Science in wiskunde: financiële en toegepaste wiskun
 \tl_new:N \embargotempwithdates
 \newcommand\prepmaketitle{
   \tl_new:N \l_@@_embargotemp_tl
-  \tl_set:Nx \l_@@_embargotemp_tl {\prop_item:Nn \g_@@_dict_keys{embargotemp}}
+  \tl_set:Nx \l_@@_embargotemp_tl {\prop_item:Nn \g_@@_dict_keyvals_prop{embargotemp}}
   \regex_replace_all:nVN {__START__} \embargotempstart \l_@@_embargotemp_tl
   \regex_replace_all:nVN {__END__} \embargotempend \l_@@_embargotemp_tl
   \regex_replace_all:nnN {\~} {\ } \l_@@_embargotemp_tl
