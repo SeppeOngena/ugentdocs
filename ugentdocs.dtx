@@ -766,7 +766,7 @@
 % \changes{v2.5}{}{changed publisher to universitas in example}
 % \begin{verbatim}
 %<*ct-example> 
-\documentclass[ti,a4paper,11pt,oneside,openright,cameraready,filled]
+\documentclass[bw,a4paper,11pt,oneside,openright,cameraready,filled]
               {ugentcourse}
 
 %% ti           specifies the department, change to the letter combination of
@@ -949,20 +949,16 @@
 %% in the correct order with the other packages you load!
 
 %% as an example - loading some fonts, feel free to change
-\usepackage{mathptmx}
-\iftutex
 %% Just an example of font-scheme: this is in no way a recommended font
 %% scheme!
-%%\usepackage{fontspec}
-%%\setmainfont
-%%[UprightFont = *,
-%% BoldFont = *b,
-%% ItalicFont = *i,
-%% BoldItalicFont = *z,
-%%]
-%%{calibri}
-%%\usepackage{sansmathaccent}
-\fi
+\setmainfont{Arial}[
+BoldFont           = {Arial},
+BoldFeatures       = {FakeBold=2.5},
+ItalicFont         = {Arial},
+ItalicFeatures     = {FakeSlant=0.15},
+BoldItalicFont     = {Arial},
+BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+]
 
 %% Use this package if you need to provide a twocolumn summary at the
 %% start of your document.
@@ -1130,21 +1126,16 @@
 %%
 
 %% You may want to use common fonts
-\usepackage{mathptmx}
-\iftutex
 %% Just an example of font-scheme: this is in no way a recommended font
 %% scheme!
-%%\usepackage{cmbright}
-%%\usepackage{fontspec}
-%%\setmainfont
-%%[UprightFont = *,
-%% BoldFont = *b,
-%% ItalicFont = *i,
-%% BoldItalicFont = *z,
-%%]
-%%{calibri}
-%%\usepackage{sansmathaccent}
-\fi
+\setmainfont{Arial}[
+BoldFont           = {Arial},
+BoldFeatures       = {FakeBold=2.5},
+ItalicFont         = {Arial},
+ItalicFeatures     = {FakeSlant=0.15},
+BoldItalicFont     = {Arial},
+BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+]
 
 %% load the proper language(s) (last language will trigger the language
 %% of the logo a.o.)
@@ -1289,7 +1280,7 @@
 % \paragraph{English}
 % \begin{verbatim}
 %<*phd-example2> 
-\documentclass[ti,10pt,twoside,openright,filled,cameraready]{ugentdissertation}
+\documentclass[ge,10pt,twoside,openright,filled,cameraready]{ugentdissertation}
 
 %% ti            specifies the department, change to the letter combination of
 %%               your department
@@ -1464,21 +1455,16 @@
 %%               document)
 
 %% You may want to use common fonts
-\usepackage{mathptmx}
-\iftutex
 %% Just an example of font-scheme: this is in no way a recommended font
 %% scheme!
-\usepackage{cmbright}
-\usepackage{fontspec}
-\setmainfont
-[UprightFont = *,
- BoldFont = *b,
- ItalicFont = *i,
- BoldItalicFont = *z,
+\setmainfont{Arial}[
+BoldFont           = {Arial},
+BoldFeatures       = {FakeBold=2.5},
+ItalicFont         = {Arial},
+ItalicFeatures     = {FakeSlant=0.15},
+BoldItalicFont     = {Arial},
+BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 ]
-{calibri}
-\usepackage{sansmathaccent}
-\fi
 
 %% load the proper language(s) (last language will trigger the language
 %% of the logo a.o.)
@@ -1581,7 +1567,7 @@
 %
 % \begin{verbatim}
 %<*le-example> 
-\documentclass[ti,a4paper]{ugentletter}
+\documentclass[bw,a4paper]{ugentletter}
 
 %% ti           specifies the department, change to the letter combination of
 %%              your department
@@ -1591,18 +1577,14 @@
 %% As a good UAntwerpen citizen, you would use the calibri font.
 %% As this only works for XeLaTeX or LuaLaTeX, we chose to include
 %% cmbright in any other case.
-\iftutex
-\usepackage{cmbright}
-\usepackage{fontspec}
-\setmainfont
-[UprightFont = *,
- BoldFont = *b,
- ItalicFont = *i,
- BoldItalicFont = *z,
+\setmainfont{Arial}[
+BoldFont           = {Arial},
+BoldFeatures       = {FakeBold=2.5},
+ItalicFont         = {Arial},
+ItalicFeatures     = {FakeSlant=0.15},
+BoldItalicFont     = {Arial},
+BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 ]
-{calibri}
-\usepackage{sansmathaccent}
-\fi
 
 %% load the proper language(s) (last language will trigger the language
 %% of the logo a.o.)
@@ -1752,7 +1734,7 @@ their details enclosed.
 % \paragraph{Single column}
 % \begin{verbatim}
 %<*ex-example1> 
-\documentclass[ti,a4paper,10pt]{ugentexam}
+\documentclass[bw,a4paper,10pt]{ugentexam}
 
 %% ti           specifies the department, change to the letter combination of
 %%              your department
@@ -1873,7 +1855,7 @@ een b\'echamel saus:
 \insertsolutionspage{}
 \clearpage
 
-%% a third questoin
+%% a third question
 \question{[BISTROCULTURE-1]}
 \questionweight{10}
 
@@ -1913,7 +1895,7 @@ een b\'echamel saus:
 %
 % \begin{verbatim}
 %<*ex-example2> 
-\documentclass[ti,a4paper,10pt]{ugentexam}
+\documentclass[bw,a4paper,10pt]{ugentexam}
 
 %% ti           specifies the department, change to the letter combination of
 %%              your department
@@ -2622,13 +2604,61 @@ een b\'echamel saus:
 %    \end{macrocode}
 %
 % \subsubsection{Font packages}
-% UGent Panno Text (and its Medium and SemiLight variants) should always be installed (and the document compiled using Lua\LaTeX) as they are used in the logo's. For the document itself, it is recommended to use UGent Panno Text as well, which is set through |\setmainfont{UGent Panno Text}|. However, Arial is also a valid official alternative and can override UGent Panno Text by adding |\setmainfont{Arial}| to the beginning of your document. UGent uses Arial as default for Word and PowerPoint templates as these are distributed outside Ghent University. This is not applicable for \LaTeX however, as pdf's are always generated. Thus, UGent Panno Text is used everywhere.
+% UGent Panno Text (and its Medium and SemiLight variants) should always be installed (and the document compiled using Lua\LaTeX) as they are used in the logo's. For the document itself, it is recommended to use UGent Panno Text as well, which is set through |\setmainfont{UGent Panno Text}|. However, Arial is also a valid official alternative and can override UGent Panno Text by adding |\setmainfont{Arial}[BoldFont = {Arial}, BoldFeatures = {FakeBold=2.5}, ItalicFont = {Arial}, ItalicFeatures = {FakeSlant=0.15}, BoldItalicFont = {Arial}, BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},]| to the beginning of your document. UGent uses Arial as default for Word and PowerPoint templates as these are distributed outside Ghent University. This is not applicable for \LaTeX however, as pdf's are always generated. Thus, UGent Panno Text is used everywhere.
 %
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le>      
-% \RequirePackage{fontspec}
-% \setmainfont{UGent Panno Text}
-%</crs|bmt|phd|rp|le>
+%<*crs|bmt|phd|rp|le|ex>  
+\iftutex
+  \RequirePackage{fontspec}
+  \IfFontExistsTF{UGent Panno Text Medium}{
+  	\IfFontExistsTF{UGent Panno Text SemiLight}{
+  	  \IfFontExistsTF{UGent Panno Text}{
+  	    \setmainfont{UGent Panno Text}[
+  		  BoldFont           = {UGent Panno Text},
+  	 	  BoldFeatures       = {FakeBold=2.5},
+  		  ItalicFont         = {UGent Panno Text},
+  		  ItalicFeatures     = {FakeSlant=0.15},
+  		  BoldItalicFont     = {UGent Panno Text},
+  		  BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+  		]
+  	  }{
+  		\IfFontExistsTF{Arial}{
+  		  \setmainfont{Arial}[
+  			BoldFont           = {Arial},
+  			BoldFeatures       = {FakeBold=2.5},
+  			ItalicFont         = {Arial},
+  			ItalicFeatures     = {FakeSlant=0.15},
+  			BoldItalicFont     = {Arial},
+  			BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+  		  ]
+  		}{
+  		  \PackageWarning{ugentdocs}{Arial font not installed, using arev.}
+  		  \RequirePackage{arev}
+  		  \renewcommand{\familydefault}{\sfdefault}
+  		}
+  	  }
+    }{
+  	  \PackageError{ugentdocs}
+  	  {UGent Panno Text Medium and SemiLight font variants are required for logo typesetting}
+  	  {See the ugentdocs manual}
+  	}
+  }{
+  	\PackageError{ugentdocs}
+  	{UGent Panno Text Medium and SemiLight font variants are required for logo typesetting}
+  	{See the ugentdocs manual}
+  }
+  \IfFontExistsTF{Fira Math}{
+  	\RequirePackage{unicode-math}
+  	\setmathfont{Fira Math}
+  }{
+  	\RequirePackage{sansmath}
+  	\sansmath
+  }
+\else
+  \PackageError{ugentdocs}{Only LuaTeX or XeTeX is supported for compilation}
+  {See the ugentdocs manual}
+\fi
+%</crs|bmt|phd|rp|le|ex>
 %    \end{macrocode}
 %
 % \subsubsection{Boilerplate packages}
@@ -2653,7 +2683,6 @@ een b\'echamel saus:
 % Some packages for coursetext and bamathesis:
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp|le|ex>  
-\RequirePackage{fontspec}
 \RequirePackage{hyphenat}    
 \RequirePackage{graphicx}
 \RequirePackage{graphbox}
