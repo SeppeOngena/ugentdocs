@@ -25,7 +25,7 @@
 \ProvidesFile{ugentdocs.dtx}
 %</driver>
 %<@@=ugentdocs>
-%<crs|bmt|phd|rp|le|ex|bmr>\NeedsTeXFormat{LaTeX2e}
+%<crs|bmt|phd|rp|le|ex|bmr|bkc>\NeedsTeXFormat{LaTeX2e}
 %<clo>\ProvidesFile{ugentcommon.clo}
 %<col>\ProvidesPackage{ugentcolor}
 %<crs>\ProvidesClass{ugentcourse}
@@ -35,7 +35,8 @@
 %<le>\ProvidesClass{ugentletter}
 %<ex>\ProvidesClass{ugentexam}
 %<bmr>\ProvidesPackage{beamerthemeugent}
-%<col|crs|bmt|phd|rp|le|ex|bmr>    [2026/07/03 v1.0.0 .dtx skeleton file]
+%<bkc>\ProvidesClass{ugentbookcover}
+%<col|crs|bmt|phd|rp|le|ex|bmr|bkc>    [2026/07/03 v1.0.0 .dtx skeleton file]
 %<*driver>
 \documentclass[a4paper,10pt]{ltxdoc}
 %
@@ -1207,7 +1208,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 % It might be that the page calculation for the final pages is wrong (usually by 2 pages).
 % In that case, correct the final page manually in the \jobname-cover.tex file.
 % In case you want a special font on the bookcover spine, edit the \jobname-cover.tex file.
-\makebookcover{80}
+\generatebookcover{80}
 
 %% causes the first pages to be roman numbered
 \frontmatter
@@ -2511,10 +2512,10 @@ een b\'echamel saus:
 \newif\if@examiner
 \DeclareOption{examiner}{\@examinertrue}
 %</ex>
-%<*crs|phd>
+%<*crs|phd|bkc>
 \newif\if@cameraready
 \DeclareOption{cameraready}{\@camerareadytrue}
-%</crs|phd>
+%</crs|phd|bkc>
 %<*phd>
 \newif\if@bare
 \DeclareOption{bare}{\@baretrue}
@@ -2536,6 +2537,30 @@ een b\'echamel saus:
 \ProcessOptions\relax
 \LoadClass{book}
 %</crs|bmt|phd|rp>
+% We load the |bookcover| class for dissertation covers
+%<*bkc>
+\input{ugentcommon.clo}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{bookcover}}
+\ProcessOptions\relax
+
+\newlength{\@bleedspace}
+\newlength{\@markerlength}
+\if@cameraready
+  \setlength\@bleedspace{3mm}
+  \setlength\@markerlength{10mm}
+\else
+  \setlength\@bleedspace{0mm}
+  \setlength\@markerlength{0mm}
+\fi
+
+\PassOptionsToClass{
+	coverheight=24cm,
+	coverwidth=16cm,
+	bleedwidth=\the\@bleedspace,
+	marklength=\the\@markerlength
+}{bookcover}
+\LoadClass{bookcover}
+%</bkc>
 % We load the |letter| class for letters
 %<*le> 
 \input{ugentcommon.clo}
@@ -2562,7 +2587,7 @@ een b\'echamel saus:
 \setlength{\parindent}{0pt}
 \addtolength{\parskip}{0.75\baselineskip}
 \setcounter{secnumdepth}{3}
-%</crs|bmt|phd|rp|le|ex> 
+%</crs|bmt|phd|rp|le|ex>
 %    \end{macrocode}
 % 
 % \subsection{Auxiliary packages}
@@ -2595,18 +2620,18 @@ een b\'echamel saus:
 % \subsubsection{Preparing for \LaTeX3}
 % Let's make things a bit easier for me.
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>      
+%<*crs|bmt|phd|rp|le|ex|bkc>      
 \RequirePackage{expl3}
 %\RequirePackage[check-declarations]{expl3} % I use this during debug phase
 \RequirePackage{xparse}
-%</crs|bmt|phd|rp|le|ex>
+%</crs|bmt|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 %
 % \subsubsection{Font packages}
 % UGent Panno Text (and its Medium and SemiLight variants) should always be installed (and the document compiled using Lua\LaTeX) as they are used in the logo's. For the document itself, it is recommended to use UGent Panno Text as well, which is set through |\setmainfont{UGent Panno Text}|. However, Arial is also a valid official alternative and can override UGent Panno Text by adding |\setmainfont{Arial}[BoldFont = {Arial}, BoldFeatures = {FakeBold=2.5}, ItalicFont = {Arial}, ItalicFeatures = {FakeSlant=0.15}, BoldItalicFont = {Arial}, BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},]| to the beginning of your document. UGent uses Arial as default for Word and PowerPoint templates as these are distributed outside Ghent University. This is not applicable for \LaTeX however, as pdf's are always generated. Thus, UGent Panno Text is used everywhere.
 %
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>  
+%<*crs|bmt|phd|rp|le|ex|bkc>  
 \iftutex
   \RequirePackage{fontspec}
   \IfFontExistsTF{UGent Panno Text Medium}{
@@ -2657,7 +2682,7 @@ een b\'echamel saus:
   \PackageError{ugentdocs}{Only LuaTeX or XeTeX is supported for compilation}
   {See the ugentdocs manual}
 \fi
-%</crs|bmt|phd|rp|le|ex>
+%</crs|bmt|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 %
 % \subsubsection{Boilerplate packages}
@@ -2665,13 +2690,13 @@ een b\'echamel saus:
 % Some boilerplate packages and an empty macro to test against
 % (using|\ifx|)
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>
+%<*crs|bmt|phd|rp|le|ex|bkc>
 \RequirePackage{iftex}
 \RequirePackage{xstring}
 \RequirePackage{etoolbox}
 \RequirePackage{ifthen}
 \IfFileExists{shellesc.sty}{\RequirePackage{shellesc}}{}
-%</crs|bmt|phd|rp|le|ex> 
+%</crs|bmt|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 % 
 % \subsubsection{Graphics packages}
@@ -2681,7 +2706,7 @@ een b\'echamel saus:
 %
 % Some packages for coursetext and bamathesis:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>  
+%<*crs|bmt|phd|rp|le|ex|bkc>  
 \RequirePackage{hyphenat}    
 \RequirePackage{graphicx}
 \RequirePackage{graphbox}
@@ -2692,7 +2717,7 @@ een b\'echamel saus:
 \usetikzlibrary{positioning,calc}
 \RequirePackage{eso-pic}
 \RequirePackage{zref-totpages}
-%</crs|bmt|phd|rp|le|ex>
+%</crs|bmt|phd|rp|le|ex|bkc>
 %<*crs|rp>
 \if@copyright
 \RequirePackage[contents={},color=lightgray,scale=3]{background}
@@ -2702,9 +2727,9 @@ een b\'echamel saus:
 %
 % \subsubsection{UGent color and logo scheme}
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>
+%<*crs|bmt|phd|rp|le|ex|bkc>
 \RequirePackage{ugentcolor}
-%</crs|bmt|phd|rp|le|ex> 
+%</crs|bmt|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 
 % \subsubsection{Header/Footer}
@@ -2719,11 +2744,11 @@ een b\'echamel saus:
 % \subsection{Colors}
 %
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex> 
+%<*crs|bmt|phd|rp|le|ex|bkc> 
 \definecolor{lightgray}{cmyk}      {0.00,0.00,0.00,0.10}
 \definecolor{darkgray}{cmyk}       {0.00,0.00,0.00,0.80}
 \definecolor{watermark}{cmyk}      {0.00,0.00,0.00,0.10}
-%</crs|bmt|phd|rp|le|ex>
+%</crs|bmt|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 %
 % \subsection{Fancy inset texts and quotes}
@@ -2771,25 +2796,26 @@ een b\'echamel saus:
 \if@cameraready
 \RequirePackage[cam,center,width=21truecm,height=29.7truecm]{crop}
 \fi
-%</phd> 
+%</phd>
 %    \end{macrocode}
+%
 %
 %
 % \subsection{Data dictionary and parser}
 %
 % Let's start by defining our dictionary:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>
+%<*crs|bmt|phd|rp|le|ex|bkc>
 \ExplSyntaxOn
 \prop_new:N \g_@@_dict_keyvals_prop
 \seq_new:N  \g_@@_loaded_dicts_seq
 \seq_new:N  \l_@@_value_paragraphs_seq
-%</crs|bmt|phd|rp|le|ex>%
+%</crs|bmt|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 %
 % The dictionary can be accessed using the following document command:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>
+%<*crs|bmt|phd|rp|le|ex|bkc>
 \cs_new:Npn \_@@_translate:nn #1#2 {
 	\tl_set:Nx \l_@@_value_cased_tl { \prop_item:Nn \g_@@_dict_keyvals_prop {#2} }
 	\tl_if_empty:nF {#1} {
@@ -2825,12 +2851,12 @@ een b\'echamel saus:
 	  \_@@_translate:xn {\l_@@_case_tl} {#2}
 	}
 }
-%</crs|bmt|phd|rp|le|ex>%
+%</crs|bmt|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 %
 % To this end, we use the following parsing infrastructure:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>
+%<*crs|bmt|phd|rp|le|ex|bkc>
 \NewDocumentCommand{\useugentdocsdictionary}{m}{
   \seq_if_in:NnTF \g_@@_loaded_dicts_seq {#1}{
   }{
@@ -2858,11 +2884,11 @@ een b\'echamel saus:
   \tl_trim_spaces:N \l_@@_key_tl
   \tl_trim_spaces:N \l_@@_value_tl
 }
-%</crs|bmt|phd|rp|le|ex>
+%</crs|bmt|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 % invoked by the following data file reader:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>
+%<*crs|bmt|phd|rp|le|ex|bkc>
 \ior_new:N \l_@@_dict_ior
 \cs_new_nopar:Nn \@@_dictreader:n {
 	\bool_set_false:N \l_@@_keyval_flushpending_bool
@@ -2883,18 +2909,18 @@ een b\'echamel saus:
 	\@@_flush_value:
 	\ior_close:N \l_@@_dict_ior
 }
-%</crs|bmt|phd|rp|le|ex>
+%</crs|bmt|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 % By default, we load the generic (not yet implemented!) and the english data file:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>
+%<*crs|bmt|phd|rp|le|ex|bkc>
 \clist_map_inline:nn {en} {
   \@@_dictreader:n { #1 }
   \seq_gput_right:Nn \g_@@_loaded_dicts_seq { #1 }
 }
 %\prop_show:N \g_@@_dict_keyvals_prop
 \ExplSyntaxOff
-%</crs|bmt|phd|rp|le|ex>
+%</crs|bmt|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 %
 % \subsection{Babel provisions}
@@ -2905,7 +2931,7 @@ een b\'echamel saus:
 %
 %
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>
+%<*crs|bmt|phd|rp|le|ex|bkc>
 \AtBeginDocument{
   \makeatother
   \@ifpackageloaded{babel}{
@@ -2919,7 +2945,7 @@ een b\'echamel saus:
   {}
   \makeatletter
 }
-%</crs|bmt|phd|rp|le|ex> 
+%</crs|bmt|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 %
 % The English dictionary can be found below:
@@ -3119,12 +3145,12 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %
 % \changes{v4.04}{2022/04/04}{Added department name}
 %    \begin{macrocode}
-%<*crs|bmt|phd>
+%<*crs|bmt|phd|bkc>
 \newcommand*{\@department}{}
 \newcommand*{\department}[1]{
   \renewcommand*\@department{#1}
 }
-%</crs|bmt|phd> 
+%</crs|bmt|phd|bkc>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3151,7 +3177,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 % 
 % \begin{imacro}{\subtitle}
 %    \begin{macrocode}
-%<*crs|phd|rp|bmt>
+%<*crs|phd|rp|bmt|bkc>
 \newcommand*{\@subtitle}{~}
 \newcommand*{\@subtitleshort}{~}
 \newcommand*{\subtitle}[2][]{%
@@ -3162,7 +3188,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \renewcommand*{\@subtitleshort}{#1}
   \fi
 }
-%</crs|phd|rp|bmt> 
+%</crs|phd|rp|bmt|bkc>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3178,7 +3204,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \newcommand*{\subtitel}[1]{%
   \renewcommand*\@subtitel{#1}
 }
-%</phd> 
+%</phd>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3288,7 +3314,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 }
 
 \ExplSyntaxOff
-%</crs|ex> 
+%</crs|ex>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3308,7 +3334,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 % \begin{imacro}{\affiliation}
 %   The |affiliation| tag allows to specify the affiliation of the author.
 %    \begin{macrocode}
-%<*phd|rp>
+%<*phd|rp|bkc>
 \newcommand\@affiliation{
   \PackageError{ugentdocs}
   {Please, define the affiliation of the author using the
@@ -3317,7 +3343,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   {See the ugentdocs manual}
 }
 \newcommand\affiliation[1]{\renewcommand\@affiliation{#1}}
-%</phd|rp>
+%</phd|rp|bkc>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3326,7 +3352,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   affiliation. This can be done by invoking the macro as many times
 %   as needed.
 %    \begin{macrocode}
-%<*bmt|phd>      
+%<*bmt|phd|bkc>      
 \ExplSyntaxOn
 \seq_new:N \g_@@_supervisors
 \seq_new:N \g_@@_supervisorswithaffiliation
@@ -3353,7 +3379,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   	}
   }
 }
-%</bmt|phd> 
+%</bmt|phd|bkc>
 %<*bmt>
 \seq_new:N \g_@@_cosupervisors
 \seq_new:N \g_@@_cosupervisorswithaffiliation
@@ -3406,14 +3432,14 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   }
 }
 %</bmt>
-%<*phd>
+%<*phd|bkc>
 \AtBeginDocument{
   \seq_gpush:Nn \g_@@_supervisors {}
   \seq_greverse:N \g_@@_supervisors
   \seq_gpush:Nn \g_@@_supervisorswithaffiliation {}
   \seq_greverse:N \g_@@_supervisorswithaffiliation
 }
-%</phd>
+%</phd|bkc>
 %<*bmt>
 \AtBeginDocument{
   \seq_gpush:Nn \g_@@_supervisors {}
@@ -3430,9 +3456,9 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \seq_greverse:N \g_@@_extsupervisorswithaffiliation
 }
 %</bmt>
-%<*bmt|phd>
+%<*bmt|phd|bkc>
 \ExplSyntaxOff
-%</bmt|phd> 
+%</bmt|phd|bkc>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3487,7 +3513,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   impossible), while a course text and an exam allow for multiple
 %   degrees (to be specified in the desired order).
 %    \begin{macrocode}
-%<*bmt|phd>
+%<*bmt|phd|bkc>
 \newcommand*\@degree{
   \PackageError{ugentdocs}
   {Please, specify the offical degree description using
@@ -3495,7 +3521,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   {See the ugentdocs manual}
 }
 \newcommand*\degree[1]{\renewcommand*\@degree{#1}}
-%</bmt|phd>
+%</bmt|phd|bkc>
 %
 %<*crs|ex>
 \ExplSyntaxOn
@@ -3524,7 +3550,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   be used on the title pages.
 %
 %    \begin{macrocode}
-%<*bmt|phd|crs|ex>
+%<*bmt|phd|crs|ex|bkc>
 \newcommand*\@doctype{
   \PackageError{ugentdocs}
   {Please, specify the offical document type using
@@ -3533,7 +3559,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \newcommand*\doctype[1]{
   \renewcommand*\@doctype{\translatekey{#1}}
 }
-%</bmt|phd|crs|ex>
+%</bmt|phd|crs|ex|bkc>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3582,10 +3608,10 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   be used on the title page.  It must contain day, month and year
 %   of the public defense.
 %    \begin{macrocode}
-%<*phd>      
+%<*phd|bkc>      
 \newcommand*\@defensedate{ERROR - specify day, month and year}
 \newcommand*{\defensedate}[1]{\renewcommand*\@defensedate{#1}}
-%</phd> 
+%</phd|bkc>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3593,10 +3619,10 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   This macro sets the |\@defenselocation| tags that later will
 %   be used on the title page. 
 %    \begin{macrocode}
-%<*phd>      
+%<*phd|bkc>      
 \newcommand*\@defenselocation{Ghent}
 \newcommand*{\defenselocation}[1]{\renewcommand*\@defenselocation{#1}}
-%</phd> 
+%</phd|bkc>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3605,10 +3631,10 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   This macro sets the |\@titlepageimage| tags that later will
 %   be used on the title page, to include the graphics.
 %    \begin{macrocode}
-%<*crs|phd|rp>      
+%<*crs|phd|rp|bkc>      
 \newcommand*\@titlepageimage{}
 \newcommand*\titlepageimage[1]{\renewcommand*\@titlepageimage{#1}}
-%</crs|phd|rp> 
+%</crs|phd|rp|bkc>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3616,7 +3642,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   This macro causes the full embargo message to be printed in
 %   colofon of your thesis.
 %    \begin{macrocode}
-%<*phd>
+%<*phd|bkc>
 \newif\if@fullembargo
 \@fullembargofalse
 \newif\if@tempembargo
@@ -3625,7 +3651,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \@tempembargofalse
   \@fullembargotrue
 }
-%</phd> 
+%</phd|bkc>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3634,7 +3660,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   colofon of your thesis using the first argument of the macro as
 %   start date and the second argument as the end date.
 %    \begin{macrocode}
-%<*phd>
+%<*phd|bkc>
 \newif\if@tempembargo
 \@tempembargofalse
 \ExplSyntaxOn
@@ -3653,7 +3679,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \tl_gset_eq:NN \embargotempend \l_@@_embargoenddate_tl
 }
 \ExplSyntaxOff
-%</phd> 
+%</phd|bkc>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3673,10 +3699,10 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   This macro sets the |\@academicyear| tag that later will be used on
 %   the title page.
 %    \begin{macrocode}
-%<*crs|bmt|phd|ex>      
+%<*crs|bmt|phd|ex|bkc>      
 \newcommand*{\@academicyear}{XXX-YYYY}
 \newcommand*{\academicyear}[1]{\renewcommand*{\@academicyear}{#1}}
-%</crs|bmt|phd|ex> 
+%</crs|bmt|phd|ex|bkc>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3690,7 +3716,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %</crs|rp>
 %<*bmt>
 \newcommand{\@copyrightnotices}{Disclaimer \@doctype \newline\newline \translatekey{bamadisclaimer}}
-%</bmt> 
+%</bmt>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4129,6 +4155,30 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 % \end{imacro}
 %
 %
+% \begin{imacro}{\pagecount}
+%   This macro will set the |\@pagecount| tag that will be used in the
+%   spine width calculation of the bookcover class.
+%    \begin{macrocode}
+%<*bkc> 
+\newcommand*\@pagecount{168}
+\newcommand*\pagecount[1]{\renewcommand*\@pagecount{#1}}
+%</bkc>
+%   \end{macrocode}
+% \end{imacro}
+%
+%
+% \begin{imacro}{\pageweght}
+%   This macro will set the |\@pageweight| tag (in g/m2) that will be used in the
+%   spine width calculation of the bookcover class.
+%    \begin{macrocode}
+%<*bkc> 
+\newcommand*\@pageweight{80}
+\newcommand*\pageweight[1]{\renewcommand*\@pageweight{#1}}
+%</bkc>
+%   \end{macrocode}
+% \end{imacro}
+%
+%
 % \subsection{Dirty reverse video tricks}
 % Try not to throw up in your mouth\ldots
 %
@@ -4180,7 +4230,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \cfoot[\small\thepage]{\small\thepage}
   \rfoot[]{} 
 }
-%</crs> 
+%</crs>
 %    \end{macrocode}
 % 
 % The header and footer of the |bamathesis| class are
@@ -4592,7 +4642,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \pagestyle{fancy}
   \thispagestyle{empty}
 }
-%</crs> 
+%</crs>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4629,7 +4679,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   ~
   \fi
 }
-%</crs> 
+%</crs>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -4728,11 +4778,11 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %<*bmt>
 \newcommand\makefinalpage{
 }
-%</bmt> 
+%</bmt>
 %    \end{macrocode}
 % \end{imacro}
 %
-% \subsection{Title page for the phdthesis clases}
+% \subsection{Title and final pages for the dissertation and bookcover classes}
 %
 % The title page is generated using the |\maketitle| command. As the 
 % book class from which we inherit already defines this command, we
@@ -4742,7 +4792,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   Below, one can find the code for the title page of the
 %   |phdthesis| class:
 %    \begin{macrocode}
-%<*phd>
+%<*phd|bkc>
 \ExplSyntaxOn
 \tl_new:N \embargotempwithdates
 \newcommand\prepmaketitle{
@@ -4754,6 +4804,8 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \tl_gset_eq:NN \embargotempwithdates \l_@@_embargotemp_tl
 }
 \ExplSyntaxOff
+%</phd|bkc>
+%<*phd>
 \renewcommand\maketitle{%
   \prepmaketitle
   \pagestyle{empty}
@@ -4763,80 +4815,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
     \setlength\parindent{0pt}%
     \AddToShipoutPicture*{%
       \put(0,0){%
-        \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-          \useasboundingbox (0,0) rectangle(\paperwidth,\paperheight);
-          \fill[lightgray]
-          (2.125,19) rectangle (\paperwidth+3mm,6);
-          \begin{scope}
-            \clip (2.125,19) rectangle (\paperwidth+3mm,6);
-            \node[anchor=south west]
-            at (2.125,6)
-            {\ifx\@titlepageimage\@empty
-              \else
-              \includegraphics[keepaspectratio,
-              scale=0.01,
-              min size={16.175cm}{13cm}]{\@titlepageimage}
-              \fi};
-          \end{scope}
-
-          \node
-          [anchor=west,text width=13.75cm,align=left,font=\Huge,ugent@main]
-          at (2.125,23.5) 
-          {
-            \textsf{\textbf{\@title}}
-          };
-
-          \node
-          [anchor=west,text width=13.75cm,align=left,font=\Large,ugent@main]
-          at (2.125,21.5) 
-          {
-            \textsf{\textbf{\@subtitle}}
-          };
-
-          \node
-          [anchor=base west,maincolor,
-          text width=13.75cm,align=left,font=\LARGE]
-          at (2.125,20)
-          {\textsf{\textbf{\@author}}};
-          
-          \fill[maincolor] (2.125,6)
-          -- (\paperwidth+3mm,6)
-          -- (\paperwidth+3mm,2.625)
-          -- (2.55,2.625)
-          arc (-90:-180:0.425)
-          -- cycle;
-
-          \node[white,anchor=west,align=left,font=\large]
-          (SN) at (2.55,4.9)
-          {
-            \begin{tabular}{@{}l@{~\,}p{11.5cm}}
-              \textsf{\supervisorsname{}}
-              & \textsf{\textbf{\jointsupervisors{ | }{}}}
-            \end{tabular}
-          };
-
-
-          \node[white,anchor=west,text width=14.5cm,align=left,font=\small]
-          at (2.55,3.7)
-          {\textsf{\translatekey{phdprefix}
-              \@degree{}}\\
-          \textsf{\textbf{\@faculty{}  \ifx\@department\empty\else |
-              \@department{} \fi | \@defenselocation, \@defensedate}}};
-          
-          \begin{scope}[shift={(2.125,1.313)}] % TODO might need vertalign fix
-          	\@ugentlogo{4.75cm}{ugent@main}{0.0}
-          \end{scope}
-
-          \if@tempembargo
-            \node[anchor=east,font=\large\bfseries,ugent@main] at (
-            (17,1.313) {\translatekey[uppercase]{confidential}};
-          \else
-            \if@fullembargo
-              \node[anchor=east,font=\large\bfseries,ugent@main] at (
-              (17,1.313) {\translatekey[uppercase]{confidential}};
-            \fi
-          \fi
-        \end{tikzpicture}
+        \frontcover
       }
     }
   \end{titlepage}%
@@ -4944,114 +4923,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \pagestyle{fancy}
   \thispagestyle{empty}
 }
-%</phd> 
-%    \end{macrocode}
-% \end{imacro}
-%
-% \subsection{Bookcover for the PhD class}
-% \begin{imacro}{\makebookcover}
-%   This macro creates a book cover. It only works if you don't specify the cameraready and bare
-%   class options, as this cover loads the first and last page of your PDF.
-%    \begin{macrocode}
-%<*phd>
-\ExplSyntaxOn
-\msg_new:nnnn { bookcover } { spine-too-small }
-    { The~spine~width~(#1mm)~is~too~small. }
-    { It~must~be~at~least~8mm~to~typeset~any~spine~text. }
-\msg_new:nnnn { bookcover } { spine-big-enough }
-    { The~spine~width~(#1mm)~is~big~enough. }
-    { It~must-be~at~least~8mm~to~typeset~the~spine~text. }
-\newcommand\makebookcover[1]{
-  \fp_new:N \g_@@_pageweight_fp
-  \fp_set:Nn \g_@@_pageweight_fp { #1 }
-  \fp_new:N \g_@@_pagecount_fp
-  \fp_set:Nn \g_@@_pagecount_fp { \ztotpages }
-  \fp_new:N \g_@@_spinewidth_fp 
-  \fp_set:Nn \g_@@_spinewidth_fp { 0.000625 * \g_@@_pageweight_fp * \g_@@_pagecount_fp }
-  % for a two-sided book: spinewidth (in mm) = number of pages / 20 (for 80g/m2 paper)
-  \bool_new:N \g_@@_printonspine_bool
-  \fp_compare:nNnTF { \g_@@_spinewidth_fp } < { 6.0 } {
-    \msg_warning:nnx { bookcover } { spine-too-small } { \fp_use:N \g_@@_spinewidth_fp }
-    \bool_gset_false:N \g_@@_printonspine_bool
-  }{
-    \msg_info:nnx { bookcover } { spine-big-enough } { \fp_use:N \g_@@_spinewidth_fp }
-    \bool_gset_true:N \g_@@_printonspine_bool
-  }
-  \str_new:N \g_@@_covertemplate_str
-  \str_set:Nn \g_@@_covertemplate_str {
-    \documentclass[coverheight=26cm,coverwidth=18cm,
-                   spinewidth=---spinewidth---mm,bleedwidth=3mm]{bookcover}
-    \newcommand\fselector{---faculty---}
-    \makeatletter
-    \newif\if@cmyk\@cmyktrue
-    \newif\if@neutralcolors\@neutralcolorsfalse
-    \newif\if@printonspine---printonspine---
-    \makeatother
-    \usepackage{ugentcolor}
-    \renewcommand{\familydefault}{\sfdefault}
-    \newbookcovercomponenttype{title}{
-      \vspace{2em}\centering
-      \rotatebox[origin=c]{-90}{
-        \fontsize{15}{0}\selectfont\color{ugent@main}\textbf{\vphantom{Ag}---arg---1}
-      }
-      \vfill
-    }
-    \newbookcovercomponenttype{author}{
-      \vfill\centering
-      \rotatebox[origin=c]{-90}{
-        \fontsize{13}{0}\selectfont\color{maincolor}\textbf{\vphantom{Ag}---arg---1}
-      }
-      \vspace{13mm+2em}
-    }
-    \newbookcovercomponenttype{logo}{
-    	\vfill\hfill
-    	\begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
-    	\@ugentlogo{5mm}{---arg---1}{0.0}
-    	\end{tikzpicture}%
-        \hfill\vspace{5mm}
-    }
-    \begin{document}
-    \begin{bookcover}
-      \bookcovercomponent{normal}{front}{
-        \includegraphics[width=\coverwidth+1mm,page=1]{---jobname---}
-      }
-      \makeatletter
-      \if@printonspine
-      \bookcovercomponent{title}{spine}{---title---}
-      \bookcovercomponent{author}{spine}{---author---}
-      \bookcovercomponent{logo}{spine}{ugent@main}
-      \fi
-      \makeatother
-      \bookcovercomponent{normal}{back}[-1mm,0mm,0mm,0mm]{
-        \includegraphics[width=\coverwidth+1mm,page=---lastpage---]{---jobname---}
-      }
-    \end{bookcover}
-    \end{document}
-  }
-  \cs_new:Npn \g_@@_stamptemplate:nx ##1 ##2 {
-    \exp_args:NNnx \str_replace_all:Nnn \g_@@_covertemplate_str { ---##1--- } { ##2 }
-  }
-  \cs_new:Npn \g_@@_stamptemplate:nn ##1 ##2 {
-    \str_replace_all:Nnn \g_@@_covertemplate_str { ---##1--- } { ##2 }
-  }
-  \g_@@_stamptemplate:nx {author} {\@author }
-  \g_@@_stamptemplate:nx {title} {\@title}
-  \g_@@_stamptemplate:nx {jobname} {\jobname}
-  \g_@@_stamptemplate:nx {lastpage} {\fp_use:N \g_@@_pagecount_fp }
-  \g_@@_stamptemplate:nx {spinewidth} {\fp_use:N \g_@@_spinewidth_fp }
-  \g_@@_stamptemplate:nx {faculty} {\fselector}
-  \bool_if:NTF \g_@@_printonspine_bool
-       {\g_@@_stamptemplate:nn {printonspine} { \@printonspinetrue }}
-       {\g_@@_stamptemplate:nn {printonspine} { \@printonspinefalse }}
-  \g_@@_stamptemplate:nx {arg} {\c_hash_str}
-  \str_replace_all:Nnn \g_@@_covertemplate_str {\\} {~}
-  \iow_new:N \g_@@_coverfile_iow
-  \iow_open:Nn \g_@@_coverfile_iow { \jobname-cover.tex }
-  \iow_now:Nx  \g_@@_coverfile_iow { \g_@@_covertemplate_str }
-  \iow_close:N \g_@@_coverfile_iow
-}
-\ExplSyntaxOff
-%</phd> 
+%</phd>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -5062,25 +4934,244 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*phd>
 \newcommand\makefinalpage{
-  \if@bare\else
-  \cleardoublepage
-  \thispagestyle{empty}
-  ~% intentionally blank page
-  \clearpage
-  \thispagestyle{empty}
-  \AddToShipoutPicture*{%
-    \put(0,0){%
-      \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-        \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
-        \fill[sidecolor] (-3mm,-3mm) rectangle (2.125cm,2.625cm);
-      \end{tikzpicture}
-    }
-  }
-  ~
-  \fi
+	\if@bare\else
+	\cleardoublepage
+	\thispagestyle{empty}
+	~% intentionally blank page
+	\clearpage
+	\thispagestyle{empty}
+	\AddToShipoutPicture*{%
+		\put(0,0){%
+			\backcover
+		}
+	}
+	~
+	\fi
 }
-%</phd> 
+%</phd>
 %    \end{macrocode}
+% \end{imacro}
+%
+%
+% \subsection{Bookcover for the PhD class}
+%  First we calculate the spine width 
+%  and check if we can print on the spine:
+%  \begin{macrocode}
+%<*bkc>
+\newif\if@printonspine
+
+\ExplSyntaxOn
+\msg_new:nnnn { bookcover } { spine-too-small }
+{ The~spine~width~(#1mm)~is~too~small. }
+{ It~must~be~at~least~8mm~to~typeset~any~spine~text. }
+\msg_new:nnnn { bookcover } { spine-big-enough }
+{ The~spine~width~(#1mm)~is~big~enough. }
+{ It~must-be~at~least~8mm~to~typeset~the~spine~text. }
+\AtBeginDocument{
+	\pgfmathsetlength{\spinewidth}{0.000625*\@pagecount*\@pageweight mm}
+	\fp_compare:nNnTF { \spinewidth } < { 8.0mm } {
+		\msg_warning:nnx { bookcover } { spine-too-small } { \fp_to_decimal:n{\spinewidth/1mm} }
+		\@printonspinefalse
+	}{
+		\msg_info:nnx { bookcover } { spine-big-enough } { \fp_to_decimal:n{\spinewidth/1mm} }
+		\@printonspinetrue
+	}
+}
+\ExplSyntaxOff
+%</bkc>
+%
+% \begin{imacro}{\frontcover}
+%	Defines the front cover layout
+%	\begin{macrocode}
+%<*phd|bkc>
+\newcommand\frontcover{
+	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
+	\useasboundingbox (0,0) rectangle(\paperwidth,\paperheight);
+	\fill[lightgray]
+	(2.125,19) rectangle (\paperwidth+3mm,6);
+	\begin{scope}
+	\clip (2.125,19) rectangle (\paperwidth+3mm,6);
+	\node[anchor=south west]
+	at (2.125,6)
+	{\ifx\@titlepageimage\@empty
+		\else
+		\includegraphics[keepaspectratio,
+		scale=0.01,
+		min size={16.175cm}{13cm}]{\@titlepageimage}
+		\fi};
+	\end{scope}
+	
+	\node
+	[anchor=west,text width=13.75cm,align=left,font=\Huge,ugent@main]
+	at (2.125,23.5) 
+	{
+		\textsf{\textbf{\@title}}
+	};
+	
+	\node
+	[anchor=west,text width=13.75cm,align=left,font=\Large,ugent@main]
+	at (2.125,21.5) 
+	{
+		\textsf{\textbf{\@subtitle}}
+	};
+	
+	\node
+	[anchor=base west,maincolor,
+	text width=13.75cm,align=left,font=\LARGE]
+	at (2.125,20)
+	{\textsf{\textbf{\@author}}};
+	
+	\fill[maincolor] (2.125,6)
+	-- (\paperwidth+3mm,6)
+	-- (\paperwidth+3mm,2.625)
+	-- (2.55,2.625)
+	arc (-90:-180:0.425)
+	-- cycle;
+	
+	\node[white,anchor=west,align=left,font=\large]
+	(SN) at (2.55,4.9)
+	{
+		\begin{tabular}{@{}l@{~\,}p{11.5cm}}
+		\textsf{\supervisorsname{}}
+		& \textsf{\textbf{\jointsupervisors{ | }{}}}
+		\end{tabular}
+	};
+	
+	
+	\node[white,anchor=west,text width=14.5cm,align=left,font=\small]
+	at (2.55,3.7)
+	{\textsf{\translatekey{phdprefix}
+			\@degree{}}\\
+		\textsf{\textbf{\@faculty{}  \ifx\@department\empty\else |
+				\@department{} \fi | \@defenselocation, \@defensedate}}};
+	
+	\begin{scope}[shift={(2.125,1.313)}] % TODO might need vertalign fix
+	\@ugentlogo{4.75cm}{ugent@main}{0.0}
+	\end{scope}
+	
+	\if@tempembargo
+	\node[anchor=east,font=\large\bfseries,ugent@main] at (
+	(17,1.313) {\translatekey[uppercase]{confidential}};
+	\else
+	\if@fullembargo
+	\node[anchor=east,font=\large\bfseries,ugent@main] at (
+	(17,1.313) {\translatekey[uppercase]{confidential}};
+	\fi
+	\fi
+	\end{tikzpicture}
+}
+%</phd|bkc>
+%	\end{macrocode}
+% \end{imacro}
+%
+% \begin{imacro}{\backcover}
+%   Defines the back cover layour
+%   \begin{macrocode}
+%<*phd|bkc>
+\newcommand\backcover{
+	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
+	\useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+	\fill[maincolor] (-3mm,-3mm) rectangle (2.125cm,2.625cm);
+	\end{tikzpicture}
+}
+%</phd|bkc>
+%   \end{macrocode}
+% \end{imacro}
+%
+% We also need a few new book cover components for the spine:
+%<*bkc>
+\newbookcovercomponenttype{title}{
+	\vspace{2em}\centering
+	\rotatebox[origin=c]{-90}{
+		{\renewcommand{\\}[1][]{~}%
+		\fontsize{15}{0}\selectfont\color{ugent@main}\textbf{\vphantom{Ag}#1}}
+	}
+	\vfill
+}
+\newbookcovercomponenttype{author}{
+	\vfill\centering
+	\rotatebox[origin=c]{-90}{
+		\fontsize{13}{0}\selectfont\color{maincolor}\textbf{\vphantom{Ag}#1}
+	}
+	\vspace{13mm+2em}
+}
+\newbookcovercomponenttype{logo}{
+	\vfill\hfill
+	\begin{tikzpicture}[overlay,x=1pt,y=1pt]
+	\@ugentlogo{5mm}{#1}{0.0}
+	\end{tikzpicture}%
+	\hfill\vspace{5mm}
+}
+%</bkc>
+% 
+% \begin{imacro}{\makebookcover}
+%   This macro creates a book cover for the bookcover class. This is already
+%   defined in the |bookcover| package, so we need to renew it.
+%    \begin{macrocode}
+%<*bkc>
+\renewcommand\makebookcover{
+	\begin{bookcover}
+		\bookcovercomponent{normal}{front}{\frontcover}
+		\makeatletter
+		\if@printonspine
+		\bookcovercomponent{title}{spine}{\@title}
+		\bookcovercomponent{author}{spine}{\@author}
+		\bookcovercomponent{logo}{spine}{ugent@main}
+		\fi 
+		\makeatother 
+		\bookcovercomponent {normal}{back}[-1mm,0mm,0mm,0mm]{\backcover}
+\end{bookcover}		
+}
+%</bkc>
+%    \end{macrocode}
+% \end{imacro}
+% 
+%
+% \begin{imacro}{\generatebookcover}
+%	This macro generates a cover.tex file from your current document.
+%   \begin{macrocode}
+%<*phd>
+\ExplSyntaxOn
+\newcommand\generatebookcover[1]{
+	\tl_set:Nx \l_@@_pageweight_tl { #1 }
+	\tl_set:Nx \l_@@_pagecount_tl  { \ztotpages }
+	\tl_set:Nx \l_@@_faculty_tl    { \fselector }
+	\tl_set:Nx \l_@@_cameraready_tl {
+		\if@cameraready ,~cameraready \fi
+	}
+	\tl_set:Nx \l_@@_cmyk_tl {
+		\if@cmyk, cmyk \fi
+	}
+	
+	\tl_set:Nx \l_@@_title_tl       { \exp_not:n{\@title} }
+	\tl_set:Nx \l_@@_subtitle_tl    { \exp_not:n{\@subtitle} }
+	\tl_set:Nx \l_@@_author_tl      { \exp_not:n{\@author} }
+	\tl_set:Nx \l_@@_degree_tl      { \exp_not:n{\@degree} }
+	\tl_set:Nx \l_@@_defensedate_tl { \exp_not:n{\@defensedate} }
+	
+	\tl_set:Nn \g_@@_covertemplate_tl {
+		\exp_not:N\documentclass[\l_@@_faculty_tl\l_@@_cameraready_tl\l_@@_cmyk_tl]{ugentbookcover}\iow_newline:
+		\exp_not:N\title{\l_@@_title_tl}			\iow_newline:
+		\exp_not:N\subtitle{\l_@@_subtitle_tl}		\iow_newline:
+		\exp_not:N\author{\l_@@_author_tl}			\iow_newline:
+		\exp_not:N\degree{\l_@@_degree_tl}			\iow_newline:
+		\exp_not:N\defensedate{\l_@@_defensedate_tl}\iow_newline:
+		\exp_not:N\pagecount{\l_@@_pagecount_tl}	\iow_newline:
+		\exp_not:N\pageweight{\l_@@_pageweight_tl}	\iow_newline:
+													\iow_newline:
+		\exp_not:N\begin{document}					\iow_newline:
+			\exp_not:N\makebookcover				\iow_newline:
+		\exp_not:N\end{document}
+	}
+	
+	\iow_new:N \g_@@_coverfile_iow
+	\iow_open:Nn \g_@@_coverfile_iow { \jobname-cover.tex }
+	\iow_now:Nx \g_@@_coverfile_iow { \g_@@_covertemplate_tl }
+	\iow_close:N \g_@@_coverfile_iow
+}
+\ExplSyntaxOff
+%</phd> 
+%   \end{macrocode}
 % \end{imacro}
 %
 %
@@ -5654,7 +5745,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp>
 \AtBeginDocument{
-  \@ifpackageloaded{hyperref}{
+  \@ifpackageloaded{ref}{
     \hypersetup{
       breaklinks=true,
       colorlinks=true,
@@ -5664,7 +5755,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
       pageanchor=true, 
       pdfpagemode=UseOutlines,
       urlcolor=black,
-      pdftitle={\@title},
+      pdftitle={{\renewcommand{\\}[1][]{~}\@title}},
       pdfsubject={\@subtitle},
       pdfauthor={\@author}
     }
