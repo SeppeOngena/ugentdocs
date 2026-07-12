@@ -2527,16 +2527,15 @@ een b\'echamel saus:
 %
 %
 % We execute some standard options:
-% We load the |book| class for course texts, reports and PhD theses, and the
-% scrbook class for bachelor and master theses.
+% We load the |book| class for course texts, reports, bachelor and master theses, andPhD dissertations.
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp>
 \input{ugentcommon.clo}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ExecuteOptions{a4paper,11pt,final,oneside,openright}
 \ProcessOptions\relax
+\LoadClass{book}
 %</crs|bmt|phd|rp>
-%<crs|phd|rp>\LoadClassWithOptions{book}
-%<bmt>\LoadClassWithOptions{scrbook}
 % We load the |letter| class for letters
 %<*le> 
 \input{ugentcommon.clo}
@@ -3152,7 +3151,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 % 
 % \begin{imacro}{\subtitle}
 %    \begin{macrocode}
-%<*crs|phd|rp>
+%<*crs|phd|rp|bmt>
 \newcommand*{\@subtitle}{~}
 \newcommand*{\@subtitleshort}{~}
 \newcommand*{\subtitle}[2][]{%
@@ -3163,7 +3162,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \renewcommand*{\@subtitleshort}{#1}
   \fi
 }
-%</crs|phd|rp> 
+%</crs|phd|rp|bmt> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4396,8 +4395,13 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %
 %    \begin{macrocode}
 %<*bmt>
-\addtokomafont{section}{\color{basecolor}}
-\addtokomafont{chapter}{\color{basecolor}}
+\RequirePackage{titlesec}
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries\color{basecolor}}
+{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{basecolor}}
+{\thesection}{1em}{}
 %</bmt>
 %    \end{macrocode}
 % 
