@@ -2954,6 +2954,7 @@ een b\'echamel saus:
 %    \begin{macrocode}
 %<*endict>
 org-ugent	= Ghent University
+org-deugent = Ghent University
 domain		= ugent.be
 faculty		= Faculty
 facultyof	= of
@@ -2988,8 +2989,8 @@ phdthesis	= Doctoral dissertation
 projreport	= Project report
 
 bmprefix	= Thesis to obtain the degree of
-phdprefix	= Dissertation submitted for the degree of
-phdsuffix	= at Ghent University to be defended by
+phdprefix	= Submitted to the
+phdsuffix	= in Fulfilment of the Requirements for the Degree of 
 badegree	= Bachelor
 madegree	= Master
 phddegree	= Doctor
@@ -3047,6 +3048,7 @@ This document is in accordance with the faculty regulations related to this exam
 %    \begin{macrocode}
 %<*nldict>
 org-ugent	= Universiteit Gent
+org-deugent = de Universiteit Gent
 domain		= ugent.be
 faculty		= Faculteit
 facultyof	= 
@@ -3081,8 +3083,8 @@ phdthesis	= Doctoraat
 projreport	= Projectverslag
 
 bmprefix	= Proefschrift tot het behalen van de graad van
-phdprefix	= Proefschrift voorgelegd tot het behalen van de graad van
-phdsuffix	= aan de Universiteit Gent te verdedigen door
+phdprefix	= Voorgelegd aan de
+phdsuffix	= ter voldoening aan de vereisten voor de graad van
 badegree	= Bachelor
 madegree	= Master
 phddegree	= Doctor
@@ -4961,78 +4963,69 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %	Defines the front cover layout
 %	\begin{macrocode}
 %<*phd|bkc>
+\newlength{\WC}\setlength\WC{160mm}	% Cover width
+\newlength{\HC}\setlength\HC{240mm}	% Cover height
+\newlength{\HBS}\setlength\HBS{35mm}% Height bottom strip
+\newlength{\HTS}\setlength\HTS{27mm}% Top white strip height
+\newlength{\MS}\setlength\MS{10mm}	% Spine margin (front/back cover)
+\newlength{\MTLR}\setlength\MTLR{10mm}	% Text LR margin
+\newlength{\MTTB}\setlength\MTTB{5mm}	% Text TB margin
+\newlength{\B}\setlength\B{3mm}		% Bleed
+\newlength{\WD}\setlength\WD{100mm} % Datawidth
+\newlength{\HD}\setlength\HD{80mm} 	% Dataheight
+
 \newcommand\frontcover{
 	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-	\useasboundingbox (0,0) rectangle(\paperwidth,\paperheight);
-	\fill[lightgray]
-	(2.125,19) rectangle (\paperwidth+3mm,6);
-	\begin{scope}
-	\clip (2.125,19) rectangle (\paperwidth+3mm,6);
-	\node[anchor=south west]
-	at (2.125,6)
+	\useasboundingbox (0,0) rectangle (\WC,\HC);
+
+	% Image zone
+	
 	{\ifx\@titlepageimage\@empty
-		\else
-		\includegraphics[keepaspectratio,
-		scale=0.01,
-		min size={16.175cm}{13cm}]{\@titlepageimage}
-		\fi};
+		\fill[basecolor] (\MS,\HBS) rectangle (\WC+\B,\HC-\HTS);
+	\else
+		\begin{scope}
+		\clip (\MS,\HBS) rectangle (\WC+\B,\HC-\HTS);
+		\node[anchor=center, inner sep=0pt] at (\MS+0.5*\WC+0.5*\B-0.5*\MS, \HBS+0.5*\HC-0.5*\HBS-0.5*\HTS) {%
+			\adjustbox{min width=\WC+\B-\MS, min height=\HC-\HBS-\HTS, keepaspectratio}
+			{\includegraphics[width=\WC+\B-\MS]{\@titlepageimage}}
+		};
+		\end{scope}
+	\fi};
+	
+	% Title, subtitle, author	
+	\node[anchor=west, text width=\WC-2*\MTLR-\MS, align=justify, text=maincolor] at (\MS+\MTLR, 0.5*\HC+0.5*\HBS-0.5*\HTS+0.5*\HD)%35mm+83mm+(\HC-27-35-83)/2
+	{{\bfseries\Huge\nohyphens{\@title}}%
+	\ifx\@subtitle\@empty\else\\[5pt]\hyphenpenalty=100000\LARGE\@subtitle\fi};
+	
+	\fill[maincolor] (\MS,\HBS) rectangle (\MS+\WD,\HBS+\HD);
+	
+	\node[anchor=north west, text width=\WD-2*\MTLR, align=left, text=white] at (\MS+\MTLR, \HBS+\HD-\MTTB)
+	{{\bfseries\LARGE\@author}%
+		\\[15pt]\Large \supervisorsname{}:\newline
+		\jointsupervisors{\\}{}%
+		\\[15pt]
+		\normalsize \translatekey{acyear} \@academicyear};
+	
+	\node[anchor=south west, text width=\WD-2*\MTLR, align=justify, text=white] at (\MS+\MTLR, \HBS+\MTTB)
+	{\normalsize\nohyphens{\translatekey{phdprefix}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{phdsuffix}~\@degree}};
+	
+	% White bottom strip logo
+	\begin{scope}[shift={(\MS-\HBS/4,0mm)}]
+		\@ugentlogo{\HBS}{ugent@main}{0}
 	\end{scope}
 	
-	\node
-	[anchor=west,text width=13.75cm,align=left,font=\Huge,ugent@main]
-	at (2.125,23.5) 
-	{
-		\textsf{\textbf{\@title}}
-	};
-	
-	\node
-	[anchor=west,text width=13.75cm,align=left,font=\Large,ugent@main]
-	at (2.125,21.5) 
-	{
-		\textsf{\textbf{\@subtitle}}
-	};
-	
-	\node
-	[anchor=base west,maincolor,
-	text width=13.75cm,align=left,font=\LARGE]
-	at (2.125,20)
-	{\textsf{\textbf{\@author}}};
-	
-	\fill[maincolor] (2.125,6)
-	-- (\paperwidth+3mm,6)
-	-- (\paperwidth+3mm,2.625)
-	-- (2.55,2.625)
-	arc (-90:-180:0.425)
-	-- cycle;
-	
-	\node[white,anchor=west,align=left,font=\large]
-	(SN) at (2.55,4.9)
-	{
-		\begin{tabular}{@{}l@{~\,}p{11.5cm}}
-		\textsf{\supervisorsname{}}
-		& \textsf{\textbf{\jointsupervisors{ | }{}}}
-		\end{tabular}
-	};
-	
-	
-	\node[white,anchor=west,text width=14.5cm,align=left,font=\small]
-	at (2.55,3.7)
-	{\textsf{\translatekey{phdprefix}
-			\@degree{}}\\
-		\textsf{\textbf{\@faculty{}  \ifx\@department\empty\else |
-				\@department{} \fi | \@defenselocation, \@defensedate}}};
-	
-	\begin{scope}[shift={(2.125,1.313)}] % TODO might need vertalign fix
-	\@ugentlogo{4.75cm}{ugent@main}{0.0}
+	% White top strip logo
+	\begin{scope}[shift={(\MS-\HBS/4,\HC-\HTS)}]
+		\@faclogo{\HBS/4*3}{ugent@\fselector}{0}
 	\end{scope}
 	
 	\if@tempembargo
-	\node[anchor=east,font=\large\bfseries,ugent@main] at (
-	(17,1.313) {\translatekey[uppercase]{confidential}};
+	\node[anchor=south east,font=\Large\bfseries,ugent@main] at (
+	(\WC-\MTLR,\MTLR) {\translatekey[uppercase]{confidential}};
 	\else
 	\if@fullembargo
-	\node[anchor=east,font=\large\bfseries,ugent@main] at (
-	(17,1.313) {\translatekey[uppercase]{confidential}};
+	\node[anchor=south east,font=\Large\bfseries,ugent@main] at (
+	(\WC-\MTLR,\MTLR) {\translatekey[uppercase]{confidential}};
 	\fi
 	\fi
 	\end{tikzpicture}
@@ -5047,8 +5040,26 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %<*phd|bkc>
 \newcommand\backcover{
 	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-	\useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
-	\fill[maincolor] (-3mm,-3mm) rectangle (2.125cm,2.625cm);
+	\useasboundingbox (0,0) rectangle (\WC,\HC);
+	
+	% White bottom strip for ISBN and publisher logo	
+	%\edef\phd@tmpa{\phd@ISBN}% ISBN text and barcode placeholder
+	%\ifx\phd@tmpa\@empty\else
+	\pgfmathsetmacro{\grpH}{2/3*\HBS+15pt}% total group height: box+spacing+text
+	\begin{scope}[shift={(1 in - 1.685/3*\HBS, 0.5*\HBS - 0.5*\grpH)}]
+	\fill[basecolor] (0,0) rectangle (1.685*2/3*\HBS, 2/3*\HBS);
+	\node[anchor=south, font=\footnotesize, text=black, inner sep=0pt]
+	at (1.685/3*\HBS, 2/3*\HBS+5 pt)
+	{\texttt{ISBN: XXX-X-XXX-XXXXX-X}};%\phd@ISBN}};
+	\end{scope}
+	%\fi
+	
+	\begin{scope}[inner sep=0pt, shift = {(\WC-30pt, 0.5*\HBS)}]
+	%\LogoUniversityPress{\HBS/3}% University Press logo (right side, bottom)
+	\end{scope}
+	
+	% Full background
+	\fill[basecolor] (0,\HBS) rectangle (\WC -\MS,\HC-\HTS);
 	\end{tikzpicture}
 }
 %</phd|bkc>
@@ -5058,7 +5069,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 % We also need a few new book cover components for the spine:
 %<*bkc>
 \newbookcovercomponenttype{title}{
-	\vspace{2em}\centering
+	\vspace{19.375mm+2em}\centering
 	\rotatebox[origin=c]{-90}{
 		{\renewcommand{\\}[1][]{~}%
 		\fontsize{15}{0}\selectfont\color{ugent@main}\textbf{\vphantom{Ag}#1}}
@@ -5073,11 +5084,15 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 	\vspace{13mm+2em}
 }
 \newbookcovercomponenttype{logo}{
-	\vfill\hfill
+	\vspace{0mm}\centering
+	\rotatebox{-90}{
 	\begin{tikzpicture}[overlay,x=1pt,y=1pt]
-	\@ugentlogo{5mm}{#1}{0.0}
+	\begin{scope}[shift={(0,-7.75mm)}]
+		\@ugentlogo{15.5mm}{#1}{0.0}
+	\end{scope}
 	\end{tikzpicture}%
-	\hfill\vspace{5mm}
+}
+	\vfill
 }
 %</bkc>
 % 
@@ -5091,9 +5106,9 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 		\bookcovercomponent{normal}{front}{\frontcover}
 		\makeatletter
 		\if@printonspine
+		\bookcovercomponent{logo}{spine}{ugent@main}
 		\bookcovercomponent{title}{spine}{\@title}
 		\bookcovercomponent{author}{spine}{\@author}
-		\bookcovercomponent{logo}{spine}{ugent@main}
 		\fi 
 		\makeatother 
 		\bookcovercomponent {normal}{back}[-1mm,0mm,0mm,0mm]{\backcover}
