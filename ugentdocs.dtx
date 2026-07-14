@@ -1128,7 +1128,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 
 %% You may want to use common fonts
 %% Just an example of font-scheme: this is in no way a recommended font
-%% scheme!
+%% scheme! If you override font here, you also need to adjust it in the bookcover file!
 \setmainfont{Arial}[
 BoldFont           = {Arial},
 BoldFeatures       = {FakeBold=2.5},
@@ -1201,14 +1201,13 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% creates the title page, remove if you don't want any
 \maketitle
 
-%% creates a bookcover file \jobname-cover.tex
-% Note: this only works if you don't specify the options cameraready and bare
-% specify the weight of your paper in gram per square meter
-% probably this is 80 g/m2
-% It might be that the page calculation for the final pages is wrong (usually by 2 pages).
-% In that case, correct the final page manually in the \jobname-cover.tex file.
-% In case you want a special font on the bookcover spine, edit the \jobname-cover.tex file.
-\generatebookcover{80}
+%% Creates a bookcover file \jobname-cover.tex
+%% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
+%% a caliper (paper thickness) of 0.1 mm:
+%% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
+%% If you're using a different paper type, override the spine width 
+%% in the \jobname-cover.tex file using the formula above.
+\generatebookcover
 
 %% causes the first pages to be roman numbered
 \frontmatter
@@ -2415,7 +2414,7 @@ een b\'echamel saus:
 		\node[anchor=south west, text width=3*\logounit, align=left, font = \logotextface\fontsize{13.6pt}{12.5pt}\selectfont] at (\logounit-0.03cm,\logounit-0.005cm) {\spaceskip=0.0825cm%
 			\ugentlogotext};
 	\end{scope}
-	}
+}
 	
 \AtBeginDocument{
   \makeatother
@@ -4158,30 +4157,6 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 % \end{imacro}
 %
 %
-% \begin{imacro}{\pagecount}
-%   This macro will set the |\@pagecount| tag that will be used in the
-%   spine width calculation of the bookcover class.
-%    \begin{macrocode}
-%<*bkc> 
-\newcommand*\@pagecount{168}
-\newcommand*\pagecount[1]{\renewcommand*\@pagecount{#1}}
-%</bkc>
-%   \end{macrocode}
-% \end{imacro}
-%
-%
-% \begin{imacro}{\pageweght}
-%   This macro will set the |\@pageweight| tag (in g/m2) that will be used in the
-%   spine width calculation of the bookcover class.
-%    \begin{macrocode}
-%<*bkc> 
-\newcommand*\@pageweight{80}
-\newcommand*\pageweight[1]{\renewcommand*\@pageweight{#1}}
-%</bkc>
-%   \end{macrocode}
-% \end{imacro}
-%
-%
 % \subsection{Dirty reverse video tricks}
 % Try not to throw up in your mouth\ldots
 %
@@ -4957,7 +4932,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %
 %
 % \subsection{Bookcover for the PhD class}
-%  First we calculate the spine width 
+%  First we calculate the spine width, set some dimensions, 
 %  and check if we can print on the spine:
 %  \begin{macrocode}
 %<*bkc>
@@ -4966,13 +4941,12 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \ExplSyntaxOn
 \msg_new:nnnn { bookcover } { spine-too-small }
 { The~spine~width~(#1mm)~is~too~small. }
-{ It~must~be~at~least~8mm~to~typeset~any~spine~text. }
+{ It~must~be~at~least~10mm~to~typeset~any~spine~text. }
 \msg_new:nnnn { bookcover } { spine-big-enough }
 { The~spine~width~(#1mm)~is~big~enough. }
-{ It~must-be~at~least~8mm~to~typeset~the~spine~text. }
+{ It~must-be~at~least~10mm~to~typeset~the~spine~text. }
 \AtBeginDocument{
-	\pgfmathsetlength{\spinewidth}{0.000625*\@pagecount*\@pageweight mm}
-	\fp_compare:nNnTF { \spinewidth } < { 8.0mm } {
+	\fp_compare:nNnTF { \spinewidth } < { 10.0mm } {
 		\msg_warning:nnx { bookcover } { spine-too-small } { \fp_to_decimal:n{\spinewidth/1mm} }
 		\@printonspinefalse
 	}{
@@ -5135,9 +5109,10 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   \begin{macrocode}
 %<*phd>
 \ExplSyntaxOn
-\newcommand\generatebookcover[1]{
-	\tl_set:Nx \l_@@_pageweight_tl { #1 }
-	\tl_set:Nx \l_@@_pagecount_tl  { \ztotpages }
+\newcommand\generatebookcover{
+	\fp_set:Nn \l_@@_paperweight_fp { 80 } % g/m2
+	\fp_set:Nn \l_@@_pagecount_fp  { \ztotpages }
+	\fp_set:Nn \l_@@_paperbulk_fp   { 1.25} % cm3/g
 	\tl_set:Nx \l_@@_faculty_tl    { \fselector }
 	\tl_set:Nx \l_@@_cameraready_tl {
 		\if@cameraready ,~cameraready \fi
@@ -5146,6 +5121,9 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 		\if@cmyk, cmyk \fi
 	}
 	
+	\dim_new:N \l_@@_spinewidth_dim
+	\dim_set:Nn \l_@@_spinewidth_dim {\fp_to_decimal:n {\l_@@_pagecount_fp/2*\l_@@_paperweight_fp/1e6*\l_@@_paperbulk_fp*1e3} mm}
+	
 	\tl_set:Nx \l_@@_title_tl       { \exp_not:n{\@title} }
 	\tl_set:Nx \l_@@_subtitle_tl    { \exp_not:n{\@subtitle} }
 	\tl_set:Nx \l_@@_author_tl      { \exp_not:n{\@author} }
@@ -5153,14 +5131,15 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 	\tl_set:Nx \l_@@_defensedate_tl { \exp_not:n{\@defensedate} }
 	
 	\tl_set:Nn \g_@@_covertemplate_tl {
-		\exp_not:N\documentclass[\l_@@_faculty_tl\l_@@_cameraready_tl\l_@@_cmyk_tl]{ugentbookcover}\iow_newline:
+		\exp_not:N\documentclass[\l_@@_faculty_tl, spinewidth=\fp_to_decimal:n{round(\dim_ratio:nn{\l_@@_spinewidth_dim}{1mm},1)}mm\l_@@_cameraready_tl\l_@@_cmyk_tl]{ugentbookcover}\iow_newline:
+		\c_percent_str~Currently,~a~for~80~g/m2~paper~with~a~bulk~of~1.25~cm3/g~is~assumed~(0.1~mm~caliper~or~thickness).\iow_newline:
+		\c_percent_str~Page~count~is~\fp_to_decimal:n{round(\l_@@_pagecount_fp,0)}~pages.~Adjust~spinewidth~if~necessary~using:\iow_newline:
+		\c_percent_str~spinewidth~=~page~count~/~2~*~grammage~*~bulk~=~page~count~/~2~*~caliper\iow_newline:
 		\exp_not:N\title{\l_@@_title_tl}			\iow_newline:
 		\exp_not:N\subtitle{\l_@@_subtitle_tl}		\iow_newline:
 		\exp_not:N\author{\l_@@_author_tl}			\iow_newline:
 		\exp_not:N\degree{\l_@@_degree_tl}			\iow_newline:
 		\exp_not:N\defensedate{\l_@@_defensedate_tl}\iow_newline:
-		\exp_not:N\pagecount{\l_@@_pagecount_tl}	\iow_newline:
-		\exp_not:N\pageweight{\l_@@_pageweight_tl}	\iow_newline:
 													\iow_newline:
 		\exp_not:N\begin{document}					\iow_newline:
 			\exp_not:N\makebookcover				\iow_newline:
