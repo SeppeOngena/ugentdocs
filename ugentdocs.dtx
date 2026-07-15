@@ -5237,7 +5237,11 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \ExplSyntaxOn
 \newcommand\generatebookcover{
 	\fp_set:Nn \l_@@_paperweight_fp { 80 } % g/m2
-	\fp_set:Nn \l_@@_pagecount_fp  { \ztotpages }
+	\if@bare
+		\fp_set:Nn \l_@@_pagecount_fp  { \ztotpages }
+	\else
+		\fp_set:Nn \l_@@_pagecount_fp  { \ztotpages-2}
+	\fi
 	\fp_set:Nn \l_@@_paperbulk_fp   { 1.25} % cm3/g
 	\tl_set:Nx \l_@@_faculty_tl    { \fselector }
 	\tl_set:Nx \l_@@_cameraready_tl {
