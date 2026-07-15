@@ -3721,7 +3721,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   the title page.
 %    \begin{macrocode}
 %<*crs|bmt|phd|ex|bkc>      
-\newcommand*{\@academicyear}{XXX-YYYY}
+\newcommand*{\@academicyear}{XXXX--YYYY}
 \newcommand*{\academicyear}[1]{\renewcommand*{\@academicyear}{#1}}
 %</crs|bmt|phd|ex|bkc>
 %    \end{macrocode}
@@ -4163,18 +4163,27 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \end{macrocode}
 % \end{imacro}
 %
-%
-% \begin{imacro}{\studentnr}
-%   This macro will set the |\@studentnr| tag that will be used in the
-%   header of the pages.
+% \begin{imacro}{\publisherlogo}
+%   This macro will set the |\@publisherlogo| tag that will be used
+%   to print the publisher logo on the back cover.
 %    \begin{macrocode}
-%<*ex>      
-\newcommand*{\@studentnr}{0}
-\newcommand*{\studentnr}[1]{\renewcommand*{\@studentnr}{#1}}
-%</ex>
+%<*bkc|phd>      
+\newcommand*{\@publisherlogo}{Images/logo_UniversityPress_blue}
+\newcommand*{\publisherlogo}[1]{\renewcommand*{\@publisherlogo}{#1}}
+%</bkc|phd>
 %    \end{macrocode}
 % \end{imacro}
 %
+% \begin{imacro}{\studentnr}
+	%   This macro will set the |\@studentnr| tag that will be used in the
+	%   header of the pages.
+	%    \begin{macrocode}
+	%<*ex>      
+	\newcommand*{\@studentnr}{0}
+	\newcommand*{\studentnr}[1]{\renewcommand*{\@studentnr}{#1}}
+	%</ex>
+	%    \end{macrocode}
+	% \end{imacro}
 %
 % \subsection{Dirty reverse video tricks}
 % Try not to throw up in your mouth\ldots
@@ -5060,9 +5069,6 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 	\useasboundingbox (0,0) rectangle (\WC,\HC);
 	
 	% White bottom strip for ISBN and publisher logo	
-	%\edef\phd@tmpa{\phd@ISBN}
-	%\ifx\phd@tmpa\@empty\else
-	
 	\pgfmathsetmacro{\isbnscale}{0.6}
 	\pgfmathsetmacro{\grpH}{\isbnscale*25mm+15pt}% total group height: box+spacing+text
 	\begin{scope}[shift={(10mm, 0.5*\HBS - 0.5*\grpH)}]
@@ -5083,7 +5089,9 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 	\end{scope}
 	
 	\begin{scope}[inner sep=0pt, shift = {(\WC-30pt, 0.5*\HBS)}]
-	%\LogoUniversityPress{\HBS/3}% University Press logo (right side, bottom)
+		\node[anchor=east, inner sep=0pt]
+		at (0, 0)
+		{\includegraphics[height = \HBS/4]{\@publisherlogo}};
 	\end{scope}
 	
 	% Full background
