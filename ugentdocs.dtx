@@ -1195,6 +1195,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 
 %% some data about your manuscript
 %% \doi{https://dio.org/10.1000/182} %% only specify one if you obtained one!
+\isbn{978-9-463-57748-9}
 
 \begin{document}
 
@@ -1375,6 +1376,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 
 %% some data about your manuscript
 %% \doi{https://dio.org/10.1000/182} %% only specify one if you obtained one!
+\isbn{978-9-463-57748-9}
 
 \begin{document}
 
@@ -2727,6 +2729,11 @@ een b\'echamel saus:
 %</crs|rp>
 %    \end{macrocode}
 %
+% \subsection{ISBN code generation}
+%   \begin{macrocode}
+%<bkc|phd>\RequirePackage{GS1}
+%   \end{macrocode}
+%
 % \subsubsection{UGent color and logo scheme}
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp|le|ex|bkc>
@@ -3698,6 +3705,16 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %</phd> 
 %    \end{macrocode}
 % \end{imacro}
+%
+% \begin{imacro}{\isbn}
+%   This macro sets the |\@isbn| tag that will be used to generate
+%   the ISBN number and barcode on the dissertation back cover
+%   \begin{macrocode}
+%<*phd|bkc>
+\newcommand*{\@isbn}{}
+\newcommand*{\isbn}[1]{\renewcommand*{\@isbn}{#1}}
+%</phd|bkc>
+%   \end{macrocode} 
 %
 % \begin{imacro}{\academicyear}
 %   This macro sets the |\@academicyear| tag that later will be used on
@@ -5043,16 +5060,27 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 	\useasboundingbox (0,0) rectangle (\WC,\HC);
 	
 	% White bottom strip for ISBN and publisher logo	
-	%\edef\phd@tmpa{\phd@ISBN}% ISBN text and barcode placeholder
+	%\edef\phd@tmpa{\phd@ISBN}
 	%\ifx\phd@tmpa\@empty\else
-	\pgfmathsetmacro{\grpH}{2/3*\HBS+15pt}% total group height: box+spacing+text
-	\begin{scope}[shift={(1 in - 1.685/3*\HBS, 0.5*\HBS - 0.5*\grpH)}]
-	\fill[basecolor] (0,0) rectangle (1.685*2/3*\HBS, 2/3*\HBS);
-	\node[anchor=south, font=\footnotesize, text=black, inner sep=0pt]
-	at (1.685/3*\HBS, 2/3*\HBS+5 pt)
-	{\texttt{ISBN: XXX-X-XXX-XXXXX-X}};%\phd@ISBN}};
+	
+	\pgfmathsetmacro{\isbnscale}{0.6}
+	\pgfmathsetmacro{\grpH}{\isbnscale*25mm+15pt}% total group height: box+spacing+text
+	\begin{scope}[shift={(10mm, 0.5*\HBS - 0.5*\grpH)}]
+		\ifx\@isbn\@empty% ISBN text and barcode placeholder
+			\fill[basecolor] (0,0) rectangle (34.2mm, \isbnscale*25mm);
+		\else
+			\edef\@isbnexpanded{ISBN \@isbn}
+			%\fill[basecolor] (0,0) rectangle (34.2mm, \isbnscale*25mm);
+			\node[anchor=south] at (0.5*34.2mm,0)
+			{\edef\@@isbnbarcodecall{\noexpand\EANBarcode[scale=\isbnscale]{ISBN\space\@isbn}}
+				\@@isbnbarcodecall};
+		\fi
+		\node[anchor=south, font=\usefont{OT1}{ocrb}{m}{n}\fontsize{5}{5}\selectfont, text=black, inner sep=0pt]
+		at (0.5*34.2mm, \isbnscale*25mm+ 10pt)
+		{\ifx\@isbn\@empty {ISBN: XXX-X-XXX-XXXXX-X}
+		 \else {ISBN:  \@isbn}\fi
+		};
 	\end{scope}
-	%\fi
 	
 	\begin{scope}[inner sep=0pt, shift = {(\WC-30pt, 0.5*\HBS)}]
 	%\LogoUniversityPress{\HBS/3}% University Press logo (right side, bottom)
