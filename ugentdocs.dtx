@@ -4998,6 +4998,9 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \newlength{\WD} 	% Datawidth
 \newlength{\HD} 	% Dataheight
 \newlength{\BT}		% Top bleed
+\newlength{\WI}		% Image width
+\newlength{\HI}		% Image height
+\newlength{\HPL}	% Publisher logo height
 
 \if@bwbookcover % BW cover
 	\setlength\HBS{30mm}
@@ -5035,20 +5038,23 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 	\fi
 }
 
-\newcommand\frontcover{
+\newcommand\frontcover{%
 	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
 	\useasboundingbox (0,0) rectangle (\WC,\HC);
 
 	% Image zone
-	{\ifx\@titlepageimage\@empty
-		\fill[coverareacolor] (\MS,\HBS) rectangle (\WC+\B,\HC-\HTS+\BT);
-	\else
-		\begin{scope}
+	{\ifx\@titlepageimage\@empty%
+		\fill[coverareacolor] (\MS,\HBS) rectangle (\WC+\B,\HC-\HTS+\BT);%
+	\else%
+		\begin{scope}%
+		\pgfmathsetlength{\WI}{\WC+\B-\MS}
+		\pgfmathsetlength{\HI}{\HC-\HBS-\HTS+\BT}
 		\clip (\MS,\HBS) rectangle (\WC+\B,\HC-\HTS+\BT);
-		\node[anchor=south west, inner sep=0pt] at (\MS, \HBS) {%
-			\adjustbox{min width=\WC+\B-\MS, min height=\HC-\HBS-\HTS+\BT, keepaspectratio}
-			{\includegraphics[width=\WC+\B-\MS]{\@titlepageimage}}
-		};
+		\node[anchor=south west, inner sep=0pt] at (\MS, \HBS)%
+		{\adjustbox{min width=\WI, min height=\HI, keepaspectratio}{%
+				\includegraphics[width=\WI]{\@titlepageimage}%
+				}%
+		};%
 		\end{scope}
 	\fi};
 	
@@ -5114,7 +5120,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   Defines the back cover layour
 %   \begin{macrocode}
 %<*phd|bkc>
-\newcommand\backcover{
+\newcommand\backcover{%
 	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
 	\useasboundingbox (0,0) rectangle (\WC,\HC);
 	
@@ -5139,10 +5145,11 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 	\end{scope}
 	
 	\pgfmathsetmacro{\@publisherlogoxoffset}{min(\WC-\MS,\WC-10mm)}
+	\pgfmathsetlength{\HPL}{\HBS/4}
 	\begin{scope}[inner sep=0pt, shift = {(\@publisherlogoxoffset pt, 0.5*\HBS)}]
 		\node[anchor=east, inner sep=0pt]
 		at (0, 0)
-		{\includegraphics[height = \HBS/4]{\@publisherlogo}};
+		{\includegraphics[height = \HPL]{\@publisherlogo}};
 	\end{scope}
 	
 	% Full background
