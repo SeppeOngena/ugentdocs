@@ -4978,69 +4978,130 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %	Defines the front cover layout
 %	\begin{macrocode}
 %<*phd|bkc>
+\newif\if@bwbookcover
+\ExplSyntaxOn
+\str_if_eq:eeTF { \fselector } { bw } {
+	\@bwbookcovertrue
+}{ 
+	\@bwbookcoverfalse
+}
+\ExplSyntaxOff
+
 \newlength{\WC}\setlength\WC{160mm}	% Cover width
 \newlength{\HC}\setlength\HC{240mm}	% Cover height
-\newlength{\HBS}\setlength\HBS{35mm}% Height bottom strip
-\newlength{\HTS}\setlength\HTS{27mm}% Top white strip height
-\newlength{\MS}\setlength\MS{10mm}	% Spine margin (front/back cover)
-\newlength{\MTLR}\setlength\MTLR{10mm}	% Text LR margin
-\newlength{\MTTB}\setlength\MTTB{5mm}	% Text TB margin
 \newlength{\B}\setlength\B{3mm}		% Bleed
-\newlength{\WD}\setlength\WD{100mm} % Datawidth
-\newlength{\HD}\setlength\HD{80mm} 	% Dataheight
+\newlength{\HBS} 	% Height bottom strip
+\newlength{\HTS} 	% Top white strip height
+\newlength{\MS}  	% Spine margin (front/back cover)
+\newlength{\MTLR} 	% Text LR margin
+\newlength{\MTTB} 	% Text TB margin
+\newlength{\WD} 	% Datawidth
+\newlength{\HD} 	% Dataheight
+\newlength{\BT}		% Top bleed
+
+\if@bwbookcover % BW cover
+	\setlength\HBS{30mm}
+	\setlength\HTS{0mm}
+	\setlength\MS{0mm}	
+	\setlength\MTLR{20mm}
+	\setlength\MTTB{5mm}
+	\setlength\WD{0mm} 
+	\setlength\HD{0mm}
+	\colorlet{coverareacolor}{lightgray}
+	\colorlet{spinetextcolor}{white}
+	\colorlet{spinetextcoloralt}{white}
+	\colorlet{covertitlecolor}{white}
+	\setlength\BT{\B}
+\else % UGent cover
+	\setlength\HBS{35mm}
+	\setlength\HTS{27mm}
+	\setlength\MS{10mm}	
+	\setlength\MTLR{10mm}
+	\setlength\MTTB{5mm}
+	\setlength\WD{100mm}
+	\setlength\HD{80mm}
+	\colorlet{coverareacolor}{basecolor}
+	\colorlet{spinetextcolor}{ugent@main}
+	\colorlet{spinetextcoloralt}{maincolor}
+	\colorlet{covertitlecolor}{maincolor}
+	\setlength\BT{0mm}
+\fi
+
+\newcommand{\@printconfidentialcover}{
+	\if@bwbookcover
+		\node[anchor=south,font=\Large\bfseries,ugent@main] at	(1/3*\WC,1.5*\HBS/4) {\translatekey[uppercase]{confidential}};
+	\else
+		\node[anchor=south east,font=\Large\bfseries,ugent@main] at	(\WC-\MTLR,\MTLR) {\translatekey[uppercase]{confidential}};
+	\fi
+}
 
 \newcommand\frontcover{
 	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
 	\useasboundingbox (0,0) rectangle (\WC,\HC);
 
 	% Image zone
-	
 	{\ifx\@titlepageimage\@empty
-		\fill[basecolor] (\MS,\HBS) rectangle (\WC+\B,\HC-\HTS);
+		\fill[coverareacolor] (\MS,\HBS) rectangle (\WC+\B,\HC-\HTS+\BT);
 	\else
 		\begin{scope}
-		\clip (\MS,\HBS) rectangle (\WC+\B,\HC-\HTS);
-		\node[anchor=center, inner sep=0pt] at (\MS+0.5*\WC+0.5*\B-0.5*\MS, \HBS+0.5*\HC-0.5*\HBS-0.5*\HTS) {%
-			\adjustbox{min width=\WC+\B-\MS, min height=\HC-\HBS-\HTS, keepaspectratio}
+		\clip (\MS,\HBS) rectangle (\WC+\B,\HC-\HTS+\BT);
+		\node[anchor=south west, inner sep=0pt] at (\MS, \HBS) {%
+			\adjustbox{min width=\WC+\B-\MS, min height=\HC-\HBS-\HTS+\BT, keepaspectratio}
 			{\includegraphics[width=\WC+\B-\MS]{\@titlepageimage}}
 		};
 		\end{scope}
 	\fi};
 	
 	% Title, subtitle, author	
-	\node[anchor=west, text width=\WC-2*\MTLR-\MS, align=justify, text=maincolor] at (\MS+\MTLR, 0.5*\HC+0.5*\HBS-0.5*\HTS+0.5*\HD)%35mm+83mm+(\HC-27-35-83)/2
-	{{\bfseries\Huge\nohyphens{\@title}}%
-	\ifx\@subtitle\@empty\else\\[5pt]\hyphenpenalty=100000\LARGE\@subtitle\fi};
+	\if@bwbookcover
+		\node[anchor=south east, text width=\WC-2*\MTLR, align=right, text=covertitlecolor]
+		at (\WC-\MTLR, 2*\HBS)
+		{{\bfseries\Huge\nohyphens{\@title}}%
+			\ifx\@subtitle\@empty\else\\[4pt]\hyphenpenalty=100000\LARGE\@subtitle\fi%
+			\\[30pt]\hyphenpenalty=100000\LARGE\@author};
+	\else
+		\node[anchor=west, text width=\WC-2*\MTLR-\MS, align=justify, text=covertitlecolor]
+		at (\MS+\MTLR, 0.5*\HC+0.5*\HBS-0.5*\HTS+0.5*\HD)
+		{{\bfseries\Huge\nohyphens{\@title}}%
+		\ifx\@subtitle\@empty\else\\[5pt]\hyphenpenalty=100000\LARGE\@subtitle\fi};
+		
+		\fill[maincolor] (\MS,\HBS) rectangle (\MS+\WD,\HBS+\HD);
+		
+		\node[anchor=north west, text width=\WD-2*\MTLR, align=left, text=white]
+		at (\MS+\MTLR, \HBS+\HD-\MTTB)
+		{{\bfseries\LARGE\@author}%
+			\\[15pt]\Large \supervisorsname{}:\newline
+			\jointsupervisors{\\}{}%
+			\\[15pt]
+			\normalsize \translatekey{acyear} \@academicyear};
+		
+		\node[anchor=south west, text width=\WD-2*\MTLR, align=justify, text=white]
+		 at (\MS+\MTLR, \HBS+\MTTB)
+		{\normalsize\nohyphens{\translatekey{phdprefix}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{phdsuffix}~\@degree}};
+	\fi
 	
-	\fill[maincolor] (\MS,\HBS) rectangle (\MS+\WD,\HBS+\HD);
-	
-	\node[anchor=north west, text width=\WD-2*\MTLR, align=left, text=white] at (\MS+\MTLR, \HBS+\HD-\MTTB)
-	{{\bfseries\LARGE\@author}%
-		\\[15pt]\Large \supervisorsname{}:\newline
-		\jointsupervisors{\\}{}%
-		\\[15pt]
-		\normalsize \translatekey{acyear} \@academicyear};
-	
-	\node[anchor=south west, text width=\WD-2*\MTLR, align=justify, text=white] at (\MS+\MTLR, \HBS+\MTTB)
-	{\normalsize\nohyphens{\translatekey{phdprefix}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{phdsuffix}~\@degree}};
-	
-	% White bottom strip logo
-	\begin{scope}[shift={(\MS-\HBS/4,0mm)}]
+	% UGent logo
+	\pgfmathsetmacro{\@ugentlogoxoffset}{max(\MS-\HBS/4,0)}
+	\begin{scope}[shift={(\@ugentlogoxoffset pt,0mm)}]
 		\@ugentlogo{\HBS}{ugent@main}{0}
 	\end{scope}
 	
-	% White top strip logo
+	% Faculty logo
+	\if@bwbookcover
+	\begin{scope}[shift={(\WC,0)}]
+	\@faclogo{\HBS/4*3}{ugent@\fselector}{1}
+	\end{scope}
+	\else
 	\begin{scope}[shift={(\MS-\HBS/4,\HC-\HTS)}]
 		\@faclogo{\HBS/4*3}{ugent@\fselector}{0}
 	\end{scope}
+	\fi
 	
 	\if@tempembargo
-	\node[anchor=south east,font=\Large\bfseries,ugent@main] at (
-	(\WC-\MTLR,\MTLR) {\translatekey[uppercase]{confidential}};
+		\@printconfidentialcover
 	\else
 	\if@fullembargo
-	\node[anchor=south east,font=\Large\bfseries,ugent@main] at (
-	(\WC-\MTLR,\MTLR) {\translatekey[uppercase]{confidential}};
+		\@printconfidentialcover
 	\fi
 	\fi
 	\end{tikzpicture}
@@ -5062,7 +5123,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 	\pgfmathsetmacro{\grpH}{\isbnscale*25mm+15pt}% total group height: box+spacing+text
 	\begin{scope}[shift={(10mm, 0.5*\HBS - 0.5*\grpH)}]
 		\ifx\@isbn\@empty% ISBN text and barcode placeholder
-			\fill[basecolor] (0,0) rectangle (34.2mm, \isbnscale*25mm);
+			\fill[coverareacolor] (0,0) rectangle (34.2mm, \isbnscale*25mm);
 		\else
 			\edef\@isbnexpanded{ISBN \@isbn}
 			%\fill[basecolor] (0,0) rectangle (34.2mm, \isbnscale*25mm);
@@ -5077,14 +5138,15 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 		};
 	\end{scope}
 	
-	\begin{scope}[inner sep=0pt, shift = {(\WC-30pt, 0.5*\HBS)}]
+	\pgfmathsetmacro{\@publisherlogoxoffset}{min(\WC-\MS,\WC-10mm)}
+	\begin{scope}[inner sep=0pt, shift = {(\@publisherlogoxoffset pt, 0.5*\HBS)}]
 		\node[anchor=east, inner sep=0pt]
 		at (0, 0)
 		{\includegraphics[height = \HBS/4]{\@publisherlogo}};
 	\end{scope}
 	
 	% Full background
-	\fill[basecolor] (0,\HBS) rectangle (\WC -\MS,\HC-\HTS);
+	\fill[coverareacolor] (0-\B,\HBS) rectangle (\WC-\MS,\HC-\HTS+\BT);
 	\end{tikzpicture}
 }
 %</phd|bkc>
@@ -5095,18 +5157,32 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %<*bkc>
 \newbookcovercomponenttype{title}{
 	\vspace{19.375mm+2em}\centering
-	\rotatebox[origin=c]{-90}{
-		{\renewcommand{\\}[1][]{~}%
-		\fontsize{15}{0}\selectfont\color{ugent@main}\textbf{\vphantom{Ag}#1}}
-	}
+	\rotatebox[origin=c]{-90}{%
+		\begin{tabular}{@{}l@{}}
+			{\renewcommand{\\}[1][]{~}%
+				\fontsize{15}{0}\selectfont\color{spinetextcolor}\textbf{#1}}
+			\ifx\@subtitle\@empty\else
+			\\[0.25em]
+			{\fontsize{10}{0}\selectfont\color{spinetextcolor}\@subtitle}
+			\fi
+		\end{tabular}
+	}%
 	\vfill
 }
-\newbookcovercomponenttype{author}{
+\newbookcovercomponenttype{authoryear}{
 	\vfill\centering
-	\rotatebox[origin=c]{-90}{
-		\fontsize{13}{0}\selectfont\color{maincolor}\textbf{\vphantom{Ag}#1}
-	}
-	\vspace{13mm+2em}
+	\if@bwbookcover
+		\rotatebox[origin=c]{-90}{
+			\fontsize{13}{0}\selectfont\color{spinetextcoloralt}\textbf{\vphantom{Ag}#1%
+				\hspace{30pt}\the\year%
+				}
+		}
+	\else
+		\rotatebox[origin=c]{-90}{
+			\fontsize{13}{0}\selectfont\color{spinetextcoloralt}\textbf{\vphantom{Ag}#1}
+		}
+	\fi
+	\vspace{10mm}
 }
 \newbookcovercomponenttype{logo}{
 	\vspace{0mm}\centering
@@ -5130,14 +5206,17 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 	\begin{bookcover}
 		\bookcovercomponent{normal}{front}{\frontcover}
 		\makeatletter
+		\if@bwbookcover
+			\bookcovercomponent{color}{bg spine}{ugent@main}
+		\fi
 		\if@printonspine
-		\bookcovercomponent{logo}{spine}{ugent@main}
+		\bookcovercomponent{logo}{spine}{spinetextcolor}
 		\bookcovercomponent{title}{spine}{\@title}
-		\bookcovercomponent{author}{spine}{\@author}
+		\bookcovercomponent{authoryear}{spine}{\@author}
 		\fi 
 		\makeatother 
-		\bookcovercomponent {normal}{back}[-1mm,0mm,0mm,0mm]{\backcover}
-\end{bookcover}		
+		\bookcovercomponent {normal}{back}{\backcover}
+\end{bookcover}	
 }
 %</bkc>
 %    \end{macrocode}
