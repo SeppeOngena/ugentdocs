@@ -319,41 +319,6 @@
 %   header and also in a watermark) to make sure you never hand out
 %   that copy to students and suppressing the fillout pages.
 %
-% \DescribeMacro{filled} [letter / coursetext /
-% bamathesis / phdthesis / report]\\ 
-%   This option causes the text to be filled (simultaneous left and
-%   right alignment). Though this setting is not recommended, it is
-%   provided because the default |\raggedright| cannot be undone. The
-%   |filled| option prevents the |\raggedright| from being
-%   issued. However, if you care about the typographic readability of
-%   your text, you shouldn't use this option.
-%
-%   \DescribeMacro{nofoldline} [letter]\\
-%   This option suppresses the fold line on a letter.
-%
-% Common sets of options depend on the purpose:
-% \begin{itemize}
-% \item to make a text ready for electronic distribution:
-% |a4paper|, |copyright|.
-% \item to make a camera-ready text (for printing):
-%   |a4paper|
-% \item to make a camera-ready coursetext (for printing at
-%   universitas):
-%   |a4paper|,|cameraready|
-% \item to make a letter:
-%   no options (filling a letter is discouraged)
-% \item to make an exam:
-%   no options (filling an exam is discouraged)
-% \item to make a PhD text:
-%   |twoside|, |openright| and (optionally) |filled|
-% \item to make a camera-ready PhD text:
-%   |twoside|, |openright|, |cameraready| and (optionally) |filled|
-% \item to make a bare version of your PhD text for the Nieuwe
-%   Mediadienst: |twoside|, |openright|, |bare| and (optionally)
-%   |filled|
-% \item to make a report:
-%   |twoside|, |openright| and (optionally) |filled|
-% \end{itemize}
 %
 % \subsection{The macros explained}
 %
@@ -767,7 +732,7 @@
 % \changes{v2.5}{}{changed publisher to universitas in example}
 % \begin{verbatim}
 %<*ct-example> 
-\documentclass[bw,a4paper,11pt,oneside,openright,cameraready,filled]
+\documentclass[bw,a4paper,11pt,oneside,openright,cameraready]
               {ugentcourse}
 
 %% ti           specifies the department, change to the letter combination of
@@ -780,9 +745,6 @@
 %%              your document is twosided
 %% cameraready  removes the graphical elements from the title and final
 %%              page, as they will be typeset by universitas (in color)
-%% filled       causes left and right filling (which - by the way - is
-%%              not helpful for easy reading; remove for a left-filled
-%%              document)w
 
 %% make paragraphs indent
 \setlength\parindent{1in}
@@ -981,10 +943,10 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% you can specify multiple supervisors, cosupervisors and external supervisors
 %% in Dutch: promotoren, copromotoren (dagelijkse begeleiders) en
 %% bedrijfspromotoren
-\supervisor{prof.~dr.~ir.~P.~Kumulus}{UAntwerpen}
-\supervisor{prof.~dr.~ir.~E.~Snuffel}{UAntwerpen}
-\cosupervisor{ing.~P.~Pienter}{Cosys, UAntwerpen}
-\extsupervisor{prof.~dr.~H.~Warwinkel}{TNT-Bang, N.V.}
+\supervisor{prof.~dr.~ir.}{Kumulus, P.}{UAntwerpen}
+\supervisor{prof.~dr.~ir.}{Snuffel, E.}{UAntwerpen}
+\cosupervisor{ing.}{Pienter, P.}{Cosys, UAntwerpen}
+\extsupervisor{prof.~dr.}{Warwinkel, H.}{TNT-Bang, N.V.}
 
 %% set the academic year: keep the spaces around the dash!
 \academicyear{2023 - 2024}
@@ -1095,7 +1057,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 % \paragraph{Dutch}
 % \begin{verbatim}
 %<*phd-example1> 
-\documentclass[bw,10pt,twoside,openright,filled]{ugentdissertation}
+\documentclass[bw,10pt,twoside,openright]{ugentdissertation}
 
 %% ti            specifies the department, change to the letter combination of
 %%               your department
@@ -1106,9 +1068,6 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%               your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options 
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% filled        causes left and right filling (which - by the way - is
-%%               not helpful for easy reading; remove for a left-filled
-%%               document)
 %% cameraready   this option will change the paper format from the official
 %%               $\qty{26}{\centi\meter}\times\qty{18}{\centi\meter}$
 %%               to A4 and trigger alignment marks and cut-lines (embedding
@@ -1166,16 +1125,16 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 }
 
 %% specify your supervisors and their affiliation
-\supervisor{prof.~dr.~W.~Vlaams}{Universiteit Antwerpen, Belgi\"e}
-\supervisor{prof.~dr.~J.~Stekker}{Universiteit Antwerpen, Belgi\"e}
+\supervisor{prof.~dr.}{Vlaams, W.}{Universiteit Antwerpen, Belgi\"e}
+\supervisor{prof.~dr.}{Stekker, J.}{Universiteit Antwerpen, Belgi\"e}
 
 %% specify the chairman of the jury and his/her/their affiliation
-\jurychair{prof.~dr.~P.~Dalinckx}{Universiteit Antwerpen, Belgi\"e}
+\jurychair{prof.~dr.}{Dalinckx, P.}{Universiteit Antwerpen, Belgi\"e}
 
 %% specify the memers of the jury and their affiliations
-\jurymember{prof.~dr.~J.~Dezerooder}{Universiteit Antwerpen, Belgi\"e}
-\jurymember{prof.~dr.~P.~De Tollenaere}{Flanders Make, Belgi\"e}
-\jurymember{prof.~dr.~M.~Byr}{IMEC, Nederland}
+\jurymember{prof.~dr.}{Dezerooder, J.}{Universiteit Antwerpen, Belgi\"e}
+\jurymember{prof.~dr.}{De Tollenaere, P.}{Flanders Make, Belgi\"e}
+\jurymember{prof.~dr.}{Byr, M.}{IMEC, Nederland}
 
 %% specify your degree (manually) and where and when you obtain your degree
 \degree{doctor in de Toegepaste Ingenieurswetenschappen}
@@ -1281,7 +1240,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 % \paragraph{English}
 % \begin{verbatim}
 %<*phd-example2> 
-\documentclass[ge,10pt,twoside,openright,filled,cameraready]{ugentdissertation}
+\documentclass[ge,10pt,twoside,openright,cameraready]{ugentdissertation}
 
 %% ti            specifies the department, change to the letter combination of
 %%               your department
@@ -1292,9 +1251,6 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%               your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options 
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% filled        causes left and right filling (which - by the way - is
-%%               not helpful for easy reading; remove for a left-filled
-%%               document)
 %% cameraready   this option will change the paper format from the official
 %%               $\qty{26}{\centi\meter}\times\qty{18}{\centi\meter}$
 %%               to A4 and trigger alignment marks and cut-lines (embedding
@@ -1379,6 +1335,8 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 \isbn{978-9-463-57748-9}
 
 \begin{document}
+\raggedright %% For non-justified text
+\raggedbottom %% For non-filled / non-flush pages
 
 %% creates the title page, remove if you don't want any
 \maketitle
@@ -1443,7 +1401,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %
 % \begin{verbatim}
 %<*rp-example>
-\documentclass[10pt,twoside,openright,filled]{ugentreport}
+\documentclass[10pt,twoside,openright]{ugentreport}
 
 %% 10pt          sets the font size, 10pt is ok for a phd manuscript
 %% twoside       if you want a two-sided document, change to oneside if you
@@ -1452,9 +1410,6 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%               your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options 
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% filled        causes left and right filling (which - by the way - is
-%%               not helpful for easy reading; remove for a left-filled
-%%               document)
 
 %% You may want to use common fonts
 %% Just an example of font-scheme: this is in no way a recommended font
@@ -2506,11 +2461,6 @@ een b\'echamel saus:
 \newif\if@copyright
 \DeclareOption{copyright}{\@copyrighttrue}
 %</crs|rp>
-%
-%<*crs|bmt|phd|rp|le>
-\newif\if@filled
-\DeclareOption{filled}{\@filledtrue}
-%</crs|bmt|phd|rp|le>
 %
 %<*ex>
 \newif\if@examiner
@@ -4341,18 +4291,6 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \setlength{\headheight}{13.7pt}
 \renewcommand*{\headrulewidth}{0pt}
 %</ex>
-%    \end{macrocode}
-%
-% Remains to take care of filling
-% 
-%    \begin{macrocode}
-%<*crs|bmt|phd|rp|le>
-\if@filled\else
-  \raggedright
-\fi
-\raggedbottom
-\onecolumn
-%</crs|bmt|phd|rp|le>
 %    \end{macrocode}
 %
 % \subsection{Copyright notice}
