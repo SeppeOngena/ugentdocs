@@ -547,7 +547,7 @@
 % set, a flat colored area will appear. This is part of the house
 % style.
 %
-% \DescribeMacro{\versionyear} [coursetext / report] (mandatory)\\
+% \DescribeMacro{\year} [coursetext / report] (mandatory)\\
 % This is to be the year in which you published the current version of
 % the course in the form YYYY.
 %
@@ -810,7 +810,7 @@
 %% better keep track of the different versions (and the corresponding
 %% publication year) of your course
 \courseversion{1.3}
-\versionyear{2023}
+\year=2023
 
 %% mention who lectures the course (can be different from the author)
 \lecturer{Zoltan Zo\"ekers}
@@ -1496,7 +1496,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 \extra{Onderzoeksrapport}
 
 %% year in which the report appears
-\versionyear{2023}
+\year=2023
 
 %% specify a fancy photo for your titlepage (if you don't want a dull one)
 \titlepageimage{Images/uantwerpen-keyboard.jpg}
@@ -3248,17 +3248,6 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \end{macrocode}
 % \end{imacro}
 % 
-% \begin{imacro}{\versionyear}
-%   This macro sets the |\@versionyear| tag that later will be used on
-%   the title page and in the copyright message.
-%    \begin{macrocode}
-%<*crs|rp>      
-\newcommand*{\@versionyear}{}
-\newcommand*{\versionyear}[1]{\renewcommand*{\@versionyear}{#1}}
-%</crs|rp> 
-%    \end{macrocode}
-% \end{imacro}
-% 
 % \begin{imacro}{\publisher}
 %   This macro sets the |\@publisher| tag that later will be used on
 %   the title page.
@@ -4385,7 +4374,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 
     CONFIDENTIAL AND PROPRIETARY.
 
-    \copyright{} \@versionyear{} \translatekey{org-ugent},
+    \copyright{} \the\year \translatekey{org-ugent},
     \translatekey{arr}.
   }
 }
@@ -5276,7 +5265,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
           \node[white,anchor=west,text width=17cm,align=left,font=\small]
           at (2.55,4)
           {\textsf{\textbf{\@affiliation{}
-                | \@versionyear}\\
+                | \the\year}\\
               \@address}};
           
           \begin{scope}[shift={(2.125,1.313)}] % TODO might need vertalign fix
@@ -5311,7 +5300,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \@affiliation\\
   \@address\\
   \vfill
-  \copyright{} \@versionyear{} \@author\\
+  \copyright{} \the\year \@author\\
   \translatekey{arr}.
   \vfill
   \setcounter{footnote}{0}%
