@@ -767,7 +767,7 @@
 %% set title, subtitle and author
 \title{Z\'agen, zoeken en zuchten}
 \subtitle{Cursusnota's}
-\author{Walter Daems en Paul Levrie}
+\author{Daems, Walter and Levrie, Paul}
 
 %% better keep track of the different versions (and the corresponding
 %% publication year) of your course
@@ -775,9 +775,9 @@
 \year=2023
 
 %% mention who lectures the course (can be different from the author)
-\lecturer{Zoltan Zo\"ekers}
-\lecturer{Siana Sigh}
-\lecturer{Zeger de Z\'ager}
+\lecturer{Zo\"ekers, Zoltan}
+\lecturer{Sigh, Siana}
+\lecturer{de Z\'ager, Zeger}
 
 %% you can use two ways to specify a dgree:
 %% (1) explicitly with text
@@ -938,7 +938,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
   ruimtemodellering} %% either don't split titles, or do so with hyphen
                      %% and a newline
 \subtitle{Deze subtitel mag je weglaten}
-\author{Bert Bibber}
+\author{Bibber, Bert}
 
 %% you can specify multiple supervisors, cosupervisors and external supervisors
 %% in Dutch: promotoren, copromotoren (dagelijkse begeleiders) en
@@ -980,7 +980,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
       \Large Samenvatting\\[1ex]
       \@title~\\[1ex]
       \large \@subtitle\\[0.5ex]}
-    \@author
+    \@authortitle\@formatname{\@author}
   \end{center}
   ]
   
@@ -1115,7 +1115,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
   Operatoren}
 \subtitle{Waarom moeten titels van doctoraatsthesissen toch altijd
   lang en onverstaanbaar zijn?}
-\author{Theofiel Hoekaff}
+\author{Hoekaff, Theofiel}
 \affiliation{Universiteit Antwerpen\\
   Faculteit Toegepaste Ingenieurswetenschappen\\
   Co-design of Cyber-Physical Systems (Cosys-Lab)}
@@ -1293,7 +1293,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
   lang en onverstaanbaar zijn?}
 
 %% specify the author and his/her/their affilliation and address
-\author{Theodore Edgeoff}
+\author{Edgeoff, Theodore}
 \affiliation{University of Antwerp\\
   Faculty of Applied Engineering\\
   Cosys-Lab}
@@ -1303,16 +1303,16 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 }
 
 %% specify your supervisors and their affiliation
-\supervisor{prof.~dr.~W.~Vlaams}{University of Antwerp, Belgium}
-\supervisor{prof.~dr.~J.~Stekker}{University of Antwerp, Belgium}
+\supervisor{prof.~dr.}{Vlaams, W.}{University of Antwerp, Belgium}
+\supervisor{prof.~dr.}{Stekker, J.}{University of Antwerp, Belgium}
 
 %% specify the chairman of the jury and his/her/their affiliation
-\jurychair{prof.~dr.~P.~Dalinckx}{University of Antwerp, Belgium}
+\jurychair{prof.~dr.}{Dalinckx, P.}{University of Antwerp, Belgium}
 
 %% specify the memers of the jury and their affiliations
-\jurymember{prof.~dr.~J.~Dezerooder}{University of Antwerp, Belgium}
-\jurymember{prof.~dr.~P.~De Tollenaere}{Flanders Make, Belgium}
-\jurymember{prof.~dr.~M.~Byr}{IMEC, The Netherlands}
+\jurymember{prof.~dr.}{Dezerooder, J.}{University of Antwerp, Belgium}
+\jurymember{prof.~dr.}{De Tollenaere, P.}{Flanders Make, Belgium}
+\jurymember{prof.~dr.}{Byr, M.}{IMEC, The Netherlands}
 
 %% specify your degree (manually) and where and when you obtain your degree
 \degree{doctor in Applied Engineering}
@@ -1439,7 +1439,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% address 
 \title{De toepassing van roomijs-derivaten in beton}
 \subtitle{Het belang van een smaakvolle architectuur}
-\author{Jan Bouwblauw}
+\author{Bouwblauw, Jan}
 \affiliation{Universiteit Antwerpen | Building Research Group}
 \address{Groenenborgerlaan 171, 2020 Antwerpen, Belgi\"e\\
   M: jan.bouwblauw@uantwerpen.be\\
@@ -1711,8 +1711,8 @@ their details enclosed.
 
 %% some data about your course and the authors/lecturers
 \course{1876FTIDUM}{5-Bistrologie}
-\author{Walter Daems}     %% can be omitted if 'lecturers' are sufficient
-\lecturer{Walter Daems}
+\author{Daems, Walter}     %% can be omitted if 'lecturers' are sufficient
+\lecturer{Daems, Walter}
 
 %% specify the degree of the program the course fits in
 \degree{Bachelor of Science in de industri\"ele wetenschappen -
@@ -1872,8 +1872,8 @@ een b\'echamel saus:
 
 %% some data about your course and the authors/lecturers
 \course{1876FTIDUM}{5-Bistrology}
-\lecturer{Walter Daems}
-\lecturer{Paul Levrie}
+\lecturer{Daems, Walter}
+\lecturer{Levrie, Paul}
 
 %% specify the degree of the program the course fits in
 \degree{Bachelor of Science in de industri\"ele wetenschappen - elektronica-ICT}
@@ -2474,6 +2474,10 @@ een b\'echamel saus:
 \newif\if@bare
 \DeclareOption{bare}{\@baretrue}
 %</phd>
+%<*phd|bkc|rp|ex|le|crs|bmt|bmr>
+\newif\if@surnamefirst
+\DeclareOption{surnamefirst}{\@surnamefirsttrue}
+%</phd|bkc|rp|ex|le|crs|bmt|bmr>
 %<*le>
 \newif\if@nofoldline
 \DeclareOption{nofoldline}{\@nofoldlinetrue}
@@ -2759,6 +2763,86 @@ een b\'echamel saus:
 %    \end{macrocode}
 %
 %
+% \subsection{Name parsing}
+% Some official UGent templates use the "Surname Firstname" formatting.
+% These functions return the firstname, firstnameinitial, surname, and
+% the full name formatted following the surnamefirst option.
+%   \begin{macrocode}
+%<*phd|bkc|rp|ex|le|crs|bmt|bmr>
+\ExplSyntaxOn
+
+\seq_new:N \l_@@_name_seq
+\seq_new:N \l_@@_authors_seq
+\tl_new:N  \l_@@_nameinput_tl
+\tl_new:N  \l_@@_surname_tl
+\tl_new:N  \l_@@_firstname_tl
+\tl_new:N  \l_@@_formattedname_tl
+
+\msg_new:nnnn { ugentdocs } { name-not-bibtex-format }
+{ The~name~'#1'~is~not~formatted~as~'Surname,~Firstname'. }
+{ Names~must~be~given~as~'Surname,~Firstname'~(BibTeX~style,~separated~by~a~comma).~Multiple~authors~should~be~separated~by~'~and~'. }
+
+\cs_new_protected:Npn \@@parsename:n #1
+{
+	\tl_set:Nx \l_@@_nameinput_tl { #1 }
+	\seq_set_split:NnV \l_@@_name_seq { , } \l_@@_nameinput_tl
+	\int_compare:nNnF { \seq_count:N \l_@@_name_seq } = { 2 }
+	{ \msg_error:nnx { ugentdocs } { name-not-bibtex-format } { \l_@@_nameinput_tl } }
+	\seq_pop_left:NN \l_@@_name_seq \l_@@_surname_tl
+	\tl_trim_spaces:N \l_@@_surname_tl
+	\seq_pop_left:NN \l_@@_name_seq \l_@@_firstname_tl
+	\tl_trim_spaces:N \l_@@_firstname_tl
+}
+
+\cs_new_protected:Npn \@@buildformattedname:
+{
+	\if@surnamefirst
+	\tl_set:Nn \l_@@_formattedname_tl { \l_@@_surname_tl }
+	\tl_if_empty:NF \l_@@_firstname_tl
+	{ \tl_put_right:Nn \l_@@_formattedname_tl { \space \l_@@_firstname_tl } }
+	\else
+	\tl_clear:N \l_@@_formattedname_tl
+	\tl_if_empty:NF \l_@@_firstname_tl
+	{ \tl_set:Nn \l_@@_formattedname_tl { \l_@@_firstname_tl \space } }
+	\tl_put_right:Nn \l_@@_formattedname_tl { \l_@@_surname_tl }
+	\fi
+}
+
+\NewDocumentCommand \@surname { m }
+{ \@@parsename:n {#1} \l_@@_surname_tl }
+
+\NewDocumentCommand \@firstname { m }
+{ \@@parsename:n {#1} \l_@@_firstname_tl }
+
+\NewDocumentCommand \@firstnameinitial { m }
+{
+	\@@parsename:n {#1}
+	\tl_if_empty:NF \l_@@_firstname_tl { \tl_head:N \l_@@_firstname_tl . }
+}
+
+\NewDocumentCommand \@formatname { m }
+{
+	\@@parsename:n {#1}
+	\@@buildformattedname:
+	\l_@@_formattedname_tl
+}
+
+\NewDocumentCommand \@formatnames { m }
+{
+	\tl_set:Nx \l_@@_nameinput_tl { #1 }
+	\seq_set_split:NnV \l_@@_authors_seq { ~and~ } \l_@@_nameinput_tl
+	\seq_set_map:NNn \l_@@_authors_seq \l_@@_authors_seq
+	{
+		\@@parsename:n {##1}
+		\@@buildformattedname:
+		\l_@@_formattedname_tl
+	}
+	\seq_use:Nnnn \l_@@_authors_seq { ,~ } { ~and~ } { ,~and~ }
+}
+
+\ExplSyntaxOff
+%</phd|bkc|rp|ex|le|crs|bmt|bmr>
+%   \end{macrocode}
 %
 % \subsection{Data dictionary and parser}
 %
@@ -3181,10 +3265,22 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %</ex> 
 %    \end{macrocode}
 % \end{imacro}
-% 
+%
 % \begin{imacro}{\author}
 %   The |author| tag is native to \LaTeX{}. It sets the |\@author|
 %   tag that will be used on the title page.
+% \end{imacro}\\
+%
+% \begin{imacro}{\authortitle}
+%   The |authortitle| tag sets the title (e.g. ir. or prof. dr. ir.) of the author.
+%   \begin{macrocode}
+%<*phd|crs|bmt|bkc|ex|le|rp>
+\newcommand*{\@authortitle}{}
+\newcommand*{\authortitle}[1]{%
+	\renewcommand*\@authortitle{#1\space}
+}
+%</phd|crs|bmt|bkc|ex|le|rp>
+%   \end{macrocode}
 % \end{imacro}
 % 
 % \begin{imacro}{\courseversion}
@@ -3239,28 +3335,28 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*crs|ex>
 \ExplSyntaxOn
-\seq_new:N \g_@@_lecturers
+\seq_new:N \g_@@_lecturers_seq
 \cs_new:Nn \@@_addlecturer:n {
-  \seq_gpush:Nn \g_@@_lecturers { #1 }
+  \seq_gpush:Nn \g_@@_lecturers_seq { #1 }
 }
 \NewDocumentCommand{\lecturer}{m}{
-  \@@_addlecturer:n { #1 }
+  \@@_addlecturer:n { \@formatname{#1} }
 }
-\NewDocumentCommand{\jointlecturers}{m}{
-  \seq_use:Nn \g_@@_lecturers { #1 }
+\NewDocumentCommand{\printlecturers}{m}{
+  \seq_use:Nn \g_@@_lecturers_seq { #1 }
 }
-\NewDocumentCommand{\lecturersname}{}{
-  \int_compare:nNnTF {\seq_count:N \g_@@_lecturers} > {1}{
+\NewDocumentCommand{\lecturerscaption}{}{
+  \int_compare:nNnTF {\seq_count:N \g_@@_lecturers_seq} > {1}{
     \translatekey{lecturers}
   }{
-  	\int_compare:nNnTF {\seq_count:N \g_@@_lecturers} > {0}{
+  	\int_compare:nNnTF {\seq_count:N \g_@@_lecturers_seq} > {0}{
     \translatekey{lecturer}
   	}{
   	}
   }
 }
 \AtBeginDocument{
-  \seq_greverse:N \g_@@_lecturers
+  \seq_greverse:N \g_@@_lecturers_seq
 }
 
 \ExplSyntaxOff
@@ -3304,26 +3400,26 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*bmt|phd|bkc>      
 \ExplSyntaxOn
-\seq_new:N \g_@@_supervisors
-\seq_new:N \g_@@_supervisorswithaffiliation
-\cs_new:Nn \@@_addsupervisor:nn {
-  \seq_gpush:Nn \g_@@_supervisors { #1 }
-  \seq_gpush:Nn \g_@@_supervisorswithaffiliation { #1,~#2 }
+\seq_new:N \g_@@_supervisors_seq
+\seq_new:N \g_@@_supervisorswithaffiliation_seq
+\cs_new:Nn \@@_addsupervisor:nnn {
+  \seq_gpush:Nn \g_@@_supervisors_seq { #1~\@formatname{#2} }
+  \seq_gpush:Nn \g_@@_supervisorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
 }
-\NewDocumentCommand{\supervisor}{mm}{
-  \@@_addsupervisor:nn { #1 } { #2 }
+\NewDocumentCommand{\supervisor}{mmm}{
+  \@@_addsupervisor:nnn { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\jointsupervisors}{mm}{
-  \seq_use:Nnnn \g_@@_supervisors { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printsupervisors}{mm}{
+  \seq_use:Nnnn \g_@@_supervisors_seq { #2 } { #1 } { #2 }
 }
-\NewDocumentCommand{\jointsupervisorswithaffiliation}{mm}{
-  \seq_use:Nnnn \g_@@_supervisorswithaffiliation { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printsupervisorswithaffiliation}{mm}{
+  \seq_use:Nnnn \g_@@_supervisorswithaffiliation_seq { #2 } { #1 } { #2 }
 }
-\NewDocumentCommand{\supervisorsname}{m}{
-  \int_compare:nNnTF { \seq_count:N \g_@@_supervisors } > {2} {
+\NewDocumentCommand{\supervisorscaption}{m}{
+  \int_compare:nNnTF { \seq_count:N \g_@@_supervisors_seq } > {2} {
   	\translatekey{supervisors} #1
   }{
-    \int_compare:nNnTF { \seq_count:N \g_@@_supervisors } = {2} {
+    \int_compare:nNnTF { \seq_count:N \g_@@_supervisors_seq } = {2} {
   		\translatekey{supervisor} #1
   	}{
   	}
@@ -3331,79 +3427,75 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 }
 %</bmt|phd|bkc>
 %<*bmt>
-\seq_new:N \g_@@_cosupervisors
-\seq_new:N \g_@@_cosupervisorswithaffiliation
-\cs_new:Nn \@@_addcosupervisor:nn {
-  \seq_gpush:Nn \g_@@_cosupervisors { #1 }
-  \seq_gpush:Nn \g_@@_cosupervisorswithaffiliation { #1,~#2 }
+\seq_new:N \g_@@_cosupervisors_seq
+\seq_new:N \g_@@_cosupervisorswithaffiliation_seq
+\cs_new:Nn \@@_addcosupervisor:nnn {
+  \seq_gpush:Nn \g_@@_cosupervisors_seq { #1~\@formatname{#2} }
+  \seq_gpush:Nn \g_@@_cosupervisorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
 }
-\NewDocumentCommand{\cosupervisor}{mm}{
-  \@@_addcosupervisor:nn { #1 } { #2 }
+\NewDocumentCommand{\cosupervisor}{mmm}{
+  \@@_addcosupervisor:nnn { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\jointcosupervisors}{mm}{
-  \seq_use:Nnnn \g_@@_cosupervisors { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printcosupervisors}{mm}{
+  \seq_use:Nnnn \g_@@_cosupervisors_seq { #2 } { #1 } { #2 }
 }
-\NewDocumentCommand{\jointcosupervisorswithaffiliation}{mm}{
-  \seq_use:Nnnn \g_@@_cosupervisorswithaffiliation { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printcosupervisorswithaffiliation}{mm}{
+  \seq_use:Nnnn \g_@@_cosupervisorswithaffiliation_seq { #2 } { #1 } { #2 }
 }
-\NewDocumentCommand{\cosupervisorsname}{m}{
-  \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors} > {2} {
+\NewDocumentCommand{\cosupervisorscaption}{m}{
+  \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors_seq} > {2} {
   	\translatekey{cosupervisors} #1
   }{
-    \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors} = {2} {
+    \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors_seq} = {2} {
   	  \translatekey{cosupervisor} #1
   	}{
   	}
   }
 }
-\seq_new:N \g_@@_extsupervisors
-\seq_new:N \g_@@_extsupervisorswithaffiliation
+\seq_new:N \g_@@_extsupervisors_seq
+\seq_new:N \g_@@_extsupervisorswithaffiliation_seq
 \cs_new:Nn \@@_addextsupervisor:nn {
-  \seq_gpush:Nn \g_@@_extsupervisors { #1 }
-  \seq_gpush:Nn \g_@@_extsupervisorswithaffiliation { #1,~#2 }
+  \seq_gpush:Nn \g_@@_extsupervisors_seq { #1~\@formatname{#2} }
+  \seq_gpush:Nn \g_@@_extsupervisorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
 }
-\NewDocumentCommand{\extsupervisor}{mm}{
-  \@@_addextsupervisor:nn { #1 } { #2 }
+\NewDocumentCommand{\extsupervisor}{mmm}{
+  \@@_addextsupervisor:nnn { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\jointextsupervisors}{mm}{
-  \seq_use:Nnnn \g_@@_extsupervisors { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printextsupervisors}{mm}{
+  \seq_use:Nnnn \g_@@_extsupervisors_seq { #2 } { #1 } { #2 }
 }
-\NewDocumentCommand{\jointextsupervisorswithaffiliation}{mm}{
-  \seq_use:Nnnn \g_@@_extsupervisorswithaffiliation { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printextsupervisorswithaffiliation}{mm}{
+  \seq_use:Nnnn \g_@@_extsupervisorswithaffiliation_seq { #2 } { #1 } { #2 }
 }
-\NewDocumentCommand{\extsupervisorsname}{m}{
-  \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors} > {2}{
+\NewDocumentCommand{\extsupervisorscaption}{m}{
+  \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors_seq} > {2}{
   	\translatekey{extsupervisors} #1
   }{
-    \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors} = {2}{
+    \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors_seq} = {2}{
   	  \translatekey{extsupervisor} #1
   	}{
     }
   }
 }
 %</bmt>
-%<*phd|bkc>
+%<*phd|bkc|bmt>
 \AtBeginDocument{
-  \seq_gpush:Nn \g_@@_supervisors {}
-  \seq_greverse:N \g_@@_supervisors
-  \seq_gpush:Nn \g_@@_supervisorswithaffiliation {}
-  \seq_greverse:N \g_@@_supervisorswithaffiliation
+  \seq_gpush:Nn \g_@@_supervisors_seq {}
+  \seq_greverse:N \g_@@_supervisors_seq
+  \seq_gpush:Nn \g_@@_supervisorswithaffiliation_seq {}
+  \seq_greverse:N \g_@@_supervisorswithaffiliation_seq
 }
-%</phd|bkc>
+%</phd|bkc|bmt>
 %<*bmt>
 \AtBeginDocument{
-  \seq_gpush:Nn \g_@@_supervisors {}
-  \seq_greverse:N \g_@@_supervisors
-  \seq_gpush:Nn \g_@@_supervisorswithaffiliation {}
-  \seq_greverse:N \g_@@_supervisorswithaffiliation
-  \seq_gpush:Nn \g_@@_cosupervisors {}
-  \seq_greverse:N \g_@@_cosupervisors
-  \seq_gpush:Nn \g_@@_cosupervisorswithaffiliation {}
-  \seq_greverse:N \g_@@_cosupervisorswithaffiliation
-  \seq_gpush:Nn \g_@@_extsupervisors {}
-  \seq_greverse:N \g_@@_extsupervisors
-  \seq_gpush:Nn \g_@@_extsupervisorswithaffiliation {}
-  \seq_greverse:N \g_@@_extsupervisorswithaffiliation
+  \seq_gpush:Nn \g_@@_cosupervisors_seq {}
+  \seq_greverse:N \g_@@_cosupervisors_seq
+  \seq_gpush:Nn \g_@@_cosupervisorswithaffiliation_seq {}
+  \seq_greverse:N \g_@@_cosupervisorswithaffiliation_seq
+  \seq_gpush:Nn \g_@@_extsupervisors_seq {}
+  \seq_greverse:N \g_@@_extsupervisors_seq
+  \seq_gpush:Nn \g_@@_extsupervisorswithaffiliation_seq {}
+  \seq_greverse:N \g_@@_extsupervisorswithaffiliation_seq
 }
 %</bmt>
 %<*bmt|phd|bkc>
@@ -3425,8 +3517,8 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   {See the ugentdocs manual}
 }
 \newcommand*{\@jurychairaff}{}
-\newcommand*{\jurychair}[2]{
-  \renewcommand*{\@jurychair}{#1}\renewcommand*{\@jurychairaff}{#2}}
+\newcommand*{\jurychair}[3]{
+  \renewcommand*{\@jurychair}{#1~\@formatname{#2}}\renewcommand*{\@jurychairaff}{#3}}
 %</phd> 
 %    \end{macrocode}
 % \end{imacro}
@@ -3438,18 +3530,18 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*phd>
 \ExplSyntaxOn
-\seq_new:N \g_@@_jurymemberswithaffiliation
-\cs_new:Nn \@@_addjurymember:nn {
-  \seq_gpush:Nn \g_@@_jurymemberswithaffiliation { #1,~#2 }
+\seq_new:N \g_@@_jurymemberswithaffiliation_seq
+\cs_new:Nn \@@_addjurymember:nnn {
+  \seq_gpush:Nn \g_@@_jurymemberswithaffiliation_seq { #1~\@formatname{#2},~#3 }
 }
-\NewDocumentCommand{\jurymember}{mm}{
-  \@@_addjurymember:nn { #1 } { #2 }
+\NewDocumentCommand{\jurymember}{mmm}{
+  \@@_addjurymember:nnn { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\jointjurymembers}{m}{
-  \seq_use:Nn \g_@@_jurymemberswithaffiliation { #1 }
+\NewDocumentCommand{\printjurymembers}{m}{
+  \seq_use:Nn \g_@@_jurymemberswithaffiliation_seq { #1 }
 }
 \AtBeginDocument{
-  \seq_greverse:N \g_@@_jurymemberswithaffiliation
+  \seq_greverse:N \g_@@_jurymemberswithaffiliation_seq
 }
 \ExplSyntaxOff
 %</phd> 
@@ -3475,18 +3567,18 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %
 %<*crs|ex>
 \ExplSyntaxOn
-\seq_new:N \g_@@_degrees
+\seq_new:N \g_@@_degrees_seq
 \cs_new:Nn \@@_adddegree:n {
-  \seq_gpush:Nn \g_@@_degrees { #1 }
+  \seq_gpush:Nn \g_@@_degrees_seq { #1 }
 }
 \NewDocumentCommand{\degree}{m}{
   \@@_adddegree:n { #1 }
 }
-\NewDocumentCommand{\jointdegrees}{mm}{
-  \seq_use:Nnnn \g_@@_degrees { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printdegrees}{mm}{
+  \seq_use:Nnnn \g_@@_degrees_seq { #2 } { #1 } { #2 }
 }
 \AtBeginDocument{
-  \seq_greverse:N \g_@@_degrees
+  \seq_greverse:N \g_@@_degrees_seq
   \let\degree\relax
 }
 \ExplSyntaxOff
@@ -3521,18 +3613,18 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*crs>
 \ExplSyntaxOn
-\seq_new:N \g_@@_courseswithcodes
+\seq_new:N \g_@@_courseswithcodes_seq
 \cs_new:Nn \@@_addcourse:nn {
-  \seq_gpush:Nn \g_@@_courseswithcodes{ \texttt{#1}~#2 }
+  \seq_gpush:Nn \g_@@_courseswithcodes_seq { \texttt{#1}~#2 }
 }
 \NewDocumentCommand{\course}{mm}{
   \@@_addcourse:nn { #1 } { #2 }
 }
-\NewDocumentCommand{\jointcourseswithcodes}{m}{
-  \seq_use:Nn \g_@@_courseswithcodes { #1 }
+\NewDocumentCommand{\printcourseswithcodes}{m}{
+  \seq_use:Nn \g_@@_courseswithcodes_seq { #1 }
 }
 \AtBeginDocument{
-  \seq_greverse:N \g_@@_courseswithcodes
+  \seq_greverse:N \g_@@_courseswithcodes_seq
 }
 \ExplSyntaxOff
 %</crs>
@@ -3722,21 +3814,21 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*le>
 \ExplSyntaxOn
-\seq_new:N \g_@@_emailaddresses
+\seq_new:N \g_@@_emailaddresses_seq
 \cs_new:Nn \@@_addemailaddress:nn {
-  \seq_gpush:Nn \g_@@_emailaddresses {#1\tat{}#2}
+  \seq_gpush:Nn \g_@@_emailaddresses_seq {#1\tat{}#2}
 }
 \NewDocumentCommand{\email}{mm}{
   \@@_addemailaddress:nn { #1 } { #2 }
 }
-\NewDocumentCommand{\jointemails}{m}{
-  \seq_use:Nn \g_@@_emailaddresses { #1 }
+\NewDocumentCommand{\printemails}{m}{
+  \seq_use:Nn \g_@@_emailaddresses_seq { #1 }
 }
 \NewDocumentCommand{\ifemails}{m}{
-  \seq_if_empty:NTF \g_@@_emailaddresses {} {#1}
+  \seq_if_empty:NTF \g_@@_emailaddresses_seq {} {#1}
 }
 \AtBeginDocument{
-  \seq_greverse:N \g_@@_emailaddresses
+  \seq_greverse:N \g_@@_emailaddresses_seq
 }
 \ExplSyntaxOff
 %</le> 
@@ -3752,21 +3844,21 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*le>
 \ExplSyntaxOn
-\seq_new:N \g_@@_phonenumbers
+\seq_new:N \g_@@_phonenumbers_seq
 \cs_new:Nn \@@_addphonenumber:n {
-  \seq_gpush:Nn \g_@@_phonenumbers {#1}
+  \seq_gpush:Nn \g_@@_phonenumbers_seq {#1}
 }
 \NewDocumentCommand{\phone}{m}{
   \@@_addphonenumber:n { #1 }
 }
-\NewDocumentCommand{\jointphones}{m}{
-  \seq_use:Nn \g_@@_phonenumbers { #1 }
+\NewDocumentCommand{\printphones}{m}{
+  \seq_use:Nn \g_@@_phonenumbers_seq { #1 }
 }
 \NewDocumentCommand{\ifphones}{m}{
-  \seq_if_empty:NTF \g_@@_phonenumbers {} {#1}
+  \seq_if_empty:NTF \g_@@_phonenumbers_seq {} {#1}
 }
 \AtBeginDocument{
-  \seq_greverse:N \g_@@_phonenumbers
+  \seq_greverse:N \g_@@_phonenumbers_seq
 }
 \ExplSyntaxOff
 %</le> 
@@ -3782,21 +3874,21 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*le>
 \ExplSyntaxOn
-\seq_new:N \g_@@_faxnumbers
+\seq_new:N \g_@@_faxnumbers_seq
 \cs_new:Nn \@@_addfaxnumber:n {
-  \seq_gpush:Nn \g_@@_faxnumbers {#1}
+  \seq_gpush:Nn \g_@@_faxnumbers_seq {#1}
 }
 \NewDocumentCommand{\fax}{m}{
   \@@_addfaxnumber:n { #1 }
 }
-\NewDocumentCommand{\jointfaxes}{m}{
-  \seq_use:Nn \g_@@_faxnumbers { #1 }
+\NewDocumentCommand{\printfaxes}{m}{
+  \seq_use:Nn \g_@@_faxnumbers_seq { #1 }
 }
 \NewDocumentCommand{\iffaxes}{m}{
-  \seq_if_empty:NTF \g_@@_faxnumbers {} {#1}
+  \seq_if_empty:NTF \g_@@_faxnumbers_seq {} {#1}
 }
 \AtBeginDocument{
-  \seq_greverse:N \g_@@_faxnumbers
+  \seq_greverse:N \g_@@_faxnumbers_seq
 }
 \ExplSyntaxOff
 %</le> 
@@ -3812,21 +3904,21 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*le>
 \ExplSyntaxOn
-\seq_new:N \g_@@_mobilenumbers
+\seq_new:N \g_@@_mobilenumbers_seq
 \cs_new:Nn \@@_addmobilenumber:n {
-  \seq_gpush:Nn \g_@@_mobilenumbers {#1}
+  \seq_gpush:Nn \g_@@_mobilenumbers_seq {#1}
 }
 \NewDocumentCommand{\mobile}{m}{
   \@@_addmobilenumber:n { #1 }
 }
-\NewDocumentCommand{\jointmobiles}{m}{
-  \seq_use:Nn \g_@@_mobilenumbers { #1 }
+\NewDocumentCommand{\printmobiles}{m}{
+  \seq_use:Nn \g_@@_mobilenumbers_seq { #1 }
 }
 \NewDocumentCommand{\ifmobiles}{m}{
-  \seq_if_empty:NTF \g_@@_mobilenumbers {} {#1}
+  \seq_if_empty:NTF \g_@@_mobilenumbers_seq {} {#1}
 }
 \AtBeginDocument{
-  \seq_greverse:N \g_@@_mobilenumbers
+  \seq_greverse:N \g_@@_mobilenumbers_seq
 }
 \ExplSyntaxOff
 %</le> 
@@ -4040,25 +4132,25 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*ex>
 \ExplSyntaxOn
-\seq_new:N \g_@@_rooms
+\seq_new:N \g_@@_rooms_seq
 \cs_new:Nn \@@_addroom:n {
-  \seq_gpush:Nn \g_@@_rooms { #1 }
+  \seq_gpush:Nn \g_@@_rooms_seq { #1 }
 }
 \NewDocumentCommand{\room}{m}{
   \@@_addroom:n { #1 }
 }
-\NewDocumentCommand{\jointrooms}{m}{
-  \seq_use:Nn \g_@@_rooms { #1 }
+\NewDocumentCommand{\printrooms}{m}{
+  \seq_use:Nn \g_@@_rooms_seq { #1 }
 }
-\NewDocumentCommand{\roomsname}{}{
-  \int_compare:nNnTF {\seq_count:N \g_@@_rooms} > {1}{
+\NewDocumentCommand{\roomscaption}{}{
+  \int_compare:nNnTF {\seq_count:N \g_@@_rooms_seq} > {1}{
     \translatekey{rooms}
   }{
   	\translatekey{room}
   }
 }
 \AtBeginDocument{
-  \seq_greverse:N \g_@@_rooms
+  \seq_greverse:N \g_@@_rooms_seq
 }
 
 \ExplSyntaxOff
@@ -4442,13 +4534,13 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
           \node
           [anchor=base west,maincolor,text width=13.75cm,align=left,font=\LARGE]
           at (2.125,24)
-          {\textsf{\textbf{\@author}}};
+          {\textsf{\textbf{\@formatnames{\@author}}}};
 
           
           \node
           [anchor=west,text width=13.75cm,align=left,font=\large,ugent@main]
           at (2.125,22)
-          {\textsf{\jointcourseswithcodes{\\}}};
+          {\textsf{\printcourseswithcodes{\\}}};
           
          \fill[maincolor] (2.125,6)
           -- (\paperwidth,6)
@@ -4461,14 +4553,14 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
           (SN) at (2.55,5.1)
           {
             \begin{tabular}{@{}l@{~\,}p{14.5cm}}
-              \textsf{\lecturersname}
-              & \textsf{\textbf{\jointlecturers{ | }}}
+              \textsf{\lecturerscaption}
+              & \textsf{\textbf{\printlecturers{ | }}}
             \end{tabular}
           };
 
           \node[white,anchor=west,text width=17.5cm,align=left,font=\small]
           at (2.55,3.7)
-          {\textsf{\jointdegrees{\\}{\\}}\\
+          {\textsf{\printdegrees{\\}{\\}}\\
             \textsf{\textbf{\@faculty{} \ifx\@department\empty\else |
                 \@department{} \fi | \@academicyear \hfill
                 \@publishercode}}\\
@@ -4519,7 +4611,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
           text width=14.75cm,align=left,
           yshift=-0.5cm,color=ugent@main] (author)
           {
-            \fontsize{18}{24}\selectfont{\textsf{\@author}}
+            \fontsize{18}{24}\selectfont{\textsf{\@formatnames{\@author}}}
           };
 
           \node
@@ -4527,21 +4619,21 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
           text width=14.75cm,align=left,
           yshift=-0.5cm]
           {
-            \fontsize{12}{15}\selectfont{\textsf{\jointdegrees{\\}{\\}}}
+            \fontsize{12}{15}\selectfont{\textsf{\printdegrees{\\}{\\}}}
           };
 
           \node
           [anchor=north west,text width=14.75cm,align=left] (title)
           at (5,13.3)
           {
-            \fontsize{12}{15}\selectfont\textsf{\textbf{\jointlecturers{\\}}}
+            \fontsize{12}{15}\selectfont\textsf{\textbf{\printlecturers{\\}}}
           };
 
           \node
           [anchor=north west,text width=14.75cm,align=left] (title)
           at (5,10)
           {
-            \fontsize{12}{15}\selectfont\textsf{\jointcourseswithcodes{\\}}
+            \fontsize{12}{15}\selectfont\textsf{\printcourseswithcodes{\\}}
           };
 
           \node[anchor=east]
@@ -4647,7 +4739,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
           [anchor=north west,font=\LARGE,yshift=-1cm,xshift=-1pt]
           at (title.south west)
           {%
-            \textsf{\textbf{\@author}}
+            \textsf{\textbf{\@authortitle\@formatname{\@author}}}
           };
 
           \node
@@ -4662,12 +4754,12 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
           [anchor=west,align=left,
           text width={\paperwidth-5.1cm},font=\normalsize]
           at (3.5cm,7.5cm)
-          {\supervisorsname{\\}
-            \textbf{\jointsupervisorswithaffiliation{\\}{~\\~\\}}%
-            \cosupervisorsname{\\}
-            \textbf{\jointcosupervisorswithaffiliation{\\}{~\\~\\}}%
-            \extsupervisorsname{\\}
-            \textbf{\jointextsupervisorswithaffiliation{\\}{}}
+          {\supervisorscaption{\\}
+            \textbf{\printsupervisorswithaffiliation{\\}{~\\~\\}}%
+            \cosupervisorscaption{\\}
+            \textbf{\printcosupervisorswithaffiliation{\\}{~\\~\\}}%
+            \extsupervisorscaption{\\}
+            \textbf{\printextsupervisorswithaffiliation{\\}{}}
           };
 
           \ifx\@companylogo\@empty
@@ -4770,7 +4862,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
     \@degree\\
     \translatekey{phdsuffix}\\
     \medskip
-    \textbf{\@author}
+    \textbf{\@authortitle\@formatname{\@author}}
     \vfill
     \if@tempembargo
       \translatekey[uppercase]{confidential}
@@ -4786,8 +4878,8 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
     \hfill
     \begin{minipage}[b]{0.4\textwidth}
       \flushright
-      \supervisorsname{\\}
-      \jointsupervisors{\\}{}
+      \supervisorscaption{\\}
+      \printsupervisors{\\}{}
     \end{minipage}
   \end{center}
   \clearpage
@@ -4795,16 +4887,16 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \textit{\translatekey{jurychair}}\hfill\break
   \@jurychair{}\ifdefvoid{\@jurychairaff}{}{, \@jurychairaff}\\
   \hfill\break
-  \textit{\supervisorsname{}}\hfill\break
-  \jointsupervisorswithaffiliation{\\}{\\}
+  \textit{\supervisorscaption{}}\hfill\break
+  \printsupervisorswithaffiliation{\\}{\\}
   \hfill\break
   \textit{\translatekey{jurymembers}}\hfill\break
-  \jointjurymembers{\\}
+  \printjurymembers{\\}
   \hfill\break
   \vfill
   \noindent\textbf{Contact}\\
   \smallskip
-  \@author\\
+  \@authortitle\@formatname{\@author}\\
   \@affiliation\\
   \@address\\
   \vfill
@@ -5002,7 +5094,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 		at (\WC-\MTLR, 2*\HBS)
 		{{\bfseries\Huge\nohyphens{\@title}}%
 			\ifx\@subtitle\@empty\else\\[4pt]\hyphenpenalty=100000\LARGE\@subtitle\fi%
-			\\[30pt]\hyphenpenalty=100000\LARGE\@author};
+			\\[30pt]\hyphenpenalty=100000\LARGE\@authortitle\@formatname{\@author}};
 	\else
 		\node[anchor=west, text width=\WC-2*\MTLR-\MS, align=justify, text=covertitlecolor]
 		at (\MS+\MTLR, 0.5*\HC+0.5*\HBS-0.5*\HTS+0.5*\HD)
@@ -5013,9 +5105,9 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 		
 		\node[anchor=north west, text width=\WD-2*\MTLR, align=left, text=white]
 		at (\MS+\MTLR, \HBS+\HD-\MTTB)
-		{{\bfseries\LARGE\@author}%
-			\\[15pt]\Large \supervisorsname{}:\newline
-			\jointsupervisors{\\}{}%
+		{{\bfseries\LARGE\@authortitle\@formatname{\@author}}%
+			\\[15pt]\Large \supervisorscaption{}:\newline
+			\printsupervisors{\\}{}%
 			\\[15pt]
 			\normalsize \translatekey{acyear} \@academicyear};
 		
@@ -5157,7 +5249,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 		\if@printonspine
 		\bookcovercomponent{logo}{spine}{spinetextcolor}
 		\bookcovercomponent{title}{spine}{\@title}
-		\bookcovercomponent{authoryear}{spine}{\@author}
+		\bookcovercomponent{authoryear}{spine}{\@authortitle\@formatname{\@author}}
 		\fi 
 		\makeatother 
 		\bookcovercomponent {normal}{back}{\backcover}
@@ -5277,7 +5369,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
           [anchor=base west,maincolor,
           text width=17cm,align=left,font=\LARGE]
           at (2.125,\paperheight-6.5cm)
-          {\textsf{\textbf{\@author}}};
+          {\textsf{\textbf{\@authortitle\@formatname{\@author}}}};
           
           \fill[maincolor] (2.125,6)
           -- (\paperwidth,6)
@@ -5317,18 +5409,18 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
     \Huge\textsf{\@title}\par
     \large\textsf{\@subtitle}\par
     \vfill
-    \textbf{\@author}
+    \textbf{\@authortitle\@formatname{\@author}}
     \vfill
   \end{center}
   \clearpage
   \vfill
   \textbf{Contact}\\
   \smallskip
-  \@author\\
+  \@authortitle\@formatname{\@author}\\
   \@affiliation\\
   \@address\\
   \vfill
-  \copyright{} \the\year \@author\\
+  \copyright{} \the\year \@authortitle\@formatname{\@author}\\
   \translatekey{arr}.
   \vfill
   \setcounter{footnote}{0}%
@@ -5415,10 +5507,10 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \@faculty{}
   \ifx\@unit\@empty\else\\* \@unit\fi~\\[1.75ex]
   \@address\\[1.75ex]
-  \ifemails{E~\jointemails{\\\phantom{E~}}\\}
-  \ifphones{T~\jointphones{\\\phantom{T~}}\\}
-  \iffaxes{F~\jointfaxes{\\\phantom{F~}}\\}
-  \ifmobiles{M~\jointmobiles{\\\phantom{M~}}\\}
+  \ifemails{E~\printemails{\\\phantom{E~}}\\}
+  \ifphones{T~\printphones{\\\phantom{T~}}\\}
+  \iffaxes{F~\printfaxes{\\\phantom{F~}}\\}
+  \ifmobiles{M~\printmobiles{\\\phantom{M~}}\\}
   ~\\[4ex]
   \begin{tikzpicture}[anchor=north west,align=left,outer sep=0,inner sep=0]
     \path
@@ -5555,14 +5647,14 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
         at (3,8)
         {%
           \fontsize{12}{21}\selectfont%
-          \textsf{\roomsname: \jointrooms{, }}
+          \textsf{\roomscaption: \printrooms{, }}
         };
         
         \node
         [anchor=base west,ugent@main,
         text width={\paperwidth-5cm},align=left,font=\LARGE]
         at (2.125,{\paperheight-6.5cm})
-        {\textsf{\textbf{\@author}}};
+        {\textsf{\textbf{\@authortitle\@formatname{\@author}}}};
         
         \fill[gray] (2.125,6)
         -- (\paperwidth,6)
@@ -5575,14 +5667,14 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
         (SN) at (2.55,4.9)
         {
           \begin{tabular}{@{}l@{~\,}p{14.5cm}}
-            \textsf{\lecturersname}
-            & \textsf{\textbf{\jointlecturers{ | }}}
+            \textsf{\lecturerscaption}
+            & \textsf{\textbf{\printlecturers{ | }}}
           \end{tabular}
         };
 
         \node[white,anchor=west,text width=17.5cm,align=left,font=\small]
         at (2.55,3.7)
-        {\textsf{\jointdegrees{\\}{\\}}\\
+        {\textsf{\printdegrees{\\}{\\}}\\
           \textsf{\textbf{\@faculty{}}}};
         
         \begin{scope}[shift={(2.125,1.313)}]
@@ -5807,7 +5899,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
       urlcolor=black,
       pdftitle={{\renewcommand{\\}[1][]{~}\@title}},
       pdfsubject={\@subtitle},
-      pdfauthor={\@author}
+      pdfauthor={\@authortitle\@formatname{\@author}}
     }
   }{}
 }
