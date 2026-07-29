@@ -436,34 +436,10 @@
 % using the |\bamadegree| macro (see below), unless you want to change
 % the document type to 'project'.
 %
-% \begin{center}
-%  % This data comes from ugentdocs-doctype.data
-%  \begingroup
-%  \catcode`\^^M=13%
-%  \def^^M{~\\}%
-%  \catcode`\==4 %~
-%  \begin{longtable}{p{3cm}p{8.5cm}}%
-%       \toprule  argument \\ \midrule ~\input{ugentdocs-doctype.data}
-%       \bottomrule%
-%  \end{longtable}%
-%  \endgroup
-% \end{center}
 %
 % \DescribeMacro{\bamadegree} [bamathesis] (mandatory)\\
 % This allows to specify the official degree through an
 % abbreviation. Using this abbreviation 
-% \begin{center}
-%  % This data comes from ugentdocs-degree.data
-%  \begingroup
-%  \catcode`\^^M=13%
-%  \def^^M{~\\}%
-%  \catcode`\==4 %~
-%  \begin{longtable}{p{3cm}p{8.5cm}}%
-%       \toprule  argument & degree \\ \midrule \input{ugentdocs-degree.data}
-%       \bottomrule%
-%  \end{longtable}%
-%  \endgroup
-% \end{center}
 % 
 % \DescribeMacro{\programme} [coursetext] (discontinued)\\
 % This macro is no longer used. Use |\degree{}| instead.%
@@ -731,7 +707,7 @@
 %
 % \changes{v2.5}{}{changed publisher to universitas in example}
 % \begin{verbatim}
-%<*ct-example> 
+%<*crs-example> 
 \documentclass[bw,a4paper,11pt,oneside,openright,cameraready]
               {ugentcourse}
 
@@ -875,7 +851,7 @@
 \makefinalpage
 
 \end{document}
-%</ct-example> 
+%</crs-example> 
 % \end{verbatim}
 % 
 % 
@@ -1265,8 +1241,8 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%
 
 %% use some fancy fonts: just an example!
-\usepackage{newpxtext}
-\usepackage{newpxmath}
+%\usepackage{newpxtext}
+%\usepackage{newpxmath}
 \linespread{1.05} % recommended line spreading for pallatino fonts
 
 %% load the proper language(s) (last language will trigger the language
@@ -1401,8 +1377,8 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %
 % \begin{verbatim}
 %<*rp-example>
-\documentclass[10pt,twoside,openright]{ugentreport}
-
+\documentclass[bw,10pt,twoside,openright]{ugentreport}
+% TODO should also be non-faculty specific (i.e., "bw" can be omitted)
 %% 10pt          sets the font size, 10pt is ok for a phd manuscript
 %% twoside       if you want a two-sided document, change to oneside if you
 %%               want a recto only document
@@ -1699,8 +1675,8 @@ their details enclosed.
 %% 10pt         students have good eyes, they still can read 10pt fonts
 
 %% select a font you like
-\usepackage{newpxtext}
-\usepackage{newpxmath}
+%\usepackage{newpxtext}
+%\usepackage{newpxmath}
 
 %% this package eases numbering of subquestions
 \usepackage{enumitem}
@@ -1860,8 +1836,8 @@ een b\'echamel saus:
 %% 10pt         students have good eyes, they still can read 10pt fonts
 
 %% select a font you like
-\usepackage{newpxtext}
-\usepackage{newpxmath}
+%\usepackage{newpxtext}
+%\usepackage{newpxmath}
 
 %% this package eases numbering of subquestions
 \usepackage{enumitem}
@@ -3475,7 +3451,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 }
 \seq_new:N \g_@@_extsupervisors_seq
 \seq_new:N \g_@@_extsupervisorswithaffiliation_seq
-\cs_new:Nn \@@_addextsupervisor:nn {
+\cs_new:Nn \@@_addextsupervisor:nnn {
   \seq_gpush:Nn \g_@@_extsupervisors_seq { #1~\@formatname{#2} }
   \seq_gpush:Nn \g_@@_extsupervisorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
 }
@@ -3767,6 +3743,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \newcommand*{\isbn}[1]{\renewcommand*{\@isbn}{#1}}
 %</phd|bkc>
 %   \end{macrocode} 
+% \end{imacro}
 %
 % \begin{imacro}{\academicyear}
 %   This macro sets the |\@academicyear| tag that later will be used on
@@ -5258,7 +5235,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 % \begin{imacro}{\makebookcover}
 %   This macro creates a book cover for the bookcover class. This is already
 %   defined in the |bookcover| package, so we need to renew it.
-%    \begin{macrocode}
+%   \begin{macrocode}
 %<*bkc>
 \renewcommand\makebookcover{
 	\begin{bookcover}
@@ -5274,10 +5251,10 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 		\fi 
 		\makeatother 
 		\bookcovercomponent {normal}{back}{\backcover}
-\end{bookcover}	
+	\end{bookcover}	
 }
 %</bkc>
-%    \end{macrocode}
+%   \end{macrocode}
 % \end{imacro}
 % 
 %
@@ -5382,7 +5359,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 % \begin{imacro}{\maketitle}
 %   Below, one can find the code for the title page of the
 %   |report| class:
-%    \begin{macrocode}
+%   \begin{macrocode}
 %<*rp>
 \renewcommand\maketitle{%
   \pagestyle{empty}
@@ -5492,13 +5469,13 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \
 }
 %</rp> 
-%    \end{macrocode}
+%   \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\makefinalpage}
 %   Below, one can find the code for the final page of the
 %   |phdthesis| class:
-%    \begin{macrocode}
+%   \begin{macrocode}
 %<*rp>
 \newcommand\makefinalpage{
   \cleardoublepage
@@ -5516,7 +5493,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \end{tikzpicture}
 }
 %</rp> 
-%    \end{macrocode}
+%   \end{macrocode}
 % \end{imacro}
 %
 %
@@ -5528,7 +5505,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 % The top of the letter is generated using the |\maketitle|
 % command. 
 %
-%    \begin{macrocode}
+%   \begin{macrocode}
 %<*le>
 \newcommand\maketitle{%
   \pagestyle{fancy}
@@ -5537,22 +5514,22 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
     \put(0,0){%
       \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
         \clip (0,0) rectangle(\paperwidth,\paperheight);
-        \path (current page.north west) +(1.8cm,-1.2cm) 
+        \path (current page.north west) +(1.8cm,-1.2cm); % TODO <- this semicolon was not here
         \begin{scope} % TODO the use of scope here may be very wrong
           \@ugentlogo{1.1cm}{ugent@main}{0.0}
-        \end{scope}{
+        \end{scope};
         \if@nofoldline\else
         \draw (current page.north west)
         +(1cm,-98mm) -- +(1.5cm,-98mm);
         \fi
         % 90 x 45
         % pos: 20mm van kant, 15mm van onderkant
-        \path (current page.north east) +(-100mm,-65mm) 
+        \path (current page.north east) +(-100mm,-65mm)
         node[anchor=west,text width=80mm,align=left] {
-          \scriptsize\textcolor{gray}{\uline{\@returnaddress}}\\*
-          \normalsize\@to\\*
-          \ifx\@toorganization\@empty\else\@toorganization\\*\fi%
-          \@toaddress
+      	  \scriptsize\textcolor{gray}{\uline{\@returnaddress}}\\*
+      	  \normalsize\@to\\*
+      	  \ifx\@toorganization\@empty\else\@toorganization\\*\fi%
+      	  \@toaddress
         };
       \end{tikzpicture}
     }
@@ -5579,7 +5556,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \end{tikzpicture}~\\[4ex]
 }
 %</le>
-%    \end{macrocode}
+%   \end{macrocode}
 % \end{imacro}
 %
 % The trailer of the page is automatically generated at the end of the document:
@@ -5706,11 +5683,11 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
           \textsf{\roomscaption: \printrooms{, }}
         };
         
-        \node
-        [anchor=base west,ugent@main,
-        text width={\paperwidth-5cm},align=left,font=\LARGE]
-        at (2.125,{\paperheight-6.5cm})
-        {\textsf{\textbf{\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}}};
+        %\node
+        %[anchor=base west,ugent@main,
+        %text width={\paperwidth-5cm},align=left,font=\LARGE]
+        %at (2.125,{\paperheight-6.5cm})
+        %{\textsf{\textbf{\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}}};
         
         \fill[gray] (2.125,6)
         -- (\paperwidth,6)
@@ -5819,7 +5796,8 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   square).
 %    \begin{macrocode}
 %<*ex>      
-\newcommand*\@mcsymbol{\square}
+\newcommand*\@mcsymbol{}%\square} 
+% TODO this needs to be fixed
 \newcommand*\setmcsymbol[1]{\renewcommand\@mcsymbol{#1}}
 %</ex> 
 %    \end{macrocode}
@@ -5970,7 +5948,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 % \begin{verbatim}
 %<*bmrug> 
 \documentclass[aspectratio=1610]{beamer}
-\usetheme[ti]{ugent}
+\usetheme[bw]{ugent}
 \usepackage[english]{babel}
 
 % The packages below are for demonstration purpose only.
@@ -6301,24 +6279,24 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \begin{itemize}
   \item \command{includegraphics[width=3cm]\{\command{logopos}\}}\\
     \begin{center}
-      \begin{tikzpicture}
-        \draw[fill,white] (0,0) rectangle node
-        {\includegraphics[width=3cm]{\logopos}} (4,1.25);
-      \end{tikzpicture}
+      %\begin{tikzpicture}
+        %\draw[fill,white] (0,0) rectangle node
+        %{\includegraphics[width=3cm]{\logopos}} (4,1.25);
+      %\end{tikzpicture}
     \end{center}
   \item \command{includegraphics[width=3cm]\{\command{logoneg}\}}\\
     \begin{center}
-      \begin{tikzpicture}
-        \draw[fill] (0,0) rectangle node
-        {\includegraphics[width=3cm]{\logoneg}} (4,1.25);
-      \end{tikzpicture}
+      %\begin{tikzpicture}
+      %  \draw[fill] (0,0) rectangle node
+      %  {\includegraphics[width=3cm]{\logoneg}} (4,1.25);
+      %\end{tikzpicture}
     \end{center}
   \item \command{includegraphics[width=3cm]\{\command{logomonowhite}\}}\\
     \begin{center}
-      \begin{tikzpicture}
-        \draw[fill] (0,0) rectangle node
-        {\includegraphics[width=3cm]{\logomonowhite}} (4,1.25);
-      \end{tikzpicture}
+      %\begin{tikzpicture}
+      %  \draw[fill] (0,0) rectangle node
+      %  {\includegraphics[width=3cm]{\logomonowhite}} (4,1.25);
+      %\end{tikzpicture}
     \end{center}
   \end{itemize}
 \end{frame}
@@ -6551,7 +6529,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   E.g., the next slide was created using:\\[1ex]
   \begin{codesnippet}[0.8\textwidth]
     \bframe[][graphic,t]\\
-    \ind\command{place} at (0.5,0.5) \{\command{uantwerpenicon[scale=0.8]}\}\\
+    \ind\command{place} at (0.5,0.5) \{\command{ugenticon[scale=0.8]}\}\\
     \eframe
   \end{codesnippet}
   \medskip
@@ -6560,7 +6538,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \end{frame}
 
 \begin{frame}[graphic,t]
-  \place at (0.5,0.5) {\uantwerpenicon[scale=0.8]}
+ % \place at (0.5,0.5) {\uantwerpenicon[scale=0.8]}
 \end{frame}
 
 \begin{frame}[t]
@@ -6588,11 +6566,11 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \end{codesnippet}
 \end{frame}
 
-\begin{frame}[graphicfill={\darken[0.25]%
-    {\includegraphics[scale=0.1,min width=\paperwidth,min height=\paperheight]%
-      {Images/uantwerpen-09.jpg}}},t]
+\begin{frame}%[graphicfill={\darken[0.25]%
+    %{\includegraphics[scale=0.1,min width=\paperwidth,min height=\paperheight]%
+    %  {Images/uantwerpen-09.jpg}}},t]
   \place [anchor=north east] at (0.95,0.5) {
-    \uantwerpencallout{3}{2.5}{
+    \ugentcallout{3}{2.5}{
       \bfseries You cannot be serious!\\[1ex]
       John McEnroe}
   }
@@ -6602,7 +6580,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   {Shading photographs locally}
 
   You can also choose to shade the local backdrop of the material
-  you put on the side. If you like the \command{uantwerpencallout}
+  you put on the side. If you like the \command{ugentcallout}
   command of the previous slide, you can give it an optional argument
   to set the fill opacity of the backdrop behind the text.
   
@@ -6610,7 +6588,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \begin{codesnippet}[0.9\textwidth]
     \bframe[][graphic,t]\\
     \ind\command{place} [anchor=north west] at (0.1,0.9) \{\\
-    \ind\ind\command{uantwerpencallout}[fill opacity=0.5]\{4.5\}\{2.5\}\{\\
+    \ind\ind\command{ugentcallout}[fill opacity=0.5]\{4.5\}\{2.5\}\{\\
     \ind\ind\ind\command{bfseries} I'll be back!\textbackslash\textbackslash[1ex]\\
     \ind\ind\ind Arnold Schwarzenegger\}\\
     \}
@@ -6618,8 +6596,8 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \end{codesnippet}
   \medskip
   
-  The \command{uantwerpencallout} command has te following syntax:\\[1ex]
-  \qquad\command{uantwerpencallout[options]\{width\}\{height\}\{contents\}}
+  The \command{ugentcallout} command has te following syntax:\\[1ex]
+  \qquad\command{ugentcallout[options]\{width\}\{height\}\{contents\}}
   \medskip
 
   Remember to run \LaTeX{} twice in order for the position of the
@@ -6628,7 +6606,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 
 \begin{frame}[graphic,t]
   \place [anchor=north west] at (0.1,0.9) {
-    \uantwerpencallout[fill opacity=0.5]{4.5}{2.5}{
+    \ugentcallout[fill opacity=0.5]{4.5}{2.5}{
       \bfseries I'll be back!\\[1ex]
       Arnold Schwarzenegger}
   }
@@ -6961,13 +6939,13 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
     \usepackage{cmbright}
     \usefonttheme{serif}
     \usepackage{fontspec}
-    \setmainfont
-    [UprightFont = *,
-     BoldFont = *b,
-     ItalicFont = *i,
-     BoldItalicFont = *z,
-    ]
-    {calibri}
+    %%\setmainfont
+    %%[UprightFont = *,
+    %% BoldFont = *b,
+    %% ItalicFont = *i,
+    %% BoldItalicFont = *z,
+    %%]
+    %%{calibri}
     \usepackage{sansmathaccent}
   \fi
 \fi
@@ -7162,9 +7140,9 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \end{tikzpicture}
 }
 
-\newcommand*\ugenticon[1][scale=1]{
-  \includegraphics[#1]{\iconfile}
-}
+%%\newcommand*\ugenticon[1][scale=1]{
+%%  \includegraphics[#1]{\iconfile}
+%%}
 
 \newcommand\heading[1]{\par{\usebeamercolor{\maybeinverse heading}\color{fg}{\small\bfseries #1~}}}
 \newcommand\subheading[1]{\par{
@@ -7253,15 +7231,16 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \mode
 <all>
 
-\define@key{beamerframe}{graphicfill}[{\includegraphics[scale=0.1,min
-  width=\paperwidth,min height=\paperheight]{Images/uantwerpen-01.jpg}}]{
+\define@key{beamerframe}{graphicfill}
+	[{\includegraphics[scale=0.1,min
+  	width=\paperwidth,min height=\paperheight]{Images/logo_UniversityPress_blue}}]{%UA1
   \gdef\maybeinverse{inverse }%
   \usebeamercolor[fg]{\maybeinverse normal text}%
   \setbeamertemplate{background canvas}[graphicfill]{#1}
 }
 
 \define@key{beamerframe}{graphic}[{\includegraphics[scale=0.1,min
-  width=\textwidth,min height=\textheight]{Images/uantwerpen-02.jpg}}]{
+  width=\textwidth,min height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA2
   \gdef\maybeinverse{inverse }%
   \usebeamercolor[fg]{\maybeinverse normal text}%
   \setbeamertemplate{background canvas}[graphic]{#1}
@@ -7269,7 +7248,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 
 \define@key{beamerframe}{lhgraphic}
   [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{Images/uantwerpen-03.jpg}}]{
+    height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA3
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[lhgraphic]{#1}
   \@rhtexttrue
@@ -7277,7 +7256,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 
 \define@key{beamerframe}{lqgraphic}
   [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{Images/uantwerpen-04.jpg}}]{
+    height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA4   
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[lqgraphic]{#1}
   \@rqtexttrue
@@ -7285,7 +7264,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 
 \define@key{beamerframe}{rhgraphic}
   [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{Images/uantwerpen-05.jpg}}]{ 
+    height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA5
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[rhgraphic]{#1}
   \@lhtexttrue
@@ -7293,7 +7272,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 
 \define@key{beamerframe}{rqgraphic}
   [{\includegraphics[scale=0.5,min width=0.5\paperwidth,min
-    height=\textheight]{Images/uantwerpen-05.jpg}}]{ 
+    height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA5
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[rqgraphic]{#1}
   \@lqtexttrue
@@ -7301,7 +7280,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 
 \define@key{beamerframe}{thgraphic}
   [{\includegraphics[scale=0.5,min width=\paperwidth,min
-    height=0.5\textheight]{Images/uantwerpen-06.jpg}}]{ 
+    height=0.5\textheight]{Images/logo_UniversityPress_blue}}]{%UA6 
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[thgraphic]{#1}
   \@bhtexttrue
@@ -7309,7 +7288,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 
 \define@key{beamerframe}{bhgraphic}
   [{\includegraphics[scale=0.5,min width=\paperwidth,min
-    height=0.5\textheight]{Images/uantwerpen-07.jpg}}]{ 
+    height=0.5\textheight]{Images/logo_UniversityPress_blue}}]{%UA7
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[bhgraphic]{#1}
 }
@@ -7399,7 +7378,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 
 \defbeamertemplate*{background canvas}{negativefill}[1]
 {%
-  \gdef\appropriatelogo{\logomonowhite}%
+  \gdef\appropriatelogo{}%\logomonowhite}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \color{maincolor}\vrule width\paperwidth height\paperheight
@@ -7407,7 +7386,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 
 \defbeamertemplate*{background canvas}{negative}[1]
 {%
-  \gdef\appropriatelogo{\logopos}%
+  \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\pw,\ph);
@@ -7417,7 +7396,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 
 \defbeamertemplate*{background canvas}{graphicfill}[1]
 {%
-  \gdef\appropriatelogo{\logoneg}%
+  \gdef\appropriatelogo{}%\logoneg}%
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\pw,\ph);
@@ -7427,7 +7406,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 
 \defbeamertemplate*{background canvas}{graphic}[1]
 {%
-  \gdef\appropriatelogo{\logopos}%
+  \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\pw,\ph);
@@ -7441,7 +7420,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \defbeamertemplate*{background canvas}{lhgraphic}[1]
 {%
   \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{\logopos}%
+  \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \pgfmathsetmacro\dx{0.5*\pw-1.2}%
@@ -7459,7 +7438,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \defbeamertemplate*{background canvas}{lqgraphic}[1]
 {%
   \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{\logopos}%
+  \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \pgfmathsetmacro\dx{0.25*\pw-1.2}%
@@ -7467,7 +7446,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \begin{tikzpicture}
     \clip (0,0) rectangle (\pw,\ph);
     \begin{scope}
-      \uantwerpenleftshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
+      \ugentleftshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
       \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy)
       {#1};
     \end{scope}
@@ -7478,7 +7457,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \defbeamertemplate*{background canvas}{rhgraphic}[1]
 {%
   \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{\logopos}%
+  \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \pgfmathsetmacro\dx{0.5*\pw-1.2}%
@@ -7496,7 +7475,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \defbeamertemplate*{background canvas}{rqgraphic}[1]
 {%
   \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{\logopos}%
+  \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \pgfmathsetmacro\dx{0.25*\pw-1.2}%
@@ -7514,7 +7493,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \defbeamertemplate*{background canvas}{thgraphic}[1]
 {%
   \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{\logopos}%
+  \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \pgfmathsetmacro\dx{\pw-1.6}%
@@ -7532,7 +7511,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \defbeamertemplate*{background canvas}{bhgraphic}[1]
 {%
   \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{\logopos}%
+  \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \pgfmathsetmacro\dx{\pw-1.6}%
@@ -7551,7 +7530,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \defbeamertemplate*{background canvas}{normal}
 {%
   \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{\logopos}%
+  \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in
       head/foot}\insertframenumber/\inserttotalframenumber}%
 }
@@ -7562,8 +7541,8 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \thispagestyle{ugent@titlepage}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    \node[anchor=center] at  (0.5*\textwidth,0.75*\ph)
-    {\includegraphics[height=.9\logounit]{\logopos}};
+    %\node[anchor=center] at  (0.5*\textwidth,0.75*\ph)
+    %{\includegraphics[height=.9\logounit]{\logopos}};
     \node[
     text width=0.98\textwidth,
     text=basecolor,
@@ -7629,8 +7608,8 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \thispagestyle{ugent@titlepage}
   \begin{tikzpicture}
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    \node[anchor=center] at  (0.5*\textwidth,0.75*\ph)
-    {\includegraphics[height=.9\logounit]{\logomonowhite}};
+    %\node[anchor=center] at  (0.5*\textwidth,0.75*\ph)
+    %{\includegraphics[height=.9\logounit]{\logomonowhite}};
     \node[
     draw,rectangle,
     text width=0.98\textwidth,
@@ -7747,7 +7726,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \hbox{\begin{beamercolorbox}
       [wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,left,leftskip=.8cm
       plus1fill]{author in head/foot}% 
-      \includegraphics[height=0.35\logounit]{\appropriatelogo}
+      %\includegraphics[height=0.35\logounit]{\appropriatelogo}
       \hskip0pt plus 1filll ~
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,
