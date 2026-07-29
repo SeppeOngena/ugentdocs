@@ -4910,6 +4910,8 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
   \prepmaketitle
   \pagestyle{empty}
   \if@bare\else
+  \begingroup
+  \pagenumbering{gobble}
   \begin{titlepage}
     \setlength\parskip{0pt}%
     \setlength\parindent{0pt}%
@@ -4919,98 +4921,116 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
       }
     }
   \end{titlepage}%
+  \endgroup
+  \setcounter{page}{0}%
   ~\par\relax
-  \cleardoublepage
-  \fi
-  \begin{center}
-  	\begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
-  	\@ugentlogo{4.75cm}{ugent@main}{0.0}
-  	\end{tikzpicture}%
-    \vfill
-    \@faculty\\
-    \@department\par
-    \vfill
-    \Huge\@title\par
-    \large\@subtitle\par
-    \vfill
-    \normalsize\translatekey{phdprefix}\\
-    \@degree\\
-    \translatekey{phdsuffix}\\
-    \medskip
-    \textbf{\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}
-    \vfill
-    \if@tempembargo
-      \translatekey[uppercase]{confidential}
-    \else
-      \if@fullembargo
-        \translatekey[uppercase]{confidential}
-      \fi
-    \fi
-    \vfill
-    \begin{minipage}[b]{0.4\textwidth}
-      \@defenselocation, \@defensedate
-    \end{minipage}
-    \hfill
-    \begin{minipage}[b]{0.4\textwidth}
-      \flushright
-      \supervisorscaption{\\}
-      \printsupervisors{\\}{}
-    \end{minipage}
-  \end{center}
-  \clearpage
-  \noindent\textbf{\translatekey{jury}}\hfill\\[1ex]
-  \textit{\translatekey{jurychair}}\hfill\break
-  \@jurychair{}\ifdefvoid{\@jurychairaff}{}{, \@jurychairaff}\\
-  \hfill\break
-  \textit{\supervisorscaption{}}\hfill\break
-  \printsupervisorswithaffiliation{\\}{\\}
-  \hfill\break
-  \textit{\translatekey{jurymembers}}\hfill\break
-  \printjurymembers{\\}
-  \hfill\break
-  \vfill
-  \noindent\textbf{Contact}\\
-  \smallskip
-  \ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}\\
-  \@affiliation\\
-  \@address\\
-  \vfill
-  \noindent \translatekey{integrityclause}\\~\\
-  \vfill
-  \if@fullembargo
-    \noindent \translatekey{embargofull}
-    \vfill
-  \fi
-  \if@tempembargo
-    \noindent \embargotempwithdates
-    \vfill
-  \fi
-  \noindent\textbf{\translatekey{crdisclaimer}}\\[0.75ex]
-  \translatekey{arrphd}
-  \ifdefempty{\@doi}{}{
-      ~\\[-\baselineskip]
-      \vfill
-      \noindent\begin{minipage}[b]{.5\linewidth}
-        \@doi
-      \end{minipage}
-    }
-  \thispagestyle{empty}
-  \ifx\@titel\empty
-  \else
-  \clearpage
-  \begin{center}
-    \vfill
-    ~
-    \vfill
-    Dutch title:
-    \vfill
-    \Huge\@titel\par
-    \large\@subtitel\par
-    \vfill
-    ~
-    \vfill
-  \end{center}
-  \fi
+  
+  % Page 1: blank
+  	\clearpage\thispagestyle{empty}\null
+  
+  % Page 2: committee
+  \clearpage\thispagestyle{empty}
+  \null\vfill % flush to bottom
+  \noindent\begin{minipage}[b]{\textwidth}
+  	\textbf{\supervisorscaption{}}\hfill\break
+  	\printsupervisorswithaffiliation{\\}{}\\[2ex]
+  	
+  	\textbf{\translatekey{jury}}\hfill\\[1ex]
+  	\textit{\translatekey{jurychair}}\hfill\break
+  	\@jurychair{}\ifdefvoid{\@jurychairaff}{}{, \@jurychairaff}\\
+  	\hfill\break
+  	\textit{\translatekey{jurymembers}}\hfill\break
+  	\printjurymembers{\\}\\[2ex]
+  	
+  	\textbf{\translatekey{dean}~\translatekey{of}~\translatekey{the}~\@faculty}\hfill\break
+  	\@dean\\[2ex]
+  	
+  	\textbf{\translatekey{rector}~\translatekey{of}~\translatekey{org-deugent}}\hfill\break
+  	\@rector
+  \end{minipage}%
+  
+  % Page 3: title
+  \clearpage\thispagestyle{empty}
+  \null\vfill % Bottom-align
+  \noindent\begin{minipage}[b]{\textwidth}
+  	{\Huge\bfseries\nohyphens\@title}%
+  	
+  	\ifx\@subtitle\@empty\else
+  	\vspace{.5\baselineskip}
+  	{\Large\@subtitle}%  	
+  	\fi
+  	
+  	\vspace{5\baselineskip}%
+  	{\Large\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}%
+  	
+  	\if@embargo
+  		\vspace{5\baselineskip}
+  			{\large\translatekey[uppercase]{confidential}}
+  		\vspace{5\baselineskip}
+  	\else
+  		\vspace{10\baselineskip}%
+  	\fi
+  	
+  	{\small \translatekey{phdprefix}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{phdsuffix}~\@degree}%
+  	
+  	\vspace{.3\baselineskip}%
+  	{\small\translatekey{org-ugent}, \@defenselocation, \@defensedate}%
+  \end{minipage}%
+  
+  % Page 4: copyright page (verso, bottom-left)
+  \clearpage\thispagestyle{empty}\null\vfill
+  \noindent\begin{minipage}[b]{\textwidth}
+  	\textbf{Contact}\\
+  	  \smallskip
+  	  \ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}\\
+  	  \@affiliation\\
+  	  \@address
+  	\if@dutch\else
+  	  \\[\baselineskip]
+  	  \textbf{Titel van het doctoraat in het Nederlands:}\\
+  	  {\renewcommand{\\}[1][]{~}\@titel: \@subtitel}
+  	  \fi
+  	\ifx\@coverdesigner\@empty\else
+  	  \\[\baselineskip]
+  	  \textbf{\translatekey{coverdesigner}:}\\
+  	  \@coverdesigner
+  	\fi
+  	%
+  	\\[\baselineskip]
+  	\translatekey{integrityclause}
+  	%
+  	\ifx\@grants\@empty\else
+  	  \\[\baselineskip]
+  	  {\translatekey{supportedby} \@grants.}
+  	\fi
+  	\if@embargo
+  	  \\[\baselineskip]
+  	  {\textbf{\translatekey{confidentiality}}}\\
+  	  \if@fullembargo
+  	    \translatekey{embargofull}
+  	  \fi
+  	  \if@tempembargo
+  	    \embargotempwithdates
+  	  \fi
+  	\else
+  	  \\[\baselineskip]
+  	  \textbf{\translatekey{crdisclaimer} \textcopyright\ \the\year}\\
+  	  {\translatekey{arrphd}}%
+  	\fi
+  	\\[\baselineskip]
+  	{\textbf{\translatekey{pleaserefer}:}\\  		
+  		\@surname{\@author}, \@firstnameinitial{\@author}\ (\the\year).
+  		{\renewcommand{\\}[1][]{~}\@title: \@subtitle}.
+  		PhD Thesis, Ghent University, Belgium.}%
+  	\ifx\@isbn\@empty\else
+  	  \\[\baselineskip]{\small ISBN \@isbn}%
+  	\fi
+  	\ifdefempty{\@doi}{}{
+  		\ifx\@isbn\@empty\\[\baselineskip]\else\\\fi
+  	{\small DOI \href{https://doi.org/\@doi}{\@doi}}
+  	}
+  \end{minipage}
+
   \setcounter{footnote}{0}%
   \global\let\thanks\relax
   \global\let\maketitle\relax
