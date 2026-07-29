@@ -2425,11 +2425,13 @@ een b\'echamel saus:
 \colorlet{sidecolor}{white}
 \colorlet{basecolor}{ugent@main!10}
 \colorlet{hypercolor}{ugent@main!50!black}
+\colorlet{titlecolor}{ugent@main}
 \else
 \colorlet{maincolor}{ugent@\fselector}
 \colorlet{sidecolor}{white}
 \colorlet{basecolor}{ugent@\fselector!10}
 \colorlet{hypercolor}{ugent@main!50!black}
+\colorlet{titlecolor}{ugent@main}
 \fi
 %</col>
 %    \end{macrocode}
@@ -4502,7 +4504,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \def\@makechapterhead#1{%
   \vspace*{1ex}%
   \begin{flushright}
-    \makebox[0pt][l]{\rule[-0.4em]{10cm}{1.8em}}\textcolor{white}
+    \makebox[0pt][l]{\color{titlecolor}\rule[-0.4em]{10cm}{1.8em}}\textcolor{white}
     {\LARGE\textbf{~\chaptername~}}
     \raisebox{-24pt}{
       \begin{tikzpicture}
@@ -4510,13 +4512,13 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
           \node[color=white] at (\theta:0.025)
           {\fontsize{72}{12}\selectfont\textbf{\thechapter}};
         }
-        \node[color=gray] at (0,0)
+        \node[color=titlecolor!50] at (0,0)
         {\fontsize{72}{12}\selectfont\textbf{\thechapter}};
       \end{tikzpicture}
     }\hspace*{-8pt}
     \par\nobreak
     \interlinepenalty\@M
-    \huge\textbf{\textcolor{darkgray}{\rule[-0.5ex]{0em}{2.6ex}~#1}}
+    \huge\textbf{\textcolor{titlecolor}{\rule[-0.5ex]{0em}{2.6ex}~#1}}
     \par\nobreak
   \end{flushright}
   \rule{\textwidth}{1pt}
@@ -4529,7 +4531,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \def\@makeschapterhead#1{%
   \vspace*{1ex}%
   \begin{flushright}
-    \LARGE\textbf{\textcolor{darkgray}{\rule[-0.5ex]{0em}{2.6ex}~#1}}
+    \LARGE\textbf{\textcolor{titlecolor}{\rule[-0.5ex]{0em}{2.6ex}~#1}}
   \end{flushright}
   \rule{\textwidth}{1pt}
   \vspace{5\p@}\par
