@@ -6047,21 +6047,27 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp>
 \AtBeginDocument{
-  \@ifpackageloaded{hyperref}{
-    \hypersetup{
-      breaklinks=true,
-      colorlinks=true,
-      citecolor=hypercolor,
-      filecolor=hypercolor,
-      linkcolor=hypercolor,
-      pageanchor=true, 
-      pdfpagemode=UseOutlines,
-      urlcolor=hypercolor,
-      pdftitle={{\renewcommand{\\}[1][]{~}\@title}},
-      pdfsubject={\@subtitle},
-      pdfauthor={\@formatname{\@author}}
-    }
-  }{}
+	\@ifpackageloaded{hyperref}{
+		\begingroup
+		\def\\{ }%
+		\protected@xdef\@pdftitle{\@title}%
+		\protected@xdef\@pdfsubtitle{\@subtitle}%
+		\protected@xdef\@pdfauthor{\@formatname{\@author}}%
+		\endgroup
+		\hypersetup{
+			breaklinks=true,
+			colorlinks=true,
+			citecolor=hypercolor,
+			filecolor=hypercolor,
+			linkcolor=hypercolor,
+			pageanchor=true,
+			pdfpagemode=UseOutlines,
+			urlcolor=hypercolor,
+			pdftitle=\@pdftitle,
+			pdfsubject=\@pdfsubtitle,
+			pdfauthor=\@pdfauthor
+		}
+	}{}
 }
 %</crs|bmt|phd|rp> 
 %    \end{macrocode}
