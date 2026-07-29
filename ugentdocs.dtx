@@ -2424,10 +2424,12 @@ een b\'echamel saus:
 \colorlet{maincolor}{ugent@main}
 \colorlet{sidecolor}{white}
 \colorlet{basecolor}{ugent@main!10}
+\colorlet{hypercolor}{ugent@main!50!black}
 \else
 \colorlet{maincolor}{ugent@\fselector}
 \colorlet{sidecolor}{white}
 \colorlet{basecolor}{ugent@\fselector!10}
+\colorlet{hypercolor}{ugent@main!50!black}
 \fi
 %</col>
 %    \end{macrocode}
@@ -6014,16 +6016,16 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp>
 \AtBeginDocument{
-  \@ifpackageloaded{ref}{
+  \@ifpackageloaded{hyperref}{
     \hypersetup{
       breaklinks=true,
       colorlinks=true,
-      citecolor=black,
-      filecolor=black,
-      linkcolor=black,
+      citecolor=hypercolor,
+      filecolor=hypercolor,
+      linkcolor=hypercolor,
       pageanchor=true, 
       pdfpagemode=UseOutlines,
-      urlcolor=black,
+      urlcolor=hypercolor,
       pdftitle={{\renewcommand{\\}[1][]{~}\@title}},
       pdfsubject={\@subtitle},
       pdfauthor={\@formatname{\@author}}
