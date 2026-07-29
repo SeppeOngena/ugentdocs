@@ -1033,10 +1033,10 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 % \paragraph{Dutch}
 % \begin{verbatim}
 %<*phd-example1> 
-\documentclass[bw,10pt,twoside,openright]{ugentdissertation}
+\documentclass[we,10pt,twoside,openright]{ugentdissertation}
 
-%% ti            specifies the department, change to the letter combination of
-%%               your department
+%% we            specifies the faculty, change to the letter combination of
+%%               your faculty
 %% 10pt          sets the font size, 10pt is ok for a phd manuscript
 %% twoside       if you want a two-sided document, change to oneside if you
 %%               want a recto only document
@@ -1044,26 +1044,15 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%               your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options 
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% cameraready   this option will change the paper format from the official
-%%               $\qty{26}{\centi\meter}\times\qty{18}{\centi\meter}$
-%%               to A4 and trigger alignment marks and cut-lines (embedding
-%%               the official $\qty{26}{\centi\meter}\times\qty{18}{\centi\meter}$
-%%               into an A4-page) for your
-%%               printing service - check with them whether they want
-%%               this.
-%% bare          this option removes title page and final page. Many
-%%               print services required this format and they will
-%%               typeset the title page and final page for you.
+%% cameraready   this option will embed the official 24 cm x 18 cm
+%%               in anto A4 page and trigger alignment marks and cut-lines
+%%               for your printing service - check whether they want this.
+%%               This will also apply to the generated bookcover file.
+%% bare          this option removes front and back cover. Many
+%%               print services require this format for the contents.
 
-
-%%
-%% Some blunt advertizing: do you want to check out some of the common mistakes
-%% authors make when using LaTeX? Check out: https://www.digmanwaves.net/TeX-Therapy
-%%
-
-%% You may want to use common fonts
-%% Just an example of font-scheme: this is in no way a recommended font
-%% scheme! If you override font here, you also need to adjust it in the bookcover file!
+%% You may want to use common fonts such as arial (still within house style)
+%% If you override font here, you also need to adjust it in the bookcover file!
 \setmainfont{Arial}[
 BoldFont           = {Arial},
 BoldFeatures       = {FakeBold=2.5},
@@ -1073,8 +1062,8 @@ BoldItalicFont     = {Arial},
 BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 ]
 
-%% load the proper language(s) (last language will trigger the language
-%% of the logo a.o.)
+%% load the proper language(s) (last language will, i.a., trigger the language
+%% of the logo)
 \usepackage[dutch]{babel} %% or english if your text is in English
 
 %% this is just for some dummy text, please remove in your copy
@@ -1085,40 +1074,47 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% you must load the hyperref package yourself, to allow putting it
 %% in the correct order with the other packages you load!
 
-%% set title, subtitle and author and his/her/their affilliation and
+%% set title, subtitle and author and their affilliation and
 %% address 
 \title{Harmonische Signaalanalyse\\met Lineaire
   Operatoren}
 \subtitle{Waarom moeten titels van doctoraatsthesissen toch altijd
   lang en onverstaanbaar zijn?}
 \author{Hoekaff, Theofiel}
-\affiliation{Universiteit Antwerpen\\
-  Faculteit Toegepaste Ingenieurswetenschappen\\
-  Co-design of Cyber-Physical Systems (Cosys-Lab)}
-\address{Groenenborgerlaan 171, 2020 Antwerpen, Belgi\"e\\
-  M: theofiel.hoekaff@uantwerpen.be\\
-  T: +32 265 00 00
+\affiliation{Universiteit Gent\\
+  Faculteit Wetenschappen\\
+   Vakgroep Plantenbiotechnologie en Bio-informatica}
+\address{K.L. Ledeganckstraat 35, 9000 Gent, Belgi\"e\\
+  M: theofiel.hoekaff@ugent.be\\
+  T: +32 9 264 51 19
 }
 
 %% specify your supervisors and their affiliation
-\supervisor{prof. dr.}{Vlaams, W.}{Universiteit Antwerpen, Belgi\"e}
-\supervisor{prof. dr.}{Stekker, J.}{Universiteit Antwerpen, Belgi\"e}
+\supervisor{prof. dr.}{Vlaams, W.}{Universiteit Gent, Belgi\"e}
+\supervisor{prof. dr.}{Stekker, J.}{Universiteit Gent, Belgi\"e}
 
 %% specify the chairman of the jury and his/her/their affiliation
-\jurychair{prof. dr.}{Dalinckx, P.}{Universiteit Antwerpen, Belgi\"e}
+\jurychair{prof. dr.}{Dalinckx, P.}{Universiteit Gent, Belgi\"e}
 
 %% specify the memers of the jury and their affiliations
-\jurymember{prof. dr.}{Dezerooder, J.}{Universiteit Antwerpen, Belgi\"e}
+\jurymember{prof. dr.}{Dezerooder, J.}{Universiteit Gent, Belgi\"e}
 \jurymember{prof. dr.}{De Tollenaere, P.}{Flanders Make, Belgi\"e}
 \jurymember{prof. dr.}{Byr, M.}{IMEC, Nederland}
 
+%% specify the dean of the faculty and rector of Ghent University
+\dean{prof. dr.}{Decaan, Do}
+\rector{prof.}{De Sutter, Petra}
+
 %% specify your degree (manually) and where and when you obtain your degree
-\degree{doctor in de Toegepaste Ingenieurswetenschappen}
-\defenselocation{Antwerpen}
-\defensedate{21 mei 2024}
+\degree{doctor in de plantbiotechnologie}
+\defenselocation{Gent}
+\defensedate{21 mei 2025}
 
 %% specify a fancy photo for your titlepage (if you don't want a dull one)
-\titlepageimage{Images/uantwerpen-keyboard.jpg}
+%%\titlepageimage{Images/ugent-oehoe.jpg}
+
+%% change title colour if it clashes with your image 
+%% \letcolor{covertitlecolor}{black}
 
 %% if your manuscript is under full embargo, give the following command
 %% \embargofull
@@ -1126,15 +1122,15 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% if your manuscript is under a temporary embargo (1, 2 or 5 years),
 %% please, specify begin and end date of the embargo period as first
 %% and second argument to the \tempembargo command:
-\embargotemp{21 mei 2024}{20 mei 2029}
+\embargotemp{21 mei 2025}{20 mei 2030}
 
-%% some data about your manuscript
-%% \doi{https://dio.org/10.1000/182} %% only specify one if you obtained one!
-\isbn{978-9-463-57748-9}
+%% some data about your manuscript (if you obtained DOI/ISBN)
+%% \doi{10.1000/182}
+%% \isbn{978-9-463-57748-9}
 
 \begin{document}
 
-%% creates the title page, remove if you don't want any
+%% creates the title pages, remove if you don't want any
 \maketitle
 
 %% Creates a bookcover file \jobname-cover.tex
@@ -1216,10 +1212,10 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 % \paragraph{English}
 % \begin{verbatim}
 %<*phd-example2> 
-\documentclass[ge,10pt,twoside,openright,cameraready]{ugentdissertation}
+\documentclass[bw,10pt,twoside,openright,cameraready]{ugentdissertation}
 
-%% ti            specifies the department, change to the letter combination of
-%%               your department
+%% bw            specifies the faculty, change to the letter combination of
+%%               your faculty. BW has a special cover design.
 %% 10pt          sets the font size, 10pt is ok for a phd manuscript
 %% twoside       if you want a two-sided document, change to oneside if you
 %%               want a recto only document
@@ -1227,30 +1223,19 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%               your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options 
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% cameraready   this option will change the paper format from the official
-%%               $\qty{26}{\centi\meter}\times\qty{18}{\centi\meter}$
-%%               to A4 and trigger alignment marks and cut-lines (embedding
-%%               the official $\qty{26}{\centi\meter}\times\qty{18}{\centi\meter}$
-%%               into an A4-page) for your
-%%               printing service - check with them whether they want
-%%               this.
+%% cameraready   this option will embed the official 24 cm x 18 cm
+%%               in anto A4 page and trigger alignment marks and cut-lines
+%%               for your printing service - check whether they want this.
+%%               This will also apply to the generated bookcover file.
+%% bare          this option removes front and back cover. Many
+%%               print services require this format for the contents.
 
-%%
-%% Some blunt advertizing: do you want to check out some of the common mistakes
-%% authors make when using LaTeX? Check out: https://www.digmanwaves.net/TeX-Therapy
-%%
-
-%% use some fancy fonts: just an example!
-%\usepackage{newpxtext}
-%\usepackage{newpxmath}
-\linespread{1.05} % recommended line spreading for pallatino fonts
-
-%% load the proper language(s) (last language will trigger the language
-%% of the logo a.o.)
+%% load the proper language(s) (last language will, i.a., trigger the language
+%% of the logo)
 \usepackage[english]{babel} %% or dutch if your text is in Dutch
 
 %% this is just for some dummy text, please remove in your copy
-\usepackage{kantlipsum}  %% this is just for some dummy text, please remove
+\usepackage{kantlipsum}
 
 %% this package allows to generate a PDF with clickable links
 \usepackage[backref,hyperindex=true,pagebackref=true]{hyperref} 
@@ -1261,42 +1246,45 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 \title{Harmonic Signal analysis\\based on Linear Operators}
 \subtitle{How did Mindy linearly kill Mork's IC signal analyzer?}
 
-%% trigger the generation of a secondary title page in Dutch by
-%% specifying a \titel (and optionally a \subtitel).
+%% Add title and subtitle in dutch for the data page
 \titel{Harmonische Signaalanalyse\\met behulp van Lineaire
   Operatoren}
 \subtitel{Waarom moeten titels van doctoraatsthesissen toch altijd
   lang en onverstaanbaar zijn?}
 
-%% specify the author and his/her/their affilliation and address
+%% specify the author and their affilliation and address
 \author{Edgeoff, Theodore}
-\affiliation{University of Antwerp\\
-  Faculty of Applied Engineering\\
-  Cosys-Lab}
-\address{Groenenborgerlaan 171, 2020 Antwerpen, Belgi\"e\\
-  M: theofiel.hoekaff@uantwerpen.be\\
-  T: +32 265 00 00
+\affiliation{Ghent University\\
+  Faculty of Science\\
+  Department of Plant Biotechnology and Bioinformatics}
+\address{K.L. Ledeganckstraat 35, 9000 Gent, Belgi\"e\\
+  M: theofiel.hoekaff@ugent.be\\
+  T: +32 9 264 51 19
 }
 
 %% specify your supervisors and their affiliation
-\supervisor{prof. dr.}{Vlaams, W.}{University of Antwerp, Belgium}
-\supervisor{prof. dr.}{Stekker, J.}{University of Antwerp, Belgium}
+\supervisor{prof. dr.}{Vlaams, W.}{Ghent University, Belgium}
+\supervisor{prof. dr.}{Stekker, J.}{Ghent University, Belgium}
 
 %% specify the chairman of the jury and his/her/their affiliation
-\jurychair{prof. dr.}{Dalinckx, P.}{University of Antwerp, Belgium}
+\jurychair{prof. dr.}{Dalinckx, P.}{Ghent University, Belgium}
 
 %% specify the memers of the jury and their affiliations
-\jurymember{prof. dr.}{Dezerooder, J.}{University of Antwerp, Belgium}
+\jurymember{prof. dr.}{Dezerooder, J.}{Ghent University, Belgium}
 \jurymember{prof. dr.}{De Tollenaere, P.}{Flanders Make, Belgium}
 \jurymember{prof. dr.}{Byr, M.}{IMEC, The Netherlands}
 
+%% specify the dean of the faculty and rector of Ghent University
+\dean{prof. dr.}{Decaan, Do}
+\rector{prof.}{De Sutter, Petra}
+
 %% specify your degree (manually) and where and when you obtain your degree
-\degree{doctor in Applied Engineering}
-\defenselocation{Antwerp}
-\defensedate{May 24, 2024}
+\degree{doctor in Plant Biotechnology}
+\defenselocation{Ghent}
+\defensedate{May 24, 2025}
 
 %% specify a fancy photo for your titlepage (if you don't want a dull one)
-\titlepageimage{Images/uantwerpen-keyboard.jpg}
+\titlepageimage{Images/ugent-oehoejpg}
 
 %% if your manuscript is under full embargo, give the following command
 \embargofull
@@ -1304,10 +1292,10 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% if your manuscript is under a temporary embargo (1, 2 or 5 years),
 %% please, specify begin and end date of the embargo period as first
 %% and second argument to the \tempembargo command:
-%% \embargotemp{May 24, 2024}{May 23, 2026}
+%% \embargotemp{May 24, 2025}{May 23, 2030}
 
-%% some data about your manuscript
-%% \doi{https://dio.org/10.1000/182} %% only specify one if you obtained one!
+%% some data about your manuscript  (if you obtained DOI/ISBN)
+%% \doi{10.1000/182}
 \isbn{978-9-463-57748-9}
 
 \begin{document}
@@ -1316,6 +1304,14 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 
 %% creates the title page, remove if you don't want any
 \maketitle
+
+%% Creates a bookcover file \jobname-cover.tex
+%% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
+%% a caliper (paper thickness) of 0.1 mm:
+%% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
+%% If you're using a different paper type, override the spine width 
+%% in the \jobname-cover.tex file using the formula above.
+\generatebookcover
 
 %% causes the first pages to be roman numbered
 \frontmatter
