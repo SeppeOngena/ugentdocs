@@ -1,0 +1,28 @@
+name: Release Build
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+ 
+      - name: Build with TeX Live (lualatex)
+        uses: xu-cheng/texlive-action@v3
+        with:
+          scheme: full
+          run: |
+            chmod +x build.sh
+            ./build.sh "${{ github.event.release.tag_name }}"
+ 
+      - name: Attach zip to the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/ugentdocs-${{ github.event.release.tag_name }}.zip
