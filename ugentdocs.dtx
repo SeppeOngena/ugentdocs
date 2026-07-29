@@ -3746,6 +3746,8 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %   colofon of your thesis.
 %    \begin{macrocode}
 %<*phd|bkc>
+\newif\if@embargo
+\@embargofalse
 \newif\if@fullembargo
 \@fullembargofalse
 \newif\if@tempembargo
@@ -3753,6 +3755,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \newcommand*{\embargofull}{
   \@tempembargofalse
   \@fullembargotrue
+  \@embargotrue
 }
 %</phd|bkc>
 %    \end{macrocode}
@@ -3766,12 +3769,14 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %<*phd|bkc>
 \newif\if@tempembargo
 \@tempembargofalse
+
 \ExplSyntaxOn
 \tl_new:N \embargotempstart
 \tl_new:N \embargotempend
 \newcommand*{\embargotemp}[2]{
   \@fullembargofalse
   \@tempembargotrue
+  \@embargotrue
   \tl_new:N \l_@@_embargostartdate_tl
   \tl_new:N \l_@@_embargoenddate_tl
   \tl_set:Nx \l_@@_embargostartdate_tl {#1}
@@ -5195,12 +5200,8 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 	\end{scope}
 	\fi
 	
-	\if@tempembargo
+	\if@embargo
 		\@printconfidentialcover
-	\else
-	\if@fullembargo
-		\@printconfidentialcover
-	\fi
 	\fi
 	\end{tikzpicture}
 }
