@@ -1033,7 +1033,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 % \paragraph{Dutch}
 % \begin{verbatim}
 %<*phd-example1> 
-\documentclass[we,10pt,twoside,openright]{ugentdissertation}
+\documentclass[we,10pt,twoside,openright,surnamefirst]{ugentdissertation}
 
 %% we            specifies the faculty, change to the letter combination of
 %%               your faculty
@@ -1050,6 +1050,8 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%               This will also apply to the generated bookcover file.
 %% bare          this option removes front and back cover. Many
 %%               print services require this format for the contents.
+%% surnamefirst  format all names as "surname firstname" 
+%%               instead of "firstname surname"
 
 %% You may want to use common fonts such as arial (still within house style)
 %% If you override font here, you also need to adjust it in the bookcover file!
@@ -1074,13 +1076,14 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% you must load the hyperref package yourself, to allow putting it
 %% in the correct order with the other packages you load!
 
-%% set title, subtitle and author and their affilliation and
+%% set title, subtitle and author and their title, affilliation and
 %% address 
 \title{Harmonische Signaalanalyse\\met Lineaire
   Operatoren}
 \subtitle{Waarom moeten titels van doctoraatsthesissen toch altijd
   lang en onverstaanbaar zijn?}
 \author{Hoekaff, Theofiel}
+\authortitle{Ir.}
 \affiliation{Universiteit Gent\\
   Faculteit Wetenschappen\\
    Vakgroep Plantenbiotechnologie en Bio-informatica}
@@ -1109,12 +1112,20 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 \degree{doctor in de plantbiotechnologie}
 \defenselocation{Gent}
 \defensedate{21 mei 2025}
+\academicyear{2024--2025}
 
 %% specify a fancy photo for your titlepage (if you don't want a dull one)
-%%\titlepageimage{Images/ugent-oehoe.jpg}
+%%\titlepageimage{Images/ugent-oehoe.png}
+%% \coverdesigner{De Kat, Kroketje}
 
 %% change title colour if it clashes with your image 
 %% \letcolor{covertitlecolor}{black}
+
+%% specify your funding
+\grants{FWO PhD Fellowship strategic basic research 1SXXXXXXN}
+
+%% add different publisher logo
+\publisherlogo{Images/logo_UniversityPress_blue}
 
 %% if your manuscript is under full embargo, give the following command
 %% \embargofull
@@ -1129,6 +1140,8 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% \isbn{978-9-463-57748-9}
 
 \begin{document}
+%%\raggedright %% For non-justified text
+%%\raggedbottom %% For non-filled / non-flush pages
 
 %% creates the title pages, remove if you don't want any
 \maketitle
@@ -1178,7 +1191,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 
 \kant[20-21]
 
-\foreach \i in {A,B,C} {
+\foreach \i in {A,B,C,D} {
   \chapter{Dummy hoofdstuk \i}
   \foreach \j in {1,...,50} {
     \kant[22-24]
@@ -1229,6 +1242,8 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%               This will also apply to the generated bookcover file.
 %% bare          this option removes front and back cover. Many
 %%               print services require this format for the contents.
+%% surnamefirst  format all names as "surname firstname" 
+%%               instead of "firstname surname"
 
 %% load the proper language(s) (last language will, i.a., trigger the language
 %% of the logo)
@@ -1252,12 +1267,13 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 \subtitel{Waarom moeten titels van doctoraatsthesissen toch altijd
   lang en onverstaanbaar zijn?}
 
-%% specify the author and their affilliation and address
+%% specify the author and their title, affilliation and address
 \author{Edgeoff, Theodore}
+%%\authortitle{Ir.}
 \affiliation{Ghent University\\
-  Faculty of Science\\
-  Department of Plant Biotechnology and Bioinformatics}
-\address{K.L. Ledeganckstraat 35, 9000 Gent, Belgi\"e\\
+  Faculty of Bioscience Engineering\\
+  Department of Biotechnology}
+\address{Frieda Saeysstraat 1, 9052 Gent, Belgi\"e\\
   M: theofiel.hoekaff@ugent.be\\
   T: +32 9 264 51 19
 }
@@ -1279,12 +1295,22 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 \rector{prof.}{De Sutter, Petra}
 
 %% specify your degree (manually) and where and when you obtain your degree
-\degree{doctor in Plant Biotechnology}
+\degree{doctor in Bioscience Engineering}
 \defenselocation{Ghent}
 \defensedate{May 24, 2025}
 
-%% specify a fancy photo for your titlepage (if you don't want a dull one)
-\titlepageimage{Images/ugent-oehoejpg}
+%% specify a fancy photo for your coverpage and the designer (if you don't want a dull one)
+\titlepageimage{Images/ugent-oehoe.png}
+\coverdesigner{De Kat, Kroketje}
+
+%% change title colour if it clashes with your image 
+%% \letcolor{covertitlecolor}{black}
+
+%% specify your funding
+\grants{FWO PhD Fellowship strategic basic research 1SXXXXXXN}
+
+%% add different publisher logo
+\publisherlogo{Images/logo_UniversityPress_blue}
 
 %% if your manuscript is under full embargo, give the following command
 \embargofull
@@ -1349,6 +1375,13 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 
 \chapter{Technical results}
 \kant[22-24]
+
+\foreach \i in {A,B,C,D,E} {
+\chapter{Dummy chapter \i}
+\foreach \j in {1,...,50} {
+\kant[22-24]
+}
+}
 
 \chapter{Conclusion}
 \kant[25]
@@ -3045,7 +3078,7 @@ jurymembers		= Jury members
 jurychair		= Chair
 dean			= Dean
 rector			= Rector
-coverdesigner	= Cover illustration
+coverdesigner	= Cover illustration designer
 
 exam			= Exam --- Examen
 series			= Series
@@ -3143,7 +3176,7 @@ jurymembers		= Juryleden
 jurychair		= Voorzitter
 dean			= Decaan
 rector			= Rector
-coverdesigner	= Kaftillustratie
+coverdesigner	= Ontwerper kaftillustratie
 
 exam			= Examen
 series			= Reeks
