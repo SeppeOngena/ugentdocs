@@ -3545,13 +3545,77 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \end{macrocode}
 % \end{imacro}
 %
+% \begin{imacro}{\dean}
+%   This macro sets the |\@dean| tag that later will be used on
+%   the data page.
+%    \begin{macrocode}
+%<*phd>      
+\newcommand*{\@dean}[2]{
+	\PackageError{ugentdocs}
+	{Please, define a dean of the faculty using the
+		'\protect\dean{}{}' command in the preamble of your
+		document.} 
+	{See the ugentdocs manual}
+}
+\newcommand*{\dean}[2]{
+	\renewcommand*{\@dean}{#1~\@formatname{#2}}
+}
+%</phd> 
+%    \end{macrocode}
+% \end{imacro}
+%
+% \begin{imacro}{\rector}
+%   This macro sets the |\@rector| tag that later will be used on
+%   the data page.
+%   \begin{macrocode}
+%<*phd>      
+\newcommand*{\@rector}[2]{
+	\PackageError{ugentdocs}
+	{Please, define a rector of Ghent University using the
+		'\protect\rector{}{}' command in the preamble of your
+		document.} 
+	{See the ugentdocs manual}
+}
+\newcommand*{\rector}[2]{
+\renewcommand*{\@rector}{#1~\@formatname{#2}}
+}
+%</phd> 
+%   \end{macrocode}
+% \end{imacro}
+%
+% \begin{imacro}{\coverdesigner}
+%   This macro sets the |\@coverdesigner| tag that later will be used on
+%   the data page.
+%   \begin{macrocode}
+%<*phd>      
+\newcommand*{\@coverdesigner}{}
+\newcommand*{\coverdesigner}[1]{
+	\renewcommand*{\@coverdesigner}{\@formatname{#1}}
+}
+%</phd> 
+%   \end{macrocode}
+% \end{imacro}
+%
+% \begin{imacro}{\grants}
+	%   This macro sets the |\@grants| tag that later will be used on
+	%   the data page.
+	%   \begin{macrocode}
+	%<*phd>      
+	\newcommand*{\@grants}{}
+	\newcommand*{\grants}[1]{
+		\renewcommand*{\@grants}{#1}
+	}
+	%</phd> 
+	%   \end{macrocode}
+	% \end{imacro}
+%
 % \begin{imacro}{\degree}
 %   This macro sets the |\@degree| tag that later will
 %   be used on the title pages.
 %   The theses allow for a single degree (as multiple is physically
 %   impossible), while a course text and an exam allow for multiple
 %   degrees (to be specified in the desired order).
-%    \begin{macrocode}
+%   \begin{macrocode}
 %<*bmt|phd|bkc>
 \newcommand*\@degree{
   \PackageError{ugentdocs}
@@ -3581,7 +3645,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 \ExplSyntaxOff
 %</crs|ex> 
 
-%    \end{macrocode}
+%   \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\doctype}
@@ -3729,7 +3793,7 @@ Dit document is in overeenstemming met het facultair reglement gerelateerd aan d
 %    \begin{macrocode}
 %<*phd>      
 \newcommand*{\@doi}{}
-\newcommand*{\doi}[1]{\renewcommand*{\@doi}{\url{#1}}}
+\newcommand*{\doi}[1]{\renewcommand*{\@doi}{#1}}
 %</phd> 
 %    \end{macrocode}
 % \end{imacro}
