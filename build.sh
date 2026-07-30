@@ -33,6 +33,11 @@ done
 ROOT="$(pwd)"
 TMP="./build/_tmp"
 
+FONT_DIR="${FONT_DIR:-./Fonts}"
+if [ -d "$FONT_DIR" ]; then
+  export OSFONTDIR="$(cd "$FONT_DIR" && pwd)//"
+fi
+
 rm -rf ./build
 mkdir -p "$TMP"
 
