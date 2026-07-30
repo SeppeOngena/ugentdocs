@@ -3374,13 +3374,13 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_lecturers_seq
 \cs_new:Nn \@@_addlecturer:n {
-  \seq_gpush:Nn \g_@@_lecturers_seq { #1 }
+  \seq_gput_right:Nn \g_@@_lecturers_seq { #1 }
 }
 \NewDocumentCommand{\lecturer}{m}{
   \@@_addlecturer:n { \@formatname{#1} }
 }
-\NewDocumentCommand{\printlecturers}{m}{
-  \seq_use:Nn \g_@@_lecturers_seq { #1 }
+\NewDocumentCommand{\printlecturers}{mmm}{
+  \seq_use:Nnnn \g_@@_lecturers_seq { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\lecturerscaption}{}{
   \int_compare:nNnTF {\seq_count:N \g_@@_lecturers_seq} > {1}{
@@ -3392,10 +3392,6 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   	}
   }
 }
-\AtBeginDocument{
-  \seq_greverse:N \g_@@_lecturers_seq
-}
-
 \ExplSyntaxOff
 %</crs|ex>
 %    \end{macrocode}
@@ -3441,19 +3437,19 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \seq_new:N \g_@@_supervisorcalls_seq
 \seq_new:N \g_@@_supervisorswithaffiliation_seq
 \cs_new:Nn \@@_addsupervisor:nnn {
-  \seq_gpush:Nn \g_@@_supervisors_seq { #1~\@formatname{#2} }
-  \seq_gpush:Nn \g_@@_supervisorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
-  \seq_gpush:Nx \g_@@_supervisorcalls_seq
+  \seq_gput_right:Nn \g_@@_supervisors_seq { #1~\@formatname{#2} }
+  \seq_gput_right:Nn \g_@@_supervisorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
+  \seq_gput_right:Nx \g_@@_supervisorcalls_seq
   { \exp_not:N\supervisor { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
 }
 \NewDocumentCommand{\supervisor}{mmm}{
   \@@_addsupervisor:nnn { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\printsupervisors}{mm}{
-  \seq_use:Nnnn \g_@@_supervisors_seq { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printsupervisors}{mmm}{
+  \seq_use:Nnnn \g_@@_supervisors_seq { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\printsupervisorswithaffiliation}{mm}{
-  \seq_use:Nnnn \g_@@_supervisorswithaffiliation_seq { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printsupervisorswithaffiliation}{mmm}{
+  \seq_use:Nnnn \g_@@_supervisorswithaffiliation_seq { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\supervisorscaption}{m}{
   \int_compare:nNnTF { \seq_count:N \g_@@_supervisors_seq } > {2} {
@@ -3470,14 +3466,14 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \seq_new:N \g_@@_cosupervisors_seq
 \seq_new:N \g_@@_cosupervisorswithaffiliation_seq
 \cs_new:Nn \@@_addcosupervisor:nnn {
-  \seq_gpush:Nn \g_@@_cosupervisors_seq { #1~\@formatname{#2} }
-  \seq_gpush:Nn \g_@@_cosupervisorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
+  \seq_gput_right:Nn \g_@@_cosupervisors_seq { #1~\@formatname{#2} }
+  \seq_gput_right:Nn \g_@@_cosupervisorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
 }
 \NewDocumentCommand{\cosupervisor}{mmm}{
   \@@_addcosupervisor:nnn { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\printcosupervisors}{mm}{
-  \seq_use:Nnnn \g_@@_cosupervisors_seq { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printcosupervisors}{mmm}{
+  \seq_use:Nnnn \g_@@_cosupervisors_seq { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\printcosupervisorswithaffiliation}{mm}{
   \seq_use:Nnnn \g_@@_cosupervisorswithaffiliation_seq { #2 } { #1 } { #2 }
@@ -3486,7 +3482,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors_seq} > {2} {
   	\translatekey{cosupervisors} #1
   }{
-    \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors_seq} = {2} {
+    \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors_seq} = {1} {
   	  \translatekey{cosupervisor} #1
   	}{
   	}
@@ -3495,47 +3491,27 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \seq_new:N \g_@@_extsupervisors_seq
 \seq_new:N \g_@@_extsupervisorswithaffiliation_seq
 \cs_new:Nn \@@_addextsupervisor:nnn {
-  \seq_gpush:Nn \g_@@_extsupervisors_seq { #1~\@formatname{#2} }
-  \seq_gpush:Nn \g_@@_extsupervisorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
+  \seq_gput_right:Nn \g_@@_extsupervisors_seq { #1~\@formatname{#2} }
+  \seq_gput_right:Nn \g_@@_extsupervisorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
 }
 \NewDocumentCommand{\extsupervisor}{mmm}{
   \@@_addextsupervisor:nnn { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\printextsupervisors}{mm}{
-  \seq_use:Nnnn \g_@@_extsupervisors_seq { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printextsupervisors}{mmm}{
+  \seq_use:Nnnn \g_@@_extsupervisors_seq { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\printextsupervisorswithaffiliation}{mm}{
-  \seq_use:Nnnn \g_@@_extsupervisorswithaffiliation_seq { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printextsupervisorswithaffiliation}{mmm}{
+  \seq_use:Nnnn \g_@@_extsupervisorswithaffiliation_seq { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\extsupervisorscaption}{m}{
   \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors_seq} > {2}{
   	\translatekey{extsupervisors} #1
   }{
-    \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors_seq} = {2}{
+    \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors_seq} = {1}{
   	  \translatekey{extsupervisor} #1
   	}{
     }
   }
-}
-%</bmt>
-%<*phd|bkc|bmt>
-\AtBeginDocument{
-  \seq_gpush:Nn \g_@@_supervisors_seq {}
-  \seq_greverse:N \g_@@_supervisors_seq
-  \seq_gpush:Nn \g_@@_supervisorswithaffiliation_seq {}
-  \seq_greverse:N \g_@@_supervisorswithaffiliation_seq
-}
-%</phd|bkc|bmt>
-%<*bmt>
-\AtBeginDocument{
-  \seq_gpush:Nn \g_@@_cosupervisors_seq {}
-  \seq_greverse:N \g_@@_cosupervisors_seq
-  \seq_gpush:Nn \g_@@_cosupervisorswithaffiliation_seq {}
-  \seq_greverse:N \g_@@_cosupervisorswithaffiliation_seq
-  \seq_gpush:Nn \g_@@_extsupervisors_seq {}
-  \seq_greverse:N \g_@@_extsupervisors_seq
-  \seq_gpush:Nn \g_@@_extsupervisorswithaffiliation_seq {}
-  \seq_greverse:N \g_@@_extsupervisorswithaffiliation_seq
 }
 %</bmt>
 %<*bmt|phd|bkc>
@@ -3572,16 +3548,13 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_jurymemberswithaffiliation_seq
 \cs_new:Nn \@@_addjurymember:nnn {
-  \seq_gpush:Nn \g_@@_jurymemberswithaffiliation_seq { #1~\@formatname{#2},~#3 }
+  \seq_gput_right:Nn \g_@@_jurymemberswithaffiliation_seq { #1~\@formatname{#2},~#3 }
 }
 \NewDocumentCommand{\jurymember}{mmm}{
   \@@_addjurymember:nnn { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\printjurymembers}{m}{
-  \seq_use:Nn \g_@@_jurymemberswithaffiliation_seq { #1 }
-}
-\AtBeginDocument{
-  \seq_greverse:N \g_@@_jurymemberswithaffiliation_seq
+\NewDocumentCommand{\printjurymembers}{mmm}{
+  \seq_use:Nnnn \g_@@_jurymemberswithaffiliation_seq { #1 } { #2 } { #3 }
 }
 \ExplSyntaxOff
 %</phd> 
@@ -3673,16 +3646,15 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_degrees_seq
 \cs_new:Nn \@@_adddegree:n {
-  \seq_gpush:Nn \g_@@_degrees_seq { #1 }
+  \seq_gput_right:Nn \g_@@_degrees_seq { #1 }
 }
 \NewDocumentCommand{\degree}{m}{
   \@@_adddegree:n { #1 }
 }
-\NewDocumentCommand{\printdegrees}{mm}{
-  \seq_use:Nnnn \g_@@_degrees_seq { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printdegrees}{mmm}{
+  \seq_use:Nnnn \g_@@_degrees_seq { #1 } { #2 } { #3 }
 }
 \AtBeginDocument{
-  \seq_greverse:N \g_@@_degrees_seq
   \let\degree\relax
 }
 \ExplSyntaxOff
@@ -3719,16 +3691,13 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_courseswithcodes_seq
 \cs_new:Nn \@@_addcourse:nn {
-  \seq_gpush:Nn \g_@@_courseswithcodes_seq { \texttt{#1}~#2 }
+  \seq_gput_right:Nn \g_@@_courseswithcodes_seq { \texttt{#1}~#2 }
 }
 \NewDocumentCommand{\course}{mm}{
   \@@_addcourse:nn { #1 } { #2 }
 }
-\NewDocumentCommand{\printcourseswithcodes}{m}{
-  \seq_use:Nn \g_@@_courseswithcodes_seq { #1 }
-}
-\AtBeginDocument{
-  \seq_greverse:N \g_@@_courseswithcodes_seq
+\NewDocumentCommand{\printcourseswithcodes}{mmm}{
+  \seq_use:Nnnn \g_@@_courseswithcodes_seq { #1 } { #2 } { #3 }
 }
 \ExplSyntaxOff
 %</crs>
@@ -3926,19 +3895,16 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_emailaddresses_seq
 \cs_new:Nn \@@_addemailaddress:nn {
-  \seq_gpush:Nn \g_@@_emailaddresses_seq {#1\tat{}#2}
+  \seq_gput_right:Nn \g_@@_emailaddresses_seq {#1\tat{}#2}
 }
 \NewDocumentCommand{\email}{mm}{
   \@@_addemailaddress:nn { #1 } { #2 }
 }
-\NewDocumentCommand{\printemails}{m}{
-  \seq_use:Nn \g_@@_emailaddresses_seq { #1 }
+\NewDocumentCommand{\printemails}{mmm}{
+  \seq_use:Nnnn \g_@@_emailaddresses_seq { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\ifemails}{m}{
   \seq_if_empty:NTF \g_@@_emailaddresses_seq {} {#1}
-}
-\AtBeginDocument{
-  \seq_greverse:N \g_@@_emailaddresses_seq
 }
 \ExplSyntaxOff
 %</le> 
@@ -3956,19 +3922,16 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_phonenumbers_seq
 \cs_new:Nn \@@_addphonenumber:n {
-  \seq_gpush:Nn \g_@@_phonenumbers_seq {#1}
+  \seq_gput_right:Nn \g_@@_phonenumbers_seq {#1}
 }
 \NewDocumentCommand{\phone}{m}{
   \@@_addphonenumber:n { #1 }
 }
-\NewDocumentCommand{\printphones}{m}{
-  \seq_use:Nn \g_@@_phonenumbers_seq { #1 }
+\NewDocumentCommand{\printphones}{mmm}{
+  \seq_use:Nnnn \g_@@_phonenumbers_seq { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\ifphones}{m}{
   \seq_if_empty:NTF \g_@@_phonenumbers_seq {} {#1}
-}
-\AtBeginDocument{
-  \seq_greverse:N \g_@@_phonenumbers_seq
 }
 \ExplSyntaxOff
 %</le> 
@@ -3986,19 +3949,16 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_faxnumbers_seq
 \cs_new:Nn \@@_addfaxnumber:n {
-  \seq_gpush:Nn \g_@@_faxnumbers_seq {#1}
+  \seq_gput_right:Nn \g_@@_faxnumbers_seq {#1}
 }
 \NewDocumentCommand{\fax}{m}{
   \@@_addfaxnumber:n { #1 }
 }
-\NewDocumentCommand{\printfaxes}{m}{
-  \seq_use:Nn \g_@@_faxnumbers_seq { #1 }
+\NewDocumentCommand{\printfaxes}{mmm}{
+  \seq_use:Nnnn \g_@@_faxnumbers_seq { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\iffaxes}{m}{
   \seq_if_empty:NTF \g_@@_faxnumbers_seq {} {#1}
-}
-\AtBeginDocument{
-  \seq_greverse:N \g_@@_faxnumbers_seq
 }
 \ExplSyntaxOff
 %</le> 
@@ -4016,19 +3976,16 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_mobilenumbers_seq
 \cs_new:Nn \@@_addmobilenumber:n {
-  \seq_gpush:Nn \g_@@_mobilenumbers_seq {#1}
+  \seq_gput_right:Nn \g_@@_mobilenumbers_seq {#1}
 }
 \NewDocumentCommand{\mobile}{m}{
   \@@_addmobilenumber:n { #1 }
 }
-\NewDocumentCommand{\printmobiles}{m}{
-  \seq_use:Nn \g_@@_mobilenumbers_seq { #1 }
+\NewDocumentCommand{\printmobiles}{mmm}{
+  \seq_use:Nnnn \g_@@_mobilenumbers_seq { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\ifmobiles}{m}{
   \seq_if_empty:NTF \g_@@_mobilenumbers_seq {} {#1}
-}
-\AtBeginDocument{
-  \seq_greverse:N \g_@@_mobilenumbers_seq
 }
 \ExplSyntaxOff
 %</le> 
@@ -4244,13 +4201,13 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_rooms_seq
 \cs_new:Nn \@@_addroom:n {
-  \seq_gpush:Nn \g_@@_rooms_seq { #1 }
+  \seq_gput_right:Nn \g_@@_rooms_seq { #1 }
 }
 \NewDocumentCommand{\room}{m}{
   \@@_addroom:n { #1 }
 }
-\NewDocumentCommand{\printrooms}{m}{
-  \seq_use:Nn \g_@@_rooms_seq { #1 }
+\NewDocumentCommand{\printrooms}{mmm}{
+  \seq_use:Nnnn \g_@@_rooms_seq { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\roomscaption}{}{
   \int_compare:nNnTF {\seq_count:N \g_@@_rooms_seq} > {1}{
@@ -4258,9 +4215,6 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   }{
   	\translatekey{room}
   }
-}
-\AtBeginDocument{
-  \seq_greverse:N \g_@@_rooms_seq
 }
 
 \ExplSyntaxOff
@@ -4650,7 +4604,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
           \node
           [anchor=west,text width=13.75cm,align=left,font=\large,ugent@main]
           at (2.125,22)
-          {\textsf{\printcourseswithcodes{\\}}};
+          {\textsf{\printcourseswithcodes{\\}{\\}{\\}}};
           
          \fill[maincolor] (2.125,6)
           -- (\paperwidth,6)
@@ -4664,13 +4618,13 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
           {
             \begin{tabular}{@{}l@{~\,}p{14.5cm}}
               \textsf{\lecturerscaption}
-              & \textsf{\textbf{\printlecturers{ | }}}
+              & \textsf{\textbf{\printlecturers{,~}{\translatekey{andlist}~}{~\&~}}}
             \end{tabular}
           };
 
           \node[white,anchor=west,text width=17.5cm,align=left,font=\small]
           at (2.55,3.7)
-          {\textsf{\printdegrees{\\}{\\}}\\
+          {\textsf{\printdegrees{\\}{\\}{\\}}\\
             \textsf{\textbf{\@faculty{} \ifx\@department\empty\else |
                 \@department{} \fi | \@academicyear \hfill
                 \@publishercode}}\\
@@ -4729,21 +4683,21 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
           text width=14.75cm,align=left,
           yshift=-0.5cm]
           {
-            \fontsize{12}{15}\selectfont{\textsf{\printdegrees{\\}{\\}}}
+            \fontsize{12}{15}\selectfont{\textsf{\printdegrees{\\}{\\}{\\}}}
           };
 
           \node
           [anchor=north west,text width=14.75cm,align=left] (title)
           at (5,13.3)
           {
-            \fontsize{12}{15}\selectfont\textsf{\textbf{\printlecturers{\\}}}
+            \fontsize{12}{15}\selectfont\textsf{\textbf{\printlecturers{\\}{\\}{\\}}}
           };
 
           \node
           [anchor=north west,text width=14.75cm,align=left] (title)
           at (5,10)
           {
-            \fontsize{12}{15}\selectfont\textsf{\printcourseswithcodes{\\}}
+            \fontsize{12}{15}\selectfont\textsf{\printcourseswithcodes{\\}{\\}{\\}}
           };
 
           \node[anchor=east]
@@ -4865,11 +4819,11 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
           text width={\paperwidth-5.1cm},font=\normalsize]
           at (3.5cm,7.5cm)
           {\supervisorscaption{\\}
-            \textbf{\printsupervisorswithaffiliation{\\}{~\\~\\}}%
+            \textbf{\printsupervisorswithaffiliation{\\}{\\}{\\}}\\%
             \cosupervisorscaption{\\}
-            \textbf{\printcosupervisorswithaffiliation{\\}{~\\~\\}}%
+            \textbf{\printcosupervisorswithaffiliation{\\}{\\}{\\}}\\%
             \extsupervisorscaption{\\}
-            \textbf{\printextsupervisorswithaffiliation{\\}{}}
+            \textbf{\printextsupervisorswithaffiliation{\\}{\\}{\\}}
           };
 
           \ifx\@companylogo\@empty
@@ -4967,19 +4921,24 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   \clearpage\thispagestyle{empty}
   \null\vfill % flush to bottom
   \noindent\begin{minipage}[b]{\textwidth}
+  	%
   	\textbf{\supervisorscaption{}}\hfill\break
-  	\printsupervisorswithaffiliation{\\}{}\\[2ex]
-  	
+  	%
+  	\printsupervisorswithaffiliation{\\}{\\}{\\}\\[2ex]
+  	%
+  	%
   	\textbf{\translatekey{jury}}\hfill\\[1ex]
+  	%
   	\textit{\translatekey{jurychair}}\hfill\break
-  	\@jurychair{}\ifdefvoid{\@jurychairaff}{}{, \@jurychairaff}\\
-  	\hfill\break
+  	\@jurychair{}\ifdefvoid{\@jurychairaff}{}{, \@jurychairaff}\\[1ex]
+  	%
   	\textit{\translatekey{jurymembers}}\hfill\break
-  	\printjurymembers{\\}\\[2ex]
-  	
+  	{\printjurymembers{\\}{\\}{\\}}\\[2ex]%
+  	%
+  	%
   	\textbf{\translatekey{dean}~\translatekey{of}~\translatekey{the}~\@faculty}\hfill\break
   	\@dean\\[2ex]
-  	
+  	%
   	\textbf{\translatekey{rector}~\translatekey{of}~\translatekey{org-deugent}}\hfill\break
   	\@rector
   \end{minipage}%
@@ -5237,7 +5196,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 		at (\MS+\MTLR, \HBS+\HD-\MTTB)
 		{{\bfseries\LARGE\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}%
 			\\[15pt]\Large \supervisorscaption{}:\newline
-			\printsupervisors{\\}{}%
+			\printsupervisors{\\}{\\}{\\}%
 			\\[15pt]
 			\normalsize \translatekey{acyear} \@academicyear};
 		
@@ -5668,10 +5627,10 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   \@faculty{}
   \ifx\@unit\@empty\else\\* \@unit\fi~\\[1.75ex]
   \@address\\[1.75ex]
-  \ifemails{E~\printemails{\\\phantom{E~}}\\}
-  \ifphones{T~\printphones{\\\phantom{T~}}\\}
-  \iffaxes{F~\printfaxes{\\\phantom{F~}}\\}
-  \ifmobiles{M~\printmobiles{\\\phantom{M~}}\\}
+  \ifemails{E~\printemails{\\\phantom{E~}}{}{}\\}
+  \ifphones{T~\printphones{\\\phantom{T~}}{}{}\\}
+  \iffaxes{F~\printfaxes{\\\phantom{F~}}{}{}\\}
+  \ifmobiles{M~\printmobiles{\\\phantom{M~}}{}{}\\}
   ~\\[4ex]
   \begin{tikzpicture}[anchor=north west,align=left,outer sep=0,inner sep=0]
     \path
@@ -5808,7 +5767,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
         at (3,8)
         {%
           \fontsize{12}{21}\selectfont%
-          \textsf{\roomscaption: \printrooms{, }}
+          \textsf{\roomscaption: \printrooms{,~}{\translatekey{andlist}~}{~\&~}}
         };
         
         %\node
@@ -5829,13 +5788,13 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
         {
           \begin{tabular}{@{}l@{~\,}p{14.5cm}}
             \textsf{\lecturerscaption}
-            & \textsf{\textbf{\printlecturers{ | }}}
+            & \textsf{\textbf{\printlecturers{,~}{\translatekey{andlist}~}{~\&~}}}
           \end{tabular}
         };
 
         \node[white,anchor=west,text width=17.5cm,align=left,font=\small]
         at (2.55,3.7)
-        {\textsf{\printdegrees{\\}{\\}}\\
+        {\textsf{\printdegrees{\\}{\\}{\\}}\\
           \textsf{\textbf{\@faculty{}}}};
         
         \begin{scope}[shift={(2.125,1.313)}]
