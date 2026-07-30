@@ -2659,6 +2659,16 @@ een b\'echamel saus:
   	\RequirePackage{sansmath}
   	\sansmath
   }
+  \renewcommand\textsc[1]{\textschelper#1 \relax\relax}
+  \def\textschelper#1 #2\relax{%
+  	\textschelphelp#1\relax\relax%
+  	\if\relax#2\relax\else\ \textschelper#2\relax\fi%
+  }
+  \def\Hscale{.83}\def\Vscale{.72}\def\Cscale{1.00}
+  \def\textschelphelp#1#2\relax{%
+  	\ifnum`#1=\lccode`#1\relax\scalebox{\Hscale}[\Vscale]{\char\uccode`#1}\else%
+  	\scalebox{\Cscale}[1]{#1}\fi%
+  	\ifx\relax#2\relax\else\textschelphelp#2\relax\fi}
 \else
   \PackageError{ugentdocs}{Only LuaTeX or XeTeX is supported for compilation}
   {See the ugentdocs manual}
