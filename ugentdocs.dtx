@@ -4280,27 +4280,6 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 	%    \end{macrocode}
 	% \end{imacro}
 %
-% \subsection{Dirty reverse video tricks}
-% Try not to throw up in your mouth\ldots
-%
-%    \begin{macrocode}
-%<*bmt>
-\ExplSyntaxOn
-\seq_new:N \l_title_seq
-\cs_generate_variant:Nn \seq_set_split:Nnn { Nnf }
-\cs_new_nopar:Npn \@@_reversevideo:f #1
-{
-  \seq_set_split:Nnf \l_title_seq {~} { #1 }
-  \seq_set_map:NNn \l_title_seq \l_title_seq {##1}
-  \seq_use:Nnnn \l_title_seq { ~ } { ~ } { ~ }
-}
-\NewDocumentCommand{\reversevideo}{m}{
-  \@@_reversevideo:f { #1 }
-}
-\ExplSyntaxOff
-%</bmt> 
-%    \end{macrocode}
-%
 % \subsection{Header and Footer}
 % The |fancyhdr| package is used to make a decent header and footer.
 % The header and footer of the |coursetext| class are defined to be:
@@ -4797,8 +4776,8 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
           xshift=1pt]
           at (3.5cm,\paperheight-6.4cm)
           {\sethlcolor{maincolor}%
-            \textsf{\textbf{\reversevideo{\@title}}}%
-            \ifx\@subtitle\empty\else\\\textsf{\reversevideo{\@subtitle}}\fi};
+            \textsf{\textbf{\@title}}%
+            \ifx\@subtitle\empty\else\\\textsf{\@subtitle}\fi};
           \node
           [anchor=north west,font=\LARGE,yshift=-1cm,xshift=-1pt]
           at (title.south west)
