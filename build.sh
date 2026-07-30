@@ -54,8 +54,8 @@ lualatex -interaction=nonstopmode -halt-on-error ugentdocs.ins
 
 if [ "$TEST" = false ]; then
   # 2.2 Build the documentation
-  lualatex -interaction=nonstopmode -halt-on-error ugentdocs.dtx
-  lualatex -interaction=nonstopmode -halt-on-error ugentdocs.dtx
+  lualatex -interaction=nonstopmode -halt-on-error "\def\ugentdocsversion{$VERSION}\input{ugentdocs.dtx}"
+  lualatex -interaction=nonstopmode -halt-on-error "\def\ugentdocsversion{$VERSION}\input{ugentdocs.dtx}"
 
   # 2.3 Build every example .tex file
   declare -A built
