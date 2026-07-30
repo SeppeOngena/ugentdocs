@@ -956,7 +956,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
       \Large Samenvatting\\[1ex]
       \@title~\\[1ex]
       \large \@subtitle\\[0.5ex]}
-    \ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}
+    \printauthors{,~}{\translatekey{andlist}~}{~\&~}
   \end{center}
   ]
   
@@ -1082,11 +1082,9 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
   Operatoren}
 \subtitle{Waarom moeten titels van doctoraatsthesissen toch altijd
   lang en onverstaanbaar zijn?}
-\author{Hoekaff, Theofiel}
-\authortitle{Ir.}
-\affiliation{Universiteit Gent\\
-  Faculteit Wetenschappen\\
-   Vakgroep Plantenbiotechnologie en Bio-informatica}
+\author{Ir.}{Hoekaff, Theofiel}{Universiteit Gent\\
+Faculteit Wetenschappen\\
+Vakgroep Plantenbiotechnologie en Bio-informatica}
 \address{K.L. Ledeganckstraat 35, 9000 Gent, Belgi\"e\\
   M: theofiel.hoekaff@ugent.be\\
   T: +32 9 264 51 19
@@ -1268,11 +1266,9 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
   lang en onverstaanbaar zijn?}
 
 %% specify the author and their title, affilliation and address
-\author{Edgeoff, Theodore}
-%%\authortitle{Ir.}
-\affiliation{Ghent University\\
-  Faculty of Bioscience Engineering\\
-  Department of Biotechnology}
+\author{}{Edgeoff, Theodore}{Ghent University\\
+Faculty of Bioscience Engineering\\
+Department of Biotechnology}
 \address{Frieda Saeysstraat 1, 9052 Gent, Belgi\"e\\
   M: theofiel.hoekaff@ugent.be\\
   T: +32 9 264 51 19
@@ -3053,6 +3049,8 @@ acyear		= Academic year
 subject		= Subject
 of			= of
 the			= the
+and			= and
+andlist		= , and
 
 baprog		= Bachelor's programme
 sprog		= Linking Course
@@ -3147,6 +3145,8 @@ acyear		= Academiejaar
 subject		= Onderwerp
 of			= van
 the			= de
+and			= en
+andlist		= ~en
 
 baprog		= Bacheloropleiding
 sprog		= Schakelprogramma
@@ -3304,21 +3304,63 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 % \end{imacro}
 %
 % \begin{imacro}{\author}
-%   The |author| tag is native to \LaTeX{}. It sets the |\@author|
-%   tag that will be used on the title page.
-% \end{imacro}\\
-%
-% \begin{imacro}{\authortitle}
-%   The |authortitle| tag sets the title (e.g. ir. or prof. dr. ir.) of the author.
-%   \begin{macrocode}
-%<*phd|crs|bmt|bkc|ex|le|rp>
-\newcommand*{\@authortitle}{}
-\newcommand*{\authortitle}[1]{%
-	\renewcommand*\@authortitle{#1}
+%   This macro allows to specify one or more authors with their
+%   affiliation. This can be done by invoking the macro as many times
+%   as needed.
+%    \begin{macrocode}
+%<*phd|crs|bmt|bkc|ex|le|rp>      
+\ExplSyntaxOn
+
+\seq_new:N \g_@@_authors_seq
+\seq_new:N \g_@@_affiliations_seq
+\seq_new:N \g_@@_authorswithaffiliation_seq
+\seq_new:N \g_@@_authorlist_seq
+\seq_new:N \g_@@_authorcalls_seq
+
+\cs_new:Nn \@@_addauthor:nnn {
+	\seq_gput_right:Nn \g_@@_authors_seq { #1~\@formatname{#2} }
+	\seq_gput_right:Nn \g_@@_affiliations_seq { #3 }
+	\seq_gput_right:Nn \g_@@_authorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
+	\seq_gput_right:Nn \g_@@_authorlist_seq { \@surname{#2},~\@firstnameinitial{#2} }
+	\seq_gput_right:Nx \g_@@_authorcalls_seq
+	{ \exp_not:N\author { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
 }
+
+\RenewDocumentCommand{\author}{mmm}{
+	\@@_addauthor:nnn { #1 } { #2 } { #3 }
+}
+
+\NewDocumentCommand{\printauthors}{mmm}{
+	\seq_use:Nnnn \g_@@_authors_seq { #1 } { #2 } { #3 }
+}
+
+\NewDocumentCommand{\printaffiliations}{mmm}{
+	\seq_use:Nnnn \g_@@_affiliations_seq { #1 } { #2 } { #3 }
+}
+
+\NewDocumentCommand{\printauthorswithaffiliation}{mmm}{
+	\seq_use:Nnnn \g_@@_authorswithaffiliation_seq { #1 } { #2 } { #3 }
+}
+
+\NewDocumentCommand{\printauthorlist}{}{
+	\seq_use:Nnnn \g_@@_authorlist_seq {,~} {\translatekey{andlist}~} {~\&~}
+}
+
+\NewDocumentCommand{\authorscaption}{m}{
+	\int_compare:nNnTF { \seq_count:N \g_@@_authors_seq } > {1} {
+		\translatekey{authors} #1
+	}{
+	  \int_compare:nNnTF { \seq_count:N \g_@@_supervisors_seq } = {1} {
+		\translatekey{author} #1
+	}{
+	  % empty
+	}
+}
+\ExplSyntaxOff
 %</phd|crs|bmt|bkc|ex|le|rp>
 %   \end{macrocode}
 % \end{imacro}
+%
 % 
 % \begin{imacro}{\courseversion}
 %   This macro sets the |\@courseversion| tag that later will be used
@@ -3386,9 +3428,10 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   \int_compare:nNnTF {\seq_count:N \g_@@_lecturers_seq} > {1}{
     \translatekey{lecturers}
   }{
-  	\int_compare:nNnTF {\seq_count:N \g_@@_lecturers_seq} > {0}{
+  	\int_compare:nNnTF {\seq_count:N \g_@@_lecturers_seq} = {1}{
     \translatekey{lecturer}
   	}{
+  	% empty
   	}
   }
 }
@@ -3409,22 +3452,6 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 %    \end{macrocode}
 % \end{imacro}
 %
-%
-% \begin{imacro}{\affiliation}
-%   The |affiliation| tag allows to specify the affiliation of the author.
-%    \begin{macrocode}
-%<*phd|rp|bkc>
-\newcommand\@affiliation{
-  \PackageError{ugentdocs}
-  {Please, define the affiliation of the author using the
-    '\protect\affiliation{}' command in the preamble of your
-    document.}
-  {See the ugentdocs manual}
-}
-\newcommand\affiliation[1]{\renewcommand\@affiliation{#1}}
-%</phd|rp|bkc>
-%    \end{macrocode}
-% \end{imacro}
 %
 % \begin{imacro}{\supervisor}
 %   This macro allows to specify one or more supervisors with their
@@ -3452,12 +3479,13 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   \seq_use:Nnnn \g_@@_supervisorswithaffiliation_seq { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\supervisorscaption}{m}{
-  \int_compare:nNnTF { \seq_count:N \g_@@_supervisors_seq } > {2} {
+  \int_compare:nNnTF { \seq_count:N \g_@@_supervisors_seq } > {1} {
   	\translatekey{supervisors} #1
   }{
-    \int_compare:nNnTF { \seq_count:N \g_@@_supervisors_seq } = {2} {
-  		\translatekey{supervisor} #1
+    \int_compare:nNnTF { \seq_count:N \g_@@_supervisors_seq } = {1} {
+  	  \translatekey{supervisor} #1
   	}{
+  	 % empty
   	}
   }
 }
@@ -3475,11 +3503,11 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \NewDocumentCommand{\printcosupervisors}{mmm}{
   \seq_use:Nnnn \g_@@_cosupervisors_seq { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\printcosupervisorswithaffiliation}{mm}{
-  \seq_use:Nnnn \g_@@_cosupervisorswithaffiliation_seq { #2 } { #1 } { #2 }
+\NewDocumentCommand{\printcosupervisorswithaffiliation}{mmm}{
+  \seq_use:Nnnn \g_@@_cosupervisorswithaffiliation_seq { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\cosupervisorscaption}{m}{
-  \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors_seq} > {2} {
+  \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors_seq} > {1} {
   	\translatekey{cosupervisors} #1
   }{
     \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors_seq} = {1} {
@@ -3504,7 +3532,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   \seq_use:Nnnn \g_@@_extsupervisorswithaffiliation_seq { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\extsupervisorscaption}{m}{
-  \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors_seq} > {2}{
+  \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors_seq} > {1}{
   	\translatekey{extsupervisors} #1
   }{
     \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors_seq} = {1}{
@@ -4213,7 +4241,11 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   \int_compare:nNnTF {\seq_count:N \g_@@_rooms_seq} > {1}{
     \translatekey{rooms}
   }{
-  	\translatekey{room}
+    \int_compare:nNnTF {\seq_count:N \g_@@_rooms_seq} = {1}{
+  	  \translatekey{room}
+  	}{
+  	  % empty
+  	}
   }
 }
 
@@ -4577,7 +4609,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
           \node
           [anchor=base west,maincolor,text width=13.75cm,align=left,font=\LARGE]
           at (2.125,24)
-          {\textsf{\textbf{\@formatnames{\@author}}}};
+          {\textsf{\textbf{\printauthors{\\}{\\}{\\}}}}};
 
           
           \node
@@ -4654,7 +4686,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
           text width=14.75cm,align=left,
           yshift=-0.5cm,color=ugent@main] (author)
           {
-            \fontsize{18}{24}\selectfont{\textsf{\@formatnames{\@author}}}
+            \fontsize{18}{24}\selectfont{\textsf{\printauthors{,~}{\translatekey{andlist}~}{~\&~}}}}
           };
 
           \node
@@ -4782,7 +4814,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
           [anchor=north west,font=\LARGE,yshift=-1cm,xshift=-1pt]
           at (title.south west)
           {%
-            \textsf{\textbf{\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}}
+            \textsf{\textbf{\printauthors{\\}{\\}{\\}}}
           };
 
           \node
@@ -4934,7 +4966,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   	\fi
   	
   	\vspace{5\baselineskip}%
-  	{\Large\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}%
+  	{\Large\printauthors{\\}{\\}{\\}}%
   	
   	\if@embargo
   		\vspace{5\baselineskip}
@@ -4955,8 +4987,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   \noindent\begin{minipage}[b]{\textwidth}
   	\textbf{Contact}\\
   	  \smallskip
-  	  \ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}\\
-  	  \@affiliation\\
+  	  \printauthorswithaffiliation{ | }{ | }{ | }\\
   	  \@address
   	\if@dutch\else
   	  \\[\baselineskip]
@@ -4992,7 +5023,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   	\fi
   	\\[\baselineskip]
   	{\textbf{\translatekey{pleaserefer}:}\\  		
-  		\@surname{\@author}, \@firstnameinitial{\@author}\ (\the\year).
+  		\printauthorlist~(\the\year).
   		{\renewcommand{\\}[1][]{~}\@title: \@subtitle}.
   		PhD Thesis, Ghent University, Belgium.}%
   	\ifx\@isbn\@empty\else
@@ -5162,7 +5193,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 		at (\WC-\MTLR, 2*\HBS)
 		{{\bfseries\Huge\nohyphens{\@title}}%
 			\ifx\@subtitle\@empty\else\\[4pt]\hyphenpenalty=100000\LARGE\@subtitle\fi%
-			\\[30pt]\hyphenpenalty=100000\LARGE\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}};
+			\\[30pt]\hyphenpenalty=100000\LARGE\printauthors{\\}{\\}{\\}};
 	\else
 		\node[anchor=west, text width=\WC-2*\MTLR-\MS, align=justify, text=covertitlecolor]
 		at (\MS+\MTLR, 0.5*\HC+0.5*\HBS-0.5*\HTS+0.5*\HD)
@@ -5173,7 +5204,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 		
 		\node[anchor=north west, text width=\WD-2*\MTLR, align=left, text=white]
 		at (\MS+\MTLR, \HBS+\HD-\MTTB)
-		{{\bfseries\LARGE\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}%
+		{{\bfseries\LARGE\printauthors{\\}{\\}{\\}}%
 			\\[15pt]\Large \supervisorscaption{}:\newline
 			\printsupervisors{\\}{\\}{\\}%
 			\\[15pt]
@@ -5313,7 +5344,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 		\if@printonspine
 		\bookcovercomponent{logo}{spine}{spinetextcolor}
 		\bookcovercomponent{title}{spine}{\@title}
-		\bookcovercomponent{authoryear}{spine}{\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}
+		\bookcovercomponent{authoryear}{spine}{\printauthors{,~}{\translatekey{andlist}~}{~\&~}}
 		\fi 
 		\makeatother 
 		\bookcovercomponent {normal}{back}{\backcover}
@@ -5348,8 +5379,9 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 	
 	\tl_set:Nx \l_@@_title_tl       	{ \exp_not:n{\@title} }
 	\tl_set:Nx \l_@@_subtitle_tl    	{ \exp_not:n{\@subtitle} }
-	\tl_set:Nx \l_@@_author_tl      	{ \exp_not:n{\@author} }
-	\tl_set:Nx \l_@@_authortitle_tl    	{ \exp_not:n{\@authortitle} }
+	\tl_clear_new:N \l_@@_authorcalls_tl
+	\seq_map_inline:Nn \g_@@_authorcalls_seq
+	{ \tl_put_right:Nn \l_@@_authorcalls_tl { ##1 \iow_newline: } }
 	\tl_set:Nx \l_@@_isbn_tl			{ \exp_not:n{\@isbn} }
 	\tl_set:Nx \l_@@_titlepageimage_tl 	{ \exp_not:n{\@titlepageimage} }
 	\tl_set:Nx \l_@@_publisherlogo_tl	{ \exp_not:n{\@publisherlogo} }
@@ -5371,8 +5403,9 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 		\iow_newline:
 		\exp_not:N\title			{\l_@@_title_tl}			\iow_newline:
 		\exp_not:N\subtitle			{\l_@@_subtitle_tl}			\iow_newline:
-		\exp_not:N\author			{\l_@@_author_tl}			\iow_newline:
-		\exp_not:N\authortitle		{\l_@@_authortitle_tl}		\iow_newline:
+		\tl_clear_new:N \l_@@_authorcalls_tl
+		\seq_map_inline:Nn \g_@@_authorcalls_seq
+		{ \tl_put_right:Nn \l_@@_authorcalls_tl { ##1 \iow_newline: } }
 		\exp_not:N\isbn				{\l_@@_isbn_tl}				\iow_newline:
 		\exp_not:N\titlepageimage	{\l_@@_titlepageimage_tl}	\iow_newline:
 		\exp_not:N\publisherlogo	{\l_@@_publisherlogo_tl}	\iow_newline:
@@ -5468,7 +5501,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
           [anchor=base west,maincolor,
           text width=17cm,align=left,font=\LARGE]
           at (2.125,\paperheight-6.5cm)
-          {\textsf{\textbf{\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}}};
+          {\textsf{\textbf{\printauthors{\\}{\\}{\\}}}};
           
           \fill[maincolor] (2.125,6)
           -- (\paperwidth,6)
@@ -5508,18 +5541,18 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
     \Huge\textsf{\@title}\par
     \large\textsf{\@subtitle}\par
     \vfill
-    \textbf{\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}
+    \textbf{\printauthors{\\}{\\}{\\}}
     \vfill
   \end{center}
   \clearpage
   \vfill
   \textbf{Contact}\\
   \smallskip
-  \ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}\\
+  \printauthors{\\}{\\}{\\}\\
   \@affiliation\\
   \@address\\
   \vfill
-  \copyright{} \the\year \@formatname{\@author}\\
+  \copyright{} \the\year \printauthors{,~}{\translatekey{andlist}}{~\&~}\\
   \translatekey{arr}.
   \vfill
   \setcounter{footnote}{0}%
@@ -5992,7 +6025,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 		\def\\{ }%
 		\protected@xdef\@pdftitle{\@title}%
 		\protected@xdef\@pdfsubtitle{\@subtitle}%
-		\protected@xdef\@pdfauthor{\@formatname{\@author}}%
+		\protected@xdef\@pdfauthor{\printauthorlist}%
 		\endgroup
 		\hypersetup{
 			breaklinks=true,
