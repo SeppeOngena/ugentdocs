@@ -7,8 +7,8 @@ An **unofficial** package providing the UGent house style for $\LaTeX$ documents
 
 I created this package since there are no official template provided, and current options are fragmented and developed by different users (some already left UGent). When I started my master's thesis, no official templates were present (or I couldn't find them easily), which has been a pet peeve ever since. Now I'm finishing my PhD, I stumble into the same issue.
 This package will provide the following classes (implementation status shown):
-- ⬜ `ugentthesis`: Master/bachelor's thesis
-- 🚧 `ugentdissertation`: PhD thesis/dissertation with `ugentbookcover` class (incl. auto-generated ISBN barcode)
+- 🚧 `ugentthesis`: Master/bachelor's thesis
+- ✅ `ugentdissertation`: PhD thesis/dissertation with `ugentbookcover` class (incl. auto-generated ISBN barcode)
 - ⬜ `ugentreport`: Project reports, e.g. group assignments
 - ⬜ `ugentcourse`: Course notes
 - ⬜ `ugentexam`: Exams
