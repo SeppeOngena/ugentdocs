@@ -2704,6 +2704,9 @@ een b\'echamel saus:
 \usetikzlibrary{positioning,calc}
 \RequirePackage{eso-pic}
 \RequirePackage{zref-totpages}
+\RequirePackage[normalem]{ulem}
+\renewcommand{\ULthickness}{1pt}
+\RequirePackage{setspace}
 %</crs|bmt|phd|rp|le|ex|bkc>
 %<*crs|rp>
 \if@copyright
@@ -4339,12 +4342,12 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 %
 % \begin{imacro}{\studentnr}
 	%   This macro will set the |\@studentnr| tag that will be used in the
-	%   header of the pages.
+	%   exam and thesis class.
 	%    \begin{macrocode}
-	%<*ex>      
-	\newcommand*{\@studentnr}{0}
+	%<*ex|bmt>      
+	\newcommand*{\@studentnr}{}
 	\newcommand*{\studentnr}[1]{\renewcommand*{\@studentnr}{#1}}
-	%</ex>
+	%</ex|bmt>
 	%    \end{macrocode}
 	% \end{imacro}
 %
@@ -4824,66 +4827,73 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 %   |bamathesis| class: 
 %    \begin{macrocode}
 %<*bmt>
+\newlength{\ML}\setlength\ML{2.12cm}	% Left margin
+\newlength{\MR}\setlength\MR{2.18cm} 	% Right margin
+\newlength{\TP}\setlength\TP{26.52cm}	% Title Position
+\newlength{\LUS}\setlength\LUS{1.06cm} % Logo Unit Scale
+%
 \renewcommand\maketitle{%
   \pagestyle{empty}
   \begin{titlepage}
     \setlength\parskip{0pt}%
     \setlength\parindent{0pt}%
+    %
     \AddToShipoutPicture*{%
       \put(0,0){%
-        \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-          \clip (0,0) rectangle(\paperwidth,\paperheight);
-          \node
-          [anchor=north east,align=right]
-          at (\paperwidth-1.6cm,\paperheight-2.6cm)
-          {\bfseries\large
-            \translatekey{acyear}\\[.75ex]\Large\@academicyear};
-          \node (title)
-          [anchor=north west,align=left,
-          text width={\paperwidth-5.1cm},font=\Huge,text=white,
-          xshift=1pt]
-          at (3.5cm,\paperheight-6.4cm)
-          {\sethlcolor{maincolor}%
-            \textsf{\textbf{\@title}}%
-            \ifx\@subtitle\empty\else\\\textsf{\@subtitle}\fi};
-          \node
-          [anchor=north west,font=\LARGE,yshift=-1cm,xshift=-1pt]
-          at (title.south west)
-          {%
-            \textsf{\textbf{\printauthors{\\}{\\}{\\}}}
-          };
-
-          \node
-          [anchor=west,align=left,
-          text width={\paperwidth-5.1cm},font=\normalsize]
-          at (3.5cm,12cm)
-          {\textsf{\@doctype}\\%
-            \textsf{\textbf{\@degree}}
-          };
-
-          \node
-          [anchor=west,align=left,
-          text width={\paperwidth-5.1cm},font=\normalsize]
-          at (3.5cm,7.5cm)
-          {\supervisorscaption{\\}
-            \textbf{\printsupervisorswithaffiliation{\\}{\\}{\\}}\\%
-            \cosupervisorscaption{\\}
-            \textbf{\printcosupervisorswithaffiliation{\\}{\\}{\\}}\\%
-            \extsupervisorscaption{\\}
-            \textbf{\printextsupervisorswithaffiliation{\\}{\\}{\\}}
-          };
-
-          \ifx\@companylogo\@empty
-          \else
-          \node[anchor=south east] at
-          (\paperwidth-1.6cm,1.5cm)
-          {\@companylogo};
-          \fi
-
-		  \begin{scope}[shift={(1.6cm,1.5cm)}]
-    	  	\@ugentlogo{6.2cm}{ugent@main}{0.0}
-          \end{scope}
-        \end{tikzpicture}
+		\begin{tikzpicture}[inner sep=0pt, outer sep=0pt]
+		\clip (0,0) rectangle (\paperwidth,\paperheight);
+		
+		\begin{scope}[shift={(\ML-\LUS,\paperheight-3*\LUS)}]
+		  \@faclogo{3*\LUS}{ugent@\fselector}{0}
+		\end{scope}
+		
+		\node[anchor=north west, inner sep=0pt, text width=\paperwidth-\ML-\MR,
+		minimum height=22.05cm, align=left] at (\ML,\TP)
+		{%
+			\raggedright
+			\begin{spacing}{2.5}
+			{\fontsize{25}{30}\selectfont\color{titlecolor}\bf
+				\MakeUppercase{\uline{\@title}}}
+			\end{spacing}
+			
+			\vskip 1em
+			
+			{\fontsize{15}{18}\selectfont\color{titlecolor}
+				\MakeUppercase{\@subtitle}}
+			
+			\vskip 1em
+			
+			\vskip 10em
+			
+			{\fontsize{15}{18}\selectfont\printauthorswithaffiliation{\\}{\\}{\\}}
+			
+			\ifx\@studentnr\@empty\else
+			\translatekey{studentnr}:~\@studentnr
+			\fi
+			
+			\vskip 1em
+			
+			{\fontsize{12}{15}\selectfont
+				\supervisorscaption{}:~\printsupervisors{~\&~}{,~}{\translatekey{andlist}~}}
+			
+			\iftutorsempty{}{
+				\vskip 1em
+				{\fontsize{12}{15}\selectfont
+					\tutorscaption{}:~\printtutors{~\&~}{,~}{\translatekey{andlist}~}}
+			}
+			
+			\vskip 1em
+			
+			{\@doctype~\translatekey[lowercase]{submittedto}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{bmfulfil}~\@degree}
+			
+			\translatekey{acyear}: \@academicyear
+		};
+		
+		\begin{scope}[shift={(\ML-\LUS,0)}]
+		  \@ugentlogo{4*\LUS}{ugent@main}{0}
+		\end{scope}
+		
+		\end{tikzpicture}
       }
     }
   \end{titlepage}%
