@@ -3081,6 +3081,8 @@ cosupervisor	= Cosupervisor
 cosupervisors	= Cosupervisors
 extsupervisor	= External supervisor
 extsupervisors	= External supervisors
+tutor			= Tutor
+tutors			= Tutors
 jury			= Examination committee
 jurymembers		= Jury members
 jurychair		= Chair
@@ -3176,6 +3178,8 @@ cosupervisor	= Copromotor
 cosupervisors	= Copromotoren
 extsupervisor	= Externe Promotor
 extsupervisors	= Externe Promotoren
+tutor			= Mentor
+tutors			= Mentors
 jury			= Examencommissie
 jurymembers		= Juryleden
 jurychair		= Voorzitter
@@ -3539,6 +3543,39 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   	}{
     }
   }
+}
+\seq_new:N \g_@@_tutors_seq
+\seq_new:N \g_@@_tutorswithaffiliation_seq
+\cs_new:Nn \@@_addtutor:nnn {
+	\seq_gput_right:Nn \g_@@_tutors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_tutorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+}
+\prg_new_conditional:Nnn \@@_tutors_empty: { p, T, F, TF } {
+	\seq_if_empty:NTF \g_@@_tutors_seq
+	{ \prg_return_true: }
+	{ \prg_return_false: }
+}
+\NewDocumentCommand{\tutor}{mmm}{
+	\@@_addtutor:nnn { #1 } { #2 } { #3 }
+}
+\NewDocumentCommand{\printtutors}{mmm}{
+	\seq_use:Nnnn \g_@@_tutors_seq { #1 } { #2 } { #3 }
+}
+\NewDocumentCommand{\printtutorswithaffiliation}{mmm}{
+	\seq_use:Nnnn \g_@@_tutorswithaffiliation_seq { #1 } { #2 } { #3 }
+}
+\NewDocumentCommand{\tutorscaption}{m}{
+	\int_compare:nNnTF {\seq_count:N \g_@@_tutors_seq} > {1} {
+		\translatekey{tutors} #1
+	}{
+		\int_compare:nNnTF {\seq_count:N \g_@@_tutors_seq} = {1} {
+			\translatekey{tutor} #1
+		}{%
+		}
+	}
+}
+\NewDocumentCommand{\iftutorsempty}{mm}{
+	\@@_tutors_empty:TF { #1 } { #2 }
 }
 %</bmt>
 %<*bmt|phd|bkc>
