@@ -910,6 +910,13 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% You can specify your degree manually here, using \degree{}
 %% if you don't trust 'the system'
 
+%% specify word count
+\wordcount{2501}
+%% You can also let wordcount be fetched automatically by using \wordcount{\runwordcount}
+%% But this may be inacurrate since for command only the arguments are counted, even if they expand to more words
+%% e.g. this example has a bunch of dummy text generated through \kant, but the scanned word count is only 57.
+%% And you need to enable shell escape by adding --shell-escape to your latex build command.
+
 %% set title, subtitle and author
 \title{Minimax optimisatie voor performantie-
   ruimtemodellering} %% either don't split titles, or do so with hyphen
@@ -3111,6 +3118,7 @@ examstart		= Start --- Begin
 examend			= End --- Einde
 examduration	= Exam duration --- Duur van het examen
 weight			= Weight
+wordcount		= Word count
 
 confidential	= confidential
 confidentiality = Confidentiality
@@ -3208,6 +3216,7 @@ examstart		= Begin
 examend			= Einde
 examduration	= Duur van het examen
 weight			= Gewicht
+wordcount		= Aantal woorden
 
 confidential	= confidentieel
 confidentiality = Confidentialiteit
@@ -3752,6 +3761,37 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   \renewcommand*\@doctype{\translatekey{#1}}
 }
 %</bmt|phd|crs|ex|bkc>
+%    \end{macrocode}
+% \end{imacro}
+%
+% \begin{imacro}{\wordcount}
+%   This macro sets the |\@wordcount| tag that later will
+%   be used on the title pages.
+%   Runs automatically but can be overridden.
+%   \begin{macrocode}
+%<*bmt|phd|rp>
+\newcommand*\@wordcount{}
+\newcommand*\wordcount[1]{
+	\renewcommand*\@wordcount{#1}
+}
+\ExplSyntaxOn
+\cs_new:Nn \@@_runwordcount: {
+	\ShellEscape{texcount~-1~-sum~-merge~-q~\jobname.tex~>~\jobname.wc}
+	\file_if_exist:nTF { \jobname.wc }
+	{
+		\file_get:nnN { \jobname.wc } { } \l_tmpa_tl
+		\tl_to_str:N \l_tmpa_tl
+		\xdef\@wordcount{\l_tmpa_tl}
+	}
+	{
+		\gdef\@wordcount{?}
+	}
+}
+\NewDocumentCommand{\runwordcount}{}{
+	\@@_runwordcount:
+}
+\ExplSyntaxOff
+%</bmt|phd|rp>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -4869,6 +4909,10 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 				\MakeUppercase{\@subtitle}}
 			
 			\vskip 1em
+			
+			\ifx\@wordcount\@empty\else
+			  \translatekey{wordcount}:~\@wordcount
+			\fi
 			
 			\vskip 10em
 			
