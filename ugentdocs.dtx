@@ -3064,9 +3064,9 @@ bathesis	= Bachelor's dissertation
 phdthesis	= Doctoral dissertation
 projreport	= Project report
 
-bmprefix	= Thesis to obtain the degree of
-phdprefix	= Submitted to the
-phdsuffix	= in Fulfilment of the Requirements for the Degree of 
+submittedto	= Submitted to the
+bmfulfil	= in partial Fulfilment of the Requirements for the Degree of
+phdfulfil	= in Fulfilment of the Requirements for the Degree of 
 badegree	= Bachelor
 madegree	= Master
 phddegree	= Doctor
@@ -3159,9 +3159,9 @@ bathesis	= Bachelorproef
 phdthesis	= Doctoraat
 projreport	= Projectverslag
 
-bmprefix	= Proefschrift tot het behalen van de graad van
-phdprefix	= Voorgelegd aan de
-phdsuffix	= ter voldoening aan de vereisten voor de graad van
+submittedto	= Voorgelegd aan de
+bmfulfil	= ter gedeeltelijke voldoening aan de vereisten voor de graad van
+phdfulfil	= ter voldoening aan de vereisten voor de graad van
 badegree	= Bachelor
 madegree	= Master
 phddegree	= Doctor
@@ -4975,7 +4975,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   		\vspace{10\baselineskip}%
   	\fi
   	
-  	{\small \translatekey{phdprefix}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{phdsuffix}~\@degree}%
+  	{\small \translatekey{submittedto}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}%
   	
   	\vspace{.3\baselineskip}%
   	{\small\translatekey{org-ugent}, \@defenselocation, \@defensedate}%
@@ -5211,7 +5211,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 		
 		\node[anchor=south west, text width=\WD-2*\MTLR, align=justify, text=white]
 		 at (\MS+\MTLR, \HBS+\MTTB)
-		{\normalsize\nohyphens{\translatekey{phdprefix}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{phdsuffix}~\@degree}};
+		{\normalsize\nohyphens{\translatekey{submittedto}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}};
 	\fi
 	
 	% UGent logo
