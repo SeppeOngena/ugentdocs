@@ -743,7 +743,8 @@
 %% set title, subtitle and author
 \title{Z\'agen, zoeken en zuchten}
 \subtitle{Cursusnota's}
-\author{Daems, Walter and Levrie, Paul}
+\author{}{Daems, Walter}{}
+\author{}{Levrie, Paul}{}
 
 %% better keep track of the different versions (and the corresponding
 %% publication year) of your course
@@ -914,7 +915,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
   ruimtemodellering} %% either don't split titles, or do so with hyphen
                      %% and a newline
 \subtitle{Deze subtitel mag je weglaten}
-\author{Bibber, Bert}
+\author{}{Bibber, Bert}{}
 
 %% you can specify multiple supervisors, cosupervisors and external supervisors
 %% in Dutch: promotoren, copromotoren (dagelijkse begeleiders) en
@@ -956,7 +957,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
       \Large Samenvatting\\[1ex]
       \@title~\\[1ex]
       \large \@subtitle\\[0.5ex]}
-    \printauthors{,~}{\translatekey{andlist}~}{~\&~}
+    \printauthors{~\&~}{,~}{\translatekey{andlist}~}
   \end{center}
   ]
   
@@ -1082,7 +1083,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
   Operatoren}
 \subtitle{Waarom moeten titels van doctoraatsthesissen toch altijd
   lang en onverstaanbaar zijn?}
-\author{Ir.}{Hoekaff, Theofiel}{Universiteit Gent\\
+\author{Ir.}{Hoekaff, Theofiel}{\\Universiteit Gent\\
 Faculteit Wetenschappen\\
 Vakgroep Plantenbiotechnologie en Bio-informatica}
 \address{K.L. Ledeganckstraat 35, 9000 Gent, Belgi\"e\\
@@ -1266,7 +1267,7 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
   lang en onverstaanbaar zijn?}
 
 %% specify the author and their title, affilliation and address
-\author{}{Edgeoff, Theodore}{Ghent University\\
+\author{}{Edgeoff, Theodore}{\\Ghent University\\
 Faculty of Bioscience Engineering\\
 Department of Biotechnology}
 \address{Frieda Saeysstraat 1, 9052 Gent, Belgi\"e\\
@@ -1440,8 +1441,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% address 
 \title{De toepassing van roomijs-derivaten in beton}
 \subtitle{Het belang van een smaakvolle architectuur}
-\author{Bouwblauw, Jan}
-\affiliation{Universiteit Antwerpen | Building Research Group}
+\author{}{Bouwblauw, Jan}{\\Universiteit Antwerpen | Building Research Group}
 \address{Groenenborgerlaan 171, 2020 Antwerpen, Belgi\"e\\
   M: jan.bouwblauw@uantwerpen.be\\
   T: +32 265 00 00
@@ -3318,9 +3318,9 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \seq_new:N \g_@@_authorcalls_seq
 
 \cs_new:Nn \@@_addauthor:nnn {
-	\seq_gput_right:Nn \g_@@_authors_seq { #1~\@formatname{#2} }
-	\seq_gput_right:Nn \g_@@_affiliations_seq { #3 }
-	\seq_gput_right:Nn \g_@@_authorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
+	\seq_gput_right:Nn \g_@@_authors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_affiliations_seq { #3\strut }
+	\seq_gput_right:Nn \g_@@_authorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
 	\seq_gput_right:Nn \g_@@_authorlist_seq { \@surname{#2},~\@firstnameinitial{#2} }
 	\seq_gput_right:Nx \g_@@_authorcalls_seq
 	{ \exp_not:N\author { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
@@ -3350,10 +3350,11 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 	\int_compare:nNnTF { \seq_count:N \g_@@_authors_seq } > {1} {
 		\translatekey{authors} #1
 	}{
-	  \int_compare:nNnTF { \seq_count:N \g_@@_supervisors_seq } = {1} {
+	  \int_compare:nNnTF { \seq_count:N \g_@@_authors_seq } = {1} {
 		\translatekey{author} #1
-	}{
+	  }{
 	  % empty
+	  }
 	}
 }
 \ExplSyntaxOff
@@ -3416,7 +3417,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_lecturers_seq
 \cs_new:Nn \@@_addlecturer:n {
-  \seq_gput_right:Nn \g_@@_lecturers_seq { #1 }
+  \seq_gput_right:Nn \g_@@_lecturers_seq { #1\strut }
 }
 \NewDocumentCommand{\lecturer}{m}{
   \@@_addlecturer:n { \@formatname{#1} }
@@ -3464,8 +3465,8 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \seq_new:N \g_@@_supervisorcalls_seq
 \seq_new:N \g_@@_supervisorswithaffiliation_seq
 \cs_new:Nn \@@_addsupervisor:nnn {
-  \seq_gput_right:Nn \g_@@_supervisors_seq { #1~\@formatname{#2} }
-  \seq_gput_right:Nn \g_@@_supervisorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
+  \seq_gput_right:Nn \g_@@_supervisors_seq { #1~\@formatname{#2}\strut }
+  \seq_gput_right:Nn \g_@@_supervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
   \seq_gput_right:Nx \g_@@_supervisorcalls_seq
   { \exp_not:N\supervisor { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
 }
@@ -3494,8 +3495,8 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \seq_new:N \g_@@_cosupervisors_seq
 \seq_new:N \g_@@_cosupervisorswithaffiliation_seq
 \cs_new:Nn \@@_addcosupervisor:nnn {
-  \seq_gput_right:Nn \g_@@_cosupervisors_seq { #1~\@formatname{#2} }
-  \seq_gput_right:Nn \g_@@_cosupervisorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
+  \seq_gput_right:Nn \g_@@_cosupervisors_seq { #1~\@formatname{#2}\strut }
+  \seq_gput_right:Nn \g_@@_cosupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
 }
 \NewDocumentCommand{\cosupervisor}{mmm}{
   \@@_addcosupervisor:nnn { #1 } { #2 } { #3 }
@@ -3519,8 +3520,8 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \seq_new:N \g_@@_extsupervisors_seq
 \seq_new:N \g_@@_extsupervisorswithaffiliation_seq
 \cs_new:Nn \@@_addextsupervisor:nnn {
-  \seq_gput_right:Nn \g_@@_extsupervisors_seq { #1~\@formatname{#2} }
-  \seq_gput_right:Nn \g_@@_extsupervisorswithaffiliation_seq { #1~\@formatname{#2},~#3 }
+  \seq_gput_right:Nn \g_@@_extsupervisors_seq { #1~\@formatname{#2}\strut }
+  \seq_gput_right:Nn \g_@@_extsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
 }
 \NewDocumentCommand{\extsupervisor}{mmm}{
   \@@_addextsupervisor:nnn { #1 } { #2 } { #3 }
@@ -3576,7 +3577,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_jurymemberswithaffiliation_seq
 \cs_new:Nn \@@_addjurymember:nnn {
-  \seq_gput_right:Nn \g_@@_jurymemberswithaffiliation_seq { #1~\@formatname{#2},~#3 }
+  \seq_gput_right:Nn \g_@@_jurymemberswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
 }
 \NewDocumentCommand{\jurymember}{mmm}{
   \@@_addjurymember:nnn { #1 } { #2 } { #3 }
@@ -3677,7 +3678,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   \seq_gput_right:Nn \g_@@_degrees_seq { #1 }
 }
 \NewDocumentCommand{\degree}{m}{
-  \@@_adddegree:n { #1 }
+  \@@_adddegree:n { #1\strut }
 }
 \NewDocumentCommand{\printdegrees}{mmm}{
   \seq_use:Nnnn \g_@@_degrees_seq { #1 } { #2 } { #3 }
@@ -3719,7 +3720,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_courseswithcodes_seq
 \cs_new:Nn \@@_addcourse:nn {
-  \seq_gput_right:Nn \g_@@_courseswithcodes_seq { \texttt{#1}~#2 }
+  \seq_gput_right:Nn \g_@@_courseswithcodes_seq { \texttt{#1}~#2\strut }
 }
 \NewDocumentCommand{\course}{mm}{
   \@@_addcourse:nn { #1 } { #2 }
@@ -3923,7 +3924,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_emailaddresses_seq
 \cs_new:Nn \@@_addemailaddress:nn {
-  \seq_gput_right:Nn \g_@@_emailaddresses_seq {#1\tat{}#2}
+  \seq_gput_right:Nn \g_@@_emailaddresses_seq {#1\tat{}#2\strut}
 }
 \NewDocumentCommand{\email}{mm}{
   \@@_addemailaddress:nn { #1 } { #2 }
@@ -3950,7 +3951,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_phonenumbers_seq
 \cs_new:Nn \@@_addphonenumber:n {
-  \seq_gput_right:Nn \g_@@_phonenumbers_seq {#1}
+  \seq_gput_right:Nn \g_@@_phonenumbers_seq {#1\strut}
 }
 \NewDocumentCommand{\phone}{m}{
   \@@_addphonenumber:n { #1 }
@@ -3977,7 +3978,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_faxnumbers_seq
 \cs_new:Nn \@@_addfaxnumber:n {
-  \seq_gput_right:Nn \g_@@_faxnumbers_seq {#1}
+  \seq_gput_right:Nn \g_@@_faxnumbers_seq {#1\strut}
 }
 \NewDocumentCommand{\fax}{m}{
   \@@_addfaxnumber:n { #1 }
@@ -4004,7 +4005,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_mobilenumbers_seq
 \cs_new:Nn \@@_addmobilenumber:n {
-  \seq_gput_right:Nn \g_@@_mobilenumbers_seq {#1}
+  \seq_gput_right:Nn \g_@@_mobilenumbers_seq {#1\strut}
 }
 \NewDocumentCommand{\mobile}{m}{
   \@@_addmobilenumber:n { #1 }
@@ -4229,7 +4230,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \ExplSyntaxOn
 \seq_new:N \g_@@_rooms_seq
 \cs_new:Nn \@@_addroom:n {
-  \seq_gput_right:Nn \g_@@_rooms_seq { #1 }
+  \seq_gput_right:Nn \g_@@_rooms_seq { #1\strut }
 }
 \NewDocumentCommand{\room}{m}{
   \@@_addroom:n { #1 }
@@ -4609,7 +4610,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
           \node
           [anchor=base west,maincolor,text width=13.75cm,align=left,font=\LARGE]
           at (2.125,24)
-          {\textsf{\textbf{\printauthors{\\}{\\}{\\}}}}};
+          {\textsf{\textbf{\printauthors{\\}{\\}{\\}}}};
 
           
           \node
@@ -4629,7 +4630,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
           {
             \begin{tabular}{@{}l@{~\,}p{14.5cm}}
               \textsf{\lecturerscaption}
-              & \textsf{\textbf{\printlecturers{,~}{\translatekey{andlist}~}{~\&~}}}
+              & \textsf{\textbf{\printlecturers{~\&~}{,~}{\translatekey{andlist}~}}}
             \end{tabular}
           };
 
@@ -4686,7 +4687,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
           text width=14.75cm,align=left,
           yshift=-0.5cm,color=ugent@main] (author)
           {
-            \fontsize{18}{24}\selectfont{\textsf{\printauthors{,~}{\translatekey{andlist}~}{~\&~}}}}
+            \fontsize{18}{24}\selectfont{\textsf{\printauthors{~\&~}{,~}{\translatekey{andlist}~}}}
           };
 
           \node
@@ -5344,7 +5345,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 		\if@printonspine
 		\bookcovercomponent{logo}{spine}{spinetextcolor}
 		\bookcovercomponent{title}{spine}{\@title}
-		\bookcovercomponent{authoryear}{spine}{\printauthors{,~}{\translatekey{andlist}~}{~\&~}}
+		\bookcovercomponent{authoryear}{spine}{\printauthors{~\&~}{,~}{\translatekey{andlist}~}}
 		\fi 
 		\makeatother 
 		\bookcovercomponent {normal}{back}{\backcover}
@@ -5379,9 +5380,6 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 	
 	\tl_set:Nx \l_@@_title_tl       	{ \exp_not:n{\@title} }
 	\tl_set:Nx \l_@@_subtitle_tl    	{ \exp_not:n{\@subtitle} }
-	\tl_clear_new:N \l_@@_authorcalls_tl
-	\seq_map_inline:Nn \g_@@_authorcalls_seq
-	{ \tl_put_right:Nn \l_@@_authorcalls_tl { ##1 \iow_newline: } }
 	\tl_set:Nx \l_@@_isbn_tl			{ \exp_not:n{\@isbn} }
 	\tl_set:Nx \l_@@_titlepageimage_tl 	{ \exp_not:n{\@titlepageimage} }
 	\tl_set:Nx \l_@@_publisherlogo_tl	{ \exp_not:n{\@publisherlogo} }
@@ -5394,6 +5392,9 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 	\tl_clear_new:N \l_@@_supervisorcalls_tl
 	\seq_map_inline:Nn \g_@@_supervisorcalls_seq
 	{ \tl_put_right:Nn \l_@@_supervisorcalls_tl { ##1 \iow_newline: } }
+	\tl_clear_new:N \l_@@_authorcalls_tl
+	\seq_map_inline:Nn \g_@@_authorcalls_seq
+	{ \tl_put_right:Nn \l_@@_authorcalls_tl { ##1 \iow_newline: } }
 	
 	\tl_set:Nn \g_@@_covertemplate_tl {
 		\exp_not:N\documentclass[\l_@@_faculty_tl, spinewidth=\fp_to_decimal:n{round(\dim_ratio:nn{\l_@@_spinewidth_dim}{1mm},1)}mm\l_@@_cameraready_tl\l_@@_cmyk_tl\l_@@_surnamefirst_tl]{ugentbookcover}\iow_newline:
@@ -5403,9 +5404,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 		\iow_newline:
 		\exp_not:N\title			{\l_@@_title_tl}			\iow_newline:
 		\exp_not:N\subtitle			{\l_@@_subtitle_tl}			\iow_newline:
-		\tl_clear_new:N \l_@@_authorcalls_tl
-		\seq_map_inline:Nn \g_@@_authorcalls_seq
-		{ \tl_put_right:Nn \l_@@_authorcalls_tl { ##1 \iow_newline: } }
+		\l_@@_authorcalls_tl								    \iow_newline:
 		\exp_not:N\isbn				{\l_@@_isbn_tl}				\iow_newline:
 		\exp_not:N\titlepageimage	{\l_@@_titlepageimage_tl}	\iow_newline:
 		\exp_not:N\publisherlogo	{\l_@@_publisherlogo_tl}	\iow_newline:
@@ -5516,7 +5515,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
           
           \node[white,anchor=west,text width=17cm,align=left,font=\small]
           at (2.55,4)
-          {\textsf{\textbf{\@affiliation{}
+          {\textsf{\textbf{%\@affiliation{}
                 | \the\year}\\
               \@address}};
           
@@ -5535,7 +5534,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
     \@ugentlogo{4.75cm}{ugent@main}{0.0}
     \end{tikzpicture}%
     \vfill
-    \@affiliation\\
+    %\@affiliation\\
     \@extra\par
     \vfill
     \Huge\textsf{\@title}\par
@@ -5549,10 +5548,10 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   \textbf{Contact}\\
   \smallskip
   \printauthors{\\}{\\}{\\}\\
-  \@affiliation\\
+  %\@affiliation\\
   \@address\\
   \vfill
-  \copyright{} \the\year \printauthors{,~}{\translatekey{andlist}}{~\&~}\\
+  \copyright{} \the\year \printauthors{~\&~}{,~}{\translatekey{andlist}~}\\
   \translatekey{arr}.
   \vfill
   \setcounter{footnote}{0}%
@@ -5779,7 +5778,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
         at (3,8)
         {%
           \fontsize{12}{21}\selectfont%
-          \textsf{\roomscaption: \printrooms{,~}{\translatekey{andlist}~}{~\&~}}
+          \textsf{\roomscaption: \printrooms{~\&~}{,~}{\translatekey{andlist}~}}
         };
         
         %\node
@@ -5800,7 +5799,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
         {
           \begin{tabular}{@{}l@{~\,}p{14.5cm}}
             \textsf{\lecturerscaption}
-            & \textsf{\textbf{\printlecturers{,~}{\translatekey{andlist}~}{~\&~}}}
+            & \textsf{\textbf{\printlecturers{~\&~}{,~}{\translatekey{andlist}~}}}
           \end{tabular}
         };
 
