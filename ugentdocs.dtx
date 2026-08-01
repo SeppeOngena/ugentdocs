@@ -729,7 +729,7 @@
 
 %% load the proper language(s) (last language will trigger the language
 %% of the logo a.o.)
-\usepackage[english,dutch]{babel}
+\selectlanguage{dutch}
 %% You can then use \selectlanguage{english} to start a piece of text
 %% in english, and \selectlanguage{dutch} to start a piece of text in
 %% dutch. This will cause the correct hypernation patterns to be
@@ -878,7 +878,7 @@
 
 %% load the proper language(s) (last language will trigger the language
 %% of the logo a.o.)
-\usepackage[english]{babel}
+\selectlanguage{english}
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -1074,7 +1074,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 
 %% load the proper language(s) (last language will, i.a., trigger the language
 %% of the logo)
-\usepackage[dutch]{babel} %% or english if your text is in English
+\selectlanguage{dutch}
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -1256,7 +1256,7 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 
 %% load the proper language(s) (last language will, i.a., trigger the language
 %% of the logo)
-\usepackage[english]{babel} %% or dutch if your text is in Dutch
+\selectlanguage{dutch}
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -1441,7 +1441,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 
 %% load the proper language(s) (last language will trigger the language
 %% of the logo a.o.)
-\usepackage[dutch]{babel} %% or english if your text is in Dutch
+\selectlanguage{dutch}
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -1560,7 +1560,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 
 %% load the proper language(s) (last language will trigger the language
 %% of the logo a.o.)
-\usepackage[english]{babel}
+\selectlanguage{english}
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -1722,7 +1722,7 @@ their details enclosed.
 
 %% load the proper language(s) (last language will trigger the language
 %% of the logo a.o.)
-\usepackage[dutch]{babel}
+\selectlanguage{dutch}
 
 %% some data about your course and the authors/lecturers
 \course{1876FTIDUM}{5-Bistrologie}
@@ -1883,7 +1883,7 @@ een b\'echamel saus:
 
 %% load the proper language(s) (last language will trigger the language
 %% of the logo a.o.)
-\usepackage[dutch,english]{babel}
+\selectlanguage{english}
 
 %% some data about your course and the authors/lecturers
 \course{1876FTIDUM}{5-Bistrology}
@@ -2410,6 +2410,7 @@ een b\'echamel saus:
     }
     \addto\captionsenglish{
     	\setlength{\ftextw}{\ftextwen}
+    	\@dutchfalse
     	}
     }{
   	\setlength{\ftextw}{\ftextwen}
@@ -2725,6 +2726,7 @@ een b\'echamel saus:
 \RequirePackage[normalem]{ulem}
 \renewcommand{\ULthickness}{1pt}
 \RequirePackage{setspace}
+\RequirePackage[dutch, main=english]{babel}
 %</crs|bmt|phd|rp|le|ex|bkc>
 %<*crs|rp>
 \if@copyright
@@ -2913,8 +2915,17 @@ een b\'echamel saus:
 % The dictionary can be accessed using the following document command:
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp|le|ex|bkc>
+
+\tl_new:N \l_@@_lookup_key_tl
+
 \cs_new:Npn \_@@_translate:nn #1#2 {
-	\tl_set:Nx \l_@@_value_cased_tl { \prop_item:Nn \g_@@_dict_keyvals_prop {#2} }
+	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} :#2 }
+	\prop_if_in:NVTF \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl {
+		\tl_set:Nx \l_@@_value_cased_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+	}{
+		\tl_set:Nx \l_@@_lookup_key_tl { english:#2 }
+		\tl_set:Nx \l_@@_value_cased_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+	}
 	\tl_if_empty:nF {#1} {
 		\str_case:nnF {#1}{
 			{uppercase}{\tl_set:Nx \l_@@_value_cased_tl{\text_uppercase:n{\l_@@_value_cased_tl}}}
@@ -2965,16 +2976,18 @@ een b\'echamel saus:
 \tl_new:N \l_@@_key_tl
 \tl_new:N \l_@@_value_tl
 \bool_new:N \l_@@_keyval_flushpending_bool
+\tl_new:N \l_@@_dictlang_tl
+\tl_new:N \l_@@_dictkey_tl
 
 \cs_new_nopar:Nn \@@_flush_value: {
 	\bool_if:NT \l_@@_keyval_flushpending_bool {
 		\tl_trim_spaces:N \l_@@_value_tl
-		\prop_gput:Nxx \g_@@_dict_keyvals_prop { \l_@@_key_tl } { \l_@@_value_tl }
+		\tl_set:Nx \l_@@_dictkey_tl { \l_@@_dictlang_tl {} :\l_@@_key_tl }
+		\prop_gput:NVx \g_@@_dict_keyvals_prop \l_@@_dictkey_tl { \l_@@_value_tl }
 		\bool_set_false:N \l_@@_keyval_flushpending_bool
 	}
 }
 
-\cs_generate_variant:Nn \prop_gput:Nnn{Nxx}
 \cs_new_nopar:Npn \@@_dictparser:w #1 = #2 \q_stop {
   \tl_set:Nn \l_@@_key_tl{#1}
   \tl_set:Nn \l_@@_value_tl{#2}
@@ -2988,18 +3001,19 @@ een b\'echamel saus:
 %<*crs|bmt|phd|rp|le|ex|bkc>
 \ior_new:N \l_@@_dict_ior
 \cs_new_nopar:Nn \@@_dictreader:n {
+	\tl_set:Nn \l_@@_dictlang_tl {#1}
 	\bool_set_false:N \l_@@_keyval_flushpending_bool
 	\ior_open:Nn \l_@@_dict_ior { ugentdocs-#1.dict }
 	\ior_str_map_inline:Nn \l_@@_dict_ior {
 		\tl_if_blank:nTF {##1}{
-	 		\@@_flush_value: 
+			\@@_flush_value:
 		}{
 			\regex_match:nnTF {=} {##1}{
 				\@@_flush_value:
 				\@@_dictparser:w ##1 \q_stop
 				\bool_set_true:N \l_@@_keyval_flushpending_bool
 			}{
-				\tl_put_right:Nx \l_@@_value_tl { ~ ##1 } 
+				\tl_put_right:Nx \l_@@_value_tl { ~ ##1 }
 			}
 		}
 	}
@@ -3011,7 +3025,7 @@ een b\'echamel saus:
 % By default, we load the generic (not yet implemented!) and the english data file:
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp|le|ex|bkc>
-\clist_map_inline:nn {en} {
+\clist_map_inline:nn {english} {
   \@@_dictreader:n { #1 }
   \seq_gput_right:Nn \g_@@_loaded_dicts_seq { #1 }
 }
@@ -3033,10 +3047,10 @@ een b\'echamel saus:
   \makeatother
   \@ifpackageloaded{babel}{
     \addto\captionsenglish{%
-      \useugentdocsdictionary{en}
+      \useugentdocsdictionary{english}
     }
     \addto\captionsdutch{%
-      \useugentdocsdictionary{nl}
+      \useugentdocsdictionary{dutch}
     }
   }
   {}
@@ -5525,7 +5539,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 		\exp_not:N\isbn				{\l_@@_isbn_tl}				\iow_newline:
 		\exp_not:N\titlepageimage	{\l_@@_titlepageimage_tl}	\iow_newline:
 		\exp_not:N\publisherlogo	{\l_@@_publisherlogo_tl}	\iow_newline:
-		\if@dutch\exp_not:N\usepackage[dutch]{babel}\iow_newline:\fi
+		\if@dutch\exp_not:N\selectlanguage{dutch}				\iow_newline:\fi
 		\if@tempembargo
 			\exp_not:N\embargotemp	{\l_@@_embargostartdate_tl}{\l_@@_embargoenddate_tl} \iow_newline:
 		\else\if@fullembargo
