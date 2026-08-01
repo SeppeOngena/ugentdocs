@@ -2515,6 +2515,10 @@ een b\'echamel saus:
 \newif\if@nofoldline
 \DeclareOption{nofoldline}{\@nofoldlinetrue}
 %</le>
+%<*bmt>
+\newif\if@coverbg
+\DeclareOption{coverbg}{\@coverbgtrue}
+%</bmt>
 %    \end{macrocode}
 %
 %
@@ -4876,7 +4880,19 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 %<*bmt>
 \newlength{\gridunit}\pgfmathsetlength{\gridunit}{max(\paperheight,\paperwidth)/7/4}	% Grid unit following styleguide
 \newlength{\TP}\setlength\TP{26.52cm}												 	% Title Position
-\colorlet{covertitlecolor}{ugent@main}
+\newlength{\ML}																			% Margin left (for text)
+
+\if@coverbg
+	\colorlet{covertitlecolor}{white}
+	\colorlet{coverbgcolor}{maincolor}
+	\colorlet{coverdatacolor}{white}
+	\setlength\ML{2\gridunit}
+\else
+	\colorlet{covertitlecolor}{ugent@main}
+	\colorlet{coverbgcolor}{white}
+	\colorlet{coverdatacolor}{black}
+	\setlength\ML{\gridunit}
+\fi
 %
 \renewcommand\maketitle{%
   \pagestyle{empty}
@@ -4893,8 +4909,12 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 		  \@faclogo{3*\gridunit}{ugent@\fselector}{0}
 		\end{scope}
 		
+		\if@coverbg
+		  \fill[coverbgcolor] (\gridunit,4*\gridunit) rectangle (\paperwidth,\paperheight-3*\gridunit);
+		\fi
+		
 		\node[anchor=north west, inner sep=0pt, text width=\paperwidth-2*\gridunit,
-		minimum height=22.05cm, align=left] at (\gridunit,\TP)
+		minimum height=22.05cm, align=left] at (\ML,\TP)
 		{%
 			\raggedright
 			\begin{spacing}{2.5}
@@ -4909,6 +4929,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 			
 			\vskip 1em
 			
+			\begingroup\color{coverdatacolor}			
 			\ifx\@wordcount\@empty\else
 			  \translatekey{wordcount}:~\@wordcount
 			\fi
@@ -4937,6 +4958,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 			{\@doctype~\translatekey[lowercase]{submittedto}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{bmfulfil}~\@degree}
 			
 			\translatekey{acyear}: \@academicyear
+			\endgroup
 		};
 		
 		\begin{scope}[shift={(0,0)}]
