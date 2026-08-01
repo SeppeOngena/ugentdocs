@@ -3155,7 +3155,7 @@ embargofull		= The author of this thesis declares that this document is marked c
 
 embargotemp		= The author of this thesis declares that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 
-arrbama			=  The author and promoter give the permission to use this thesis for consultation and to copy parts of it for personal use. Every other use is subject to the copyright laws, more specifically the source must be extensively specified when using results from this thesis.
+arrbama			=  give the permission to use this thesis for consultation and to copy parts of it for personal use. Every other use is subject to the copyright laws, more specifically the source must be extensively specified when using results from this thesis.
 %</endict>
 %    \end{macrocode}
 %
@@ -3255,7 +3255,7 @@ embargofull		= De auteur van dit proefschrift verklaart dat dit document confide
 
 embargotemp		= De auteur van dit proefschrift verklaart dat dit document confidentieel is van __START__ tot en met __END__ (embargoperiode), en vrij beschikbaar wordt na deze embargoperiode. Tijdens de embargoperiode is de inhoud van dit doctoraatsproefschrift confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
 
-arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consultatie beschikbaar te stellen en delen ervan te kopiëren voor persoonlijk gebruik. Elk ander gebruik valt onder de beperkingen van het auteursrecht, in het bijzonder met betrekking tot de verplichting uitdrukkelijk de bron te vermelden bij het aanhalen van resultaten uit deze scriptie.
+arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te stellen en delen ervan te kopiëren voor persoonlijk gebruik. Elk ander gebruik valt onder de beperkingen van het auteursrecht, in het bijzonder met betrekking tot de verplichting uitdrukkelijk de bron te vermelden bij het aanhalen van resultaten uit deze scriptie.
 %</nldict>
 %    \end{macrocode}
 %
@@ -3854,14 +3854,14 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 % \end{imacro}
 % 
 % 
-%   be used on the title page. 
 % \begin{imacro}{\location}
 %   This macro sets the |\@location| tags that later will
+%   be used on the thesis copyright page. 
 %    \begin{macrocode}
-%<*phd|bkc>      
-%</phd|bkc>
+%<*phd|bkc|bmt>      
 \newcommand*\@location{Ghent}
 \newcommand*{\location}[1]{\renewcommand*\@location{#1}}
+%</phd|bkc|bmt>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3965,12 +3965,103 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 %   This macro sets the |\@copyrightnotices| tag that later will be
 %   used on the back of the title page.
 %    \begin{macrocode}
-%<*crs|rp>      
+%<*crs|rp|bmt>      
 \newcommand{\@copyrightnotices}{}
 \newcommand{\copyrightnotices}[1]{\renewcommand{\@copyrightnotices}{#1}}
-%</crs|rp>
+%</crs|rp|bmt>
 %<*bmt>
-\newcommand{\@copyrightnotices}{Disclaimer \@doctype \newline\newline \translatekey{arrbama}}
+%
+\ExplSyntaxOn
+\cs_new:Nn \@@_sigblock:nn {
+	\begin{minipage}[t]{\linewidth}
+		\centering
+		\rule{0pt}{1.25cm}\\
+		\rule{0.8\linewidth}{0.4pt}\\[0.3em]
+		#2\\
+		{\small\itshape #1}
+	\end{minipage}
+}
+
+\int_new:N \l_@@_sigcount_int
+
+\cs_new:Nn \@@_sigrow_step:nn {
+	\int_incr:N \l_@@_sigcount_int
+	\@@_sigblock:nn {#1} {#2}
+	\int_compare:nNnTF {\int_mod:nn {\l_@@_sigcount_int}{2}} = {1}
+	{ & }
+	{ \tabularnewline[2em] }
+}
+
+\tl_new:N \l_@@_sigrow_tl
+\seq_new:N \l_@@_sigpairs_seq
+
+\cs_new:Nn \@@_siggroup:Nn {
+	\int_compare:nNnTF {\seq_count:N #1} = {1}
+	{
+		\noindent
+		\begin{tabularx}{\textwidth}{@{}X@{\hspace{1.5cm}}X@{}}
+			\seq_map_inline:Nn #1 { \@@_sigblock:nn {#2} {##1} } & \tabularnewline
+		\end{tabularx}
+	}{
+		\seq_clear:N \l_@@_sigpairs_seq
+		\int_zero:N \l_@@_sigcount_int
+		\tl_clear:N \l_@@_sigrow_tl
+		\seq_map_inline:Nn #1 {
+			\int_incr:N \l_@@_sigcount_int
+			\int_compare:nNnTF {\int_mod:nn {\l_@@_sigcount_int}{2}} = {1}
+			{
+				\tl_set:Nn \l_@@_sigrow_tl { \@@_sigblock:nn {#2} {##1} }
+			}{
+				\seq_put_right:Nx \l_@@_sigpairs_seq
+				{ \exp_not:V \l_@@_sigrow_tl & \exp_not:n { \@@_sigblock:nn {#2} {##1} } }
+				\tl_clear:N \l_@@_sigrow_tl
+			}
+		}
+		\tl_if_empty:NF \l_@@_sigrow_tl {
+			\seq_put_right:Nx \l_@@_sigpairs_seq { \exp_not:V \l_@@_sigrow_tl & }
+		}
+		\noindent
+		\begin{tabularx}{\textwidth}{@{}X@{\hspace{1.5cm}}X@{}}
+			\seq_use:Nn \l_@@_sigpairs_seq { \tabularnewline[2em] }
+		\end{tabularx}
+	}
+}
+
+\cs_new:Nn \@@_autographpage: {
+	\seq_if_empty:NF \g_@@_authors_seq {
+		\translatekey{the}~\authorscaption[lowercase]{}, \par\vskip 1em
+		\@@_siggroup:Nn \g_@@_authors_seq { }%\translatekey{author} }
+	}
+	\vskip 2em
+	\seq_if_empty:NF \g_@@_supervisors_seq {
+		\translatekey{the}~\supervisorscaption[lowercase]{}
+		\iftutorsempty{}{~\translatekey[lowercase]{and}\tutorscaption[lowercase]{}}, \par\vskip 1em
+		\@@_siggroup:Nn \g_@@_supervisors_seq { }%\translatekey{supervisor} }
+		\seq_if_empty:NF \g_@@_tutors_seq {
+			\@@_siggroup:Nn \g_@@_tutors_seq { }% \translatekey{tutor} }
+		}
+	}
+}
+
+\renewcommand{\@copyrightnotices}{%
+	\if@dutch
+		\translatekey{the}~\authorscaption[lowercase]{}~\translatekey[lowercase]{and}~\supervisorscaption[lowercase]{}~\translatekey{arrbama}
+	\else
+		\begingroup
+		\selectlanguage{dutch}
+		\translatekey{the}~\authorscaption[lowercase]{}~\translatekey[lowercase]{and}~\supervisorscaption[lowercase]{}~\translatekey{arrbama}
+		\endgroup
+		\selectlanguage{english}
+		\newline\newline
+		\translatekey{the}~\authorscaption[lowercase]{}~\translatekey[lowercase]{and}~\supervisorscaption[lowercase]{}~\translatekey{arrbama}
+	\fi
+	\newline\newline
+	\@location,~\today
+	\newline\newline
+	\@@_autographpage:
+
+}
+\ExplSyntaxOff
 %</bmt>
 %    \end{macrocode}
 % \end{imacro}
@@ -4977,8 +5068,8 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   \end{titlepage}%
   ~\par\relax
   \clearpage
-  \vspace*{\stretch{1}}
   \@crnotice
+  \vspace*{\stretch{1}}
   \clearpage
   \setcounter{footnote}{0}%
   \global\let\thanks\relax
