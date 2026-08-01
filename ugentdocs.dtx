@@ -4874,10 +4874,9 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 %   |bamathesis| class: 
 %    \begin{macrocode}
 %<*bmt>
-\newlength{\ML}\setlength\ML{2.12cm}	% Left margin
-\newlength{\MR}\setlength\MR{2.18cm} 	% Right margin
-\newlength{\TP}\setlength\TP{26.52cm}	% Title Position
-\newlength{\LUS}\setlength\LUS{1.06cm} % Logo Unit Scale
+\newlength{\gridunit}\pgfmathsetlength{\gridunit}{max(\paperheight,\paperwidth)/7/4}	% Grid unit following styleguide
+\newlength{\TP}\setlength\TP{26.52cm}												 	% Title Position
+\colorlet{covertitlecolor}{ugent@main}
 %
 \renewcommand\maketitle{%
   \pagestyle{empty}
@@ -4890,22 +4889,22 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 		\begin{tikzpicture}[inner sep=0pt, outer sep=0pt]
 		\clip (0,0) rectangle (\paperwidth,\paperheight);
 		
-		\begin{scope}[shift={(\ML-\LUS,\paperheight-3*\LUS)}]
-		  \@faclogo{3*\LUS}{ugent@\fselector}{0}
+		\begin{scope}[shift={(0,\paperheight-3*\gridunit)}]
+		  \@faclogo{3*\gridunit}{ugent@\fselector}{0}
 		\end{scope}
 		
-		\node[anchor=north west, inner sep=0pt, text width=\paperwidth-\ML-\MR,
-		minimum height=22.05cm, align=left] at (\ML,\TP)
+		\node[anchor=north west, inner sep=0pt, text width=\paperwidth-2*\gridunit,
+		minimum height=22.05cm, align=left] at (\gridunit,\TP)
 		{%
 			\raggedright
 			\begin{spacing}{2.5}
-			{\fontsize{25}{30}\selectfont\color{titlecolor}\bf
+			{\fontsize{25}{30}\selectfont\color{covertitlecolor}\bf
 				\MakeUppercase{\uline{\@title}}}
 			\end{spacing}
 			
 			\vskip 1em
 			
-			{\fontsize{15}{18}\selectfont\color{titlecolor}
+			{\fontsize{15}{18}\selectfont\color{covertitlecolor}
 				\MakeUppercase{\@subtitle}}
 			
 			\vskip 1em
@@ -4940,8 +4939,8 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 			\translatekey{acyear}: \@academicyear
 		};
 		
-		\begin{scope}[shift={(\ML-\LUS,0)}]
-		  \@ugentlogo{4*\LUS}{ugent@main}{0}
+		\begin{scope}[shift={(0,0)}]
+		  \@ugentlogo{4*\gridunit}{ugent@main}{0}
 		\end{scope}
 		
 		\end{tikzpicture}
