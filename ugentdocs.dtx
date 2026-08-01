@@ -3384,15 +3384,15 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 	\seq_use:Nnnn \g_@@_authorlist_seq {,~} {\translatekey{andlist}~} {~\&~}
 }
 
-\NewDocumentCommand{\authorscaption}{m}{
+\NewDocumentCommand{\authorscaption}{O{} m}{
 	\int_compare:nNnTF { \seq_count:N \g_@@_authors_seq } > {1} {
-		\translatekey{authors} #1
+		\translatekey[#1]{authors} #2
 	}{
-	  \int_compare:nNnTF { \seq_count:N \g_@@_authors_seq } = {1} {
-		\translatekey{author} #1
-	  }{
-	  % empty
-	  }
+		\int_compare:nNnTF { \seq_count:N \g_@@_authors_seq } = {1} {
+			\translatekey[#1]{author} #2
+		}{
+			% empty
+		}
 	}
 }
 \ExplSyntaxOff
@@ -3463,12 +3463,12 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \NewDocumentCommand{\printlecturers}{mmm}{
   \seq_use:Nnnn \g_@@_lecturers_seq { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\lecturerscaption}{}{
+\NewDocumentCommand{\lecturerscaption}{O{}}{
   \int_compare:nNnTF {\seq_count:N \g_@@_lecturers_seq} > {1}{
-    \translatekey{lecturers}
+    \translatekey[#1]{lecturers}
   }{
   	\int_compare:nNnTF {\seq_count:N \g_@@_lecturers_seq} = {1}{
-    \translatekey{lecturer}
+    \translatekey[#1]{lecturer}
   	}{
   	% empty
   	}
@@ -3517,12 +3517,12 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \NewDocumentCommand{\printsupervisorswithaffiliation}{mmm}{
   \seq_use:Nnnn \g_@@_supervisorswithaffiliation_seq { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\supervisorscaption}{m}{
+\NewDocumentCommand{\supervisorscaption}{O{} m}{
   \int_compare:nNnTF { \seq_count:N \g_@@_supervisors_seq } > {1} {
-  	\translatekey{supervisors} #1
+  	\translatekey[#1]{supervisors} #2
   }{
     \int_compare:nNnTF { \seq_count:N \g_@@_supervisors_seq } = {1} {
-  	  \translatekey{supervisor} #1
+  	  \translatekey[#1]{supervisor} #2
   	}{
   	 % empty
   	}
@@ -3545,12 +3545,12 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \NewDocumentCommand{\printcosupervisorswithaffiliation}{mmm}{
   \seq_use:Nnnn \g_@@_cosupervisorswithaffiliation_seq { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\cosupervisorscaption}{m}{
+\NewDocumentCommand{\cosupervisorscaption}{O{} m}{
   \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors_seq} > {1} {
-  	\translatekey{cosupervisors} #1
+  	\translatekey[#1]{cosupervisors} #2
   }{
     \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors_seq} = {1} {
-  	  \translatekey{cosupervisor} #1
+  	  \translatekey[#1]{cosupervisor} #2
   	}{
   	}
   }
@@ -3570,12 +3570,12 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \NewDocumentCommand{\printextsupervisorswithaffiliation}{mmm}{
   \seq_use:Nnnn \g_@@_extsupervisorswithaffiliation_seq { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\extsupervisorscaption}{m}{
+\NewDocumentCommand{\extsupervisorscaption}{O{} m}{
   \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors_seq} > {1}{
-  	\translatekey{extsupervisors} #1
+  	\translatekey[#1]{extsupervisors} #2
   }{
     \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors_seq} = {1}{
-  	  \translatekey{extsupervisor} #1
+  	  \translatekey[#1]{extsupervisor} #2
   	}{
     }
   }
@@ -3600,12 +3600,12 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \NewDocumentCommand{\printtutorswithaffiliation}{mmm}{
 	\seq_use:Nnnn \g_@@_tutorswithaffiliation_seq { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\tutorscaption}{m}{
+\NewDocumentCommand{\tutorscaption}{O{} m}{
 	\int_compare:nNnTF {\seq_count:N \g_@@_tutors_seq} > {1} {
-		\translatekey{tutors} #1
+		\translatekey[#1]{tutors} #2
 	}{
 		\int_compare:nNnTF {\seq_count:N \g_@@_tutors_seq} = {1} {
-			\translatekey{tutor} #1
+			\translatekey[#1]{tutor} #2
 		}{%
 		}
 	}
