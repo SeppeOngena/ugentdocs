@@ -1293,8 +1293,8 @@ Department of Biotechnology}
 
 %% specify your degree (manually) and where and when you obtain your degree
 \degree{doctor in Bioscience Engineering}
-\defenselocation{Ghent}
-\defensedate{May 24, 2025}
+\location{Ghent}
+\date{May 24, 2025}
 
 %% specify a fancy photo for your coverpage and the designer (if you don't want a dull one)
 \titlepageimage{Images/ugent-oehoe.png}
@@ -3847,28 +3847,16 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
-
 % 
-% \begin{imacro}{\defensedate}
-%   This macro sets the |\@defensedate| tags that later will
-%   be used on the title page.  It must contain day, month and year
-%   of the public defense.
-%    \begin{macrocode}
-%<*phd|bkc>      
-\newcommand*\@defensedate{ERROR - specify day, month and year}
-\newcommand*{\defensedate}[1]{\renewcommand*\@defensedate{#1}}
-%</phd|bkc>
-%    \end{macrocode}
-% \end{imacro}
 % 
-% \begin{imacro}{\defenselocation}
-%   This macro sets the |\@defenselocation| tags that later will
 %   be used on the title page. 
+% \begin{imacro}{\location}
+%   This macro sets the |\@location| tags that later will
 %    \begin{macrocode}
 %<*phd|bkc>      
-\newcommand*\@defenselocation{Ghent}
-\newcommand*{\defenselocation}[1]{\renewcommand*\@defenselocation{#1}}
 %</phd|bkc>
+\newcommand*\@location{Ghent}
+\newcommand*{\location}[1]{\renewcommand*\@location{#1}}
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4519,7 +4507,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \lhead[]{}
 \chead[]{}
 \rhead[]{}
-\lfoot[\small\textcolor{gray}{\@date}]{\textcolor{gray}{\@date}}
+\lfoot[\small\textcolor{gray}{\today}]{\textcolor{gray}{\today}}
 \cfoot[]{}
 \rfoot[\small\textcolor{gray}{\pagename~\thepage~\translatekey{of}~\ztotpages}]
   {\small\textcolor{gray}{\pagename~\thepage~\translatekey{of}~\ztotpages}}
@@ -5110,7 +5098,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   	{\small \translatekey{submittedto}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}%
   	
   	\vspace{.3\baselineskip}%
-  	{\small\translatekey{org-ugent}, \@defenselocation, \@defensedate}%
+  	{\small\translatekey{org-ugent}, \@location, \today}%
   \end{minipage}%
   
   % Page 4: copyright page (verso, bottom-left)
@@ -5779,7 +5767,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
       \textcolor{gray}{\translatekey[uppercase]{date}} }
     (4cm,0) node { \scriptsize \strut
       \textcolor{gray}{\translatekey[uppercase]{subject}} }
-    (0,-2.5ex) node { \strut \@date }
+    (0,-2.5ex) node { \strut \today }
     (4cm,-2.5ex) node[align=left] { \strut \@subject };
   \end{tikzpicture}~\\[4ex]
 }
