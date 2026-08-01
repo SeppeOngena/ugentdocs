@@ -708,7 +708,7 @@
 % \changes{v2.5}{}{changed publisher to universitas in example}
 % \begin{verbatim}
 %<*crs-example> 
-\documentclass[bw,a4paper,11pt,oneside,openright,cameraready]
+\documentclass[bw,a4paper,11pt,oneside,openright,cameraready, dutch]
               {ugentcourse}
 
 %% ti           specifies the department, change to the letter combination of
@@ -721,21 +721,14 @@
 %%              your document is twosided
 %% cameraready  removes the graphical elements from the title and final
 %%              page, as they will be typeset by universitas (in color)
+%% dutch        (or english) sets the document main language. Determines logo
+%%              and copyright etc. language. Can be overridden locally for the text
+%%              using \selectlanguage or \foreignlanguage (see babel package)
 
 %% make paragraphs indent
 \setlength\parindent{1in}
 %% provide a space of 1ex bewteen paragraphs
 \setlength\parskip{0ex}
-
-%% load the proper language(s) (last language will trigger the language
-%% of the logo a.o.)
-\selectlanguage{dutch}
-%% You can then use \selectlanguage{english} to start a piece of text
-%% in english, and \selectlanguage{dutch} to start a piece of text in
-%% dutch. This will cause the correct hypernation patterns to be
-%% loaded.
-%% To keep a consistent naming of the chapters (a.o.) make sure you
-%% switch back to the document's overall language!
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -875,10 +868,9 @@
 %%              your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options 
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-
-%% load the proper language(s) (last language will trigger the language
-%% of the logo a.o.)
-\selectlanguage{english}
+%% dutch        (or english) sets the document main language. Determines logo
+%%              and copyright etc. language. Can be overridden locally for the text
+%%              using \selectlanguage or \foreignlanguage (see babel package)
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -1041,7 +1033,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 % \paragraph{Dutch}
 % \begin{verbatim}
 %<*phd-example1> 
-\documentclass[we,10pt,twoside,openright,surnamefirst]{ugentdissertation}
+\documentclass[we,10pt,twoside,openright,surnamefirst, dutch]{ugentdissertation}
 
 %% we            specifies the faculty, change to the letter combination of
 %%               your faculty
@@ -1060,6 +1052,9 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%               print services require this format for the contents.
 %% surnamefirst  format all names as "surname firstname" 
 %%               instead of "firstname surname"
+%% dutch         (or english) sets the document main language. Determines logo
+%%               and copyright etc. language. Can be overridden locally for the text
+%%               using \selectlanguage or \foreignlanguage (see babel package)
 
 %% You may want to use common fonts such as arial (still within house style)
 %% If you override font here, you also need to adjust it in the bookcover file!
@@ -1071,10 +1066,6 @@ ItalicFeatures     = {FakeSlant=0.15},
 BoldItalicFont     = {Arial},
 BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 ]
-
-%% load the proper language(s) (last language will, i.a., trigger the language
-%% of the logo)
-\selectlanguage{dutch}
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -1116,8 +1107,8 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 
 %% specify your degree (manually) and where and when you obtain your degree
 \degree{doctor in de plantbiotechnologie}
-\defenselocation{Gent}
-\defensedate{21 mei 2025}
+\location{Gent}
+\date{21 mei 2025}
 \academicyear{2024--2025}
 
 %% specify a fancy photo for your titlepage (if you don't want a dull one)
@@ -1234,7 +1225,7 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 % \paragraph{English}
 % \begin{verbatim}
 %<*phd-example2> 
-\documentclass[bw,10pt,twoside,openright,cameraready]{ugentdissertation}
+\documentclass[bw,10pt,twoside,openright,cameraready, dutch]{ugentdissertation}
 
 %% bw            specifies the faculty, change to the letter combination of
 %%               your faculty. BW has a special cover design.
@@ -1253,10 +1244,9 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 %%               print services require this format for the contents.
 %% surnamefirst  format all names as "surname firstname" 
 %%               instead of "firstname surname"
-
-%% load the proper language(s) (last language will, i.a., trigger the language
-%% of the logo)
-\selectlanguage{dutch}
+%% dutch         (or english) sets the document main language. Determines logo
+%%               and copyright etc. language. Can be overridden locally for the text
+%%               using \selectlanguage or \foreignlanguage (see babel package)
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -1417,7 +1407,7 @@ Department of Biotechnology}
 %
 % \begin{verbatim}
 %<*rp-example>
-\documentclass[bw,10pt,twoside,openright]{ugentreport}
+\documentclass[bw,10pt,twoside,openright, dutch]{ugentreport}
 % TODO should also be non-faculty specific (i.e., "bw" can be omitted)
 %% 10pt          sets the font size, 10pt is ok for a phd manuscript
 %% twoside       if you want a two-sided document, change to oneside if you
@@ -1426,6 +1416,9 @@ Department of Biotechnology}
 %%               your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options 
 %% for one-sided theses, specify 'oneside' and 'openany' as options
+%% dutch         (or english) sets the document main language. Determines logo
+%%               and copyright etc. language. Can be overridden locally for the text
+%%               using \selectlanguage or \foreignlanguage (see babel package)
 
 %% You may want to use common fonts
 %% Just an example of font-scheme: this is in no way a recommended font
@@ -1438,10 +1431,6 @@ ItalicFeatures     = {FakeSlant=0.15},
 BoldItalicFont     = {Arial},
 BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 ]
-
-%% load the proper language(s) (last language will trigger the language
-%% of the logo a.o.)
-\selectlanguage{dutch}
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -1545,6 +1534,9 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%              your department
 %% a4paper      specifies the paper format
 %% nofoldline   this suppresses the foldline
+%% dutch        (or english) sets the document main language. Determines logo
+%%              and copyright etc. language. Can be overridden locally for the text
+%%              using \selectlanguage or \foreignlanguage (see babel package)
 %%
 %% As a good UAntwerpen citizen, you would use the calibri font.
 %% As this only works for XeLaTeX or LuaLaTeX, we chose to include
@@ -1557,10 +1549,6 @@ ItalicFeatures     = {FakeSlant=0.15},
 BoldItalicFont     = {Arial},
 BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 ]
-
-%% load the proper language(s) (last language will trigger the language
-%% of the logo a.o.)
-\selectlanguage{english}
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -1706,12 +1694,15 @@ their details enclosed.
 % \paragraph{Single column}
 % \begin{verbatim}
 %<*ex-example1> 
-\documentclass[bw,a4paper,10pt]{ugentexam}
+\documentclass[bw,a4paper,10pt, dutch]{ugentexam}
 
 %% ti           specifies the department, change to the letter combination of
 %%              your department
 %% a4paper      specifies the paper format
 %% 10pt         students have good eyes, they still can read 10pt fonts
+%% dutch        (or english) sets the document main language. Determines logo
+%%              and copyright etc. language. Can be overridden locally for the text
+%%              using \selectlanguage or \foreignlanguage (see babel package)
 
 %% select a font you like
 %\usepackage{newpxtext}
@@ -1719,10 +1710,6 @@ their details enclosed.
 
 %% this package eases numbering of subquestions
 \usepackage{enumitem}
-
-%% load the proper language(s) (last language will trigger the language
-%% of the logo a.o.)
-\selectlanguage{dutch}
 
 %% some data about your course and the authors/lecturers
 \course{1876FTIDUM}{5-Bistrologie}
@@ -1873,6 +1860,9 @@ een b\'echamel saus:
 %%              your department
 %% a4paper      specifies the paper format
 %% 10pt         students have good eyes, they still can read 10pt fonts
+%% dutch        (or english) sets the document main language. Determines logo
+%%              and copyright etc. language. Can be overridden locally for the text
+%%              using \selectlanguage or \foreignlanguage (see babel package)
 
 %% select a font you like
 %\usepackage{newpxtext}
@@ -1880,10 +1870,6 @@ een b\'echamel saus:
 
 %% this package eases numbering of subquestions
 \usepackage{enumitem}
-
-%% load the proper language(s) (last language will trigger the language
-%% of the logo a.o.)
-\selectlanguage{english}
 
 %% some data about your course and the authors/lecturers
 \course{1876FTIDUM}{5-Bistrology}
@@ -2138,17 +2124,18 @@ een b\'echamel saus:
 
 
 \newcommand*\fselector{~}
-\newif\if@dutch
 
 % Faculty logo spacing and text
 
 \newcommand*\ficon{~}
 
 \ExplSyntaxOn
-\NewDocumentCommand{\flogotext}{}{
-	\translatekey[uppercase]{faculty}%
-	\tl_if_empty:eF{\prop_item:Nn \g_@@_dict_keyvals_prop {facultyof}}{~\translatekey[uppercase]{facultyof}}%
-	{~\translatekey[uppercase,expand]{org-\fselector}}%
+ \NewDocumentCommand{\flogotext}{}{
+ 	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
+ 	\translatekey[uppercase]{faculty}%
+ 	\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+ 	{~\translatekey[uppercase]{facultyof}}%
+ 	{~\translatekey[uppercase,expand]{org-\fselector}}%
 }
 \ExplSyntaxOff
 
@@ -2163,9 +2150,11 @@ een b\'echamel saus:
 
 \ExplSyntaxOn
 \NewDocumentCommand{\@faculty}{}{
-	\translatekey{faculty}%
-	\tl_if_empty:eF{\prop_item:Nn \g_@@_dict_keyvals_prop {facultyof}}{~\translatekey{facultyof}}%
-	{~\translatekey[expand]{org-\fselector}}%
+	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
+	\translatekey[uppercase]{faculty}%
+	\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+	{~\translatekey[uppercase]{facultyof}}%
+	{~\translatekey[uppercase,expand]{org-\fselector}}%
 }
 
 \DeclareOption{bw}{
@@ -2177,8 +2166,10 @@ een b\'echamel saus:
   	\path[nonzero~rule,line~width=0.1pt] (10.63, 17.52).. controls (10.84, 17.52) and (11.05, 17.51) .. (11.26, 17.49) -- (11.37, 18.73).. controls (11.13, 18.75) and (10.88, 18.77) .. (10.63, 18.77).. controls (6.14, 18.77) and (2.49, 15.12) .. (2.49, 10.63).. controls (2.49, 6.14) and (6.14, 2.49) .. (10.63, 2.49).. controls (15.12, 2.49) and (18.77, 6.14) .. (18.77, 10.63).. controls (18.77, 11.57) and (18.6, 12.47) .. (18.3, 13.31) -- (17.13, 12.9).. controls (17.38, 12.19) and (17.52, 11.43) .. (17.52, 10.63).. controls (17.52, 6.83) and (14.43, 3.74) .. (10.63, 3.74).. controls (6.83, 3.74) and (3.74, 6.83) .. (3.74, 10.63).. controls (3.74, 14.43) and (6.83, 17.52) .. (10.63, 17.52);
   }
   \RenewDocumentCommand{\flogotext}{}{
+  	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
   	\translatekey[uppercase]{faculty}%
-  	\tl_if_empty:eF{\prop_item:Nn \g_@@_dict_keyvals_prop {facultyof}}{~\translatekey[uppercase]{facultyof}}\newline%
+  	\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+  	{~\translatekey[uppercase]{facultyof}}\newline%
   	{~\translatekey[uppercase,expand]{org-\fselector}}%
   }
   \setlength\ftextwen{6\logounit}
@@ -2220,8 +2211,10 @@ een b\'echamel saus:
 	  \path[nonzero~rule,line~width=0.1pt] (12.6, 21.26) -- (8.66, 21.26) -- (8.66, 20.01) -- (10.01, 20.01) -- (10.01, 16.92) -- (11.25, 16.92) -- (11.25, 20.01) -- (12.6, 20.01) -- (12.6, 21.26);
 	}
 	\RenewDocumentCommand{\flogotext}{}{
+		\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
 		\translatekey[uppercase]{faculty}%
-		\tl_if_empty:eF{\prop_item:Nn \g_@@_dict_keyvals_prop {facultyof}}{~\translatekey[uppercase]{facultyof}}\newline%
+		\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+		{~\translatekey[uppercase]{facultyof}}\newline%
 		{~\translatekey[uppercase,expand]{org-\fselector}}%
 	}
 	\setlength\ftextwen{5\logounit}
@@ -2241,8 +2234,10 @@ een b\'echamel saus:
    }
   \setlength\ficonw{0.56cm}
   \RenewDocumentCommand{\flogotext}{}{
-  	\translatekey[uppercase]{faculty}\newline
-  	\tl_if_empty:eF{\prop_item:Nn \g_@@_dict_keyvals_prop {facultyof}}{~\translatekey[uppercase]{facultyof}}%
+  	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
+  	\translatekey[uppercase]{faculty}\newline%
+  	\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+  	{~\translatekey[uppercase]{facultyof}}%
   	{~\translatekey[uppercase,expand]{org-\fselector}}%
   }
   \setlength\ftextwen{3\logounit}
@@ -2403,18 +2398,12 @@ een b\'echamel saus:
 	
 \AtBeginDocument{
   \makeatother
-  \@ifpackageloaded{babel}{
     \addto\captionsdutch{
     	\setlength{\ftextw}{\ftextwnl}
-    	\@dutchtrue
     }
     \addto\captionsenglish{
     	\setlength{\ftextw}{\ftextwen}
-    	\@dutchfalse
-    	}
-    }{
-  	\setlength{\ftextw}{\ftextwen}
-  }
+    }
   \makeatletter
 }
 
@@ -2486,6 +2475,11 @@ een b\'echamel saus:
 % Before loading the class, we provide the extra options.
 % 
 %    \begin{macrocode}
+%<*phd|bkc|rp|ex|le|crs|bmt|bmr>
+\newif\if@dutch
+\DeclareOption{dutch}{\@dutchtrue}
+\DeclareOption{english}{\@dutchfalse}
+%</phd|bkc|rp|ex|le|crs|bmt|bmr>
 %<*crs>
 \newif\if@modern
 \@modernfalse
@@ -2726,7 +2720,12 @@ een b\'echamel saus:
 \RequirePackage[normalem]{ulem}
 \renewcommand{\ULthickness}{1pt}
 \RequirePackage{setspace}
-\RequirePackage[dutch, main=english]{babel}
+\if@dutch
+  \PassOptionsToPackage{main=dutch}{babel}
+\else
+  \PassOptionsToPackage{main=english}{babel}
+\fi
+\RequirePackage[dutch,english]{babel}
 %</crs|bmt|phd|rp|le|ex|bkc>
 %<*crs|rp>
 \if@copyright
