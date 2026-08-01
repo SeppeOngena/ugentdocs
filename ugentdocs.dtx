@@ -2151,10 +2151,10 @@ een b\'echamel saus:
 \ExplSyntaxOn
 \NewDocumentCommand{\@faculty}{}{
 	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
-	\translatekey[uppercase]{faculty}%
+	\translatekey{faculty}%
 	\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
-	{~\translatekey[uppercase]{facultyof}}%
-	{~\translatekey[uppercase,expand]{org-\fselector}}%
+	{~\translatekey[lowercase]{facultyof}}%
+	{~\translatekey[expand]{org-\fselector}}%
 }
 
 \DeclareOption{bw}{
@@ -3081,9 +3081,9 @@ org-ps		= Political and Social Sciences
 date		= Date
 acyear		= Academic year
 subject		= Subject
-of			= of
-the			= the
-and			= and
+of			= Of
+the			= The
+and			= And
 andlist		= , and
 
 baprog		= Bachelor's programme
@@ -3137,7 +3137,7 @@ examduration	= Exam duration --- Duur van het examen
 weight			= Weight
 wordcount		= Word count
 
-confidential	= confidential
+confidential	= Confidential
 confidentiality = Confidentiality
 arr				= All rights reserved
 crdisclaimer	= Copyright
@@ -3179,9 +3179,9 @@ org-ps		= Politieke en Sociale Wetenschappen
 date		= Datum
 acyear		= Academiejaar
 subject		= Onderwerp
-of			= van
-the			= de
-and			= en
+of			= Van
+the			= De
+and			= En
 andlist		= ~en
 
 baprog		= Bacheloropleiding
@@ -3235,7 +3235,7 @@ examduration	= Duur van het examen
 weight			= Gewicht
 wordcount		= Aantal woorden
 
-confidential	= confidentieel
+confidential	= Confidentieel
 confidentiality = Confidentialiteit
 arr				= Alle rechten voorbehouden
 crdisclaimer	= Copyright
@@ -4509,8 +4509,8 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 \rhead[]{}
 \lfoot[\small\textcolor{gray}{\today}]{\textcolor{gray}{\today}}
 \cfoot[]{}
-\rfoot[\small\textcolor{gray}{\pagename~\thepage~\translatekey{of}~\ztotpages}]
-  {\small\textcolor{gray}{\pagename~\thepage~\translatekey{of}~\ztotpages}}
+\rfoot[\small\textcolor{gray}{\pagename~\thepage~\translatekey[lowercase]{of}~\ztotpages}]
+  {\small\textcolor{gray}{\pagename~\thepage~\translatekey[lowercase]{of}~\ztotpages}}
 %</le>
 %    \end{macrocode}
 %
@@ -4956,7 +4956,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 			
 			\vskip 1em
 			
-			{\@doctype~\translatekey[lowercase]{submittedto}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{bmfulfil}~\@degree}
+			{\@doctype~\translatekey[lowercase]{submittedto}~\@faculty~\translatekey[lowercase]{of}~\translatekey{org-deugent}, \translatekey{bmfulfil}~\@degree}
 			
 			\translatekey{acyear}: \@academicyear
 			\endgroup
@@ -5066,10 +5066,10 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   	{\printjurymembers{\\}{\\}{\\}}\\[2ex]%
   	%
   	%
-  	\textbf{\translatekey{dean}~\translatekey{of}~\translatekey{the}~\@faculty}\hfill\break
+  	\textbf{\translatekey{dean}~\translatekey[lowercase]{of}~\translatekey{the}~\@faculty}\hfill\break
   	\@dean\\[2ex]
   	%
-  	\textbf{\translatekey{rector}~\translatekey{of}~\translatekey{org-deugent}}\hfill\break
+  	\textbf{\translatekey{rector}~\translatekey[lowercase]{of}~\translatekey{org-deugent}}\hfill\break
   	\@rector
   \end{minipage}%
   
@@ -5095,7 +5095,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
   		\vspace{10\baselineskip}%
   	\fi
   	
-  	{\small \translatekey{submittedto}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}%
+  	{\small \translatekey{submittedto}~\@faculty~\translatekey[lowercase]{of}~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}%
   	
   	\vspace{.3\baselineskip}%
   	{\small\translatekey{org-ugent}, \@location, \today}%
@@ -5331,7 +5331,7 @@ arrbama			=  De auteur en promotor geven de toelating deze scriptie voor consult
 		
 		\node[anchor=south west, text width=\WD-2*\MTLR, align=justify, text=white]
 		 at (\MS+\MTLR, \HBS+\MTTB)
-		{\normalsize\nohyphens{\translatekey{submittedto}~\@faculty~\translatekey{of}~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}};
+		{\normalsize\nohyphens{\translatekey{submittedto}~\@faculty~\translatekey[lowercase]{of}~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}};
 	\fi
 	
 	% UGent logo
