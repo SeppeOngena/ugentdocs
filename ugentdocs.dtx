@@ -2155,11 +2155,11 @@ een b\'echamel saus:
 
 \ExplSyntaxOn
 \NewDocumentCommand{\@faculty}{}{
-	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
-	\translatekey{faculty}%
-	\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
-	{~\translatekey[lowercase]{facultyof}}%
-	{~\translatekey[expand]{org-\fselector}}%
+  \tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
+  \translatekey{faculty}%
+  \tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+  {~\translatekey[lowercase]{facultyof}}%
+  {~\translatekey[expand]{org-\fselector}}%
 }
 
 \DeclareOption{bw}{
@@ -3914,12 +3914,12 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 \ExplSyntaxOn
 \tl_new:N \embargotempstart
 \tl_new:N \embargotempend
+\tl_new:N \l_@@_embargostartdate_tl
+\tl_new:N \l_@@_embargoenddate_tl
 \newcommand*{\embargotemp}[2]{
   \@fullembargofalse
   \@tempembargotrue
   \@embargotrue
-  \tl_new:N \l_@@_embargostartdate_tl
-  \tl_new:N \l_@@_embargoenddate_tl
   \tl_set:Nx \l_@@_embargostartdate_tl {#1}
   \tl_set:Nx \l_@@_embargoenddate_tl {#2}
   \regex_replace_all:nnN {\s} {\c{space}} \l_@@_embargostartdate_tl
@@ -5115,12 +5115,20 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 %<*phd|bkc>
 \ExplSyntaxOn
 \tl_new:N \embargotempwithdates
+\tl_new:N \l_@@_embargotemp_tl
+\seq_new:N \l_@@_embargosplit_seq
+\cs_new:Nn \_@@_embargosubstitute:nN {
+	\regex_split:nVN {#1} \l_@@_embargotemp_tl \l_@@_embargosplit_seq
+	\tl_clear:N \l_@@_embargotemp_tl
+	\tl_put_right:Nx \l_@@_embargotemp_tl { \seq_item:Nn \l_@@_embargosplit_seq {1} }
+	\tl_put_right:Nx \l_@@_embargotemp_tl { \exp_not:V #2 }
+	\tl_put_right:Nx \l_@@_embargotemp_tl { \seq_item:Nn \l_@@_embargosplit_seq {2} }
+}
 \newcommand\prepmaketitle{
-  \tl_new:N \l_@@_embargotemp_tl
-  \tl_set:Nx \l_@@_embargotemp_tl {\prop_item:Nn \g_@@_dict_keyvals_prop{embargotemp}}
-  \regex_replace_all:nVN {__START__} \embargotempstart \l_@@_embargotemp_tl
-  \regex_replace_all:nVN {__END__} \embargotempend \l_@@_embargotemp_tl
-  \regex_replace_all:nnN {\~} {\ } \l_@@_embargotemp_tl
+  \tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : embargotemp }
+  \tl_set:Nx \l_@@_embargotemp_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+  \_@@_embargosubstitute:nN {__START__} \embargotempstart
+  \_@@_embargosubstitute:nN {__END__} \embargotempend
   \tl_gset_eq:NN \embargotempwithdates \l_@@_embargotemp_tl
 }
 \ExplSyntaxOff
@@ -5167,7 +5175,7 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
   	{\printjurymembers{\\}{\\}{\\}}\\[2ex]%
   	%
   	%
-  	\textbf{\translatekey{dean}~\translatekey[lowercase]{of}~\translatekey{the}~\@faculty}\hfill\break
+  	\textbf{\translatekey{dean}~\translatekey[lowercase]{of}~\translatekey[lowercase]{the}~\@faculty}\hfill\break
   	\@dean\\[2ex]
   	%
   	\textbf{\translatekey{rector}~\translatekey[lowercase]{of}~\translatekey{org-deugent}}\hfill\break
@@ -5629,7 +5637,7 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 		\exp_not:N\publisherlogo	{\l_@@_publisherlogo_tl}	\iow_newline:
 		\if@dutch\exp_not:N\selectlanguage{dutch}				\iow_newline:\fi
 		\if@tempembargo
-			\exp_not:N\embargotemp	{\l_@@_embargostartdate_tl}{\l_@@_embargoenddate_tl} \iow_newline:
+			\exp_not:N\embargotemp	{\embargotempstart}{\embargotempend} \iow_newline:
 		\else\if@fullembargo
 			\exp_not:N\embargofull \iow_newline:
 		\fi\fi								
