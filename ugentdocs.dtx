@@ -3970,10 +3970,10 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 %   This macro sets the |\@copyrightnotices| tag that later will be
 %   used on the back of the title page.
 %    \begin{macrocode}
-%<*crs|rp|bmt>      
+%<*crs|rp|bmt|phd>      
 \newcommand{\@copyrightnotices}{}
 \newcommand{\copyrightnotices}[1]{\renewcommand{\@copyrightnotices}{#1}}
-%</crs|rp|bmt>
+%</crs|rp|bmt|phd>
 %<*bmt>
 %
 \ExplSyntaxOn
@@ -4068,6 +4068,60 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 }
 \ExplSyntaxOff
 %</bmt>
+%<*phd>
+\renewcommand{\@copyrightnotices}{%
+	\noindent\begin{minipage}[b]{\textwidth}
+		\textbf{Contact}\\
+		\smallskip
+		\printauthorswithaffiliation{ | }{ | }{ | }\\
+		\@address
+		\if@dutch\else
+		\\[\baselineskip]
+		\textbf{Titel van het doctoraat in het Nederlands:}\\
+		{\renewcommand{\\}[1][]{~}\@titel: \@subtitel}
+		\fi
+		\ifx\@coverdesigner\@empty\else
+		\\[\baselineskip]
+		\textbf{\translatekey{coverdesigner}:}\\
+		\@coverdesigner
+		\fi
+		%
+		\\[\baselineskip]
+		\translatekey{integrityclause}
+		%
+		\ifx\@grants\@empty\else
+		\\[\baselineskip]
+		{\translatekey{supportedby} \@grants.}
+		\fi
+		\if@embargo
+		\\[\baselineskip]
+		{\textbf{\translatekey{confidentiality}}}\\
+		\if@fullembargo
+		\translatekey{embargofull}
+		\fi
+		\if@tempembargo
+		\embargotempwithdates
+		\fi
+		\else
+		\\[\baselineskip]
+		\textbf{\translatekey{crdisclaimer} \textcopyright\ \the\year}\\
+		{\translatekey{arrphd}}%
+		\fi
+		\\[\baselineskip]
+		{\textbf{\translatekey{pleaserefer}:}\\  		
+			\printauthorlist~(\the\year).
+			{\renewcommand{\\}[1][]{~}\@title: \@subtitle}.
+			PhD Thesis, Ghent University, Belgium.}%
+		\ifx\@isbn\@empty\else
+		\\[\baselineskip]{\small ISBN \@isbn}%
+		\fi
+		\ifdefempty{\@doi}{}{
+			\ifx\@isbn\@empty\\[\baselineskip]\else\\\fi
+			{\small DOI \href{https://doi.org/\@doi}{\@doi}}
+		}
+	\end{minipage}
+}
+%</phd>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4676,11 +4730,11 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
   }
 }
 %</crs|rp>
-%<*bmt>
+%<*bmt|phd>
 \newcommand{\@crnotice}{
   \@copyrightnotices
 }
-%</bmt>
+%</bmt|phd>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -5212,56 +5266,7 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
   
   % Page 4: copyright page (verso, bottom-left)
   \clearpage\thispagestyle{empty}\null\vfill
-  \noindent\begin{minipage}[b]{\textwidth}
-  	\textbf{Contact}\\
-  	  \smallskip
-  	  \printauthorswithaffiliation{ | }{ | }{ | }\\
-  	  \@address
-  	\if@dutch\else
-  	  \\[\baselineskip]
-  	  \textbf{Titel van het doctoraat in het Nederlands:}\\
-  	  {\renewcommand{\\}[1][]{~}\@titel: \@subtitel}
-  	  \fi
-  	\ifx\@coverdesigner\@empty\else
-  	  \\[\baselineskip]
-  	  \textbf{\translatekey{coverdesigner}:}\\
-  	  \@coverdesigner
-  	\fi
-  	%
-  	\\[\baselineskip]
-  	\translatekey{integrityclause}
-  	%
-  	\ifx\@grants\@empty\else
-  	  \\[\baselineskip]
-  	  {\translatekey{supportedby} \@grants.}
-  	\fi
-  	\if@embargo
-  	  \\[\baselineskip]
-  	  {\textbf{\translatekey{confidentiality}}}\\
-  	  \if@fullembargo
-  	    \translatekey{embargofull}
-  	  \fi
-  	  \if@tempembargo
-  	    \embargotempwithdates
-  	  \fi
-  	\else
-  	  \\[\baselineskip]
-  	  \textbf{\translatekey{crdisclaimer} \textcopyright\ \the\year}\\
-  	  {\translatekey{arrphd}}%
-  	\fi
-  	\\[\baselineskip]
-  	{\textbf{\translatekey{pleaserefer}:}\\  		
-  		\printauthorlist~(\the\year).
-  		{\renewcommand{\\}[1][]{~}\@title: \@subtitle}.
-  		PhD Thesis, Ghent University, Belgium.}%
-  	\ifx\@isbn\@empty\else
-  	  \\[\baselineskip]{\small ISBN \@isbn}%
-  	\fi
-  	\ifdefempty{\@doi}{}{
-  		\ifx\@isbn\@empty\\[\baselineskip]\else\\\fi
-  	{\small DOI \href{https://doi.org/\@doi}{\@doi}}
-  	}
-  \end{minipage}
+  \@crnotice
 
   \setcounter{footnote}{0}%
   \global\let\thanks\relax
