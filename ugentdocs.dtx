@@ -2727,7 +2727,7 @@ een b\'echamel saus:
 \RequirePackage[export]{adjustbox}
 \RequirePackage{color}
 \RequirePackage{tikz}
-\usetikzlibrary{positioning,calc}
+\usetikzlibrary{positioning,calc,fit,backgrounds}
 \RequirePackage{eso-pic}
 \RequirePackage{zref-totpages}
 \RequirePackage[normalem]{ulem}
@@ -2781,30 +2781,35 @@ een b\'echamel saus:
 % \subsection{Fancy inset texts and quotes}
 %    \begin{macrocode}
 %<*bmt|phd|crs|rp>
-\newcommand\insettext[1]{
-  \textcolor{basecolor}{
-    \begin{tabular}{@{\hskip3ex\textcolor{maincolor}{\vrule width 2.5pt}%
-      \hskip3ex\large\bfseries}p{0.88\textwidth}}
-      \strut #1
-    \end{tabular}
-  }
+\newcommand{\insettext}[2]{% args: title, content
+	\begin{adjustbox}{center}
+		\begin{tikzpicture}
+		\node[align=left, text width=\linewidth-6mm, inner sep=3mm] (body) {#2};
+		\ifblank{#1}{}{%
+			\node[align=left, text width=\linewidth-12mm, inner sep=3mm,
+			fill=maincolor, text=white, font=\bfseries,
+			above=0pt of body, anchor=south] (title) {#1};
+		}%
+		\begin{scope}[on background layer]
+		\ifblank{#1}{%
+			\node[fill=basecolor, fit=(body), inner sep=0mm] {};
+		}{%
+			\node[fill=basecolor, fit=(body)(title), inner sep=0mm] {};
+		}%
+		\end{scope}
+		\end{tikzpicture}
+	\end{adjustbox}
 }
-\newcommand\insetquote[1]{
-  \insettext{
-    \begin{tikzpicture}[scale=0.65]
-      \fill[green!60!black] (0.4,0) -- (0.5,0) -- (0.75,-0.15) -- (0.75,0) --
-      (0.9,0) arc(-90:0:0.1) -- (1,0.65) arc(0:90:0.1) -- (0.1,0.75) arc
-      (90:180:0.1) -- (0,0.1) arc(-180:-90:0.1) -- cycle;
-      \foreach \x in {0.35,0.7} {
-        \begin{scope}[shift={(\x,0.425)},scale=0.25]
-          \fill[white] (0,0) circle[radius=0.5];
-          \fill[white] (0.5,0) arc(0:-90:1) --
-          (-0.5,-0.725) arc(-90:0:0.725) -- cycle;
-        \end{scope}
-      }
-    \end{tikzpicture}\\
-    #1
-  }
+
+\newcommand{\insetquote}[2]{% args: quote, citation
+	\insettext{}{%
+		\begin{tikzpicture}[baseline]
+		\node[align=left, text width=\linewidth-12mm] (qtext) {#1};
+		\node[font=\Huge, anchor=north west, xshift=-3mm, yshift=3mm] at (qtext.north west) {``};
+		\node[font=\Huge, anchor=south east, xshift=3mm, yshift=-3mm] at (qtext.south east) {''};
+		\end{tikzpicture}\par
+		\ifblank{#2}{}{\raggedleft #2\par}%
+	}%
 }
 %</bmt|phd|crs|rp>
 %    \end{macrocode}
