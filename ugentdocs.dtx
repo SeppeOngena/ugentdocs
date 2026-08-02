@@ -933,9 +933,12 @@
 %% or if it's a full embargo, use
 %% \embargofull
 
-%% you can specify a company logo
-%% \companylogo{\includegraphics[width=4.5cm,height=2.5cm,keepaspectratio]
-%%             {companylogo.jpg}}
+%% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
+%% multiple logos should be spaced 1 \gridunit
+\companylogo{\includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
+			\hspace{\gridunit}
+			\includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
+			}
 
 \begin{document}
 
@@ -1108,9 +1111,12 @@ ruimtemodellering} %% either don't split titles, or do so with hyphen
 %% or if it's a full embargo, use
 %% \embargofull
 
-%% you can specify a company logo
-%% \companylogo{\includegraphics[width=4.5cm,height=2.5cm,keepaspectratio]
-%%             {companylogo.jpg}}
+%% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
+%% multiple logos should be spaced 1 \gridunit
+%%\companylogo{\includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
+%%			\hspace{\gridunit}
+%%			\includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
+%%			}
 
 \begin{document}
 
@@ -5425,6 +5431,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\begin{scope}[shift={(0,0)}]
 		  \@ugentlogo{4*\gridunit}{ugent@main}{0}
 		\end{scope}
+		
+		\ifx\@companylogo\@empty\else
+		\node[anchor=south east, inner sep=0pt,
+		text width=\paperwidth-7*\gridunit, minimum height=2*\gridunit,
+		align=right] at (\paperwidth-\gridunit,\gridunit)
+		{\@companylogo};
+		\fi
 		
 		\end{tikzpicture}
       }
