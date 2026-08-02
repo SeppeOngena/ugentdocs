@@ -851,15 +851,11 @@
 % 
 % \subsubsection{\texttt{ugentthesis}}
 %
-% \changes{v4.04}{2022/04/04}{Added some suggestions for a two column
-% summary of a bamathesis}
 % \begin{verbatim}
-%<*bmt-example> 
-\documentclass[bw,a4paper,11pt,twoside,openright]{ugentthesis}
+%<*bmt-example1> 
+\documentclass[bw,a4paper,11pt,twoside,openright,coverbg,neutralcolors]{ugentthesis}
 
-%% ti           specifies the department, change to the letter combination of
-%%              your department - currently only ti (for FTI) and we
-%%              for (FWET) are supported
+%% bw           specifies the faculty abbreviation
 %% a4paper      specifies the paper format
 %% 11pt         sets the font size to 11pt, i.e. a good average
 %% twoside      if you want a two-sided document, change to oneside if you
@@ -871,6 +867,8 @@
 %% dutch        (or english) sets the document main language. Determines logo
 %%              and copyright etc. language. Can be overridden locally for the text
 %%              using \selectlanguage or \foreignlanguage (see babel package)
+%% coverbg		adds a coloured background area to the cover page
+%% neutralcolors uses ugent colour scheme instead of faculty colors
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -880,27 +878,23 @@
 %% you must load the hyperref package yourself, to allow putting it
 %% in the correct order with the other packages you load!
 
-%% as an example - loading some fonts, feel free to change
-%% Just an example of font-scheme: this is in no way a recommended font
-%% scheme!
-\setmainfont{Arial}[
-BoldFont           = {Arial},
-BoldFeatures       = {FakeBold=2.5},
-ItalicFont         = {Arial},
-ItalicFeatures     = {FakeSlant=0.15},
-BoldItalicFont     = {Arial},
-BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-]
+%% You may want to use common fonts such as arial (still within house style)
+%%\setmainfont{Arial}[
+%%BoldFont           = {Arial},
+%%BoldFeatures       = {FakeBold=2.5},
+%%ItalicFont         = {Arial},
+%%ItalicFeatures     = {FakeSlant=0.15},
+%%BoldItalicFont     = {Arial},
+%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%%]
 
 %% Use this package if you need to provide a twocolumn summary at the
 %% start of your document.
 \usepackage{multicol}
 
-%% specify your degree
-\degree{Master Of Science in de Bio-ingenieurswetenschappen: Milieutechnologie}
+%% specify your degree and doctype (mathesis/bathesis)
+\degree{Master Of Science in Bioscience Engineering: Environmental Technology}
 \doctype{mathesis}
-%% You can specify your degree manually here, using \degree{}
-%% if you don't trust 'the system'
 
 %% specify word count
 \wordcount{2501}
@@ -919,13 +913,13 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% you can specify multiple supervisors, cosupervisors and external supervisors
 %% in Dutch: promotoren, copromotoren (dagelijkse begeleiders) en
 %% bedrijfspromotoren
-\supervisor{prof. dr. ir.}{Kumulus, P.}{UAntwerpen}
-\supervisor{prof. dr. ir.}{Snuffel, E.}{UAntwerpen}
-\cosupervisor{ing.}{Pienter, P.}{Cosys, UAntwerpen}
+\supervisor{prof. dr. ir.}{Kumulus, P.}{UGent}
+\supervisor{prof. dr. ir.}{Snuffel, E.}{UGent}
+\cosupervisor{ing.}{Pienter, P.}{UGent}
 \extsupervisor{prof. dr.}{Warwinkel, H.}{TNT-Bang, N.V.}
-
+\tutor{ir.}{Post, Pieter}{UGent}
 %% set the academic year: keep the spaces around the dash!
-\academicyear{2023 - 2024}
+\academicyear{2026 -- 2027}
 
 %% If you have a signed copyrightpage (after extracting the one in this document),
 %% you can include it back in using
@@ -935,7 +929,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% if your manuscript is under a temporary embargo (1, 2 or 5 years),
 %% please, specify (language agnostic) begin and end date of the embargo period
 %% as first and second argument to the \tempembargo command:
-\embargotemp{21/05/2025}{20/05/2030}
+\embargotemp{21/05/2027}{20/05/2032}
 %% or if it's a full embargo, use
 %% \embargofull
 
@@ -961,12 +955,12 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% start of your document. Remove it if you don't need it.
 \pagestyle{empty}
 \thispagestyle{empty}
+\chapter*{Samenvatting}
 \begin{multicols}{2}
   [
   \begin{center}
     \textbf{
-      \Large Samenvatting\\[1ex]
-      \@title~\\[1ex]
+      \Large\@title~\\[1ex]
       \large \@subtitle\\[0.5ex]}
     \printauthors{~\&~}{,~}{\translatekey{andlist}~}
   \end{center}
@@ -985,16 +979,11 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 \end{multicols}
 \pagestyle{fancy}
 
-%% An even better suggestion is to create your twocolumns summary as a
-%% separate document (using a dedicated paper-writing class e.g. the
-%% IEEEtran class) and load the individual pdf pages using the pdfpages
-%% package (https://ctan.org/pkg/pdfpages).
-
 %% a first numbered chapter
 \chapter{Inleiding}
 
 %% some fancy typeset text (see the PDF yourself)
-\insettext{Bene vixit qui bene latuit!}
+\insettext{Example title}{Bene vixit qui bene latuit!}
 
 %% some dummy text: remove in your copy
 \kant[1]
@@ -1036,7 +1025,182 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 \chapter{Referentielijst}
 
 \end{document}
-%</bmt-example> 
+%</bmt-example1> 
+%<*bmt-example2> 
+\documentclass[bw,a4paper,11pt,twoside,openright,dutch]{ugentthesis}
+
+%% bw           specifies the faculty abbreviation
+%% a4paper      specifies the paper format
+%% 11pt         sets the font size to 11pt, i.e. a good average
+%% twoside      if you want a two-sided document, change to oneside if you
+%%              want a recto only document
+%% openright    causes you chapters to start on a right-hand page when
+%%              your document is twosided
+%% for two-sided theses, specify 'twoside' and 'openright' as options 
+%% for one-sided theses, specify 'oneside' and 'openany' as options
+%% dutch        (or english) sets the document main language. Determines logo
+%%              and copyright etc. language. Can be overridden locally for the text
+%%              using \selectlanguage or \foreignlanguage (see babel package)
+%% coverbg		adds a coloured background area to the cover page
+%% neutralcolors uses ugent colour scheme instead of faculty colors
+
+%% this is just for some dummy text, please remove in your copy
+\usepackage{kantlipsum}
+
+%% this package allows to generate a PDF with clickable links
+\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref}
+%% you must load the hyperref package yourself, to allow putting it
+%% in the correct order with the other packages you load!
+
+%% You may want to use common fonts such as arial (still within house style)
+\setmainfont{Arial}[
+BoldFont           = {Arial},
+BoldFeatures       = {FakeBold=2.5},
+ItalicFont         = {Arial},
+ItalicFeatures     = {FakeSlant=0.15},
+BoldItalicFont     = {Arial},
+BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+]
+
+%% Use this package if you need to provide a twocolumn summary at the
+%% start of your document.
+\usepackage{multicol}
+
+%% specify your degree and doctype (mathesis/bathesis)
+\degree{Bachelor of Science in de Bio-ingenieurswetenschappen}
+\doctype{bathesis}
+
+%% specify word count
+\wordcount{2501}
+%% You can also let wordcount be fetched automatically by using \wordcount{\runwordcount}
+%% But this may be inacurrate since for command only the arguments are counted, even if they expand to more words
+%% e.g. this example has a bunch of dummy text generated through \kant, but the scanned word count is only 57.
+%% And you need to enable shell escape by adding --shell-escape to your latex build command.
+
+%% set title, subtitle and author
+\title{Minimax optimisatie voor performantie-
+ruimtemodellering} %% either don't split titles, or do so with hyphen
+%% and a newline
+\subtitle{Deze subtitel mag je weglaten}
+\author{}{Bibber, Bert}{studentnr. xxxxxx}
+\author{}{De Bakker, Jos}{studentnr. xxxxxx}
+\author{}{Callewaert, Gerrit}{studentnr. xxxxxx}
+
+%% you can specify multiple supervisors, cosupervisors and external supervisors
+%% in Dutch: promotoren, copromotoren (dagelijkse begeleiders) en
+%% bedrijfspromotoren
+\supervisor{prof. dr. ir.}{Kumulus, P.}{UGent}
+\supervisor{prof. dr. ir.}{Snuffel, E.}{UGent}
+\tutor{ir.}{Post, Pieter}{UGent}
+
+%% set the academic year: keep the spaces around the dash!
+\academicyear{2026 -- 2027}
+
+%% If you have a signed copyrightpage (after extracting the one in this document),
+%% you can include it back in using
+%% \usepackage{pdfpages}
+%% \copyrightnotices{\includepdf{copyright_signed.pdf}}
+
+%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
+%% please, specify (language agnostic) begin and end date of the embargo period
+%% as first and second argument to the \tempembargo command:
+%%\embargotemp{21/05/2027}{20/05/2032}
+%% or if it's a full embargo, use
+%% \embargofull
+
+%% you can specify a company logo
+%% \companylogo{\includegraphics[width=4.5cm,height=2.5cm,keepaspectratio]
+%%             {companylogo.jpg}}
+
+\begin{document}
+
+%% creates the title page, remove if you don't want any
+\maketitle
+
+%% causes the first pages to be roman numbered
+\frontmatter
+
+%% sets the table of contents (automatically for you)
+\tableofcontents
+
+%% changes the numbering system to arabic and restart from 1
+\mainmatter
+
+%% Use this template if you need to provide a twocolumn summary at the
+%% start of your document. Remove it if you don't need it.
+\pagestyle{empty}
+\thispagestyle{empty}
+\chapter*{Samenvatting}
+\begin{multicols}{2}
+[
+\begin{center}
+\textbf{
+\Large\@title~\\[1ex]
+\large \@subtitle\\[0.5ex]}
+\printauthors{~\&~}{,~}{\translatekey{andlist}~}
+\end{center}
+]
+
+\kant[11]
+
+\kant[12]
+
+\kant [13]
+
+\kant [14]
+
+\kant [15]
+
+\end{multicols}
+\pagestyle{fancy}
+
+%% a first numbered chapter
+\chapter{Inleiding}
+
+%% some fancy typeset text (see the PDF yourself)
+\insettext{Example title}{Bene vixit qui bene latuit!}
+
+%% some dummy text: remove in your copy
+\kant[1]
+
+%% a second numbered chapter
+\chapter{Onderzoeksvraag}
+
+\insetquote{As any dedicated reader can clearly see, the Ideal of
+practical reason is a representation of
+as far as I know, the things themselves, a vast overexaggeration.}
+
+%% a first numbered section
+\section{Het gebeuren}
+\kant[2]
+
+\begin{equation}
+e^{-j\pi} + 1 = 0
+\end{equation}
+
+\foreach \i in {3,4,...,10} {
+\kant[\i]
+
+}
+
+\chapter{Literatuurstudie}
+
+\chapter{Theoretische achtergrond}
+
+\chapter{Eigen realisatie}
+
+\chapter{Besluit}
+
+%% changes the chapter numbering to letters and uses 'Appendix' or
+%% 'Bijlage' (in dutch) as chapter name.
+%% !! do not use \backmatter before \appendix: it is broken!
+\appendix
+
+\chapter{Symbolen}
+\chapter{Referentielijst}
+
+\end{document}
+%</bmt-example2> 
 % \end{verbatim}
 % 
 %
