@@ -3696,11 +3696,20 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \seq_new:N \g_@@_supervisors_seq
 \seq_new:N \g_@@_supervisorcalls_seq
 \seq_new:N \g_@@_supervisorswithaffiliation_seq
+\seq_new:N \g_@@_allsupervisors_seq
+\seq_new:N \g_@@_allsupervisorswithaffiliation_seq
 \cs_new:Nn \@@_addsupervisor:nnn {
   \seq_gput_right:Nn \g_@@_supervisors_seq { #1~\@formatname{#2}\strut }
   \seq_gput_right:Nn \g_@@_supervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+  \seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
+  \seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
   \seq_gput_right:Nx \g_@@_supervisorcalls_seq
   { \exp_not:N\supervisor { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
+}
+\prg_new_conditional:Nnn \@@_supervisors_empty: { p, T, F, TF } {
+	\seq_if_empty:NTF \g_@@_supervisors_seq
+	{ \prg_return_true: }
+	{ \prg_return_false: }
 }
 \NewDocumentCommand{\supervisor}{mmm}{
   \@@_addsupervisor:nnn { #1 } { #2 } { #3 }
@@ -3722,6 +3731,21 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   	}
   }
 }
+\NewDocumentCommand{\ifsupervisorsempty}{mm}{
+	\@@_supervisors_empty:TF { #1 } { #2 }
+}
+
+\NewDocumentCommand{\allsupervisorscaption}{O{} m}{
+  \int_compare:nNnTF { \seq_count:N \g_@@_allsupervisors_seq } > {1} {
+	\translatekey[#1]{supervisors} #2
+  }{
+	\int_compare:nNnTF { \seq_count:N \g_@@_allsupervisors_seq } = {1} {
+	  \translatekey[#1]{supervisor} #2
+	}{
+	  % empty
+	}
+  }
+}
 %</bmt|phd|bkc>
 %<*bmt>
 \seq_new:N \g_@@_cosupervisors_seq
@@ -3729,6 +3753,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \cs_new:Nn \@@_addcosupervisor:nnn {
   \seq_gput_right:Nn \g_@@_cosupervisors_seq { #1~\@formatname{#2}\strut }
   \seq_gput_right:Nn \g_@@_cosupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+  \seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
+  \seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+}
+\prg_new_conditional:Nnn \@@_cosupervisors_empty: { p, T, F, TF } {
+	\seq_if_empty:NTF \g_@@_cosupervisors_seq
+	{ \prg_return_true: }
+	{ \prg_return_false: }
 }
 \NewDocumentCommand{\cosupervisor}{mmm}{
   \@@_addcosupervisor:nnn { #1 } { #2 } { #3 }
@@ -3749,11 +3780,21 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   	}
   }
 }
+\NewDocumentCommand{\ifcosupervisorsempty}{mm}{
+	\@@_cosupervisors_empty:TF { #1 } { #2 }
+}
 \seq_new:N \g_@@_extsupervisors_seq
 \seq_new:N \g_@@_extsupervisorswithaffiliation_seq
 \cs_new:Nn \@@_addextsupervisor:nnn {
   \seq_gput_right:Nn \g_@@_extsupervisors_seq { #1~\@formatname{#2}\strut }
   \seq_gput_right:Nn \g_@@_extsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+  \seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
+  \seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+}
+\prg_new_conditional:Nnn \@@_extsupervisors_empty: { p, T, F, TF } {
+	\seq_if_empty:NTF \g_@@_extsupervisors_seq
+	{ \prg_return_true: }
+	{ \prg_return_false: }
 }
 \NewDocumentCommand{\extsupervisor}{mmm}{
   \@@_addextsupervisor:nnn { #1 } { #2 } { #3 }
@@ -3773,6 +3814,9 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   	}{
     }
   }
+}
+\NewDocumentCommand{\ifextsupervisorsempty}{mm}{
+	\@@_extsupervisors_empty:TF { #1 } { #2 }
 }
 \seq_new:N \g_@@_tutors_seq
 \seq_new:N \g_@@_tutorswithaffiliation_seq
@@ -4216,24 +4260,25 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	}
 }
 
+\seq_new:N \g_@@_allsupervisorstutors_seq
+
 \cs_new:Nn \@@_autographpage: {
 	\seq_if_empty:NF \g_@@_authors_seq {
 		\translatekey{the}~\authorscaption[lowercase]{}, \par\vskip 1em
-		\@@_siggroup:Nn \g_@@_authors_seq { }%\translatekey{author} }
+		\@@_siggroup:Nn \g_@@_authors_seq { } % Sub-name key not implemented
 	}
 	\vskip 2em
-	\seq_if_empty:NF \g_@@_supervisors_seq {
-		\translatekey{the}~\supervisorscaption[lowercase]{}
-		\iftutorsempty{}{~\translatekey[lowercase]{and}\tutorscaption[lowercase]{}}, \par\vskip 1em
-		\@@_siggroup:Nn \g_@@_supervisors_seq { }%\translatekey{supervisor} }
-		\seq_if_empty:NF \g_@@_tutors_seq {
-			\@@_siggroup:Nn \g_@@_tutors_seq { }% \translatekey{tutor} }
-		}
+	\seq_clear:N \g_@@_allsupervisorstutors_seq
+	\seq_concat:NNN \g_@@_allsupervisorstutors_seq \g_@@_allsupervisors_seq \g_@@_tutors_seq
+	\seq_if_empty:NF \g_@@_allsupervisors_seq {
+		\translatekey{the}~\allsupervisorscaption[lowercase]{}
+		\iftutorsempty{}{~\translatekey[lowercase]{and}~\tutorscaption[lowercase]{}}, \par\vskip 1em
+		\@@_siggroup:Nn \g_@@_allsupervisorstutors_seq { } % Sub-name key not implemented
 	}
 }
 
 \newcommand{\bamadisclaimer}{
-	{\translatekey{the}~\authorscaption[lowercase]{}~\translatekey[lowercase]{and}~\supervisorscaption[lowercase]{}}
+	{\translatekey{the}~\authorscaption[lowercase]{}~\translatekey[lowercase]{and}~\allsupervisorscaption[lowercase]{}}
 	\if@tempembargo
 	
 	   {~\embargotempwithdates}
@@ -5352,6 +5397,16 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 			
 			{\fontsize{12}{15}\selectfont
 				\supervisorscaption{}:~\printsupervisors{~\&~}{,~}{\translatekey{andlist}~}}
+				
+			\ifcosupervisorsempty{}{
+				{\fontsize{12}{15}\selectfont
+					\cosupervisorscaption{}:~\printcosupervisors{~\&~}{,~}{\translatekey{andlist}~}}
+			}
+			
+			\ifextsupervisorsempty{}{
+				{\fontsize{12}{15}\selectfont
+					\extsupervisorscaption{}:~\printextsupervisors{~\&~}{,~}{\translatekey{andlist}~}}
+			}
 			
 			\iftutorsempty{}{
 				\vskip 1em
