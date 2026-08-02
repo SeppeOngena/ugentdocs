@@ -932,6 +932,13 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% \usepackage{pdfpages}
 %% \copyrightnotices{\includepdf{copyright_signed.pdf}}
 
+%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
+%% please, specify (language agnostic) begin and end date of the embargo period
+%% as first and second argument to the \tempembargo command:
+\embargotemp{21/05/2025}{20/05/2030}
+%% or if it's a full embargo, use
+%% \embargofull
+
 %% you can specify a company logo
 %% \companylogo{\includegraphics[width=4.5cm,height=2.5cm,keepaspectratio]
 %%             {companylogo.jpg}}
@@ -3156,11 +3163,15 @@ arrphd			= The author allows to consult and copy parts of this work for personal
 
 integrityclause	= The PhD researcher and supervisor(s) declare that the PhD research was conducted according to the principles of scientific integrity, as mentioned in the general PhD regulations and charter for PhD researchers of Ghent University and the integrity charter for PhD researchers and supervisors affiliated with Ghent University.
 
-embargofull		= The author of this thesis declares that this document is marked confidential. The content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+embargofullphd		= The author of this thesis declares that this document is marked confidential. The content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 
-embargotemp		= The author of this thesis declares that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+embargotempphd		= The author of this thesis declares that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 
 arrbama			=  give the permission to use this thesis for consultation and to copy parts of it for personal use. Every other use is subject to the copyright laws, more specifically the source must be extensively specified when using results from this thesis.
+
+embargofullbama		= of this thesis declare that this document is marked confidential. The content of this thesis is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+
+embargotempbama		= of this thesis declare that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this thesis is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 %</endict>
 %    \end{macrocode}
 %
@@ -3256,11 +3267,15 @@ arrphd			= De auteur staat toe dat delen van dit werk geraadpleegd en gekopieerd
 
 integrityclause	= De doctoraatsonderzoeker en promotor(en) verklaren dat het doctoraatsonderzoek werd uitgevoerd volgens de principes van de wetenschappelijke integriteit, zoals vermeld in het algemeen doctoraatsreglement en algemeen charter van de doctorandus van de UGent en het integriteitscharter voor doctorandi en promotoren verbonden aan de Universiteit Gent.
 
-embargofull		= De auteur van dit proefschrift verklaart dat dit document confidentieel is. De inhoud van dit doctoraatsproefschrift is confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+embargofullphd		= De auteur van dit proefschrift verklaart dat dit document confidentieel is. De inhoud van dit doctoraatsproefschrift is confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
 
-embargotemp		= De auteur van dit proefschrift verklaart dat dit document confidentieel is van __START__ tot en met __END__ (embargoperiode), en vrij beschikbaar wordt na deze embargoperiode. Tijdens de embargoperiode is de inhoud van dit doctoraatsproefschrift confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+embargotempphd		= De auteur van dit proefschrift verklaart dat dit document confidentieel is van __START__ tot en met __END__ (embargoperiode), en vrij beschikbaar wordt na deze embargoperiode. Tijdens de embargoperiode is de inhoud van dit doctoraatsproefschrift confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
 
 arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te stellen en delen ervan te kopiëren voor persoonlijk gebruik. Elk ander gebruik valt onder de beperkingen van het auteursrecht, in het bijzonder met betrekking tot de verplichting uitdrukkelijk de bron te vermelden bij het aanhalen van resultaten uit deze scriptie.
+
+embargofullbama		= van dit proefschrift verklaren dat dit document confidentieel is. De inhoud van dit proefschrift is confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de jury om de kwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+
+embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel is van __START__ tot en met __END__ (embargoperiode), en vrij beschikbaar wordt na deze embargoperiode. Tijdens de embargoperiode is de inhoud van dit proefschrift confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de jury om de kwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
 %</nldict>
 %    \end{macrocode}
 %
@@ -3886,7 +3901,7 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 %   This macro causes the full embargo message to be printed in
 %   colofon of your thesis.
 %    \begin{macrocode}
-%<*phd|bkc>
+%<*phd|bkc|bmt>
 \newif\if@embargo
 \@embargofalse
 \newif\if@fullembargo
@@ -3898,7 +3913,7 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
   \@fullembargotrue
   \@embargotrue
 }
-%</phd|bkc>
+%</phd|bkc|bmt>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3907,7 +3922,7 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 %   colofon of your thesis using the first argument of the macro as
 %   start date and the second argument as the end date.
 %    \begin{macrocode}
-%<*phd|bkc>
+%<*phd|bkc|bmt>
 \newif\if@tempembargo
 \@tempembargofalse
 
@@ -3928,7 +3943,7 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
   \tl_gset_eq:NN \embargotempend \l_@@_embargoenddate_tl
 }
 \ExplSyntaxOff
-%</phd|bkc>
+%</phd|bkc|bmt>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4048,17 +4063,31 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 	}
 }
 
+\newcommand{\bamadisclaimer}{
+	{\translatekey{the}~\authorscaption[lowercase]{}~\translatekey[lowercase]{and}~\supervisorscaption[lowercase]{}}
+	\if@tempembargo
+	
+	   {~\embargotempwithdates}
+	\else
+		\if@fullembargo
+			{~\translatekey{embargofullbama}}
+		\else
+			{~\translatekey{arrbama}}
+		\fi
+	\fi
+}
+
 \renewcommand{\@copyrightnotices}{%
 	\if@dutch
-		\translatekey{the}~\authorscaption[lowercase]{}~\translatekey[lowercase]{and}~\supervisorscaption[lowercase]{}~\translatekey{arrbama}
+		\bamadisclaimer
 	\else
 		\begingroup
 		\selectlanguage{dutch}
-		\translatekey{the}~\authorscaption[lowercase]{}~\translatekey[lowercase]{and}~\supervisorscaption[lowercase]{}~\translatekey{arrbama}
+			\bamadisclaimer
 		\endgroup
 		\selectlanguage{english}
 		\newline\newline
-		\translatekey{the}~\authorscaption[lowercase]{}~\translatekey[lowercase]{and}~\supervisorscaption[lowercase]{}~\translatekey{arrbama}
+			\bamadisclaimer
 	\fi
 	\newline\newline
 	\@location,~\today
@@ -4097,7 +4126,7 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 		\\[\baselineskip]
 		{\textbf{\translatekey{confidentiality}}}\\
 		\if@fullembargo
-		\translatekey{embargofull}
+		\translatekey{embargofullphd}
 		\fi
 		\if@tempembargo
 		\embargotempwithdates
@@ -5051,6 +5080,7 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 \fi
 %
 \renewcommand\maketitle{%
+  \prepmaketitle
   \pagestyle{empty}
   \begin{titlepage}
     \setlength\parskip{0pt}%
@@ -5166,7 +5196,7 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 %   Below, one can find the code for the title page of the
 %   |phdthesis| class:
 %    \begin{macrocode}
-%<*phd|bkc>
+%<*phd|bkc|bmt>
 \ExplSyntaxOn
 \tl_new:N \embargotempwithdates
 \tl_new:N \l_@@_embargotemp_tl
@@ -5179,14 +5209,21 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 	\tl_put_right:Nx \l_@@_embargotemp_tl { \seq_item:Nn \l_@@_embargosplit_seq {2} }
 }
 \newcommand\prepmaketitle{
-  \tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : embargotemp }
+%</phd|bkc|bmt>
+%<*phd|bkc>
+  \tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : embargotempphd }
+%</phd|bkc>
+%<*bmt>
+\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : embargotempbama }
+%</bmt>
+%<*phd|bkc|bmt>
   \tl_set:Nx \l_@@_embargotemp_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
   \_@@_embargosubstitute:nN {__START__} \embargotempstart
   \_@@_embargosubstitute:nN {__END__} \embargotempend
   \tl_gset_eq:NN \embargotempwithdates \l_@@_embargotemp_tl
 }
 \ExplSyntaxOff
-%</phd|bkc>
+%</phd|bkc|bmt>
 %<*phd>
 \renewcommand\maketitle{%
   \prepmaketitle
