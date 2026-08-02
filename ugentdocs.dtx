@@ -4855,13 +4855,29 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 %    \begin{macrocode}
 %<*bmt>
-\RequirePackage{titlesec}
-\titleformat{\chapter}[display]
-{\normalfont\huge\bfseries\color{basecolor}}
-{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\RequirePackage[raggedright, explicit]{titlesec}
+
+\titleformat{\chapter}
+[block] % shape
+{\fontsize{16}{19} \selectfont \color{titlecolor} \bf } % format
+{\thechapter. \ } % the label
+{ 0ex } %separator space
+{\MakeUppercase{\uline{#1}} } %before code
+{ } %after code
+
 \titleformat{\section}
-{\normalfont\Large\bfseries\color{basecolor}}
-{\thesection}{1em}{}
+[block] % shape
+{\fontsize{14}{17} \selectfont \bf } % format
+{\thesection \ } % the label
+{ 0ex } %separator space
+{ #1 } %before code
+{ } %after code
+
+
+% Change the spacing above the chapter. This is left - above - below
+\titlespacing*{\chapter}{0pt}{-3em}{12pt}
+
+\titlespacing*{\section}{0pt}{6pt}{0pt}
 %</bmt>
 %    \end{macrocode}
 % 
