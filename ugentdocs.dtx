@@ -5423,7 +5423,7 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 			\ifx\@subtitle\@empty\else\\[4pt]\hyphenpenalty=100000\LARGE\@subtitle\fi%
 			\\[30pt]\hyphenpenalty=100000\LARGE\printauthors{\\}{\\}{\\}};
 	\else
-		\node[anchor=west, text width=\WC-2*\MTLR-\MS, align=justify, text=covertitlecolor]
+		\node[anchor=west, text width=\WC-2*\MTLR-\MS, align=left, text=covertitlecolor]
 		at (\MS+\MTLR, 0.5*\HC+0.5*\HBS-0.5*\HTS+0.5*\HD)
 		{{\bfseries\Huge\nohyphens{\@title}}%
 		\ifx\@subtitle\@empty\else\\[5pt]\hyphenpenalty=100000\LARGE\@subtitle\fi};
@@ -5438,7 +5438,7 @@ arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te st
 			\\[15pt]
 			\normalsize \translatekey{acyear} \@academicyear};
 		
-		\node[anchor=south west, text width=\WD-2*\MTLR, align=justify, text=white]
+		\node[anchor=south west, text width=\WD-2*\MTLR, align=left, text=white]
 		 at (\MS+\MTLR, \HBS+\MTTB)
 		{\normalsize\nohyphens{\translatekey{submittedto}~\@faculty~\translatekey[lowercase]{of}~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}};
 	\fi
