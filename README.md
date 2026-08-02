@@ -7,9 +7,9 @@ An **unofficial** package providing the UGent house style for $\LaTeX$ documents
 
 I created this package since there are no official template provided, and current options are fragmented and developed by different users (some already left UGent). When I started my master's thesis, no official templates were present (or I couldn't find them easily), which has been a pet peeve ever since. Now I'm finishing my PhD, I stumble into the same issue.
 This package will provide the following classes (implementation status shown):
-- 🚧 `ugentthesis`: Master/bachelor's thesis
+- ✅ `ugentthesis`: Master/bachelor's thesis
 - ✅ `ugentdissertation`: PhD thesis/dissertation with `ugentbookcover` class (incl. auto-generated ISBN barcode)
-- ⬜ `ugentreport`: Project reports, e.g. group assignments
+- 🚧 `ugentreport`: Project reports, e.g. group assignments
 - ⬜ `ugentcourse`: Course notes
 - ⬜ `ugentexam`: Exams
 - ⬜ `ugentletter`: Letters
@@ -23,10 +23,10 @@ Templates to integrate (that I know of):
 | Integrated? | Project      | Maintainer | Status          | Document types |
 |:-----------:|:-------------|:-----------| :---------------|:---------------|
 | ⬜ | [ugent2016](https://github.com/niknetniko/ugent2016)                | Niko Strijbol  | Left UGent             | `article`, `book`, `report` |
-| ⬜ | [ugent-doc](https://github.com/driesbenoit/ugent-doc)               | Dries Benoit   | Stale/Complete?        | `article`, `report` (only coverpage) |
+| ✅ | [ugent-doc](https://github.com/driesbenoit/ugent-doc)               | Dries Benoit   | Stale/Complete?        | `article`, `report` (only coverpage) |
 | ⬜ | [ugent-beamer](https://github.com/driesbenoit/ugent-beamer)         | Dries Benoit   | Complete               | `beamer` |
 | ⬜ | [ugent-letter](https://github.com/driesbenoit/ugent-letter)         | Dries Benoit   | Complete               | `letter` |
-| ⬜ | [Latex at UGent](https://github.ugent.be/LatexInfo) (internal only) | Joris Meys     | Incomplete, but active | `ba/ma thesis` (only BW faculty templates, separate classes for NL and EN)|
+| ✅ | [Latex at UGent](https://github.ugent.be/LatexInfo) (internal only) | Joris Meys     | Incomplete, but active | `ba/ma thesis` (only BW faculty templates, separate classes for NL and EN)|
 
 ---
 The goal is to transfer this repository to UGent one when complete, so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 
