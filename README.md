@@ -1,12 +1,15 @@
 # The `ugentdocs` $\LaTeX$ package
 An **unofficial** package providing the UGent house style for $\LaTeX$ documents.
 
+---
+This is a WIP README which will be updated closer to a `ugentdocs v1.0` release, see https://github.com/SeppeOngena/ugentdocs/issues/21
+
+Overview
+--
 >[!CAUTION]
 > The package is not currently guaranteed to be in a usable state, as this repository is still a WIP. See the [ugentdocs 1.0 project](https://github.com/users/SeppeOngena/projects/1) for up-to-date progress towards v1.0. See the [releases page](https://github.com/SeppeOngena/ugentdocs/releases) to try pre-releases.
 
-
-I created this package since there are no official template provided, and current options are fragmented and developed by different users (some already left UGent). When I started my master's thesis, no official templates were present (or I couldn't find them easily), which has been a pet peeve ever since. Now I'm finishing my PhD, I stumble into the same issue.
-This package will provide the following classes (implementation status shown):
+This package provides the following classes (implementation status shown):
 - ✅ `ugentthesis`: Master/bachelor's thesis
 - ✅ `ugentdissertation`: PhD thesis/dissertation with `ugentbookcover` class (incl. auto-generated ISBN barcode)
 - 🚧 `ugentreport`: Project reports, e.g. group assignments
@@ -15,22 +18,121 @@ This package will provide the following classes (implementation status shown):
 - ⬜ `ugentletter`: Letters
 - ⬜ `beamerthemeugent`: Presentation slides
 
---- 
-This work will try to integrate and expand on as many of those fragmented templates into a common framework (e.g. logos, dictionaries, etc.) based on Walter Daem's excellent `uantwerpendocs v4.12` package (available on [CTAN](https://ctan.org/pkg/uantwerpendocs), so that package was already present by default in my installation!).
+Installation
+--
+I plan to add the package to CTAN, so it would be present in most distributions by itself (in the `TEXMFDIST` directory).
+To use it currently:
+- Download the package from the [releases page](https://github.com/SeppeOngena/ugentdocs/releases). It's the `ugentdocs-<version>.zip` in the "Assets" section at the bottom of a release.
+- Copy the contents of the `ugentdocs` folder from the .zip into your document folder, and any example from the `examples` folder should you wish, e.g.:
+```
+└── MyThesis/
+    ├── Images/                                           <--
+    ├── Figures/
+    │   ├── FIG00-GraphicalAbstract.pdf
+    │   └── FIG01-IntroductionScheme.pdf
+    ├── Chapters/
+    │   ├── 1-Introduction.tex
+    │   ├── 2-MaterialsMethods.tex
+    │   └── ......
+    ├── MyThesis.tex or example-dissertation1.tex         <--
+    ├── MyBibliography.bib
+    ├── ugentthesis.cls or ugentdissertation.cls or ....  <--
+    ├── ugentcommon.clo                                   <--
+    ├── ugentdocs-english.dict                            <--
+    └── ugentdocs-dutch.dict                              <--
+```
+- Once it is installed (and in the future if it's on CTAN you can skip the previous steps), use the class as in the examples by setting e.g. `\documentclass[<options>]{ugentdissertation}`
 
+Features
+-- 
+
+### 1. `ugentthesis`
+- Implements bachelor's and master's theses. See the examples for all functionality and specific use.
+- Generates coverpage and copyright page with signature fields automatically based on your data input, e.g. `\author`, `\supervisor`, `\tutor`, `\title`, etc.
+- The copyright page sets a confidentiality notice automatically when you set `\embargotemp{startdate}{enddate}` or `\embargofull`
+- You can change the copyright page to the signed one using `\copyrightnotices{\includepdf{copyright_signed.pdf}}`
+- Changes titles etc. to UGent-style
+  
+  <table border="0" style="width: 100%;">
+  <tr>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-thesis-1</th>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-thesis-2</th>
+  </tr>
+  <tr>
+    <td style="border: none; text-align: left;">Using options bw (faculty), coverbg, neutralcolors, and font is overridden to Arial</td>
+    <td style="border: none; text-align: left;">Using options bw (faculty), dutch, and font is UGent Panno Text</td>
+  </tr>
+  <tr>
+    <td style="border: none;"><img width="100%" alt="Master's title page" src="https://github.com/user-attachments/assets/31580a54-1e4c-4316-bff4-8746d44cd523" /></td>
+    <td style="border: none;"><img width="100%" alt="Bachelor's title page" src="https://github.com/user-attachments/assets/1f2ef0d8-d2aa-4967-afad-6a315a414058"/></td>
+  </tr>
+    <td style="border: none;"><img width="100%" alt="Master's copyright page" src="https://github.com/user-attachments/assets/8be2b2a7-ee48-47b1-b6c1-44fa5d147280" /></td>
+    <td style="border: none;"><img width="100%" alt="Bachelor's copyright page" src="https://github.com/user-attachments/assets/0216ccc2-b5ac-4ae0-a6f5-51fc7e4cb84e" /></td>
+  </tr>
+</table>
+
+### 2. `ugentdissertation` and `ugentbookcover` 
+- Implements PhD dissertation. See the examples for all functionality and specific use.
+- Generates a coverpage and automatically generates a `filename-cover.tex` file which includes the full cover (back/spine/front).
+- The data pages are automatically set based on your data input.
+- A `bare` option that removes the cover from your dissertation for printing
+- A `cameraready` option that embeds your content and cover into a larger (for the content an A4) page for printing.
+<table border="0" style="width: 100%;">
+  <tr>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-dissertation-1</th>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-dissertation-2</th>
+  </tr>
+  <tr>
+    <td style="border: none; text-align: left;">Using options we (faculty),surnamefirst, dutch, and font is overridden to Arial</td>
+    <td style="border: none; text-align: left;">Using options bw (faculty), cameraready, with a titlepageimage and isbn added, and font is UGent Panno Text</td>
+  </tr>
+  <tr>
+    <td style="border: none;"><img width="100%" alt="Dissertation 1 Full Cover" src="https://github.com/user-attachments/assets/852326e2-e9c7-4b94-b0e1-fb2b65405b97" /></td>
+    <td style="border: none;"><img width="100%" alt="Dissertation 2 Full Cover" src="https://github.com/user-attachments/assets/0af5a545-eeb1-4266-acc6-7baf7353e66d"/></td>
+  </tr>
+    <td style="border: none;">
+      (cover page and blank page not shown)
+      <img width="76%" alt="image" src="https://github.com/user-attachments/assets/4e95d26f-14c4-4072-a9c7-87a65558cff5" />
+      <img width="76%" alt="image" src="https://github.com/user-attachments/assets/6c3edb71-5ebe-4981-bd04-b0546c937bce" />
+      <img width="76%" alt="image" src="https://github.com/user-attachments/assets/20d83693-1f28-41e4-b680-c03df4b61bd1" />
+    </td>
+    <td style="border: none;">
+      (cover page and blank page not shown)
+      <img width="100%" alt="image" src="https://github.com/user-attachments/assets/e60f32ed-3558-41c3-a17f-66720b77860c" />
+      <img width="100%" alt="image" src="https://github.com/user-attachments/assets/7135d6d8-3385-4d0f-b0b4-5688774d9e8b" />
+      <img width="100%" alt="image" src="https://github.com/user-attachments/assets/4fc128ef-6bd7-4dee-96ee-e4991c923553" />
+    </td>
+  </tr>
+</table>
+
+
+
+
+
+
+Why another template?
+--
+There are already five (or more?) existing templates, why add another one? This might remind you of the xkcd comic on [competing standards](https://xkcd.com/927/) There are no official templates provided, and current options are fragmented and developed by different users (some already left UGent). When I started my master's thesis, no official templates were present (or I couldn't find them easily), which has been a pet peeve ever since. Now I'm finishing my PhD, I stumble into the same issue. I found several issues with existing templates/classes:
+- None of them use a single-source .dtx file. Some have common .sty files, which is good to avoid having to maintain duplicate code for e.g. logos or other common stuff, but some have separate classes entirely for e.g. different languages. While I think .dtx files have a drawback in that you're editing one long file and it's easy to get lost, it's also a major advantage that you have documentation and code essentially interwoven.
+- Most of them seem incomplete. Often, only a titlepage is generated or title style set, but no generation of copyright pages, dissertation covers, data pages for dissertations, etc. The ugent-beamer and ugent-letter seem the most complete in this regard.
+- They're not providing all possible templates. While this is not necessarily an issue, it does create chaos, e.g. on the [house style page](https://styleguide.ugent.be/templates/digital.html#latex). Users need to do a treasure hunt almost to find what they need.
+- They're not distributed on CTAN. The `uantwerpendocs` package was already in my TexLive distribution, which meant I could just start using it without messing with class files or copying them in each document directory. This is planned for this package
+- One counterargument towards my own package would be that it is very complex (we're currently sitting at 8500 lines of code) compared to other packages or classes. I plan to provide overrides where necessary (e.g. if you want to change copyright page contents), so users don't have to dig into that complexity
+ 
+The goal is also to transfer this repository to UGent one when complete, so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 
+
+Integration status
+--
+This work will try to integrate and expand on as many of the existing fragmented templates into a common framework based on Walter Daem's excellent `uantwerpendocs v4.12` package (available on [CTAN](https://ctan.org/pkg/uantwerpendocs), so that package was already present by default in my installation!). If the integration status says complete, it means the current package has the same (or more!) functionality than the listed package.
 
 Templates to integrate (that I know of):
 | Integrated? | Project      | Maintainer | Status          | Document types |
 |:-----------:|:-------------|:-----------| :---------------|:---------------|
-| ⬜ | [ugent2016](https://github.com/niknetniko/ugent2016)                | Niko Strijbol  | Left UGent             | `article`, `book`, `report` |
+| ✅ | [ugent2016](https://github.com/niknetniko/ugent2016)                | Niko Strijbol  | Left UGent             | `article`, `book`, `report`, `course`, `notes` |
 | ✅ | [ugent-doc](https://github.com/driesbenoit/ugent-doc)               | Dries Benoit   | Stale/Complete?        | `article`, `report` (only coverpage) |
 | ⬜ | [ugent-beamer](https://github.com/driesbenoit/ugent-beamer)         | Dries Benoit   | Complete               | `beamer` |
 | ⬜ | [ugent-letter](https://github.com/driesbenoit/ugent-letter)         | Dries Benoit   | Complete               | `letter` |
 | ✅ | [Latex at UGent](https://github.ugent.be/LatexInfo) (internal only) | Joris Meys     | Incomplete, but active | `ba/ma thesis` (only BW faculty templates, separate classes for NL and EN)|
 
 ---
-The goal is to transfer this repository to UGent one when complete, so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 
 
----
-
-This is a barebones README which will be updated closer to a `ugentdocs v1.0` release, see https://github.com/SeppeOngena/ugentdocs/issues/21
