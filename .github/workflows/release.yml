@@ -6,7 +6,7 @@ on:
 
 permissions:
   contents: write
-
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,7 +29,7 @@ jobs:
         with:
           scheme: full
           run: |
-            apt-get update && apt-get install -y zip
+            apk add --no-cache zip
             chmod +x build.sh
             ./build.sh "${{ github.event.release.tag_name }}"
 
