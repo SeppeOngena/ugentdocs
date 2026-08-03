@@ -14,6 +14,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Load zip
+        run: apt-get update && apt-get install -y zip
+
       - name: Decrypt fonts
         env:
           FONT_ARCHIVE_PASSPHRASE: ${{ secrets.FONT_ARCHIVE_PASSPHRASE }}
