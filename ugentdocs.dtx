@@ -2636,12 +2636,14 @@ een b\'echamel saus:
 \colorlet{sidecolor}{white}
 \colorlet{basecolor}{ugent@main!10}
 \colorlet{hypercolor}{ugent@main!50!black}
+\colorlet{toccolor}{black}
 \colorlet{titlecolor}{ugent@main}
 \else
 \colorlet{maincolor}{ugent@\fselector}
 \colorlet{sidecolor}{white}
 \colorlet{basecolor}{ugent@\fselector!10}
 \colorlet{hypercolor}{ugent@main!50!black}
+\colorlet{toccolor}{black}
 \colorlet{titlecolor}{ugent@main}
 \fi
 %</col>
@@ -6575,6 +6577,9 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \subsection{References}
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp>
+\pretocmd{\tableofcontents}{\begingroup\hypersetup{linkcolor=toccolor}}{}{}
+\apptocmd{\tableofcontents}{\endgroup}{}{}
+
 \AtBeginDocument{
 	\@ifpackageloaded{hyperref}{
 		\begingroup
