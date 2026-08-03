@@ -3251,6 +3251,7 @@ een b\'echamel saus:
 %<*endict>
 org-ugent	= Ghent University
 org-deugent = Ghent University
+ghent		= Ghent
 domain		= ugent.be
 faculty		= Faculty
 facultyof	= of
@@ -3355,6 +3356,7 @@ embargotempbama		= of this thesis declare that this document is marked confident
 %<*nldict>
 org-ugent	= Universiteit Gent
 org-deugent = de Universiteit Gent
+ghent		= Gent
 domain		= ugent.be
 faculty		= Faculteit
 facultyof	= 
@@ -4098,7 +4100,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   be used on the thesis copyright page. 
 %    \begin{macrocode}
 %<*phd|bkc|bmt>      
-\newcommand*\@location{Ghent}
+\newcommand*\@location{\translatekey{ghent}}
 \newcommand*{\location}[1]{\renewcommand*\@location{#1}}
 %</phd|bkc|bmt>
 %    \end{macrocode}
@@ -5391,7 +5393,14 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 			  \translatekey{wordcount}:~\@wordcount
 			\fi
 			
-			\vskip 10em
+			\if@embargo
+				\vskip 5em
+				{\fontsize{15}{18}\selectfont\translatekey[uppercase]{confidential}}
+				\vskip 5em
+			\else
+				\vskip 10em
+			\fi
+
 			
 			{\fontsize{15}{18}\selectfont\printauthorswithaffiliation{\\}{\\}{\\}}
 			
