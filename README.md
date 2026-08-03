@@ -43,6 +43,9 @@ To use it currently:
 ```
 - Once it is installed (and in the future if it's on CTAN you can skip the previous steps), use the class as in the examples by setting e.g. `\documentclass[<options>]{ugentdissertation}`
 
+>[!WARNING]
+> Due to the use of `fontspec` for the official logos, your documents need to be compiled using LuaLaTeX or XeTeX, and the UGent Panno Text Medium and SemiBold fonts need to be installed
+
 Features
 -- 
 
