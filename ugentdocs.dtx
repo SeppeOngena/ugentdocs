@@ -6584,11 +6584,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \subsection{References}
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp>
-\pretocmd{\tableofcontents}{\begingroup\hypersetup{linkcolor=toccolor}}{}{}
-\apptocmd{\tableofcontents}{\endgroup}{}{}
-
 \AtBeginDocument{
 	\@ifpackageloaded{hyperref}{
+		\pretocmd{\tableofcontents}{\begingroup\hypersetup{linkcolor=toccolor}}{}{}
+		\apptocmd{\tableofcontents}{\endgroup}{}{}
 		\begingroup
 		\def\\{ }%
 		\protected@xdef\@pdftitle{\@title}%
