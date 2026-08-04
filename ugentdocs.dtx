@@ -2561,11 +2561,58 @@ een b\'echamel saus:
 	\fi
 }
 
-\newcommand*\ugentlogotext{\edef\@tmp{\translatekey[uppercase]{org-ugent}}\nohyphens{\@tmp}}
+\newcommand*\ugentlogotext{}
+\newlength{\ugenttextw}
+\newlength{\ugenttextmarginextra}
+\ExplSyntaxOn
+\tl_new:N \l_@@_logotext_tmpa_tl
+\tl_new:N \l_@@_logotext_tmpb_tl
+
+\newcommand*\setugentlogotext{
+	\exp_args:Nx \str_case:nnF { \@campus } {
+		{ ugent }    {
+			\renewcommand{\ugentlogotext}{
+				\logotextface\fontsize{13.6pt}{12.5pt}\selectfont
+				\tl_set:Nx \l_@@_logotext_tmpa_tl { \translatekey[uppercase]{org-ugent} }
+				\nohyphens{\l_@@_logotext_tmpa_tl}
+			}
+			\setlength\ugenttextw{3\logounit}
+			\setlength\ugenttextmarginextra{0cm}
+		}
+		{ gugc }     {
+			\renewcommand{\ugentlogotext}{
+				\logotextface\fontsize{13.6pt}{12.5pt}\selectfont
+				\tl_set:Nx \l_@@_logotext_tmpa_tl { GHENT~UNIVERSITY }
+				\nohyphens{\l_@@_logotext_tmpa_tl}\\
+				\logosubtextface\fontsize{13.6pt}{12.5pt}\selectfont
+				\tl_set:Nx \l_@@_logotext_tmpb_tl { GLOBAL~CAMPUS }
+				\nohyphens{\l_@@_logotext_tmpb_tl}
+			}
+			\setlength\ugenttextw{4\logounit}
+			\setlength\ugenttextmarginextra{0.3\logounit}
+		}
+		{ kortrijk } {
+			\renewcommand{\ugentlogotext}{
+				\logotextface\fontsize{13.6pt}{12.5pt}\selectfont
+				\tl_set:Nx \l_@@_logotext_tmpa_tl { \translatekey[uppercase]{org-ugent} }
+				\nohyphens{\l_@@_logotext_tmpa_tl}\\
+				\logosubtextface\fontsize{13.6pt}{12.5pt}\selectfont
+				\tl_set:Nx \l_@@_logotext_tmpb_tl { CAMPUS~KORTRĲK }
+				\nohyphens{\l_@@_logotext_tmpb_tl}
+			}
+			\setlength\ugenttextw{4\logounit}
+			\setlength\ugenttextmarginextra{0.3\logounit}
+		}
+	}{
+		\msg_error:nnn { ugentdocs } { unknown~campus } { \@campus }
+	}
+}
+\ExplSyntaxOff
 
 \newcommand*{\@ugentlogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
+	\setugentlogotext
 	\pgfmathsetmacro{\logoscale}{#1/4/\logounit}%
-	\pgfmathsetmacro{\logoxshift}{-#3*(5*\logounit)*\logoscale}	
+	\pgfmathsetmacro{\logoxshift}{-#3*(\ugenttextw+2*\logounit)*\logoscale}	
 	\begin{scope}[y=1pt, x=1pt,
 		shift={(\logoxshift, 0.0cm)},
 		yscale=\logoscale,xscale=\logoscale, every node/.append style={scale=\logoscale, color=#2}, inner sep=0pt, outer sep=0pt]
@@ -2574,7 +2621,7 @@ een b\'echamel saus:
 			\ugenticon
 		\end{scope}
 		
-		\node[anchor=south west, text width=3*\logounit, align=left, font = \logotextface\fontsize{13.6pt}{12.5pt}\selectfont] at (\logounit-0.03cm,\logounit-0.005cm) {\spaceskip=0.0825cm%
+		\node[anchor=south west, text width=\ugenttextw+\ugenttextmarginextra, align=left] at (\logounit-0.03cm,\logounit-0.005cm) {\spaceskip=0.0825cm%
 			\ugentlogotext};
 	\end{scope}
 }
@@ -4128,7 +4175,17 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %</phd|bkc|bmt>
 %    \end{macrocode}
 % \end{imacro}
-%
+% 
+% \begin{imacro}{\campus}
+%   This macro sets the |\@campus| tags that is used for
+%   the UGent logo adjustments. 
+%    \begin{macrocode}
+%<*bmt|phd|crs|ex|bkc|le|rp>   
+\newcommand*\@campus{ugent}
+\newcommand*{\campus}[1]{\renewcommand*\@campus{#1}}
+%</bmt|phd|crs|ex|bkc|le|rp> 
+%    \end{macrocode}
+% \end{imacro}%
 %
 % \begin{imacro}{\titeplageimage}
 %   This macro sets the |\@titlepageimage| tags that later will
@@ -5466,7 +5523,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		
 		\ifx\@companylogo\@empty\else
 		\node[anchor=south east, inner sep=0pt,
-		text width=\paperwidth-7*\gridunit, minimum height=2*\gridunit,
+		text width=\paperwidth-(2+\ugenttextw/\logounit)*\gridunit, minimum height=2*\gridunit,
 		align=right] at (\paperwidth-\gridunit,\gridunit)
 		{\@companylogo};
 		\fi
