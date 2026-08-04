@@ -2531,8 +2531,8 @@ een b\'echamel saus:
 
 \newlength{\ftextw}
 
-\ifx\fselector\@empty\else
 \renewcommand*{\@faclogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
+	\ifx\fselector\@empty\else
 	\pgfmathsetmacro{\flogoscale}{#1/3/\logounit}
 	\pgfmathsetmacro{\flogoxshift}{-#3*(3*\logounit+\ftextw)*\flogoscale}	
 	
@@ -2558,8 +2558,8 @@ een b\'echamel saus:
 		    {\spaceskip=0.054cm%
 		    	\flogosubtext};
 	\end{scope}
+	\fi
 }
-\fi
 
 \newcommand*\ugentlogotext{\edef\@tmp{\translatekey[uppercase]{org-ugent}}\nohyphens{\@tmp}}
 
