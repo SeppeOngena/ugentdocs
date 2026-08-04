@@ -2303,11 +2303,12 @@ een b\'echamel saus:
 	\DeclareOption{rgb}{\renewcommand*\colormodel{rgb}\@cmykfalse} 
 
 
-\newcommand*\fselector{~}
+\newcommand*\fselector{}
 
 % Faculty logo spacing and text
 
-\newcommand*\ficon{~}
+\newcommand*\ficon{}
+\newcommand*\@faclogo[3]{}
 
 \ExplSyntaxOn
  \NewDocumentCommand{\flogotext}{}{
@@ -2530,7 +2531,8 @@ een b\'echamel saus:
 
 \newlength{\ftextw}
 
-\newcommand*{\@faclogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
+\ifx\fselector\@empty\else
+\renewcommand*{\@faclogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
 	\pgfmathsetmacro{\flogoscale}{#1/3/\logounit}
 	\pgfmathsetmacro{\flogoxshift}{-#3*(3*\logounit+\ftextw)*\flogoscale}	
 	
@@ -2557,6 +2559,7 @@ een b\'echamel saus:
 		    	\flogosubtext};
 	\end{scope}
 }
+\fi
 
 \newcommand*\ugentlogotext{\edef\@tmp{\translatekey[uppercase]{org-ugent}}\nohyphens{\@tmp}}
 
@@ -2629,6 +2632,9 @@ een b\'echamel saus:
 \fi
 
 %%
+\ifx\fselector\@empty
+	\@neutralcolorstrue
+\fi
 \if@neutralcolors
 \colorlet{maincolor}{ugent@main}
 \colorlet{sidecolor}{white}
