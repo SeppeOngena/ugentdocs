@@ -1586,9 +1586,115 @@ Department of Biotechnology}
 % \subsubsection{\texttt{ugentreport}}
 %
 % \begin{verbatim}
-%<*rp-example>
-\documentclass[bw,10pt,twoside,openright, dutch]{ugentreport}
-% TODO should also be non-faculty specific (i.e., "bw" can be omitted)
+%<*rp-example1>
+\documentclass[bw,10pt,twoside,openright,dutch,coverbg]{ugentreport}
+%% 10pt          sets the font size, 10pt is ok for a phd manuscript
+%% twoside       if you want a two-sided document, change to oneside if you
+%%               want a recto only document
+%% openright     causes you chapters to start on a right-hand page when
+%%               your document is twosided
+%% for two-sided theses, specify 'twoside' and 'openright' as options 
+%% for one-sided theses, specify 'oneside' and 'openany' as options
+%% dutch         (or english) sets the document main language. Determines logo
+%%               and copyright etc. language. Can be overridden locally for the text
+%%               using \selectlanguage or \foreignlanguage (see babel package)
+
+%% You may want to use common fonts
+%% Just an example of font-scheme: this is in no way a recommended font
+%% scheme!
+%%\setmainfont{Arial}[
+%%BoldFont           = {Arial},
+%%BoldFeatures       = {FakeBold=2.5},
+%%ItalicFont         = {Arial},
+%%ItalicFeatures     = {FakeSlant=0.15},
+%%BoldItalicFont     = {Arial},
+%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%%]
+
+%% this is just for some dummy text, please remove in your copy
+\usepackage{kantlipsum}
+
+%% this package allows to generate a PDF with clickable links
+\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref} 
+%% you must load the hyperref package yourself, to allow putting it
+%% in the correct order with the other packages you load!
+
+%% set title, subtitle, extra subtitle, and contact information
+\title{<Titel>}
+\subtitle{<Opdracht>}
+\extra{<Vak>}
+
+\author{}{Bibber, Bert}{studentnr. xxxxxx}
+\author{}{De Bakker, Jos}{studentnr. xxxxxx}
+\author{}{Callewaert, Gerrit}{studentnr. xxxxxx}
+
+\academicyear{2026--2027}
+
+\lecturer{prof. dr.}{Vlaams, W.}{Ghent University, Belgium}
+\lecturer{prof. dr.}{Stekker, J.}{Ghent University, Belgium}
+
+%% skip copyrightnotices (replace with empty)
+%%\copyrightnotices{}
+
+
+\begin{document}
+
+%% creates the title page, remove if you don't want any
+\maketitle
+
+%% causes the first pages to be roman numbered
+\frontmatter
+
+%% sets the table of contents (automatically for you)
+\tableofcontents
+
+%% changes the numbering system to arabic and restart from 1
+\mainmatter
+
+%% a first unnumbered chapter
+\chapter*{Samenvatting}
+%% some dummy text, remove in your copy
+\kant[1]
+
+%% a first numbered chapter
+\chapter{Procesbeschrijving}
+
+%% a first numbered section
+\section{Overzicht waterzuivering}
+\kant[2]
+
+\begin{equation}
+e^{-j\pi} + 1 = 0
+\end{equation}
+
+\kant[3-17]
+
+\chapter{Berekeningen}
+\kant[18-19]
+
+\chapter{Discussie}
+\kant[20-21]
+
+\chapter{Conclusies}
+\kant[22-24]
+
+
+%% change the chapter numbering to letters and uses 'Appendix' or
+%% 'Bijlage' (in dutch) as chapter name.
+%% !! do not use \backmatter before \appendix: it is broken!
+\appendix
+
+\chapter{Meetreeksen waterzuivering}
+
+\chapter{Extra info}
+
+%% typeset the final page
+\makefinalpage
+
+\end{document}
+%</rp-example1> 
+%<*rp-example2>
+\documentclass[10pt,oneside,openany]{ugentreport}
 %% 10pt          sets the font size, 10pt is ok for a phd manuscript
 %% twoside       if you want a two-sided document, change to oneside if you
 %%               want a recto only document
@@ -1620,25 +1726,37 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% you must load the hyperref package yourself, to allow putting it
 %% in the correct order with the other packages you load!
 
-%% set title, subtitle and author and his/her/their affilliation and
-%% address 
-\title{De toepassing van roomijs-derivaten in beton}
-\subtitle{Het belang van een smaakvolle architectuur}
-\author{}{Bouwblauw, Jan}{\\Universiteit Antwerpen | Building Research Group}
-\address{Groenenborgerlaan 171, 2020 Antwerpen, Belgi\"e\\
-  M: jan.bouwblauw@uantwerpen.be\\
-  T: +32 265 00 00
+%% set title, subtitle, extra subtitle, and contact information
+\title{<Title>}
+\subtitle{<Subtitle or project number>}
+\extra{<additional text to title>}
+
+\email{firstname.name}{ugent.be}
+\phone{+32 9 000 00 00}
+\mobile{+32 400 00 00 00}
+\address{
+	<Faculty \ldots>\\
+	<Department or Office \ldots>\\
+	<Research group \ldots>
+		\newline\newline
+		\begin{tabular}{ll}
+	E: &\printemails{ | }{ | }{ | }\\
+	T: &\printphones{ | }{ | }{ | }\\
+	M: &\printmobiles{ | }{ | }{ | }
+		\end{tabular}
+		\newline\newline
+	<Campus \ldots, building \ldots>\\
+	<Street 123 c >, <0000 City>
+		\newline\newline
+	\href{https://www.ugent.be}{www.ugent.be}
 }
 
-%% provide some extra data (a mention on the title page on what type of
-%% report this is)
-\extra{Onderzoeksrapport}
-
 %% year in which the report appears
-\year=2023
+\year=2026
 
-%% specify a fancy photo for your titlepage (if you don't want a dull one)
-\titlepageimage{Images/uantwerpen-keyboard.jpg}
+%% skip copyrightnotices (replace with empty)
+\copyrightnotices{}
+
 
 \begin{document}
 
@@ -1647,6 +1765,32 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 
 %% causes the first pages to be roman numbered
 \frontmatter
+
+%% report data page
+\textcolor{titlecolor}{\uppercase{%
+Date}}\\
+\today
+
+\textcolor{titlecolor}{\uppercase{%
+Location}}\\
+\@location
+
+\textcolor{titlecolor}{\uppercase{%
+Attendees}}\\
+< names separated by commas>
+
+\textcolor{titlecolor}{\uppercase{%
+Excused}}\\
+< names separated by commas>
+
+\textcolor{titlecolor}{\uppercase{%
+Chair}}\\
+< chair>
+
+\textcolor{titlecolor}{\uppercase{%
+Minute taker}}\\
+< minute taker>
+
 
 %% sets the table of contents (automatically for you)
 \tableofcontents
@@ -1660,10 +1804,10 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 \kant[1]
 
 %% a first numbered chapter
-\chapter{Smaken en smaakpapillen}
+\chapter{Summary}
 
 %% a first numbered section
-\section{Het gegeven}
+\section{First chapter}
 \kant[2]
 
 \begin{equation}
@@ -1672,33 +1816,29 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 
 \kant[3-17]
 
-\chapter{Experimentele setup}
+\chapter{Second chapter}
 \kant[18-19]
 
-\chapter{Resulaten}
+\chapter{Third chapter}
 \kant[20-21]
 
-\chapter{Conclusie}
+\chapter{Fourth chapter}
 \kant[22-24]
-
-\chapter{Advies}
-\kant[25]
 
 %% change the chapter numbering to letters and uses 'Appendix' or
 %% 'Bijlage' (in dutch) as chapter name.
 %% !! do not use \backmatter before \appendix: it is broken!
 \appendix
 
-\chapter{Symbolen}
+\chapter{First Appendix}
 
-\chapter{Publicaties}
-%% Put your bibliography here using BibTeX
+\chapter{Second Appendix}
 
-%% typeset the final page with some graphic material on it
+%% typeset the final page
 \makefinalpage
 
 \end{document}
-%</rp-example> 
+%</rp-example2> 
 % \end{verbatim}
 %
 %
