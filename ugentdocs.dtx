@@ -4842,10 +4842,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %</crs>
 %    \end{macrocode}
 % 
-% The header and footer of the |bamathesis| class are
+% The header and footer of the |thesis| and |report| classes are
 % defined to be:
 %    \begin{macrocode}
-%<*bmt>
+%<*bmt|rp>
 \AtBeginDocument{
   \setlength{\headheight}{21pt}
   \setlength{\footskip}{1.5cm}
@@ -4909,12 +4909,12 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   }
   \fi
 }
-%</bmt>
+%</bmt|rp>
 %    \end{macrocode}
 %
-% The header and foter of the |phdthesis| and |report| are defined to be:
+% The header and foter of the |dissertation| is defined to be:
 %    \begin{macrocode}
-%<*phd|rp>
+%<*phd>
 \if@twoside
   \lhead[\small\thepage]{\slshape\small\rightmark}
   \chead[]{}
@@ -4938,7 +4938,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \cfoot[\small\thepage]{\small\thepage}
   \rfoot[]{} 
 }
-%</phd|rp>
+%</phd>
 %    \end{macrocode}
 %
 % The header and footer of the |letter| class are
@@ -5025,10 +5025,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \end{imacro}
 %
 %
-% \subsection{Fancy chapter headers for the phdthesis and report class}
+% \subsection{Fancy chapter headers for the dissertation class}
 %
 %    \begin{macrocode}
-%<*phd|rp>
+%<*phd>
 \def\@makechapterhead#1{%
   \vspace*{1ex}%
   \begin{flushright}
@@ -5070,13 +5070,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \renewcommand*{\thechapter}{\Alph{chapter}}
   \renewcommand*\chaptername\appendixname
 }
-%</phd|rp>
+%</phd>
 %    \end{macrocode}
 %
-% \subsection{Fancy chapter headers for the bamathesis class}
+% \subsection{Chapter headers for the |thesis| and |report| classes}
 %
 %    \begin{macrocode}
-%<*bmt>
+%<*bmt|rp>
 \RequirePackage[raggedright, explicit]{titlesec}
 
 \titleformat{\chapter}
@@ -5100,7 +5100,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \titlespacing*{\chapter}{0pt}{-3em}{12pt}
 
 \titlespacing*{\section}{0pt}{6pt}{0pt}
-%</bmt>
+%</bmt|rp>
 %    \end{macrocode}
 % 
 % \subsection{Title page for the masterthesis and coursetext clases}
@@ -6014,7 +6014,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \end{imacro}
 %
 %
-% \subsection{Title page for the report clases}
+% \subsection{Title page for the report classes}
 %
 % The title page is generated using the |\maketitle| command. As the 
 % report class from which we inherit already defines this command, we
