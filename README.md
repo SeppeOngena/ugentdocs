@@ -44,7 +44,7 @@ To use it currently:
 - Once it is installed (and in the future if it's on CTAN you can skip the previous steps), use the class as in the examples by setting e.g. `\documentclass[<options>]{ugentdissertation}`
 
 >[!WARNING]
-> Due to the use of `fontspec` for the official logos, your documents need to be compiled using LuaLaTeX or XeTeX, and the UGent Panno Text Medium and SemiBold fonts need to be installed
+> Due to the use of `fontspec` for the official logos, your documents need to be compiled using LuaLaTeX or XeTeX (you can easily set this in your editor), and the UGent Panno Text Medium and SemiBold fonts need to be installed
 
 Features
 -- 
@@ -62,8 +62,8 @@ Features
     <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-thesis-2</th>
   </tr>
   <tr>
-    <td style="border: none; text-align: left;">Using options bw (faculty), coverbg, neutralcolors, and font is overridden to Arial</td>
-    <td style="border: none; text-align: left;">Using options bw (faculty), dutch, and font is UGent Panno Text</td>
+    <td style="border: none; text-align: left;">Using options bw (faculty), coverbg, neutralcolors, and font is UGent Panno Text (default)</td>
+    <td style="border: none; text-align: left;">Using options bw (faculty), dutch, and font is overridden to Arial</td>
   </tr>
   <tr>
     <td style="border: none;"><img width="100%" alt="Master's title page" src="https://github.com/user-attachments/assets/31580a54-1e4c-4316-bff4-8746d44cd523" /></td>
@@ -115,7 +115,7 @@ Features
 
 Why another template?
 --
-There are already five (or more?) existing templates, why add another one? This might remind you of the xkcd comic on [competing standards](https://xkcd.com/927/) There are no official templates provided, and current options are fragmented and developed by different users (some already left UGent). When I started my master's thesis, no official templates were present (or I couldn't find them easily), which has been a pet peeve ever since. Now I'm finishing my PhD, I stumble into the same issue. I found several issues with existing templates/classes:
+There are already five (or more?) existing templates, why add another one? This might remind you of the xkcd comic on [competing standards](https://xkcd.com/927/). There are no official templates provided, and current options are fragmented and developed by different people (some already left UGent). When I started my master's thesis, no official templates were present (or I couldn't find them easily), which has been a pet peeve ever since. Now I'm finishing my PhD, I stumble into the same issue. I found several issues with existing templates/classes:
 - None of them use a single-source .dtx file. Some have common .sty files, which is good to avoid having to maintain duplicate code for e.g. logos or other common stuff, but some have separate classes entirely for e.g. different languages. While I think .dtx files have a drawback in that you're editing one long file and it's easy to get lost, it's also a major advantage that you have documentation and code essentially interwoven.
 - Most of them seem incomplete. Often, only a titlepage is generated or title style set, but no generation of copyright pages, dissertation covers, data pages for dissertations, etc. The ugent-beamer and ugent-letter seem the most complete in this regard.
 - They're not providing all possible templates. While this is not necessarily an issue, it does create chaos, e.g. on the [house style page](https://styleguide.ugent.be/templates/digital.html#latex). Users need to do a treasure hunt almost to find what they need.
