@@ -4282,14 +4282,18 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \end{macrocode}
 % \end{imacro}
 % 
-% \begin{imacro}{\copyrightnotices}
-%   This macro sets the |\@copyrightnotices| tag that later will be
+% \begin{imacro}{\copyrightnotices, \extranotices}
+%   These macros set the |\@copyrightnotices| tag that later will be
 %   used on the back of the title page.
 %    \begin{macrocode}
 %<*crs|rp|bmt|phd>      
 \newcommand{\@copyrightnotices}{}
 \newcommand{\copyrightnotices}[1]{\renewcommand{\@copyrightnotices}{#1}}
 %</crs|rp|bmt|phd>
+%<*crs|rp>      
+\newcommand{\@extranotices}{}
+\newcommand{\extranotices}[1]{\renewcommand{\@extranotices}{#1}}
+%</crs|rp>
 %<*bmt>
 %
 \ExplSyntaxOn
@@ -4453,6 +4457,25 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\end{minipage}
 }
 %</phd>
+%<*crs|rp>
+\renewcommand{\@copyrightnotices}{
+	{
+		\setlength\parindent{0em}
+		This document has been typeset using \LaTeX{} and the
+		\texttt{ugentdocs} package.\\
+		\@extranotices
+		
+%</crs|rp>
+%<crs>    \@courseversion
+%<*crs|rp>
+		
+		CONFIDENTIAL AND PROPRIETARY.
+		
+		\copyright{}~\the\year~\translatekey{org-ugent},
+		\translatekey[lowercase]{arr}.
+	}
+}
+%</crs|rp>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -5072,38 +5095,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %</ex>
 %    \end{macrocode}
 %
-% \subsection{Copyright notice}
-%
-% \begin{imacro}{\@crnotice}
-%   This is the standard text that will be used for the |\@crnotice| tag.
-%    \begin{macrocode}
-%<*crs|rp>
-\newcommand{\@crnotice}{
-  {
-    \setlength\parindent{0em}
-    This document has been typeset using \LaTeX{} and the
-    \texttt{ugentdocs} package.\\
-    \@copyrightnotices
-
-%</crs|rp>
-%<crs>    \@courseversion
-%<*crs|rp>
-
-    CONFIDENTIAL AND PROPRIETARY.
-
-    \copyright{} \the\year \translatekey{org-ugent},
-    \translatekey{arr}.
-  }
-}
-%</crs|rp>
-%<*bmt|phd>
-\newcommand{\@crnotice}{
-  \@copyrightnotices
-}
-%</bmt|phd>
-%    \end{macrocode}
-% \end{imacro}
-%
 %
 % \subsection{Fancy chapter headers for the dissertation class}
 %
@@ -5357,7 +5348,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
       Rights Reserved}}
   \fi
   \vspace*{\stretch{1}}
-  \@crnotice
+  \@copyrightnotices
   \clearpage
   \setcounter{footnote}{0}%
   \global\let\thanks\relax
@@ -5534,9 +5525,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \end{titlepage}%
   ~\par\relax
   \clearpage
-  \@crnotice
-  \vspace*{\stretch{1}}
-  \clearpage
+  \ifx\@copyrightnotices\@empty\else
+  	\vspace*{\stretch{1}}
+  	\@copyrightnotices
+  	\clearpage
+  \fi
   \setcounter{footnote}{0}%
   \global\let\thanks\relax
   \global\let\maketitle\relax
@@ -5680,7 +5673,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   
   % Page 4: copyright page (verso, bottom-left)
   \clearpage\thispagestyle{empty}\null\vfill
-  \@crnotice
+  \@copyrightnotices
 
   \setcounter{footnote}{0}%
   \global\let\thanks\relax
