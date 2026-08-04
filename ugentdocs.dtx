@@ -5441,6 +5441,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		
 		\if@coverbg
 		  \fill[coverbgcolor] (\gridunit,4*\gridunit) rectangle (\paperwidth,\paperheight-3*\gridunit);
+		  \begingroup
+		  \colorlet{hypercolor}{covertitlecolor}
 		\fi
 		
 		\node[anchor=north west, inner sep=0pt, text width=\paperwidth-\ML-\gridunit,
@@ -5517,6 +5519,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		text width=\paperwidth-(2+\ugenttextw/\logounit)*\gridunit, minimum height=2*\gridunit,
 		align=right] at (\paperwidth-\gridunit,\gridunit)
 		{\@companylogo};
+		\fi
+		
+		\if@coverbg
+			\endgroup
 		\fi
 		
 		\end{tikzpicture}
