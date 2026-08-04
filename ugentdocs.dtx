@@ -4749,14 +4749,17 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   This macro will set the |\@address| tag that will be used in
 %   the letter's heading text (in the area of the envelope's window).
 %    \begin{macrocode}
-%<*phd|rp|le>
+%<*phd|le>
 \newcommand*{\@address}{
   \PackageError{ugentdocs}
   {Please, set your multi-line address and contact details using the
     '\protect\address{}' command in the preamble of your document}
   {See the ugentdocs manual}
 }
-%</phd|rp|le>
+%</phd|le>
+%<*rp>
+\newcommand*{\@address}{}
+%</rp>
 %
 %<phd|rp>\newcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
 %<le>\renewcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
