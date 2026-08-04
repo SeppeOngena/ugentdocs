@@ -5778,12 +5778,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \newlength{\HI}		% Image height
 \newlength{\HPL}	% Publisher logo height
 
+\newlength{\gridunit}\pgfmathsetlength{\gridunit}{max(\WC,\HC)/7/4}
 \if@bwbookcover % BW cover
-	\setlength\HBS{30mm}
+	\setlength\HBS{4\gridunit}
 	\setlength\HTS{0mm}
 	\setlength\MS{0mm}	
-	\setlength\MTLR{20mm}
-	\setlength\MTTB{5mm}
+	\setlength\MTLR{2\gridunit}
+	\setlength\MTTB{\gridunit}
 	\setlength\WD{0mm} 
 	\setlength\HD{0mm}
 	\colorlet{coverareacolor}{lightgray}
@@ -5792,13 +5793,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\colorlet{covertitlecolor}{white}
 	\setlength\BT{\B}
 \else % UGent cover
-	\setlength\HBS{35mm}
-	\setlength\HTS{27mm}
-	\setlength\MS{10mm}	
-	\setlength\MTLR{10mm}
-	\setlength\MTTB{5mm}
-	\setlength\WD{100mm}
-	\setlength\HD{80mm}
+	\setlength\HBS{4\gridunit}
+	\setlength\HTS{3\gridunit}
+	\setlength\MS{\gridunit}	
+	\setlength\MTLR{\gridunit}
+	\setlength\MTTB{\gridunit}
+	\setlength\WD{12\gridunit}
+	\setlength\HD{10\gridunit}
 	\colorlet{coverareacolor}{basecolor}
 	\colorlet{spinetextcolor}{ugent@main}
 	\colorlet{spinetextcoloralt}{maincolor}
@@ -5808,7 +5809,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 
 \newcommand{\@printconfidentialcover}{
 	\if@bwbookcover
-		\node[anchor=south,font=\Large,ugent@main] at	(\HBS/4+0.5*\WC-0.5*\ftextw/\logounit*\HBS/4,1.25*\HBS/4) {\textbf{\translatekey[uppercase]{confidential}}};
+		\setugentlogotext
+		\node[anchor=south,font=\Large,ugent@main] at	(0.5*\WC-0.5*\ftextw/\logounit*\gridunit+0.5*\ugenttextw/\logounit*\gridunit-0.5*\gridunit,1.25*\gridunit) {\textbf{\translatekey[uppercase]{confidential}}};
+		% pos = (\WC-\ftextw/\logounit*\gridunit-3*\gridunit-\ugenttextw/\logounit*\gridunit-2*\gridunit)/2+\ugenttextw/\logounit*\gridunit+2*\gridunit
+		%     = 0.5*\WC-0.5*\ftextw/\logounit*\gridunit+0.5*\ugenttextw/\logounit*\gridunit-0.5\gridunit
 	\else
 		\node[anchor=south east,font=\Large,ugent@main] at	(\WC-\MTLR,\MTLR) {\textbf{\translatekey[uppercase]{confidential}}};
 	\fi
@@ -5863,7 +5867,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\fi
 	
 	% UGent logo
-	\pgfmathsetmacro{\@ugentlogoxoffset}{max(\MS-\HBS/4,0)}
+	\pgfmathsetmacro{\@ugentlogoxoffset}{max(\MS-\gridunit,0)}
 	\begin{scope}[shift={(\@ugentlogoxoffset pt,0mm)}]
 		\@ugentlogo{\HBS}{ugent@main}{0}
 	\end{scope}
@@ -5871,11 +5875,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	% Faculty logo
 	\if@bwbookcover
 	\begin{scope}[shift={(\WC,0)}]
-	\@faclogo{\HBS/4*3}{ugent@\fselector}{1}
+	\@faclogo{3\gridunit}{ugent@\fselector}{1}
 	\end{scope}
 	\else
-	\begin{scope}[shift={(\MS-\HBS/4,\HC-\HTS)}]
-		\@faclogo{\HBS/4*3}{ugent@\fselector}{0}
+	\begin{scope}[shift={(\MS-\gridunit,\HC-\HTS)}]
+		\@faclogo{3\gridunit}{ugent@\fselector}{0}
 	\end{scope}
 	\fi
 	
