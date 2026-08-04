@@ -1893,8 +1893,8 @@ their details enclosed.
 
 %% some data about your course and the authors/lecturers
 \course{1876FTIDUM}{5-Bistrologie}
-\author{Daems, Walter}     %% can be omitted if 'lecturers' are sufficient
-\lecturer{Daems, Walter}
+\author{}{Daems, Walter}{}     %% can be omitted if 'lecturers' are sufficient
+\lecturer{}{Daems, Walter}{}
 
 %% specify the degree of the program the course fits in
 \degree{Bachelor of Science in de industri\"ele wetenschappen -
@@ -2053,8 +2053,8 @@ een b\'echamel saus:
 
 %% some data about your course and the authors/lecturers
 \course{1876FTIDUM}{5-Bistrology}
-\lecturer{Daems, Walter}
-\lecturer{Levrie, Paul}
+\lecturer{}{Daems, Walter}{}
+\lecturer{}{Levrie, Paul}{}
 
 %% specify the degree of the program the course fits in
 \degree{Bachelor of Science in de industri\"ele wetenschappen - elektronica-ICT}
@@ -3718,19 +3718,27 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*crs|ex|rp>
 \ExplSyntaxOn
 \seq_new:N \g_@@_lecturers_seq
-\cs_new:Nn \@@_addlecturer:n {
-  \seq_gput_right:Nn \g_@@_lecturers_seq { #1\strut }
+\seq_new:N \g_@@_lecturercalls_seq
+\seq_new:N \g_@@_lecturerswithaffiliation_seq
+\cs_new:Nn \@@_addlecturer:nnn {
+  \seq_gput_right:Nn \g_@@_lecturers_seq { #1~\@formatname{#2}\strut }
+  \seq_gput_right:Nn \g_@@_lecturerswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+  \seq_gput_right:Nx \g_@@_lecturercalls_seq
+  { \exp_not:N\lecturer { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
 }
 \prg_new_conditional:Nnn \@@_lecturers_empty: { p, T, F, TF } {
 	\seq_if_empty:NTF \g_@@_lecturers_seq
 	{ \prg_return_true: }
 	{ \prg_return_false: }
 }
-\NewDocumentCommand{\lecturer}{m}{
-  \@@_addlecturer:n { \@formatname{#1} }
+\NewDocumentCommand{\lecturer}{mmm}{
+  \@@_addlecturer:nnn { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\printlecturers}{mmm}{
   \seq_use:Nnnn \g_@@_lecturers_seq { #1 } { #2 } { #3 }
+}
+\NewDocumentCommand{\printlecturerswithaffiliation}{mmm}{
+	\seq_use:Nnnn \g_@@_lecturerswithaffiliation_seq { #1 } { #2 } { #3 }
 }
 \NewDocumentCommand{\lecturerscaption}{O{}}{
   \int_compare:nNnTF {\seq_count:N \g_@@_lecturers_seq} > {1}{
