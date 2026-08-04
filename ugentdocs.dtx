@@ -5404,7 +5404,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % 
 % \begin{imacro}{\maketitle}
 %   And next, the code for the title page of the
-%   |bamathesis| class: 
+%   |thesis| class: 
 %    \begin{macrocode}
 %<*bmt>
 \newlength{\gridunit}\pgfmathsetlength{\gridunit}{max(\paperheight,\paperwidth)/7/4}	% Grid unit following styleguide
@@ -5547,7 +5547,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 % \begin{imacro}{\makefinalpage}
 %   Below, one can find the code for the final page of the
-%   |bamathesis| class: 
+%   |thesis| class: 
 %    \begin{macrocode}
 %<*bmt>
 \newcommand\makefinalpage{
@@ -6098,143 +6098,143 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % need to renew it.
 %
 % \begin{imacro}{\maketitle}
-%   Below, one can find the code for the title page of the
-%   |report| class:
-%   \begin{macrocode}
+%   And next, the code for the title page of the
+%   |report| class: 
+%    \begin{macrocode}
 %<*rp>
+\newlength{\gridunit}\pgfmathsetlength{\gridunit}{max(\paperheight,\paperwidth)/7/4}	% Grid unit following styleguide
+\newlength{\TP}\setlength\TP{26.52cm}												 	% Title Position
+\newlength{\ML}																			% Margin left (for text)
+
+\if@coverbg
+\colorlet{covertitlecolor}{white}
+\colorlet{coverbgcolor}{maincolor}
+\colorlet{coverdatacolor}{white}
+\setlength\ML{2\gridunit}
+\else
+\colorlet{covertitlecolor}{ugent@main}
+\colorlet{coverbgcolor}{white}
+\colorlet{coverdatacolor}{black}
+\setlength\ML{\gridunit}
+\fi
+%
 \renewcommand\maketitle{%
-  \pagestyle{empty}
-  \setlength\parskip{0pt}%
-  \setlength\parindent{0pt}%
-  \begin{titlepage}
-    \AddToShipoutPicture*{%
-      \put(0,0){%
-        \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-          \clip (0,0) rectangle(\paperwidth,\paperheight);
-          \fill[lightgray]
-          (2.125,20.192) rectangle (\paperwidth,6);
-          \begin{scope}
-            \clip (2.125,20.192) rectangle (\paperwidth,6);
-            \node[anchor=south west]
-            at (2.125,6)
-            {\ifx\@titlepageimage\@empty
-              \else
-              \includegraphics[keepaspectratio,
-              scale=0.01,
-              min size={18.875cm}{14.192cm}]{\@titlepageimage}
-              \fi};
-          \end{scope}
+	\pagestyle{empty}
+	\begin{titlepage}
+		\setlength\parskip{0pt}%
+		\setlength\parindent{0pt}%
+		%
+		\AddToShipoutPicture*{%
+			\put(0,0){%
+				\begin{tikzpicture}[inner sep=0pt, outer sep=0pt]
+				\clip (0,0) rectangle (\paperwidth,\paperheight);
+				
+				\begin{scope}[shift={(0,\paperheight-3*\gridunit)}]
+				\@faclogo{3*\gridunit}{ugent@\fselector}{0}
+				\end{scope}
+				
+				\if@coverbg
+				\fill[coverbgcolor] (\gridunit,4*\gridunit) rectangle (\paperwidth,\paperheight-3*\gridunit);
+				\begingroup
+				\colorlet{hypercolor}{covertitlecolor}
+				\fi
+				
+				\node[anchor=north west, inner sep=0pt, text width=\paperwidth-\ML-\gridunit,
+				minimum height=22.05cm, align=left] at (\ML,\TP)
+				{%
+					\raggedright
+					\begin{spacing}{2.5}
+					{\fontsize{25}{30}\selectfont\color{covertitlecolor}\bf
+						\MakeUppercase{\uline{\@title}}}
+					\end{spacing}
+					
+					\vskip 1em
+					
+					{\fontsize{15}{18}\selectfont\color{covertitlecolor}
+						\MakeUppercase{\@subtitle}}
+					
+					\vskip 2em
+					
+					\begingroup\color{coverdatacolor}		
+					\ifx\@extra\@empty\else
+						{\fontsize{12}{15}\selectfont\@extra}
+					\fi
+						
+					\ifx\@wordcount\@empty\else
+					\translatekey{wordcount}:~\@wordcount
+					\fi
+					
+					\ifauthorsempty{
+						\vskip 10em
+					}{
+						\vskip 5em
+						{\fontsize{12}{15}\selectfont\printauthorswithaffiliation{\\}{\\}{\\}}
+						\ifx\@studentnr\@empty\else
+							\translatekey{studentnr}:~\@studentnr
+						\fi
+						\vskip 5em
+					}
 
-          \node
-          [anchor=west,text width=17cm,align=left,font=\Huge,ugent@main]
-          at (2.125,\paperheight-3cm) 
-          {
-            \textsf{\textbf{\@title}}
-          };
-
-          \node
-          [anchor=west,text width=17cm,align=left,font=\Large,ugent@main]
-          at (2.125,\paperheight-5cm) 
-          {
-            \textsf{\textbf{\@subtitle}}
-          };
-
-          \node
-          [anchor=base west,maincolor,
-          text width=17cm,align=left,font=\LARGE]
-          at (2.125,\paperheight-6.5cm)
-          {\textsf{\textbf{\printauthors{\\}{\\}{\\}}}};
-          
-          \fill[maincolor] (2.125,6)
-          -- (\paperwidth,6)
-          -- (\paperwidth,2.625)
-          -- (2.55,2.625)
-          arc (-90:-180:0.425)
-          -- cycle;
-
-          \node[white,anchor=west,text width=17cm,align=left,font=\small]
-          at (2.55,5.3)
-          {\textsf{\textbf{\@extra}}};
-          
-          \node[white,anchor=west,text width=17cm,align=left,font=\small]
-          at (2.55,4)
-          {\textsf{\textbf{%\@affiliation{}
-                | \the\year}\\
-              \@address}};
-          
-          \begin{scope}[shift={(2.125,1.313)}] % TODO might need vertalign fix
-          \@ugentlogo{4.75cm}{ugent@main}{0.0}
-          \end{scope}
-        \end{tikzpicture}
-      }
-    }
-  \end{titlepage}%
-  ~\par\relax
-  \cleardoublepage
-  \begin{center}
-  	
-    \begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
-    \@ugentlogo{4.75cm}{ugent@main}{0.0}
-    \end{tikzpicture}%
-    \vfill
-    %\@affiliation\\
-    \@extra\par
-    \vfill
-    \Huge\textsf{\@title}\par
-    \large\textsf{\@subtitle}\par
-    \vfill
-    \textbf{\printauthors{\\}{\\}{\\}}
-    \vfill
-  \end{center}
-  \clearpage
-  \vfill
-  \textbf{Contact}\\
-  \smallskip
-  \printauthors{\\}{\\}{\\}\\
-  %\@affiliation\\
-  \@address\\
-  \vfill
-  \copyright{} \the\year \printauthors{~\&~}{,~}{\translatekey{andlist}~}\\
-  \translatekey{arr}.
-  \vfill
-  \setcounter{footnote}{0}%
-  \global\let\thanks\relax
-  \global\let\maketitle\relax
-  \global\let\@thanks\@empty
-  \global\let\title\relax
-  \global\let\author\relax
-  \global\let\date\relax
-  \global\let\and\relax
-  \pagestyle{fancy}
-  \thispagestyle{empty}
-  \
+					\iflecturersempty{}{
+						{\fontsize{12}{15}\selectfont
+							\lecturerscaption{}:~\printlecturers{~\&~}{,~}{\translatekey{andlist}~}}
+						\vskip 2 em
+					}
+					
+					\ifx\@address\@empty\else
+						{\fontsize{12}{15}\selectfont\@address}
+						\vskip 2 em
+					\fi
+					
+					\ifx\@academicyear\@empty\else
+						{\fontsize{12}{15}\selectfont\translatekey{acyear}:~\@academicyear}
+					\fi
+					\endgroup
+				};
+				
+				\begin{scope}[shift={(0,0)}]
+				\@ugentlogo{4*\gridunit}{ugent@main}{0}
+				\end{scope}
+				
+				\if@coverbg
+					\endgroup
+				\fi
+				
+				\end{tikzpicture}
+			}
+		}
+	\end{titlepage}%
+	~\par\relax
+	\clearpage
+	\ifx\@copyrightnotices\@empty\else
+		\vspace*{\stretch{1}}
+		\@copyrightnotices
+		\clearpage
+	\fi
+	\setcounter{footnote}{0}%
+	\global\let\thanks\relax
+	\global\let\maketitle\relax
+	\global\let\@thanks\@empty
+	\global\let\title\relax
+	\global\let\author\relax
+	\global\let\date\relax
+	\global\let\and\relax
+	\pagestyle{fancy}
+	\thispagestyle{empty}
 }
-%</rp> 
-%   \end{macrocode}
+%</rp>
+%    \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\makefinalpage}
 %   Below, one can find the code for the final page of the
-%   |phdthesis| class:
-%   \begin{macrocode}
+%   |thesis| class: 
+%    \begin{macrocode}
 %<*rp>
 \newcommand\makefinalpage{
-  \cleardoublepage
-  \thispagestyle{empty}
-  ~% intentionally blank page
-  \clearpage
-  \thispagestyle{empty}
-  \begin{tikzpicture}[remember picture,overlay]
-    \node at (current page.center) {
-      \begin{tikzpicture}[inner sep=0pt]
-        \clip (0,0) rectangle(\paperwidth,\paperheight);
-        \fill[sidecolor] (0,0) rectangle (2.125cm,2.625cm);
-      \end{tikzpicture}
-    };
-  \end{tikzpicture}
 }
-%</rp> 
-%   \end{macrocode}
+%</rp>
+%    \end{macrocode}
 % \end{imacro}
 %
 %
