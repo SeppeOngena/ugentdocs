@@ -2745,10 +2745,10 @@ een b\'echamel saus:
 \newif\if@nofoldline
 \DeclareOption{nofoldline}{\@nofoldlinetrue}
 %</le>
-%<*bmt>
+%<*bmt|rp>
 \newif\if@coverbg
 \DeclareOption{coverbg}{\@coverbgtrue}
-%</bmt>
+%</bmt|rp>
 %    \end{macrocode}
 %
 %
@@ -3715,7 +3715,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   Use the macro multiple times for multiple lecturers. The order
 %   will be preserved.
 %    \begin{macrocode}
-%<*crs|ex>
+%<*crs|ex|rp>
 \ExplSyntaxOn
 \seq_new:N \g_@@_lecturers_seq
 \cs_new:Nn \@@_addlecturer:n {
@@ -3747,7 +3747,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\@@_lecturers_empty:TF { #1 } { #2 }
 }
 \ExplSyntaxOff
-%</crs|ex>
+%</crs|ex|rp>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4169,10 +4169,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   This macro sets the |\@location| tags that later will
 %   be used on the thesis copyright page. 
 %    \begin{macrocode}
-%<*phd|bkc|bmt>      
+%<*phd|bkc|bmt|rp>      
 \newcommand*\@location{\translatekey{ghent}}
 \newcommand*{\location}[1]{\renewcommand*\@location{#1}}
-%</phd|bkc|bmt>
+%</phd|bkc|bmt|rp>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -4191,10 +4191,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   This macro sets the |\@titlepageimage| tags that later will
 %   be used on the title page, to include the graphics.
 %    \begin{macrocode}
-%<*crs|phd|rp|bkc>      
+%<*crs|phd|bkc>      
 \newcommand*\@titlepageimage{}
 \newcommand*\titlepageimage[1]{\renewcommand*\@titlepageimage{#1}}
-%</crs|phd|rp|bkc>
+%</crs|phd|bkc>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4275,10 +4275,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   This macro sets the |\@academicyear| tag that later will be used on
 %   the title page.
 %    \begin{macrocode}
-%<*crs|bmt|phd|ex|bkc>      
-\newcommand*{\@academicyear}{XXXX--YYYY}
+%<*crs|bmt|phd|ex|bkc|rp>      
+\newcommand*{\@academicyear}{}
 \newcommand*{\academicyear}[1]{\renewcommand*{\@academicyear}{#1}}
-%</crs|bmt|phd|ex|bkc>
+%</crs|bmt|phd|ex|bkc|rp>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -4519,11 +4519,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   as needed.
 %
 %    \begin{macrocode}
-%<*le>
+%<*le|rp>
 \ExplSyntaxOn
 \seq_new:N \g_@@_emailaddresses_seq
 \cs_new:Nn \@@_addemailaddress:nn {
-  \seq_gput_right:Nn \g_@@_emailaddresses_seq {#1\tat{}#2\strut}
+  \seq_gput_right:Nn \g_@@_emailaddresses_seq {\href{mailto:#1@#2}{#1@#2}\strut}
 }
 \NewDocumentCommand{\email}{mm}{
   \@@_addemailaddress:nn { #1 } { #2 }
@@ -4535,7 +4535,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \seq_if_empty:NTF \g_@@_emailaddresses_seq {} {#1}
 }
 \ExplSyntaxOff
-%</le> 
+%</le|rp> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4546,7 +4546,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   as needed.
 %
 %    \begin{macrocode}
-%<*le>
+%<*le|rp>
 \ExplSyntaxOn
 \seq_new:N \g_@@_phonenumbers_seq
 \cs_new:Nn \@@_addphonenumber:n {
@@ -4562,7 +4562,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \seq_if_empty:NTF \g_@@_phonenumbers_seq {} {#1}
 }
 \ExplSyntaxOff
-%</le> 
+%</le|rp> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4600,7 +4600,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   as needed.
 %
 %    \begin{macrocode}
-%<*le>
+%<*le|rp>
 \ExplSyntaxOn
 \seq_new:N \g_@@_mobilenumbers_seq
 \cs_new:Nn \@@_addmobilenumber:n {
@@ -4616,7 +4616,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \seq_if_empty:NTF \g_@@_mobilenumbers_seq {} {#1}
 }
 \ExplSyntaxOff
-%</le> 
+%</le|rp> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4905,10 +4905,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	%   This macro will set the |\@studentnr| tag that will be used in the
 	%   exam and thesis class.
 	%    \begin{macrocode}
-	%<*ex|bmt>      
+	%<*ex|bmt|rp>      
 	\newcommand*{\@studentnr}{}
 	\newcommand*{\studentnr}[1]{\renewcommand*{\@studentnr}{#1}}
-	%</ex|bmt>
+	%</ex|bmt|rp>
 	%    \end{macrocode}
 	% \end{imacro}
 %
