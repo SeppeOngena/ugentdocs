@@ -3571,6 +3571,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\seq_gput_right:Nx \g_@@_authorcalls_seq
 	{ \exp_not:N\author { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
 }
+\prg_new_conditional:Nnn \@@_authors_empty: { p, T, F, TF } {
+	\seq_if_empty:NTF \g_@@_authors_seq
+	{ \prg_return_true: }
+	{ \prg_return_false: }
+}
 
 \RenewDocumentCommand{\author}{mmm}{
 	\@@_addauthor:nnn { #1 } { #2 } { #3 }
@@ -3603,6 +3608,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		}
 	}
 }
+\NewDocumentCommand{\ifauthorsempty}{mm}{
+	\@@_authors_empty:TF { #1 } { #2 }
+}
+
 \ExplSyntaxOff
 %</phd|crs|bmt|bkc|ex|le|rp>
 %   \end{macrocode}
@@ -3665,6 +3674,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \cs_new:Nn \@@_addlecturer:n {
   \seq_gput_right:Nn \g_@@_lecturers_seq { #1\strut }
 }
+\prg_new_conditional:Nnn \@@_lecturers_empty: { p, T, F, TF } {
+	\seq_if_empty:NTF \g_@@_lecturers_seq
+	{ \prg_return_true: }
+	{ \prg_return_false: }
+}
 \NewDocumentCommand{\lecturer}{m}{
   \@@_addlecturer:n { \@formatname{#1} }
 }
@@ -3681,6 +3695,9 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   	% empty
   	}
   }
+}
+\NewDocumentCommand{\iflecturersempty}{mm}{
+	\@@_lecturers_empty:TF { #1 } { #2 }
 }
 \ExplSyntaxOff
 %</crs|ex>
