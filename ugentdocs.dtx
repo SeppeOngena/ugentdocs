@@ -745,9 +745,9 @@
 \year=2023
 
 %% mention who lectures the course (can be different from the author)
-\lecturer{Zo\"ekers, Zoltan}
-\lecturer{Sigh, Siana}
-\lecturer{de Z\'ager, Zeger}
+\lecturer{}{Zo\"ekers, Zoltan}{}
+\lecturer{}{Sigh, Siana}{}
+\lecturer{}{de Z\'ager, Zeger}{}
 
 %% you can use two ways to specify a dgree:
 %% (1) explicitly with text
@@ -4671,7 +4671,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \ExplSyntaxOn
 \seq_new:N \g_@@_emailaddresses_seq
 \cs_new:Nn \@@_addemailaddress:nn {
-  \seq_gput_right:Nn \g_@@_emailaddresses_seq {\href{mailto:#1@#2}{#1@#2}\strut}
+	\@ifpackageloaded{hyperref}{
+		\seq_gput_right:Nn \g_@@_emailaddresses_seq {\href{mailto:#1@#2}{#1@#2}\strut}
+	}{
+		\seq_gput_right:Nn \g_@@_emailaddresses_seq {#1@#2\strut}
+	}
 }
 \NewDocumentCommand{\email}{mm}{
   \@@_addemailaddress:nn { #1 } { #2 }
@@ -4903,7 +4907,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 %<phd|rp>\newcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
 %<le>\renewcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
-%    \end{\macrocode}
+%    \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\exampart}
@@ -5295,7 +5299,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %</phd>
 %    \end{macrocode}
 %
-% \subsection{Chapter headers for the |thesis| and |report| classes}
+% \subsection{Chapter headers for the \texttt{thesis} and \texttt{report} classes}
 %
 %    \begin{macrocode}
 %<*bmt|rp>
@@ -6256,8 +6260,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 % \begin{imacro}{\maketitle}
 %   And next, the code for the title page of the
-%   |report| class: 
-%    \begin{macrocode}
+%   |report| class:
+%   \begin{macrocode}
 %<*rp>
 \newlength{\gridunit}\pgfmathsetlength{\gridunit}{max(\paperheight,\paperwidth)/7/4}	% Grid unit following styleguide
 \newlength{\TP}\setlength\TP{26.52cm}												 	% Title Position
@@ -6380,18 +6384,18 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\thispagestyle{empty}
 }
 %</rp>
-%    \end{macrocode}
+%   \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\makefinalpage}
 %   Below, one can find the code for the final page of the
 %   |thesis| class: 
-%    \begin{macrocode}
+%   \begin{macrocode}
 %<*rp>
 \newcommand\makefinalpage{
 }
 %</rp>
-%    \end{macrocode}
+%   \end{macrocode}
 % \end{imacro}
 %
 %
