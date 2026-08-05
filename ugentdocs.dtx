@@ -3112,9 +3112,9 @@ een b\'echamel saus:
 %    \end{macrocode}
 %
 % \subsection{ISBN code generation}
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<bkc|phd>\RequirePackage{GS1}
-%   \end{macrocode}
+%    \end{macrocode}
 %
 % \subsubsection{UGent color and logo scheme}
 %    \begin{macrocode}
@@ -3200,7 +3200,7 @@ een b\'echamel saus:
 % Some official UGent templates use the "Surname Firstname" formatting.
 % These functions return the firstname, firstnameinitial, surname, and
 % the full name formatted following the surnamefirst option.
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*phd|bkc|rp|ex|le|crs|bmt|bmr>
 \ExplSyntaxOn
 
@@ -3279,7 +3279,7 @@ een b\'echamel saus:
 
 \ExplSyntaxOff
 %</phd|bkc|rp|ex|le|crs|bmt|bmr>
-%   \end{macrocode}
+%    \end{macrocode}
 %
 % \subsection{Data dictionary and parser}
 %
@@ -3802,7 +3802,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 
 \ExplSyntaxOff
 %</phd|crs|bmt|bkc|ex|le|rp>
-%   \end{macrocode}
+%    \end{macrocode}
 % \end{imacro}
 %
 % 
@@ -4148,7 +4148,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \begin{imacro}{\rector}
 %   This macro sets the |\@rector| tag that later will be used on
 %   the data page.
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*phd>      
 \newcommand*{\@rector}[2]{
 	\PackageError{ugentdocs}
@@ -4161,34 +4161,34 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \renewcommand*{\@rector}{#1~\@formatname{#2}}
 }
 %</phd> 
-%   \end{macrocode}
+%    \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\coverdesigner}
 %   This macro sets the |\@coverdesigner| tag that later will be used on
 %   the data page.
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*phd>      
 \newcommand*{\@coverdesigner}{}
 \newcommand*{\coverdesigner}[1]{
 	\renewcommand*{\@coverdesigner}{\@formatname{#1}}
 }
 %</phd> 
-%   \end{macrocode}
+%    \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\grants}
-	%   This macro sets the |\@grants| tag that later will be used on
-	%   the data page.
-	%   \begin{macrocode}
-	%<*phd>      
-	\newcommand*{\@grants}{}
-	\newcommand*{\grants}[1]{
-		\renewcommand*{\@grants}{#1}
-	}
-	%</phd> 
-	%   \end{macrocode}
-	% \end{imacro}
+%   This macro sets the |\@grants| tag that later will be used on
+%   the data page.
+%    \begin{macrocode}
+%<*phd>      
+\newcommand*{\@grants}{}
+\newcommand*{\grants}[1]{
+	\renewcommand*{\@grants}{#1}
+}
+%</phd> 
+%    \end{macrocode}
+% \end{imacro}
 %
 % \begin{imacro}{\degree}
 %   This macro sets the |\@degree| tag that later will
@@ -4196,7 +4196,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   The theses allow for a single degree (as multiple is physically
 %   impossible), while a course text and an exam allow for multiple
 %   degrees (to be specified in the desired order).
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*bmt|phd|bkc>
 \newcommand*\@degree{
   \PackageError{ugentdocs}
@@ -4225,7 +4225,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \ExplSyntaxOff
 %</crs|ex> 
 
-%   \end{macrocode}
+%    \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\doctype}
@@ -4250,7 +4250,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   This macro sets the |\@wordcount| tag that later will
 %   be used on the title pages.
 %   Runs automatically but can be overridden.
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*bmt|phd|rp>
 \newcommand*\@wordcount{}
 \newcommand*\wordcount[1]{
@@ -4412,12 +4412,12 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \begin{imacro}{\isbn}
 %   This macro sets the |\@isbn| tag that will be used to generate
 %   the ISBN number and barcode on the dissertation back cover
-%   \begin{macrocode}
 %<*phd|bkc>
+%    \begin{macrocode}
 \newcommand*{\@isbn}{}
 \newcommand*{\isbn}[1]{\renewcommand*{\@isbn}{#1}}
 %</phd|bkc>
-%   \end{macrocode} 
+%    \end{macrocode} 
 % \end{imacro}
 %
 % \begin{imacro}{\academicyear}
@@ -5882,7 +5882,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \subsection{Bookcover for the PhD class}
 %  First we calculate the spine width, set some dimensions, 
 %  and check if we can print on the spine:
-%  \begin{macrocode}
+%    \begin{macrocode}
 %<*bkc>
 \newif\if@printonspine
 
@@ -6092,6 +6092,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \end{imacro}
 %
 % We also need a few new book cover components for the spine:
+%    \begin{macrocode}
 %<*bkc>
 \newbookcovercomponenttype{title}{
 	\vspace{19.375mm+2em}\centering
@@ -6134,11 +6135,12 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\vfill
 }
 %</bkc>
+%    \end{macrocode}
 % 
 % \begin{imacro}{\makebookcover}
 %   This macro creates a book cover for the bookcover class. This is already
 %   defined in the |bookcover| package, so we need to renew it.
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*bkc>
 \renewcommand\makebookcover{
 	\begin{bookcover}
@@ -6157,14 +6159,14 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\end{bookcover}	
 }
 %</bkc>
-%   \end{macrocode}
+%    \end{macrocode}
 % \end{imacro}
 % 
 %
 % \begin{imacro}{\generatebookcover}
 %	This macro generates a cover.tex file from your current document.
-%   \begin{macrocode}
 %<*phd>
+%    \begin{macrocode}
 \ExplSyntaxOn
 \newcommand\generatebookcover{
 	\fp_set:Nn \l_@@_paperweight_fp { 80 } % g/m2
@@ -6408,7 +6410,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % The top of the letter is generated using the |\maketitle|
 % command. 
 %
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*le>
 \newcommand\maketitle{%
   \pagestyle{fancy}
@@ -6459,7 +6461,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \end{tikzpicture}~\\[4ex]
 }
 %</le>
-%   \end{macrocode}
+%    \end{macrocode}
 % \end{imacro}
 %
 % The trailer of the page is automatically generated at the end of the document:
