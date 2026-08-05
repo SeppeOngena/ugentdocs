@@ -12,8 +12,8 @@ Overview
 This package provides the following classes (implementation status shown):
 - ✅ `ugentthesis`: Master/bachelor's thesis
 - ✅ `ugentdissertation`: PhD thesis/dissertation with `ugentbookcover` class (incl. auto-generated ISBN barcode)
-- 🚧 `ugentreport`: Project reports, e.g. group assignments
-- ⬜ `ugentcourse`: Course notes
+- ✅ `ugentreport`: Project reports, e.g. group assignments
+- 🚧 `ugentcourse`: Course notes
 - ⬜ `ugentexam`: Exams
 - ⬜ `ugentletter`: Letters
 - ⬜ `beamerthemeugent`: Presentation slides
@@ -48,7 +48,12 @@ To use it currently:
 
 Features
 -- 
+For a complete list of features, you will be able to check the documentation (when it's finished). For now, you can glance at the preview images below and check the included example.tex files in the download .zip.
 
+<details>
+    
+<summary> Click to expand </summary>
+    
 ### 1. `ugentthesis`
 - Implements bachelor's and master's theses. See the examples for all functionality and specific use.
 - Generates coverpage and copyright page with signature fields automatically based on your data input, e.g. `\author`, `\supervisor`, `\tutor`, `\title`, etc.
@@ -108,10 +113,33 @@ Features
   </tr>
 </table>
 
-
-
-
-
+### 3. `ugentreport`
+- Can be used to typeset project, assignments, or meeting reports.
+- Depending on the data passed, the titlepage can be adjusted as needed (e.g. no `\author` but `\address` is used).
+- Chapter titles etc. are typeset the same as the `ugentthesis` class (see images below)
+- Other than that, the report class doesn't do much more.
+<table border="0" style="width: 100%;">
+  <tr>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-report-1</th>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-report-2</th>
+  </tr>
+  <tr>
+    <td style="border: none; text-align: left;">Using options bw (faculty),coverbg, dutch, and font is UGent Panno Text</td>
+    <td style="border: none; text-align: left;">Using no faculty options, and font is overridden to Arial</td>
+  </tr>
+  <tr>
+    <td style="border: none;">
+        <img width="100%" alt="Report 1 Cover" src="https://github.com/user-attachments/assets/2454c8ad-98a9-451b-855d-0425f3d80107" />
+        <img width="100%" alt="Report 1 Data page" src="https://github.com/user-attachments/assets/9b47d5f6-d222-4b1f-b8a1-b34aa6b7b083" />
+        <img width="100%" alt="Report 1 TOC" src="https://github.com/user-attachments/assets/f3d28308-23a2-445c-afc7-067600922ad8" />
+    </td>
+    <td style="border: none;">
+        <img width="100%" alt="Report 2 Cover" src="https://github.com/user-attachments/assets/1810c852-f670-4205-b09d-3acbbc53a983" />
+        <img width="100%" alt="Report 2 Copyright" src="https://github.com/user-attachments/assets/191abe1d-064f-4e59-b27b-00c195ff1d70" />
+        <img width="100%" alt="Report 2 TOC" src="https://github.com/user-attachments/assets/e8625b3e-36e3-4dac-9649-a443b5fcc369" />
+    </td>
+</table>
+</details>
 
 Why another template?
 --
