@@ -11,7 +11,8 @@ Overview
 
 This package provides the following classes (implementation status shown):
 - ✅ `ugentthesis`: Master/bachelor's thesis
-- ✅ `ugentdissertation`: PhD thesis/dissertation with `ugentbookcover` class (incl. auto-generated ISBN barcode)
+- ✅ `ugentdissertation`: PhD thesis/dissertation
+- ✅ `ugentbookcover` class to create full covers (back/spine/front) for dissertations and courses
 - ✅ `ugentreport`: Project reports, e.g. group assignments
 - 🚧 `ugentcourse`: Course notes
 - ⬜ `ugentexam`: Exams
