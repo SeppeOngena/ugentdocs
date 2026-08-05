@@ -3480,7 +3480,7 @@ bathesis	= Bachelor's dissertation
 phdthesis	= Doctoral dissertation
 projreport	= Project report
 
-submittedto	= Submitted to the
+submittedto	= Submitted to
 bmfulfil	= in partial Fulfilment of the Requirements for the Degree of
 phdfulfil	= in Fulfilment of the Requirements for the Degree of 
 badegree	= Bachelor
@@ -3585,7 +3585,7 @@ bathesis	= Bachelorproef
 phdthesis	= Doctoraat
 projreport	= Projectverslag
 
-submittedto	= Voorgelegd aan de
+submittedto	= Voorgelegd aan
 bmfulfil	= ter gedeeltelijke voldoening aan de vereisten voor de graad van
 phdfulfil	= ter voldoening aan de vereisten voor de graad van
 badegree	= Bachelor
@@ -5076,7 +5076,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \lhead[\small\thepage]{\slshape\small\rightmark}
 \chead[]{}
 \rhead[\slshape\small\leftmark]{\small\thepage}
-\lfoot[\small\translatekey{org-ugent} -- \@facultyacronym]{\small\@courseversion}
+\lfoot[\small\translatekey{org-ugent} -- \@facultyacronym]{\small\@courseversion} % TODO should handle empty
 \cfoot[]{}
 \rfoot[]{\small\@title{}\ifdefvoid{\@subtitleshort}{}{ --- \@subtitleshort}}
 \else
@@ -5084,7 +5084,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \chead[]{}
 \rhead[]{\small\thepage}
 \lfoot[]{\small\@courseversion}
-\cfoot[]{\small\translatekey{org-ugent} -- \@facultyacronym}
+\cfoot[]{\small\translatekey{org-ugent} -- \@facultyacronym} % TODO should handle empty
 \rfoot[]{\small\@title{}}
 \fi
 \fancypagestyle{plain}{%
@@ -5410,7 +5410,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
           \node[white,anchor=west,text width=17.5cm,align=left,font=\small]
           at (2.55,3.7)
           {\textsf{\printdegrees{\\}{\\}{\\}}\\
-            \textsf{\textbf{\@faculty{} \ifx\@department\empty\else |
+            \textsf{\textbf{\@faculty{} \ifx\@department\empty\else | % TODO should handle empty
                 \@department{} \fi | \@academicyear \hfill
                 \@publishercode}}\\
           \textsf{\@publisher}};
@@ -5443,7 +5443,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
           [anchor=north west,text width=14.75cm,align=left]
           at (5,22.7)
           {
-            \fontsize{16}{20}\selectfont\textsf{\@faculty{}
+            \fontsize{16}{20}\selectfont\textsf{\@faculty{} % TODO should handle empty
               \ifx\@department\empty\else | \@department{} \fi}
           };
 
@@ -5659,7 +5659,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 			
 			\vskip 1em
 			
-			{\@doctype~\translatekey[lowercase]{submittedto}~\@faculty~\translatekey[lowercase]{of}~\translatekey{org-deugent}, \translatekey{bmfulfil}~\@degree}
+			{\@doctype~\translatekey[lowercase]{submittedto}\ifx\fselector\@empty\else~\translatekey[lowercase]{the}~\@faculty~\translatekey[lowercase]{of}\fi~\translatekey{org-deugent}, \translatekey{bmfulfil}~\@degree}
 			
 			\translatekey{acyear}: \@academicyear
 			\endgroup
@@ -5797,7 +5797,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   	{\printjurymembers{\\}{\\}{\\}}\\[2ex]%
   	%
   	%
-  	\textbf{\translatekey{dean}~\translatekey[lowercase]{of}~\translatekey[lowercase]{the}~\@faculty}\hfill\break
+  	\textbf{\translatekey{dean}\ifx\fselector\@empty\else~\translatekey[lowercase]{of}~\translatekey[lowercase]{the}~\@faculty\fi}\hfill\break
   	\@dean\\[2ex]
   	%
   	\textbf{\translatekey{rector}~\translatekey[lowercase]{of}~\translatekey{org-deugent}}\hfill\break
@@ -5826,7 +5826,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   		\vspace{10\baselineskip}%
   	\fi
   	
-  	{\small \translatekey{submittedto}~\@faculty~\translatekey[lowercase]{of}~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}%
+  	{\small \translatekey{submittedto}\ifx\fselector\@empty\else~\translatekey[lowercase]{the}~\@faculty~\translatekey[lowercase]{of}\fi~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}%
   	
   	\vspace{.3\baselineskip}%
   	{\small\translatekey{org-ugent}, \@location, \today}%
@@ -6017,7 +6017,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		
 		\node[anchor=south west, text width=\WD-2*\MTLR, align=left, text=white]
 		 at (\MS+\MTLR, \HBS+\MTTB)
-		{\normalsize\nohyphens{\translatekey{submittedto}~\@faculty~\translatekey[lowercase]{of}~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}};
+		{\normalsize\nohyphens{\translatekey{submittedto}\ifx\fselector\@empty\else~\translatekey[lowercase]{the}~\@faculty~\translatekey[lowercase]{of}\fi~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}};
 	\fi
 	
 	% UGent logo
@@ -6439,7 +6439,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   ~\\[3ex]
   \textcolor{ugent@main}{\textbf{\@sender}}
   \ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
-  \@faculty{}
+  \@faculty{} % TODO should handle empty
   \ifx\@unit\@empty\else\\* \@unit\fi~\\[1.75ex]
   \@address\\[1.75ex]
   \ifemails{E~\printemails{\\\phantom{E~}}{}{}\\}
@@ -6610,7 +6610,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
         \node[white,anchor=west,text width=17.5cm,align=left,font=\small]
         at (2.55,3.7)
         {\textsf{\printdegrees{\\}{\\}{\\}}\\
-          \textsf{\textbf{\@faculty{}}}};
+          \textsf{\textbf{\@faculty{}}}}; % TODO should handle empty
         
         \begin{scope}[shift={(2.125,1.313)}]
         	\@ugentlogo{4.75cm}{ugent@main}{0.0}
