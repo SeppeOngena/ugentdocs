@@ -2874,10 +2874,10 @@ een b\'echamel saus:
 \newif\if@cameraready
 \DeclareOption{cameraready}{\@camerareadytrue}
 %</crs|phd|bkc>
-%<*phd>
+%<*phd|crs>
 \newif\if@bare
 \DeclareOption{bare}{\@baretrue}
-%</phd>
+%</phd|crs>
 %<*phd|bkc|rp|ex|le|crs|bmt|bmr>
 \newif\if@surnamefirst
 \DeclareOption{surnamefirst}{\@surnamefirsttrue}
@@ -3843,10 +3843,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   This macro sets the |\@companylogo| tag that later will be used on
 %   the title page.
 %    \begin{macrocode}
-%<*bmt>      
+%<*bmt|rp>      
 \newcommand*{\@companylogo}{}
 \newcommand*{\companylogo}[1]{\renewcommand*{\@companylogo}{#1}}
-%</bmt> 
+%</bmt|rp> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4412,11 +4412,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \begin{imacro}{\isbn}
 %   This macro sets the |\@isbn| tag that will be used to generate
 %   the ISBN number and barcode on the dissertation back cover
-%<*phd|bkc>
 %    \begin{macrocode}
+%<*phd|bkc|crs>
 \newcommand*{\@isbn}{}
 \newcommand*{\isbn}[1]{\renewcommand*{\@isbn}{#1}}
-%</phd|bkc>
+%</phd|bkc|crs>
 %    \end{macrocode} 
 % \end{imacro}
 %
@@ -5050,10 +5050,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   This macro will set the |\@publisherlogo| tag that will be used
 %   to print the publisher logo on the back cover.
 %    \begin{macrocode}
-%<*bkc|phd>      
+%<*bkc|phd|crs>      
 \newcommand*{\@publisherlogo}{Images/logo_UniversityPress_blue}
 \newcommand*{\publisherlogo}[1]{\renewcommand*{\@publisherlogo}{#1}}
-%</bkc|phd>
+%</bkc|phd|crs>
 %    \end{macrocode}
 % \end{imacro}
 %
