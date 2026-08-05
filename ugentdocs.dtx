@@ -82,15 +82,15 @@
 % \setlength{\parindent}{0em}
 % \addtolength{\parskip}{0.5\baselineskip}
 %
-% \title{The |ugentdocs| classes\thanks{Thanks to Paul Levrie for testing and proofreading.}}
-% \author{Walter Daems (|walter.daems@uantwerpen.be|)}
+% \title{The |ugentdocs| classes\thanks{}}
+% \author{Seppe Ongena (|seppe.ongena@ugent.be|)}
 % \date{release \ugentdocsdate{} --- \ugentdocsversion{}}
 %
 % \newgeometry{left=3cm,right=2cm,top=2cm,bottom=2.5cm}
 %
 % \maketitle
 %
-% \section{Introduction}
+% \section*{Introduction}
 %
 % This package implements the house style of Universiteit Antwerpen
 % (version 2021) for letters, course texts, master/PhD theses, reports and
@@ -109,7 +109,7 @@
 % Do you like these class files? You're welcome to send us beer, wine,
 % or just kind words.
 %
-% \section{Synopsis}
+% \section*{Synopsis}
 % The |coursetext|, |bamathesis| and |phdthesis| 
 % classes\footnote{For readability the class names have been
 % abbreviated by omitting the |ugent| prefix} are 
@@ -178,7 +178,7 @@
 % user of the classes. So: don't worry about it!
 %
 %
-% \section{A note on fonts}
+% \section*{A note on fonts}
 %
 % The house style of the University of Antwerp recommends using
 % \begin{itemize}
@@ -203,7 +203,7 @@
 % reading it right now.
 %
 %
-% \section{Portability}
+% \section*{Portability}
 % These class files should be ready to use with all common modern \LaTeX{}
 % compilers (XeLaTeX{}, \LuaLaTeX{}, \ldots)
 % from the major \TeX{}-distributions (TeTeX, TexLive, MikTeX).
@@ -213,7 +213,7 @@
 % PDF\LaTeX{} compiler. If you experience other problems, please
 % inform the author.
 %
-% \section{Thanks}
+% \section*{Thanks}
 % Thanks to the many users of this class who provide me with bug reports and feedback.
 % Special thanks to Paul Levrie, my standard reviewer. Also special
 % thanks to Lukas Leitner who provided the idea, the secret sauce and some
@@ -236,10 +236,11 @@
 % In the second part, we will describe the ugent beamer theme that can be
 % used to make PDF slides.
 %
+% \tableofcontents
 % \clearpage
 % \newgeometry{left=4.75cm,right=2cm,top=2cm,bottom=2.5cm}
 % \part*{\hspace*{-2cm}Part I. The paper classes}
-% 
+% \addcontentsline{toc}{section}{Part I. The paper classes}
 % \section{Usage}
 %
 % \subsection{Basic Usage}
@@ -6852,7 +6853,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 % \clearpage
 % \part*{Part II. The beamer theme}
-%
+% \addcontentsline{toc}{section}{Part II. The beamer theme}
+% \setcounter{section}{0}
 % \section{User guide}
 % 
 % \begin{verbatim}
