@@ -5410,7 +5410,14 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \newlength{\gridunit}\pgfmathsetlength{\gridunit}{max(\paperheight,\paperwidth)/7/4}	% Grid unit following styleguide
 \newlength{\@TP}\setlength\@TP{26.52cm}												 	% Title Position
 \newlength{\@ML}																		% Margin left (for text)
+\newlength{\@HTS}																		% Height top strip
 %
+\ifx\@fselector\@empty
+	\setlength\@HTS{0mm}
+\else
+	\setlength\@HTS{3\gridunit}
+\fi
+
 \if@coverbg
 	\colorlet{covertitlecolor}	{white}
 	\colorlet{coverbgcolor}		{maincolor}
@@ -5552,7 +5559,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\end{scope}
 	
 	\if@coverbg
-		\fill[coverbgcolor] (\gridunit,4*\gridunit) rectangle (\paperwidth,\paperheight-3*\gridunit);
+		\fill[coverbgcolor] (\gridunit,4*\gridunit) rectangle (\paperwidth,\paperheight-\@HTS);
 		\begingroup
 		\colorlet{hypercolor}{covertitlecolor}
 	\fi
@@ -5679,8 +5686,14 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\colorlet{spinetextcoloralt}{white}
 	\colorlet{covertitlecolor}{white}
 \else % UGent cover
-	\setlength\HTS{3\gridunit}
 	\setlength\@HBS{4\gridunit}
+	\ifx\@fselector\@empty
+		\setlength\@HTS{0mm}		
+		\setlength\@BT{\@B}
+	\else
+		\setlength\@HTS{3\gridunit}
+		\setlength\@BT{0mm}
+	\fi
 	\setlength\@MS{\gridunit}	
 	\setlength\@MTLR{\gridunit}
 	\setlength\@MTTB{\gridunit}
