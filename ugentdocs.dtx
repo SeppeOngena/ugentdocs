@@ -802,6 +802,14 @@
 %% creates the title page, remove if you don't want any
 \maketitle
 
+%% Creates a bookcover file \jobname-cover.tex
+%% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
+%% a caliper (paper thickness) of 0.1 mm:
+%% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
+%% If you're using a different paper type, override the spine width 
+%% in the \jobname-cover.tex file using the formula above.
+\generatebookcover
+
 %% causes the first pages to be roman numbered
 \frontmatter
 
@@ -6362,7 +6370,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\fi
 	
 	\tl_set:Nx \l_@@_faculty_tl    { \@fselector }
-	\tl_set:Nx \l_@@_cameraready_tl { \if@cameraready ,~cameraready \fi }
 	\tl_set:Nx \l_@@_cmyk_tl { \if@cmyk,~cmyk \fi }
 	\tl_set:Nx \l_@@_surnamefirst_tl { \if@surnamefirst,~surnamefirst\fi}
 	\tl_set:Nx \l_@@_dutch_tl { \if@dutch ,~dutch \fi }
@@ -6379,9 +6386,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\tl_set:Nx \l_@@_year_tl 			{ \exp_not:n{\the\year} }
 	\tl_set:Nx \l_@@_academicyear_tl	{ \exp_not:n{\@academicyear} }
 	
-	\tl_clear_new:N \l_@@_supervisorcalls_tl
-	\seq_map_inline:Nn \g_@@_supervisorcalls_seq
-	{ \tl_put_right:Nn \l_@@_supervisorcalls_tl { ##1 \iow_newline: } }
 	\tl_clear_new:N \l_@@_authorcalls_tl
 	\seq_map_inline:Nn \g_@@_authorcalls_seq
 	{ \tl_put_right:Nn \l_@@_authorcalls_tl { ##1 \iow_newline: } }
@@ -6389,6 +6393,26 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\tl_clear_new:N \l_@@_degreecalls_tl
 	\seq_map_inline:Nn \g_@@_degreecalls_seq
 	{ \tl_put_right:Nn \l_@@_degreecalls_tl { ##1 \iow_newline: } }
+	
+	\exp_args:Nx \str_case:nnF { \@covertype } {
+		{ dissertation }    {
+			\tl_clear_new:N \l_@@_supervisorcalls_tl
+			\seq_map_inline:Nn \g_@@_supervisorcalls_seq
+			{ \tl_put_right:Nn \l_@@_supervisorcalls_tl { ##1 \iow_newline: } }
+			\tl_set:Nx \l_@@_cameraready_tl { \if@cameraready ,~cameraready \fi }
+			\tl_set:Nn \l_@@_covertype_tl { ,~dissertation }
+		}
+		{ course }     {
+			\tl_clear_new:N \l_@@_lecturercalls_tl
+			\seq_map_inline:Nn \g_@@_lecturercalls_seq
+			{ \tl_put_right:Nn \l_@@_lecturercalls_tl { ##1 \iow_newline: } }
+			\tl_set:Nx \l_@@_cameraready_tl { }
+			\tl_set:Nn \l_@@_covertype_tl { ,~course }
+		}
+	}{
+		\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
+	}
+	
 	\tl_set:Nn \g_@@_covertemplate_tl {
 		\exp_not:N\documentclass[\l_@@_faculty_tl, spinewidth=\fp_to_decimal:n{round(\dim_ratio:nn{\l_@@_spinewidth_dim}{1mm},1)}mm
 		\l_@@_cameraready_tl
@@ -6405,11 +6429,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\l_@@_authorcalls_tl								    \iow_newline:
 		\exp_not:N\isbn				{\l_@@_isbn_tl}				\iow_newline:
 		\exp_not:N\titlepageimage	{\l_@@_titlepageimage_tl}	\iow_newline:
-		\if@tempembargo
-			\exp_not:N\embargotemp	{\@embargotempstart}{\@embargotempend} \iow_newline:
-		\else\if@fullembargo
-			\exp_not:N\embargofull \iow_newline:
-		\fi\fi								
 		\exp_not:N\backcoverlogos	{\l_@@_backcoverlogos_tl}	\iow_newline:							
 	}
 	
@@ -6423,9 +6442,28 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\iow_newline:
 		\l_@@_degreecalls_tl							\iow_newline:
 		\exp_not:N\academicyear	{\l_@@_academicyear_tl}	\iow_newline:
-		\l_@@_supervisorcalls_tl						\iow_newline:
 	}
-	\fi
+	\fi	
+	
+	\exp_args:Nx \str_case:nnF { \@covertype } {
+		{ dissertation }    {
+			\tl_put_right:Nn \g_@@_covertemplate_tl {
+				\l_@@_supervisorcalls_tl									   \iow_newline:
+				\if@tempembargo
+				\exp_not:N\embargotemp	{\@embargotempstart}{\@embargotempend} \iow_newline:
+				\else\if@fullembargo
+				\exp_not:N\embargofull \iow_newline:
+				\fi\fi	
+			}	
+		}
+		{ course }     {
+			\tl_put_right:Nn \g_@@_covertemplate_tl {
+				\l_@@_lecturercalls_tl							\iow_newline:
+			}
+		}
+	}{
+		\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
+	}
 	
 	\tl_put_right:Nn \g_@@_covertemplate_tl {
 		\iow_newline:
