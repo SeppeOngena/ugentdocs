@@ -5778,6 +5778,35 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %</bkc|phd>
 %<*bkc|crs>
 \newcommand\@coverbodycourse{
+	\newlength\@parboxheight
+	\newlength\@parboxwidth
+	\pgfmathsetlength{\@parboxheight}{\@HD-2*\@MTTB}
+	\pgfmathsetlength{\@parboxwidth}{\@WD-2*\@MTLR}
+	
+	\node[anchor=north west, inner sep=0pt, text=coverdatacolor] at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB) {
+		\parbox[t][\@parboxheight][t]{\@parboxwidth}{
+			\raggedright
+			{\fontsize{35}{42}\selectfont\bf
+				\MakeUppercase{\uline{\@title}}\par}
+			%
+			\ifx\@subtitle\@empty\else
+			\vspace{5pt}
+			\hyphenpenalty=100000
+			{\fontsize{30}{36}\selectfont\bf
+				\@subtitle}
+			\fi
+			\par
+			\vfill
+			\par
+			{\fontsize{18}{22}\selectfont \printlecturers{\\}{\\}{\\}}%
+			%
+			\vskip 2 em
+			%
+			{\fontsize{15}{20}\selectfont 
+				\printdegrees{\\}{\\}{\\}\\
+				\translatekey{acyear}~\@academicyear}%
+		}
+	};
 }
 %</bkc|crs>
 %<*phd|bkc|crs>
@@ -5945,17 +5974,17 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 % \begin{imacro}{\maketitle}
 %    \begin{macrocode}
-%<*bmt|phd|rp>
+%<*bmt|phd|rp|crs>
 \renewcommand\maketitle{%
 	\@prepmaketitle
 	\pagestyle{empty}
-%</bmt|phd|rp>
+%</bmt|phd|rp|crs>
 %<*phd>
 	\if@bare\else
 	\begingroup
 	\pagenumbering{gobble}
 %</phd>
-%<*bmt|phd|rp>
+%<*bmt|phd|rp|crs>
 	\begin{titlepage}
 		\setlength\parskip{0pt}%
 		\setlength\parindent{0pt}%
@@ -5966,7 +5995,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 			}
 		}
 	\end{titlepage}%
-%</bmt|phd|rp>
+%</bmt|phd|rp|crs>
 %<*bmt|rp>
 	~\par\relax
 	% Only 1 page: Copyrightnotices
@@ -6042,7 +6071,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\clearpage\thispagestyle{empty}\null\vfill
 	\@copyrightnotices
 %</phd>
-%<*bmt|phd|rp>
+%<*bmt|phd|rp|crs>
 	\setcounter{footnote}{0}%
 	\global\let\thanks\relax
 	\global\let\maketitle\relax
@@ -6054,7 +6083,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\pagestyle{fancy}
 	\thispagestyle{empty}
 }
-%</bmt|phd|rp>
+%</bmt|phd|rp|crs>
 %    \end{macrocode}
 % \end{imacro}
 %
