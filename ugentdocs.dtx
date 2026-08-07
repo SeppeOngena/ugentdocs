@@ -5862,7 +5862,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\ifx\@fselector\@empty
 			\colorlet{coverbgcolor}{ugent@accent}
 		\else
-			\colorlet{coverbgcolor}{ugent@\@fselector}
+			\if@neutralcolors
+				\colorlet{coverbgcolor}{ugent@accent}
+			\else
+				\colorlet{coverbgcolor}{ugent@\@fselector}
+			\fi
 		\fi
 		\colorlet{covertitlecolor}{white}
 		\setlength\@WD{10\gridunit}
@@ -5883,10 +5887,12 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\exp_args:Nx \str_case:nnF { \@covertype } {
 		{ dissertation } {	}
 		{ course } {
+			\if@neutralcolors\else
 				\pgfmathsetlength{\@WFI}{\@WC-\@MS-4*\gridunit}
 				\begin{scope}[shift={(\@WC-\gridunit-\@WFI,\@HC-\@HTS-\gridunit-\@WFI)}]
 					\@ficon{\@WFI}{coverbgcolor!60}{0.0}
 				\end{scope}
+			\fi
 		}
 	}{
 		\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
