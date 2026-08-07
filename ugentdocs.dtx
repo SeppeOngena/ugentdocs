@@ -765,7 +765,6 @@
 
 %% Specify the degree(s):
 \degree{Master of Science in de industri\"ele wetenschappen: elektronica-ICT}
-%% you can even add multiple degrees and mix the two ways!
 
 %% you can specify multiple courses:
 %% - first  argument is the course number
@@ -4314,39 +4313,30 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \end{imacro}
 %
 % \begin{imacro}{\degree}
-%   This macro sets the |\@degree| tag that later will
+%   This macro sets the degree that later will
 %   be used on the title pages.
-%   The theses allow for a single degree (as multiple is physically
-%   impossible), while a course text and an exam allow for multiple
-%   degrees (to be specified in the desired order).
 %    \begin{macrocode}
-%<*bmt|phd|bkc>
-\newcommand*\@degree{
-  \PackageError{ugentdocs}
-  {Please, specify the offical degree description using
-    the '\protect\degree{}'  macro in the preamble of your document.}
-  {See the ugentdocs manual}
-}
-\newcommand*\degree[1]{\renewcommand*\@degree{#1}}
-%</bmt|phd|bkc>
-%
-%<*crs|ex>
+%<*crs|ex|bkc|phd|bmt>
 \ExplSyntaxOn
 \seq_new:N \g_@@_degrees_seq
+\seq_new:N \g_@@_degreecalls_seq 
+
 \cs_new:Nn \@@_adddegree:n {
-  \seq_gput_right:Nn \g_@@_degrees_seq { #1 }
+	\seq_gput_right:Nn \g_@@_degrees_seq { #1 }
+	\seq_gput_right:Nx \g_@@_degreecalls_seq
+	{ \exp_not:N\degree { \exp_not:n{#1} } }
 }
 \NewDocumentCommand{\degree}{m}{
-  \@@_adddegree:n { #1\strut }
+	\@@_adddegree:n { #1\strut }
 }
 \NewDocumentCommand{\printdegrees}{mmm}{
-  \seq_use:Nnnn \g_@@_degrees_seq { #1 } { #2 } { #3 }
+	\seq_use:Nnnn \g_@@_degrees_seq { #1 } { #2 } { #3 }
 }
 \AtBeginDocument{
-  \let\degree\relax
+	\let\degree\relax
 }
 \ExplSyntaxOff
-%</crs|ex> 
+%</crs|ex|bkc|phd|bmt> 
 
 %    \end{macrocode}
 % \end{imacro}
@@ -5604,7 +5594,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		
 		\vskip 1em
 		
-		{\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{bmfulfil}~\@degree}
+		{\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{bmfulfil}~\printdegrees{~\&~}{,~}{\translatekey{andlist}~}}
 		
 		\vskip 1em
 		\translatekey{acyear}:~\@academicyear
@@ -5877,7 +5867,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	\node[anchor=south west, text width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
 	at (\@MS+\@MTLR, \@HBS+\@MTTB)
-	{\normalsize\nohyphens{\translatekey{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\@degree}};
+	{\fontsize{11}{15}\selectfont\nohyphens{\translatekey{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printdegrees{~\&~}{,~}{\translatekey{andlist}~}}};
 	\fi
 	
 	\if@embargo
@@ -6189,7 +6179,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\vspace{10\baselineskip}%
 		\fi
 		
-		{\small \translatekey{submittedto}\ifx\@fselector\@empty\else~\translatekey[lowercase]{the-de}~\@faculty~\translatekey[lowercase]{of}\fi~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}%
+		{\small \translatekey{submittedto}\ifx\@fselector\@empty\else~\translatekey[lowercase]{the-de}~\@faculty~\translatekey[lowercase]{of}\fi~\translatekey{org-deugent}, \translatekey{phdfulfil}~\printdegrees{~\&~}{,~}{\translatekey{andlist}~}}%
 		
 		\vspace{.3\baselineskip}%
 		{\small\translatekey{org-ugent}, \@location, \today}%
@@ -6368,8 +6358,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\tl_set:Nx \l_@@_backcoverlogos_tl	{ \exp_not:n{\@backcoverlogos} }
 	
 	\tl_set:Nx \l_@@_year_tl 			{ \exp_not:n{\the\year} }
-	
-	\tl_set:Nx \l_@@_degree_tl      	{ \exp_not:n{\@degree} }
 	\tl_set:Nx \l_@@_academicyear_tl	{ \exp_not:n{\@academicyear} }
 	
 	\tl_clear_new:N \l_@@_supervisorcalls_tl
@@ -6379,6 +6367,9 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\seq_map_inline:Nn \g_@@_authorcalls_seq
 	{ \tl_put_right:Nn \l_@@_authorcalls_tl { ##1 \iow_newline: } }
 	
+	\tl_clear_new:N \l_@@_degreecalls_tl
+	\seq_map_inline:Nn \g_@@_degreecalls_seq
+	{ \tl_put_right:Nn \l_@@_degreecalls_tl { ##1 \iow_newline: } }
 	\tl_set:Nn \g_@@_covertemplate_tl {
 		\exp_not:N\documentclass[\l_@@_faculty_tl, spinewidth=\fp_to_decimal:n{round(\dim_ratio:nn{\l_@@_spinewidth_dim}{1mm},1)}mm\l_@@_cameraready_tl\l_@@_cmyk_tl\l_@@_surnamefirst_tl,dissertation]{ugentbookcover}\iow_newline:
 		\c_percent_str~Currently,~a~for~80~g/m2~paper~with~a~bulk~of~1.25~cm3/g~is~assumed~(0.1~mm~caliper~or~thickness).\iow_newline:
@@ -6407,7 +6398,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\else
 	\tl_put_right:Nn \g_@@_covertemplate_tl {
 		\iow_newline:
-		\exp_not:N\degree		{\l_@@_degree_tl}		\iow_newline:
+		\l_@@_degreecalls_tl							\iow_newline:
 		\exp_not:N\academicyear	{\l_@@_academicyear_tl}	\iow_newline:
 		\l_@@_supervisorcalls_tl						\iow_newline:
 	}
