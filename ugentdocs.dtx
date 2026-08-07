@@ -699,32 +699,46 @@
 % Especially in the beamer theme some features require to run \LaTeX{}
 % twice in order to get the position of some elements correct.
 %
-% In many of the classes, you need to specify a faculyt option. The
+% In many of the classes, you need to specify a faculty option. The
 % available faculty options are listed in a table on page \pageref{sec:classopt}.
-%
-% \changes{v4.06}{}{added quite some info to the examples}
 %
 % \subsubsection{\texttt{ugentcourse}}
 %
-% \changes{v2.5}{}{changed publisher to universitas in example}
 % \begin{verbatim}
 %<*crs-example> 
 \documentclass[bw,11pt,oneside,openright, dutch]
               {ugentcourse}
+%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      uses ugent colour scheme instead of faculty colors
+%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
+%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%% 11pt               sets the font size to 11pt
+%% twoside            if you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% for two-sided theses, specify 'twoside' and 'openright' as options
+%% for one-sided theses, specify 'oneside' and 'openany' as options
+%% surnamefirst       format all names as "surname firstname"
+%%                    instead of "firstname surname"
+%% copyright          prints a copyright watermark
+%% bare               this option removes front and back cover. Many
+%%                    print services require this format for the contents.
+%% *default
 
-%% ti           specifies the department, change to the letter combination of
-%%              your department
-%% a4paper      specifies the paper format
-%% 11pt         sets the font size to 11pt, i.e. a good average
-%% oneside      if you want a one-sided document, change to twoside if you
-%%              want a recto verso document
-%% openright    causes you chapters to start on a right-hand page when
-%%              your document is twosided
-%% cameraready  removes the graphical elements from the title and final
-%%              page, as they will be typeset by universitas (in color)
-%% dutch        (or english) sets the document main language. Determines logo
-%%              and copyright etc. language. Can be overridden locally for the text
-%%              using \selectlanguage or \foreignlanguage (see babel package)
+%% You may want to use common fonts such as arial (still within house style)
+%%\setmainfont{Arial}[
+%%BoldFont           = {Arial},
+%%BoldFeatures       = {FakeBold=2.5},
+%%ItalicFont         = {Arial},
+%%ItalicFeatures     = {FakeSlant=0.15},
+%%BoldItalicFont     = {Arial},
+%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%%]
 
 %% make paragraphs indent
 \setlength\parindent{1in}
@@ -749,12 +763,7 @@
 \lecturer{}{Zo\"ekers, Zoltan}{}
 \lecturer{}{Sigh, Siana}{}
 
-%% you can use two ways to specify a dgree:
-%% (1) explicitly with text
-%%     e.g. \degree{Master of Science in de industri\"ele wetenschappen:
-%%     elektronica-ICT}
-%% (2) by specifying the correct code, to fetch the text from a table
-%%     with correct degree mentions
+%% Specify the degree(s):
 \degree{Master of Science in de industri\"ele wetenschappen: elektronica-ICT}
 %% you can even add multiple degrees and mix the two ways!
 
@@ -768,13 +777,13 @@
 \academicyear{2023-2024}
 
 %% leave this as is if you use Universitas as print shop
-\publisher{Universitas Cursusdienst |
-  Prinsesstraat 16 |
-  2000 Antwerpen |
-  T +32 3 233 23 73 |
-  E info@cursusdienst.be}
+\publisher{Academia Press |
+  Coupure Rechts 88 |
+  9000 Gent |
+  T +32 9 233 80 88 |
+  E info@academiapress.be}
 
-%% universitas will provide you with a code, that you can provide on
+%% Academia Press may provide you with a code, that you can provide on
 %% your PDF copy (if you distribute any to your students. If not, just omit.
 \publishercode{C11111102}
 
@@ -784,6 +793,10 @@
   The graphics in this document have been typeset using \texttt{TikZ}.\\
   This document has been \TeX-ed on a GNU/Linux workstation.
 }
+
+%% Add publisher logo
+\backcoverlogos{\includegraphics[height = 2\gridunit]{Images/logo_AcademiaPress.jpg}} % Back cover
+\frontcoverlogos{\includegraphics[height=2\gridunit]{Images/logo_AcademiaPress.jpg}} % Front cover
 
 \begin{document}
 
@@ -853,22 +866,26 @@
 %
 % \begin{verbatim}
 %<*bmt-example1> 
-
-%% bw           specifies the faculty abbreviation
-%% a4paper      specifies the paper format
-%% 11pt         sets the font size to 11pt, i.e. a good average
-%% twoside      if you want a two-sided document, change to oneside if you
-%%              want a recto only document
-%% openright    causes you chapters to start on a right-hand page when
-%%              your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options 
 \documentclass[bw,11pt,twoside,openright,coverbg,neutralcolors]{ugentthesis}
+%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      uses ugent colour scheme instead of faculty colors
+%% coverbg            adds a coloured background area to the cover page
+%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
+%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%% 11pt               sets the font size to 11pt
+%% twoside            if you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% for two-sided theses, specify 'twoside' and 'openright' as options
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% dutch        (or english) sets the document main language. Determines logo
-%%              and copyright etc. language. Can be overridden locally for the text
-%%              using \selectlanguage or \foreignlanguage (see babel package)
-%% coverbg		adds a coloured background area to the cover page
-%% neutralcolors uses ugent colour scheme instead of faculty colors
+%% surnamefirst       format all names as "surname firstname"
+%%                    instead of "firstname surname"
+%% *default
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -1029,22 +1046,26 @@
 \end{document}
 %</bmt-example1> 
 %<*bmt-example2> 
-
-%% bw           specifies the faculty abbreviation
-%% a4paper      specifies the paper format
-%% 11pt         sets the font size to 11pt, i.e. a good average
-%% twoside      if you want a two-sided document, change to oneside if you
-%%              want a recto only document
-%% openright    causes you chapters to start on a right-hand page when
-%%              your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options 
 \documentclass[bw,11pt,twoside,openright,surnamefirst,dutch]{ugentthesis}
+%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      uses ugent colour scheme instead of faculty colors
+%% coverbg            adds a coloured background area to the cover page
+%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
+%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%% 11pt               sets the font size to 11pt
+%% twoside            if you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% for two-sided theses, specify 'twoside' and 'openright' as options
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% dutch        (or english) sets the document main language. Determines logo
-%%              and copyright etc. language. Can be overridden locally for the text
-%%              using \selectlanguage or \foreignlanguage (see babel package)
-%% coverbg		adds a coloured background area to the cover page
-%% neutralcolors uses ugent colour scheme instead of faculty colors
+%% surnamefirst       format all names as "surname firstname"
+%%                    instead of "firstname surname"
+%% *default
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -1213,28 +1234,31 @@ e^{-j\pi} + 1 = 0
 % \paragraph{Dutch}
 % \begin{verbatim}
 %<*phd-example1> 
-
-%% we            specifies the faculty, change to the letter combination of
-%%               your faculty
-%% 10pt          sets the font size, 10pt is ok for a phd manuscript
-%% twoside       if you want a two-sided document, change to oneside if you
-%%               want a recto only document
-%% openright     causes you chapters to start on a right-hand page when
-%%               your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options 
 \documentclass[we,10pt,twoside,openright,surnamefirst,dutch]{ugentdissertation}
+%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      uses ugent colour scheme instead of faculty colors
+%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
+%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%% 10pt               sets the font size to 10pt
+%% twoside            if you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% for two-sided theses, specify 'twoside' and 'openright' as options
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% cameraready   this option will embed the official 24 cm x 18 cm
-%%               in anto A4 page and trigger alignment marks and cut-lines
-%%               for your printing service - check whether they want this.
-%%               This will also apply to the generated bookcover file.
-%% bare          this option removes front and back cover. Many
-%%               print services require this format for the contents.
-%% surnamefirst  format all names as "surname firstname" 
-%%               instead of "firstname surname"
-%% dutch         (or english) sets the document main language. Determines logo
-%%               and copyright etc. language. Can be overridden locally for the text
-%%               using \selectlanguage or \foreignlanguage (see babel package)
+%% surnamefirst       format all names as "surname firstname"
+%%                    instead of "firstname surname"
+%% cameraready        this option will embed the official 24 cm x 18 cm
+%%                    in anto A4 page and trigger alignment marks and cut-lines
+%%                    for your printing service - check whether they want this.
+%%                    This will also apply to the generated bookcover file.
+%% bare               this option removes front and back cover. Many
+%%                    print services require this format for the contents.
+%% *default
 
 %% You may want to use common fonts such as arial (still within house style)
 %% If you override font here, you also need to adjust it in the bookcover file!
@@ -1406,27 +1430,40 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 % \begin{verbatim}
 %<*phd-example2> 
 \documentclass[bw,10pt,twoside,openright,cameraready]{ugentdissertation}
-
-%% bw            specifies the faculty, change to the letter combination of
-%%               your faculty. BW has a special cover design.
-%% 10pt          sets the font size, 10pt is ok for a phd manuscript
-%% twoside       if you want a two-sided document, change to oneside if you
-%%               want a recto only document
-%% openright     causes you chapters to start on a right-hand page when
-%%               your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options 
+%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      uses ugent colour scheme instead of faculty colors
+%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
+%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%% 10pt               sets the font size to 10pt
+%% twoside            if you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% for two-sided theses, specify 'twoside' and 'openright' as options
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% cameraready   this option will embed the official 24 cm x 18 cm
-%%               in anto A4 page and trigger alignment marks and cut-lines
-%%               for your printing service - check whether they want this.
-%%               This will also apply to the generated bookcover file.
-%% bare          this option removes front and back cover. Many
-%%               print services require this format for the contents.
-%% surnamefirst  format all names as "surname firstname" 
-%%               instead of "firstname surname"
-%% dutch         (or english) sets the document main language. Determines logo
-%%               and copyright etc. language. Can be overridden locally for the text
-%%               using \selectlanguage or \foreignlanguage (see babel package)
+%% surnamefirst       format all names as "surname firstname"
+%%                    instead of "firstname surname"
+%% cameraready        this option will embed the official 24 cm x 18 cm
+%%                    in anto A4 page and trigger alignment marks and cut-lines
+%%                    for your printing service - check whether they want this.
+%%                    This will also apply to the generated bookcover file.
+%% bare               this option removes front and back cover. Many
+%%                    print services require this format for the contents.
+%% *default
+
+%% You may want to use common fonts such as arial (still within house style)
+%%\setmainfont{Arial}[
+%%BoldFont           = {Arial},
+%%BoldFeatures       = {FakeBold=2.5},
+%%ItalicFont         = {Arial},
+%%ItalicFeatures     = {FakeSlant=0.15},
+%%BoldItalicFont     = {Arial},
+%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%%]
 
 %% this is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
@@ -1588,20 +1625,28 @@ Department of Biotechnology}
 % \begin{verbatim}
 %<*rp-example1>
 \documentclass[bw,10pt,twoside,openright,dutch,coverbg]{ugentreport}
-%% 10pt          sets the font size, 10pt is ok for a phd manuscript
-%% twoside       if you want a two-sided document, change to oneside if you
-%%               want a recto only document
-%% openright     causes you chapters to start on a right-hand page when
-%%               your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options 
+%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      uses ugent colour scheme instead of faculty colors
+%% coverbg            adds a coloured background area to the cover page
+%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
+%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%% 10pt               sets the font size to 10pt
+%% twoside            if you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% for two-sided theses, specify 'twoside' and 'openright' as options
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% dutch         (or english) sets the document main language. Determines logo
-%%               and copyright etc. language. Can be overridden locally for the text
-%%               using \selectlanguage or \foreignlanguage (see babel package)
+%% surnamefirst       format all names as "surname firstname"
+%%                    instead of "firstname surname"
+%% copyright          prints a copyright watermark
+%% *default
 
-%% You may want to use common fonts
-%% Just an example of font-scheme: this is in no way a recommended font
-%% scheme!
+%% You may want to use common fonts such as arial (still within house style)
 %%\setmainfont{Arial}[
 %%BoldFont           = {Arial},
 %%BoldFeatures       = {FakeBold=2.5},
@@ -1695,20 +1740,28 @@ e^{-j\pi} + 1 = 0
 %</rp-example1> 
 %<*rp-example2>
 \documentclass[10pt,oneside,openany]{ugentreport}
-%% 10pt          sets the font size, 10pt is ok for a phd manuscript
-%% twoside       if you want a two-sided document, change to oneside if you
-%%               want a recto only document
-%% openright     causes you chapters to start on a right-hand page when
-%%               your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options 
+%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      uses ugent colour scheme instead of faculty colors
+%% coverbg            adds a coloured background area to the cover page
+%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
+%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%% 10pt               sets the font size to 10pt
+%% twoside            if you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% for two-sided theses, specify 'twoside' and 'openright' as options
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% dutch         (or english) sets the document main language. Determines logo
-%%               and copyright etc. language. Can be overridden locally for the text
-%%               using \selectlanguage or \foreignlanguage (see babel package)
+%% surnamefirst       format all names as "surname firstname"
+%%                    instead of "firstname surname"
+%% copyright          prints a copyright watermark
+%% *default
 
-%% You may want to use common fonts
-%% Just an example of font-scheme: this is in no way a recommended font
-%% scheme!
+%% You may want to use common fonts such as arial (still within house style)
 \setmainfont{Arial}[
 BoldFont           = {Arial},
 BoldFeatures       = {FakeBold=2.5},
@@ -1848,19 +1901,22 @@ Minute taker}}\\
 %
 % \begin{verbatim}
 %<*le-example> 
-\documentclass[bw,a4paper]{ugentletter}
+\documentclass[bw]{ugentletter}
+%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      uses ugent colour scheme instead of faculty colors
+%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
+%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%% 11pt               sets the font size
+%% surnamefirst       format all names as "surname firstname"
+%%                    instead of "firstname surname"
+%% nofoldline         this suppresses the foldline
+%% *default
 
-%% ti           specifies the department, change to the letter combination of
-%%              your department
-%% a4paper      specifies the paper format
-%% nofoldline   this suppresses the foldline
-%% dutch        (or english) sets the document main language. Determines logo
-%%              and copyright etc. language. Can be overridden locally for the text
-%%              using \selectlanguage or \foreignlanguage (see babel package)
-%%
-%% As a good UAntwerpen citizen, you would use the calibri font.
-%% As this only works for XeLaTeX or LuaLaTeX, we chose to include
-%% cmbright in any other case.
+%% You may want to use common fonts such as arial (still within house style)
 \setmainfont{Arial}[
 BoldFont           = {Arial},
 BoldFeatures       = {FakeBold=2.5},
@@ -2024,9 +2080,15 @@ their details enclosed.
 %%              and copyright etc. language. Can be overridden locally for the text
 %%              using \selectlanguage or \foreignlanguage (see babel package)
 
-%% select a font you like
-%\usepackage{newpxtext}
-%\usepackage{newpxmath}
+%% You may want to use common fonts such as arial (still within house style)
+%%\setmainfont{Arial}[
+%%BoldFont           = {Arial},
+%%BoldFeatures       = {FakeBold=2.5},
+%%ItalicFont         = {Arial},
+%%ItalicFeatures     = {FakeSlant=0.15},
+%%BoldItalicFont     = {Arial},
+%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%%]
 
 %% this package eases numbering of subquestions
 \usepackage{enumitem}
@@ -2184,9 +2246,15 @@ een b\'echamel saus:
 %%              and copyright etc. language. Can be overridden locally for the text
 %%              using \selectlanguage or \foreignlanguage (see babel package)
 
-%% select a font you like
-%\usepackage{newpxtext}
-%\usepackage{newpxmath}
+%% You may want to use common fonts such as arial (still within house style)
+%%\setmainfont{Arial}[
+%%BoldFont           = {Arial},
+%%BoldFeatures       = {FakeBold=2.5},
+%%ItalicFont         = {Arial},
+%%ItalicFeatures     = {FakeSlant=0.15},
+%%BoldItalicFont     = {Arial},
+%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%%]
 
 %% this package eases numbering of subquestions
 \usepackage{enumitem}
@@ -2928,7 +2996,7 @@ een b\'echamel saus:
 %
 %
 % We execute some standard options:
-% We load the |book| class for course texts, reports, bachelor and master theses, andPhD dissertations.
+% We load the |book| class for course texts, reports, bachelor and master theses, and PhD dissertations.
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp>
 \input{ugentcommon.clo}
