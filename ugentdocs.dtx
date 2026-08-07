@@ -709,7 +709,7 @@
 % \changes{v2.5}{}{changed publisher to universitas in example}
 % \begin{verbatim}
 %<*crs-example> 
-\documentclass[bw,a4paper,11pt,oneside,openright,cameraready, dutch]
+\documentclass[bw,11pt,oneside,openright, dutch]
               {ugentcourse}
 
 %% ti           specifies the department, change to the letter combination of
@@ -853,7 +853,6 @@
 %
 % \begin{verbatim}
 %<*bmt-example1> 
-\documentclass[bw,a4paper,11pt,twoside,openright,coverbg,neutralcolors]{ugentthesis}
 
 %% bw           specifies the faculty abbreviation
 %% a4paper      specifies the paper format
@@ -863,6 +862,7 @@
 %% openright    causes you chapters to start on a right-hand page when
 %%              your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options 
+\documentclass[bw,11pt,twoside,openright,coverbg,neutralcolors]{ugentthesis}
 %% for one-sided theses, specify 'oneside' and 'openany' as options
 %% dutch        (or english) sets the document main language. Determines logo
 %%              and copyright etc. language. Can be overridden locally for the text
@@ -1029,7 +1029,6 @@
 \end{document}
 %</bmt-example1> 
 %<*bmt-example2> 
-\documentclass[bw,a4paper,11pt,twoside,openright,dutch]{ugentthesis}
 
 %% bw           specifies the faculty abbreviation
 %% a4paper      specifies the paper format
@@ -1039,6 +1038,7 @@
 %% openright    causes you chapters to start on a right-hand page when
 %%              your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options 
+\documentclass[bw,11pt,twoside,openright,surnamefirst,dutch]{ugentthesis}
 %% for one-sided theses, specify 'oneside' and 'openany' as options
 %% dutch        (or english) sets the document main language. Determines logo
 %%              and copyright etc. language. Can be overridden locally for the text
@@ -1213,7 +1213,6 @@ e^{-j\pi} + 1 = 0
 % \paragraph{Dutch}
 % \begin{verbatim}
 %<*phd-example1> 
-\documentclass[we,10pt,twoside,openright,surnamefirst, dutch]{ugentdissertation}
 
 %% we            specifies the faculty, change to the letter combination of
 %%               your faculty
@@ -1223,6 +1222,7 @@ e^{-j\pi} + 1 = 0
 %% openright     causes you chapters to start on a right-hand page when
 %%               your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options 
+\documentclass[we,10pt,twoside,openright,surnamefirst,dutch]{ugentdissertation}
 %% for one-sided theses, specify 'oneside' and 'openany' as options
 %% cameraready   this option will embed the official 24 cm x 18 cm
 %%               in anto A4 page and trigger alignment marks and cut-lines
@@ -2932,7 +2932,7 @@ een b\'echamel saus:
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp>
 \input{ugentcommon.clo}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption, a4paper}{book}}
 \ExecuteOptions{a4paper,11pt,final,oneside,openright}
 \ProcessOptions\relax
 \LoadClass{book}
@@ -2953,12 +2953,28 @@ een b\'echamel saus:
   \setlength\@markerlength{0mm}
 \fi
 
-\PassOptionsToClass{
-	coverheight=24cm,
-	coverwidth=16cm,
-	bleedwidth=\the\@bleedspace,
-	marklength=\the\@markerlength
-}{bookcover}
+\ExplSyntaxOn  
+\exp_args:Nx \str_case:nnF { \@covertype } {
+	{ dissertation }    {
+		\PassOptionsToClass{
+			coverheight=24cm,
+			coverwidth=16cm,
+			bleedwidth=\the\@bleedspace,
+			marklength=\the\@markerlength
+		}{bookcover}
+	}
+	{ course }     {
+		\PassOptionsToClass{
+			coverheight=29.7cm,
+			coverwidth=21cm,
+			bleedwidth=\the\@bleedspace,
+			marklength=\the\@markerlength
+		}{bookcover}
+	}
+}{
+	\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
+}
+\ExplSyntaxOff
 \LoadClass{bookcover}
 %</bkc>
 % We load the |letter| class for letters
@@ -2998,7 +3014,8 @@ een b\'echamel saus:
 % Following the report office template:
 %    \begin{macrocode}
 %<*crs|rp|ex>      
-\RequirePackage[top=2.54cm, bottom=2.54cm, left=2.12cm, right=2.97cm]{geometry}
+\RequirePackage[paperwidth=210mm,paperheight=297mm,
+				top=2.54cm, bottom=2.54cm, left=2.12cm, right=2.97cm]{geometry}
 %</crs|rp|ex>
 % Margin glue provision for PhD:
 %<*phd>
@@ -3008,7 +3025,8 @@ een b\'echamel saus:
 %</phd>
 % Following the bachelor's and master's theses office template:
 %<*bmt>      
-\RequirePackage[top=2.54cm, bottom=2.54cm, left=2.12cm, right=2.12cm]{geometry}
+\RequirePackage[paperwidth=210mm,paperheight=297mm,
+				top=2.54cm, bottom=2.54cm, left=2.12cm, right=2.12cm]{geometry}
 %</bmt>
 % Following letter office template:
 %<*le>      
