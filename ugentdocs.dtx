@@ -780,7 +780,7 @@
 
 %% you can specify additional copyright notices on the copyright page
 %% (i.e. the back of the title page)
-\copyrightnotices{
+\extranotices{%
   The graphics in this document have been typeset using \texttt{TikZ}.\\
   This document has been \TeX-ed on a GNU/Linux workstation.
 }
@@ -4681,26 +4681,46 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\end{minipage}
 }
 %</phd>
-%<*crs|rp>
+%<*crs>
 \renewcommand{\@copyrightnotices}{
+	\null\par
+	\vspace*{\stretch{1}}
 	{
-		\vspace*{\stretch{1}}
+	\setlength\parindent{0em}
+	\translatekey{version}~\@courseversion\\
+	\printcourseswithcodes{\\}{\\}{\\}
+	\ifauthorsempty{}{
+		\vskip 1em
+		\authorscaption{}:~\printauthors{~\&~}{,~}{\translatekey{andlist}~}
+	}
+	
+	\translatekey{typeset}~\LaTeX{}~\translatekey[lowercase]{and}~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
+	\@extranotices
+		
+	\vskip 1em
+	\@publisher\\
+	\@publishercode
+		
+	\vskip 1em
+	\copyright{}~\the\year~\translatekey{org-ugent},
+	\translatekey[lowercase]{arr}.
+	}
+}
+%</crs>
+%<*rp>
+\renewcommand{\@copyrightnotices}{
+	\null\par
+	\vspace*{\stretch{1}}
+	{
 		\setlength\parindent{0em}
-		This document has been typeset using \LaTeX{} and the
-		\texttt{ugentdocs} package.\\
+		\translatekey{typeset}~\LaTeX{}~\translatekey[lowercase]{and}~\translatekey[lowercase]{the-de}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
 		\@extranotices
-		
-%</crs|rp>
-%<crs>    \@courseversion
-%<*crs|rp>
-		
-		CONFIDENTIAL AND PROPRIETARY.
 		
 		\copyright{}~\the\year~\translatekey{org-ugent},
 		\translatekey[lowercase]{arr}.
 	}
 }
-%</crs|rp>
+%</rp>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -6009,10 +6029,23 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	% Only 1 page: Copyrightnotices
 	\clearpage
 	\ifx\@copyrightnotices\@empty\else
-		\@copyrightnotices
+		\noindent\@copyrightnotices
 		\clearpage
 	\fi
 %</bmt|rp>
+%<*crs>
+	~\par\relax
+    % Only 1 page: Copyrightnotices
+    \clearpage
+    \if@copyright
+    \backgroundsetup{contents={Copyright Ghent University, All Rights Reserved}}
+    \fi
+    \null\vfill
+    \ifx\@copyrightnotices\@empty\else
+	    \@copyrightnotices
+	    \clearpage
+    \fi
+%</crs>
 %<*phd>
 	\endgroup
 	\setcounter{page}{0}%
