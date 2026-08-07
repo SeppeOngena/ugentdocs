@@ -6277,7 +6277,9 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \begin{macrocode}
 %<*bkc>
 \newbookcovercomponenttype{title}{
-	\vspace{19.375mm+2em}\centering
+	\newlength{\@HST}  % Height spine title
+	\pgfmathsetlength{\@HST}{3*\gridunit}
+	\vspace{\@HST}\centering
 	\rotatebox[origin=c]{-90}{%
 		\begin{tabular}{@{}l@{}}
 			{\renewcommand{\\}[1][]{~}%
