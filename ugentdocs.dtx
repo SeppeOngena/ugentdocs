@@ -736,7 +736,7 @@
 
 %% set title, subtitle and author
 \title{Z\'agen, zoeken en zuchten}
-\subtitle{Cursusnota's}
+\subtitle{Course unit}
 \author{}{Daems, Walter}{}
 \author{}{Levrie, Paul}{}
 
@@ -748,7 +748,6 @@
 %% mention who lectures the course (can be different from the author)
 \lecturer{}{Zo\"ekers, Zoltan}{}
 \lecturer{}{Sigh, Siana}{}
-\lecturer{}{de Z\'ager, Zeger}{}
 
 %% you can use two ways to specify a dgree:
 %% (1) explicitly with text
@@ -2444,31 +2443,34 @@ een b\'echamel saus:
 	\DeclareOption{rgb}{\renewcommand*\colormodel{rgb}\@cmykfalse} 
 
 
-\newcommand*\fselector{}
+\AtBeginDocument{
+	\newfontface\logotextface{UGent Panno Text Medium}[LetterSpace=-0.75]
+	\newfontface\logosubtextface{UGent Panno Text SemiLight}[LetterSpace=0.1]
+}
 
 % Faculty logo spacing and text
-
-\newcommand*\ficon{}
+\newcommand*\@fselector{}
+\newcommand*\@ficonpath{}
 \newcommand*\@faclogo[3]{}
 
 \ExplSyntaxOn
- \NewDocumentCommand{\flogotext}{}{
+ \NewDocumentCommand{\@flogotext}{}{
  	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
  	\translatekey[uppercase]{faculty}%
  	\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
  	{~\translatekey[uppercase]{facultyof}}%
- 	{~\translatekey[uppercase,expand]{org-\fselector}}%
+ 	{~\translatekey[uppercase,expand]{org-\@fselector}}%
 }
 \ExplSyntaxOff
 
-\newcommand*\flogosubtext{~}
+\newcommand*\@flogosubtext{~}
 
-\newlength\logounit			\setlength\logounit			{0.75cm}
-\newlength\ficonw			\setlength\ficonw			{\logounit}
-\newlength\flogospace		\setlength\flogospace		{0.116cm}
-\newlength\ftextmarginextra	\setlength\ftextmarginextra	{0mm}
-\newlength\ftextwen
-\newlength\ftextwnl
+\newlength\@logounit			\setlength\@logounit			{0.75cm}
+\newlength\@ficonw				\setlength\@ficonw				{\@logounit}
+\newlength\@flogospace			\setlength\@flogospace			{0.116cm}
+\newlength\@ftextmarginextra	\setlength\@ftextmarginextra	{0mm}
+\newlength\@ftextwen
+\newlength\@ftextwnl
 
 \ExplSyntaxOn
 \NewDocumentCommand{\@faculty}{}{
@@ -2476,53 +2478,53 @@ een b\'echamel saus:
   \translatekey{faculty}%
   \tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
   {~\translatekey[lowercase]{facultyof}}%
-  {~\translatekey[expand]{org-\fselector}}%
+  {~\translatekey[expand]{org-\@fselector}}%
 }
 
 \DeclareOption{bw}{
-  \renewcommand*\fselector{bw}
-  \renewcommand*\ficon{
+  \renewcommand*\@fselector{bw}
+  \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (10.63, 13.2).. controls (9.21, 13.2) and (8.06, 12.05) .. (8.06, 10.63).. controls (8.06, 9.21) and (9.21, 8.06) .. (10.63, 8.06).. controls (12.05, 8.06) and (13.2, 9.21) .. (13.2, 10.63).. controls (13.2, 12.05) and (12.05, 13.2) .. (10.63, 13.2) -- cycle(11.95, 10.63).. controls (11.95, 9.9) and (11.36, 9.31) .. (10.63, 9.31).. controls (9.9, 9.31) and (9.3, 9.9) .. (9.3, 10.63).. controls (9.3, 11.36) and (9.9, 11.96) .. (10.63, 11.96).. controls (11.36, 11.96) and (11.95, 11.36) .. (11.95, 10.63);			
   	\path[nonzero~rule,line~width=0.1pt] (16.01, 20.1).. controls (14.59, 20.1) and (13.44, 18.95) .. (13.44, 17.53).. controls (13.44, 16.11) and (14.59, 14.96) .. (16.01, 14.96).. controls (17.43, 14.96) and (18.58, 16.11) .. (18.58, 17.53).. controls (18.58, 18.95) and (17.43, 20.1) .. (16.01, 20.1) -- cycle(17.34, 17.53).. controls (17.34, 16.8) and (16.74, 16.2) .. (16.01, 16.2).. controls (15.28, 16.2) and (14.69, 16.8) .. (14.69, 17.53).. controls (14.69, 18.26) and (15.28, 18.85) .. (16.01, 18.85).. controls (16.74, 18.85) and (17.34, 18.26) .. (17.34, 17.53);
   	\path[nonzero~rule,line~width=0.1pt] (10.63, 20.01).. controls (10.92, 20.01) and (11.2, 19.99) .. (11.49, 19.97) -- (11.6, 21.21).. controls (11.28, 21.24) and (10.96, 21.26) .. (10.63, 21.26).. controls (4.76, 21.26) and (-0.0, 16.5) .. (-0.0, 10.63).. controls (-0.0, 4.76) and (4.76, 0.0) .. (10.63, 0.0).. controls (16.5, 0.0) and (21.26, 4.76) .. (21.26, 10.63).. controls (21.26, 11.86) and (21.04, 13.04) .. (20.66, 14.14) -- (19.48, 13.72).. controls (19.82, 12.75) and (20.01, 11.72) .. (20.01, 10.63).. controls (20.01, 5.45) and (15.81, 1.25) .. (10.63, 1.25).. controls (5.45, 1.25) and (1.25, 5.45) .. (1.25, 10.63).. controls (1.25, 15.81) and (5.45, 20.01) .. (10.63, 20.01);  	
   	\path[nonzero~rule,line~width=0.1pt] (10.63, 17.52).. controls (10.84, 17.52) and (11.05, 17.51) .. (11.26, 17.49) -- (11.37, 18.73).. controls (11.13, 18.75) and (10.88, 18.77) .. (10.63, 18.77).. controls (6.14, 18.77) and (2.49, 15.12) .. (2.49, 10.63).. controls (2.49, 6.14) and (6.14, 2.49) .. (10.63, 2.49).. controls (15.12, 2.49) and (18.77, 6.14) .. (18.77, 10.63).. controls (18.77, 11.57) and (18.6, 12.47) .. (18.3, 13.31) -- (17.13, 12.9).. controls (17.38, 12.19) and (17.52, 11.43) .. (17.52, 10.63).. controls (17.52, 6.83) and (14.43, 3.74) .. (10.63, 3.74).. controls (6.83, 3.74) and (3.74, 6.83) .. (3.74, 10.63).. controls (3.74, 14.43) and (6.83, 17.52) .. (10.63, 17.52);
   }
-  \RenewDocumentCommand{\flogotext}{}{
+  \RenewDocumentCommand{\@flogotext}{}{
   	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
   	\translatekey[uppercase]{faculty}%
   	\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
   	{~\translatekey[uppercase]{facultyof}}\newline%
-  	{~\translatekey[uppercase,expand]{org-\fselector}}%
+  	{~\translatekey[uppercase,expand]{org-\@fselector}}%
   }
-  \setlength\ftextwen{6\logounit}
-  \setlength\ftextwnl{8\logounit}
+  \setlength\@ftextwen{6\@logounit}
+  \setlength\@ftextwnl{8\@logounit}
 }
 \DeclareOption{di}{
-	\renewcommand*\fselector{di}
-	\renewcommand*\ficon{
+	\renewcommand*\@fselector{di}
+	\renewcommand*\@ficonpath{
 		\path[nonzero~rule,line~width=0.1pt] (9.23, 8.22).. controls (6.84, 6.21) and (5.24, 3.3) .. (4.99, -0.0) -- (6.24, -0.0).. controls (6.49, 2.92) and (7.92, 5.5) .. (10.04, 7.28) -- (9.23, 8.22);
 		\path[nonzero~rule,line~width=0.1pt] (11.14, 12.31).. controls (6.3, 10.2) and (2.84, 5.53) .. (2.49, -0.0) -- (3.74, -0.0).. controls (4.09, 5.02) and (7.25, 9.27) .. (11.66, 11.18) -- (11.14, 12.31);
 		\path[nonzero~rule,line~width=0.1pt] (16.57, 20.06) -- (12.45, 15.4).. controls (5.54, 13.53) and (0.4, 7.4) .. (-0.0, -0.0) -- (1.25, -0.0).. controls (1.65, 6.96) and (6.58, 12.7) .. (13.14, 14.31) -- (15.93, 17.46) -- (19.66, 2.47) -- (16.55, 2.47) -- (13.6, 6.0) -- (12.64, 5.21) -- (15.97, 1.22) -- (21.26, 1.22) -- (16.57, 20.06);
 	}
-	\renewcommand*\flogosubtext{accredited~by~EAEVE}
-	\setlength\ftextwen{5\logounit}
-	\setlength\ftextwnl{5\logounit}
+	\renewcommand*\@flogosubtext{accredited~by~EAEVE}
+	\setlength\@ftextwen{5\@logounit}
+	\setlength\@ftextwnl{5\@logounit}
 }
 \DeclareOption{ea}{
-  \renewcommand*\fselector{ea}
-  \renewcommand*\ficon{
+  \renewcommand*\@fselector{ea}
+  \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (0.0, 0.0) -- (1.25, 0.0) -- (1.25, 3.68) -- (0.0, 3.68) -- (0.0, 0.0);
   	\path[nonzero~rule,line~width=0.1pt] (2.49, 0.0) -- (3.74, 0.0) -- (3.74, 8.22) -- (2.49, 8.22) -- (2.49, 0.0);
   	\path[nonzero~rule,line~width=0.1pt] (4.99, 0.0) -- (6.24, 0.0) -- (6.24, 12.76) -- (4.99, 12.76) -- (4.99, -0.0);
   	\path[nonzero~rule,line~width=0.1pt] (8.33, 21.26) -- (7.48, 21.26) -- (7.48, 0.0) -- (8.73, 0.0) -- (8.73, 19.09) -- (15.76, 12.06) -- (15.76, -0.0) -- (17.01, -0.0) -- (17.01, 12.58) -- (8.33, 21.26);
   }
-  \setlength\ficonw{0.6cm}
-  \setlength\ftextwen{6\logounit}
-  \setlength\ftextwnl{9\logounit}
+  \setlength\@ficonw{0.6cm}
+  \setlength\@ftextwen{6\@logounit}
+  \setlength\@ftextwnl{9\@logounit}
 }
 \DeclareOption{re}{
-  \renewcommand*\fselector{re}
-  \renewcommand*\ficon{
+  \renewcommand*\@fselector{re}
+  \renewcommand*\@ficonpath{
 	  \path[nonzero~rule,line~width=0.1pt] (8.66, 4.99) -- (4.92, 13.18) -- (3.73, 13.18) -- (-0.0, 4.99) -- (1.37, 4.99) -- (4.33, 11.48) -- (7.29, 4.99) -- (8.66, 4.99);
 	  \path[nonzero~rule,line~width=0.1pt] (21.26, 4.99) -- (17.53, 13.18) -- (16.34, 13.18) -- (12.6, 4.99) -- (13.97, 4.99) -- (16.93, 11.48) -- (19.89, 4.99) -- (21.26, 4.99);
 	  \path[nonzero~rule,line~width=0.1pt] (8.66, 1.25) -- (-0.0, 1.25) -- (1.25, 0.0) -- (7.41, 0.0) -- (8.66, 1.25);
@@ -2532,20 +2534,20 @@ een b\'echamel saus:
 	  \path[nonzero~rule,line~width=0.1pt] (21.26, 3.74) -- (12.6, 3.74) -- (12.6, 2.49) -- (21.26, 2.49) -- (21.26, 3.74);
 	  \path[nonzero~rule,line~width=0.1pt] (12.6, 21.26) -- (8.66, 21.26) -- (8.66, 20.01) -- (10.01, 20.01) -- (10.01, 16.92) -- (11.25, 16.92) -- (11.25, 20.01) -- (12.6, 20.01) -- (12.6, 21.26);
 	}
-	\RenewDocumentCommand{\flogotext}{}{
+	\RenewDocumentCommand{\@flogotext}{}{
 		\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
 		\translatekey[uppercase]{faculty}%
 		\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
 		{~\translatekey[uppercase]{facultyof}}\newline%
-		{~\translatekey[uppercase,expand]{org-\fselector}}%
+		{~\translatekey[uppercase,expand]{org-\@fselector}}%
 	}
-	\setlength\ftextwen{5\logounit}
-	\setlength\ftextwnl{6\logounit}
-	\setlength\ftextmarginextra{0.1cm}
+	\setlength\@ftextwen{5\@logounit}
+	\setlength\@ftextwnl{6\@logounit}
+	\setlength\@ftextmarginextra{0.1cm}
 }
 \DeclareOption{we}{
-  \renewcommand*\fselector{we}
-  \renewcommand*\ficon{
+  \renewcommand*\@fselector{we}
+  \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (9.96, 6.85).. controls (9.33, 6.47) and (8.61, 6.24) .. (7.82, 6.24).. controls (5.57, 6.24) and (3.74, 8.06) .. (3.74, 10.32).. controls (3.74, 11.78) and (4.53, 13.05) .. (5.69, 13.77) -- (4.79, 14.67).. controls (3.41, 13.71) and (2.49, 12.13) .. (2.49, 10.32).. controls (2.49, 7.37) and (4.88, 4.99) .. (7.82, 4.99).. controls (9.44, 4.99) and (10.86, 5.72) .. (11.84, 6.85) -- (9.96, 6.85);
   	\path[nonzero~rule,line~width=0.1pt] (13.4, 6.85).. controls (12.24, 4.99) and (10.18, 3.74) .. (7.82, 3.74).. controls (4.19, 3.74) and (1.25, 6.69) .. (1.25, 10.32).. controls (1.25, 12.47) and (2.29, 14.37) .. (3.89, 15.57) -- (3.0, 16.46).. controls (1.18, 15.02) and (-0.0, 12.81) .. (-0.0, 10.32).. controls (-0.0, 6.0) and (3.5, 2.49) .. (7.82, 2.49).. controls (10.9, 2.49) and (13.55, 4.27) .. (14.83, 6.85) -- (13.4, 6.85);
   	\path[nonzero~rule,line~width=0.1pt] (2.6, 18.62) -- (7.21, 14.01) -- (8.09, 14.89) -- (3.48, 19.5) -- (2.6, 18.62);
@@ -2554,43 +2556,43 @@ een b\'echamel saus:
   	\path[nonzero~rule,line~width=0.1pt] (9.63, 8.1) -- (15.87, 8.1) -- (15.87, 9.34) -- (9.63, 9.34) -- (9.63, 8.1);
   	\path[nonzero~rule,line~width=0.1pt] (2.53, 0.0) -- (13.12, 0.0) -- (11.87, 1.25) -- (3.78, 1.25) -- (2.53, 0.0);	
    }
-  \setlength\ficonw{0.56cm}
-  \RenewDocumentCommand{\flogotext}{}{
+  \setlength\@ficonw{0.56cm}
+  \RenewDocumentCommand{\@flogotext}{}{
   	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
   	\translatekey[uppercase]{faculty}\newline%
   	\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
   	{~\translatekey[uppercase]{facultyof}}%
-  	{~\translatekey[uppercase,expand]{org-\fselector}}%
+  	{~\translatekey[uppercase,expand]{org-\@fselector}}%
   }
-  \setlength\ftextwen{3\logounit}
-  \setlength\ftextwnl{4\logounit}
+  \setlength\@ftextwen{3\@logounit}
+  \setlength\@ftextwnl{4\@logounit}
 }
 \DeclareOption{pp}{
-  \renewcommand*\fselector{pp}
-  \renewcommand*\ficon{
+  \renewcommand*\@fselector{pp}
+  \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (15.86, 14.19).. controls (15.86, 14.27) and (15.88, 14.35) .. (15.88, 14.43).. controls (15.88, 18.2) and (12.82, 21.26) .. (9.05, 21.26).. controls (5.28, 21.26) and (2.22, 18.2) .. (2.22, 14.43).. controls (2.22, 12.92) and (2.72, 11.54) .. (3.55, 10.41) -- (4.56, 8.96) -- (0.0, 0.0) -- (1.4, 0.0) -- (6.01, 9.07) -- (4.56, 11.14).. controls (3.88, 12.07) and (3.47, 13.2) .. (3.47, 14.43).. controls (3.48, 17.51) and (5.97, 20.01) .. (9.05, 20.01).. controls (12.13, 20.01) and (14.62, 17.51) .. (14.63, 14.43).. controls (14.63, 14.28) and (14.6, 14.13) .. (14.59, 13.99) -- (14.59, 13.99) -- (14.59, 13.98) -- (15.89, 11.05) -- (14.34, 11.05) -- (13.72, 6.96) -- (11.59, 6.96) -- (10.96, 5.72) -- (14.79, 5.72) -- (15.42, 9.8) -- (17.2, 9.8) -- (17.57, 10.32) -- (15.86, 14.19);
 	\path[nonzero~rule,line~width=0.1pt] (7.46, 9.18) -- (2.79, 0.0) -- (4.19, 0.0) -- (8.91, 9.29) -- (6.57, 12.62).. controls (6.19, 13.13) and (5.97, 13.75) .. (5.96, 14.43).. controls (5.97, 16.13) and (7.35, 17.51) .. (9.05, 17.52).. controls (9.08, 17.52) and (9.1, 17.51) .. (9.13, 17.51) -- (9.13, 18.76).. controls (9.1, 18.76) and (9.08, 18.77) .. (9.05, 18.77).. controls (6.66, 18.76) and (4.72, 16.83) .. (4.72, 14.43).. controls (4.72, 13.48) and (5.04, 12.6) .. (5.56, 11.88) -- (7.46, 9.18);
   }
-  \setlength\ficonw{0.62cm}
-  \setlength\ftextwen{6\logounit}
-  \setlength\ftextwnl{7\logounit}
-  \setlength\ftextmarginextra{0.25cm}
+  \setlength\@ficonw{0.62cm}
+  \setlength\@ftextwen{6\@logounit}
+  \setlength\@ftextwnl{7\@logounit}
+  \setlength\@ftextmarginextra{0.25cm}
 }
 \DeclareOption{lw}{
-  \renewcommand*\fselector{lw}
-  \renewcommand*\ficon{
+  \renewcommand*\@fselector{lw}
+  \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (11.25, 7.21).. controls (11.62, 7.42) and (12.05, 7.54) .. (12.5, 7.54) -- (20.01, 7.54) -- (20.01, 20.01) -- (12.5, 20.01).. controls (11.81, 20.01) and (11.25, 19.45) .. (11.25, 18.77) -- cycle(10.01, 18.77).. controls (10.01, 19.45) and (9.45, 20.01) .. (8.76, 20.01) -- (1.25, 20.01) -- (1.25, 7.54) -- (8.76, 7.54).. controls (9.21, 7.54) and (9.64, 7.42) .. (10.01, 7.21) -- cycle(8.76, 6.29) -- (-0.0, 6.29) -- (-0.0, 21.26) -- (8.76, 21.26).. controls (9.51, 21.26) and (10.17, 20.92) .. (10.63, 20.4).. controls (11.09, 20.92) and (11.75, 21.26) .. (12.5, 21.26) -- (21.26, 21.26) -- (21.26, 6.29) -- (12.5, 6.29).. controls (11.75, 6.29) and (11.09, 5.97) .. (10.63, 5.45).. controls (10.17, 5.97) and (9.51, 6.29) .. (8.76, 6.29);
   	\path[nonzero~rule,line~width=0.1pt] (8.76, 5.05).. controls (9.51, 5.05) and (10.17, 4.72) .. (10.63, 4.2).. controls (11.09, 4.72) and (11.75, 5.05) .. (12.5, 5.05) -- (21.26, 5.05) -- (20.01, 3.8) -- (12.5, 3.8).. controls (11.75, 3.8) and (11.09, 3.47) .. (10.63, 2.96).. controls (10.17, 3.47) and (9.51, 3.8) .. (8.76, 3.8) -- (1.25, 3.8) -- (-0.0, 5.05) -- (8.76, 5.05);
   	\path[nonzero~rule,line~width=0.1pt] (8.76, 17.52) -- (2.49, 17.52) -- (2.49, 16.27) -- (8.76, 16.27) -- (8.76, 17.52);
   	\path[nonzero~rule,line~width=0.1pt] (8.76, 15.02) -- (2.49, 15.02) -- (2.49, 13.78) -- (8.76, 13.78) -- (8.76, 15.02);
   	\path[nonzero~rule,line~width=0.1pt] (8.76, 12.53) -- (2.49, 12.53) -- (2.49, 11.28) -- (8.76, 11.28) -- (8.76, 12.53);
   }
-  \setlength\ftextwen{4\logounit}
-  \setlength\ftextwnl{5\logounit}
+  \setlength\@ftextwen{4\@logounit}
+  \setlength\@ftextwnl{5\@logounit}
 }
 \DeclareOption{eb}{
-  \renewcommand*\fselector{eb}
-  \renewcommand*\ficon{
+  \renewcommand*\@fselector{eb}
+  \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (12.47, 7.95) -- (12.47, 2.49) -- (13.72, 2.49) -- (13.72, 7.95) -- (12.47, 7.95);
   	\path[nonzero~rule,line~width=0.1pt] (9.98, 15.91) -- (9.98, 2.49) -- (11.23, 2.49) -- (11.23, 15.91) -- (9.98, 15.91);
   	\path[nonzero~rule,line~width=0.1pt] (7.48, 13.26) -- (7.48, 2.49) -- (8.73, 2.49) -- (8.73, 13.26) -- (7.48, 13.26);
@@ -2598,14 +2600,14 @@ een b\'echamel saus:
   	\path[nonzero~rule,line~width=0.1pt] (2.49, 13.26) -- (2.49, 2.49) -- (3.74, 2.49) -- (3.74, 13.26) -- (2.49, 13.26);
   	\path[nonzero~rule,line~width=0.1pt] (17.52, 1.25) -- (1.25, 1.25) -- (1.25, 21.26) -- (0.0, 21.26) -- (0.0, -0.0) -- (18.77, -0.0) -- (17.52, 1.25);
   }
-  \setlength\ficonw{0.662cm}
-  \setlength\ftextwen{6\logounit}
-  \setlength\ftextwnl{5\logounit}
-  \setlength\ftextmarginextra{0.16cm}
+  \setlength\@ficonw{0.662cm}
+  \setlength\@ftextwen{6\@logounit}
+  \setlength\@ftextwnl{5\@logounit}
+  \setlength\@ftextmarginextra{0.16cm}
  }
 \DeclareOption{ps}{
-  \renewcommand*\fselector{ps}
-  \renewcommand*\ficon{
+  \renewcommand*\@fselector{ps}
+  \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (10.0, 2.5) -- (10.0, 3.75).. controls (8.04, 3.93) and (6.19, 4.94) .. (4.99, 6.64) -- (3.91, 6.02).. controls (5.35, 3.92) and (7.61, 2.68) .. (10.0, 2.5);
   	\path[nonzero~rule,line~width=0.1pt] (10.0, 1.25).. controls (7.18, 1.44) and (4.5, 2.9) .. (2.84, 5.39) -- (1.76, 4.77).. controls (3.66, 1.88) and (6.75, 0.19) .. (10.0, -0.0) -- (10.0, 1.25);
   	\path[nonzero~rule,line~width=0.1pt] (10.0, 5.01) -- (10.0, 6.28).. controls (8.91, 6.44) and (7.9, 6.99) .. (7.18, 7.9) -- (6.08, 7.27).. controls (7.04, 5.96) and (8.47, 5.18) .. (10.0, 5.01);
@@ -2619,35 +2621,77 @@ een b\'echamel saus:
   	\path[nonzero~rule,line~width=0.1pt] (18.42, 5.39).. controls (16.84, 3.04) and (14.24, 1.45) .. (11.25, 1.26) -- (11.25, 0.01).. controls (14.7, 0.21) and (17.7, 2.04) .. (19.5, 4.76) -- (18.42, 5.39);
   	\path[nonzero~rule,line~width=0.1pt] (15.16, 7.27) -- (14.06, 7.9).. controls (13.38, 7.04) and (12.39, 6.44) .. (11.25, 6.28) -- (11.25, 5.0).. controls (12.85, 5.18) and (14.25, 6.03) .. (15.16, 7.27);
   }
-  \setlength\ftextwen{5\logounit}
-  \setlength\ftextwnl{6\logounit}
+  \setlength\@ftextwen{5\@logounit}
+  \setlength\@ftextwnl{6\@logounit}
 }
 \DeclareOption{ge}{
-  \renewcommand*\fselector{ge}
-  \renewcommand*\ficon{
+  \renewcommand*\@fselector{ge}
+  \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (17.44, 9.99) -- (17.68, 8.74) -- (21.26, 8.74) -- (21.26, 9.99) -- (17.44, 9.99);
   	\path[nonzero~rule,line~width=0.1pt] (3.08, 6.25) -- (-0.0, 6.25) -- (-0.0, 5.0) -- (3.32, 5.0) -- (3.08, 6.25);
   	\path[nonzero~rule,line~width=0.1pt] (9.68, 21.26) -- (6.2, 3.28) -- (5.14, 8.75) -- (-0.0, 8.75) -- (-0.0, 7.5) -- (4.11, 7.5) -- (5.56, -0.0) -- (6.83, -0.0) -- (10.95, 21.26) -- (9.68, 21.26);
   	\path[nonzero~rule,line~width=0.1pt] (16.65, 7.5) -- (13.98, 21.26) -- (12.22, 21.26) -- (8.1, -0.0) -- (9.37, -0.0) -- (13.1, 19.25) -- (15.62, 6.25) -- (21.26, 6.25) -- (21.26, 7.5) -- (16.65, 7.5);
   }
-  \setlength\ftextwen{5\logounit}
-  \setlength\ftextwnl{7\logounit}
+  \setlength\@ftextwen{5\@logounit}
+  \setlength\@ftextwnl{7\@logounit}
 }
 \DeclareOption{fw}{
-  \renewcommand*\fselector{fw}
-  \renewcommand*\ficon{
-  	\path[nonzero~rule,line~width=0.1pt] (11.22, 5.61) -- (11.22, 10.01) -- (9.98, 10.01) -- (9.98, 5.61).. controls (9.98, 3.2) and (8.02, 1.25) .. (5.61, 1.25).. controls (3.2, 1.25) and (1.25, 3.2) .. (1.25, 5.61) -- (1.25, 10.01) -- (0.0, 10.01) -- (0.0, 5.61).. controls (0.0, 2.51) and (2.51, -0.0) .. (5.61, -0.0).. controls (8.71, -0.0) and (11.22, 2.51) .. (11.22, 5.61);
-  	\path[nonzero~rule,line~width=0.1pt] (11.22, 15.65) -- (11.22, 11.25) -- (9.98, 11.25) -- (9.98, 15.65).. controls (9.98, 18.06) and (8.02, 20.01) .. (5.61, 20.01).. controls (3.2, 20.01) and (1.25, 18.06) .. (1.25, 15.65) -- (1.25, 11.25) -- (0.0, 11.25) -- (0.0, 15.65).. controls (0.0, 18.75) and (2.51, 21.26) .. (5.61, 21.26).. controls (8.71, 21.26) and (11.22, 18.75) .. (11.22, 15.65);
-  	\path[nonzero~rule,line~width=0.1pt] (6.24, 15.65) -- (6.24, 11.25) -- (4.99, 11.25) -- (4.99, 15.65).. controls (4.99, 15.99) and (5.27, 16.27) .. (5.61, 16.27).. controls (5.96, 16.27) and (6.24, 15.99) .. (6.24, 15.65);
-  	\path[nonzero~rule,line~width=0.1pt] (8.73, 15.65) -- (8.73, 11.25) -- (7.48, 11.25) -- (7.48, 15.65).. controls (7.48, 16.68) and (6.65, 17.52) .. (5.61, 17.52).. controls (4.58, 17.52) and (3.74, 16.68) .. (3.74, 15.65) -- (3.74, 11.25) -- (2.49, 11.25) -- (2.49, 15.65).. controls (2.49, 17.37) and (3.89, 18.77) .. (5.61, 18.77).. controls (7.33, 18.77) and (8.73, 17.37) .. (8.73, 15.65);  	
+  \renewcommand*\@fselector{fw}
+  \renewcommand*\@ficonpath{
+	  	\path[nonzero~rule,line~width=0.1pt] (11.22, 5.61) -- (11.22, 10.01) -- (9.98, 10.01) -- (9.98, 5.61).. controls (9.98, 3.2) and (8.02, 1.25) .. (5.61, 1.25).. controls (3.2, 1.25) and (1.25, 3.2) .. (1.25, 5.61) -- (1.25, 10.01) -- (0.0, 10.01) -- (0.0, 5.61).. controls (0.0, 2.51) and (2.51, -0.0) .. (5.61, -0.0).. controls (8.71, -0.0) and (11.22, 2.51) .. (11.22, 5.61);
+	  	\path[nonzero~rule,line~width=0.1pt] (11.22, 15.65) -- (11.22, 11.25) -- (9.98, 11.25) -- (9.98, 15.65).. controls (9.98, 18.06) and (8.02, 20.01) .. (5.61, 20.01).. controls (3.2, 20.01) and (1.25, 18.06) .. (1.25, 15.65) -- (1.25, 11.25) -- (0.0, 11.25) -- (0.0, 15.65).. controls (0.0, 18.75) and (2.51, 21.26) .. (5.61, 21.26).. controls (8.71, 21.26) and (11.22, 18.75) .. (11.22, 15.65);
+	  	\path[nonzero~rule,line~width=0.1pt] (6.24, 15.65) -- (6.24, 11.25) -- (4.99, 11.25) -- (4.99, 15.65).. controls (4.99, 15.99) and (5.27, 16.27) .. (5.61, 16.27).. controls (5.96, 16.27) and (6.24, 15.99) .. (6.24, 15.65);
+	  	\path[nonzero~rule,line~width=0.1pt] (8.73, 15.65) -- (8.73, 11.25) -- (7.48, 11.25) -- (7.48, 15.65).. controls (7.48, 16.68) and (6.65, 17.52) .. (5.61, 17.52).. controls (4.58, 17.52) and (3.74, 16.68) .. (3.74, 15.65) -- (3.74, 11.25) -- (2.49, 11.25) -- (2.49, 15.65).. controls (2.49, 17.37) and (3.89, 18.77) .. (5.61, 18.77).. controls (7.33, 18.77) and (8.73, 17.37) .. (8.73, 15.65);  	
   }
-  \setlength\ficonw{0.396cm}
-  \setlength\ftextwen{6\logounit}
-  \setlength\ftextwnl{6\logounit}
-  \setlength\ftextmarginextra{0.16cm}
+  \setlength\@ficonw{0.396cm}
+  \setlength\@ftextwen{6\@logounit}
+  \setlength\@ftextwnl{6\@logounit}
+  \setlength\@ftextmarginextra{0.16cm}
 }
 \ExplSyntaxOff
-\newcommand{\ugenticon}{
+
+}
+
+\newcommand*\@facultyacronym{
+	\uppercase{\@fselector}
+}
+
+\newlength{\@ftextw}
+
+\renewcommand*{\@faclogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
+	\ifx\@fselector\@empty\else
+	\pgfmathsetmacro{\@flogoscale}{#1/3/\@logounit}
+	\pgfmathsetmacro{\@flogoxshift}{-#3*(3*\@logounit+\@ftextw)*\@flogoscale}	
+	
+	\begin{scope}[	y=1pt, x=1pt, inner sep=0pt, outer sep=0pt,
+					shift={(\@flogoxshift, 0.0cm)},yscale=\@flogoscale,xscale=\@flogoscale,
+					every node/.append style={scale=\@flogoscale, color=#2} ]
+		%\draw[step=\@logounit,black,thin] (0,0) grid (3*\@logounit+\@ftextw,3*\@logounit); % logo grid
+		\begin{scope}[shift={(\@logounit,\@logounit)},every path/.append style={fill=#2}]
+			\@ficonpath
+		\end{scope}
+		
+		\node[	anchor=south west, align=left,
+		 	  	text width=\@ftextw+\@ftextmarginextra,
+		 		font = \logotextface\fontsize{13.6pt}{12.4pt}\selectfont]
+			 at (\@logounit+\@ficonw+\@flogospace,\@logounit)
+			 {\spaceskip=0.0825cm%
+			 	\nohyphens{\@flogotext}};
+			 
+		\node[	anchor=south west, align=left,
+				text width=\@ftextw,
+		 		font=\logosubtextface\fontsize{7.45pt}{8pt}\selectfont]
+		 	at (\@logounit+\@ficonw+\@flogospace+0.019cm,\@logounit-0.34cm)
+		    {\spaceskip=0.054cm%
+		    	\@flogosubtext};
+	\end{scope}
+	\fi
+}
+
+
+% UGent logos
+
+\newcommand{\@ugenticonpath}{
 	\path[nonzero rule,line width=0.1pt] (11.25, 18.07) -- (10.01, 18.07) -- (10.01, 9.98) -- (11.25, 9.98) -- (11.25, 18.07);
 	\path[nonzero rule,line width=0.1pt] (8.76, 18.07) -- (7.51, 18.07) -- (7.51, 9.98) -- (8.76, 9.98) -- (8.76, 18.07);
 	\path[nonzero rule,line width=0.1pt] (6.27, 18.07) -- (5.02, 18.07) -- (5.02, 9.98) -- (6.27, 9.98) -- (6.27, 18.07);
@@ -2661,67 +2705,27 @@ een b\'echamel saus:
 	\path[nonzero rule,line width=0.1pt] (21.26, 22.58) -- (10.63, 26.35) -- (0.0, 22.58) -- (0.0, 21.26) -- (10.63, 25.02) -- (21.26, 21.26) -- (21.26, 22.58);	
 }
 
-\newcommand*\@facultyacronym{
-	\uppercase{\fselector}
-}
 
-\AtBeginDocument{
-\newfontface\logotextface{UGent Panno Text Medium}[LetterSpace=-0.75]
-\newfontface\logosubtextface{UGent Panno Text SemiLight}[LetterSpace=0.1]
-}
-
-\newlength{\ftextw}
-
-\renewcommand*{\@faclogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
-	\ifx\fselector\@empty\else
-	\pgfmathsetmacro{\flogoscale}{#1/3/\logounit}
-	\pgfmathsetmacro{\flogoxshift}{-#3*(3*\logounit+\ftextw)*\flogoscale}	
-	
-	\begin{scope}[	y=1pt, x=1pt, inner sep=0pt, outer sep=0pt,
-					shift={(\flogoxshift, 0.0cm)},yscale=\flogoscale,xscale=\flogoscale,
-					every node/.append style={scale=\flogoscale, color=#2} ]
-		%\draw[step=\logounit,black,thin] (0,0) grid (3*\logounit+\ftextw,3*\logounit); % logo grid
-		\begin{scope}[shift={(\logounit,\logounit)},every path/.append style={fill=#2}]
-			\ficon
-		\end{scope}
-		
-		\node[	anchor=south west, align=left,
-		 	  	text width=\ftextw+\ftextmarginextra,
-		 		font = \logotextface\fontsize{13.6pt}{12.4pt}\selectfont]
-			 at (\logounit+\ficonw+\flogospace,\logounit)
-			 {\spaceskip=0.0825cm%
-			 	\nohyphens{\flogotext}};
-			 
-		\node[	anchor=south west, align=left,
-				text width=\ftextw,
-		 		font=\logosubtextface\fontsize{7.45pt}{8pt}\selectfont]
-		 	at (\logounit+\ficonw+\flogospace+0.019cm,\logounit-0.34cm)
-		    {\spaceskip=0.054cm%
-		    	\flogosubtext};
-	\end{scope}
-	\fi
-}
-
-\newcommand*\ugentlogotext{}
-\newlength{\ugenttextw}
-\newlength{\ugenttextmarginextra}
+\newcommand*\@ugentlogotext{}
+\newlength{\@ugenttextw}
+\newlength{\@ugenttextmarginextra}
 \ExplSyntaxOn
 \tl_new:N \l_@@_logotext_tmpa_tl
 \tl_new:N \l_@@_logotext_tmpb_tl
 
-\newcommand*\setugentlogotext{
+\newcommand*\@setugentlogotext{
 	\exp_args:Nx \str_case:nnF { \@campus } {
 		{ ugent }    {
-			\renewcommand{\ugentlogotext}{
+			\renewcommand{\@ugentlogotext}{
 				\logotextface\fontsize{13.6pt}{12.5pt}\selectfont
 				\tl_set:Nx \l_@@_logotext_tmpa_tl { \translatekey[uppercase]{org-ugent} }
 				\nohyphens{\l_@@_logotext_tmpa_tl}
 			}
-			\setlength\ugenttextw{3\logounit}
-			\setlength\ugenttextmarginextra{0cm}
+			\setlength\@ugenttextw{3\@logounit}
+			\setlength\@ugenttextmarginextra{0cm}
 		}
 		{ gugc }     {
-			\renewcommand{\ugentlogotext}{
+			\renewcommand{\@ugentlogotext}{
 				\logotextface\fontsize{13.6pt}{12.5pt}\selectfont
 				\tl_set:Nx \l_@@_logotext_tmpa_tl { GHENT~UNIVERSITY }
 				\nohyphens{\l_@@_logotext_tmpa_tl}\\
@@ -2729,11 +2733,11 @@ een b\'echamel saus:
 				\tl_set:Nx \l_@@_logotext_tmpb_tl { GLOBAL~CAMPUS }
 				\nohyphens{\l_@@_logotext_tmpb_tl}
 			}
-			\setlength\ugenttextw{4\logounit}
-			\setlength\ugenttextmarginextra{0.3\logounit}
+			\setlength\@ugenttextw{4\@logounit}
+			\setlength\@ugenttextmarginextra{0.3\@logounit}
 		}
 		{ kortrijk } {
-			\renewcommand{\ugentlogotext}{
+			\renewcommand{\@ugentlogotext}{
 				\logotextface\fontsize{13.6pt}{12.5pt}\selectfont
 				\tl_set:Nx \l_@@_logotext_tmpa_tl { \translatekey[uppercase]{org-ugent} }
 				\nohyphens{\l_@@_logotext_tmpa_tl}\\
@@ -2741,8 +2745,8 @@ een b\'echamel saus:
 				\tl_set:Nx \l_@@_logotext_tmpb_tl { CAMPUS~KORTRĲK }
 				\nohyphens{\l_@@_logotext_tmpb_tl}
 			}
-			\setlength\ugenttextw{4\logounit}
-			\setlength\ugenttextmarginextra{0.3\logounit}
+			\setlength\@ugenttextw{4\@logounit}
+			\setlength\@ugenttextmarginextra{0.3\@logounit}
 		}
 	}{
 		\msg_error:nnn { ugentdocs } { unknown~campus } { \@campus }
@@ -2751,29 +2755,29 @@ een b\'echamel saus:
 \ExplSyntaxOff
 
 \newcommand*{\@ugentlogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
-	\setugentlogotext
-	\pgfmathsetmacro{\logoscale}{#1/4/\logounit}%
-	\pgfmathsetmacro{\logoxshift}{-#3*(\ugenttextw+2*\logounit)*\logoscale}	
+	\@setugentlogotext
+	\pgfmathsetmacro{\@logoscale}{#1/4/\@logounit}%
+	\pgfmathsetmacro{\@logoxshift}{-#3*(\@ugenttextw+2*\@logounit)*\@logoscale}	
 	\begin{scope}[y=1pt, x=1pt,
-		shift={(\logoxshift, 0.0cm)},
-		yscale=\logoscale,xscale=\logoscale, every node/.append style={scale=\logoscale, color=#2}, inner sep=0pt, outer sep=0pt]
-		%\draw[step=\logounit,black,thin] (0,0) grid (5*\logounit,4*\logounit); % logo grid
-		\begin{scope}[shift={(\logounit,2*\logounit)},every path/.append style={fill=#2}]
-			\ugenticon
+		shift={(\@logoxshift, 0.0cm)},
+		yscale=\@logoscale,xscale=\@logoscale, every node/.append style={scale=\@logoscale, color=#2}, inner sep=0pt, outer sep=0pt]
+		%\draw[step=\@logounit,black,thin] (0,0) grid (5*\@logounit,4*\@logounit); % logo grid
+		\begin{scope}[shift={(\@logounit,2*\@logounit)},every path/.append style={fill=#2}]
+			\@ugenticonpath
 		\end{scope}
 		
-		\node[anchor=south west, text width=\ugenttextw+\ugenttextmarginextra, align=left] at (\logounit-0.03cm,\logounit-0.005cm) {\spaceskip=0.0825cm%
-			\ugentlogotext};
+		\node[anchor=south west, text width=\@ugenttextw+\@ugenttextmarginextra, align=left] at (\@logounit-0.03cm,\@logounit-0.005cm) {\spaceskip=0.0825cm%
+			\@ugentlogotext};
 	\end{scope}
 }
 	
 \AtBeginDocument{
   \makeatother
     \addto\captionsdutch{
-    	\setlength{\ftextw}{\ftextwnl}
+    	\setlength{\@ftextw}{\@ftextwnl}
     }
     \addto\captionsenglish{
-    	\setlength{\ftextw}{\ftextwen}
+    	\setlength{\@ftextw}{\@ftextwen}
     }
   \makeatletter
 }
@@ -2820,7 +2824,7 @@ een b\'echamel saus:
 \fi
 
 %%
-\ifx\fselector\@empty
+\ifx\@fselector\@empty
 	\@neutralcolorstrue
 \fi
 \if@neutralcolors
@@ -2831,9 +2835,9 @@ een b\'echamel saus:
 \colorlet{toccolor}{black}
 \colorlet{titlecolor}{ugent@main}
 \else
-\colorlet{maincolor}{ugent@\fselector}
+\colorlet{maincolor}{ugent@\@fselector}
 \colorlet{sidecolor}{white}
-\colorlet{basecolor}{ugent@\fselector!10}
+\colorlet{basecolor}{ugent@\@fselector!10}
 \colorlet{hypercolor}{ugent@main!50!black}
 \colorlet{toccolor}{black}
 \colorlet{titlecolor}{ugent@main}
@@ -4388,8 +4392,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \@tempembargofalse
 
 \ExplSyntaxOn
-\tl_new:N \embargotempstart
-\tl_new:N \embargotempend
+\tl_new:N \@embargotempstart
+\tl_new:N \@embargotempend
 \tl_new:N \l_@@_embargostartdate_tl
 \tl_new:N \l_@@_embargoenddate_tl
 \newcommand*{\embargotemp}[2]{
@@ -4400,11 +4404,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \tl_set:Nx \l_@@_embargoenddate_tl {#2}
   \regex_replace_all:nnN {\s} {\c{space}} \l_@@_embargostartdate_tl
   \regex_replace_all:nnN {\s} {\c{space}} \l_@@_embargoenddate_tl
-  \tl_gset_eq:NN \embargotempstart \l_@@_embargostartdate_tl
-  \tl_gset_eq:NN \embargotempend \l_@@_embargoenddate_tl
+  \tl_gset_eq:NN \@embargotempstart \l_@@_embargostartdate_tl
+  \tl_gset_eq:NN \@embargotempend \l_@@_embargoenddate_tl
 }
 
-\tl_new:N \embargotempwithdates
+\tl_new:N \@embargotempwithdates
 \tl_new:N \l_@@_embargotemp_tl
 \seq_new:N \l_@@_embargosplit_seq
 \cs_new:Nn \_@@_embargosubstitute:nN {
@@ -4414,7 +4418,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\tl_put_right:Nx \l_@@_embargotemp_tl { \exp_not:V #2 }
 	\tl_put_right:Nx \l_@@_embargotemp_tl { \seq_item:Nn \l_@@_embargosplit_seq {2} }
 }
-\newcommand\prepmaketitle{
+\newcommand\@prepmaketitle{
 %</phd|bkc|bmt>
 %<*phd|bkc>
 \tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : embargotempphd }
@@ -4424,9 +4428,9 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %</bmt>
 %<*phd|bkc|bmt>
 \tl_set:Nx \l_@@_embargotemp_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
-\_@@_embargosubstitute:nN {__START__} \embargotempstart
-\_@@_embargosubstitute:nN {__END__} \embargotempend
-\tl_gset_eq:NN \embargotempwithdates \l_@@_embargotemp_tl
+\_@@_embargosubstitute:nN {__START__} \@embargotempstart
+\_@@_embargosubstitute:nN {__END__} \@embargotempend
+\tl_gset_eq:NN \@embargotempwithdates \l_@@_embargotemp_tl
 }
 \ExplSyntaxOff
 %</phd|bkc|bmt>
@@ -4435,7 +4439,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % Let's add empty prepmaketitles for the |course| and |report classes|
 %    \begin{macrocode}
 %<*crs|rp>
-\newcommand\prepmaketitle{}
+\newcommand\@prepmaketitle{}
 %</crs|rp>
 %    \end{macrocode}
 % \end{imacro}
@@ -4561,11 +4565,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	}
 }
 
-\newcommand{\bamadisclaimer}{
+\newcommand{\@bamadisclaimer}{
 	{\translatekey{the}~\authorscaption[lowercase]{}~\translatekey[lowercase]{and}~\allsupervisorscaption[lowercase]{}}
 	\if@tempembargo
 	
-	   {~\embargotempwithdates}
+	   {~\@embargotempwithdates}
 	\else
 		\if@fullembargo
 			{~\translatekey{embargofullbama}}
@@ -4577,15 +4581,15 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 
 \renewcommand{\@copyrightnotices}{%
 	\if@dutch
-		\bamadisclaimer
+		\@bamadisclaimer
 	\else
 		\begingroup
 		\selectlanguage{dutch}
-			\bamadisclaimer
+			\@bamadisclaimer
 		\endgroup
 		\selectlanguage{english}
 		\newline\newline
-			\bamadisclaimer
+			\@bamadisclaimer
 	\fi
 	\newline\newline
 	\@location,~\today
@@ -4628,7 +4632,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\translatekey{embargofullphd}
 		\fi
 		\if@tempembargo
-		\embargotempwithdates
+		\@embargotempwithdates
 		\fi
 		\else
 		\\[\baselineskip]
@@ -5103,15 +5107,15 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \end{imacro}
 %
 % \begin{imacro}{\studentnr}
-	%   This macro will set the |\@studentnr| tag that will be used in the
-	%   exam and thesis class.
-	%    \begin{macrocode}
-	%<*ex|bmt|rp>      
-	\newcommand*{\@studentnr}{}
-	\newcommand*{\studentnr}[1]{\renewcommand*{\@studentnr}{#1}}
-	%</ex|bmt|rp>
-	%    \end{macrocode}
-	% \end{imacro}
+%   This macro will set the |\@studentnr| tag that will be used in the
+%   exam and thesis class.
+%    \begin{macrocode}
+%<*ex|bmt|rp>      
+\newcommand*{\@studentnr}{}
+\newcommand*{\studentnr}[1]{\renewcommand*{\@studentnr}{#1}}
+%</ex|bmt|rp>
+%    \end{macrocode}
+% \end{imacro}
 %
 % \subsection{Header and Footer}
 % The |fancyhdr| package is used to make a decent header and footer.
@@ -5378,26 +5382,26 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \subsection{Plain coverpage}
 %
 % The cover pages tikzpictures for the |thesis| and |report| classes are generated
-% using the |\frontcover| and |\backcover| commands.
+% using the |\@frontcover| and |\@backcover| commands.
 % These are used in the |\maketitle| and |\makefinalpage| commands.
 %
 % First, we need to define the grid layout and colours:
 %    \begin{macrocode}
 %<*bmt|rp>
 \newlength{\gridunit}\pgfmathsetlength{\gridunit}{max(\paperheight,\paperwidth)/7/4}	% Grid unit following styleguide
-\newlength{\TP}\setlength\TP{26.52cm}												 	% Title Position
-\newlength{\ML}																			% Margin left (for text)
+\newlength{\@TP}\setlength\@TP{26.52cm}												 	% Title Position
+\newlength{\@ML}																		% Margin left (for text)
 %
 \if@coverbg
 	\colorlet{covertitlecolor}	{white}
 	\colorlet{coverbgcolor}		{maincolor}
 	\colorlet{coverdatacolor}	{white}
-	\setlength\ML{2\gridunit}
+	\setlength\@ML{2\gridunit}
 \else
 	\colorlet{covertitlecolor}	{ugent@main}
 	\colorlet{coverbgcolor}		{white}
 	\colorlet{coverdatacolor}	{black}
-	\setlength\ML{\gridunit}
+	\setlength\@ML{\gridunit}
 \fi
 %</bmt|rp>
 %    \end{macrocode}
@@ -5516,16 +5520,16 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \end{macrocode}
 %
 % Next, we make the front cover.
-% \begin{imacro}{\frontcover}
+% \begin{imacro}{\@frontcover}
 %	Defines the front cover layout
 %    \begin{macrocode}
 %<*bmt|rp>
-\newcommand{\frontcover}{
+\newcommand{\@frontcover}{
 	\begin{tikzpicture}[inner sep=0pt, outer sep=0pt]
 	\clip (0,0) rectangle (\paperwidth,\paperheight);
 	
 	\begin{scope}[shift={(0,\paperheight-3*\gridunit)}]
-	\@faclogo{3*\gridunit}{ugent@\fselector}{0}
+	\@faclogo{3*\gridunit}{ugent@\@fselector}{0}
 	\end{scope}
 	
 	\if@coverbg
@@ -5557,7 +5561,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	\ifx\@companylogo\@empty\else
 		\node[anchor=south east, inner sep=0pt,
-			text width=\paperwidth-(2+\ugenttextw/\logounit)*\gridunit, minimum height=2*\gridunit,
+			text width=\paperwidth-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
 			align=right] at (\paperwidth-\gridunit,\gridunit)
 			{\@companylogo};
 	\fi
@@ -5572,11 +5576,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \end{macrocode}
 % \end{imacro}
 %
-% \begin{imacro}{\backcover}
+% \begin{imacro}{\@backcover}
 %	Defines the back cover layout
 %    \begin{macrocode}
 %<*bmt|rp>
-\newcommand{\backcover}{}
+\newcommand{\@backcover}{}
 %</bmt|rp>
 %    \end{macrocode}
 % \end{imacro}
@@ -5585,7 +5589,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \subsection{Fancy coverpage}
 %
 % The cover pages tikzpictures for the |dissertation| and |course| classes are generated
-% using the |\frontcover| and |\backcover| commands.
+% using the |\@frontcover| and |\@backcover| commands.
 % These are used in the |\maketitle| and |\makefinalpage| commands.
 % For this fancier style, a titlepageimage is included.
 %
@@ -5594,7 +5598,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*phd|bkc|crs>
 \newif\if@bwbookcover
 \ExplSyntaxOn
-\str_if_eq:eeTF { \fselector } { bw } {
+\str_if_eq:eeTF { \@fselector } { bw } {
 	\exp_args:Nx \str_case:nnF { \@covertype } {
 	{ dissertation } {
 		\@bwbookcovertrue
@@ -5618,52 +5622,53 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \ExplSyntaxOn
 \exp_args:Nx \str_case:nnF { \@covertype } {
 	{ dissertation } {
-		\newlength{\WC}\setlength\WC{160mm}	% Cover width
-		\newlength{\HC}\setlength\HC{240mm}	% Cover height
+		\newlength{\@WC}\setlength\@WC{160mm}	% Cover width
+		\newlength{\@HC}\setlength\@HC{240mm}	% Cover height
 	}
 	{ course } {
-		\newlength{\WC}\setlength\WC{210mm}	% Cover width
-		\newlength{\HC}\setlength\HC{297mm}	% Cover height
+		\newlength{\@WC}\setlength\@WC{210mm}	% Cover width
+		\newlength{\@HC}\setlength\@HC{297mm}	% Cover height
 	}
 }{
 	\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
 }	
-\newlength{\B}\setlength\B{3mm}		% Bleed
-\newlength{\HBS} 	% Height bottom strip
-\newlength{\HTS} 	% Top white strip height
-\newlength{\MS}  	% Spine margin (front/back cover)
-\newlength{\MTLR} 	% Text LR margin
-\newlength{\MTTB} 	% Text TB margin
-\newlength{\WD} 	% Datawidth
-\newlength{\HD} 	% Dataheight
-\newlength{\BT}		% Top bleed
-\newlength{\WI}		% Image width
-\newlength{\HI}		% Image height
-\newlength{\HPL}	% Publisher logo height
+\newlength{\@B}\setlength\@B{3mm}		% Bleed
+\newlength{\@HBS} 	% Height bottom strip
+\newlength{\@HTS} 	% Top white strip height
+\newlength{\@MS}  	% Spine margin (front/back cover)
+\newlength{\@MTLR} 	% Text LR margin
+\newlength{\@MTTB} 	% Text TB margin
+\newlength{\@WD} 	% Datawidth
+\newlength{\@HD} 	% Dataheight
+\newlength{\@BT}	% Top bleed
+\newlength{\@WI}	% Image width
+\newlength{\@HI}	% Image height
+\newlength{\@HPL}	% Publisher logo height
 
-\newlength{\gridunit}\pgfmathsetlength{\gridunit}{max(\WC,\HC)/7/4}
+\newlength{\gridunit}\pgfmathsetlength{\gridunit}{max(\@WC,\@HC)/7/4}
 \if@bwbookcover % BW cover
-	\setlength\HBS{4\gridunit}
-	\setlength\HTS{0mm}
-	\setlength\MS{0mm}	
-	\setlength\MTLR{2\gridunit}
-	\setlength\MTTB{\gridunit}
-	\setlength\WD{0mm} 
-	\setlength\HD{0mm}
+	\setlength\@HBS{4\gridunit}
+	\setlength\@HTS{0mm}
+	\setlength\@BT{\@B}
+	\setlength\@MS{0mm}	
+	\setlength\@MTLR{2\gridunit}
+	\setlength\@MTTB{\gridunit}
+	\setlength\@WD{0mm} 
+	\setlength\@HD{0mm}
 	\colorlet{coverareacolor}{lightgray}
 	\colorlet{spinetextcolor}{white}
 	\colorlet{spinetextcoloralt}{white}
 	\colorlet{covertitlecolor}{white}
-	\setlength\BT{\B}
 \else % UGent cover
-	\setlength\HBS{4\gridunit}
 	\setlength\HTS{3\gridunit}
-	\setlength\MS{\gridunit}	
-	\setlength\MTLR{\gridunit}
-	\setlength\MTTB{\gridunit}
-	\setlength\WD{12\gridunit}
-	\setlength\HD{10\gridunit}
+	\setlength\@HBS{4\gridunit}
+	\setlength\@MS{\gridunit}	
+	\setlength\@MTLR{\gridunit}
+	\setlength\@MTTB{\gridunit}
+	\setlength\@WD{12\gridunit}
+	\setlength\@HD{10\gridunit}
 	\colorlet{coverareacolor}{basecolor}
+	\colorlet{coverbgcolor}{maincolor}
 	\colorlet{spinetextcolor}{ugent@main}
 	\colorlet{spinetextcoloralt}{maincolor}
 	\colorlet{covertitlecolor}{maincolor}
@@ -5678,12 +5683,12 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*phd|bkc|crs>
 \newcommand{\@printconfidentialcover}{
 	\if@bwbookcover
-	\setugentlogotext
-	\node[anchor=south,font=\Large,ugent@main] at	(0.5*\WC-0.5*\ftextw/\logounit*\gridunit+0.5*\ugenttextw/\logounit*\gridunit-0.5*\gridunit,1.25*\gridunit) {\textbf{\translatekey[uppercase]{confidential}}};
-	% pos = (\WC-\ftextw/\logounit*\gridunit-3*\gridunit-\ugenttextw/\logounit*\gridunit-2*\gridunit)/2+\ugenttextw/\logounit*\gridunit+2*\gridunit
-	%     = 0.5*\WC-0.5*\ftextw/\logounit*\gridunit+0.5*\ugenttextw/\logounit*\gridunit-0.5\gridunit
+	\@setugentlogotext
+	\node[anchor=south,font=\Large,ugent@main] at	(0.5*\@WC-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5*\gridunit,1.25*\gridunit) {\textbf{\translatekey[uppercase]{confidential}}};
+	% pos = (\@WC-\@ftextw/\@logounit*\gridunit-3*\gridunit-\@ugenttextw/\@logounit*\gridunit-2*\gridunit)/2+\@ugenttextw/\@logounit*\gridunit+2*\gridunit
+	%     = 0.5*\@WC-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5\gridunit
 	\else
-	\node[anchor=south east,font=\Large,ugent@main] at	(\WC-\MTLR,\MTLR) {\textbf{\translatekey[uppercase]{confidential}}};
+	\node[anchor=south east,font=\Large,ugent@main] at	(\@WC-\@MTLR,\@MTLR) {\textbf{\translatekey[uppercase]{confidential}}};
 	\fi
 }
 %</phd|bkc|crs>
@@ -5691,8 +5696,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 % The cover body text differs between the |dissertation| and |course| classes,
 % so let's set it here:
-% The cover body text differs between |thesis| and |report| classes,
-% so we set it here.
 %    \begin{macrocode}
 %<*phd|bkc|crs>
 \ExplSyntaxOn
@@ -5721,25 +5724,25 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \end{macrocode}
 % 
 % Now let's move on to the covers themselves.
-% \begin{imacro}{\frontcover}
+% \begin{imacro}{\@frontcover}
 %	Defines the front cover layout
 %    \begin{macrocode}
 %<*phd|bkc|crs>
-\newcommand{\frontcover}{
+\newcommand{\@frontcover}{
 	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-	\useasboundingbox (0,0) rectangle (\WC,\HC);
+	\useasboundingbox (0,0) rectangle (\@WC,\@HC);
 	
 	% Image zone
 	{\ifx\@titlepageimage\@empty%
-		\fill[coverareacolor] (\MS,\HBS) rectangle (\WC+\B,\HC-\HTS+\BT);%
+		\fill[coverbgcolor] (\@MS,\@HBS) rectangle (\@WC+\@B,\@HC-\@HTS+\@BT);%
 	\else%
 		\begin{scope}%
-		\pgfmathsetlength{\WI}{\WC+\B-\MS}
-		\pgfmathsetlength{\HI}{\HC-\HBS-\HTS+\BT}
-		\clip (\MS,\HBS) rectangle (\WC+\B,\HC-\HTS+\BT);
-		\node[anchor=south west, inner sep=0pt] at (\MS, \HBS)%
-		{\adjustbox{min width=\WI, min height=\HI, keepaspectratio}{%
-				\includegraphics[width=\WI]{\@titlepageimage}%
+		\pgfmathsetlength{\@WI}{\@WC+\@B-\@MS}
+		\pgfmathsetlength{\@HI}{\@HC-\@HBS-\@HTS+\@BT}
+		\clip (\@MS,\@HBS) rectangle (\@WC+\@B,\@HC-\@HTS+\@BT);
+		\node[anchor=south west, inner sep=0pt] at (\@MS, \@HBS)%
+		{\adjustbox{min width=\@WI, min height=\@HI, keepaspectratio}{%
+				\includegraphics[width=\@WI]{\@titlepageimage}%
 			}%
 		};%
 		\end{scope}
@@ -5758,7 +5761,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		{{\bfseries\Huge\nohyphens{\@title}}%
 			\ifx\@subtitle\@empty\else\\[5pt]\hyphenpenalty=100000\LARGE\@subtitle\fi};
 		
-		\fill[maincolor] (\MS,\HBS) rectangle (\MS+\WD,\HBS+\HD);
 		
 		\node[anchor=north west, text width=\WD-2*\MTLR, align=left, text=white]
 		at (\MS+\MTLR, \HBS+\HD-\MTTB)
@@ -5772,21 +5774,22 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		at (\MS+\MTLR, \HBS+\MTTB)
 		{\normalsize\nohyphens{\translatekey{submittedto}\ifx\fselector\@empty\else~\translatekey[lowercase]{the}~\@faculty~\translatekey[lowercase]{of}\fi~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}};
 	\fi
+	\fill[coverareacolor] (\@MS,\@HBS) rectangle (\@MS+\@WD,\@HBS+\@HD);
 	
 	% UGent logo
-	\pgfmathsetmacro{\@ugentlogoxoffset}{max(\MS-\gridunit,0)}
+	\pgfmathsetmacro{\@ugentlogoxoffset}{max(\@MS-\gridunit,0)}
 	\begin{scope}[shift={(\@ugentlogoxoffset pt,0mm)}]
-		\@ugentlogo{\HBS}{ugent@main}{0}
+		\@ugentlogo{\@HBS}{ugent@main}{0}
 	\end{scope}
 	
 	% Faculty logo
 	\if@bwbookcover
-	\begin{scope}[shift={(\WC,0)}]
-		\@faclogo{3\gridunit}{ugent@\fselector}{1}
+	\begin{scope}[shift={(\@WC,0)}]
+		\@faclogo{3\gridunit}{ugent@\@fselector}{1}
 	\end{scope}
 	\else
-	\begin{scope}[shift={(\MS-\gridunit,\HC-\HTS)}]
-		\@faclogo{3\gridunit}{ugent@\fselector}{0}
+	\begin{scope}[shift={(\@MS-\gridunit,\@HC-\@HTS)}]
+		\@faclogo{3\gridunit}{ugent@\@fselector}{0}
 	\end{scope}
 	\fi
 	
@@ -5799,44 +5802,44 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \end{macrocode}
 % \end{imacro}
 %
-% \begin{imacro}{\backcover}
+% \begin{imacro}{\@backcover}
 %	Defines the back cover layout
 %    \begin{macrocode}
 %<*phd|bkc|crs>
-\newcommand\backcover{%
+\newcommand\@backcover{%
 	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-	\useasboundingbox (0,0) rectangle (\WC,\HC);
+	\useasboundingbox (0,0) rectangle (\@WC,\@HC);
 	
 	% White bottom strip for ISBN and publisher logo	
-	\pgfmathsetmacro{\isbnscale}{0.6}
-	\pgfmathsetmacro{\grpH}{\isbnscale*25mm+15pt}% total group height: box+spacing+text
-	\begin{scope}[shift={(10mm, 0.5*\HBS - 0.5*\grpH)}]
+	\pgfmathsetmacro{\@isbnscale}{0.6}
+	\pgfmathsetmacro{\@grpH}{\@isbnscale*25mm+15pt}% total group height: box+spacing+text
+	\begin{scope}[shift={(10mm, 0.5*\@HBS - 0.5*\@grpH)}]
 	\ifx\@isbn\@empty% ISBN text and barcode placeholder
 	\fill[coverareacolor] (0,0) rectangle (34.2mm, \isbnscale*25mm);
 	\else
 	\edef\@isbnexpanded{ISBN \@isbn}
-	%\fill[basecolor] (0,0) rectangle (34.2mm, \isbnscale*25mm);
+	%\fill[basecolor] (0,0) rectangle (34.2mm, \@isbnscale*25mm);
 	\node[anchor=south] at (0.5*34.2mm,0)
-	{\edef\@@isbnbarcodecall{\noexpand\EANBarcode[scale=\isbnscale]{ISBN\space\@isbn}}
+	{\edef\@@isbnbarcodecall{\noexpand\EANBarcode[scale=\@isbnscale]{ISBN\space\@isbn}}
 		\@@isbnbarcodecall};
 	\fi
 	\node[anchor=south, font=\usefont{OT1}{ocrb}{m}{n}\fontsize{5}{5}\selectfont, text=black, inner sep=0pt]
-	at (0.5*34.2mm, \isbnscale*25mm+ 10pt)
 	{\ifx\@isbn\@empty {ISBN: XXX-X-XXX-XXXXX-X}
+	at (0.5*34.2mm, \@isbnscale*25mm+ 10pt)
 		\else {ISBN:  \@isbn}\fi
 	};
 	\end{scope}
 	
-	\pgfmathsetmacro{\@publisherlogoxoffset}{min(\WC-\MS,\WC-10mm)}
-	\pgfmathsetlength{\HPL}{\HBS/4}
-	\begin{scope}[inner sep=0pt, shift = {(\@publisherlogoxoffset pt, 0.5*\HBS)}]
+	\pgfmathsetmacro{\@publisherlogoxoffset}{min(\@WC-\@MS,\@WC-10mm)}
+	\pgfmathsetlength{\@HPL}{\@HBS/4}
+	\begin{scope}[inner sep=0pt, shift = {(\@publisherlogoxoffset pt, 0.5*\@HBS)}]
 	\node[anchor=east, inner sep=0pt]
 	at (0, 0)
-	{\includegraphics[height = \HPL]{\@publisherlogo}};
+	{\includegraphics[height = \@HPL]{\@publisherlogo}};
 	\end{scope}
 	
 	% Full background
-	\fill[coverareacolor] (0-\B,\HBS) rectangle (\WC-\MS,\HC-\HTS+\BT);
+	\fill[coverareacolor] (0-\@B,\@HBS) rectangle (\@WC-\@MS,\@HC-\@HTS+\@BT);
 	\end{tikzpicture}
 }
 %</phd|bkc|crs>
@@ -5854,7 +5857,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \begin{macrocode}
 %<*bmt|phd|rp>
 \renewcommand\maketitle{%
-	\prepmaketitle
+	\@prepmaketitle
 	\pagestyle{empty}
 %</bmt|phd|rp>
 %<*phd>
@@ -5869,7 +5872,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		%
 		\AddToShipoutPicture*{%
 			\put(0,0){%
-				\frontcover
+				\@frontcover
 			}
 		}
 	\end{titlepage}%
@@ -5910,7 +5913,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		{\printjurymembers{\\}{\\}{\\}}\\[2ex]%
 		%
 		%
-		\textbf{\translatekey{dean}\ifx\fselector\@empty\else~\translatekey[lowercase]{of}~\translatekey[lowercase]{the}~\@faculty\fi}\hfill\break
+		\textbf{\translatekey{dean}\ifx\@fselector\@empty\else~\translatekey[lowercase]{of}~\translatekey[lowercase]{the}~\@faculty\fi}\hfill\break
 		\@dean\\[2ex]
 		%
 		\textbf{\translatekey{rector}~\translatekey[lowercase]{of}~\translatekey{org-deugent}}\hfill\break
@@ -5939,7 +5942,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\vspace{10\baselineskip}%
 		\fi
 		
-		{\small \translatekey{submittedto}\ifx\fselector\@empty\else~\translatekey[lowercase]{the}~\@faculty~\translatekey[lowercase]{of}\fi~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}%
+		{\small \translatekey{submittedto}\ifx\@fselector\@empty\else~\translatekey[lowercase]{the}~\@faculty~\translatekey[lowercase]{of}\fi~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}%
 		
 		\vspace{.3\baselineskip}%
 		{\small\translatekey{org-ugent}, \@location, \today}%
@@ -5969,7 +5972,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   Below, one can find the code for the final page: 
 %    \begin{macrocode}
 %<bmt|phd|crs|rp> \newcommand\makefinalpage{
-%<bmt>	\backcover{}
+%<bmt>	\@backcover{}
 %<*phd|crs>
 	\if@bare\else
 	\cleardoublepage
@@ -5979,7 +5982,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\thispagestyle{empty}
 	\AddToShipoutPicture*{%
 		\put(0,0){%
-			\backcover
+			\@backcover
 		}
 	}
 	~
@@ -5989,18 +5992,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \end{macrocode}
 % \end{imacro}
 	
-	
-% \begin{imacro}{\maketitle}
 %    \begin{macrocode}
 %<*dep>
-\renewcommand\maketitle{%
-  \pagestyle{empty}
-  \begin{titlepage}
-    \setlength\parskip{0pt}%
-    \setlength\parindent{0pt}%
-    \AddToShipoutPicture*{%
-      \put(0,0){%
-        \if@modern
         \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
           \clip (0,0) rectangle(\paperwidth,\paperheight);
 
@@ -6072,107 +6065,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
           \@ugentlogo{4.75cm}{ugent@main}{0.0} % TODO might need to fix vertalign
           \end{scope}
         \end{tikzpicture}
-        \else
-        \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-          \clip (0,0) rectangle(\paperwidth,\paperheight);
-          \if@cameraready
-          \else
-          \fill[ugent@main] (0,29.7) -- (2.2,29.7) -- (2.2,21.435) arc
-          (0:-90:0.235) -- (0,21.2) -- cycle;
-          \begin{scope}[shift={(2.2, 1.8)}]
-          \@ugentlogo{5.2cm}{ugent@main}{0.0} % TODO might need to fix vertalign
-          \end{scope}
-          \fi
-
-          \node
-          [anchor=north west,text width=14.75cm,align=left]
-          at (5,27.1)
-          {
-            \fontsize{16}{20}\selectfont\textsf{\textbf{\translatekey{acyear}}}\\[1ex]
-            \fontsize{16}{20}\selectfont\textsf{\@academicyear}
-          };
-
-          \node
-          [anchor=north west,text width=14.75cm,align=left]
-          at (5,22.7)
-          {
-            \fontsize{16}{20}\selectfont\textsf{\@faculty{} % TODO should handle empty
-              \ifx\@department\empty\else | \@department{} \fi}
-          };
-
-          \node
-          [anchor=north west,text width=14.75cm,align=left] (title)
-          at (5,20.9)
-          {
-            \fontsize{24}{30}\selectfont\textsf{\textbf{\@title}}\\[1ex]
-            \fontsize{18}{24}\selectfont\textsf{\@subtitle}
-          };
-
-          \node 
-          [anchor=north west,below=of title,
-          text width=14.75cm,align=left,
-          yshift=-0.5cm,color=ugent@main] (author)
-          {
-            \fontsize{18}{24}\selectfont{\textsf{\printauthors{~\&~}{,~}{\translatekey{andlist}~}}}
-          };
-
-          \node
-          [anchor=north west,below=of author,
-          text width=14.75cm,align=left,
-          yshift=-0.5cm]
-          {
-            \fontsize{12}{15}\selectfont{\textsf{\printdegrees{\\}{\\}{\\}}}
-          };
-
-          \node
-          [anchor=north west,text width=14.75cm,align=left] (title)
-          at (5,13.3)
-          {
-            \fontsize{12}{15}\selectfont\textsf{\textbf{\printlecturers{\\}{\\}{\\}}}
-          };
-
-          \node
-          [anchor=north west,text width=14.75cm,align=left] (title)
-          at (5,10)
-          {
-            \fontsize{12}{15}\selectfont\textsf{\printcourseswithcodes{\\}{\\}{\\}}
-          };
-
-          \node[anchor=east]
-          at (19,1.8)
-          {
-            \fontsize{12}{15}\selectfont\textsf{\@publishercode}
-          };
-
-        \end{tikzpicture}
-        \fi
-      }
-    }
-  \end{titlepage}%
-  ~\par\relax
-  \clearpage
-  \if@copyright
-  \backgroundsetup{contents={Copyright Ghent University, All
-      Rights Reserved}}
-  \fi
-  \vspace*{\stretch{1}}
-  \@copyrightnotices
-  \clearpage
-  \setcounter{footnote}{0}%
-  \global\let\thanks\relax
-  \global\let\maketitle\relax
-  \global\let\@thanks\@empty
-  \global\let\title\relax
-  \global\let\author\relax
-  \global\let\date\relax
-  \global\let\and\relax
-  \pagestyle{fancy}
-  \thispagestyle{empty}
-}
 %</dep>
-%    \end{macrocode}
-% \end{imacro}
-%
+%    \begin{macrocode}
 %
 % \subsection{Bookcover class}
 %  First we calculate the spine width, set some dimensions, 
@@ -6254,7 +6148,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*bkc>
 \renewcommand\makebookcover{
 	\begin{bookcover}
-		\bookcovercomponent{normal}{front}{\frontcover}
+		\bookcovercomponent{normal}{front}{\@frontcover}
 		\makeatletter
 		\if@bwbookcover
 			\bookcovercomponent{color}{bg spine}{ugent@main}
@@ -6265,7 +6159,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\bookcovercomponent{authoryear}{spine}{\printauthors{~\&~}{,~}{\translatekey{andlist}~}}
 		\fi 
 		\makeatother 
-		\bookcovercomponent {normal}{back}{\backcover}
+		\bookcovercomponent {normal}{back}{\@backcover}
 	\end{bookcover}	
 }
 %</bkc>
@@ -6287,7 +6181,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\fp_set:Nn \l_@@_pagecount_fp  { \ztotpages - 2}
 	\fi
 	
-	\tl_set:Nx \l_@@_faculty_tl    { \fselector }
+	\tl_set:Nx \l_@@_faculty_tl    { \@fselector }
 	\tl_set:Nx \l_@@_cameraready_tl { \if@cameraready ,~cameraready \fi }
 	\tl_set:Nx \l_@@_cmyk_tl { \if@cmyk,~cmyk \fi }
 	\tl_set:Nx \l_@@_surnamefirst_tl { \if@surnamefirst,~surnamefirst\fi}
@@ -6327,7 +6221,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\exp_not:N\publisherlogo	{\l_@@_publisherlogo_tl}	\iow_newline:
 		\if@dutch\exp_not:N\selectlanguage{dutch}				\iow_newline:\fi
 		\if@tempembargo
-			\exp_not:N\embargotemp	{\embargotempstart}{\embargotempend} \iow_newline:
+			\exp_not:N\embargotemp	{\@embargotempstart}{\@embargotempend} \iow_newline:
 		\else\if@fullembargo
 			\exp_not:N\embargofull \iow_newline:
 		\fi\fi								
@@ -8419,7 +8313,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \begin{tikzpicture}
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
     %\node[anchor=center] at  (0.5*\textwidth,0.75*\ph)
-    %{\includegraphics[height=.9\logounit]{\logopos}};
+    %{\includegraphics[height=.9\@logounit]{\logopos}};
     \node[
     text width=0.98\textwidth,
     text=basecolor,
@@ -8486,7 +8380,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \begin{tikzpicture}
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
     %\node[anchor=center] at  (0.5*\textwidth,0.75*\ph)
-    %{\includegraphics[height=.9\logounit]{\logomonowhite}};
+    %{\includegraphics[height=.9\@logounit]{\logomonowhite}};
     \node[
     draw,rectangle,
     text width=0.98\textwidth,
@@ -8603,7 +8497,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \hbox{\begin{beamercolorbox}
       [wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,left,leftskip=.8cm
       plus1fill]{author in head/foot}% 
-      %\includegraphics[height=0.35\logounit]{\appropriatelogo}
+      %\includegraphics[height=0.35\@logounit]{\appropriatelogo}
       \hskip0pt plus 1filll ~
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,
