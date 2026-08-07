@@ -5436,111 +5436,137 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % so we set it here.
 %    \begin{macrocode}
 %<*bmt|rp>
-\ExplSyntaxOn
-\tl_new:N \g_@@_coverbody_tl
+\newcommand{\@coverbodythesis}{
+	\node[anchor=north west, inner sep=0pt, text width=\paperwidth-\@ML-\gridunit,
+	minimum height=22.05cm, align=left] at (\@ML,\@TP)
+	{%
+		\raggedright
+		\begin{spacing}{2.5}
+			{\fontsize{25}{30}\selectfont\color{covertitlecolor}\bf
+				\MakeUppercase{\uline{\@title}}}
+		\end{spacing}
+		
+		\vskip 1em
+		
+		{\fontsize{15}{18}\selectfont\color{covertitlecolor}
+			\MakeUppercase{\@subtitle}}
+		
+		\vskip 1em
+		
+		\begingroup\color{coverdatacolor}
+		\ifx\@wordcount\@empty\else
+		\translatekey{wordcount}:~\@wordcount
+		\fi
+		
+		\if@embargo
+		\vskip 5em
+		{\fontsize{15}{18}\selectfont\translatekey[uppercase]{confidential}}
+		\vskip 5em
+		\else
+		\vskip 10em
+		\fi
+		
+		{\fontsize{15}{18}\selectfont\printauthorswithaffiliation{\\}{\\}{\\}}
+		
+		\ifx\@studentnr\@empty\else
+		\translatekey{studentnr}:~\@studentnr
+		\fi
+		
+		\vskip 1em
+		
+		{\fontsize{12}{15}\selectfont
+			\supervisorscaption{}:~\printsupervisors{~\&~}{,~}{\translatekey{andlist}~}}
+		
+		\ifcosupervisorsempty{}{
+			{\fontsize{12}{15}\selectfont
+				\cosupervisorscaption{}:~\printcosupervisors{~\&~}{,~}{\translatekey{andlist}~}}
+		}
+		
+		\ifextsupervisorsempty{}{
+			{\fontsize{12}{15}\selectfont
+				\extsupervisorscaption{}:~\printextsupervisors{~\&~}{,~}{\translatekey{andlist}~}}
+		}
+		
+		\iftutorsempty{}{
+			\vskip 1em
+			{\fontsize{12}{15}\selectfont
+				\tutorscaption{}:~\printtutors{~\&~}{,~}{\translatekey{andlist}~}}
+		}
+		
+		\vskip 1em
+		
+		{\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{bmfulfil}~\@degree}
+		
+		\vskip 1em
+		\translatekey{acyear}:~\@academicyear
+		\endgroup
+	};
+}
 
-\cs_new:Nn \@@_setcoverbody: {
+\newcommand{\@coverbodyreport}{
+	\node[anchor=north west, inner sep=0pt, text width=\paperwidth-\@ML-\gridunit,
+	minimum height=22.05cm, align=left] at (\@ML,\@TP)
+	{%
+		\raggedright
+		\begin{spacing}{2.5}
+			{\fontsize{25}{30}\selectfont\color{covertitlecolor}\bf
+				\MakeUppercase{\uline{\@title}}}
+		\end{spacing}
+		
+		\vskip 1em
+		
+		{\fontsize{15}{18}\selectfont\color{covertitlecolor}
+			\MakeUppercase{\@subtitle}}
+				
+		\vskip 2em
+		
+		\begingroup\color{coverdatacolor}
+		\ifx\@extra\@empty\else
+		{\fontsize{12}{15}\selectfont\@extra}
+		\fi
+		
+		\ifx\@wordcount\@empty\else
+		\translatekey{wordcount}:~\@wordcount
+		\fi
+		
+		\ifauthorsempty{
+			\vskip 10em
+		}{
+			\vskip 5em
+			{\fontsize{12}{15}\selectfont\printauthorswithaffiliation{\\}{\\}{\\}}
+			\ifx\@studentnr\@empty\else
+			\translatekey{studentnr}:~\@studentnr
+			\fi
+			\vskip 5em
+		}
+		
+		\iflecturersempty{}{
+			{\fontsize{12}{15}\selectfont
+				\lecturerscaption{}:~\printlecturers{~\&~}{,~}{\translatekey{andlist}~}}
+			\vskip 2 em
+		}
+		
+		\ifx\@address\@empty\else
+		{\fontsize{12}{15}\selectfont\@address}
+		\vskip 2 em
+		\fi
+		
+		\ifx\@academicyear\@empty\else
+		{\fontsize{12}{15}\selectfont\translatekey{acyear}:~\@academicyear}
+		\fi
+		\endgroup
+	};
+}
+
+\ExplSyntaxOn
+\newcommand*\@coverbody{
 	\exp_args:Nx \str_case:nnF { \@covertype } {
-		{ thesis } {
-			\tl_gset:Nn \g_@@_coverbody_tl {
-				\vskip 1em
-				
-				\begingroup\color{coverdatacolor}
-				\ifx\@wordcount\@empty\else
-				\translatekey{wordcount}:~\@wordcount
-				\fi
-				
-				\if@embargo
-				\vskip 5em
-				{\fontsize{15}{18}\selectfont\translatekey[uppercase]{confidential}}
-				\vskip 5em
-				\else
-				\vskip 10em
-				\fi
-				
-				{\fontsize{15}{18}\selectfont\printauthorswithaffiliation{\\}{\\}{\\}}
-				
-				\ifx\@studentnr\@empty\else
-				\translatekey{studentnr}:~\@studentnr
-				\fi
-				
-				\vskip 1em
-				
-				{\fontsize{12}{15}\selectfont
-					\supervisorscaption{}:~\printsupervisors{~\&~}{,~}{\translatekey{andlist}~}}
-				
-				\ifcosupervisorsempty{}{
-					{\fontsize{12}{15}\selectfont
-						\cosupervisorscaption{}:~\printcosupervisors{~\&~}{,~}{\translatekey{andlist}~}}
-				}
-				
-				\ifextsupervisorsempty{}{
-					{\fontsize{12}{15}\selectfont
-						\extsupervisorscaption{}:~\printextsupervisors{~\&~}{,~}{\translatekey{andlist}~}}
-				}
-				
-				\iftutorsempty{}{
-					\vskip 1em
-					{\fontsize{12}{15}\selectfont
-						\tutorscaption{}:~\printtutors{~\&~}{,~}{\translatekey{andlist}~}}
-				}
-				
-				\vskip 1em
-				
-				{\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\fselector\@empty\else{}~\translatekey[lowercase]{the}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{bmfulfil}~\@degree}
-				
-				\vskip 1em
-				\translatekey{acyear}:~\@academicyear
-				\endgroup
-			}
-		}
-		{ report } {
-			\tl_gset:Nn \g_@@_coverbody_tl {
-				\vskip 2em
-				
-				\begingroup\color{coverdatacolor}
-				\ifx\@extra\@empty\else
-				{\fontsize{12}{15}\selectfont\@extra}
-				\fi
-				
-				\ifx\@wordcount\@empty\else
-				\translatekey{wordcount}:~\@wordcount
-				\fi
-				
-				\ifauthorsempty{
-					\vskip 10em
-				}{
-					\vskip 5em
-					{\fontsize{12}{15}\selectfont\printauthorswithaffiliation{\\}{\\}{\\}}
-					\ifx\@studentnr\@empty\else
-					\translatekey{studentnr}:~\@studentnr
-					\fi
-					\vskip 5em
-				}
-				
-				\iflecturersempty{}{
-					{\fontsize{12}{15}\selectfont
-						\lecturerscaption{}:~\printlecturers{~\&~}{,~}{\translatekey{andlist}~}}
-					\vskip 2 em
-				}
-				
-				\ifx\@address\@empty\else
-				{\fontsize{12}{15}\selectfont\@address}
-				\vskip 2 em
-				\fi
-				
-				\ifx\@academicyear\@empty\else
-				{\fontsize{12}{15}\selectfont\translatekey{acyear}:~\@academicyear}
-				\fi
-				\endgroup
-			}
-		}
+		{ thesis } { \@coverbodythesis }
+		{ report } { \@coverbodyreport }
 	}{
 		\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
 	}
 }
-
-\newcommand*\coverbody{\@@_setcoverbody: \g_@@_coverbody_tl}
 \ExplSyntaxOff
 %</bmt|rp>
 %    \end{macrocode}
@@ -5564,22 +5590,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\colorlet{hypercolor}{covertitlecolor}
 	\fi
 	
-	\node[anchor=north west, inner sep=0pt, text width=\paperwidth-\ML-\gridunit,
-	minimum height=22.05cm, align=left] at (\ML,\TP)
-	{%
-		\raggedright
-		\begin{spacing}{2.5}
-		{\fontsize{25}{30}\selectfont\color{covertitlecolor}\bf
-			\MakeUppercase{\uline{\@title}}}
-		\end{spacing}
-		
-		\vskip 1em
-		
-		{\fontsize{15}{18}\selectfont\color{covertitlecolor}
-			\MakeUppercase{\@subtitle}}
-		
-		\coverbody
-	};
+	\@coverbody
 	
 	\begin{scope}[shift={(0,0)}]
 		\@ugentlogo{4*\gridunit}{ugent@main}{0}
@@ -5682,9 +5693,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\setlength\@WD{0mm} 
 	\setlength\@HD{0mm}
 	\colorlet{coverareacolor}{lightgray}
+	\colorlet{coverbgcolor}{maincolor}
 	\colorlet{spinetextcolor}{white}
 	\colorlet{spinetextcoloralt}{white}
 	\colorlet{covertitlecolor}{white}
+	\colorlet{coverdatacolor}{white}
 \else % UGent cover
 	\setlength\@HBS{4\gridunit}
 	\ifx\@fselector\@empty
@@ -5704,7 +5717,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\colorlet{spinetextcolor}{ugent@main}
 	\colorlet{spinetextcoloralt}{maincolor}
 	\colorlet{covertitlecolor}{maincolor}
-	\setlength\BT{0mm}
+	\colorlet{coverdatacolor}{white}
 \fi
 \ExplSyntaxOff
 %</phd|bkc|crs>
@@ -5729,28 +5742,94 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % The cover body text differs between the |dissertation| and |course| classes,
 % so let's set it here:
 %    \begin{macrocode}
+%<*bkc|phd>
+\newcommand\@coverbodydissertation{
+		% Title, subtitle, author	
+	\if@bwbookcover
+	\node[anchor=south east, text width=\@WC-2*\@MTLR, align=right, text=covertitlecolor]
+	at (\@WC-\@MTLR, 2*\@HBS)
+	{{\bfseries\Huge\nohyphens{\@title}}%
+		\ifx\@subtitle\@empty\else\\[4pt]\hyphenpenalty=100000\LARGE\@subtitle\fi%
+		\\[30pt]\hyphenpenalty=100000\LARGE\printauthors{\\}{\\}{\\}};
+	\else
+	\node[anchor=west, text width=\@WC-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
+	at (\@MS+\@MTLR, 0.5*\@HC+0.5*\@HBS-0.5*\@HTS+0.5*\@HD)
+	{{\bfseries\Huge\nohyphens{\@title}}%
+		\ifx\@subtitle\@empty\else\\[5pt]\hyphenpenalty=100000\LARGE\@subtitle\fi};
+	
+	\node[anchor=north west, text width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
+	at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB)
+	{{\bfseries\LARGE\printauthors{\\}{\\}{\\}}%
+		\\[15pt]\Large \supervisorscaption{}:\newline
+		\printsupervisors{\\}{\\}{\\}%
+		\\[15pt]
+		\normalsize \translatekey{acyear}~\@academicyear};
+	
+	\node[anchor=south west, text width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
+	at (\@MS+\@MTLR, \@HBS+\@MTTB)
+	{\normalsize\nohyphens{\translatekey{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\@degree}};
+	\fi
+	
+	\if@embargo
+	\@printconfidentialcover
+	\fi
+}
+%</bkc|phd>
+%<*bkc|crs>
+\newcommand\@coverbodycourse{
+}
+%</bkc|crs>
 %<*phd|bkc|crs>
 \ExplSyntaxOn
-\tl_new:N \g_@@_coverbody_tl
-
-\cs_new:Nn \@@_setcoverbody: {
+\newcommand*\@coverbody{
 	\exp_args:Nx \str_case:nnF { \@covertype } {
-		{ dissertation } {
-			\tl_gset:Nn \g_@@_coverbody_tl {
-				
-			}
-		}
+		{ dissertation } { \@coverbodydissertation }
+		{ course } { \@coverbodycourse }
+	}{
+		\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
+	}
+}
+\ExplSyntaxOff
+%</phd|bkc|crs>
+%    \end{macrocode}
+%
+% The couloring is different for the |course| class:
+%    \begin{macrocode}
+%<*phd|bkc|crs>
+\ExplSyntaxOn
+\exp_args:Nx \str_case:nnF { \@covertype } {
+	{ dissertation } {	}
+	{ course } { 
+		\colorlet{coverareacolor}{ugent@main}
+		\ifx\@fselector\@empty
+			\colorlet{coverbgcolor}{ugent@accent}
+		\else
+			\colorlet{coverbgcolor}{ugent@\@fselector}
+		\fi
+		\colorlet{covertitlecolor}{white}
+		\setlength\@WD{10\gridunit}
+	}
+}{
+	\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
+}
+\ExplSyntaxOff
+%</phd|bkc|crs>
+%    \end{macrocode}
+%
+% The empty cover image style is different between the |dissertation| and |course| classes,
+% For |dissertations|, it's just blank. For |courses|, it's the faculty icon.
+%    \begin{macrocode}
+%<*phd|bkc|crs>
+\ExplSyntaxOn
+\newcommand*\@coverblankimage{
+	\exp_args:Nx \str_case:nnF { \@covertype } {
+		{ dissertation } {	}
 		{ course } {
-			\tl_gset:Nn \g_@@_coverbody_tl {
-				
-			}
 		}
 	}{
 		\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
 	}
 }
-
-\newcommand*\coverbody{\@@_setcoverbody: \g_@@_coverbody_tl}
 \ExplSyntaxOff
 %</phd|bkc|crs>
 %    \end{macrocode}
@@ -5780,33 +5859,9 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\end{scope}
 	\fi};
 	
-	% Title, subtitle, author	
-	\if@bwbookcover
-		\node[anchor=south east, text width=\WC-2*\MTLR, align=right, text=covertitlecolor]
-		at (\WC-\MTLR, 2*\HBS)
-		{{\bfseries\Huge\nohyphens{\@title}}%
-			\ifx\@subtitle\@empty\else\\[4pt]\hyphenpenalty=100000\LARGE\@subtitle\fi%
-			\\[30pt]\hyphenpenalty=100000\LARGE\printauthors{\\}{\\}{\\}};
-	\else
-		\node[anchor=west, text width=\WC-2*\MTLR-\MS, align=left, text=covertitlecolor]
-		at (\MS+\MTLR, 0.5*\HC+0.5*\HBS-0.5*\HTS+0.5*\HD)
-		{{\bfseries\Huge\nohyphens{\@title}}%
-			\ifx\@subtitle\@empty\else\\[5pt]\hyphenpenalty=100000\LARGE\@subtitle\fi};
-		
-		
-		\node[anchor=north west, text width=\WD-2*\MTLR, align=left, text=white]
-		at (\MS+\MTLR, \HBS+\HD-\MTTB)
-		{{\bfseries\LARGE\printauthors{\\}{\\}{\\}}%
-			\\[15pt]\Large \supervisorscaption{}:\newline
-			\printsupervisors{\\}{\\}{\\}%
-			\\[15pt]
-			\normalsize \translatekey{acyear} \@academicyear};
-		
-		\node[anchor=south west, text width=\WD-2*\MTLR, align=left, text=white]
-		at (\MS+\MTLR, \HBS+\MTTB)
-		{\normalsize\nohyphens{\translatekey{submittedto}\ifx\fselector\@empty\else~\translatekey[lowercase]{the}~\@faculty~\translatekey[lowercase]{of}\fi~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}};
-	\fi
 	\fill[coverareacolor] (\@MS,\@HBS) rectangle (\@MS+\@WD,\@HBS+\@HD);
+
+	\@coverbody
 	
 	% UGent logo
 	\pgfmathsetmacro{\@ugentlogoxoffset}{max(\@MS-\gridunit,0)}
@@ -5825,9 +5880,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\end{scope}
 	\fi
 	
-	\if@embargo
-		\@printconfidentialcover
-	\fi
 	\end{tikzpicture}
 }
 %</phd|bkc|crs>
