@@ -5847,7 +5847,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\pgfmathsetmacro{\@grpH}{\@isbnscale*25mm+15pt}% total group height: box+spacing+text
 	\begin{scope}[shift={(10mm, 0.5*\@HBS - 0.5*\@grpH)}]
 	\ifx\@isbn\@empty% ISBN text and barcode placeholder
-	\fill[coverareacolor] (0,0) rectangle (34.2mm, \isbnscale*25mm);
+	%\fill[coverareacolor] (0,0) rectangle (34.2mm, \@isbnscale*25mm);
 	\else
 	\edef\@isbnexpanded{ISBN \@isbn}
 	%\fill[basecolor] (0,0) rectangle (34.2mm, \@isbnscale*25mm);
@@ -5856,8 +5856,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\@@isbnbarcodecall};
 	\fi
 	\node[anchor=south, font=\usefont{OT1}{ocrb}{m}{n}\fontsize{5}{5}\selectfont, text=black, inner sep=0pt]
-	{\ifx\@isbn\@empty {ISBN: XXX-X-XXX-XXXXX-X}
 	at (0.5*34.2mm, \@isbnscale*25mm+ 10pt)
+	{\ifx\@isbn\@empty% {ISBN: XXX-X-XXX-XXXXX-X}
 		\else {ISBN:  \@isbn}\fi
 	};
 	\end{scope}
