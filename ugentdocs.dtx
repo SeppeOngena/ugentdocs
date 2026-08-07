@@ -3499,9 +3499,11 @@ date		= Date
 acyear		= Academic year
 subject		= Subject
 of			= Of
-the			= The
+the-de      = The
+the-het     = The
 and			= And
 andlist		= , and
+version     = Version
 
 baprog		= Bachelor's programme
 sprog		= Linking Course
@@ -3555,12 +3557,14 @@ examend			= End --- Einde
 examduration	= Exam duration --- Duur van het examen
 weight			= Weight
 wordcount		= Word count
+package         = Package
 
 confidential	= Confidential
 confidentiality = Confidentiality
 arr				= All rights reserved
 crdisclaimer	= Copyright
 supportedby		= This work was supported by
+typeset         = This document has been typeset using
 pleaserefer		= Please refer to this work as
 
 arrphd			= The author allows to consult and copy parts of this work for personal use. Further reproduction or transmission in any form or by any means, without the prior permission of the author is strictly forbidden.
@@ -3604,9 +3608,11 @@ date		= Datum
 acyear		= Academiejaar
 subject		= Onderwerp
 of			= Van
-the			= De
+the-de		= De
+the-het		= Het
 and			= En
 andlist		= ~en
+version     = Versie
 
 baprog		= Bacheloropleiding
 sprog		= Schakelprogramma
@@ -3660,12 +3666,14 @@ examend			= Einde
 examduration	= Duur van het examen
 weight			= Gewicht
 wordcount		= Aantal woorden
+package			= Pakket
 
 confidential	= Confidentieel
 confidentiality = Confidentialiteit
 arr				= Alle rechten voorbehouden
 crdisclaimer	= Copyright
 supportedby		= Dit werk werd ondersteund door
+typeset         = Dit document is opgemaakt met
 pleaserefer     = Gelieve naar dit werk te verwijzen als
 
 arrphd			= De auteur staat toe dat delen van dit werk geraadpleegd en gekopieerd worden voor persoonlijk gebruik. Verdere reproductie of transmissie zonder voorafgaande toestemming van de auteur in eender welke vorm of op eender welke manier is strikt verboden.
@@ -4571,21 +4579,21 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 
 \cs_new:Nn \@@_autographpage: {
 	\seq_if_empty:NF \g_@@_authors_seq {
-		\translatekey{the}~\authorscaption[lowercase]{}, \par\vskip 1em
+		\translatekey{the-de}~\authorscaption[lowercase]{}, \par\vskip 1em
 		\@@_siggroup:Nn \g_@@_authors_seq { } % Sub-name key not implemented
 	}
 	\vskip 2em
 	\seq_clear:N \g_@@_allsupervisorstutors_seq
 	\seq_concat:NNN \g_@@_allsupervisorstutors_seq \g_@@_allsupervisors_seq \g_@@_tutors_seq
 	\seq_if_empty:NF \g_@@_allsupervisors_seq {
-		\translatekey{the}~\allsupervisorscaption[lowercase]{}
+		\translatekey{the-de}~\allsupervisorscaption[lowercase]{}
 		\iftutorsempty{}{~\translatekey[lowercase]{and}~\tutorscaption[lowercase]{}}, \par\vskip 1em
 		\@@_siggroup:Nn \g_@@_allsupervisorstutors_seq { } % Sub-name key not implemented
 	}
 }
 
 \newcommand{\@bamadisclaimer}{
-	{\translatekey{the}~\authorscaption[lowercase]{}~\translatekey[lowercase]{and}~\allsupervisorscaption[lowercase]{}}
+	{\translatekey{the-de}~\authorscaption[lowercase]{}~\translatekey[lowercase]{and}~\allsupervisorscaption[lowercase]{}}
 	\if@tempembargo
 	
 	   {~\@embargotempwithdates}
@@ -5495,7 +5503,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		
 		\vskip 1em
 		
-		{\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{bmfulfil}~\@degree}
+		{\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{bmfulfil}~\@degree}
 		
 		\vskip 1em
 		\translatekey{acyear}:~\@academicyear
@@ -5768,7 +5776,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	\node[anchor=south west, text width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
 	at (\@MS+\@MTLR, \@HBS+\@MTTB)
-	{\normalsize\nohyphens{\translatekey{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\@degree}};
+	{\normalsize\nohyphens{\translatekey{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\@degree}};
 	\fi
 	
 	\if@embargo
@@ -5958,7 +5966,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\end{scope}
 	
 	% Full background
-	\fill[coverareacolor] (0-\@B,\@HBS) rectangle (\@WC-\@MS,\@HC-\@HTS+\@BT);
+	\fill[coverbgcolor] (0-\@B,\@HBS) rectangle (\@WC-\@MS,\@HC-\@HTS+\@BT);
 	\end{tikzpicture}
 }
 %</phd|bkc|crs>
@@ -6032,7 +6040,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		{\printjurymembers{\\}{\\}{\\}}\\[2ex]%
 		%
 		%
-		\textbf{\translatekey{dean}\ifx\@fselector\@empty\else~\translatekey[lowercase]{of}~\translatekey[lowercase]{the}~\@faculty\fi}\hfill\break
+		\textbf{\translatekey{dean}\ifx\@fselector\@empty\else~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty\fi}\hfill\break
 		\@dean\\[2ex]
 		%
 		\textbf{\translatekey{rector}~\translatekey[lowercase]{of}~\translatekey{org-deugent}}\hfill\break
@@ -6061,7 +6069,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\vspace{10\baselineskip}%
 		\fi
 		
-		{\small \translatekey{submittedto}\ifx\@fselector\@empty\else~\translatekey[lowercase]{the}~\@faculty~\translatekey[lowercase]{of}\fi~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}%
+		{\small \translatekey{submittedto}\ifx\@fselector\@empty\else~\translatekey[lowercase]{the-de}~\@faculty~\translatekey[lowercase]{of}\fi~\translatekey{org-deugent}, \translatekey{phdfulfil}~\@degree}%
 		
 		\vspace{.3\baselineskip}%
 		{\small\translatekey{org-ugent}, \@location, \today}%
@@ -6110,82 +6118,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<bmt|phd|crs|rp> }
 %    \end{macrocode}
 % \end{imacro}
-	
-%    \begin{macrocode}
-%<*dep>
-        \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-          \clip (0,0) rectangle(\paperwidth,\paperheight);
-
-          \begin{scope}
-            \clip (2.125,20.192) rectangle (\paperwidth,6);
-            \fill[sidecolor]
-            (2.125,20.192) rectangle (\paperwidth,6);
-            \node[anchor=south west]
-            at (2.125,6)
-            {\ifx\@titlepageimage\@empty
-              \else
-              \includegraphics[keepaspectratio,
-              scale=0.01,
-              min size={18.875cm}{14.192cm}]{\@titlepageimage}
-              \fi};
-          \end{scope}
-
-          
-           \node
-           [anchor=west,text width=13.75cm,align=left,font=\Huge,ugent@main]
-          at (2.125,27) 
-          {
-            \textsf{\textbf{\@title}}
-          };
-
-          \node
-          [anchor=west,text width=13.75cm,align=left,font=\Large,ugent@main]
-          at (2.125,25.5) 
-          {
-            \textsf{\textbf{\@subtitle}}
-          };
-
-          \node
-          [anchor=base west,maincolor,text width=13.75cm,align=left,font=\LARGE]
-          at (2.125,24)
-          {\textsf{\textbf{\printauthors{\\}{\\}{\\}}}};
-
-          
-          \node
-          [anchor=west,text width=13.75cm,align=left,font=\large,ugent@main]
-          at (2.125,22)
-          {\textsf{\printcourseswithcodes{\\}{\\}{\\}}};
-          
-         \fill[maincolor] (2.125,6)
-          -- (\paperwidth,6)
-          -- (\paperwidth,2.625)
-          -- (2.55,2.625)
-          arc (-90:-180:0.425)
-          -- cycle;
-
-          \node[white,anchor=west,align=left,font=\large]
-          (SN) at (2.55,5.1)
-          {
-            \begin{tabular}{@{}l@{~\,}p{14.5cm}}
-              \textsf{\lecturerscaption}
-              & \textsf{\textbf{\printlecturers{~\&~}{,~}{\translatekey{andlist}~}}}
-            \end{tabular}
-          };
-
-          \node[white,anchor=west,text width=17.5cm,align=left,font=\small]
-          at (2.55,3.7)
-          {\textsf{\printdegrees{\\}{\\}{\\}}\\
-            \textsf{\textbf{\@faculty{} \ifx\@department\empty\else | % TODO should handle empty
-                \@department{} \fi | \@academicyear \hfill
-                \@publishercode}}\\
-          \textsf{\@publisher}};
-          
-          \begin{scope}[shift={(2.125, 1.313)}]
-          \@ugentlogo{4.75cm}{ugent@main}{0.0} % TODO might need to fix vertalign
-          \end{scope}
-        \end{tikzpicture}
-%</dep>
-%    \begin{macrocode}
+%
 %
 % \subsection{Bookcover class}
 %  First we calculate the spine width, set some dimensions, 
