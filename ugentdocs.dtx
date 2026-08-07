@@ -5680,6 +5680,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \newlength{\@BT}	% Top bleed
 \newlength{\@WI}	% Image width
 \newlength{\@HI}	% Image height
+\newlength{\@WFI}	% Faculty icon width
 \newlength{\@HPL}	% Publisher logo height
 
 \newlength{\gridunit}\pgfmathsetlength{\gridunit}{max(\@WC,\@HC)/7/4}
@@ -5825,6 +5826,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\exp_args:Nx \str_case:nnF { \@covertype } {
 		{ dissertation } {	}
 		{ course } {
+				\pgfmathsetlength{\@WFI}{\@WC-\@MS-4*\gridunit}
+				\begin{scope}[shift={(\@WC-\gridunit-\@WFI,\@HC-\@HTS-\gridunit-\@WFI)}]
+					\@ficon{\@WFI}{coverbgcolor!60}{0.0}
+				\end{scope}
 		}
 	}{
 		\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
@@ -5846,6 +5851,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	% Image zone
 	{\ifx\@titlepageimage\@empty%
 		\fill[coverbgcolor] (\@MS,\@HBS) rectangle (\@WC+\@B,\@HC-\@HTS+\@BT);%
+		\@coverblankimage
 	\else%
 		\begin{scope}%
 		\pgfmathsetlength{\@WI}{\@WC+\@B-\@MS}
