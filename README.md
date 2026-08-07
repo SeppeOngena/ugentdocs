@@ -14,9 +14,9 @@ This package provides the following classes (implementation status shown):
 - ✅ `ugentdissertation`: PhD thesis/dissertation
 - ✅ `ugentbookcover` class to create full covers (back/spine/front) for dissertations and courses
 - ✅ `ugentreport`: Project reports, e.g. group assignments
-- 🚧 `ugentcourse`: Course notes
+- ✅ `ugentcourse`: Course notes
 - ⬜ `ugentexam`: Exams
-- ⬜ `ugentletter`: Letters
+- 🚧 `ugentletter`: Letters
 - ⬜ `beamerthemeugent`: Presentation slides
 
 Installation
@@ -96,8 +96,8 @@ For a complete list of features, you will be able to check the documentation (wh
     <td style="border: none; text-align: left;">Using options bw (faculty), cameraready, with a titlepageimage and isbn added, and font is UGent Panno Text</td>
   </tr>
   <tr>
-    <td style="border: none;"><img width="100%" alt="Dissertation 1 Full Cover" src="https://github.com/user-attachments/assets/852326e2-e9c7-4b94-b0e1-fb2b65405b97" /></td>
-    <td style="border: none;"><img width="100%" alt="Dissertation 2 Full Cover" src="https://github.com/user-attachments/assets/0af5a545-eeb1-4266-acc6-7baf7353e66d"/></td>
+    <td style="border: none;"><img width="100%" alt="Dissertation 1 Full Cover" src="https://github.com/user-attachments/assets/2fd3cf99-5775-47c9-b09a-7e0350c65d9f" /></td>
+    <td style="border: none;"><img width="100%" alt="Dissertation 2 Full Cover" src="https://github.com/user-attachments/assets/8628a638-ed65-4ee8-bdfc-1eba9ef5c705" /></td>
   </tr>
     <td style="border: none;">
       (cover page and blank page not shown)
@@ -125,8 +125,8 @@ For a complete list of features, you will be able to check the documentation (wh
     <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-report-2</th>
   </tr>
   <tr>
-    <td style="border: none; text-align: left;">Using options bw (faculty),coverbg, dutch, and font is UGent Panno Text</td>
     <td style="border: none; text-align: left;">Using no faculty options, and font is overridden to Arial</td>
+    <td style="border: none; text-align: left;">Using options bw (faculty),coverbg, dutch, and font is UGent Panno Text</td>
   </tr>
   <tr>
     <td style="border: none;">
@@ -138,6 +138,27 @@ For a complete list of features, you will be able to check the documentation (wh
         <img width="100%" alt="Report 2 Cover" src="https://github.com/user-attachments/assets/1810c852-f670-4205-b09d-3acbbc53a983" />
         <img width="100%" alt="Report 2 Copyright" src="https://github.com/user-attachments/assets/191abe1d-064f-4e59-b27b-00c195ff1d70" />
         <img width="100%" alt="Report 2 TOC" src="https://github.com/user-attachments/assets/e8625b3e-36e3-4dac-9649-a443b5fcc369" />
+    </td>
+</table>
+
+### 3. `ugentcourse`
+- Can be used to typeset course notes.
+- Generates a coverpage and automatically generates a `filename-cover.tex` file which includes the full cover (back/spine/front).
+- On the cover page, the faculty icon is shown in large if no titlepageimage is added.
+- Chapter titles etc. are typeset the same as the `ugentdissertation` class
+- A copyright watermark can be added if needed.
+<table border="0" style="width: 50%;">
+  <tr>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-course</th>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;"></th>
+  </tr>
+  <tr>
+    <td style="border: none; text-align: left;">Using bw faculty option and dutch, and font is UGent Panno Text</td>
+  </tr>
+  <tr>
+    <td style="border: none;">
+        <img width="100%" alt="Course Cover" src="https://github.com/user-attachments/assets/eb83574d-ee7b-433e-8b32-0cd7770d38c8" />
+        <img width="100%" alt="Course Data page"  src="https://github.com/user-attachments/assets/b8f73469-f881-41c8-a169-1999c2fa4e31" />
     </td>
 </table>
 </details>
