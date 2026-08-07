@@ -3965,10 +3965,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   This macro sets the |\@frontcoverlogos| tag that later will be used on
 %   the title page.
 %    \begin{macrocode}
-%<*bmt|rp>      
-%</bmt|rp> 
+%<*bmt|rp|crs|phd|bkc>      
 \newcommand*{\@frontcoverlogos}{}
 \newcommand*{\frontcoverlogos}[1]{\renewcommand*{\@frontcoverlogos}{#1}}
+%</bmt|rp|crs|phd|bkc> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -5868,6 +5868,14 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\node[anchor=south west, text width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
 	at (\@MS+\@MTLR, \@HBS+\@MTTB)
 	{\fontsize{11}{15}\selectfont\nohyphens{\translatekey{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printdegrees{~\&~}{,~}{\translatekey{andlist}~}}};
+	
+	\ifx\@frontcoverlogos\@empty\else
+	\node[anchor=south east, inner sep=0pt,
+	text width=\paperwidth-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
+	align=right] at (\paperwidth-\gridunit,\gridunit)
+	{\@frontcoverlogos};
+	\fi
+	
 	\fi
 	
 	\if@embargo
@@ -5906,6 +5914,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 				\translatekey{acyear}~\@academicyear}%
 		}
 	};
+	
+	\ifx\@frontcoverlogos\@empty\else
+	\node[anchor=south east, inner sep=0pt,
+	text width=\paperwidth-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
+	align=right] at (\paperwidth-\gridunit,\gridunit)
+	{\@frontcoverlogos};
+	\fi
 }
 %</bkc|crs>
 %<*phd|bkc|crs>
