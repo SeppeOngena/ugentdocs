@@ -934,7 +934,7 @@
 
 %% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
 %% multiple logos should be spaced 1 \gridunit
-\companylogo{\includegraphics[height=2\gridunit]{example-image-a}
+\frontcoverlogos{\includegraphics[height=2\gridunit]{example-image-a}
 			\hspace{\gridunit}
 			\includegraphics[height=2\gridunit]{example-image-b}
 			}
@@ -1111,7 +1111,7 @@ ruimtemodellering} %% either don't split titles, or do so with hyphen
 
 %% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
 %% multiple logos should be spaced 1 \gridunit
-%%\companylogo{\includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
+%%\frontcoverlogos{\includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
 %%			\hspace{\gridunit}
 %%			\includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
 %%			}
@@ -1302,7 +1302,7 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 \grants{FWO PhD Fellowship strategic basic research 1SXXXXXXN}
 
 %% add different publisher logo
-\publisherlogo{Images/logo_UniversityPress_blue}
+\backcoverlogos{\includegraphics[height = \gridunit]{Images/logo_UniversityPress_blue}}
 
 %% if your manuscript is under full embargo, give the following command
 %% \embargofull
@@ -1487,7 +1487,7 @@ Department of Biotechnology}
 \grants{FWO PhD Fellowship strategic basic research 1SXXXXXXN}
 
 %% add different publisher logo
-\publisherlogo{Images/logo_UniversityPress_blue}
+\backcoverlogos{\includegraphics[height = \gridunit]{Images/logo_UniversityPress_blue}}
 
 %% if your manuscript is under full embargo, give the following command
 \embargofull
@@ -3881,14 +3881,14 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \end{macrocode}
 % \end{imacro}
 % 
-% \begin{imacro}{\companylogo}
-%   This macro sets the |\@companylogo| tag that later will be used on
+% \begin{imacro}{\frontcoverlogos}
+%   This macro sets the |\@frontcoverlogos| tag that later will be used on
 %   the title page.
 %    \begin{macrocode}
 %<*bmt|rp>      
-\newcommand*{\@companylogo}{}
-\newcommand*{\companylogo}[1]{\renewcommand*{\@companylogo}{#1}}
 %</bmt|rp> 
+\newcommand*{\@frontcoverlogos}{}
+\newcommand*{\frontcoverlogos}[1]{\renewcommand*{\@frontcoverlogos}{#1}}
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3898,7 +3898,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   Use the macro multiple times for multiple lecturers. The order
 %   will be preserved.
 %    \begin{macrocode}
-%<*crs|ex|rp>
+%<*crs|ex|rp|bkc>
 \ExplSyntaxOn
 \seq_new:N \g_@@_lecturers_seq
 \seq_new:N \g_@@_lecturercalls_seq
@@ -3938,7 +3938,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\@@_lecturers_empty:TF { #1 } { #2 }
 }
 \ExplSyntaxOff
-%</crs|ex|rp>
+%</crs|ex|rp|bkc>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3960,7 +3960,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   affiliation. This can be done by invoking the macro as many times
 %   as needed.
 %    \begin{macrocode}
-%<*bmt|phd|bkc>      
+%<*bmt|phd|bkc>     
 \ExplSyntaxOn
 \seq_new:N \g_@@_supervisors_seq
 \seq_new:N \g_@@_supervisorcalls_seq
@@ -5142,13 +5142,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \end{macrocode}
 % \end{imacro}
 %
-% \begin{imacro}{\publisherlogo}
-%   This macro will set the |\@publisherlogo| tag that will be used
+% \begin{imacro}{\backcoverlogos}
+%   This macro will set the |\@backcoverlogos| tag that will be used
 %   to print the publisher logo on the back cover.
 %    \begin{macrocode}
 %<*bkc|phd|crs>      
-\newcommand*{\@publisherlogo}{Images/logo_UniversityPress_blue}
-\newcommand*{\publisherlogo}[1]{\renewcommand*{\@publisherlogo}{#1}}
+\newcommand*{\@backcoverlogos}{\includegraphics[height = 2\gridunit]{Images/logo_UniversityPress_blue}}
+\newcommand*{\backcoverlogos}[1]{\renewcommand*{\@backcoverlogos}{#1}}
 %</bkc|phd|crs>
 %    \end{macrocode}
 % \end{imacro}
@@ -5624,11 +5624,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\@ugentlogo{4*\gridunit}{ugent@main}{0}
 	\end{scope}
 	
-	\ifx\@companylogo\@empty\else
+	\ifx\@frontcoverlogos\@empty\else
 		\node[anchor=south east, inner sep=0pt,
 			text width=\paperwidth-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
 			align=right] at (\paperwidth-\gridunit,\gridunit)
-			{\@companylogo};
+			{\@frontcoverlogos};
 	\fi
 	
 	\if@coverbg
@@ -5988,7 +5988,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\begin{scope}[inner sep=0pt, shift = {(\@publisherlogoxoffset pt, 0.5*\@HBS)}]
 	\node[anchor=east, inner sep=0pt]
 	at (0, 0)
-	{\includegraphics[height = \@HPL]{\@publisherlogo}};
+	{\@backcoverlogos};
 	\end{scope}
 	
 	% Full background
@@ -6284,7 +6284,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\tl_set:Nx \l_@@_subtitle_tl    	{ \exp_not:n{\@subtitle} }
 	\tl_set:Nx \l_@@_isbn_tl			{ \exp_not:n{\@isbn} }
 	\tl_set:Nx \l_@@_titlepageimage_tl 	{ \exp_not:n{\@titlepageimage} }
-	\tl_set:Nx \l_@@_publisherlogo_tl	{ \exp_not:n{\@publisherlogo} }
+	\tl_set:Nx \l_@@_backcoverlogos_tl	{ \exp_not:n{\@backcoverlogos} }
 	
 	\tl_set:Nx \l_@@_year_tl 			{ \exp_not:n{\the\year} }
 	
@@ -6309,13 +6309,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\l_@@_authorcalls_tl								    \iow_newline:
 		\exp_not:N\isbn				{\l_@@_isbn_tl}				\iow_newline:
 		\exp_not:N\titlepageimage	{\l_@@_titlepageimage_tl}	\iow_newline:
-		\exp_not:N\publisherlogo	{\l_@@_publisherlogo_tl}	\iow_newline:
 		\if@dutch\exp_not:N\selectlanguage{dutch}				\iow_newline:\fi
 		\if@tempembargo
 			\exp_not:N\embargotemp	{\@embargotempstart}{\@embargotempend} \iow_newline:
 		\else\if@fullembargo
 			\exp_not:N\embargofull \iow_newline:
 		\fi\fi								
+		\exp_not:N\backcoverlogos	{\l_@@_backcoverlogos_tl}	\iow_newline:							
 	}
 	
 	\if@bwbookcover
