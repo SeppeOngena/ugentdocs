@@ -6362,6 +6362,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\tl_set:Nx \l_@@_cameraready_tl { \if@cameraready ,~cameraready \fi }
 	\tl_set:Nx \l_@@_cmyk_tl { \if@cmyk,~cmyk \fi }
 	\tl_set:Nx \l_@@_surnamefirst_tl { \if@surnamefirst,~surnamefirst\fi}
+	\tl_set:Nx \l_@@_dutch_tl { \if@dutch ,~dutch \fi }
 
 	\dim_new:N \l_@@_spinewidth_dim
 	\dim_set:Nn \l_@@_spinewidth_dim {\fp_to_decimal:n {\l_@@_pagecount_fp/2*\l_@@_paperweight_fp/1e6*\l_@@_paperbulk_fp*1e3} mm}
@@ -6386,7 +6387,12 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\seq_map_inline:Nn \g_@@_degreecalls_seq
 	{ \tl_put_right:Nn \l_@@_degreecalls_tl { ##1 \iow_newline: } }
 	\tl_set:Nn \g_@@_covertemplate_tl {
-		\exp_not:N\documentclass[\l_@@_faculty_tl, spinewidth=\fp_to_decimal:n{round(\dim_ratio:nn{\l_@@_spinewidth_dim}{1mm},1)}mm\l_@@_cameraready_tl\l_@@_cmyk_tl\l_@@_surnamefirst_tl,dissertation]{ugentbookcover}\iow_newline:
+		\exp_not:N\documentclass[\l_@@_faculty_tl, spinewidth=\fp_to_decimal:n{round(\dim_ratio:nn{\l_@@_spinewidth_dim}{1mm},1)}mm
+		\l_@@_cameraready_tl
+		\l_@@_cmyk_tl
+		\l_@@_surnamefirst_tl
+		\l_@@_dutch_tl
+		\l_@@_covertype_tl]{ugentbookcover}\iow_newline:
 		\c_percent_str~Currently,~a~for~80~g/m2~paper~with~a~bulk~of~1.25~cm3/g~is~assumed~(0.1~mm~caliper~or~thickness).\iow_newline:
 		\c_percent_str~Page~count~is~\fp_to_decimal:n{round(\l_@@_pagecount_fp,0)}~pages.~Adjust~spinewidth~if~necessary~using:\iow_newline:
 		\c_percent_str~spinewidth~=~page~count~/~2~*~grammage~*~bulk~=~page~count~/~2~*~caliper\iow_newline:
@@ -6396,7 +6402,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\l_@@_authorcalls_tl								    \iow_newline:
 		\exp_not:N\isbn				{\l_@@_isbn_tl}				\iow_newline:
 		\exp_not:N\titlepageimage	{\l_@@_titlepageimage_tl}	\iow_newline:
-		\if@dutch\exp_not:N\selectlanguage{dutch}				\iow_newline:\fi
 		\if@tempembargo
 			\exp_not:N\embargotemp	{\@embargotempstart}{\@embargotempend} \iow_newline:
 		\else\if@fullembargo
