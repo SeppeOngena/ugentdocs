@@ -4698,7 +4698,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 			\@bamadisclaimer
 	\fi
 	\newline\newline
-	\@location,~\today
+	\@location,~\@date
 	\newline\newline
 	\@@_autographpage:
 
@@ -5382,7 +5382,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \lhead[]{}
 \chead[]{}
 \rhead[]{}
-\lfoot[\small\textcolor{gray}{\today}]{\textcolor{gray}{\today}}
+\lfoot[\small\textcolor{gray}{\@date}]{\textcolor{gray}{\@date}}
 \cfoot[]{}
 \rfoot[\small\textcolor{gray}{\pagename~\thepage~\translatekey[lowercase]{of}~\ztotpages}]
   {\small\textcolor{gray}{\pagename~\thepage~\translatekey[lowercase]{of}~\ztotpages}}
@@ -6206,7 +6206,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		{\small \translatekey{submittedto}\ifx\@fselector\@empty\else~\translatekey[lowercase]{the-de}~\@faculty~\translatekey[lowercase]{of}\fi~\translatekey{org-deugent}, \translatekey{phdfulfil}~\printdegrees{~\&~}{,~}{\translatekey{andlist}~}}%
 		
 		\vspace{.3\baselineskip}%
-		{\small\translatekey{org-ugent}, \@location, \today}%
+		{\small\translatekey{org-ugent}, \@location, \@date}%
 	\end{minipage}%
 	
 	% Page 4: copyright page (verso, bottom-left)
@@ -6537,7 +6537,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
       \textcolor{gray}{\translatekey[uppercase]{date}} }
     (4cm,0) node { \scriptsize \strut
       \textcolor{gray}{\translatekey[uppercase]{subject}} }
-    (0,-2.5ex) node { \strut \today }
+    (0,-2.5ex) node { \strut \@date }
     (4cm,-2.5ex) node[align=left] { \strut \@subject };
   \end{tikzpicture}~\\[4ex]
 }
