@@ -5483,7 +5483,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 
 \titleformat{\chapter}
 [block] % shape
-{\fontsize{16}{19} \selectfont \color{titlecolor} \bf } % format
+{\fontsize{16}{19} \selectfont \color{titlecolor} \bfseries } % format
 {\thechapter. \ } % the label
 { 0ex } %separator space
 {\MakeUppercase{\uline{#1}} } %before code
@@ -5491,7 +5491,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 
 \titleformat{\section}
 [block] % shape
-{\fontsize{14}{17} \selectfont \bf } % format
+{\fontsize{14}{17} \selectfont \bfseries } % format
 {\thesection \ } % the label
 { 0ex } %separator space
 { #1 } %before code
@@ -5549,7 +5549,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	{%
 		\raggedright
 		\begin{spacing}{2.5}
-			{\fontsize{25}{30}\selectfont\color{covertitlecolor}\bf
+			{\fontsize{25}{30}\selectfont\color{covertitlecolor}\bfseries
 				\MakeUppercase{\uline{\@title}}}
 		\end{spacing}
 		
@@ -5616,7 +5616,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	{%
 		\raggedright
 		\begin{spacing}{2.5}
-			{\fontsize{25}{30}\selectfont\color{covertitlecolor}\bf
+			{\fontsize{25}{30}\selectfont\color{covertitlecolor}\bfseries
 				\MakeUppercase{\uline{\@title}}}
 		\end{spacing}
 		
@@ -5856,24 +5856,24 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\if@bwbookcover
 	\node[anchor=south east, text width=\@WC-2*\@MTLR, align=right, text=covertitlecolor]
 	at (\@WC-\@MTLR, 2*\@HBS)
-	{{\fontsize{32}{38}\selectfont\bf\nohyphens{\@title}\par}%
+	{{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
 		\ifx\@subtitle\@empty\else\vspace{4pt}%
-		\hyphenpenalty=100000{\fontsize{20}{24}\selectfont\bf\@subtitle\par\fi}%
+		\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par\fi}%
 		\vspace{30pt}\hyphenpenalty=100000{\fontsize{20}{24}\selectfont\printauthors{\\}{\\}{\\}}};
 	\else
 	\node[anchor=west, text width=\@WC-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
 	at (\@MS+\@MTLR, 0.5*\@HC+0.5*\@HBS-0.5*\@HTS+0.5*\@HD)
-	{{\fontsize{32}{38}\selectfont\bf\nohyphens{\@title}\par}%
-		\ifx\@subtitle\@empty\else\vspace{5pt}\hyphenpenalty=100000{\fontsize{20}{24}\selectfont\bf\@subtitle\par\fi}};
+	{{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
+		\ifx\@subtitle\@empty\else\vspace{5pt}\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par\fi}};
 	
 	\node[anchor=north west, text width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
 	at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB)
-	{{\fontsize{20}{24}\selectfont\bf\printauthors{\\}{\\}{\\}}%
+	{{\fontsize{20}{24}\selectfont\bfseries\printauthors{\\}{\\}{\\}}%
 		\\[15pt]
 		{\fontsize{14}{17}\selectfont\supervisorscaption{}:\newline
 		\printsupervisors{\\}{\\}{\\}}%
 		\\[15pt]
-		\normalsize \translatekey{acyear}~\@academicyear};
+		{\fontsize{11}{15}\selectfont\translatekey{acyear}~\@academicyear}};
 	
 	\node[anchor=south west, text width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
 	at (\@MS+\@MTLR, \@HBS+\@MTTB)
@@ -5903,13 +5903,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\node[anchor=north west, inner sep=0pt, text=coverdatacolor] at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB) {
 		\parbox[t][\@parboxheight][t]{\@parboxwidth}{
 			\raggedright
-			{\fontsize{35}{42}\selectfont\bf
+			{\fontsize{35}{42}\selectfont\bfseries
 				\MakeUppercase{\uline{\@title}}\par}
 			%
 			\ifx\@subtitle\@empty\else
 			\vspace{5pt}
 			\hyphenpenalty=100000
-			{\fontsize{30}{36}\selectfont\bf
+			{\fontsize{30}{36}\selectfont\bfseries
 				\@subtitle}
 			\fi
 			\par
@@ -6185,11 +6185,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\clearpage\thispagestyle{empty}
 	\null\vfill % Bottom-align
 	\noindent\begin{minipage}[b]{\textwidth}
-		{\Huge\bfseries\nohyphens\@title}%
+		{\Huge\bfseries\nohyphens\@title\par}%
 		
 		\ifx\@subtitle\@empty\else
 		\vspace{.5\baselineskip}
-		{\Large\@subtitle}%  	
+		{\Large\@subtitle\par}%  	
 		\fi
 		
 		\vspace{5\baselineskip}%
