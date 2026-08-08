@@ -5881,8 +5881,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	\ifx\@frontcoverlogos\@empty\else
 	\node[anchor=south east, inner sep=0pt,
-	text width=\paperwidth-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
-	align=right] at (\paperwidth-\gridunit,\gridunit)
+	text width=\@WC-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
+	align=right] at (\@WC-\gridunit,\gridunit)
 	{\@frontcoverlogos};
 	\fi
 	
@@ -5927,8 +5927,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	\ifx\@frontcoverlogos\@empty\else
 	\node[anchor=south east, inner sep=0pt,
-	text width=\paperwidth-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
-	align=right] at (\paperwidth-\gridunit,\gridunit)
+	text width=\@WC-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
+	align=right] at (\@WC-\gridunit,\gridunit)
 	{\@frontcoverlogos};
 	\fi
 }
@@ -6382,6 +6382,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\tl_set:Nx \l_@@_isbn_tl			{ \exp_not:n{\@isbn} }
 	\tl_set:Nx \l_@@_titlepageimage_tl 	{ \exp_not:n{\@titlepageimage} }
 	\tl_set:Nx \l_@@_backcoverlogos_tl	{ \exp_not:n{\@backcoverlogos} }
+	\tl_set:Nx \l_@@_frontcoverlogos_tl	{ \exp_not:n{\@frontcoverlogos} }
 	
 	\tl_set:Nx \l_@@_year_tl 			{ \exp_not:n{\the\year} }
 	\tl_set:Nx \l_@@_academicyear_tl	{ \exp_not:n{\@academicyear} }
@@ -6429,7 +6430,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\l_@@_authorcalls_tl								    \iow_newline:
 		\exp_not:N\isbn				{\l_@@_isbn_tl}				\iow_newline:
 		\exp_not:N\titlepageimage	{\l_@@_titlepageimage_tl}	\iow_newline:
-		\exp_not:N\backcoverlogos	{\l_@@_backcoverlogos_tl}	\iow_newline:							
+		\exp_not:N\backcoverlogos	{\l_@@_backcoverlogos_tl}	\iow_newline:
+		\exp_not:N\frontcoverlogos	{\l_@@_frontcoverlogos_tl}	\iow_newline:							
 	}
 	
 	\if@bwbookcover
