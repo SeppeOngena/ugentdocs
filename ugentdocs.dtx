@@ -3039,16 +3039,12 @@ faculty / fw .code:n = {
 }
 
 \bool_if:NTF \l_@@_neutralcolors_bool {
-\colorlet{maincolor}{ugent@main}
-\colorlet{sidecolor}{white}
-\colorlet{basecolor}{ugent@main!10}
+\colorlet{ugent@faculty}{ugent@main}
 \colorlet{hypercolor}{ugent@main!50!black}
 \colorlet{toccolor}{black}
 \colorlet{titlecolor}{ugent@main}
 }{
-\colorlet{maincolor}{ugent@\@fselector}
-\colorlet{sidecolor}{white}
-\colorlet{basecolor}{ugent@\@fselector!10}
+\colorlet{ugent@faculty}{ugent@\@fselector}
 \colorlet{hypercolor}{ugent@main!50!black}
 \colorlet{toccolor}{black}
 \colorlet{titlecolor}{ugent@main}
@@ -3538,14 +3534,14 @@ faculty / fw .code:n = {
 		\node[align=left, text width=\linewidth-6mm, inner sep=3mm] (body) {#2};
 		\ifblank{#1}{}{%
 			\node[align=left, text width=\linewidth-6mm, inner sep=3mm,
-			fill=maincolor, text=white, font=\bfseries,
+			fill=ugent@faculty, text=white, font=\bfseries,
 			above=0pt of body, anchor=south] (title) {#1};
 		}%
 		\begin{scope}[on background layer]
 		\ifblank{#1}{%
-			\node[fill=basecolor, fit=(body), inner sep=0mm] {};
+			\node[fill=ugent@faculty!10, fit=(body), inner sep=0mm] {};
 		}{%
-			\node[fill=basecolor, fit=(body)(title), inner sep=0mm] {};
+			\node[fill=ugent@faculty!10, fit=(body)(title), inner sep=0mm] {};
 		}%
 		\end{scope}
 		\end{tikzpicture}
@@ -5781,7 +5777,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \ExplSyntaxOn
 \bool_if:NTF \l_@@_coverbg_bool {
 	\colorlet{covertitlecolor}	{white}
-	\colorlet{coverbgcolor}		{maincolor}
+	\colorlet{coverbgcolor}		{ugent@faculty}
 	\colorlet{coverdatacolor}	{white}
 	\setlength\@ML{2\gridunit}
 }{
@@ -6043,7 +6039,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\setlength\@MTTB{\gridunit}
 	\setlength\@WD{0mm} 
 	\setlength\@HD{0mm}
-	\colorlet{coverareacolor}{maincolor}
+	\colorlet{coverareacolor}{ugent@faculty}
 	\colorlet{coverbgcolor}{lightgray}
 	\colorlet{spinetextcolor}{white}
 	\colorlet{spinetextcoloralt}{white}
@@ -6063,11 +6059,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\setlength\@MTTB{\gridunit}
 	\setlength\@WD{12\gridunit}
 	\setlength\@HD{10\gridunit}
-	\colorlet{coverareacolor}{maincolor}
-	\colorlet{coverbgcolor}{basecolor}
+	\colorlet{coverareacolor}{ugent@faculty}
+	\colorlet{coverbgcolor}{ugent@faculty!10}
 	\colorlet{spinetextcolor}{ugent@main}
-	\colorlet{spinetextcoloralt}{maincolor}
-	\colorlet{covertitlecolor}{maincolor}
+	\colorlet{spinetextcoloralt}{ugent@faculty}
+	\colorlet{covertitlecolor}{ugent@faculty}
 	\colorlet{coverdatacolor}{white}
 \fi
 \ExplSyntaxOff
@@ -6230,7 +6226,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 			\bool_if:NF \l_@@_neutralcolors_bool {
 				\pgfmathsetlength{\@WFI}{\@PW-\@MS-4*\gridunit}
 				\begin{scope}[shift={(\@PW-\gridunit-\@WFI,\@PH-\@HTS-\gridunit-\@WFI)}]
-					\@ficon{\@WFI}{coverbgcolor!60}{0.0}
+					\ficon{\@WFI}{coverbgcolor!60}{0.0}
 				\end{scope}
 			}
 		}
@@ -6275,7 +6271,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	% UGent logo
 	\pgfmathsetmacro{\@ugentlogoxoffset}{max(\@MS-\gridunit,0)}
 	\begin{scope}[shift={(\@ugentlogoxoffset pt,0mm)}]
-		\@ugentlogo{\@HBS}{ugent@main}{0}
+		\ugentlogo{\@HBS}{ugent@main}{0}
 	\end{scope}
 	
 	% Faculty logo
@@ -6311,7 +6307,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	%\fill[coverareacolor] (0,0) rectangle (34.2mm, \@isbnscale*25mm);
 	\else
 	\edef\@isbnexpanded{ISBN \@isbn}
-	%\fill[basecolor] (0,0) rectangle (34.2mm, \@isbnscale*25mm);
+	%\fill[coverareacolor] (0,0) rectangle (34.2mm, \@isbnscale*25mm);
 	\node[anchor=south] at (0.5*34.2mm,0)
 	{\edef\@@isbnbarcodecall{\noexpand\EANBarcode[scale=\@isbnscale]{ISBN\space\@isbn}}
 		\@@isbnbarcodecall};
@@ -6588,7 +6584,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\rotatebox{-90}{
 	\begin{tikzpicture}[overlay,x=1pt,y=1pt]
 	\begin{scope}[shift={(0,-7.75mm)}]
-		\@ugentlogo{15.5mm}{#1}{0.0}
+		\ugentlogo{15.5mm}{#1}{0.0}
 	\end{scope}
 	\end{tikzpicture}%
 }
