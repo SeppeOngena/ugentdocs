@@ -2548,12 +2548,12 @@ een b\'echamel saus:
 \newlength\@ftextwnl
 
 \ExplSyntaxOn
-\NewDocumentCommand{\@faculty}{}{
-  \tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
-  \translatekey{faculty}%
-  \tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
-  {~\translatekey[lowercase]{facultyof}}%
-  {~\translatekey[expand]{org-\@fselector}}%
+\NewDocumentCommand{\@faculty}{O{}}{%
+	\translatekey[#1]{faculty}{}%
+	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
+	\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+	{~\translatekey[#1]{facultyof}}%
+	{~\translatekey[#1,expand]{org-\@fselector}}%
 }
 
 \DeclareOption{bw}{
