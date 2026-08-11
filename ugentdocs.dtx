@@ -706,28 +706,33 @@
 %
 % \begin{verbatim}
 %<*crs-example> 
-\documentclass[bw,11pt,oneside,openright, dutch]
-              {ugentcourse}
-%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+\documentclass[bw,11pt,oneside,openright, dutch]{ugentcourse}
+%% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
-%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% neutralcolors      uses ugent colour scheme instead of faculty colors
-%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
-%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
 %%                    and copyright language. Can be overridden locally for the text
 %%                    using \selectlanguage or \foreignlanguage (see babel package)
-%% 11pt               sets the font size to 11pt
-%% twoside            if you want a two-sided document, change to oneside if you
+%%                    Options: english* / dutch
+%% 11pt               Sets the font size to 11pt
+%% twoside            If you want a two-sided document, change to oneside if you
 %%                    want a recto only document
-%% openright          causes you chapters to start on a right-hand page when
+%% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% surnamefirst       format all names as "surname firstname"
-%%                    instead of "firstname surname"
-%% copyright          prints a copyright watermark
-%% bare               this option removes front and back cover. Many
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
+%% copyright          Prints a copyright watermark
+%%                    Options: true, false*
+%% bare               This option removes front and back cover. Many
 %%                    print services require this format for the contents.
+%%                    Options: true, false*
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
@@ -874,24 +879,29 @@
 % \begin{verbatim}
 %<*bmt-example1> 
 \documentclass[bw,11pt,twoside,openright,coverbg,neutralcolors]{ugentthesis}
-%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
-%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% neutralcolors      uses ugent colour scheme instead of faculty colors
-%% coverbg            adds a coloured background area to the cover page
-%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
-%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% coverbg            Adds a coloured background area to the cover page
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
 %%                    and copyright language. Can be overridden locally for the text
 %%                    using \selectlanguage or \foreignlanguage (see babel package)
-%% 11pt               sets the font size to 11pt
-%% twoside            if you want a two-sided document, change to oneside if you
+%%                    Options: english* / dutch
+%% 11pt               Sets the font size to 11pt
+%% twoside            If you want a two-sided document, change to oneside if you
 %%                    want a recto only document
-%% openright          causes you chapters to start on a right-hand page when
+%% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% surnamefirst       format all names as "surname firstname"
-%%                    instead of "firstname surname"
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
 %% *default
 
 %% this is just for some dummy text, please remove in your copy
@@ -928,8 +938,7 @@
 %% And you need to enable shell escape by adding --shell-escape to your latex build command.
 
 %% set title, subtitle and author
-\title{Minimax optimisation for performance-space modelling} %% either don't split titles, or do so with hyphen
-                     %% and a newline
+\title{Minimax optimisation for performance-space modelling}
 \subtitle{You can remove this subtitle}
 \author{}{Bibber, Bert}{}
 
@@ -959,9 +968,9 @@
 %% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
 %% multiple logos should be spaced 1 \gridunit
 \frontcoverlogos{\includegraphics[height=2\gridunit]{example-image-a}
-			\hspace{\gridunit}
-			\includegraphics[height=2\gridunit]{example-image-b}
-			}
+                 \hspace{\gridunit}
+                 \includegraphics[height=2\gridunit]{example-image-b}
+                 }
 
 \begin{document}
 
@@ -1054,24 +1063,29 @@
 %</bmt-example1> 
 %<*bmt-example2> 
 \documentclass[bw,11pt,twoside,openright,surnamefirst,dutch]{ugentthesis}
-%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
-%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% neutralcolors      uses ugent colour scheme instead of faculty colors
-%% coverbg            adds a coloured background area to the cover page
-%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
-%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% coverbg            Adds a coloured background area to the cover page
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
 %%                    and copyright language. Can be overridden locally for the text
 %%                    using \selectlanguage or \foreignlanguage (see babel package)
-%% 11pt               sets the font size to 11pt
-%% twoside            if you want a two-sided document, change to oneside if you
+%%                    Options: english* / dutch
+%% 11pt               Sets the font size to 11pt
+%% twoside            If you want a two-sided document, change to oneside if you
 %%                    want a recto only document
-%% openright          causes you chapters to start on a right-hand page when
+%% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% surnamefirst       format all names as "surname firstname"
-%%                    instead of "firstname surname"
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
 %% *default
 
 %% this is just for some dummy text, please remove in your copy
@@ -1140,9 +1154,9 @@ ruimtemodellering} %% either don't split titles, or do so with hyphen
 %% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
 %% multiple logos should be spaced 1 \gridunit
 %%\frontcoverlogos{\includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
-%%			\hspace{\gridunit}
-%%			\includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
-%%			}
+%%                 \hspace{\gridunit}
+%%                 \includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
+%%}
 
 \begin{document}
 
@@ -1242,29 +1256,32 @@ e^{-j\pi} + 1 = 0
 % \begin{verbatim}
 %<*phd-example1> 
 \documentclass[we,10pt,twoside,openright,surnamefirst,dutch]{ugentdissertation}
-%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
-%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% neutralcolors      uses ugent colour scheme instead of faculty colors
-%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
-%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
 %%                    and copyright language. Can be overridden locally for the text
 %%                    using \selectlanguage or \foreignlanguage (see babel package)
-%% 10pt               sets the font size to 10pt
-%% twoside            if you want a two-sided document, change to oneside if you
+%%                    Options: english* / dutch
 %%                    want a recto only document
-%% openright          causes you chapters to start on a right-hand page when
+%% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% surnamefirst       format all names as "surname firstname"
-%%                    instead of "firstname surname"
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
 %% cameraready        this option will embed the official 24 cm x 18 cm
 %%                    in anto A4 page and trigger alignment marks and cut-lines
 %%                    for your printing service - check whether they want this.
 %%                    This will also apply to the generated bookcover file.
-%% bare               this option removes front and back cover. Many
+%% bare               This option removes front and back cover. Many
 %%                    print services require this format for the contents.
+%%                    Options: true, false*
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
@@ -1437,29 +1454,36 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 % \begin{verbatim}
 %<*phd-example2> 
 \documentclass[bw,10pt,twoside,openright,cameraready]{ugentdissertation}
-%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
-%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% neutralcolors      uses ugent colour scheme instead of faculty colors
-%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
-%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
 %%                    and copyright language. Can be overridden locally for the text
 %%                    using \selectlanguage or \foreignlanguage (see babel package)
-%% 10pt               sets the font size to 10pt
-%% twoside            if you want a two-sided document, change to oneside if you
+%%                    Options: english* / dutch
+%% 10pt               Sets the font size to 10pt
+%% twoside            If you want a two-sided document, change to oneside if you
 %%                    want a recto only document
 %% openright          causes you chapters to start on a right-hand page when
+%% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% surnamefirst       format all names as "surname firstname"
-%%                    instead of "firstname surname"
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
 %% cameraready        this option will embed the official 24 cm x 18 cm
 %%                    in anto A4 page and trigger alignment marks and cut-lines
 %%                    for your printing service - check whether they want this.
 %%                    This will also apply to the generated bookcover file.
-%% bare               this option removes front and back cover. Many
+%%                    Options: true, false*
+%% bare               This option removes front and back cover. Many
 %%                    print services require this format for the contents.
+%%                    Options: true, false*
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
@@ -1632,25 +1656,31 @@ Department of Biotechnology}
 % \begin{verbatim}
 %<*rp-example1>
 \documentclass[bw,10pt,twoside,openright,dutch,coverbg]{ugentreport}
-%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
-%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% neutralcolors      uses ugent colour scheme instead of faculty colors
-%% coverbg            adds a coloured background area to the cover page
-%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
-%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% coverbg            Adds a coloured background area to the cover page
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
 %%                    and copyright language. Can be overridden locally for the text
 %%                    using \selectlanguage or \foreignlanguage (see babel package)
-%% 10pt               sets the font size to 10pt
-%% twoside            if you want a two-sided document, change to oneside if you
+%%                    Options: english* / dutch
+%% 10pt               Sets the font size to 10pt
+%% twoside            If you want a two-sided document, change to oneside if you
 %%                    want a recto only document
-%% openright          causes you chapters to start on a right-hand page when
+%% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% surnamefirst       format all names as "surname firstname"
-%%                    instead of "firstname surname"
-%% copyright          prints a copyright watermark
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
+%% copyright          Prints a copyright watermark
+%%                    Options: true, false*
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
@@ -1747,25 +1777,31 @@ e^{-j\pi} + 1 = 0
 %</rp-example1> 
 %<*rp-example2>
 \documentclass[10pt,oneside,openany]{ugentreport}
-%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
-%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% neutralcolors      uses ugent colour scheme instead of faculty colors
-%% coverbg            adds a coloured background area to the cover page
-%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
-%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% coverbg            Adds a coloured background area to the cover page
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
 %%                    and copyright language. Can be overridden locally for the text
 %%                    using \selectlanguage or \foreignlanguage (see babel package)
-%% 10pt               sets the font size to 10pt
-%% twoside            if you want a two-sided document, change to oneside if you
+%%                    Options: english* / dutch
+%% 10pt               Sets the font size to 10pt
+%% twoside            If you want a two-sided document, change to oneside if you
 %%                    want a recto only document
-%% openright          causes you chapters to start on a right-hand page when
+%% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options
 %% for one-sided theses, specify 'oneside' and 'openany' as options
-%% surnamefirst       format all names as "surname firstname"
-%%                    instead of "firstname surname"
-%% copyright          prints a copyright watermark
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
+%% copyright          Prints a copyright watermark
+%%                    Options: true, false*
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
@@ -1795,20 +1831,20 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 \phone{+32 9 000 00 00}
 \mobile{+32 400 00 00 00}
 \address{
-	<Faculty \ldots>\\
-	<Department or Office \ldots>\\
-	<Research group \ldots>
-		\newline\newline
-		\begin{tabular}{ll}
-	E: &\printemails{ | }{ | }{ | }\\
-	T: &\printphones{ | }{ | }{ | }\\
-	M: &\printmobiles{ | }{ | }{ | }
-		\end{tabular}
-		\newline\newline
-	<Campus \ldots, building \ldots>\\
-	<Street 123 c >, <0000 City>
-		\newline\newline
-	\href{https://www.ugent.be}{www.ugent.be}
+    <Faculty \ldots>\\
+    <Department or Office \ldots>\\
+    <Research group \ldots>
+        \newline\newline
+        \begin{tabular}{ll}
+    E: &\printemails{ | }{ | }{ | }\\
+    T: &\printphones{ | }{ | }{ | }\\
+    M: &\printmobiles{ | }{ | }{ | }
+        \end{tabular}
+        \newline\newline
+    <Campus \ldots, building \ldots>\\
+    <Street 123 c >, <0000 City>
+        \newline\newline
+    \href{https://www.ugent.be}{www.ugent.be}
 }
 
 %% year in which the report appears
@@ -1909,18 +1945,25 @@ Minute taker}}\\
 % \begin{verbatim}
 %<*le-example> 
 \documentclass[bw]{ugentletter}
-%% bw / we / ...      specifies the faculty abbreviation, can be empty*.
+%% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
-%%                    Options bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% neutralcolors      uses ugent colour scheme instead of faculty colors
-%% rgb*/ cmyk         uses rgb (display) or cmyk (print) colouring
-%% english* / dutch   sets the document main language. Determines, i.a., logo
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
 %%                    and copyright language. Can be overridden locally for the text
 %%                    using \selectlanguage or \foreignlanguage (see babel package)
-%% 11pt               sets the font size
-%% surnamefirst       format all names as "surname firstname"
-%%                    instead of "firstname surname"
-%% nofoldline         this suppresses the foldline
+%%                    Options: english* / dutch
+%% 11pt               Sets the font size to 11pt
+%% twoside            If you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
+%% foldline           Prints a fold line at 2/3 page height
+%%                    Options: true*, false
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
@@ -2086,14 +2129,31 @@ their details enclosed.
 % \begin{verbatim}
 %<*ex-example1> 
 \documentclass[bw,a4paper,10pt, dutch]{ugentexam}
-
-%% ti           specifies the department, change to the letter combination of
-%%              your department
-%% a4paper      specifies the paper format
-%% 10pt         students have good eyes, they still can read 10pt fonts
-%% dutch        (or english) sets the document main language. Determines logo
-%%              and copyright etc. language. Can be overridden locally for the text
-%%              using \selectlanguage or \foreignlanguage (see babel package)
+%% faculty            Specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%%                    Options: english* / dutch
+%% 10pt               Sets the font size to 10pt
+%% twoside            If you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          Causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% for two-sided theses, specify 'twoside' and 'openright' as options
+%% for one-sided theses, specify 'oneside' and 'openany' as options
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast*
+%% examiner           Compiles an examiner version
+%%                    with watermark and "examiner version" in the headers
+%%                    Options: true, false*
+%% *default
 
 %% You may want to use common fonts such as arial (still within house style)
 %%\setmainfont{Arial}[
@@ -2515,17 +2575,22 @@ een b\'echamel saus:
 % common package
 %    \begin{macrocode}
 %<*clo>
-\newif\if@neutralcolors
-\@neutralcolorsfalse
-\DeclareOption{neutralcolors}{\@neutralcolorstrue}
+% Colour options
+\ExplSyntaxOn
+\bool_new:N \l_@@_neutralcolors_bool
+\tl_new:N \l_@@_colormodel_tl
+\tl_set:Nn \l_@@_colormodel_tl {rgb}
 
-\newcommand*\colormodel{rgb}
-\newif\if@cmyk
-	\@cmykfalse
-	\DeclareOption{cmyk}{\renewcommand*\colormodel{cmyk}\@cmyktrue}
-	\DeclareOption{rgb}{\renewcommand*\colormodel{rgb}\@cmykfalse} 
+\keys_define:nn { ugentdocs } {
+	neutralcolors .bool_set:N = \l_@@_neutralcolors_bool ,
+	neutralcolors .default:n = true ,
+	colormodel .tl_set:N = \l_@@_colormodel_tl ,
+	cmyk .code:n = { \tl_set:Nn \l_@@_colormodel_tl {cmyk} } ,
+	rgb .code:n = { \tl_set:Nn \l_@@_colormodel_tl {rgb} } ,
+}
+\ExplSyntaxOff
 
-
+% Logo fonts
 \AtBeginDocument{
 	\newfontface\logotextface{UGent Panno Text Medium}[LetterSpace=-0.75]
 	\newfontface\logosubtextface{UGent Panno Text SemiLight}[LetterSpace=0.1]
@@ -2564,7 +2629,10 @@ een b\'echamel saus:
 	{~\translatekey[#1,expand]{org-\@fselector}}%
 }
 
-\DeclareOption{bw}{
+\keys_define:nn { ugentdocs } {
+faculty .choice:,
+bw .meta:n = { faculty = bw },
+faculty / bw .code:n = {
   \renewcommand*\@fselector{bw}
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (10.63, 13.2).. controls (9.21, 13.2) and (8.06, 12.05) .. (8.06, 10.63).. controls (8.06, 9.21) and (9.21, 8.06) .. (10.63, 8.06).. controls (12.05, 8.06) and (13.2, 9.21) .. (13.2, 10.63).. controls (13.2, 12.05) and (12.05, 13.2) .. (10.63, 13.2) -- cycle(11.95, 10.63).. controls (11.95, 9.9) and (11.36, 9.31) .. (10.63, 9.31).. controls (9.9, 9.31) and (9.3, 9.9) .. (9.3, 10.63).. controls (9.3, 11.36) and (9.9, 11.96) .. (10.63, 11.96).. controls (11.36, 11.96) and (11.95, 11.36) .. (11.95, 10.63);			
@@ -2581,8 +2649,9 @@ een b\'echamel saus:
   }
   \setlength\@ftextwen{6\@logounit}
   \setlength\@ftextwnl{8\@logounit}
-}
-\DeclareOption{di}{
+},
+di .meta:n = { faculty = di },
+faculty / di .code:n = {
 	\renewcommand*\@fselector{di}
 	\renewcommand*\@ficonpath{
 		\path[nonzero~rule,line~width=0.1pt] (9.23, 8.22).. controls (6.84, 6.21) and (5.24, 3.3) .. (4.99, -0.0) -- (6.24, -0.0).. controls (6.49, 2.92) and (7.92, 5.5) .. (10.04, 7.28) -- (9.23, 8.22);
@@ -2592,8 +2661,9 @@ een b\'echamel saus:
 	\renewcommand*\@flogosubtext{accredited~by~EAEVE}
 	\setlength\@ftextwen{5\@logounit}
 	\setlength\@ftextwnl{5\@logounit}
-}
-\DeclareOption{ea}{
+},
+ea .meta:n = { faculty = ea },
+faculty / ea .code:n = {
   \renewcommand*\@fselector{ea}
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (0.0, 0.0) -- (1.25, 0.0) -- (1.25, 3.68) -- (0.0, 3.68) -- (0.0, 0.0);
@@ -2604,8 +2674,9 @@ een b\'echamel saus:
   \setlength\@ficonw{0.6cm}
   \setlength\@ftextwen{6\@logounit}
   \setlength\@ftextwnl{9\@logounit}
-}
-\DeclareOption{re}{
+},
+re .meta:n = { faculty = re },
+faculty / re .code:n = {
   \renewcommand*\@fselector{re}
   \renewcommand*\@ficonpath{
 	  \path[nonzero~rule,line~width=0.1pt] (8.66, 4.99) -- (4.92, 13.18) -- (3.73, 13.18) -- (-0.0, 4.99) -- (1.37, 4.99) -- (4.33, 11.48) -- (7.29, 4.99) -- (8.66, 4.99);
@@ -2627,8 +2698,9 @@ een b\'echamel saus:
 	\setlength\@ftextwen{5\@logounit}
 	\setlength\@ftextwnl{6\@logounit}
 	\setlength\@ftextmarginextra{0.1cm}
-}
-\DeclareOption{we}{
+},
+we .meta:n = { faculty = we },
+faculty / we .code:n = {
   \renewcommand*\@fselector{we}
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (9.96, 6.85).. controls (9.33, 6.47) and (8.61, 6.24) .. (7.82, 6.24).. controls (5.57, 6.24) and (3.74, 8.06) .. (3.74, 10.32).. controls (3.74, 11.78) and (4.53, 13.05) .. (5.69, 13.77) -- (4.79, 14.67).. controls (3.41, 13.71) and (2.49, 12.13) .. (2.49, 10.32).. controls (2.49, 7.37) and (4.88, 4.99) .. (7.82, 4.99).. controls (9.44, 4.99) and (10.86, 5.72) .. (11.84, 6.85) -- (9.96, 6.85);
@@ -2649,8 +2721,9 @@ een b\'echamel saus:
   }
   \setlength\@ftextwen{3\@logounit}
   \setlength\@ftextwnl{4\@logounit}
-}
-\DeclareOption{pp}{
+},
+pp .meta:n = { faculty = pp },
+faculty / pp .code:n = {
   \renewcommand*\@fselector{pp}
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (15.86, 14.19).. controls (15.86, 14.27) and (15.88, 14.35) .. (15.88, 14.43).. controls (15.88, 18.2) and (12.82, 21.26) .. (9.05, 21.26).. controls (5.28, 21.26) and (2.22, 18.2) .. (2.22, 14.43).. controls (2.22, 12.92) and (2.72, 11.54) .. (3.55, 10.41) -- (4.56, 8.96) -- (0.0, 0.0) -- (1.4, 0.0) -- (6.01, 9.07) -- (4.56, 11.14).. controls (3.88, 12.07) and (3.47, 13.2) .. (3.47, 14.43).. controls (3.48, 17.51) and (5.97, 20.01) .. (9.05, 20.01).. controls (12.13, 20.01) and (14.62, 17.51) .. (14.63, 14.43).. controls (14.63, 14.28) and (14.6, 14.13) .. (14.59, 13.99) -- (14.59, 13.99) -- (14.59, 13.98) -- (15.89, 11.05) -- (14.34, 11.05) -- (13.72, 6.96) -- (11.59, 6.96) -- (10.96, 5.72) -- (14.79, 5.72) -- (15.42, 9.8) -- (17.2, 9.8) -- (17.57, 10.32) -- (15.86, 14.19);
@@ -2660,8 +2733,9 @@ een b\'echamel saus:
   \setlength\@ftextwen{6\@logounit}
   \setlength\@ftextwnl{7\@logounit}
   \setlength\@ftextmarginextra{0.25cm}
-}
-\DeclareOption{lw}{
+},
+lw .meta:n = { faculty = lw },
+faculty / lw .code:n = {
   \renewcommand*\@fselector{lw}
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (11.25, 7.21).. controls (11.62, 7.42) and (12.05, 7.54) .. (12.5, 7.54) -- (20.01, 7.54) -- (20.01, 20.01) -- (12.5, 20.01).. controls (11.81, 20.01) and (11.25, 19.45) .. (11.25, 18.77) -- cycle(10.01, 18.77).. controls (10.01, 19.45) and (9.45, 20.01) .. (8.76, 20.01) -- (1.25, 20.01) -- (1.25, 7.54) -- (8.76, 7.54).. controls (9.21, 7.54) and (9.64, 7.42) .. (10.01, 7.21) -- cycle(8.76, 6.29) -- (-0.0, 6.29) -- (-0.0, 21.26) -- (8.76, 21.26).. controls (9.51, 21.26) and (10.17, 20.92) .. (10.63, 20.4).. controls (11.09, 20.92) and (11.75, 21.26) .. (12.5, 21.26) -- (21.26, 21.26) -- (21.26, 6.29) -- (12.5, 6.29).. controls (11.75, 6.29) and (11.09, 5.97) .. (10.63, 5.45).. controls (10.17, 5.97) and (9.51, 6.29) .. (8.76, 6.29);
@@ -2672,8 +2746,9 @@ een b\'echamel saus:
   }
   \setlength\@ftextwen{4\@logounit}
   \setlength\@ftextwnl{5\@logounit}
-}
-\DeclareOption{eb}{
+},
+eb .meta:n = { faculty = eb },
+faculty / eb .code:n = {
   \renewcommand*\@fselector{eb}
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (12.47, 7.95) -- (12.47, 2.49) -- (13.72, 2.49) -- (13.72, 7.95) -- (12.47, 7.95);
@@ -2687,8 +2762,9 @@ een b\'echamel saus:
   \setlength\@ftextwen{6\@logounit}
   \setlength\@ftextwnl{5\@logounit}
   \setlength\@ftextmarginextra{0.16cm}
- }
-\DeclareOption{ps}{
+ },
+ps .meta:n = { faculty = ps },
+faculty / ps .code:n = {
   \renewcommand*\@fselector{ps}
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (10.0, 2.5) -- (10.0, 3.75).. controls (8.04, 3.93) and (6.19, 4.94) .. (4.99, 6.64) -- (3.91, 6.02).. controls (5.35, 3.92) and (7.61, 2.68) .. (10.0, 2.5);
@@ -2706,8 +2782,9 @@ een b\'echamel saus:
   }
   \setlength\@ftextwen{5\@logounit}
   \setlength\@ftextwnl{6\@logounit}
-}
-\DeclareOption{ge}{
+},
+ge .meta:n = { faculty = ge },
+faculty / ge .code:n = {
   \renewcommand*\@fselector{ge}
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (17.44, 9.99) -- (17.68, 8.74) -- (21.26, 8.74) -- (21.26, 9.99) -- (17.44, 9.99);
@@ -2717,8 +2794,9 @@ een b\'echamel saus:
   }
   \setlength\@ftextwen{5\@logounit}
   \setlength\@ftextwnl{7\@logounit}
-}
-\DeclareOption{fw}{
+},
+fw .meta:n = { faculty = fw },
+faculty / fw .code:n = {
   \renewcommand*\@fselector{fw}
   \renewcommand*\@ficonpath{
 	  	\path[nonzero~rule,line~width=0.1pt] (11.22, 5.61) -- (11.22, 10.01) -- (9.98, 10.01) -- (9.98, 5.61).. controls (9.98, 3.2) and (8.02, 1.25) .. (5.61, 1.25).. controls (3.2, 1.25) and (1.25, 3.2) .. (1.25, 5.61) -- (1.25, 10.01) -- (0.0, 10.01) -- (0.0, 5.61).. controls (0.0, 2.51) and (2.51, -0.0) .. (5.61, -0.0).. controls (8.71, -0.0) and (11.22, 2.51) .. (11.22, 5.61);
@@ -2730,6 +2808,7 @@ een b\'echamel saus:
   \setlength\@ftextwen{6\@logounit}
   \setlength\@ftextwnl{6\@logounit}
   \setlength\@ftextmarginextra{0.16cm}
+},
 }
 \ExplSyntaxOff
 
@@ -2890,7 +2969,8 @@ een b\'echamel saus:
 % \subsection{Color scheme}
 %    \begin{macrocode}
 %<*col>
-\if@cmyk
+\ExplSyntaxOn
+\str_if_eq:VnTF \l_@@_colormodel_tl {cmyk} {
 %% UGent
 \definecolor{ugent@main}	{cmyk}{1.00,0.40,0.00,0.00} % UGent Blue
 \definecolor{ugent@accent}	{cmyk}{0.00,0.10,1.00,0.00} % UGent Yellow
@@ -2907,7 +2987,7 @@ een b\'echamel saus:
 \definecolor{ugent@fw}		{cmyk}{0.16,0.83,0.00,0.00} % Pharmaceutical Sciences
 \definecolor{ugent@ps}		{cmyk}{0.71,0.00,1.00,0.00} % Political and Social Sciences
 
-\else
+}{
 %% UGent
 \definecolor{ugent@main}	{RGB}{30,100,200}	% UGent Blue
 \definecolor{ugent@accent}	{RGB}{255,210,0}		% UGent Yellow
@@ -2923,27 +3003,29 @@ een b\'echamel saus:
 \definecolor{ugent@bw}		{RGB}{39,171,173} 	% Bioscience Engineering
 \definecolor{ugent@fw}		{RGB}{190,81,144} 	% Pharmaceutical Sciences
 \definecolor{ugent@ps}		{RGB}{113,168,96} 	% Political and Social Sciences
-\fi
+}
 
 %%
 \ifx\@fselector\@empty
-	\@neutralcolorstrue
+	\bool_set_true:N \l_@@_neutralcolors_bool
 \fi
-\if@neutralcolors
+
+\bool_if:NTF \l_@@_neutralcolors_bool {
 \colorlet{maincolor}{ugent@main}
 \colorlet{sidecolor}{white}
 \colorlet{basecolor}{ugent@main!10}
 \colorlet{hypercolor}{ugent@main!50!black}
 \colorlet{toccolor}{black}
 \colorlet{titlecolor}{ugent@main}
-\else
+}{
 \colorlet{maincolor}{ugent@\@fselector}
 \colorlet{sidecolor}{white}
 \colorlet{basecolor}{ugent@\@fselector!10}
 \colorlet{hypercolor}{ugent@main!50!black}
 \colorlet{toccolor}{black}
 \colorlet{titlecolor}{ugent@main}
-\fi
+}
+\ExplSyntaxOff
 %</col>
 %    \end{macrocode}
 %
@@ -2958,50 +3040,105 @@ een b\'echamel saus:
 % 
 %    \begin{macrocode}
 %<*phd|bkc|rp|ex|le|crs|bmt|bmr>
-\newif\if@dutch
-\DeclareOption{dutch}{\@dutchtrue}
-\DeclareOption{english}{\@dutchfalse}
+\ExplSyntaxOn
+\tl_new:N \l_@@_language_tl
+\tl_set:Nn \l_@@_language_tl {english}
+
+\keys_define:nn { ugentdocs } {
+	language .tl_set:N = \l_@@_language_tl ,
+	dutch    .code:n   = { \tl_set:Nn \l_@@_language_tl {dutch} } ,
+	english  .code:n   = { \tl_set:Nn \l_@@_language_tl {english} } ,
+}
+
+\tl_new:N \l_@@_campus_tl
+\tl_set:Nn \l_@@_campus_tl {ugent}
+
+\keys_define:nn { ugentdocs } {
+	campus .tl_set:N = \l_@@_campus_tl ,
+	ugent    .code:n   = { \tl_set:Nn \l_@@_campus_tl {ugent} } ,
+	gugc     .code:n   = { \tl_set:Nn \l_@@_campus_tl {gugc} } ,
+	kortrijk .code:n   = { \tl_set:Nn \l_@@_campus_tl {kortrijk} } ,
+}
 %</phd|bkc|rp|ex|le|crs|bmt|bmr>
 %<*crs|rp>      
-\newif\if@copyright
-\DeclareOption{copyright}{\@copyrighttrue}
+\bool_new:N \l_@@_copyright_bool
+
+\keys_define:nn { ugentdocs } {
+	copyright .bool_set:N = \l_@@_copyright_bool ,
+	copyright .default:n = true ,
+}
 %</crs|rp>
 %
 %<*ex>
-\newif\if@examiner
-\DeclareOption{examiner}{\@examinertrue}
+\bool_new:N \l_@@_examiner_bool
+
+\keys_define:nn { ugentdocs } {
+	examiner .bool_set:N = \l_@@_examiner_bool ,
+	examiner .default:n = true ,
+}
 %</ex>
 %<*phd|bkc>
-\newif\if@cameraready
-\DeclareOption{cameraready}{\@camerareadytrue}
+\bool_new:N \l_@@_cameraready_bool
+
+\keys_define:nn { ugentdocs } {
+	cameraready .bool_set:N = \l_@@_cameraready_bool ,
+	cameraready .default:n = true ,
+}
 %</phd|bkc>
 %<*phd|crs>
-\newif\if@bare
-\DeclareOption{bare}{\@baretrue}
+\bool_new:N \l_@@_bare_bool
+
+\keys_define:nn { ugentdocs } {
+	bare .bool_set:N = \l_@@_bare_bool ,
+	bare .default:n = true ,
+}
 %</phd|crs>
 %<*phd|bkc|rp|ex|le|crs|bmt|bmr>
-\newif\if@surnamefirst
-\DeclareOption{surnamefirst}{\@surnamefirsttrue}
+\tl_new:N \l_@@_nameformat_tl
+\tl_set:Nn \l_@@_nameformat_tl {surnamelast}
+
+\keys_define:nn { ugentdocs } {
+	nameformat .tl_set:N = \l_@@_nameformat_tl ,
+	surnamefirst .code:n   = { \tl_set:Nn \l_@@_nameformat_tl {surnamefirst} } ,
+	surnamelast  .code:n   = { \tl_set:Nn \l_@@_nameformat_tl {surnamelast} } ,
+}
 %</phd|bkc|rp|ex|le|crs|bmt|bmr>
 %<*le>
-\newif\if@nofoldline
-\DeclareOption{nofoldline}{\@nofoldlinetrue}
+\bool_new:N \l_@@_foldline_bool
+\bool_set_true:N \l_@@_foldline_bool
+
+\keys_define:nn { ugentdocs } {
+	foldline .bool_set:N = \l_@@_foldline_bool ,
+	foldline .default:n = true ,
+}
 %</le>
 %<*bmt|rp>
-\newif\if@coverbg
-\DeclareOption{coverbg}{\@coverbgtrue}
+\bool_new:N \l_@@_coverbg_bool
+
+\keys_define:nn { ugentdocs } {
+	coverbg .bool_set:N = \l_@@_coverbg_bool ,
+	coverbg .default:n = true ,
+}
 %</bmt|rp>
 %<*bkc|phd|crs|bmt|rp>
-\newcommand*{\@covertype}{}
+\tl_new:N \l_@@_covertype_tl
+\msg_new:nnn { ugentdocs } { cover~type~not~implemented }
+{ Cover~type~'#1'~is~not~implemented. }
 %</bkc|phd|crs|bmt|rp>
 %<*bkc>
-\DeclareOption{dissertation}{\renewcommand*{\@covertype}{dissertation}}
-\DeclareOption{course}{\renewcommand*{\@covertype}{course}}
+\keys_define:nn { ugentdocs } {
+	covertype .tl_set:N = \l_@@_covertype_tl ,
+	dissertation .code:n   = { \tl_set:Nn \l_@@_covertype_tl {dissertation} } ,
+	course       .code:n   = { \tl_set:Nn \l_@@_covertype_tl {course} } ,
+}
 %</bkc>
-%<phd> \renewcommand*{\@covertype}{dissertation}
-%<crs> \renewcommand*{\@covertype}{course}
-%<bmt> \renewcommand*{\@covertype}{thesis}
-%<rp>  \renewcommand*{\@covertype}{report}
+%<phd> \tl_set:Nn \l_@@_covertype_tl {dissertation}
+%<crs> \tl_set:Nn \l_@@_covertype_tl {course}
+%<bmt> \tl_set:Nn \l_@@_covertype_tl {thesis}
+%<rp>  \tl_set:Nn \l_@@_covertype_tl {report}
+%<*phd|bkc|rp|ex|le|crs|bmt|bmr> 
+\ExplSyntaxOff
+%</phd|bkc|rp|ex|le|crs|bmt|bmr> 
 %    \end{macrocode}
 %
 %
@@ -3010,9 +3147,12 @@ een b\'echamel saus:
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp>
 \input{ugentcommon.clo}
+\PassOptionsToClass{a4paper,11pt,final,oneside,openright}{book}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption, a4paper}{book}}
-\ExecuteOptions{a4paper,11pt,final,oneside,openright}
 \ProcessOptions\relax
+\ExplSyntaxOn
+\ProcessKeyOptions[ ugentdocs ]
+\ExplSyntaxOff
 \LoadClass{book}
 %</crs|bmt|phd|rp>
 % We load the |bookcover| class for dissertation covers
@@ -3023,16 +3163,18 @@ een b\'echamel saus:
 
 \newlength{\@bleedspace}
 \newlength{\@markerlength}
-\if@cameraready
+\ExplSyntaxOn
+\ProcessKeyOptions[ugentdocs]
+
+\bool_if:NTF \l_@@_cameraready_bool {
   \setlength\@bleedspace{3mm}
   \setlength\@markerlength{10mm}
-\else
+}{
   \setlength\@bleedspace{0mm}
   \setlength\@markerlength{0mm}
-\fi
-
-\ExplSyntaxOn  
-\exp_args:Nx \str_case:nnF { \@covertype } {
+}
+  
+\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 	{ dissertation }    {
 		\PassOptionsToClass{
 			coverheight=24cm,
@@ -3050,7 +3192,7 @@ een b\'echamel saus:
 		}{bookcover}
 	}
 }{
-	\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
+	\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
 }
 \ExplSyntaxOff
 \LoadClass{bookcover}
@@ -3058,16 +3200,24 @@ een b\'echamel saus:
 % We load the |letter| class for letters
 %<*le> 
 \input{ugentcommon.clo}
-\ExecuteOptions{a4paper,10pt,final,oneside,openright}
-\ProcessOptions
-\LoadClassWithOptions{letter}
+\PassOptionsToClass{a4paper,10pt,final,oneside}{letter}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{letter}}
+\ProcessOptions\relax
+\ExplSyntaxOn
+\ProcessKeyOptions[ ugentdocs ]
+\ExplSyntaxOff
+\LoadClass{letter}
 %</le>
 % We load the |article| class for exams
 %<*ex>
 \input{ugentcommon.clo}
-\ExecuteOptions{a4paper,twoside,10pt}
-\ProcessOptions
-\LoadClassWithOptions{article}
+\PassOptionsToClass{a4paper,10pt,final,twoside}{article}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\ProcessOptions\relax
+\ExplSyntaxOn
+\ProcessKeyOptions[ ugentdocs ]
+\ExplSyntaxOff
+\LoadClass{article}
 %</ex>
 %    \end{macrocode}
 % 
@@ -3243,17 +3393,21 @@ een b\'echamel saus:
 \RequirePackage[normalem]{ulem}
 \renewcommand{\ULthickness}{1pt}
 \RequirePackage{setspace}
-\if@dutch
+\ExplSyntaxOn
+\str_if_eq:VnTF \l_@@_language_tl {dutch} {
   \PassOptionsToPackage{main=dutch}{babel}
-\else
+}{
   \PassOptionsToPackage{main=english}{babel}
-\fi
+}
 \RequirePackage[dutch,english]{babel}
+\ExplSyntaxOff
 %</crs|bmt|phd|rp|le|ex|bkc>
 %<*crs|rp>
-\if@copyright
-\RequirePackage[contents={},color=lightgray,scale=3]{background}
-\fi
+\ExplSyntaxOn
+\bool_if:NT \l_@@_copyright_bool {
+	\RequirePackage[contents={},color=lightgray,scale=3]{background}
+}
+\ExplSyntaxOff
 %</crs|rp>
 %    \end{macrocode}
 %
@@ -3335,9 +3489,11 @@ een b\'echamel saus:
 % using the very fine |crop| package.
 %    \begin{macrocode}
 %<*phd>
-\if@cameraready
-\RequirePackage[cam,center,width=21truecm,height=29.7truecm]{crop}
-\fi
+\ExplSyntaxOn
+\bool_if:NT \l_@@_cameraready_bool {
+	\RequirePackage[cam,center,width=21truecm,height=29.7truecm]{crop}
+}
+\ExplSyntaxOff
 %</phd>
 %    \end{macrocode}
 %
@@ -3379,16 +3535,16 @@ een b\'echamel saus:
 
 \cs_new_protected:Npn \@@buildformattedname:
 {
-	\if@surnamefirst
+\str_if_eq:VnTF \l_@@_nameformat_tl {surnamefirst} {
 	\tl_set:Nn \l_@@_formattedname_tl { \l_@@_surname_tl }
 	\tl_if_empty:NF \l_@@_firstname_tl
 	{ \tl_put_right:Nn \l_@@_formattedname_tl { \space \l_@@_firstname_tl } }
-	\else
+}{
 	\tl_clear:N \l_@@_formattedname_tl
 	\tl_if_empty:NF \l_@@_firstname_tl
 	{ \tl_set:Nn \l_@@_formattedname_tl { \l_@@_firstname_tl \space } }
 	\tl_put_right:Nn \l_@@_formattedname_tl { \l_@@_surname_tl }
-	\fi
+}
 }
 
 \NewDocumentCommand \@surname { m }
@@ -4700,9 +4856,9 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 }
 
 \renewcommand{\@copyrightnotices}{%
-	\if@dutch
+	\str_if_eq:VnTF \l_@@_language_tl {dutch} {
 		\@bamadisclaimer
-	\else
+	}{
 		\begingroup
 		\selectlanguage{dutch}
 			\@bamadisclaimer
@@ -4710,7 +4866,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\selectlanguage{english}
 		\newline\newline
 			\@bamadisclaimer
-	\fi
+	}
 	\newline\newline
 	\@location,~\@date
 	\newline\newline
@@ -4721,17 +4877,18 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \ExplSyntaxOff
 %</bmt>
 %<*phd>
+\ExplSyntaxOn
 \renewcommand{\@copyrightnotices}{%
 	\noindent\begin{minipage}[b]{\textwidth}
 		\textbf{Contact}\\
 		\smallskip
-		\printauthorswithaffiliation{ | }{ | }{ | }\\
+		\printauthorswithaffiliation{~|~}{~|~}{~|~}\\
 		\@address
-		\if@dutch\else
-		\\[\baselineskip]
-		\textbf{Titel van het doctoraat in het Nederlands:}\\
-		{\renewcommand{\\}[1][]{~}\@titel: \@subtitel}
-		\fi
+		\str_if_eq:VnF \l_@@_language_tl {dutch} {
+			\\[\baselineskip]
+			\textbf{Titel~van~het~doctoraat~in~het~Nederlands:}\\
+			{\renewcommand{\\}[1][]{~}\@titel{}:~\@subtitel}
+		}
 		\ifx\@coverdesigner\@empty\else
 		\\[\baselineskip]
 		\textbf{\translatekey{coverdesigner}:}\\
@@ -4743,7 +4900,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		%
 		\ifx\@grants\@empty\else
 		\\[\baselineskip]
-		{\translatekey{supportedby} \@grants.}
+		{\translatekey{supportedby}~\@grants.}
 		\fi
 		\if@embargo
 		\\[\baselineskip]
@@ -4756,23 +4913,23 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\fi
 		\else
 		\\[\baselineskip]
-		\textbf{\translatekey{crdisclaimer} \textcopyright\ \the\year}\\
+		\textbf{\translatekey{crdisclaimer}~\textcopyright\~\the\year}\\
 		{\translatekey{arrphd}}%
 		\fi
 		\\[\baselineskip]
 		{\textbf{\translatekey{pleaserefer}:}\\  		
-			\printauthorlist~(\the\year).
-			{\renewcommand{\\}[1][]{~}\@title: \@subtitle}.
-			PhD Thesis, Ghent University, Belgium.}%
+			\printauthorlist~(\the\year).~
+			{\renewcommand{\\}[1][]{~}\@title{}:~\@subtitle}.~PhD~Thesis,~Ghent~University,~Belgium.}%
 		\ifx\@isbn\@empty\else
-		\\[\baselineskip]{\small ISBN \@isbn}%
+		\\[\baselineskip]{\small ISBN~\@isbn}%
 		\fi
 		\ifdefempty{\@doi}{}{
 			\ifx\@isbn\@empty\\[\baselineskip]\else\\\fi
-			{\small DOI \href{https://doi.org/\@doi}{\@doi}}
+			{\small DOI~\href{https://doi.org/\@doi}{\@doi}}
 		}
 	\end{minipage}
 }
+\ExplSyntaxOff
 %</phd>
 %<*crs>
 \renewcommand{\@copyrightnotices}{
@@ -5431,14 +5588,16 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \lhead[]{}
 \chead[]{}
 \cfoot[\small \thepage/\ztotpages]{\small\thepage/\ztotpages}
-\if@examiner
-\rhead[\small EXAMINER VERSION]{\small EXAMINER VERSION}
-\AddToShipoutPicture{
-  \put(60,40){\rotatebox{60}{\textcolor{watermark}{
-        \fontsize{105}{130}\selectfont Examiner Version}}}}
-\else
-\rhead[\small Student nr. \@studentnr]{\small Student nr. \@studentnr}
-\fi
+\ExplSyntaxOn
+\bool_if:NTF \l_@@_examiner_bool {
+	\rhead[\small EXAMINER~VERSION]{\small EXAMINER~VERSION}
+	\AddToShipoutPicture{
+	  \put(60,40){\rotatebox{60}{\textcolor{watermark}{
+	        \fontsize{105}{130}\selectfont Examiner~Version}}}}
+}{
+	\rhead[\small Student~nr.~\@studentnr]{\small Student~nr.~\@studentnr}
+}
+\ExplSyntaxOff
 %</ex>
 %    \end{macrocode}
 
@@ -5559,17 +5718,19 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\setlength\@HTS{3\gridunit}
 \fi
 
-\if@coverbg
+\ExplSyntaxOn
+\bool_if:NTF \l_@@_coverbg_bool {
 	\colorlet{covertitlecolor}	{white}
 	\colorlet{coverbgcolor}		{maincolor}
 	\colorlet{coverdatacolor}	{white}
 	\setlength\@ML{2\gridunit}
-\else
+}{
 	\colorlet{covertitlecolor}	{ugent@main}
 	\colorlet{coverbgcolor}		{white}
 	\colorlet{coverdatacolor}	{black}
 	\setlength\@ML{\gridunit}
-\fi
+}
+\ExplSyntaxOff
 %</bmt|rp>
 %    \end{macrocode}
 %
@@ -5701,11 +5862,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 
 \ExplSyntaxOn
 \newcommand*\@coverbody{
-	\exp_args:Nx \str_case:nnF { \@covertype } {
+	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 		{ thesis } { \@coverbodythesis }
 		{ report } { \@coverbodyreport }
 	}{
-		\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
+		\msg_error:nnx { ugentdocs } { cover~type~not~implemented } {\l_@@_covertype_tl }
 	}
 }
 \ExplSyntaxOff
@@ -5717,19 +5878,20 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %	Defines the front cover layout
 %    \begin{macrocode}
 %<*bmt|rp>
+\ExplSyntaxOn
 \newcommand{\@frontcover}{
-	\begin{tikzpicture}[inner sep=0pt, outer sep=0pt]
+	\begin{tikzpicture}[inner~sep=0pt, outer~sep=0pt]
 	\clip (0,0) rectangle (\paperwidth,\paperheight);
 	
 	\begin{scope}[shift={(0,\paperheight-3*\gridunit)}]
 	\@faclogo{3*\gridunit}{ugent@\@fselector}{0}
 	\end{scope}
 	
-	\if@coverbg
+	\bool_if:NT \l_@@_coverbg_bool {
 		\fill[coverbgcolor] (\gridunit,4*\gridunit) rectangle (\paperwidth,\paperheight-\@HTS);
 		\begingroup
 		\colorlet{hypercolor}{covertitlecolor}
-	\fi
+	}
 	
 	\@coverbody
 	
@@ -5738,18 +5900,19 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\end{scope}
 	
 	\ifx\@frontcoverlogos\@empty\else
-		\node[anchor=south east, inner sep=0pt,
-			text width=\paperwidth-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
+		\node[anchor=south~east, inner~sep=0pt,
+			text~width=\paperwidth-(2+\@ugenttextw/\@logounit)*\gridunit, minimum~height=2*\gridunit,
 			align=right] at (\paperwidth-\gridunit,\gridunit)
 			{\@frontcoverlogos};
 	\fi
 	
-	\if@coverbg
+	\bool_if:NT \l_@@_coverbg_bool {
 		\endgroup
-	\fi
+	}
 	
 	\end{tikzpicture}
 }
+\ExplSyntaxOff
 %</bmt|rp>
 %    \end{macrocode}
 % \end{imacro}
@@ -5776,8 +5939,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*phd|bkc|crs>
 \newif\if@bwbookcover
 \ExplSyntaxOn
-\str_if_eq:eeTF { \@fselector } { bw } {
-	\exp_args:Nx \str_case:nnF { \@covertype } {
+\exp_args:Nx \str_if_eq:eeTF { \@fselector } { bw } {
+	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 	{ dissertation } {
 		\@bwbookcovertrue
 	}
@@ -5785,7 +5948,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\@bwbookcoverfalse
 	}
 	}{
-		\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
+		\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
 	}	
 }{ 
 	\@bwbookcoverfalse
@@ -5957,11 +6120,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*phd|bkc|crs>
 \ExplSyntaxOn
 \newcommand*\@coverbody{
-	\exp_args:Nx \str_case:nnF { \@covertype } {
+	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 		{ dissertation } { \@coverbodydissertation }
 		{ course } { \@coverbodycourse }
 	}{
-		\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
+		\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
 	}
 }
 \ExplSyntaxOff
@@ -5972,24 +6135,24 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \begin{macrocode}
 %<*phd|bkc|crs>
 \ExplSyntaxOn
-\exp_args:Nx \str_case:nnF { \@covertype } {
+\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 	{ dissertation } {	}
 	{ course } { 
 		\colorlet{coverareacolor}{ugent@main}
 		\ifx\@fselector\@empty
 			\colorlet{coverbgcolor}{ugent@accent}
 		\else
-			\if@neutralcolors
+			\bool_if:NTF \l_@@_neutralcolors_bool {
 				\colorlet{coverbgcolor}{ugent@accent}
-			\else
+			}{
 				\colorlet{coverbgcolor}{ugent@\@fselector}
-			\fi
+			}
 		\fi
 		\colorlet{covertitlecolor}{white}
 		\setlength\@WD{10\gridunit}
 	}
 }{
-	\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
+	\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
 }
 \ExplSyntaxOff
 %</phd|bkc|crs>
@@ -6001,18 +6164,18 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*phd|bkc|crs>
 \ExplSyntaxOn
 \newcommand*\@coverblankimage{
-	\exp_args:Nx \str_case:nnF { \@covertype } {
+	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 		{ dissertation } {	}
 		{ course } {
-			\if@neutralcolors\else
 				\pgfmathsetlength{\@WFI}{\\@PW-\@MS-4*\gridunit}
 				\begin{scope}[shift={(\\@PW-\gridunit-\@WFI,\\@PH-\@HTS-\gridunit-\@WFI)}]
+			\bool_if:NF \l_@@_neutralcolors_bool {
 					\@ficon{\@WFI}{coverbgcolor!60}{0.0}
 				\end{scope}
-			\fi
+			}
 		}
 	}{
-		\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
+		\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
 	}
 }
 \ExplSyntaxOff
@@ -6125,12 +6288,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \begin{imacro}{\maketitle}
 %    \begin{macrocode}
 %<*bmt|phd|rp|crs>
+\ExplSyntaxOn
 \renewcommand\maketitle{%
 	\@prepmaketitle
 	\pagestyle{empty}
 %</bmt|phd|rp|crs>
 %<*phd>
-	\if@bare\else
+	\bool_if:NF \l_@@_bare_bool {
 	\begingroup
 	\pagenumbering{gobble}
 %</phd>
@@ -6144,10 +6308,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 				\@frontcover
 			}
 		}
+		\null
 	\end{titlepage}%
 %</bmt|phd|rp|crs>
 %<*bmt|rp>
-	~\par\relax
+	\null\par\clearpage
 	% Only 1 page: Copyrightnotices
 	\clearpage
 	\ifx\@copyrightnotices\@empty\else
@@ -6159,9 +6324,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	~\par\relax
     % Only 1 page: Copyrightnotices
     \clearpage
-    \if@copyright
-    \backgroundsetup{contents={Copyright Ghent University, All Rights Reserved}}
-    \fi
+    \ExplSyntaxOn
+    \bool_if:NT \l_@@_copyright_bool {
+    	\backgroundsetup{contents={Copyright~Ghent~University,~All~Rights~Reserved}}
+	}
     \null\vfill
     \ifx\@copyrightnotices\@empty\else
 	    \@copyrightnotices
@@ -6171,7 +6337,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*phd>
 	\endgroup
 	\setcounter{page}{0}%
-	~\par\relax
+	}
 	
 	% Page 1: blank
 	\clearpage\thispagestyle{empty}\null
@@ -6189,13 +6355,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\textbf{\translatekey{jury}}\hfill\\[1ex]
 		%
 		\textit{\translatekey{jurychair}}\hfill\break
-		\@jurychair{}\ifdefvoid{\@jurychairaff}{}{, \@jurychairaff}\\[1ex]
+		\@jurychair{}\ifdefvoid{\@jurychairaff}{}{,~\@jurychairaff}\\[1ex]
 		%
 		\textit{\translatekey{jurymembers}}\hfill\break
 		{\printjurymembers{\\}{\\}{\\}}\\[2ex]%
 		%
 		%
-		\textbf{\translatekey{dean}\ifx\@fselector\@empty\else~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty\fi}\hfill\break
+		\textbf{\translatekey{dean}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty\fi}\hfill\break
 		\@dean\\[2ex]
 		%
 		\textbf{\translatekey{rector}~\translatekey[lowercase]{of}~\translatekey{org-deugent}}\hfill\break
@@ -6214,20 +6380,20 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\fi
 		
 		\vspace{5\baselineskip}%
-		{\Large\printauthors{\\}{\\}{\\}}%
+		{\Large\printauthors{\\}{\\}{\\}\par}%
 		
 		\if@embargo
 		\vspace{5\baselineskip}
-		{\large\translatekey[uppercase]{confidential}}
+		{\large\translatekey[uppercase]{confidential}\par}
 		\vspace{5\baselineskip}
 		\else
 		\vspace{10\baselineskip}%
 		\fi
 		
-		{\small \translatekey{submittedto}\ifx\@fselector\@empty\else~\translatekey[lowercase]{the-de}~\@faculty~\translatekey[lowercase]{of}\fi~\translatekey{org-deugent}, \translatekey{phdfulfil}~\printdegrees{~\&~}{,~}{\translatekey{andlist}~}}%
+		{\small \translatekey{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printdegrees{~\&~}{,~}{\translatekey{andlist}~}\par}%
 		
 		\vspace{.3\baselineskip}%
-		{\small\translatekey{org-ugent}, \@location, \@date}%
+		{\small\translatekey{org-ugent},~\@location,~\@date}%
 	\end{minipage}%
 	
 	% Page 4: copyright page (verso, bottom-left)
@@ -6246,6 +6412,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\pagestyle{fancy}
 	\thispagestyle{empty}
 }
+\ExplSyntaxOff
 %</bmt|phd|rp|crs>
 %    \end{macrocode}
 % \end{imacro}
@@ -6253,13 +6420,16 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \begin{imacro}{\makefinalpage}
 %   Below, one can find the code for the final page: 
 %    \begin{macrocode}
-%<bmt|phd|crs|rp> \newcommand\makefinalpage{
+%<*bmt|phd|crs|rp> 
+\ExplSyntaxOn
+\newcommand\makefinalpage{
+%</bmt|phd|crs|rp> 
 %<bmt>	\@backcover{}
 %<*phd|crs>
-	\if@bare\else
+\bool_if:NF \l_@@_bare_bool {
 	\cleardoublepage
 	\thispagestyle{empty}
-	~% intentionally blank page
+	\null% intentionally blank page
 	\clearpage
 	\thispagestyle{empty}
 	\AddToShipoutPicture*{%
@@ -6267,10 +6437,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 			\@backcover
 		}
 	}
-	~
-	\fi
+	\null
+}
 %</phd|crs>
-%<bmt|phd|crs|rp> }
+%<*bmt|phd|crs|rp> 
+}
+\ExplSyntaxOff
+%</bmt|phd|crs|rp> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -6384,16 +6557,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \newcommand\generatebookcover{
 	\fp_set:Nn \l_@@_paperweight_fp { 80 } % g/m2
 	\fp_set:Nn \l_@@_paperbulk_fp   { 1.25 } % cm3/g
-	\if@bare
+	\bool_if:NTF \l_@@_bare_bool {
 		\fp_set:Nn \l_@@_pagecount_fp  { \ztotpages }
-	\else
+	}{
 		\fp_set:Nn \l_@@_pagecount_fp  { \ztotpages - 2}
-	\fi
+	}
 	
 	\tl_set:Nx \l_@@_faculty_tl    { \@fselector }
-	\tl_set:Nx \l_@@_cmyk_tl { \if@cmyk,~cmyk \fi }
-	\tl_set:Nx \l_@@_surnamefirst_tl { \if@surnamefirst,~surnamefirst\fi}
-	\tl_set:Nx \l_@@_dutch_tl { \if@dutch ,~dutch \fi }
 
 	\dim_new:N \l_@@_spinewidth_dim
 	\dim_set:Nn \l_@@_spinewidth_dim {\fp_to_decimal:n {\l_@@_pagecount_fp/2*\l_@@_paperweight_fp/1e6*\l_@@_paperbulk_fp*1e3} mm}
@@ -6416,32 +6586,36 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\seq_map_inline:Nn \g_@@_degreecalls_seq
 	{ \tl_put_right:Nn \l_@@_degreecalls_tl { ##1 \iow_newline: } }
 	
-	\exp_args:Nx \str_case:nnF { \@covertype } {
+	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 		{ dissertation }    {
 			\tl_clear_new:N \l_@@_supervisorcalls_tl
 			\seq_map_inline:Nn \g_@@_supervisorcalls_seq
 			{ \tl_put_right:Nn \l_@@_supervisorcalls_tl { ##1 \iow_newline: } }
-			\tl_set:Nx \l_@@_cameraready_tl { \if@cameraready ,~cameraready \fi }
-			\tl_set:Nn \l_@@_covertype_tl { ,~dissertation }
+			\bool_if:NTF \l_@@_cameraready_bool	{
+				\tl_set:Nn \l_@@_cameraready_tl { ,cameraready=true }
+			}{
+				\tl_set:Nn \l_@@_cameraready_tl { ,cameraready=false }
+			}
+			\tl_set:Nn \l_@@_covertypekey_tl { ,dissertation }
 		}
 		{ course }     {
 			\tl_clear_new:N \l_@@_lecturercalls_tl
 			\seq_map_inline:Nn \g_@@_lecturercalls_seq
 			{ \tl_put_right:Nn \l_@@_lecturercalls_tl { ##1 \iow_newline: } }
 			\tl_set:Nx \l_@@_cameraready_tl { }
-			\tl_set:Nn \l_@@_covertype_tl { ,~course }
+			\tl_set:Nn \l_@@_covertypekey_tl { ,course }
 		}
 	}{
-		\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
+		\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
 	}
 	
 	\tl_set:Nn \g_@@_covertemplate_tl {
 		\exp_not:N\documentclass[\l_@@_faculty_tl, spinewidth=\fp_to_decimal:n{round(\dim_ratio:nn{\l_@@_spinewidth_dim}{1mm},1)}mm
 		\l_@@_cameraready_tl
-		\l_@@_cmyk_tl
-		\l_@@_surnamefirst_tl
-		\l_@@_dutch_tl
-		\l_@@_covertype_tl]{ugentbookcover}\iow_newline:
+		,\l_@@_colormodel_tl
+		,\l_@@_language_tl
+		,\l_@@_nameformat_tl
+		\l_@@_covertypekey_tl]{ugentbookcover}\iow_newline:
 		\c_percent_str~Currently,~a~for~80~g/m2~paper~with~a~bulk~of~1.25~cm3/g~is~assumed~(0.1~mm~caliper~or~thickness).\iow_newline:
 		\c_percent_str~Page~count~is~\fp_to_decimal:n{round(\l_@@_pagecount_fp,0)}~pages.~Adjust~spinewidth~if~necessary~using:\iow_newline:
 		\c_percent_str~spinewidth~=~page~count~/~2~*~grammage~*~bulk~=~page~count~/~2~*~caliper\iow_newline:
@@ -6468,7 +6642,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	}
 	\fi	
 	
-	\exp_args:Nx \str_case:nnF { \@covertype } {
+	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 		{ dissertation }    {
 			\tl_put_right:Nn \g_@@_covertemplate_tl {
 				\l_@@_supervisorcalls_tl									   \iow_newline:
@@ -6485,7 +6659,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 			}
 		}
 	}{
-		\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
+		\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
 	}
 	
 	\tl_put_right:Nn \g_@@_covertemplate_tl {
@@ -6516,12 +6690,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 %    \begin{macrocode}
 %<*le>
+\ExplSyntaxOn
 \newcommand\maketitle{%
 	\pagestyle{empty}
 	\thispagestyle{empty}
 	\AddToShipoutPicture{%
 		\put(0,0){%
-			\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
+			\begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt]
 			\clip (0,0) rectangle(\paperwidth,\paperheight);
 			\begin{scope}[shift={(\gridunit,0)}]
 			\@ugentlogo{4\gridunit}{ugent@main}{0.0}
@@ -6529,15 +6704,15 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 			\begin{scope}[shift={(\gridunit,\@PH-3\gridunit)}]
 			\@faclogo{3\gridunit}{ugent@\@fselector}{0}
 			\end{scope}
-			\path (current page.north east) +(-\gridunit,-\gridunit)
-			node[anchor=north east,text width=61.5mm,align=left] {
+			\path (current~page.north~east) +(-\gridunit,-\gridunit)
+			node[anchor=north~east,text~width=61.5mm,align=left] {
 				\small{\nohyphens{\bfseries\textcolor{ugent@main}{\@faculty[uppercase]}}}\\*
 				\textcolor{ugent@main}{\MakeUppercase{\@unit}}
 			};
 		
 			\ifnum\value{page}>1
-			\path (current page.north west) +(2\gridunit,-3\gridunit)
-			node[anchor=north west] { \@letterheader };
+			\path (current~page.north~west) +(2\gridunit,-3\gridunit)
+			node[anchor=north~west] { \@letterheader };
 			\fi
 			\end{tikzpicture}
 		}
@@ -6545,24 +6720,25 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	\AddToShipoutPicture*{%
 		\put(0,0){%
-			\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
+			\begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt]
 			\clip (0,0) rectangle(\paperwidth,\paperheight);
 			%
-			\if@nofoldline\else
-			\draw (current page.north west)
-			+(1cm,-98mm) -- +(1.5cm,-98mm);
-			\fi
+			
+			\bool_if:NT \l_@@_foldline_bool {
+				\draw (current~page.north~west)
+				+(1cm,-98mm) -- +(1.5cm,-98mm);
+			}
 			%
-			\path (current page.north west) +(2\gridunit,-44mm)
-			node[anchor=north west,text width=80mm,align=left] {
+			\path (current~page.north~west) +(2\gridunit,-44mm)
+			node[anchor=north~west,text~width=80mm,align=left] {
 				\scriptsize\textcolor{gray}{\uline{\@returnaddress}}\\*
 				\normalsize\@to\\*
 				\ifx\@toorganization\@empty\else\@toorganization\\*\fi%
 				\@toaddress
 			};
 			
-			\path (current page.north east) +(-\gridunit,-3\gridunit)
-			node[anchor=north east,text width=61.5mm,align=left] {
+			\path (current~page.north~east) +(-\gridunit,-3\gridunit)
+			node[anchor=north~east,text~width=61.5mm,align=left] {
 					\textcolor{ugent@main}{\textbf{\@sender}}
 				\ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
 				\ifemails{E~\printemails{\\\phantom{E~}}{}{}\\}
@@ -6580,10 +6756,12 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 			\end{tikzpicture}
 		}
 	}
-	~\\[5\gridunit]
-	\@letterheader~\\[\gridunit]
+	\null
+	\vspace{4\gridunit}
+	\@letterheader\\[\gridunit]
 	{\bfseries\@subject}
 }
+\ExplSyntaxOff
 
 \newcommand{\@letterheader}{
 	\begin{tikzpicture}[anchor=north west,align=left,outer sep=0,inner sep=0]
@@ -7836,13 +8014,20 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %      
 %      See the file doc/licenses/LICENSE for more details.
 
-\newif\if@nofonts
-\@nofontsfalse
-\DeclareOption{nofonts}{\@nofontstrue}
+\ExplSyntaxOn
+\bool_new:N {\_@@_fonts_bool}
+\bool_set_true:N \l_@@_fonts_bool
+\keys_define:nn { ugentdocs } {
+	fonts .bool_set:N = \l_@@_fonts_bool,
+	fonts .default:n = true ,
+	
+}
+\ExplSyntaxOff
 
 \input{ugentcommon.clo}
-
-\ProcessOptions
+\ExplSyntaxOn
+\ProcessKeyOptions[ ugentdocs ]
+\ExplSyntaxOff
 
 \RequirePackage{ugentcolor}
 
@@ -7974,8 +8159,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %      
 %      See the file doc/licenses/LICENSE for more details.
 \usetikzlibrary{calc}
-\if@nofonts
-\else
+\ExplSyntaxOn
+\bool_if:NT \l_@@_fonts_bool { 
 \RequirePackage{iftex}
   % Uncomment the following line if in MiKTeX you get the error
   % message that \ifluatex is already defined.
@@ -7997,7 +8182,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
     %%{calibri}
     \usepackage{sansmathaccent}
   \fi
-\fi
+}
 \usepackage{bm}
 
 \mode<presentation>
