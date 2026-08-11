@@ -5025,6 +5025,17 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \end{macrocode}
 % \end{imacro}
 %
+% \begin{imacro}{\reference}
+%   This macro sets the |\@reference| tag that will be used in
+%   the letter's heading text.
+%    \begin{macrocode}
+%<*le>
+\newcommand*{\@reference}{-}
+\newcommand*{\reference}[1]{\renewcommand*{\@reference}{#1}}
+%</le>
+%    \end{macrocode}
+% \end{imacro}
+%
 % \begin{imacro}{\opening}
 %   This macro is much a do about nothing, but I prefer to do it this
 %   way for historic reasons.
