@@ -3805,22 +3805,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 % \subsection{Tags}
 %
-%
-% \begin{imacro}{\department}
-%   The |department| sets the department's name tag
-%   |\@department| that is used in the title page
-%   information.
-%
-% \changes{v4.04}{2022/04/04}{Added department name}
-%    \begin{macrocode}
-%<*crs|bmt|phd|bkc>
-\newcommand*{\@department}{}
-\newcommand*{\department}[1]{
-  \renewcommand*\@department{#1}
-}
-%</crs|bmt|phd|bkc>
-%    \end{macrocode}
-% \end{imacro}
 % 
 % \begin{imacro}{\title}
 %   The |title| tag is native to \LaTeX{}. It sets the |\@title| tag
@@ -4838,7 +4822,24 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \end{macrocode}
 % \end{imacro}
 %
+% \begin{imacro}{\department}
+%   This macro overrides the |\@faculty| tag that will be used in the letter's
+%   heading text.
 %    \begin{macrocode}
+%<*le>
+\ExplSyntaxOn
+\newcommand*{\department}[1]{%
+	\RenewDocumentCommand{\@faculty}{O{}}{
+		\str_case:nnF {##1}{
+			{uppercase}{\text_uppercase:n{#1}}
+			{lowercase}{\text_lowercase:n{#1}}
+		}{
+			#1
+		}
+	}%
+}
+\ExplSyntaxOff
+%</le>
 %    \end{macrocode}
 % \end{imacro}
 %
