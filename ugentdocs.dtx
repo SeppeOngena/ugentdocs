@@ -3773,11 +3773,8 @@ faculty / fw .code:n = {
 % By default, we load the generic (not yet implemented!) and the english data file:
 %    \begin{macrocode}
 %<*crs|bmt|phd|rp|le|ex|bkc|bmr>
-\clist_map_inline:nn {english} {
-  \@@_dictreader:n { #1 }
-  \seq_gput_right:Nn \g_@@_loaded_dicts_seq { #1 }
-}
-%\prop_show:N \g_@@_dict_keyvals_prop
+\useugentdocsdictionary{english}
+\useugentdocsdictionary{dutch}
 \ExplSyntaxOff
 %</crs|bmt|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
@@ -3787,25 +3784,6 @@ faculty / fw .code:n = {
 % We will fill the dictionary from the generic data file (for elements
 % that should not be translated, currently empty) and the language
 % specific data files (for elements that can be translated).
-%
-%
-%    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc|bmr>
-\AtBeginDocument{
-  \makeatother
-  \@ifpackageloaded{babel}{
-    \addto\captionsenglish{%
-      \useugentdocsdictionary{english}
-    }
-    \addto\captionsdutch{%
-      \useugentdocsdictionary{dutch}
-    }
-  }
-  {}
-  \makeatletter
-}
-%</crs|bmt|phd|rp|le|ex|bkc|bmr>
-%    \end{macrocode}
 %
 % The English dictionary can be found below:
 %    \begin{macrocode}
