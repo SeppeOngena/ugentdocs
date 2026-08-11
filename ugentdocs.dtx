@@ -706,7 +706,7 @@
 %
 % \begin{verbatim}
 %<*crs-example> 
-\documentclass[bw,11pt,oneside,openright, dutch]{ugentcourse}
+\documentclass[bw,11pt,twoside,openright,dutch]{ugentcourse}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
@@ -730,11 +730,17 @@
 %% nameformat         Format all names as "surname firstname"
 %%                    or "firstname surname"
 %%                    Options: surnamefirst, surnamelast* 
+%% cameraready        Embeds the official 24 cm x 18 cm into an A4 page and
+%%                    trigger alignment marks and cut-lines for your printing service
+%%                    This will also apply to the generated bookcover file.
+%%                    Options: true, false*
 %% copyright          Prints a copyright watermark
 %%                    Options: true, false*
-%% bare               This option removes front and back cover. Many
+%% bare               Removes front and back cover. Many
 %%                    print services require this format for the contents.
 %%                    Options: true, false*
+%% thumbs             Adds chapter thumbs to the side of the pages
+%%                    Options: true*, false
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
@@ -1282,13 +1288,15 @@ e^{-j\pi} + 1 = 0
 %% nameformat         Format all names as "surname firstname"
 %%                    or "firstname surname"
 %%                    Options: surnamefirst, surnamelast* 
-%% cameraready        this option will embed the official 24 cm x 18 cm
-%%                    in anto A4 page and trigger alignment marks and cut-lines
-%%                    for your printing service - check whether they want this.
+%% cameraready        Embeds the official 24 cm x 18 cm into an A4 page and
+%%                    trigger alignment marks and cut-lines for your printing service
 %%                    This will also apply to the generated bookcover file.
-%% bare               This option removes front and back cover. Many
+%%                    Options: true, false*
+%% bare               Removes front and back cover. Many
 %%                    print services require this format for the contents.
 %%                    Options: true, false*
+%% thumbs             Adds chapter thumbs to the side of the pages
+%%                    Options: true*, false
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
@@ -1442,7 +1450,6 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 
 %% change the chapter numbering to letters and uses 'Appendix' or
 %% 'Bijlage' (in dutch) as chapter name.
-%% !! do not use \backmatter before \appendix: it is broken!
 \appendix
 
 \chapter{Symbolen}
@@ -1484,14 +1491,15 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 %% nameformat         Format all names as "surname firstname"
 %%                    or "firstname surname"
 %%                    Options: surnamefirst, surnamelast* 
-%% cameraready        this option will embed the official 24 cm x 18 cm
-%%                    in anto A4 page and trigger alignment marks and cut-lines
-%%                    for your printing service - check whether they want this.
+%% cameraready        Embeds the official 24 cm x 18 cm into an A4 page and
+%%                    trigger alignment marks and cut-lines for your printing service
 %%                    This will also apply to the generated bookcover file.
 %%                    Options: true, false*
-%% bare               This option removes front and back cover. Many
+%% bare               Removes front and back cover. Many
 %%                    print services require this format for the contents.
 %%                    Options: true, false*
+%% thumbs             Adds chapter thumbs to the side of the pages
+%%                    Options: true*, false
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
@@ -3107,6 +3115,14 @@ faculty / fw .code:n = {
 	bare .bool_set:N = \l_@@_bare_bool ,
 	bare .default:n = true ,
 }
+
+\bool_new:N \l_@@_thumbs_bool
+\bool_set_true:N \l_@@_thumbs_bool
+
+\keys_define:nn { ugentdocs } {
+	thumbs .bool_set:N = \l_@@_thumbs_bool ,
+	thumbs .default:n = true ,
+}
 %</phd|crs>
 %<*phd|bkc|rp|ex|le|crs|bmt|bmr>
 \tl_new:N \l_@@_nameformat_tl
@@ -3441,6 +3457,28 @@ faculty / fw .code:n = {
 }
 \ExplSyntaxOff
 %</crs|rp>
+%<*phd|crs>
+\ExplSyntaxOn
+\bool_if:NT \l_@@_thumbs_bool {
+	\RequirePackage[
+	height=25.4mm,
+	width=auto,
+	distance=2mm,
+	bottomthumbmargin=auto,
+	txtcentered=true,
+	topthumbmargin=3in
+	]{thumbs}
+	
+	\newcommand*{\@addthumb}{%
+		\addthumb{\chaptername~\thechapter}{\Large\bfseries\thechapter}{white}{gray!50}%
+	}
+	
+	\AddToHook{cmd/@makechapterhead/after}{%
+		\@addthumb
+	}
+}
+\ExplSyntaxOff
+%</phd|crs>
 %    \end{macrocode}
 %
 % \subsection{ISBN code generation}
@@ -6316,6 +6354,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\@prepmaketitle
 	\pagestyle{empty}
 %</bmt|phd|rp|crs>
+%<*phd|crs>
+\bool_if:NT \l_@@_thumbs_bool {
+	\stopthumb
+}
+%</phd|crs>
 %<*phd>
 	\bool_if:NF \l_@@_bare_bool {
 	\begingroup
@@ -6451,6 +6494,9 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*phd|crs>
 \bool_if:NF \l_@@_bare_bool {
 	\cleardoublepage
+	\bool_if:NT \l_@@_thumbs_bool {
+		\stopthumb
+	}
 	\thispagestyle{empty}
 	\null% intentionally blank page
 	\clearpage
