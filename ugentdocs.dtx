@@ -3239,13 +3239,13 @@ faculty / fw .code:n = {
 % \subsubsection{Geometry}
 % Following the report office template:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>      
+%<*crs|bmt|phd|rp|le|ex|bkc>      
 \RequirePackage{tikz}
 \newlength{\@PW} % Paper width
 \newlength{\@PH} % Paper height
 \newlength{\gridunit} % Grid unit layout
 \newcommand*{\@setgridunit}{\pgfmathsetlength{\gridunit}{max(\@PW,\@PH)/7/4}}
-%</crs|bmt|phd|rp|le|ex>
+%</crs|bmt|phd|rp|le|ex|bkc>
 %<*crs|rp|ex>
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
@@ -3277,6 +3277,23 @@ faculty / fw .code:n = {
 \@setgridunit
 \RequirePackage[a4paper,top=5\gridunit, bottom=4\gridunit,footskip=4\gridunit, left=2\gridunit, right=4.07cm]{geometry}
 %</le>       
+%<*bkc>
+\ExplSyntaxOn
+\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
+	{ dissertation } {
+		\setlength\@PW{160mm}
+		\setlength\@PH{240mm}
+	}
+	{ course } {
+		\setlength\@PW{210mm}
+		\setlength\@PH{297mm}
+	}
+}{
+	\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
+}	
+\@setgridunit
+\ExplSyntaxOff
+%</bkc>
 %    \end{macrocode}
 % 
 % \subsubsection{Preparing for \LaTeX3}
