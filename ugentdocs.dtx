@@ -3272,13 +3272,13 @@ faculty / fw .code:n = {
 % \subsubsection{Geometry}
 % Following the report office template:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc>      
+%<*crs|bmt|phd|rp|le|ex|bkc|bmr>      
 \RequirePackage{tikz}
 \newlength{\@PW} % Paper width
 \newlength{\@PH} % Paper height
 \newlength{\gridunit} % Grid unit layout
 \newcommand*{\@setgridunit}{\pgfmathsetlength{\gridunit}{max(\@PW,\@PH)/7/4}}
-%</crs|bmt|phd|rp|le|ex|bkc>
+%</crs|bmt|phd|rp|le|ex|bkc|bmr>
 %<*crs|rp|ex>
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
@@ -3428,7 +3428,7 @@ faculty / fw .code:n = {
 %
 % Some packages for coursetext and bamathesis:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc>  
+%<*crs|bmt|phd|rp|le|ex|bkc|bmr>  
 \RequirePackage{hyphenat}    
 \RequirePackage{graphicx}
 \RequirePackage{tabularx}
@@ -3450,7 +3450,7 @@ faculty / fw .code:n = {
 }
 \RequirePackage[dutch,english]{babel}
 \ExplSyntaxOff
-%</crs|bmt|phd|rp|le|ex|bkc>
+%</crs|bmt|phd|rp|le|ex|bkc|bmr>
 %<*crs|rp>
 \ExplSyntaxOn
 \bool_if:NT \l_@@_copyright_bool {
