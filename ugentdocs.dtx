@@ -2863,28 +2863,32 @@ faculty / fw .code:n = {
 
 \newlength{\@ftextw}
 
+\ExplSyntaxOn
 \renewcommand*{\faclogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
 	\ifx\@fselector\@empty\else
+	\exp_args:Nx \str_case:nnF { \languagename } {	
+		{ dutch }{ \setlength{\@ftextw}{\@ftextwnl} }
+		}		 { \setlength{\@ftextw}{\@ftextwen}	}
 	\pgfmathsetmacro{\@flogoscale}{#1/3/\@logounit}
-	\pgfmathsetmacro{\@flogoxshift}{-#3*(3*\@logounit+\@ftextw)*\@flogoscale}	
+	\pgfmathsetmacro{\@flogoxshift}{-#3*(3*\@logounit+\@ftextw)*\@flogoscale}
 	
-	\begin{scope}[	y=1pt, x=1pt, inner sep=0pt, outer sep=0pt,
+	\begin{scope}[	y=1pt, x=1pt, inner~sep=0pt, outer~sep=0pt,
 					shift={(\@flogoxshift, 0.0cm)},yscale=\@flogoscale,xscale=\@flogoscale,
-					every node/.append style={scale=\@flogoscale, color=#2} ]
+					every~node/.append~style={scale=\@flogoscale, color=#2} ]
 		%\draw[step=\@logounit,black,thin] (0,0) grid (3*\@logounit+\@ftextw,3*\@logounit); % logo grid
-		\begin{scope}[shift={(\@logounit,\@logounit)},every path/.append style={fill=#2}]
+		\begin{scope}[shift={(\@logounit,\@logounit)},every~path/.append~style={fill=#2}]
 			\@ficonpath
 		\end{scope}
 		
-		\node[	anchor=south west, align=left,
-		 	  	text width=\@ftextw+\@ftextmarginextra,
+		\node[	anchor=south~west, align=left,
+		 	  	text~width=\@ftextw+\@ftextmarginextra,
 		 		font = \logotextface\fontsize{13.6pt}{12.4pt}\selectfont]
 			 at (\@logounit+\@ficonw+\@flogospace,\@logounit)
 			 {\spaceskip=0.0825cm%
 			 	\nohyphens{\@flogotext}};
 			 
-		\node[	anchor=south west, align=left,
-				text width=\@ftextw,
+		\node[	anchor=south~west, align=left,
+				text~width=\@ftextw,
 		 		font=\logosubtextface\fontsize{7.45pt}{8pt}\selectfont]
 		 	at (\@logounit+\@ficonw+\@flogospace+0.019cm,\@logounit-0.34cm)
 		    {\spaceskip=0.054cm%
@@ -2892,6 +2896,7 @@ faculty / fw .code:n = {
 	\end{scope}
 	\fi
 }
+\ExplSyntaxOff
 
 
 % UGent logos
@@ -2986,18 +2991,6 @@ faculty / fw .code:n = {
 			\@ugentlogotext};
 	\end{scope}
 }
-	
-\AtBeginDocument{
-  \makeatother
-    \addto\captionsdutch{
-    	\setlength{\@ftextw}{\@ftextwnl}
-    }
-    \addto\captionsenglish{
-    	\setlength{\@ftextw}{\@ftextwen}
-    }
-  \makeatletter
-}
-
 %</clo>
 %    \end{macrocode}
 %
