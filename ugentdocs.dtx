@@ -2618,11 +2618,12 @@ een b\'echamel saus:
 }
 
 % Faculty logo spacing and text
+\ExplSyntaxOn
+\tl_new:N \l_@@_fselector_tl
 \newcommand*\@fselector{}
 \newcommand*\@ficonpath{}
 \newcommand*\@faclogo[3]{}
 
-\ExplSyntaxOn
  \NewDocumentCommand{\@flogotext}{}{
  	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
  	\translatekey[uppercase]{faculty}{}%
@@ -2655,6 +2656,7 @@ faculty .choice:,
 bw .meta:n = { faculty = bw },
 faculty / bw .code:n = {
   \renewcommand*\@fselector{bw}
+  \tl_set:Nx \l_@@_fselector_tl { \@fselector }
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (10.63, 13.2).. controls (9.21, 13.2) and (8.06, 12.05) .. (8.06, 10.63).. controls (8.06, 9.21) and (9.21, 8.06) .. (10.63, 8.06).. controls (12.05, 8.06) and (13.2, 9.21) .. (13.2, 10.63).. controls (13.2, 12.05) and (12.05, 13.2) .. (10.63, 13.2) -- cycle(11.95, 10.63).. controls (11.95, 9.9) and (11.36, 9.31) .. (10.63, 9.31).. controls (9.9, 9.31) and (9.3, 9.9) .. (9.3, 10.63).. controls (9.3, 11.36) and (9.9, 11.96) .. (10.63, 11.96).. controls (11.36, 11.96) and (11.95, 11.36) .. (11.95, 10.63);			
   	\path[nonzero~rule,line~width=0.1pt] (16.01, 20.1).. controls (14.59, 20.1) and (13.44, 18.95) .. (13.44, 17.53).. controls (13.44, 16.11) and (14.59, 14.96) .. (16.01, 14.96).. controls (17.43, 14.96) and (18.58, 16.11) .. (18.58, 17.53).. controls (18.58, 18.95) and (17.43, 20.1) .. (16.01, 20.1) -- cycle(17.34, 17.53).. controls (17.34, 16.8) and (16.74, 16.2) .. (16.01, 16.2).. controls (15.28, 16.2) and (14.69, 16.8) .. (14.69, 17.53).. controls (14.69, 18.26) and (15.28, 18.85) .. (16.01, 18.85).. controls (16.74, 18.85) and (17.34, 18.26) .. (17.34, 17.53);
@@ -2674,6 +2676,7 @@ faculty / bw .code:n = {
 di .meta:n = { faculty = di },
 faculty / di .code:n = {
 	\renewcommand*\@fselector{di}
+	\tl_set:Nx \l_@@_fselector_tl { \@fselector }
 	\renewcommand*\@ficonpath{
 		\path[nonzero~rule,line~width=0.1pt] (9.23, 8.22).. controls (6.84, 6.21) and (5.24, 3.3) .. (4.99, -0.0) -- (6.24, -0.0).. controls (6.49, 2.92) and (7.92, 5.5) .. (10.04, 7.28) -- (9.23, 8.22);
 		\path[nonzero~rule,line~width=0.1pt] (11.14, 12.31).. controls (6.3, 10.2) and (2.84, 5.53) .. (2.49, -0.0) -- (3.74, -0.0).. controls (4.09, 5.02) and (7.25, 9.27) .. (11.66, 11.18) -- (11.14, 12.31);
@@ -2686,6 +2689,7 @@ faculty / di .code:n = {
 ea .meta:n = { faculty = ea },
 faculty / ea .code:n = {
   \renewcommand*\@fselector{ea}
+  \tl_set:Nx \l_@@_fselector_tl { \@fselector }
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (0.0, 0.0) -- (1.25, 0.0) -- (1.25, 3.68) -- (0.0, 3.68) -- (0.0, 0.0);
   	\path[nonzero~rule,line~width=0.1pt] (2.49, 0.0) -- (3.74, 0.0) -- (3.74, 8.22) -- (2.49, 8.22) -- (2.49, 0.0);
@@ -2699,6 +2703,7 @@ faculty / ea .code:n = {
 re .meta:n = { faculty = re },
 faculty / re .code:n = {
   \renewcommand*\@fselector{re}
+  \tl_set:Nx \l_@@_fselector_tl { \@fselector }
   \renewcommand*\@ficonpath{
 	  \path[nonzero~rule,line~width=0.1pt] (8.66, 4.99) -- (4.92, 13.18) -- (3.73, 13.18) -- (-0.0, 4.99) -- (1.37, 4.99) -- (4.33, 11.48) -- (7.29, 4.99) -- (8.66, 4.99);
 	  \path[nonzero~rule,line~width=0.1pt] (21.26, 4.99) -- (17.53, 13.18) -- (16.34, 13.18) -- (12.6, 4.99) -- (13.97, 4.99) -- (16.93, 11.48) -- (19.89, 4.99) -- (21.26, 4.99);
@@ -2723,6 +2728,7 @@ faculty / re .code:n = {
 we .meta:n = { faculty = we },
 faculty / we .code:n = {
   \renewcommand*\@fselector{we}
+  \tl_set:Nx \l_@@_fselector_tl { \@fselector }
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (9.96, 6.85).. controls (9.33, 6.47) and (8.61, 6.24) .. (7.82, 6.24).. controls (5.57, 6.24) and (3.74, 8.06) .. (3.74, 10.32).. controls (3.74, 11.78) and (4.53, 13.05) .. (5.69, 13.77) -- (4.79, 14.67).. controls (3.41, 13.71) and (2.49, 12.13) .. (2.49, 10.32).. controls (2.49, 7.37) and (4.88, 4.99) .. (7.82, 4.99).. controls (9.44, 4.99) and (10.86, 5.72) .. (11.84, 6.85) -- (9.96, 6.85);
   	\path[nonzero~rule,line~width=0.1pt] (13.4, 6.85).. controls (12.24, 4.99) and (10.18, 3.74) .. (7.82, 3.74).. controls (4.19, 3.74) and (1.25, 6.69) .. (1.25, 10.32).. controls (1.25, 12.47) and (2.29, 14.37) .. (3.89, 15.57) -- (3.0, 16.46).. controls (1.18, 15.02) and (-0.0, 12.81) .. (-0.0, 10.32).. controls (-0.0, 6.0) and (3.5, 2.49) .. (7.82, 2.49).. controls (10.9, 2.49) and (13.55, 4.27) .. (14.83, 6.85) -- (13.4, 6.85);
@@ -2746,6 +2752,7 @@ faculty / we .code:n = {
 pp .meta:n = { faculty = pp },
 faculty / pp .code:n = {
   \renewcommand*\@fselector{pp}
+  \tl_set:Nx \l_@@_fselector_tl { \@fselector }
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (15.86, 14.19).. controls (15.86, 14.27) and (15.88, 14.35) .. (15.88, 14.43).. controls (15.88, 18.2) and (12.82, 21.26) .. (9.05, 21.26).. controls (5.28, 21.26) and (2.22, 18.2) .. (2.22, 14.43).. controls (2.22, 12.92) and (2.72, 11.54) .. (3.55, 10.41) -- (4.56, 8.96) -- (0.0, 0.0) -- (1.4, 0.0) -- (6.01, 9.07) -- (4.56, 11.14).. controls (3.88, 12.07) and (3.47, 13.2) .. (3.47, 14.43).. controls (3.48, 17.51) and (5.97, 20.01) .. (9.05, 20.01).. controls (12.13, 20.01) and (14.62, 17.51) .. (14.63, 14.43).. controls (14.63, 14.28) and (14.6, 14.13) .. (14.59, 13.99) -- (14.59, 13.99) -- (14.59, 13.98) -- (15.89, 11.05) -- (14.34, 11.05) -- (13.72, 6.96) -- (11.59, 6.96) -- (10.96, 5.72) -- (14.79, 5.72) -- (15.42, 9.8) -- (17.2, 9.8) -- (17.57, 10.32) -- (15.86, 14.19);
 	\path[nonzero~rule,line~width=0.1pt] (7.46, 9.18) -- (2.79, 0.0) -- (4.19, 0.0) -- (8.91, 9.29) -- (6.57, 12.62).. controls (6.19, 13.13) and (5.97, 13.75) .. (5.96, 14.43).. controls (5.97, 16.13) and (7.35, 17.51) .. (9.05, 17.52).. controls (9.08, 17.52) and (9.1, 17.51) .. (9.13, 17.51) -- (9.13, 18.76).. controls (9.1, 18.76) and (9.08, 18.77) .. (9.05, 18.77).. controls (6.66, 18.76) and (4.72, 16.83) .. (4.72, 14.43).. controls (4.72, 13.48) and (5.04, 12.6) .. (5.56, 11.88) -- (7.46, 9.18);
@@ -2758,6 +2765,7 @@ faculty / pp .code:n = {
 lw .meta:n = { faculty = lw },
 faculty / lw .code:n = {
   \renewcommand*\@fselector{lw}
+  \tl_set:Nx \l_@@_fselector_tl { \@fselector }
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (11.25, 7.21).. controls (11.62, 7.42) and (12.05, 7.54) .. (12.5, 7.54) -- (20.01, 7.54) -- (20.01, 20.01) -- (12.5, 20.01).. controls (11.81, 20.01) and (11.25, 19.45) .. (11.25, 18.77) -- cycle(10.01, 18.77).. controls (10.01, 19.45) and (9.45, 20.01) .. (8.76, 20.01) -- (1.25, 20.01) -- (1.25, 7.54) -- (8.76, 7.54).. controls (9.21, 7.54) and (9.64, 7.42) .. (10.01, 7.21) -- cycle(8.76, 6.29) -- (-0.0, 6.29) -- (-0.0, 21.26) -- (8.76, 21.26).. controls (9.51, 21.26) and (10.17, 20.92) .. (10.63, 20.4).. controls (11.09, 20.92) and (11.75, 21.26) .. (12.5, 21.26) -- (21.26, 21.26) -- (21.26, 6.29) -- (12.5, 6.29).. controls (11.75, 6.29) and (11.09, 5.97) .. (10.63, 5.45).. controls (10.17, 5.97) and (9.51, 6.29) .. (8.76, 6.29);
   	\path[nonzero~rule,line~width=0.1pt] (8.76, 5.05).. controls (9.51, 5.05) and (10.17, 4.72) .. (10.63, 4.2).. controls (11.09, 4.72) and (11.75, 5.05) .. (12.5, 5.05) -- (21.26, 5.05) -- (20.01, 3.8) -- (12.5, 3.8).. controls (11.75, 3.8) and (11.09, 3.47) .. (10.63, 2.96).. controls (10.17, 3.47) and (9.51, 3.8) .. (8.76, 3.8) -- (1.25, 3.8) -- (-0.0, 5.05) -- (8.76, 5.05);
@@ -2771,6 +2779,7 @@ faculty / lw .code:n = {
 eb .meta:n = { faculty = eb },
 faculty / eb .code:n = {
   \renewcommand*\@fselector{eb}
+  \tl_set:Nx \l_@@_fselector_tl { \@fselector }
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (12.47, 7.95) -- (12.47, 2.49) -- (13.72, 2.49) -- (13.72, 7.95) -- (12.47, 7.95);
   	\path[nonzero~rule,line~width=0.1pt] (9.98, 15.91) -- (9.98, 2.49) -- (11.23, 2.49) -- (11.23, 15.91) -- (9.98, 15.91);
@@ -2787,6 +2796,7 @@ faculty / eb .code:n = {
 ps .meta:n = { faculty = ps },
 faculty / ps .code:n = {
   \renewcommand*\@fselector{ps}
+  \tl_set:Nx \l_@@_fselector_tl { \@fselector }
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (10.0, 2.5) -- (10.0, 3.75).. controls (8.04, 3.93) and (6.19, 4.94) .. (4.99, 6.64) -- (3.91, 6.02).. controls (5.35, 3.92) and (7.61, 2.68) .. (10.0, 2.5);
   	\path[nonzero~rule,line~width=0.1pt] (10.0, 1.25).. controls (7.18, 1.44) and (4.5, 2.9) .. (2.84, 5.39) -- (1.76, 4.77).. controls (3.66, 1.88) and (6.75, 0.19) .. (10.0, -0.0) -- (10.0, 1.25);
@@ -2807,6 +2817,7 @@ faculty / ps .code:n = {
 ge .meta:n = { faculty = ge },
 faculty / ge .code:n = {
   \renewcommand*\@fselector{ge}
+  \tl_set:Nx \l_@@_fselector_tl { \@fselector }
   \renewcommand*\@ficonpath{
   	\path[nonzero~rule,line~width=0.1pt] (17.44, 9.99) -- (17.68, 8.74) -- (21.26, 8.74) -- (21.26, 9.99) -- (17.44, 9.99);
   	\path[nonzero~rule,line~width=0.1pt] (3.08, 6.25) -- (-0.0, 6.25) -- (-0.0, 5.0) -- (3.32, 5.0) -- (3.08, 6.25);
@@ -2819,6 +2830,7 @@ faculty / ge .code:n = {
 fw .meta:n = { faculty = fw },
 faculty / fw .code:n = {
   \renewcommand*\@fselector{fw}
+  \tl_set:Nx \l_@@_fselector_tl { \@fselector }
   \renewcommand*\@ficonpath{
 	  	\path[nonzero~rule,line~width=0.1pt] (11.22, 5.61) -- (11.22, 10.01) -- (9.98, 10.01) -- (9.98, 5.61).. controls (9.98, 3.2) and (8.02, 1.25) .. (5.61, 1.25).. controls (3.2, 1.25) and (1.25, 3.2) .. (1.25, 5.61) -- (1.25, 10.01) -- (0.0, 10.01) -- (0.0, 5.61).. controls (0.0, 2.51) and (2.51, -0.0) .. (5.61, -0.0).. controls (8.71, -0.0) and (11.22, 2.51) .. (11.22, 5.61);
 	  	\path[nonzero~rule,line~width=0.1pt] (11.22, 15.65) -- (11.22, 11.25) -- (9.98, 11.25) -- (9.98, 15.65).. controls (9.98, 18.06) and (8.02, 20.01) .. (5.61, 20.01).. controls (3.2, 20.01) and (1.25, 18.06) .. (1.25, 15.65) -- (1.25, 11.25) -- (0.0, 11.25) -- (0.0, 15.65).. controls (0.0, 18.75) and (2.51, 21.26) .. (5.61, 21.26).. controls (8.71, 21.26) and (11.22, 18.75) .. (11.22, 15.65);
@@ -3029,9 +3041,9 @@ faculty / fw .code:n = {
 }
 
 %%
-\ifx\@fselector\@empty
+\tl_if_empty:NT \l_@@_fselector_tl {
 	\bool_set_true:N \l_@@_neutralcolors_bool
-\fi
+}
 
 \bool_if:NTF \l_@@_neutralcolors_bool {
 \colorlet{maincolor}{ugent@main}
@@ -3663,6 +3675,7 @@ faculty / fw .code:n = {
 %<*crs|bmt|phd|rp|le|ex|bkc>
 
 \tl_new:N \l_@@_lookup_key_tl
+\tl_new:N \l_@@_value_cased_tl
 
 \cs_new:Npn \_@@_translate:nn #1#2 {
 	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} :#2 }
@@ -4877,7 +4890,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	}
 }
 
-\seq_new:N \g_@@_allsupervisorstutors_seq
+\seq_new:N \l_@@_allsupervisorstutors_seq
 
 \cs_new:Nn \@@_autographpage: {
 	\seq_if_empty:NF \g_@@_authors_seq {
@@ -4885,12 +4898,12 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\@@_siggroup:Nn \g_@@_authors_seq { } % Sub-name key not implemented
 	}
 	\vskip 2em
-	\seq_clear:N \g_@@_allsupervisorstutors_seq
-	\seq_concat:NNN \g_@@_allsupervisorstutors_seq \g_@@_allsupervisors_seq \g_@@_tutors_seq
+	\seq_clear:N \l_@@_allsupervisorstutors_seq
+	\seq_concat:NNN \l_@@_allsupervisorstutors_seq \g_@@_allsupervisors_seq \g_@@_tutors_seq
 	\seq_if_empty:NF \g_@@_allsupervisors_seq {
 		\translatekey{the-de}~\allsupervisorscaption[lowercase]{}
 		\iftutorsempty{}{~\translatekey[lowercase]{and}~\tutorscaption[lowercase]{}}, \par\vskip 1em
-		\@@_siggroup:Nn \g_@@_allsupervisorstutors_seq { } % Sub-name key not implemented
+		\@@_siggroup:Nn \l_@@_allsupervisorstutors_seq { } % Sub-name key not implemented
 	}
 }
 
@@ -5993,7 +6006,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*phd|bkc|crs>
 \newif\if@bwbookcover
 \ExplSyntaxOn
-\exp_args:Nx \str_if_eq:eeTF { \@fselector } { bw } {
+\exp_args:Nx \str_if_eq:eeTF { \l_@@_fselector_tl } { bw } {
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 	{ dissertation } {
 		\@bwbookcovertrue
@@ -6045,13 +6058,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\colorlet{coverdatacolor}{white}
 \else % UGent cover
 	\setlength\@HBS{4\gridunit}
-	\ifx\@fselector\@empty
+	\tl_if_empty:NTF \l_@@_fselector_tl {
 		\setlength\@HTS{0mm}		
 		\setlength\@BT{\@B}
-	\else
+	}{
 		\setlength\@HTS{3\gridunit}
 		\setlength\@BT{0mm}
-	\fi
+	}
 	\setlength\@MS{\gridunit}	
 	\setlength\@MTLR{\gridunit}
 	\setlength\@MTTB{\gridunit}
@@ -6193,15 +6206,15 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	{ dissertation } {	}
 	{ course } { 
 		\colorlet{coverareacolor}{ugent@main}
-		\ifx\@fselector\@empty
+		\tl_if_empty:NTF \l_@@_fselector_tl {
 			\colorlet{coverbgcolor}{ugent@accent}
-		\else
+		}{
 			\bool_if:NTF \l_@@_neutralcolors_bool {
 				\colorlet{coverbgcolor}{ugent@accent}
 			}{
 				\colorlet{coverbgcolor}{ugent@\@fselector}
 			}
-		\fi
+		}
 		\colorlet{covertitlecolor}{white}
 		\setlength\@WD{10\gridunit}
 	}
@@ -6423,7 +6436,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		{\printjurymembers{\\}{\\}{\\}}\\[2ex]%
 		%
 		%
-		\textbf{\translatekey{dean}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty\fi}\hfill\break
+		\textbf{\translatekey{dean}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty}}\hfill\break
 		\@dean\\[2ex]
 		%
 		\textbf{\translatekey{rector}~\translatekey[lowercase]{of}~\translatekey{org-deugent}}\hfill\break
@@ -6452,7 +6465,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\vspace{10\baselineskip}%
 		\fi
 		
-		{\small \translatekey{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printdegrees{~\&~}{,~}{\translatekey{andlist}~}\par}%
+		{\small \translatekey{submittedto}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printdegrees{~\&~}{,~}{\translatekey{andlist}~}\par}%
 		
 		\vspace{.3\baselineskip}%
 		{\small\translatekey{org-ugent},~\@location,~\@date}%
@@ -6622,6 +6635,23 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \begin{macrocode}
 %<*phd|crs>
 \ExplSyntaxOn
+\fp_new:N \l_@@_paperweight_fp
+\fp_new:N \l_@@_paperbulk_fp
+\fp_new:N \l_@@_pagecount_fp
+
+\tl_new:N \l_@@_title_tl
+\tl_new:N \l_@@_subtitle_tl
+\tl_new:N \l_@@_isbn_tl
+\tl_new:N \l_@@_titlepageimage_tl
+\tl_new:N \l_@@_backcoverlogos_tl
+\tl_new:N \l_@@_frontcoverlogos_tl
+\tl_new:N \l_@@_academicyear_tl
+
+\tl_new:N \l_@@_year_tl
+\tl_new:N \l_@@_camerareadykeyval_tl
+\tl_new:N \l_@@_covertypekeyval_tl
+\tl_new:N \l_@@_covertemplate_tl
+
 \newcommand\generatebookcover{
 	\fp_set:Nn \l_@@_paperweight_fp { 80 } % g/m2
 	\fp_set:Nn \l_@@_paperbulk_fp   { 1.25 } % cm3/g
@@ -6631,8 +6661,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\fp_set:Nn \l_@@_pagecount_fp  { \ztotpages - 2}
 	}
 	
-	\tl_set:Nx \l_@@_faculty_tl    { \@fselector }
-
 	\dim_new:N \l_@@_spinewidth_dim
 	\dim_set:Nn \l_@@_spinewidth_dim {\fp_to_decimal:n {\l_@@_pagecount_fp/2*\l_@@_paperweight_fp/1e6*\l_@@_paperbulk_fp*1e3} mm}
 	
@@ -6660,30 +6688,30 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 			\seq_map_inline:Nn \g_@@_supervisorcalls_seq
 			{ \tl_put_right:Nn \l_@@_supervisorcalls_tl { ##1 \iow_newline: } }
 			\bool_if:NTF \l_@@_cameraready_bool	{
-				\tl_set:Nn \l_@@_cameraready_tl { ,cameraready=true }
+				\tl_set:Nn \l_@@_camerareadykeyval_tl { ,cameraready=true }
 			}{
-				\tl_set:Nn \l_@@_cameraready_tl { ,cameraready=false }
+				\tl_set:Nn \l_@@_camerareadykeyval_tl { ,cameraready=false }
 			}
-			\tl_set:Nn \l_@@_covertypekey_tl { ,dissertation }
+			\tl_set:Nn \l_@@_covertypekeyval_tl { ,dissertation }
 		}
 		{ course }     {
 			\tl_clear_new:N \l_@@_lecturercalls_tl
 			\seq_map_inline:Nn \g_@@_lecturercalls_seq
 			{ \tl_put_right:Nn \l_@@_lecturercalls_tl { ##1 \iow_newline: } }
-			\tl_set:Nx \l_@@_cameraready_tl { }
-			\tl_set:Nn \l_@@_covertypekey_tl { ,course }
+			\tl_set:Nx \l_@@_camerareadykeyval_tl { }
+			\tl_set:Nn \l_@@_covertypekeyval_tl { ,course }
 		}
 	}{
 		\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
 	}
 	
-	\tl_set:Nn \g_@@_covertemplate_tl {
-		\exp_not:N\documentclass[\l_@@_faculty_tl, spinewidth=\fp_to_decimal:n{round(\dim_ratio:nn{\l_@@_spinewidth_dim}{1mm},1)}mm
-		\l_@@_cameraready_tl
+	\tl_set:Nn \l_@@_covertemplate_tl {
+		\exp_not:N\documentclass[\l_@@_fselector_tl, spinewidth=\fp_to_decimal:n{round(\dim_ratio:nn{\l_@@_spinewidth_dim}{1mm},1)}mm
+		\l_@@_camerareadykeyval_tl
 		,\l_@@_colormodel_tl
 		,\l_@@_language_tl
 		,\l_@@_nameformat_tl
-		\l_@@_covertypekey_tl]{ugentbookcover}\iow_newline:
+		\l_@@_covertypekeyval_tl]{ugentbookcover}\iow_newline:
 		\c_percent_str~Currently,~a~for~80~g/m2~paper~with~a~bulk~of~1.25~cm3/g~is~assumed~(0.1~mm~caliper~or~thickness).\iow_newline:
 		\c_percent_str~Page~count~is~\fp_to_decimal:n{round(\l_@@_pagecount_fp,0)}~pages.~Adjust~spinewidth~if~necessary~using:\iow_newline:
 		\c_percent_str~spinewidth~=~page~count~/~2~*~grammage~*~bulk~=~page~count~/~2~*~caliper\iow_newline:
@@ -6698,12 +6726,12 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	}
 	
 	\if@bwbookcover
-	\tl_put_right:Nn \g_@@_covertemplate_tl {
+	\tl_put_right:Nn \l_@@_covertemplate_tl {
 		\iow_newline:
 		\exp_not:N\year=\l_@@_year_tl\iow_newline:
 	}
 	\else
-	\tl_put_right:Nn \g_@@_covertemplate_tl {
+	\tl_put_right:Nn \l_@@_covertemplate_tl {
 		\iow_newline:
 		\l_@@_degreecalls_tl							\iow_newline:
 		\exp_not:N\academicyear	{\l_@@_academicyear_tl}	\iow_newline:
@@ -6712,7 +6740,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 		{ dissertation }    {
-			\tl_put_right:Nn \g_@@_covertemplate_tl {
+			\tl_put_right:Nn \l_@@_covertemplate_tl {
 				\l_@@_supervisorcalls_tl									   \iow_newline:
 				\if@tempembargo
 				\exp_not:N\embargotemp	{\@embargotempstart}{\@embargotempend} \iow_newline:
@@ -6722,7 +6750,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 			}	
 		}
 		{ course }     {
-			\tl_put_right:Nn \g_@@_covertemplate_tl {
+			\tl_put_right:Nn \l_@@_covertemplate_tl {
 				\l_@@_lecturercalls_tl							\iow_newline:
 			}
 		}
@@ -6730,7 +6758,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
 	}
 	
-	\tl_put_right:Nn \g_@@_covertemplate_tl {
+	\tl_put_right:Nn \l_@@_covertemplate_tl {
 		\iow_newline:
 		\exp_not:N\begin{document}					\iow_newline:
 			\exp_not:N\makebookcover				\iow_newline:
@@ -6739,7 +6767,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	\iow_new:N \g_@@_coverfile_iow
 	\iow_open:Nn \g_@@_coverfile_iow { \jobname-cover.tex }
-	\iow_now:Nx \g_@@_coverfile_iow { \g_@@_covertemplate_tl }
+	\iow_now:Nx \g_@@_coverfile_iow { \l_@@_covertemplate_tl }
 	\iow_close:N \g_@@_coverfile_iow
 }
 \ExplSyntaxOff
