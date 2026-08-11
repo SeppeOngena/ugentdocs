@@ -2622,7 +2622,7 @@ een b\'echamel saus:
 \tl_new:N \l_@@_fselector_tl
 \newcommand*\@fselector{}
 \newcommand*\@ficonpath{}
-\newcommand*\@faclogo[3]{}
+\newcommand*\faclogo[3]{}
 
  \NewDocumentCommand{\@flogotext}{}{
  	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
@@ -2845,7 +2845,7 @@ faculty / fw .code:n = {
 }
 \ExplSyntaxOff
 
-\newcommand{\@ficon}[3]{
+\newcommand{\ficon}[3]{
 	\ifx\@fselector\@empty\else
 	\pgfmathsetmacro{\@ficonscale}{#1/\@logounit}
 	\pgfmathsetmacro{\@ficonxshift}{-#3*\@logounit*\@ficonscale}
@@ -2863,7 +2863,7 @@ faculty / fw .code:n = {
 
 \newlength{\@ftextw}
 
-\renewcommand*{\@faclogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
+\renewcommand*{\faclogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
 	\ifx\@fselector\@empty\else
 	\pgfmathsetmacro{\@flogoscale}{#1/3/\@logounit}
 	\pgfmathsetmacro{\@flogoxshift}{-#3*(3*\@logounit+\@ftextw)*\@flogoscale}	
@@ -2910,7 +2910,7 @@ faculty / fw .code:n = {
 	\path[nonzero rule,line width=0.1pt] (21.26, 22.58) -- (10.63, 26.35) -- (0.0, 22.58) -- (0.0, 21.26) -- (10.63, 25.02) -- (21.26, 21.26) -- (21.26, 22.58);	
 }
 
-\newcommand{\@ugenticon}[3]{
+\newcommand{\ugenticon}[3]{
 	\pgfmathsetmacro{\@ugenticonscale}{#1/\@logounit}
 	\pgfmathsetmacro{\@ugenticonxshift}{-#3*\@logounit*\@ugenticonscale}
 	\begin{scope}[	y=1pt, x=1pt, inner sep=0pt, outer sep=0pt,
@@ -2970,7 +2970,7 @@ faculty / fw .code:n = {
 }
 \ExplSyntaxOff
 
-\newcommand*{\@ugentlogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
+\newcommand*{\ugentlogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
 	\@setugentlogotext
 	\pgfmathsetmacro{\@logoscale}{#1/4/\@logounit}%
 	\pgfmathsetmacro{\@logoxshift}{-#3*(\@ugenttextw+2*\@logounit)*\@logoscale}	
@@ -5558,7 +5558,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   	\fancyhf{}
   	\fancyhead[LO]{}
   	\fancyfoot[RO]{\thepage}
-  	\fancyfoot[LO]{\raisebox{-0.3\height}{\begin{tikzpicture}\@ugentlogo{1.8cm}{ugent@main}{0.5}\end{tikzpicture}}}
+  	\fancyfoot[LO]{\raisebox{-0.3\height}{\begin{tikzpicture}\ugentlogo{1.8cm}{ugent@main}{0.5}\end{tikzpicture}}}
   	\renewcommand{\headrulewidth}{0pt}
   	\renewcommand{\footrulewidth}{0pt}
   }
@@ -5597,7 +5597,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   	\fancyhf{}
   	\fancyhead[LO]{ \leftmark}
   	\fancyfoot[RO]{\thepage}
-  	\fancyfoot[LO]{\raisebox{-0.3\height}{\begin{tikzpicture}\@ugentlogo{1.8cm}{ugent@main}{0.5}\end{tikzpicture}}}
+  	\fancyfoot[LO]{\raisebox{-0.3\height}{\begin{tikzpicture}\ugentlogo{1.8cm}{ugent@main}{0.5}\end{tikzpicture}}}
   	\renewcommand{\headrulewidth}{0.15pt}
   }
   \fi
@@ -5951,7 +5951,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\clip (0,0) rectangle (\paperwidth,\paperheight);
 	
 	\begin{scope}[shift={(0,\paperheight-3*\gridunit)}]
-	\@faclogo{3*\gridunit}{ugent@\@fselector}{0}
+	\faclogo{3*\gridunit}{ugent@\@fselector}{0}
 	\end{scope}
 	
 	\bool_if:NT \l_@@_coverbg_bool {
@@ -5963,7 +5963,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\@coverbody
 	
 	\begin{scope}[shift={(0,0)}]
-		\@ugentlogo{4*\gridunit}{ugent@main}{0}
+		\ugentlogo{4*\gridunit}{ugent@main}{0}
 	\end{scope}
 	
 	\ifx\@frontcoverlogos\@empty\else
@@ -6288,11 +6288,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	% Faculty logo
 	\if@bwbookcover
 	\begin{scope}[shift={(\@PW,0)}]
-		\@faclogo{3\gridunit}{ugent@\@fselector}{1}
+		\faclogo{3\gridunit}{ugent@\@fselector}{1}
 	\end{scope}
 	\else
 	\begin{scope}[shift={(\@MS-\gridunit,\@PH-\@HTS)}]
-		\@faclogo{3\gridunit}{ugent@\@fselector}{0}
+		\faclogo{3\gridunit}{ugent@\@fselector}{0}
 	\end{scope}
 	\fi
 	
@@ -6794,10 +6794,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt,overlay]
 		\clip (0,0) rectangle(\paperwidth,-\paperheight);
 		\begin{scope}[shift={(\gridunit,-\@PH)}]
-		\@ugentlogo{4\gridunit}{ugent@main}{0.0}
+		\ugentlogo{4\gridunit}{ugent@main}{0.0}
 		\end{scope}
 		\begin{scope}[shift={(\gridunit,-3\gridunit)}]
-		\@faclogo{3\gridunit}{ugent@\@fselector}{0}
+		\faclogo{3\gridunit}{ugent@\@fselector}{0}
 		\end{scope}
 		\path (\@PW-\gridunit,-\gridunit)
 		node[anchor=north~east,text~width=61.5mm,align=left] {
@@ -7020,7 +7020,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
           \textsf{\textbf{\@faculty{}}}}; % TODO should handle empty
         
         \begin{scope}[shift={(2.125,1.313)}]
-        	\@ugentlogo{4.75cm}{ugent@main}{0.0}
+        	\ugentlogo{4.75cm}{ugent@main}{0.0}
         \end{scope}
       \end{tikzpicture}
     }
