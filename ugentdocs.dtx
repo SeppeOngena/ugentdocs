@@ -5467,15 +5467,15 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \lhead[\small\thepage]{\slshape\small\rightmark}
 \chead[]{}
 \rhead[\slshape\small\leftmark]{\small\thepage}
-\lfoot[\small\translatekey{org-ugent} -- \@facultyacronym]{\small\@courseversion} % TODO should handle empty
+\lfoot[\small\translatekey{org-ugent}\ifx\@fselector\@empty\else -- \@facultyacronym\fi]{\small\translatekey{version}\@courseversion}
 \cfoot[]{}
 \rfoot[]{\small\@title{}\ifdefvoid{\@subtitleshort}{}{ --- \@subtitleshort}}
 \else
 \lhead[]{\small\leftmark}
 \chead[]{}
 \rhead[]{\small\thepage}
-\lfoot[]{\small\@courseversion}
-\cfoot[]{\small\translatekey{org-ugent} -- \@facultyacronym} % TODO should handle empty
+\lfoot[]{\small\translatekey{version}\@courseversion}
+\cfoot[]{\small\translatekey{org-ugent}\ifx\@fselector\@empty\else -- \@facultyacronym\fi}
 \rfoot[]{\small\@title{}}
 \fi
 \fancypagestyle{plain}{%
