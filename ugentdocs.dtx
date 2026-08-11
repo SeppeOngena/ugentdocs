@@ -1468,7 +1468,6 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 %% 10pt               Sets the font size to 10pt
 %% twoside            If you want a two-sided document, change to oneside if you
 %%                    want a recto only document
-%% openright          causes you chapters to start on a right-hand page when
 %% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
 %% for two-sided theses, specify 'twoside' and 'openright' as options
@@ -6020,11 +6019,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \newcommand{\@printconfidentialcover}{
 	\if@bwbookcover
 	\@setugentlogotext
-	\node[anchor=center,font=\fontsize{15}{18}\selectfont,ugent@main] at	(0.5*\\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5*\gridunit,1.5*\gridunit) {\textbf{\translatekey[uppercase]{confidential}}};
-	% pos = (\\@PW-\@ftextw/\@logounit*\gridunit-3*\gridunit-\@ugenttextw/\@logounit*\gridunit-2*\gridunit)/2+\@ugenttextw/\@logounit*\gridunit+2*\gridunit
-	%     = 0.5*\\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5\gridunit
+	\node[anchor=center,font=\fontsize{15}{18}\selectfont,ugent@main] at	(0.5*\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5*\gridunit,1.5*\gridunit) {\textbf{\translatekey[uppercase]{confidential}}};
+	% pos = (\@PW-\@ftextw/\@logounit*\gridunit-3*\gridunit-\@ugenttextw/\@logounit*\gridunit-2*\gridunit)/2+\@ugenttextw/\@logounit*\gridunit+2*\gridunit
+	%     = 0.5*\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5\gridunit
 	\else
-	\node[anchor=south east,font=\fontsize{15}{18}\selectfont,ugent@main] at	(\\@PW-\@MTLR,\@MTLR) 
+	\node[anchor=south east,font=\fontsize{15}{18}\selectfont,ugent@main] at	(\@PW-\@MTLR,\@MTLR) 
 	{\textbf{\translatekey[uppercase]{confidential}}};
 	\fi
 }
@@ -6038,15 +6037,15 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \newcommand\@coverbodydissertation{
 		% Title, subtitle, author	
 	\if@bwbookcover
-	\node[anchor=south east, text width=\\@PW-2*\@MTLR, align=right, text=covertitlecolor]
-	at (\\@PW-\@MTLR, 2*\@HBS)
+	\node[anchor=south east, text width=\@PW-2*\@MTLR, align=right, text=covertitlecolor]
+	at (\@PW-\@MTLR, 2*\@HBS)
 	{{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
 		\ifx\@subtitle\@empty\else\vspace{4pt}%
 		\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par\fi}%
 		\vspace{30pt}\hyphenpenalty=100000{\fontsize{20}{24}\selectfont\printauthors{\\}{\\}{\\}}};
 	\else
-	\node[anchor=west, text width=\\@PW-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
-	at (\@MS+\@MTLR, 0.5*\\@PH+0.5*\@HBS-0.5*\@HTS+0.5*\@HD)
+	\node[anchor=west, text width=\@PW-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
+	at (\@MS+\@MTLR, 0.5*\@PH+0.5*\@HBS-0.5*\@HTS+0.5*\@HD)
 	{{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
 		\ifx\@subtitle\@empty\else\vspace{5pt}\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par\fi}};
 	
@@ -6065,8 +6064,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	\ifx\@frontcoverlogos\@empty\else
 	\node[anchor=south east, inner sep=0pt,
-	text width=\\@PW-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
-	align=right] at (\\@PW-\gridunit,\gridunit)
+	text width=\@PW-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
+	align=right] at (\@PW-\gridunit,\gridunit)
 	{\@frontcoverlogos};
 	\fi
 	
@@ -6111,8 +6110,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	\ifx\@frontcoverlogos\@empty\else
 	\node[anchor=south east, inner sep=0pt,
-	text width=\\@PW-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
-	align=right] at (\\@PW-\gridunit,\gridunit)
+	text width=\@PW-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
+	align=right] at (\@PW-\gridunit,\gridunit)
 	{\@frontcoverlogos};
 	\fi
 }
@@ -6167,9 +6166,9 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 		{ dissertation } {	}
 		{ course } {
-				\pgfmathsetlength{\@WFI}{\\@PW-\@MS-4*\gridunit}
-				\begin{scope}[shift={(\\@PW-\gridunit-\@WFI,\\@PH-\@HTS-\gridunit-\@WFI)}]
 			\bool_if:NF \l_@@_neutralcolors_bool {
+				\pgfmathsetlength{\@WFI}{\@PW-\@MS-4*\gridunit}
+				\begin{scope}[shift={(\@PW-\gridunit-\@WFI,\@PH-\@HTS-\gridunit-\@WFI)}]
 					\@ficon{\@WFI}{coverbgcolor!60}{0.0}
 				\end{scope}
 			}
@@ -6189,17 +6188,17 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*phd|bkc|crs>
 \newcommand{\@frontcover}{
 	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-	\useasboundingbox (0,0) rectangle (\\@PW,\\@PH);
+	\useasboundingbox (0,0) rectangle (\@PW,\@PH);
 	
 	% Image zone
 	{\ifx\@titlepageimage\@empty%
-		\fill[coverbgcolor] (\@MS,\@HBS) rectangle (\\@PW+\@B,\\@PH-\@HTS+\@BT);%
+		\fill[coverbgcolor] (\@MS,\@HBS) rectangle (\@PW+\@B,\@PH-\@HTS+\@BT);%
 		\@coverblankimage
 	\else%
 		\begin{scope}%
-		\pgfmathsetlength{\@WI}{\\@PW+\@B-\@MS}
-		\pgfmathsetlength{\@HI}{\\@PH-\@HBS-\@HTS+\@BT}
-		\clip (\@MS,\@HBS) rectangle (\\@PW+\@B,\\@PH-\@HTS+\@BT);
+		\pgfmathsetlength{\@WI}{\@PW+\@B-\@MS}
+		\pgfmathsetlength{\@HI}{\@PH-\@HBS-\@HTS+\@BT}
+		\clip (\@MS,\@HBS) rectangle (\@PW+\@B,\@PH-\@HTS+\@BT);
 		\node[anchor=south west, inner sep=0pt] at (\@MS, \@HBS)%
 		{\adjustbox{min width=\@WI, min height=\@HI, keepaspectratio}{%
 				\includegraphics[width=\@WI]{\@titlepageimage}%
@@ -6220,11 +6219,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	% Faculty logo
 	\if@bwbookcover
-	\begin{scope}[shift={(\\@PW,0)}]
+	\begin{scope}[shift={(\@PW,0)}]
 		\@faclogo{3\gridunit}{ugent@\@fselector}{1}
 	\end{scope}
 	\else
-	\begin{scope}[shift={(\@MS-\gridunit,\\@PH-\@HTS)}]
+	\begin{scope}[shift={(\@MS-\gridunit,\@PH-\@HTS)}]
 		\@faclogo{3\gridunit}{ugent@\@fselector}{0}
 	\end{scope}
 	\fi
@@ -6241,7 +6240,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*phd|bkc|crs>
 \newcommand\@backcover{%
 	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-	\useasboundingbox (0,0) rectangle (\\@PW,\\@PH);
+	\useasboundingbox (0,0) rectangle (\@PW,\@PH);
 	
 	% White bottom strip for ISBN and publisher logo	
 	\pgfmathsetmacro{\@isbnscale}{0.6}
@@ -6263,7 +6262,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	};
 	\end{scope}
 	
-	\pgfmathsetmacro{\@backcoverlogosxoffset}{min(\\@PW-\@MS,\\@PW-10mm)}
+	\pgfmathsetmacro{\@backcoverlogosxoffset}{min(\@PW-\@MS,\@PW-10mm)}
 	\begin{scope}[inner sep=0pt, shift = {(\@backcoverlogosxoffset pt, 0.5*\@HBS)}]
 	\node[anchor=east, inner sep=0pt]
 	at (0, 0)
@@ -6271,7 +6270,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\end{scope}
 	
 	% Full background
-	\fill[coverbgcolor] (0-\@B,\@HBS) rectangle (\\@PW-\@MS,\\@PH-\@HTS+\@BT);
+	\fill[coverbgcolor] (0-\@B,\@HBS) rectangle (\@PW-\@MS,\@PH-\@HTS+\@BT);
 	\end{tikzpicture}
 }
 %</phd|bkc|crs>
