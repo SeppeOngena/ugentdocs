@@ -16,8 +16,8 @@ This package provides the following classes (implementation status shown):
 - ✅ `ugentreport`: Project reports, e.g. group assignments
 - ✅ `ugentcourse`: Course notes
 - ⬜ `ugentexam`: Exams
-- 🚧 `ugentletter`: Letters
-- ⬜ `beamerthemeugent`: Presentation slides
+- ✅ `ugentletter`: Letters
+- 🚧 `beamerthemeugent`: Presentation slides
 
 Installation
 --
@@ -161,6 +161,24 @@ For a complete list of features, you will be able to check the documentation (wh
         <img width="100%" alt="Course Data page"  src="https://github.com/user-attachments/assets/b8f73469-f881-41c8-a169-1999c2fa4e31" />
     </td>
 </table>
+
+
+### 3. `ugentletter`
+- Can be used to typeset letters.
+<table border="0" style="width: 50%;">
+  <tr>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-letter</th>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;"></th>
+  </tr>
+  <tr>
+    <td style="border: none; text-align: left;">Using bw faculty option, font is overridden to Arial</td>
+  </tr>
+  <tr>
+    <td style="border: none;">
+        <img width="100%" alt="Course Cover" src="https://github.com/user-attachments/assets/f8331b3f-e2f0-46de-ae81-43cc29528d21" />
+        <img width="100%" alt="Course Data page"  src="https://github.com/user-attachments/assets/3ca00e30-f464-4240-8434-12c7bd301600" />
+    </td>
+</table>
 </details>
 
 Why another template?
@@ -184,7 +202,7 @@ Templates to integrate (that I know of):
 | ✅ | [ugent2016](https://github.com/niknetniko/ugent2016)                | Niko Strijbol  | Left UGent             | `article`, `book`, `report`, `course`, `notes` |
 | ✅ | [ugent-doc](https://github.com/driesbenoit/ugent-doc)               | Dries Benoit   | Stale/Complete?        | `article`, `report` (only coverpage) |
 | ⬜ | [ugent-beamer](https://github.com/driesbenoit/ugent-beamer)         | Dries Benoit   | Complete               | `beamer` |
-| ⬜ | [ugent-letter](https://github.com/driesbenoit/ugent-letter)         | Dries Benoit   | Complete               | `letter` |
+| ✅ | [ugent-letter](https://github.com/driesbenoit/ugent-letter)         | Dries Benoit   | Complete               | `letter` |
 | ✅ | [Latex at UGent](https://github.ugent.be/LatexInfo) (internal only) | Joris Meys     | Incomplete, but active | `ba/ma thesis` (only BW faculty templates, separate classes for NL and EN)|
 
 ---
