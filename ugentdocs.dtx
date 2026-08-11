@@ -5410,10 +5410,9 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \lhead[]{}
 \chead[]{}
 \rhead[]{}
-\lfoot[\small\textcolor{gray}{\@date}]{\textcolor{gray}{\@date}}
+\lfoot[]{}
 \cfoot[]{}
-\rfoot[\small\textcolor{gray}{\pagename~\thepage~\translatekey[lowercase]{of}~\ztotpages}]
-  {\small\textcolor{gray}{\pagename~\thepage~\translatekey[lowercase]{of}~\ztotpages}}
+\rfoot[]{}
 %</le>
 %    \end{macrocode}
 %
@@ -6510,52 +6509,84 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \begin{macrocode}
 %<*le>
 \newcommand\maketitle{%
-  \pagestyle{fancy}
-  \thispagestyle{empty}
-  \AddToShipoutPicture*{%
-    \put(0,0){%
-      \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-        \clip (0,0) rectangle(\paperwidth,\paperheight);
-        \path (current page.north west) +(1.8cm,-1.2cm); % TODO <- this semicolon was not here
-        \begin{scope} % TODO the use of scope here may be very wrong
-          \@ugentlogo{1.1cm}{ugent@main}{0.0}
-        \end{scope};
-        \if@nofoldline\else
-        \draw (current page.north west)
-        +(1cm,-98mm) -- +(1.5cm,-98mm);
-        \fi
-        % 90 x 45
-        % pos: 20mm van kant, 15mm van onderkant
-        \path (current page.north east) +(-100mm,-65mm)
-        node[anchor=west,text width=80mm,align=left] {
-      	  \scriptsize\textcolor{gray}{\uline{\@returnaddress}}\\*
-      	  \normalsize\@to\\*
-      	  \ifx\@toorganization\@empty\else\@toorganization\\*\fi%
-      	  \@toaddress
-        };
-      \end{tikzpicture}
-    }
-  }
-  ~\\[3ex]
-  \textcolor{ugent@main}{\textbf{\@sender}}
-  \ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
-  \@faculty{} % TODO should handle empty
-  \ifx\@unit\@empty\else\\* \@unit\fi~\\[1.75ex]
-  \@address\\[1.75ex]
-  \ifemails{E~\printemails{\\\phantom{E~}}{}{}\\}
-  \ifphones{T~\printphones{\\\phantom{T~}}{}{}\\}
-  \iffaxes{F~\printfaxes{\\\phantom{F~}}{}{}\\}
-  \ifmobiles{M~\printmobiles{\\\phantom{M~}}{}{}\\}
-  ~\\[4ex]
-  \begin{tikzpicture}[anchor=north west,align=left,outer sep=0,inner sep=0]
-    \path
-    (0,0) node { \scriptsize \strut
-      \textcolor{gray}{\translatekey[uppercase]{date}} }
-    (4cm,0) node { \scriptsize \strut
-      \textcolor{gray}{\translatekey[uppercase]{subject}} }
-    (0,-2.5ex) node { \strut \@date }
-    (4cm,-2.5ex) node[align=left] { \strut \@subject };
-  \end{tikzpicture}~\\[4ex]
+	\pagestyle{empty}
+	\thispagestyle{empty}
+	\AddToShipoutPicture{%
+		\put(0,0){%
+			\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
+			\clip (0,0) rectangle(\paperwidth,\paperheight);
+			\begin{scope}[shift={(\gridunit,0)}]
+			\@ugentlogo{4\gridunit}{ugent@main}{0.0}
+			\end{scope}
+			\begin{scope}[shift={(\gridunit,\@PH-3\gridunit)}]
+			\@faclogo{3\gridunit}{ugent@\@fselector}{0}
+			\end{scope}
+			\path (current page.north east) +(-\gridunit,-\gridunit)
+			node[anchor=north east,text width=61.5mm,align=left] {
+				\small{\nohyphens{\bfseries\textcolor{ugent@main}{\@faculty[uppercase]}}}\\*
+				\textcolor{ugent@main}{\MakeUppercase{\@unit}}
+			};
+		
+			\ifnum\value{page}>1
+			\path (current page.north west) +(2\gridunit,-3\gridunit)
+			node[anchor=north west] { \@letterheader };
+			\fi
+			\end{tikzpicture}
+		}
+	}
+	
+	\AddToShipoutPicture*{%
+		\put(0,0){%
+			\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
+			\clip (0,0) rectangle(\paperwidth,\paperheight);
+			%
+			\if@nofoldline\else
+			\draw (current page.north west)
+			+(1cm,-98mm) -- +(1.5cm,-98mm);
+			\fi
+			%
+			\path (current page.north west) +(2\gridunit,-44mm)
+			node[anchor=north west,text width=80mm,align=left] {
+				\scriptsize\textcolor{gray}{\uline{\@returnaddress}}\\*
+				\normalsize\@to\\*
+				\ifx\@toorganization\@empty\else\@toorganization\\*\fi%
+				\@toaddress
+			};
+			
+			\path (current page.north east) +(-\gridunit,-3\gridunit)
+			node[anchor=north east,text width=61.5mm,align=left] {
+					\textcolor{ugent@main}{\textbf{\@sender}}
+				\ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
+				\ifemails{E~\printemails{\\\phantom{E~}}{}{}\\}
+				\ifphones{T~\printphones{\\\phantom{T~}}{}{}\\}
+				\iffaxes{F~\printfaxes{\\\phantom{F~}}{}{}\\}
+				\ifmobiles{M~\printmobiles{\\\phantom{M~}}{}{}\\}
+				\vskip 1.75ex
+				\@address\\[1.75ex]
+				\@ifpackageloaded{hyperref}{
+					\href{https://www.ugent.be}{www.ugent.be}		
+				}{
+					www.ugent.be
+				}		
+			};
+			\end{tikzpicture}
+		}
+	}
+	~\\[5\gridunit]
+	\@letterheader~\\[\gridunit]
+	{\bfseries\@subject}
+}
+
+\newcommand{\@letterheader}{
+	\begin{tikzpicture}[anchor=north west,align=left,outer sep=0,inner sep=0]
+	\path
+	(0,0) node { \small\strut\textcolor{ugent@main}{\translatekey[uppercase]{date}} }
+	(4cm,0) node { \small\strut\textcolor{ugent@main}{\translatekey[uppercase]{page}} }
+	(8cm,0) node { \small\strut\textcolor{ugent@main}{\translatekey[uppercase]{ourref}} }
+	(0,-2.5ex) node { \strut \@date }
+	(4cm,-2.5ex) node { \strut \thepage/\ztotpages }
+	(8cm,-2.5ex) node { \strut \@reference };
+	\end{tikzpicture}
 }
 %</le>
 %    \end{macrocode}
@@ -6569,14 +6600,13 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \newcommand\closeletter{
   \ifletterclosed
   \else
-    \@closing\\*[3ex]\@signature~\\[3ex]
+    \@closing\\\@signature~\\
     \@sender
     \ifx\@senderrole\@empty\\[8ex]\else\\*\@senderrole\\[8ex]\fi
     \setlength{\parskip}{0em}
     \ifx\@carboncopy\@empty\else \MakeUppercase{\ccname}: \@carboncopy\\[4ex]\fi
-    \ifx\@enclosed\@empty\else \MakeUppercase{\enclname}: \@enclosed\fi
+    \ifx\@enclosed\@empty\else \translatekey{appendix}: \@enclosed\fi
     \letterclosedtrue
-    \pagestyle{empty}
     \clearpage
   \fi
 }
