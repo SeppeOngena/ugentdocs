@@ -1938,20 +1938,22 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 
 %% provide info on who sensd the letter, you can put this in a
 %% configuration file, see the documentation of the letter class!
-\sender{prof.~Walter Daems}{Senior Lecturer}
-\unit{Cosys-Lab}
+\sender{ir.~Seppe Ongena}{PhD Student}
+
+%% override department (if needed for e.g. UGent university services, GUGC, etc.)
+%% \department{Directie ICT}
+\unit{TRASLAB}
 \address{
-  Campus Groenenborger\\
-  Groenenborgerlaan 171\\
-  B-2020 Antwerpen\\
+  CAPTURE building\\
+  Frieda Saysstraat 1\\
+  9052 Ghent\\
   BELGIUM}
-\email{walter.daems}{uantwerpen.be}
+\email{seppe.ongena}{ugent.be}
 \phone{+32 3 265 98 43}
 \mobile{+32 499 355 115}
 
-%% set a return address - if you want to avoid the infernal anger of
-%% the UAntwerp internal post service
-\returnaddress{FTI - U.301 -- Groenenborgerlaan 171, 2020 Antwerpen, BELGIUM}
+%% set a return address
+\returnaddress{UGent-CAPTURE -- Frieda Saeysstraat 1, 9052 Ghent, BELGIUM}
 
 %% provide some details on who you want to write to
 \to{prof.~B.~Bonette}
@@ -1962,7 +1964,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
   USA}
 
 %% a proper letter mentions a date of writing and a subject
-\date{January 3, 2016}
+\date{January 3, 2026}
 \subject{Congratulations for online video lectures}
 
 \begin{document}
@@ -1990,8 +1992,14 @@ their details enclosed.
 %% time to say goodbye
 \closing{Kind regards,}
 
-%% you might want to insert a signature picture or text:
+%% you might want to insert a signature picture or text.
 %% \signature{\includegraphics{signature.jpg}}
+
+%% you can also remove the signature space altogether:
+%% \signature{}
+
+%% add the reference
+\reference{2608001}
 
 %% mention who receives a copy of this letter if needed
 \carboncopy{prof.~S.~Mariotte, Mumford University}
