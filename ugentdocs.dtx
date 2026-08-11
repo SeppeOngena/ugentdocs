@@ -3457,9 +3457,21 @@ faculty / fw .code:n = {
 }
 \ExplSyntaxOff
 %</crs|rp>
+%<*phd>
+\ExplSyntaxOn
+\bool_if:NT \l_@@_cameraready_bool {
+	\RequirePackage[cam,center,width=21truecm,height=29.7truecm,frame]{crop}
+}
+\ExplSyntaxOff
+%</phd>
 %<*phd|crs>
 \ExplSyntaxOn
 \bool_if:NT \l_@@_thumbs_bool {
+	\IfPackageLoadedTF{crop}{%
+		\PassOptionsToPackage{ignorehoffset=false,ignorevoffset=false}{thumbs}% crop
+	}{
+		\PassOptionsToPackage{ignorehoffset=true,ignorevoffset=true}{thumbs}% no crop
+	}
 	\RequirePackage[
 	height=25.4mm,
 	width=auto,
@@ -3546,25 +3558,6 @@ faculty / fw .code:n = {
 	}%
 }
 %</bmt|phd|crs|rp>
-%    \end{macrocode}
-%
-% 
-% \subsection{Camera-ready version}
-% For the course texts, this means printing no artwork (as universitas
-% prints your front page on a pre-printed color page)
-% This is taken care of by the titlepage and finalpage environments,
-% so no extra code is needed here.
-%
-% For PhD texts, this means providing bleed space. We implemented this
-% using the very fine |crop| package.
-%    \begin{macrocode}
-%<*phd>
-\ExplSyntaxOn
-\bool_if:NT \l_@@_cameraready_bool {
-	\RequirePackage[cam,center,width=21truecm,height=29.7truecm]{crop}
-}
-\ExplSyntaxOff
-%</phd>
 %    \end{macrocode}
 %
 %
@@ -5651,7 +5644,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \ExplSyntaxOn
 \bool_if:NTF \l_@@_examiner_bool {
 	\rhead[\small EXAMINER~VERSION]{\small EXAMINER~VERSION}
-	\AddToShipoutPicture{
+	\AddToShipoutPicture{% TODO change to \AddToHook{shipout/foreground}{
 	  \put(60,40){\rotatebox{60}{\textcolor{watermark}{
 	        \fontsize{105}{130}\selectfont Examiner~Version}}}}
 }{
@@ -6248,7 +6241,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %	Defines the front cover layout
 %    \begin{macrocode}
 %<*phd|bkc|crs>
-\newcommand{\@frontcover}{
+\newcommand{\@frontcover}{%
 	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
 	\useasboundingbox (0,0) rectangle (\@PW,\@PH);
 	
@@ -6369,11 +6362,14 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\setlength\parskip{0pt}%
 		\setlength\parindent{0pt}%
 		%
-		\AddToShipoutPicture*{%
-			\put(0,0){%
+		\AddToHookNext{shipout/foreground}{%
+			\begin{tikzpicture}[remember~picture,overlay]
+			\node[anchor=south~west, inner~sep=0pt]
+			at (current~page.south~west) {%
 				\@frontcover
-			}
-		}
+			};
+			\end{tikzpicture}%
+		}%
 		\null
 	\end{titlepage}%
 %</bmt|phd|rp|crs>
@@ -6501,11 +6497,14 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\null% intentionally blank page
 	\clearpage
 	\thispagestyle{empty}
-	\AddToShipoutPicture*{%
-		\put(0,0){%
+	\AddToHookNext{shipout/foreground}{%
+		\begin{tikzpicture}[remember~picture,overlay]
+		\node[anchor=south~west, inner~sep=0pt]
+		at (current~page.south~west) {%
 			\@backcover
-		}
-	}
+		};
+		\end{tikzpicture}%
+	}%
 	\null
 }
 %</phd|crs>
@@ -6763,67 +6762,62 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \newcommand\maketitle{%
 	\pagestyle{empty}
 	\thispagestyle{empty}
-	\AddToShipoutPicture{%
-		\put(0,0){%
-			\begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt]
-			\clip (0,0) rectangle(\paperwidth,\paperheight);
-			\begin{scope}[shift={(\gridunit,0)}]
-			\@ugentlogo{4\gridunit}{ugent@main}{0.0}
-			\end{scope}
-			\begin{scope}[shift={(\gridunit,\@PH-3\gridunit)}]
-			\@faclogo{3\gridunit}{ugent@\@fselector}{0}
-			\end{scope}
-			\path (current~page.north~east) +(-\gridunit,-\gridunit)
-			node[anchor=north~east,text~width=61.5mm,align=left] {
-				\small{\nohyphens{\bfseries\textcolor{ugent@main}{\@faculty[uppercase]}}}\\*
-				\textcolor{ugent@main}{\MakeUppercase{\@unit}}
-			};
-		
-			\ifnum\value{page}>1
-			\path (current~page.north~west) +(2\gridunit,-3\gridunit)
-			node[anchor=north~west] { \@letterheader };
-			\fi
-			\end{tikzpicture}
-		}
+	\AddToHook{shipout/foreground}{%
+		\begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt,overlay]
+		\clip (0,0) rectangle(\paperwidth,-\paperheight);
+		\begin{scope}[shift={(\gridunit,-\@PH)}]
+		\@ugentlogo{4\gridunit}{ugent@main}{0.0}
+		\end{scope}
+		\begin{scope}[shift={(\gridunit,-3\gridunit)}]
+		\@faclogo{3\gridunit}{ugent@\@fselector}{0}
+		\end{scope}
+		\path (\@PW-\gridunit,-\gridunit)
+		node[anchor=north~east,text~width=61.5mm,align=left] {
+			\small{\nohyphens{\bfseries\textcolor{ugent@main}{\@faculty[uppercase]}}}\\*
+			\textcolor{ugent@main}{\MakeUppercase{\@unit}}
+		};
+	
+		\ifnum\value{page}>1
+		\path (2\gridunit,-3\gridunit)
+		node[anchor=north~west] { \@letterheader };
+		\fi
+		\end{tikzpicture}
 	}
 	
-	\AddToShipoutPicture*{%
-		\put(0,0){%
-			\begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt]
-			\clip (0,0) rectangle(\paperwidth,\paperheight);
-			%
-			
-			\bool_if:NT \l_@@_foldline_bool {
-				\draw (current~page.north~west)
-				+(1cm,-98mm) -- +(1.5cm,-98mm);
-			}
-			%
-			\path (current~page.north~west) +(2\gridunit,-44mm)
-			node[anchor=north~west,text~width=80mm,align=left] {
-				\scriptsize\textcolor{gray}{\uline{\@returnaddress}}\\*
-				\normalsize\@to\\*
-				\ifx\@toorganization\@empty\else\@toorganization\\*\fi%
-				\@toaddress
-			};
-			
-			\path (current~page.north~east) +(-\gridunit,-3\gridunit)
-			node[anchor=north~east,text~width=61.5mm,align=left] {
-					\textcolor{ugent@main}{\textbf{\@sender}}
-				\ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
-				\ifemails{E~\printemails{\\\phantom{E~}}{}{}\\}
-				\ifphones{T~\printphones{\\\phantom{T~}}{}{}\\}
-				\iffaxes{F~\printfaxes{\\\phantom{F~}}{}{}\\}
-				\ifmobiles{M~\printmobiles{\\\phantom{M~}}{}{}\\}
-				\vskip 1.75ex
-				\@address\\[1.75ex]
-				\@ifpackageloaded{hyperref}{
-					\href{https://www.ugent.be}{www.ugent.be}		
-				}{
-					www.ugent.be
-				}		
-			};
-			\end{tikzpicture}
+	\AddToHookNext{shipout/foreground}{%
+		\begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt,overlay]
+		\clip (0,0) rectangle(\paperwidth,-\paperheight);
+		%
+		
+		\bool_if:NT \l_@@_foldline_bool {
+			\draw (1cm,-98mm) -- (1.5cm,-98mm);
 		}
+		%
+		\path (2\gridunit,-44mm)
+		node[anchor=north~west,text~width=80mm,align=left] {
+			\scriptsize\textcolor{gray}{\uline{\@returnaddress}}\\*
+			\normalsize\@to\\*
+			\ifx\@toorganization\@empty\else\@toorganization\\*\fi%
+			\@toaddress
+		};
+		
+		\path (\@PW-\gridunit,-3\gridunit)
+		node[anchor=north~east,text~width=61.5mm,align=left] {
+				\textcolor{ugent@main}{\textbf{\@sender}}
+			\ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
+			\ifemails{E~\printemails{\\\phantom{E~}}{}{}\\}
+			\ifphones{T~\printphones{\\\phantom{T~}}{}{}\\}
+			\iffaxes{F~\printfaxes{\\\phantom{F~}}{}{}\\}
+			\ifmobiles{M~\printmobiles{\\\phantom{M~}}{}{}\\}
+			\vskip 1.75ex
+			\@address\\[1.75ex]
+			\@ifpackageloaded{hyperref}{
+				\href{https://www.ugent.be}{www.ugent.be}		
+			}{
+				www.ugent.be
+			}		
+		};
+		\end{tikzpicture}
 	}
 	\null
 	\vspace{4\gridunit}
@@ -6881,7 +6875,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*ex>
 \renewcommand\maketitle{%
   \pagestyle{fancy}
-  \AddToShipoutPicture*{%
+  \AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{%
     \put(0,0){%
       \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
         \clip (0,0) rectangle(\paperwidth,\paperheight);
@@ -7147,7 +7141,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*ex>      
 \newcommand\insertsolutionspagepartial[1]{
   ~\relax
-  \AddToShipoutPicture*{%
+  \AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{
     \put(0,0){%
       \begin{tikzpicture}
         \clip (0,0) rectangle (21,#1);
@@ -7181,7 +7175,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*ex>      
 \newcommand\insertsolutionspage[1]{
   \clearpage
-  \AddToShipoutPicture*{%
+  \AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{
     \put(0,0){%
       \begin{tikzpicture}
         \clip (0,0) rectangle (21,29.5);
