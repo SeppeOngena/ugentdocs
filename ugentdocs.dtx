@@ -3343,7 +3343,7 @@ faculty / fw .code:n = {
 % UGent Panno Text (and its Medium and SemiLight variants) should always be installed (and the document compiled using Lua\LaTeX) as they are used in the logo's. For the document itself, it is recommended to use UGent Panno Text as well, which is set through |\setmainfont{UGent Panno Text}|. However, Arial is also a valid official alternative and can override UGent Panno Text by adding |\setmainfont{Arial}[BoldFont = {Arial}, BoldFeatures = {FakeBold=2.5}, ItalicFont = {Arial}, ItalicFeatures = {FakeSlant=0.15}, BoldItalicFont = {Arial}, BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},]| to the beginning of your document. UGent uses Arial as default for Word and PowerPoint templates as these are distributed outside Ghent University. This is not applicable for \LaTeX however, as pdf's are always generated. Thus, UGent Panno Text is used everywhere.
 %
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc>  
+%<*crs|bmt|phd|rp|le|ex|bkc|bmrfont>  
 \iftutex
   \RequirePackage{fontspec}
   \IfFontExistsTF{UGent Panno Text Medium}{
@@ -3404,7 +3404,7 @@ faculty / fw .code:n = {
   \PackageError{ugentdocs}{Only LuaTeX or XeTeX is supported for compilation}
   {See the ugentdocs manual}
 \fi
-%</crs|bmt|phd|rp|le|ex|bkc>
+%</crs|bmt|phd|rp|le|ex|bkc|bmrfont>
 %    \end{macrocode}
 %
 % \subsubsection{Boilerplate packages}
