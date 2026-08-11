@@ -3460,7 +3460,7 @@ faculty / fw .code:n = {
 %<*phd>
 \ExplSyntaxOn
 \bool_if:NT \l_@@_cameraready_bool {
-	\RequirePackage[cam,center,width=21truecm,height=29.7truecm,frame]{crop}
+	\RequirePackage[cam,center,width=21truecm,height=29.7truecm]{crop}
 }
 \ExplSyntaxOff
 %</phd>
@@ -6373,8 +6373,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		\null
 	\end{titlepage}%
 %</bmt|phd|rp|crs>
+%<bmt> \null\par\clearpage
 %<*bmt|rp>
-	\null\par\clearpage
 	% Only 1 page: Copyrightnotices
 	\clearpage
 	\ifx\@copyrightnotices\@empty\else
