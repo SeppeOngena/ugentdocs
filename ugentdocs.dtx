@@ -861,7 +861,6 @@
 
 %% changes the chapter numbering to letters and uses 'Appendix' or
 %% 'Bijlage' (in dutch) as chapter name.
-%% !! do not use \backmatter before \appendix: it is broken!
 \appendix
 
 \chapter{Symbolen}
@@ -1057,7 +1056,6 @@
 
 %% changes the chapter numbering to letters and uses 'Appendix' or
 %% 'Bijlage' (in dutch) as chapter name.
-%% !! do not use \backmatter before \appendix: it is broken!
 \appendix
 
 \chapter{Symbolen}
@@ -1245,7 +1243,6 @@ e^{-j\pi} + 1 = 0
 
 %% changes the chapter numbering to letters and uses 'Appendix' or
 %% 'Bijlage' (in dutch) as chapter name.
-%% !! do not use \backmatter before \appendix: it is broken!
 \appendix
 
 \chapter{Symbolen}
@@ -1648,7 +1645,6 @@ Department of Biotechnology}
 
 %% change the chapter numbering to letters and uses 'Appendix' or
 %% 'Bijlage' (in dutch) as chapter name.
-%% !! do not use \backmatter before \appendix: it is broken!
 \appendix
 
 \chapter{Symbols}
@@ -1776,7 +1772,6 @@ e^{-j\pi} + 1 = 0
 
 %% change the chapter numbering to letters and uses 'Appendix' or
 %% 'Bijlage' (in dutch) as chapter name.
-%% !! do not use \backmatter before \appendix: it is broken!
 \appendix
 
 \chapter{Meetreeksen waterzuivering}
@@ -1938,7 +1933,6 @@ Minute taker}}\\
 
 %% change the chapter numbering to letters and uses 'Appendix' or
 %% 'Bijlage' (in dutch) as chapter name.
-%% !! do not use \backmatter before \appendix: it is broken!
 \appendix
 
 \chapter{First Appendix}
@@ -5690,6 +5684,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 }
 % overwrite appendix
 \def\appendix{
+  \cleardoublepage
   \setcounter{chapter}{0}
   \renewcommand*{\thechapter}{\Alph{chapter}}
   \renewcommand*\chaptername\appendixname
