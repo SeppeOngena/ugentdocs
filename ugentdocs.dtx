@@ -710,6 +710,8 @@
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
 %% neutralcolors      Uses ugent colour scheme instead of faculty colors
 %%                    Options: true, false*
 %% colormodel         Uses rgb (display) or cmyk (print) colouring
@@ -882,6 +884,8 @@
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
 %% neutralcolors      Uses ugent colour scheme instead of faculty colors
 %%                    Options: true, false*
 %% coverbg            Adds a coloured background area to the cover page
@@ -1066,6 +1070,8 @@
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
 %% neutralcolors      Uses ugent colour scheme instead of faculty colors
 %%                    Options: true, false*
 %% coverbg            Adds a coloured background area to the cover page
@@ -1259,6 +1265,8 @@ e^{-j\pi} + 1 = 0
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
 %% neutralcolors      Uses ugent colour scheme instead of faculty colors
 %%                    Options: true, false*
 %% colormodel         Uses rgb (display) or cmyk (print) colouring
@@ -1267,6 +1275,8 @@ e^{-j\pi} + 1 = 0
 %%                    and copyright language. Can be overridden locally for the text
 %%                    using \selectlanguage or \foreignlanguage (see babel package)
 %%                    Options: english* / dutch
+%% 10pt               Sets the font size to 10pt
+%% twoside            If you want a two-sided document, change to oneside if you
 %%                    want a recto only document
 %% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
@@ -1457,6 +1467,8 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
 %% neutralcolors      Uses ugent colour scheme instead of faculty colors
 %%                    Options: true, false*
 %% colormodel         Uses rgb (display) or cmyk (print) colouring
@@ -1658,6 +1670,8 @@ Department of Biotechnology}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
 %% neutralcolors      Uses ugent colour scheme instead of faculty colors
 %%                    Options: true, false*
 %% coverbg            Adds a coloured background area to the cover page
@@ -1779,6 +1793,8 @@ e^{-j\pi} + 1 = 0
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
 %% neutralcolors      Uses ugent colour scheme instead of faculty colors
 %%                    Options: true, false*
 %% coverbg            Adds a coloured background area to the cover page
@@ -1947,6 +1963,8 @@ Minute taker}}\\
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
 %% neutralcolors      Uses ugent colour scheme instead of faculty colors
 %%                    Options: true, false*
 %% colormodel         Uses rgb (display) or cmyk (print) colouring
@@ -2131,6 +2149,8 @@ their details enclosed.
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
 %% neutralcolors      Uses ugent colour scheme instead of faculty colors
 %%                    Options: true, false*
 %% colormodel         Uses rgb (display) or cmyk (print) colouring
@@ -2892,9 +2912,11 @@ faculty / fw .code:n = {
 \ExplSyntaxOn
 \tl_new:N \l_@@_logotext_tmpa_tl
 \tl_new:N \l_@@_logotext_tmpb_tl
+\msg_new:nnn { ugentdocs } { unknown~campus }
+{ The~campus~'#1'~is~not~implemented,~options~are~'ugent',~'gugc',~and~'kortrijk'. }
 
 \newcommand*\@setugentlogotext{
-	\exp_args:Nx \str_case:nnF { \@campus } {
+	\exp_args:Nx \str_case:nnF { \l_@@_campus_tl } {
 		{ ugent }    {
 			\renewcommand{\@ugentlogotext}{
 				\logotextface\fontsize{13.6pt}{12.5pt}\selectfont
@@ -2929,7 +2951,7 @@ faculty / fw .code:n = {
 			\setlength\@ugenttextmarginextra{0.3\@logounit}
 		}
 	}{
-		\msg_error:nnn { ugentdocs } { unknown~campus } { \@campus }
+		\msg_error:nnn { ugentdocs } { unknown~campus } { \l_@@_campus_tl  }
 	}
 }
 \ExplSyntaxOff
@@ -4631,17 +4653,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %</phd|bkc|bmt|rp>
 %    \end{macrocode}
 % \end{imacro}
-% 
-% \begin{imacro}{\campus}
-%   This macro sets the |\@campus| tags that is used for
-%   the UGent logo adjustments. 
-%    \begin{macrocode}
-%<*bmt|phd|crs|ex|bkc|le|rp>   
-\newcommand*\@campus{ugent}
-\newcommand*{\campus}[1]{\renewcommand*\@campus{#1}}
-%</bmt|phd|crs|ex|bkc|le|rp> 
-%    \end{macrocode}
-% \end{imacro}%
+%
 %
 % \begin{imacro}{\titeplageimage}
 %   This macro sets the |\@titlepageimage| tags that later will
