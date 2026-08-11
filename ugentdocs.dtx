@@ -3651,17 +3651,17 @@ faculty / fw .code:n = {
 %
 % Let's start by defining our dictionary:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc>
+%<*crs|bmt|phd|rp|le|ex|bkc|bmr>
 \ExplSyntaxOn
 \prop_new:N \g_@@_dict_keyvals_prop
 \seq_new:N  \g_@@_loaded_dicts_seq
 \seq_new:N  \l_@@_value_paragraphs_seq
-%</crs|bmt|phd|rp|le|ex|bkc>
+%</crs|bmt|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 %
 % The dictionary can be accessed using the following document command:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc>
+%<*crs|bmt|phd|rp|le|ex|bkc|bmr>
 
 \tl_new:N \l_@@_lookup_key_tl
 \tl_new:N \l_@@_value_cased_tl
@@ -3707,12 +3707,12 @@ faculty / fw .code:n = {
 	  \_@@_translate:xn {\l_@@_case_tl} {#2}
 	}
 }
-%</crs|bmt|phd|rp|le|ex|bkc>
+%</crs|bmt|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 %
 % To this end, we use the following parsing infrastructure:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc>
+%<*crs|bmt|phd|rp|le|ex|bkc|bmr>
 \NewDocumentCommand{\useugentdocsdictionary}{m}{
   \seq_if_in:NnTF \g_@@_loaded_dicts_seq {#1}{
   }{
@@ -3742,11 +3742,11 @@ faculty / fw .code:n = {
   \tl_trim_spaces:N \l_@@_key_tl
   \tl_trim_spaces:N \l_@@_value_tl
 }
-%</crs|bmt|phd|rp|le|ex|bkc>
+%</crs|bmt|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 % invoked by the following data file reader:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc>
+%<*crs|bmt|phd|rp|le|ex|bkc|bmr>
 \ior_new:N \l_@@_dict_ior
 \cs_new_nopar:Nn \@@_dictreader:n {
 	\tl_set:Nn \l_@@_dictlang_tl {#1}
@@ -3768,18 +3768,18 @@ faculty / fw .code:n = {
 	\@@_flush_value:
 	\ior_close:N \l_@@_dict_ior
 }
-%</crs|bmt|phd|rp|le|ex|bkc>
+%</crs|bmt|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 % By default, we load the generic (not yet implemented!) and the english data file:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc>
+%<*crs|bmt|phd|rp|le|ex|bkc|bmr>
 \clist_map_inline:nn {english} {
   \@@_dictreader:n { #1 }
   \seq_gput_right:Nn \g_@@_loaded_dicts_seq { #1 }
 }
 %\prop_show:N \g_@@_dict_keyvals_prop
 \ExplSyntaxOff
-%</crs|bmt|phd|rp|le|ex|bkc>
+%</crs|bmt|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 %
 % \subsection{Babel provisions}
@@ -3790,7 +3790,7 @@ faculty / fw .code:n = {
 %
 %
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc>
+%<*crs|bmt|phd|rp|le|ex|bkc|bmr>
 \AtBeginDocument{
   \makeatother
   \@ifpackageloaded{babel}{
@@ -3804,7 +3804,7 @@ faculty / fw .code:n = {
   {}
   \makeatletter
 }
-%</crs|bmt|phd|rp|le|ex|bkc>
+%</crs|bmt|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 %
 % The English dictionary can be found below:
