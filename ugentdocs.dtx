@@ -3083,26 +3083,44 @@ een b\'echamel saus:
 % \subsubsection{Geometry}
 % Following the report office template:
 %    \begin{macrocode}
-%<*crs|rp|ex>      
-\RequirePackage[paperwidth=210mm,paperheight=297mm,
-				top=2.54cm, bottom=2.54cm, left=2.12cm, right=2.97cm]{geometry}
+%<*crs|bmt|phd|rp|le|ex>      
+\RequirePackage{tikz}
+\newlength{\@PW} % Paper width
+\newlength{\@PH} % Paper height
+\newlength{\gridunit} % Grid unit layout
+\newcommand*{\@setgridunit}{\pgfmathsetlength{\gridunit}{max(\@PW,\@PH)/7/4}}
+%</crs|bmt|phd|rp|le|ex>
+%<*crs|rp|ex>
+\setlength\@PW{210mm}
+\setlength\@PH{297mm}
+\@setgridunit
+\RequirePackage[paperwidth=\@PW,paperheight=\@PH,
+				top=2.54cm, bottom=2.54cm, left=2\gridunit, right=2.97cm]{geometry}
 %</crs|rp|ex>
 % Margin glue provision for PhD:
 %<*phd>
-\RequirePackage[paperwidth=160mm,paperheight=240mm,
+\setlength\@PW{160mm}
+\setlength\@PH{240mm}
+\@setgridunit
+\RequirePackage[paperwidth=\@PW,paperheight=\@PH,
                 top=2.54cm,bottom=2.54cm,inner=2cm,outer=2cm,twoside]
                 {geometry}
 %</phd>
 % Following the bachelor's and master's theses office template:
 %<*bmt>      
-\RequirePackage[paperwidth=210mm,paperheight=297mm,
-				top=2.54cm, bottom=2.54cm, left=2.12cm, right=2.12cm]{geometry}
+\setlength\@PW{210mm}
+\setlength\@PH{297mm}
+\@setgridunit
+\RequirePackage[paperwidth=\@PW,paperheight=\@PH,
+				top=2.54cm, bottom=2.54cm, left=2\gridunit, right=2\gridunit]{geometry}
 %</bmt>
 % Following letter office template:
 %<*le>      
-\RequirePackage[top=4.1cm, bottom=1.06cm, left=2.12cm, right=4.07cm]{geometry}
-\RequirePackage[normalem]{ulem}
-%</le> 
+\setlength\@PW{210mm}
+\setlength\@PH{297mm}
+\@setgridunit
+\RequirePackage[a4paper,top=5\gridunit, bottom=4\gridunit,footskip=4\gridunit, left=2\gridunit, right=4.07cm]{geometry}
+%</le>       
 %    \end{macrocode}
 % 
 % \subsubsection{Preparing for \LaTeX3}
@@ -3212,7 +3230,6 @@ een b\'echamel saus:
 \RequirePackage{soul}
 \RequirePackage[export]{adjustbox}
 \RequirePackage{color}
-\RequirePackage{tikz}
 \usetikzlibrary{positioning,calc,fit,backgrounds}
 \RequirePackage{eso-pic}
 \RequirePackage{zref-totpages}
@@ -3244,7 +3261,7 @@ een b\'echamel saus:
 \RequirePackage{ugentcolor}
 %</crs|bmt|phd|rp|le|ex|bkc>
 %    \end{macrocode}
-
+%
 % \subsubsection{Header/Footer}
 % 
 % The de-facto standard for headers and footers:
@@ -5514,7 +5531,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % First, we need to define the grid layout and colours:
 %    \begin{macrocode}
 %<*bmt|rp>
-\newlength{\gridunit}\pgfmathsetlength{\gridunit}{max(\paperheight,\paperwidth)/7/4}	% Grid unit following styleguide
 \newlength{\@TP}\setlength\@TP{26.52cm}												 	% Title Position
 \newlength{\@ML}																		% Margin left (for text)
 \newlength{\@HTS}																		% Height top strip
@@ -5764,18 +5780,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \begin{macrocode}
 %<*phd|bkc|crs>
 \ExplSyntaxOn
-\exp_args:Nx \str_case:nnF { \@covertype } {
-	{ dissertation } {
-		\newlength{\@WC}\setlength\@WC{160mm}	% Cover width
-		\newlength{\@HC}\setlength\@HC{240mm}	% Cover height
-	}
-	{ course } {
-		\newlength{\@WC}\setlength\@WC{210mm}	% Cover width
-		\newlength{\@HC}\setlength\@HC{297mm}	% Cover height
-	}
-}{
-	\msg_error:nnn { ugentdocs } { cover~type~not~implemented } { \@covertype }
-}	
 \newlength{\@B}\setlength\@B{3mm}		% Bleed
 \newlength{\@HBS} 	% Height bottom strip
 \newlength{\@HTS} 	% Top white strip height
@@ -5789,7 +5793,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \newlength{\@HI}	% Image height
 \newlength{\@WFI}	% Faculty icon width
 
-\newlength{\gridunit}\pgfmathsetlength{\gridunit}{max(\@WC,\@HC)/7/4}
 \if@bwbookcover % BW cover
 	\setlength\@HBS{4\gridunit}
 	\setlength\@HTS{0mm}
@@ -5836,11 +5839,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \newcommand{\@printconfidentialcover}{
 	\if@bwbookcover
 	\@setugentlogotext
-	\node[anchor=center,font=\fontsize{15}{18}\selectfont,ugent@main] at	(0.5*\@WC-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5*\gridunit,1.5*\gridunit) {\textbf{\translatekey[uppercase]{confidential}}};
-	% pos = (\@WC-\@ftextw/\@logounit*\gridunit-3*\gridunit-\@ugenttextw/\@logounit*\gridunit-2*\gridunit)/2+\@ugenttextw/\@logounit*\gridunit+2*\gridunit
-	%     = 0.5*\@WC-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5\gridunit
+	\node[anchor=center,font=\fontsize{15}{18}\selectfont,ugent@main] at	(0.5*\\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5*\gridunit,1.5*\gridunit) {\textbf{\translatekey[uppercase]{confidential}}};
+	% pos = (\\@PW-\@ftextw/\@logounit*\gridunit-3*\gridunit-\@ugenttextw/\@logounit*\gridunit-2*\gridunit)/2+\@ugenttextw/\@logounit*\gridunit+2*\gridunit
+	%     = 0.5*\\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5\gridunit
 	\else
-	\node[anchor=south east,font=\fontsize{15}{18}\selectfont,ugent@main] at	(\@WC-\@MTLR,\@MTLR) 
+	\node[anchor=south east,font=\fontsize{15}{18}\selectfont,ugent@main] at	(\\@PW-\@MTLR,\@MTLR) 
 	{\textbf{\translatekey[uppercase]{confidential}}};
 	\fi
 }
@@ -5854,15 +5857,15 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \newcommand\@coverbodydissertation{
 		% Title, subtitle, author	
 	\if@bwbookcover
-	\node[anchor=south east, text width=\@WC-2*\@MTLR, align=right, text=covertitlecolor]
-	at (\@WC-\@MTLR, 2*\@HBS)
+	\node[anchor=south east, text width=\\@PW-2*\@MTLR, align=right, text=covertitlecolor]
+	at (\\@PW-\@MTLR, 2*\@HBS)
 	{{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
 		\ifx\@subtitle\@empty\else\vspace{4pt}%
 		\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par\fi}%
 		\vspace{30pt}\hyphenpenalty=100000{\fontsize{20}{24}\selectfont\printauthors{\\}{\\}{\\}}};
 	\else
-	\node[anchor=west, text width=\@WC-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
-	at (\@MS+\@MTLR, 0.5*\@HC+0.5*\@HBS-0.5*\@HTS+0.5*\@HD)
+	\node[anchor=west, text width=\\@PW-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
+	at (\@MS+\@MTLR, 0.5*\\@PH+0.5*\@HBS-0.5*\@HTS+0.5*\@HD)
 	{{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
 		\ifx\@subtitle\@empty\else\vspace{5pt}\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par\fi}};
 	
@@ -5881,8 +5884,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	\ifx\@frontcoverlogos\@empty\else
 	\node[anchor=south east, inner sep=0pt,
-	text width=\@WC-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
-	align=right] at (\@WC-\gridunit,\gridunit)
+	text width=\\@PW-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
+	align=right] at (\\@PW-\gridunit,\gridunit)
 	{\@frontcoverlogos};
 	\fi
 	
@@ -5927,8 +5930,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	\ifx\@frontcoverlogos\@empty\else
 	\node[anchor=south east, inner sep=0pt,
-	text width=\@WC-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
-	align=right] at (\@WC-\gridunit,\gridunit)
+	text width=\\@PW-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
+	align=right] at (\\@PW-\gridunit,\gridunit)
 	{\@frontcoverlogos};
 	\fi
 }
@@ -5984,8 +5987,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		{ dissertation } {	}
 		{ course } {
 			\if@neutralcolors\else
-				\pgfmathsetlength{\@WFI}{\@WC-\@MS-4*\gridunit}
-				\begin{scope}[shift={(\@WC-\gridunit-\@WFI,\@HC-\@HTS-\gridunit-\@WFI)}]
+				\pgfmathsetlength{\@WFI}{\\@PW-\@MS-4*\gridunit}
+				\begin{scope}[shift={(\\@PW-\gridunit-\@WFI,\\@PH-\@HTS-\gridunit-\@WFI)}]
 					\@ficon{\@WFI}{coverbgcolor!60}{0.0}
 				\end{scope}
 			\fi
@@ -6005,17 +6008,17 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*phd|bkc|crs>
 \newcommand{\@frontcover}{
 	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-	\useasboundingbox (0,0) rectangle (\@WC,\@HC);
+	\useasboundingbox (0,0) rectangle (\\@PW,\\@PH);
 	
 	% Image zone
 	{\ifx\@titlepageimage\@empty%
-		\fill[coverbgcolor] (\@MS,\@HBS) rectangle (\@WC+\@B,\@HC-\@HTS+\@BT);%
+		\fill[coverbgcolor] (\@MS,\@HBS) rectangle (\\@PW+\@B,\\@PH-\@HTS+\@BT);%
 		\@coverblankimage
 	\else%
 		\begin{scope}%
-		\pgfmathsetlength{\@WI}{\@WC+\@B-\@MS}
-		\pgfmathsetlength{\@HI}{\@HC-\@HBS-\@HTS+\@BT}
-		\clip (\@MS,\@HBS) rectangle (\@WC+\@B,\@HC-\@HTS+\@BT);
+		\pgfmathsetlength{\@WI}{\\@PW+\@B-\@MS}
+		\pgfmathsetlength{\@HI}{\\@PH-\@HBS-\@HTS+\@BT}
+		\clip (\@MS,\@HBS) rectangle (\\@PW+\@B,\\@PH-\@HTS+\@BT);
 		\node[anchor=south west, inner sep=0pt] at (\@MS, \@HBS)%
 		{\adjustbox{min width=\@WI, min height=\@HI, keepaspectratio}{%
 				\includegraphics[width=\@WI]{\@titlepageimage}%
@@ -6036,11 +6039,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	
 	% Faculty logo
 	\if@bwbookcover
-	\begin{scope}[shift={(\@WC,0)}]
+	\begin{scope}[shift={(\\@PW,0)}]
 		\@faclogo{3\gridunit}{ugent@\@fselector}{1}
 	\end{scope}
 	\else
-	\begin{scope}[shift={(\@MS-\gridunit,\@HC-\@HTS)}]
+	\begin{scope}[shift={(\@MS-\gridunit,\\@PH-\@HTS)}]
 		\@faclogo{3\gridunit}{ugent@\@fselector}{0}
 	\end{scope}
 	\fi
@@ -6057,7 +6060,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*phd|bkc|crs>
 \newcommand\@backcover{%
 	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-	\useasboundingbox (0,0) rectangle (\@WC,\@HC);
+	\useasboundingbox (0,0) rectangle (\\@PW,\\@PH);
 	
 	% White bottom strip for ISBN and publisher logo	
 	\pgfmathsetmacro{\@isbnscale}{0.6}
@@ -6079,7 +6082,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	};
 	\end{scope}
 	
-	\pgfmathsetmacro{\@backcoverlogosxoffset}{min(\@WC-\@MS,\@WC-10mm)}
+	\pgfmathsetmacro{\@backcoverlogosxoffset}{min(\\@PW-\@MS,\\@PW-10mm)}
 	\begin{scope}[inner sep=0pt, shift = {(\@backcoverlogosxoffset pt, 0.5*\@HBS)}]
 	\node[anchor=east, inner sep=0pt]
 	at (0, 0)
@@ -6087,7 +6090,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\end{scope}
 	
 	% Full background
-	\fill[coverbgcolor] (0-\@B,\@HBS) rectangle (\@WC-\@MS,\@HC-\@HTS+\@BT);
+	\fill[coverbgcolor] (0-\@B,\@HBS) rectangle (\\@PW-\@MS,\\@PH-\@HTS+\@BT);
 	\end{tikzpicture}
 }
 %</phd|bkc|crs>
