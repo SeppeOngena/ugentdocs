@@ -2870,11 +2870,14 @@ faculty / fw .code:n = {
 \newlength{\@ftextw}
 
 \ExplSyntaxOn
-\renewcommand*{\faclogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
-	\ifx\@fselector\@empty\else
+\newcommand{\@setfaclogotext}{
 	\exp_args:Nx \str_case:nnF { \languagename } {	
 		{ dutch }{ \setlength{\@ftextw}{\@ftextwnl} }
-		}		 { \setlength{\@ftextw}{\@ftextwen}	}
+	}		 { \setlength{\@ftextw}{\@ftextwen}	}
+}
+\renewcommand*{\faclogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
+	\ifx\@fselector\@empty\else
+	\@setfaclogotext
 	\pgfmathsetmacro{\@flogoscale}{#1/3/\@logounit}
 	\pgfmathsetmacro{\@flogoxshift}{-#3*(3*\@logounit+\@ftextw)*\@flogoscale}
 	
@@ -6060,6 +6063,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \newcommand{\@printconfidentialcover}{
 	\if@bwbookcover
 	\@setugentlogotext
+	\@setfaclogotext
 	\node[anchor=center,font=\fontsize{15}{18}\selectfont,ugent@main] at	(0.5*\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5*\gridunit,1.5*\gridunit) {\textbf{\translatekey[uppercase]{confidential}}};
 	% pos = (\@PW-\@ftextw/\@logounit*\gridunit-3*\gridunit-\@ugenttextw/\@logounit*\gridunit-2*\gridunit)/2+\@ugenttextw/\@logounit*\gridunit+2*\gridunit
 	%     = 0.5*\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5\gridunit
