@@ -25,18 +25,18 @@
 \ProvidesFile{ugentdocs.dtx}
 %</driver>
 %<@@=ugentdocs>
-%<crs|bmt|phd|rp|le|ex|bmr|bkc>\NeedsTeXFormat{LaTeX2e}
+%<crs|bama|phd|rp|le|ex|bmr|bkc>\NeedsTeXFormat{LaTeX2e}
 %<clo>\ProvidesFile{ugentcommon.clo}
 %<col>\ProvidesPackage{ugentcolor}
 %<crs>\ProvidesClass{ugentcourse}
-%<bmt>\ProvidesClass{ugentthesis}
-%<phd>\ProvidesClass{ugentdissertation}
+%<bama>\ProvidesClass{ugentbama}
+%<phd>\ProvidesClass{ugentphd}
 %<rp>\ProvidesClass{ugentreport}
 %<le>\ProvidesClass{ugentletter}
 %<ex>\ProvidesClass{ugentexam}
 %<bmr>\ProvidesPackage{beamerthemeugent}
 %<bkc>\ProvidesClass{ugentbookcover}
-%<col|crs|bmt|phd|rp|le|ex|bmr|bkc>    [2026/07/03 v1.0.0 .dtx skeleton file]
+%<col|crs|bama|phd|rp|le|ex|bmr|bkc>    [2026/07/03 v1.0.0 .dtx skeleton file]
 %<*driver>
 \documentclass[a4paper,10pt]{ltxdoc}
 %
@@ -110,7 +110,7 @@
 % or just kind words.
 %
 % \section*{Synopsis}
-% The |coursetext|, |bamathesis| and |phdthesis| 
+% The |coursetext|, |bama| and |phd| 
 % classes\footnote{For readability the class names have been
 % abbreviated by omitting the |ugent| prefix} are 
 % an extension of the standard \LaTeX{} |book| class.  They are
@@ -881,11 +881,11 @@
 % \end{verbatim}
 % 
 % 
-% \subsubsection{\texttt{ugentthesis}}
+% \subsubsection{\texttt{ugentbama}}
 %
 % \begin{verbatim}
-%<*bmt-example1> 
-\documentclass[bw,11pt,twoside,openright,coverbg,neutralcolors]{ugentthesis}
+%<*bama-example1> 
+\documentclass[bw,11pt,twoside,openright,coverbg,neutralcolors]{ugentbama}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
@@ -935,9 +935,9 @@
 %% start of your document.
 \usepackage{multicol}
 
-%% specify your degree and doctype (mathesis/bathesis)
+%% specify your degree and doctype (dissertation-ma/dissertation-ba)
 \degree{Master Of Science in Bioscience Engineering: Environmental Technology}
-\doctype{mathesis}
+\doctype{dissertation-ma}
 
 %% specify word count
 \wordcount{2501}
@@ -1070,9 +1070,9 @@
 \chapter{Referentielijst}
 
 \end{document}
-%</bmt-example1> 
-%<*bmt-example2> 
-\documentclass[bw,11pt,twoside,openright,surnamefirst,dutch]{ugentthesis}
+%</bama-example1> 
+%<*bama-example2> 
+\documentclass[bw,11pt,twoside,openright,surnamefirst,dutch]{ugentbama}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
@@ -1122,9 +1122,9 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% start of your document.
 \usepackage{multicol}
 
-%% specify your degree and doctype (mathesis/bathesis)
+%% specify your degree and doctype (dissertation-ma/dissertation-ba)
 \degree{Bachelor of Science in de Bio-ingenieurswetenschappen}
-\doctype{bathesis}
+\doctype{dissertation-ba}
 
 %% specify word count
 \wordcount{2501}
@@ -1259,16 +1259,16 @@ e^{-j\pi} + 1 = 0
 \chapter{Referentielijst}
 
 \end{document}
-%</bmt-example2> 
+%</bama-example2> 
 % \end{verbatim}
 % 
 %
-% \subsubsection{\texttt{ugentdissertation}}
+% \subsubsection{\texttt{ugentphd}}
 %
 % \paragraph{Dutch}
 % \begin{verbatim}
 %<*phd-example1> 
-\documentclass[we,10pt,twoside,openright,surnamefirst,dutch]{ugentdissertation}
+\documentclass[we,10pt,twoside,openright,surnamefirst,dutch]{ugentphd}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
@@ -1326,7 +1326,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% address 
 \title{Harmonische Signaalanalyse\\met Lineaire
   Operatoren}
-\subtitle{Waarom moeten titels van doctoraatsthesissen toch altijd
+\subtitle{Waarom moeten titels van doctoraatsproefschriften toch altijd
   lang en onverstaanbaar zijn?}
 \author{Ir.}{Hoekaff, Theofiel}{\\Universiteit Gent\\
 Faculteit Wetenschappen\\
@@ -1471,7 +1471,7 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 % \paragraph{English}
 % \begin{verbatim}
 %<*phd-example2> 
-\documentclass[bw,10pt,twoside,openright,cameraready]{ugentdissertation}
+\documentclass[bw,10pt,twoside,openright,cameraready]{ugentphd}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
 %%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
@@ -1531,7 +1531,7 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 %% Add title and subtitle in dutch for the data page
 \titel{Harmonische Signaalanalyse\\met behulp van Lineaire
   Operatoren}
-\subtitel{Waarom moeten titels van doctoraatsthesissen toch altijd
+\subtitel{Waarom moeten titels van doctoraatsproefschriften toch altijd
   lang en onverstaanbaar zijn?}
 
 %% specify the author and their title, affilliation and address
@@ -2921,7 +2921,7 @@ faculty / fw .code:n = {
 	\path[nonzero rule,line width=0.1pt] (20.01, 7.48) -- (1.25, 7.48) -- (1.25, 8.73) -- (20.01, 8.73) -- (20.01, 7.48);
 	\path[nonzero rule,line width=0.1pt] (18.74, 19.32) -- (2.52, 19.32) -- (1.28, 20.57) -- (19.98, 20.57) -- (18.74, 19.32);
 	\path[nonzero rule,line width=0.1pt] (21.26, 4.99) -- (0.0, 4.99) -- (0.0, 6.24) -- (21.26, 6.24) -- (21.26, 4.99);
-	\path[nonzero rule,line width=0.1pt] (21.26, 22.58) -- (10.63, 26.35) -- (0.0, 22.58) -- (0.0, 21.26) -- (10.63, 25.02) -- (21.26, 21.26) -- (21.26, 22.58);	
+	\path[nonzero rule,line width=0.1pt] (21.26, 22.58) -- (10.63, 26.35) -- (0.0, 22.58) -- (0.0, 21.26) -- (10.63, 25.02) -- (21.26, 21.26) -- (21.26, 22.58);
 }
 
 \newcommand{\ugenticon}[3]{
@@ -3072,7 +3072,7 @@ faculty / fw .code:n = {
 % Before loading the class, we provide the extra options.
 % 
 %    \begin{macrocode}
-%<*phd|bkc|rp|ex|le|crs|bmt|bmr>
+%<*phd|bkc|rp|ex|le|crs|bama|bmr>
 \ExplSyntaxOn
 \tl_new:N \l_@@_language_tl
 \tl_set:Nn \l_@@_language_tl {english}
@@ -3092,7 +3092,7 @@ faculty / fw .code:n = {
 	gugc     .code:n   = { \tl_set:Nn \l_@@_campus_tl {gugc} } ,
 	kortrijk .code:n   = { \tl_set:Nn \l_@@_campus_tl {kortrijk} } ,
 }
-%</phd|bkc|rp|ex|le|crs|bmt|bmr>
+%</phd|bkc|rp|ex|le|crs|bama|bmr>
 %<*crs|rp>      
 \bool_new:N \l_@@_copyright_bool
 
@@ -3134,7 +3134,7 @@ faculty / fw .code:n = {
 	thumbs .default:n = true ,
 }
 %</phd|crs>
-%<*phd|bkc|rp|ex|le|crs|bmt|bmr>
+%<*phd|bkc|rp|ex|le|crs|bama|bmr>
 \tl_new:N \l_@@_nameformat_tl
 \tl_set:Nn \l_@@_nameformat_tl {surnamelast}
 
@@ -3143,7 +3143,7 @@ faculty / fw .code:n = {
 	surnamefirst .code:n   = { \tl_set:Nn \l_@@_nameformat_tl {surnamefirst} } ,
 	surnamelast  .code:n   = { \tl_set:Nn \l_@@_nameformat_tl {surnamelast} } ,
 }
-%</phd|bkc|rp|ex|le|crs|bmt|bmr>
+%</phd|bkc|rp|ex|le|crs|bama|bmr>
 %<*le>
 \bool_new:N \l_@@_foldline_bool
 \bool_set_true:N \l_@@_foldline_bool
@@ -3153,40 +3153,40 @@ faculty / fw .code:n = {
 	foldline .default:n = true ,
 }
 %</le>
-%<*bmt|rp>
+%<*bama|rp>
 \bool_new:N \l_@@_coverbg_bool
 
 \keys_define:nn { ugentdocs } {
 	coverbg .bool_set:N = \l_@@_coverbg_bool ,
 	coverbg .default:n = true ,
 }
-%</bmt|rp>
-%<*bkc|phd|crs|bmt|rp>
+%</bama|rp>
+%<*bkc|phd|crs|bama|rp>
 \tl_new:N \l_@@_covertype_tl
 \msg_new:nnn { ugentdocs } { cover~type~not~implemented }
 { Cover~type~'#1'~is~not~implemented. }
-%</bkc|phd|crs|bmt|rp>
+%</bkc|phd|crs|bama|rp>
 %<*bkc>
 \keys_define:nn { ugentdocs } {
 	covertype .tl_set:N = \l_@@_covertype_tl ,
-	dissertation .code:n   = { \tl_set:Nn \l_@@_covertype_tl {dissertation} } ,
+	phd .code:n   = { \tl_set:Nn \l_@@_covertype_tl {phd} } ,
 	course       .code:n   = { \tl_set:Nn \l_@@_covertype_tl {course} } ,
 }
 %</bkc>
-%<phd> \tl_set:Nn \l_@@_covertype_tl {dissertation}
+%<phd> \tl_set:Nn \l_@@_covertype_tl {phd}
 %<crs> \tl_set:Nn \l_@@_covertype_tl {course}
-%<bmt> \tl_set:Nn \l_@@_covertype_tl {thesis}
+%<bama> \tl_set:Nn \l_@@_covertype_tl {bama}
 %<rp>  \tl_set:Nn \l_@@_covertype_tl {report}
-%<*phd|bkc|rp|ex|le|crs|bmt|bmr> 
+%<*phd|bkc|rp|ex|le|crs|bama|bmr> 
 \ExplSyntaxOff
-%</phd|bkc|rp|ex|le|crs|bmt|bmr> 
+%</phd|bkc|rp|ex|le|crs|bama|bmr> 
 %    \end{macrocode}
 %
 %
 % We execute some standard options:
 % We load the |book| class for course texts, reports, bachelor and master theses, and PhD dissertations.
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp>
+%<*crs|bama|phd|rp>
 \input{ugentcommon.clo}
 \PassOptionsToClass{a4paper,11pt,final,oneside,openright}{book}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption, a4paper}{book}}
@@ -3195,8 +3195,8 @@ faculty / fw .code:n = {
 \ProcessKeyOptions[ ugentdocs ]
 \ExplSyntaxOff
 \LoadClass{book}
-%</crs|bmt|phd|rp>
-% We load the |bookcover| class for dissertation covers
+%</crs|bama|phd|rp>
+% We load the |bookcover| class for PhD dissertation covers
 %<*bkc>
 \input{ugentcommon.clo}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{bookcover}}
@@ -3216,7 +3216,7 @@ faculty / fw .code:n = {
 }
   
 \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-	{ dissertation }    {
+	{ phd }    {
 		\PassOptionsToClass{
 			coverheight=24cm,
 			coverwidth=16cm,
@@ -3267,11 +3267,11 @@ faculty / fw .code:n = {
 % and with a decent paragraph spacing.
 % 
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>      
+%<*crs|bama|phd|rp|le|ex>      
 \setlength{\parindent}{0pt}
 \addtolength{\parskip}{0.75\baselineskip}
 \setcounter{secnumdepth}{3}
-%</crs|bmt|phd|rp|le|ex>
+%</crs|bama|phd|rp|le|ex>
 %    \end{macrocode}
 % 
 % \subsection{Auxiliary packages}
@@ -3281,13 +3281,13 @@ faculty / fw .code:n = {
 % \subsubsection{Geometry}
 % Following the report office template:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc|bmr>      
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>      
 \RequirePackage{tikz}
 \newlength{\@PW} % Paper width
 \newlength{\@PH} % Paper height
 \newlength{\gridunit} % Grid unit layout
 \newcommand*{\@setgridunit}{\pgfmathsetlength{\gridunit}{max(\@PW,\@PH)/7/4}}
-%</crs|bmt|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr>
 %<*crs|rp|ex>
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
@@ -3305,13 +3305,13 @@ faculty / fw .code:n = {
                 {geometry}
 %</phd>
 % Following the bachelor's and master's theses office template:
-%<*bmt>      
+%<*bama>      
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
 \@setgridunit
 \RequirePackage[paperwidth=\@PW,paperheight=\@PH,
 				top=2.54cm, bottom=2.54cm, left=2\gridunit, right=2\gridunit]{geometry}
-%</bmt>
+%</bama>
 % Following letter office template:
 %<*le>      
 \setlength\@PW{210mm}
@@ -3322,7 +3322,7 @@ faculty / fw .code:n = {
 %<*bkc>
 \ExplSyntaxOn
 \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-	{ dissertation } {
+	{ phd } {
 		\setlength\@PW{160mm}
 		\setlength\@PH{240mm}
 	}
@@ -3341,18 +3341,18 @@ faculty / fw .code:n = {
 % \subsubsection{Preparing for \LaTeX3}
 % Let's make things a bit easier for me.
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc>      
+%<*crs|bama|phd|rp|le|ex|bkc>      
 \RequirePackage{expl3}
 %\RequirePackage[check-declarations]{expl3} % I use this during debug phase
 \RequirePackage{xparse}
-%</crs|bmt|phd|rp|le|ex|bkc>
+%</crs|bama|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 %
 % \subsubsection{Font packages}
 % UGent Panno Text (and its Medium and SemiLight variants) should always be installed (and the document compiled using Lua\LaTeX) as they are used in the logo's. For the document itself, it is recommended to use UGent Panno Text as well, which is set through |\setmainfont{UGent Panno Text}|. However, Arial is also a valid official alternative and can override UGent Panno Text by adding |\setmainfont{Arial}[BoldFont = {Arial}, BoldFeatures = {FakeBold=2.5}, ItalicFont = {Arial}, ItalicFeatures = {FakeSlant=0.15}, BoldItalicFont = {Arial}, BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},]| to the beginning of your document. UGent uses Arial as default for Word and PowerPoint templates as these are distributed outside Ghent University. This is not applicable for \LaTeX however, as pdf's are always generated. Thus, UGent Panno Text is used everywhere.
 %
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc|bmrfont>  
+%<*crs|bama|phd|rp|le|ex|bkc|bmrfont>  
 \iftutex
   \RequirePackage{fontspec}
   \IfFontExistsTF{UGent Panno Text Medium}{
@@ -3413,7 +3413,7 @@ faculty / fw .code:n = {
   \PackageError{ugentdocs}{Only LuaTeX or XeTeX is supported for compilation}
   {See the ugentdocs manual}
 \fi
-%</crs|bmt|phd|rp|le|ex|bkc|bmrfont>
+%</crs|bama|phd|rp|le|ex|bkc|bmrfont>
 %    \end{macrocode}
 %
 % \subsubsection{Boilerplate packages}
@@ -3421,13 +3421,13 @@ faculty / fw .code:n = {
 % Some boilerplate packages and an empty macro to test against
 % (using|\ifx|)
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc>
+%<*crs|bama|phd|rp|le|ex|bkc>
 \RequirePackage{iftex}
 \RequirePackage{xstring}
 \RequirePackage{etoolbox}
 \RequirePackage{ifthen}
 \IfFileExists{shellesc.sty}{\RequirePackage{shellesc}}{}
-%</crs|bmt|phd|rp|le|ex|bkc>
+%</crs|bama|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 % 
 % \subsubsection{Graphics packages}
@@ -3435,9 +3435,9 @@ faculty / fw .code:n = {
 % Graphics packages that are required for the title page, but may come
 % in handy for regular use as well.
 %
-% Some packages for coursetext and bamathesis:
+% Some packages for course and bama:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc|bmr>  
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>  
 \RequirePackage{hyphenat}    
 \RequirePackage{graphicx}
 \RequirePackage{tabularx}
@@ -3459,7 +3459,7 @@ faculty / fw .code:n = {
 }
 \RequirePackage[dutch,english]{babel}
 \ExplSyntaxOff
-%</crs|bmt|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr>
 %<*crs|rp>
 \ExplSyntaxOn
 \bool_if:NT \l_@@_copyright_bool {
@@ -3510,33 +3510,33 @@ faculty / fw .code:n = {
 %
 % \subsubsection{UGent color and logo scheme}
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc>
+%<*crs|bama|phd|rp|le|ex|bkc>
 \RequirePackage{ugentcolor}
-%</crs|bmt|phd|rp|le|ex|bkc>
+%</crs|bama|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 %
 % \subsubsection{Header/Footer}
 % 
 % The de-facto standard for headers and footers:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex>      
+%<*crs|bama|phd|rp|le|ex>      
 \RequirePackage{fancyhdr}
-%</crs|bmt|phd|rp|le|ex> 
+%</crs|bama|phd|rp|le|ex> 
 %    \end{macrocode}
 % 
 % \subsection{Colors}
 %
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc> 
+%<*crs|bama|phd|rp|le|ex|bkc> 
 \definecolor{lightgray}{cmyk}      {0.00,0.00,0.00,0.10}
 \definecolor{darkgray}{cmyk}       {0.00,0.00,0.00,0.80}
 \definecolor{watermark}{cmyk}      {0.00,0.00,0.00,0.10}
-%</crs|bmt|phd|rp|le|ex|bkc>
+%</crs|bama|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 %
 % \subsection{Fancy inset texts and quotes}
 %    \begin{macrocode}
-%<*bmt|phd|crs|rp>
+%<*bama|phd|crs|rp>
 \newcommand{\insettext}[2]{% args: title, content
 	\begin{adjustbox}{center}
 		\begin{tikzpicture}
@@ -3567,7 +3567,7 @@ faculty / fw .code:n = {
 		\ifblank{#2}{}{\raggedleft #2\par}%
 	}%
 }
-%</bmt|phd|crs|rp>
+%</bama|phd|crs|rp>
 %    \end{macrocode}
 %
 %
@@ -3576,7 +3576,7 @@ faculty / fw .code:n = {
 % These functions return the firstname, firstnameinitial, surname, and
 % the full name formatted following the surnamefirst option.
 %    \begin{macrocode}
-%<*phd|bkc|rp|ex|le|crs|bmt|bmr>
+%<*phd|bkc|rp|ex|le|crs|bama|bmr>
 \ExplSyntaxOn
 
 \seq_new:N \l_@@_name_seq
@@ -3653,24 +3653,24 @@ faculty / fw .code:n = {
 }
 
 \ExplSyntaxOff
-%</phd|bkc|rp|ex|le|crs|bmt|bmr>
+%</phd|bkc|rp|ex|le|crs|bama|bmr>
 %    \end{macrocode}
 %
 % \subsection{Data dictionary and parser}
 %
 % Let's start by defining our dictionary:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \ExplSyntaxOn
 \prop_new:N \g_@@_dict_keyvals_prop
 \seq_new:N  \g_@@_loaded_dicts_seq
 \seq_new:N  \l_@@_value_paragraphs_seq
-%</crs|bmt|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 %
 % The dictionary can be accessed using the following document command:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>
 
 \tl_new:N \l_@@_lookup_key_tl
 \tl_new:N \l_@@_value_cased_tl
@@ -3716,12 +3716,12 @@ faculty / fw .code:n = {
 	  \_@@_translate:xn {\l_@@_case_tl} {#2}
 	}
 }
-%</crs|bmt|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 %
 % To this end, we use the following parsing infrastructure:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \NewDocumentCommand{\useugentdocsdictionary}{m}{
   \seq_if_in:NnTF \g_@@_loaded_dicts_seq {#1}{
   }{
@@ -3751,11 +3751,11 @@ faculty / fw .code:n = {
   \tl_trim_spaces:N \l_@@_key_tl
   \tl_trim_spaces:N \l_@@_value_tl
 }
-%</crs|bmt|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 % invoked by the following data file reader:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \ior_new:N \l_@@_dict_ior
 \cs_new_nopar:Nn \@@_dictreader:n {
 	\tl_set:Nn \l_@@_dictlang_tl {#1}
@@ -3777,15 +3777,15 @@ faculty / fw .code:n = {
 	\@@_flush_value:
 	\ior_close:N \l_@@_dict_ior
 }
-%</crs|bmt|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 % By default, we load the generic (not yet implemented!) and the english data file:
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \useugentdocsdictionary{english}
 \useugentdocsdictionary{dutch}
 \ExplSyntaxOff
-%</crs|bmt|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 %
 % \subsection{Babel provisions}
@@ -3831,11 +3831,11 @@ vprog		= Preparatory Course
 maprog		= Master's programme
 phdprog		= PhD
 
-thesis		= Thesis
-mathesis	= Master's dissertation
-bathesis	= Bachelor's dissertation
-phdthesis	= Doctoral dissertation
-projreport	= Project report
+dissertation     = Dissertation
+dissertation-ma  = Master's dissertation
+dissertation-ba	 = Bachelor's dissertation
+dissertation-phd = Doctoral dissertation
+projreport	     = Project report
 
 submittedto	= Submitted to
 bmfulfil	= in partial Fulfilment of the Requirements for the Degree of
@@ -3894,15 +3894,15 @@ arrphd			= The author allows to consult and copy parts of this work for personal
 
 integrityclause	= The PhD researcher and supervisor(s) declare that the PhD research was conducted according to the principles of scientific integrity, as mentioned in the general PhD regulations and charter for PhD researchers of Ghent University and the integrity charter for PhD researchers and supervisors affiliated with Ghent University.
 
-embargofullphd		= The author of this thesis declares that this document is marked confidential. The content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+embargofullphd		= The author of this dissertation declares that this document is marked confidential. The content of this doctoral dissertation is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 
-embargotempphd		= The author of this thesis declares that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral thesis is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+embargotempphd		= The author of this dissertation declares that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral dissertation is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 
-arrbama			=  give the permission to use this thesis for consultation and to copy parts of it for personal use. Every other use is subject to the copyright laws, more specifically the source must be extensively specified when using results from this thesis.
+arrbama			=  give the permission to use this dissertation for consultation and to copy parts of it for personal use. Every other use is subject to the copyright laws, more specifically the source must be extensively specified when using results from this dissertation.
 
-embargofullbama		= of this thesis declare that this document is marked confidential. The content of this thesis is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+embargofullbama		= of this dissertation declare that this document is marked confidential. The content of this dissertation is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 
-embargotempbama		= of this thesis declare that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this thesis is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the thesis. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+embargotempbama		= of this dissertation declare that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this dissertation is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 %</endict>
 %    \end{macrocode}
 %
@@ -3943,11 +3943,11 @@ vprog		= Voorbereidingsprogramma
 maprog		= Masteropleiding
 phdprog		= Doctoraat
 
-thesis		= Afstudeerproef
-mathesis	= Masterproef
-bathesis	= Bachelorproef
-phdthesis	= Doctoraat
-projreport	= Projectverslag
+dissertation     = Proefschrift
+dissertation-ma  = Masterproef
+dissertation-ba  = Bachelorproef
+dissertation-phd = Doctoraatsproefschrift
+projreport       = Projectverslag
 
 submittedto	= Voorgelegd aan
 bmfulfil	= ter gedeeltelijke voldoening aan de vereisten voor de graad van
@@ -4032,7 +4032,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   This macro sets the |\@titel| tag that later will be used on
 %   the Dutch translation of the title page. Moreover, using this tag,
 %   will trigger the generation of a secondary Dutch title page.
-%   Only use this tag in an English thesis!
+%   Only use this tag in an English dissertation!
 %    \begin{macrocode}
 %<*phd>
 \newcommand*{\@titel}{}
@@ -4045,7 +4045,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % 
 % \begin{imacro}{\subtitle}
 %    \begin{macrocode}
-%<*crs|phd|rp|bmt|bkc>
+%<*crs|phd|rp|bama|bkc>
 \newcommand*{\@subtitle}{~}
 \newcommand*{\@subtitleshort}{~}
 \newcommand*{\subtitle}[2][]{%
@@ -4056,7 +4056,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \renewcommand*{\@subtitleshort}{#1}
   \fi
 }
-%</crs|phd|rp|bmt|bkc>
+%</crs|phd|rp|bama|bkc>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4065,7 +4065,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   the Dutch translation of the title page. It will not trigger the
 %   generation of a secondary Dutch title page. That can only be done
 %   by using the |\titel| command.
-%   Only use this tag in an English thesis!
+%   Only use this tag in an English dissertation!
 %    \begin{macrocode}
 %<*phd>
 \newcommand*{\@subtitel}{}
@@ -4094,7 +4094,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   affiliation. This can be done by invoking the macro as many times
 %   as needed.
 %    \begin{macrocode}
-%<*phd|crs|bmt|bkc|ex|le|rp>      
+%<*phd|crs|bama|bkc|ex|le|rp>      
 \ExplSyntaxOn
 
 \seq_new:N \g_@@_authors_seq
@@ -4153,7 +4153,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 }
 
 \ExplSyntaxOff
-%</phd|crs|bmt|bkc|ex|le|rp>
+%</phd|crs|bama|bkc|ex|le|rp>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4195,10 +4195,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   This macro sets the |\@frontcoverlogos| tag that later will be used on
 %   the title page.
 %    \begin{macrocode}
-%<*bmt|rp|crs|phd|bkc>      
+%<*bama|rp|crs|phd|bkc>      
 \newcommand*{\@frontcoverlogos}{}
 \newcommand*{\frontcoverlogos}[1]{\renewcommand*{\@frontcoverlogos}{#1}}
-%</bmt|rp|crs|phd|bkc> 
+%</bama|rp|crs|phd|bkc> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4270,7 +4270,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   affiliation. This can be done by invoking the macro as many times
 %   as needed.
 %    \begin{macrocode}
-%<*bmt|phd|bkc>     
+%<*bama|phd|bkc>     
 \ExplSyntaxOn
 \seq_new:N \g_@@_supervisors_seq
 \seq_new:N \g_@@_supervisorcalls_seq
@@ -4325,8 +4325,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	}
   }
 }
-%</bmt|phd|bkc>
-%<*bmt>
+%</bama|phd|bkc>
+%<*bama>
 \seq_new:N \g_@@_cosupervisors_seq
 \seq_new:N \g_@@_cosupervisorswithaffiliation_seq
 \cs_new:Nn \@@_addcosupervisor:nnn {
@@ -4430,10 +4430,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \NewDocumentCommand{\iftutorsempty}{mm}{
 	\@@_tutors_empty:TF { #1 } { #2 }
 }
-%</bmt>
-%<*bmt|phd|bkc>
+%</bama>
+%<*bama|phd|bkc>
 \ExplSyntaxOff
-%</bmt|phd|bkc>
+%</bama|phd|bkc>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -4546,7 +4546,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   This macro sets the degree that later will
 %   be used on the title pages.
 %    \begin{macrocode}
-%<*crs|ex|bkc|phd|bmt>
+%<*crs|ex|bkc|phd|bama>
 \ExplSyntaxOn
 \seq_new:N \g_@@_degrees_seq
 \seq_new:N \g_@@_degreecalls_seq 
@@ -4566,7 +4566,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\let\degree\relax
 }
 \ExplSyntaxOff
-%</crs|ex|bkc|phd|bmt> 
+%</crs|ex|bkc|phd|bama> 
 
 %    \end{macrocode}
 % \end{imacro}
@@ -4576,7 +4576,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   be used on the title pages.
 %
 %    \begin{macrocode}
-%<*bmt|phd|crs|ex|bkc>
+%<*bama|phd|crs|ex|bkc>
 \newcommand*\@doctype{
   \PackageError{ugentdocs}
   {Please, specify the offical document type using
@@ -4585,7 +4585,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \newcommand*\doctype[1]{
   \renewcommand*\@doctype{\translatekey{#1}}
 }
-%</bmt|phd|crs|ex|bkc>
+%</bama|phd|crs|ex|bkc>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4594,7 +4594,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   be used on the title pages.
 %   Runs automatically but can be overridden.
 %    \begin{macrocode}
-%<*bmt|phd|rp>
+%<*bama|phd|rp>
 \newcommand*\@wordcount{}
 \newcommand*\wordcount[1]{
 	\renewcommand*\@wordcount{#1}
@@ -4616,7 +4616,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\@@_runwordcount:
 }
 \ExplSyntaxOff
-%</bmt|phd|rp>
+%</bama|phd|rp>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -4659,12 +4659,12 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % 
 % \begin{imacro}{\location}
 %   This macro sets the |\@location| tags that later will
-%   be used on the thesis copyright page. 
+%   be used on the dissertation copyright page. 
 %    \begin{macrocode}
-%<*phd|bkc|bmt|rp>      
+%<*phd|bkc|bama|rp>      
 \newcommand*\@location{\translatekey{ghent}}
 \newcommand*{\location}[1]{\renewcommand*\@location{#1}}
-%</phd|bkc|bmt|rp>
+%</phd|bkc|bama|rp>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -4682,9 +4682,9 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 % \begin{imacro}{\embargofull}
 %   This macro causes the full embargo message to be printed in
-%   colofon of your thesis.
+%   colofon of your dissertation.
 %    \begin{macrocode}
-%<*phd|bkc|bmt>
+%<*phd|bkc|bama>
 \newif\if@embargo
 \@embargofalse
 \newif\if@fullembargo
@@ -4696,16 +4696,16 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \@fullembargotrue
   \@embargotrue
 }
-%</phd|bkc|bmt>
+%</phd|bkc|bama>
 %    \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\embargotemp}
 %   This macro causes the temporary embargo message to be printed in
-%   colofon of your thesis using the first argument of the macro as
+%   colofon of your dissertation using the first argument of the macro as
 %   start date and the second argument as the end date.
 %    \begin{macrocode}
-%<*phd|bkc|bmt>
+%<*phd|bkc|bama>
 \newif\if@tempembargo
 \@tempembargofalse
 
@@ -4737,21 +4737,21 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\tl_put_right:Nx \l_@@_embargotemp_tl { \seq_item:Nn \l_@@_embargosplit_seq {2} }
 }
 \newcommand\@prepmaketitle{
-%</phd|bkc|bmt>
+%</phd|bkc|bama>
 %<*phd|bkc>
 \tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : embargotempphd }
 %</phd|bkc>
-%<*bmt>
+%<*bama>
 \tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : embargotempbama }
-%</bmt>
-%<*phd|bkc|bmt>
+%</bama>
+%<*phd|bkc|bama>
 \tl_set:Nx \l_@@_embargotemp_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
 \_@@_embargosubstitute:nN {__START__} \@embargotempstart
 \_@@_embargosubstitute:nN {__END__} \@embargotempend
 \tl_gset_eq:NN \@embargotempwithdates \l_@@_embargotemp_tl
 }
 \ExplSyntaxOff
-%</phd|bkc|bmt>
+%</phd|bkc|bama>
 %    \end{macrocode}
 %
 % Let's add empty prepmaketitles for the |course| and |report classes|
@@ -4776,7 +4776,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 % \begin{imacro}{\isbn}
 %   This macro sets the |\@isbn| tag that will be used to generate
-%   the ISBN number and barcode on the dissertation back cover
+%   the ISBN number and barcode on the PhD dissertation back cover
 %    \begin{macrocode}
 %<*phd|bkc|crs>
 \newcommand*{\@isbn}{}
@@ -4789,10 +4789,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   This macro sets the |\@academicyear| tag that later will be used on
 %   the title page.
 %    \begin{macrocode}
-%<*crs|bmt|phd|ex|bkc|rp>      
+%<*crs|bama|phd|ex|bkc|rp>      
 \newcommand*{\@academicyear}{}
 \newcommand*{\academicyear}[1]{\renewcommand*{\@academicyear}{#1}}
-%</crs|bmt|phd|ex|bkc|rp>
+%</crs|bama|phd|ex|bkc|rp>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -4800,15 +4800,15 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   These macros set the |\@copyrightnotices| tag that later will be
 %   used on the back of the title page.
 %    \begin{macrocode}
-%<*crs|rp|bmt|phd>      
+%<*crs|rp|bama|phd>      
 \newcommand{\@copyrightnotices}{}
 \newcommand{\copyrightnotices}[1]{\renewcommand{\@copyrightnotices}{#1}}
-%</crs|rp|bmt|phd>
+%</crs|rp|bama|phd>
 %<*crs|rp>      
 \newcommand{\@extranotices}{}
 \newcommand{\extranotices}[1]{\renewcommand{\@extranotices}{#1}}
 %</crs|rp>
-%<*bmt>
+%<*bama>
 %
 \ExplSyntaxOn
 \cs_new:Nn \@@_sigblock:nn {
@@ -4917,7 +4917,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\vspace*{\stretch{1}}
 }
 \ExplSyntaxOff
-%</bmt>
+%</bama>
 %<*phd>
 \ExplSyntaxOn
 \renewcommand{\@copyrightnotices}{%
@@ -5469,12 +5469,12 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 % \begin{imacro}{\studentnr}
 %   This macro will set the |\@studentnr| tag that will be used in the
-%   exam and thesis class.
+%   exam and bama class.
 %    \begin{macrocode}
-%<*ex|bmt|rp>      
+%<*ex|bama|rp>      
 \newcommand*{\@studentnr}{}
 \newcommand*{\studentnr}[1]{\renewcommand*{\@studentnr}{#1}}
-%</ex|bmt|rp>
+%</ex|bama|rp>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -5511,10 +5511,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %</crs>
 %    \end{macrocode}
 % 
-% The header and footer of the |thesis| and |report| classes are
+% The header and footer of the |bama| and |report| classes are
 % defined to be:
 %    \begin{macrocode}
-%<*bmt|rp>
+%<*bama|rp>
 \AtBeginDocument{
   \setlength{\headheight}{21pt}
   \setlength{\footskip}{1.5cm}
@@ -5578,10 +5578,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   }
   \fi
 }
-%</bmt|rp>
+%</bama|rp>
 %    \end{macrocode}
 %
-% The header and foter of the |dissertation| is defined to be:
+% The header and foter of the |phd| is defined to be:
 %    \begin{macrocode}
 %<*phd>
 \if@twoside
@@ -5663,7 +5663,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \end{macrocode}
 %
 %
-% \subsection{Fancy chapter headers for the \texttt{dissertation} and \texttt{course} classes}
+% \subsection{Fancy chapter headers for the \texttt{phd} and \texttt{course} classes}
 %
 %    \begin{macrocode}
 %<*phd|crs>
@@ -5712,10 +5712,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %</phd|crs>
 %    \end{macrocode}
 %
-% \subsection{Chapter headers for the \texttt{thesis} and \texttt{report} classes}
+% \subsection{Chapter headers for the \texttt{bama} and \texttt{report} classes}
 %
 %    \begin{macrocode}
-%<*bmt|rp>
+%<*bama|rp>
 \RequirePackage[raggedright, explicit]{titlesec}
 
 \titleformat{\chapter}
@@ -5739,18 +5739,18 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \titlespacing*{\chapter}{0pt}{-3em}{12pt}
 
 \titlespacing*{\section}{0pt}{6pt}{0pt}
-%</bmt|rp>
+%</bama|rp>
 %    \end{macrocode}
 % 
 % \subsection{Plain coverpage}
 %
-% The cover pages tikzpictures for the |thesis| and |report| classes are generated
+% The cover pages tikzpictures for the |bama| and |report| classes are generated
 % using the |\@frontcover| and |\@backcover| commands.
 % These are used in the |\maketitle| and |\makefinalpage| commands.
 %
 % First, we need to define the grid layout and colours:
 %    \begin{macrocode}
-%<*bmt|rp>
+%<*bama|rp>
 \newlength{\@TP}\setlength\@TP{26.52cm}												 	% Title Position
 \newlength{\@ML}																		% Margin left (for text)
 \newlength{\@HTS}																		% Height top strip
@@ -5774,14 +5774,14 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\setlength\@ML{\gridunit}
 }
 \ExplSyntaxOff
-%</bmt|rp>
+%</bama|rp>
 %    \end{macrocode}
 %
-% The cover body text differs between |thesis| and |report| classes,
+% The cover body text differs between |bama| and |report| classes,
 % so we set it here.
 %    \begin{macrocode}
-%<*bmt|rp>
-\newcommand{\@coverbodythesis}{
+%<*bama|rp>
+\newcommand{\@coverbodybama}{
 	\node[anchor=north west, inner sep=0pt, text width=\paperwidth-\@ML-\gridunit,
 	minimum height=22.05cm, align=left] at (\@ML,\@TP)
 	{%
@@ -5906,21 +5906,21 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \ExplSyntaxOn
 \newcommand*\@coverbody{
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-		{ thesis } { \@coverbodythesis }
+		{ bama } { \@coverbodybama }
 		{ report } { \@coverbodyreport }
 	}{
 		\msg_error:nnx { ugentdocs } { cover~type~not~implemented } {\l_@@_covertype_tl }
 	}
 }
 \ExplSyntaxOff
-%</bmt|rp>
+%</bama|rp>
 %    \end{macrocode}
 %
 % Next, we make the front cover.
 % \begin{imacro}{\@frontcover}
 %	Defines the front cover layout
 %    \begin{macrocode}
-%<*bmt|rp>
+%<*bama|rp>
 \ExplSyntaxOn
 \newcommand{\@frontcover}{
 	\begin{tikzpicture}[inner~sep=0pt, outer~sep=0pt]
@@ -5956,23 +5956,23 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\end{tikzpicture}
 }
 \ExplSyntaxOff
-%</bmt|rp>
+%</bama|rp>
 %    \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\@backcover}
 %	Defines the back cover layout
 %    \begin{macrocode}
-%<*bmt|rp>
+%<*bama|rp>
 \newcommand{\@backcover}{}
-%</bmt|rp>
+%</bama|rp>
 %    \end{macrocode}
 % \end{imacro}
 %
 %
 % \subsection{Fancy coverpage}
 %
-% The cover pages tikzpictures for the |dissertation| and |course| classes are generated
+% The cover pages tikzpictures for the |phd| and |course| classes are generated
 % using the |\@frontcover| and |\@backcover| commands.
 % These are used in the |\maketitle| and |\makefinalpage| commands.
 % For this fancier style, a titlepageimage is included.
@@ -5984,7 +5984,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \ExplSyntaxOn
 \exp_args:Nx \str_if_eq:eeTF { \l_@@_fselector_tl } { bw } {
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-	{ dissertation } {
+	{ phd } {
 		\@bwbookcovertrue
 	}
 	{ course } {
@@ -6075,11 +6075,11 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %</phd|bkc|crs>
 %    \end{macrocode}
 %
-% The cover body text differs between the |dissertation| and |course| classes,
+% The cover body text differs between the |phd| and |course| classes,
 % so let's set it here:
 %    \begin{macrocode}
 %<*bkc|phd>
-\newcommand\@coverbodydissertation{
+\newcommand\@coverbodyphd{
 		% Title, subtitle, author	
 	\if@bwbookcover
 	\node[anchor=south east, text width=\@PW-2*\@MTLR, align=right, text=covertitlecolor]
@@ -6165,7 +6165,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \ExplSyntaxOn
 \newcommand*\@coverbody{
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-		{ dissertation } { \@coverbodydissertation }
+		{ phd } { \@coverbodyphd }
 		{ course } { \@coverbodycourse }
 	}{
 		\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
@@ -6180,7 +6180,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %<*phd|bkc|crs>
 \ExplSyntaxOn
 \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-	{ dissertation } {	}
+	{ phd } {	}
 	{ course } { 
 		\colorlet{coverareacolor}{ugent@main}
 		\tl_if_empty:NTF \l_@@_fselector_tl {
@@ -6202,14 +6202,14 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %</phd|bkc|crs>
 %    \end{macrocode}
 %
-% The empty cover image style is different between the |dissertation| and |course| classes,
-% For |dissertations|, it's just blank. For |courses|, it's the faculty icon.
+% The empty cover image style is different between the |phd| and |course| classes,
+% For |phds|, it's just blank. For |courses|, it's the faculty icon.
 %    \begin{macrocode}
 %<*phd|bkc|crs>
 \ExplSyntaxOn
 \newcommand*\@coverblankimage{
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-		{ dissertation } {	}
+		{ phd } {	}
 		{ course } {
 			\bool_if:NF \l_@@_neutralcolors_bool {
 				\pgfmathsetlength{\@WFI}{\@PW-\@MS-4*\gridunit}
@@ -6331,12 +6331,12 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 % \begin{imacro}{\maketitle}
 %    \begin{macrocode}
-%<*bmt|phd|rp|crs>
+%<*bama|phd|rp|crs>
 \ExplSyntaxOn
 \renewcommand\maketitle{%
 	\@prepmaketitle
 	\pagestyle{empty}
-%</bmt|phd|rp|crs>
+%</bama|phd|rp|crs>
 %<*phd|crs>
 \bool_if:NT \l_@@_thumbs_bool {
 	\stopthumb
@@ -6347,7 +6347,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\begingroup
 	\pagenumbering{gobble}
 %</phd>
-%<*bmt|phd|rp|crs>
+%<*bama|phd|rp|crs>
 	\begin{titlepage}
 		\setlength\parskip{0pt}%
 		\setlength\parindent{0pt}%
@@ -6362,16 +6362,16 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		}%
 		\null
 	\end{titlepage}%
-%</bmt|phd|rp|crs>
-%<bmt> \null\par\clearpage
-%<*bmt|rp>
+%</bama|phd|rp|crs>
+%<bama> \null\par\clearpage
+%<*bama|rp>
 	% Only 1 page: Copyrightnotices
 	\clearpage
 	\ifx\@copyrightnotices\@empty\else
 		\noindent\@copyrightnotices
 		\clearpage
 	\fi
-%</bmt|rp>
+%</bama|rp>
 %<*crs>
 	~\par\relax
     % Only 1 page: Copyrightnotices
@@ -6452,7 +6452,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\clearpage\thispagestyle{empty}\null\vfill
 	\@copyrightnotices
 %</phd>
-%<*bmt|phd|rp|crs>
+%<*bama|phd|rp|crs>
 	\setcounter{footnote}{0}%
 	\global\let\thanks\relax
 	\global\let\maketitle\relax
@@ -6465,18 +6465,18 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\thispagestyle{empty}
 }
 \ExplSyntaxOff
-%</bmt|phd|rp|crs>
+%</bama|phd|rp|crs>
 %    \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\makefinalpage}
 %   Below, one can find the code for the final page: 
 %    \begin{macrocode}
-%<*bmt|phd|crs|rp> 
+%<*bama|phd|crs|rp> 
 \ExplSyntaxOn
 \newcommand\makefinalpage{
-%</bmt|phd|crs|rp> 
-%<bmt>	\@backcover{}
+%</bama|phd|crs|rp> 
+%<bama>	\@backcover{}
 %<*phd|crs>
 \bool_if:NF \l_@@_bare_bool {
 	\cleardoublepage
@@ -6498,10 +6498,10 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\null
 }
 %</phd|crs>
-%<*bmt|phd|crs|rp> 
+%<*bama|phd|crs|rp> 
 }
 \ExplSyntaxOff
-%</bmt|phd|crs|rp> 
+%</bama|phd|crs|rp> 
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -6660,7 +6660,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	{ \tl_put_right:Nn \l_@@_degreecalls_tl { ##1 \iow_newline: } }
 	
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-		{ dissertation }    {
+		{ phd }    {
 			\tl_clear_new:N \l_@@_supervisorcalls_tl
 			\seq_map_inline:Nn \g_@@_supervisorcalls_seq
 			{ \tl_put_right:Nn \l_@@_supervisorcalls_tl { ##1 \iow_newline: } }
@@ -6669,7 +6669,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 			}{
 				\tl_set:Nn \l_@@_camerareadykeyval_tl { ,cameraready=false }
 			}
-			\tl_set:Nn \l_@@_covertypekeyval_tl { ,dissertation }
+			\tl_set:Nn \l_@@_covertypekeyval_tl { ,phd }
 		}
 		{ course }     {
 			\tl_clear_new:N \l_@@_lecturercalls_tl
@@ -6716,7 +6716,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 	\fi	
 	
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-		{ dissertation }    {
+		{ phd }    {
 			\tl_put_right:Nn \l_@@_covertemplate_tl {
 				\l_@@_supervisorcalls_tl									   \iow_newline:
 				\if@tempembargo
@@ -7205,7 +7205,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % 
 % \subsection{References}
 %    \begin{macrocode}
-%<*crs|bmt|phd|rp>
+%<*crs|bama|phd|rp>
 \AtBeginDocument{
 	\@ifpackageloaded{hyperref}{
 		\pretocmd{\tableofcontents}{\begingroup\hypersetup{linkcolor=toccolor}}{}{}
@@ -7231,7 +7231,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 		}
 	}{}
 }
-%</crs|bmt|phd|rp> 
+%</crs|bama|phd|rp> 
 %    \end{macrocode}
 %
 % \clearpage
