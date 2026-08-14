@@ -110,7 +110,7 @@
 % or just kind words.
 %
 % \section*{Synopsis}
-% The |coursetext|, |bama| and |phd| 
+% The |course|, |bama| and |phd| 
 % classes\footnote{For readability the class names have been
 % abbreviated by omitting the |ugent| prefix} are 
 % an extension of the standard \LaTeX{} |book| class.  They are
@@ -219,15 +219,14 @@
 % thanks to Lukas Leitner who provided the idea, the secret sauce and some
 % example code for the PhD bookcover add on.
 % 
-% \changes{v4.06}{2024/04/09}{improved organization of the docstrip
 % container}
 %
 % In the first part, we will describe the classes intended to produce
 % paper documents:
 % \begin{itemize}
-% \item coursetext class
-% \item bachelor and master thesis classes
-% \item phd thesis class
+% \item course text class
+% \item bachelor and master dissertation classes
+% \item phd dissertation class
 % \item letter class
 % \item report class
 % \item exam class
@@ -259,9 +258,8 @@
 % The classes have several options. They are listed below.
 % After every option, it has been indicated to which class the option
 % applies (between square brackets, without prefix ugent).
-% \changes{v1.1}{2013/05/28}{Added option user documentation}
 %
-% \DescribeMacro{xx(x)} [letter / coursetext / bamathesis / phdthesis
+% \DescribeMacro{xx(x)} [letter / course / bama / phd
 % / report / beamertheme]\\
 % \begin{center}\small
 %   \begin{tabular}{cp{10cm}}
@@ -293,23 +291,23 @@
 %   \end{tabular}
 % \end{center}
 %
-% \DescribeMacro{cameraready} [phdthesis/coursetext]\\
-% For the |phdthesis| class, this option forces the book format to be
+% \DescribeMacro{cameraready} [phd/course]\\
+% For the |phd| class, this option forces the book format to be
 % printed on A4 with bleed space. This accomodates what your printshop
 % requires you to provide as a camera-ready copy.
 %
-% For the |coursetext| class, this options removes the colored areas
+% For the |course| class, this options removes the colored areas
 % and the logo from the titlepage (and removes the finalpage
 % altogether) to allow for universitas to print the text of your
 % titlepage on a standard sheet that contains these colored areas and
 % the logo (pre-printed).
 %
-% \DescribeMacro{bare} [phdthesis]\\
-% For the |phdthesis| class, this option removes the
+% \DescribeMacro{bare} [phd]\\
+% For the |phd| class, this option removes the
 % title page and the back page from the file, such that you can give a
 % 'bare' version to your printshop.
 %
-% \DescribeMacro{copyright} [coursetext]\\
+% \DescribeMacro{copyright} [course]\\
 %   This option forces printing a watermark on every page. For the
 %   paper version of your document, this is inappropriate, but for any
 %   e-copy you make available, this may be appropriate;
@@ -323,28 +321,28 @@
 %
 % \subsection{The macros explained}
 %
-% \subsubsection{Macros for the coursetext, bamathesis, phdthesis
+% \subsubsection{Macros for the course, bama, phd
 % classes}
 %
-% \DescribeMacro{\academicyear} [coursetext / bamathesis]
+% \DescribeMacro{\academicyear} [course / bama]
 % (mandatory)\\
 % Use this macro to specify the academic year in full, i.e. in the
 % form |XXXX-YYYY|. 
 % 
-% \DescribeMacro{\author} [coursetext / bamathesis / phdthesis /
+% \DescribeMacro{\author} [course / bama / phd /
 % report ] (mandatory)\\ 
 % This macro sets the author of the document.
 % It also sets the |pdfauthor| tag of the hyperref package (if it is
 % loaded), so that 
 % the PDF-document meta-information is correct.
 %
-% \DescribeMacro{\copyrightnotices} [coursetext / report]
+% \DescribeMacro{\copyrightnotices} [course / report]
 % (optional)\\ 
 % Use this macro to specify additional copyright notice messages to
 % appear in the copyright notice on the bottom of page 2 of your
 % course text.
 % 
-% \DescribeMacro{\course} [coursetext] (mandatory)\\
+% \DescribeMacro{\course} [course] (mandatory)\\
 % \label{dm-course}
 % Code (first argument) and name (second argument) of the curriculum
 % course this coursematerial or exam belongs to. The code should be of
@@ -370,56 +368,37 @@
 % An example of such a code: 1001FTIWIS, for the first-semester
 % mathematics course of the Faculty of Applied Engineering.
 %
-% \DescribeMacro{\courseversion} [coursetext] (optional)\\
+% \DescribeMacro{\courseversion} [course] (optional)\\
 % This macro indicates which version of the course this is.
 %
 %
-% \DescribeMacro{\defensedate} [phdthesis] (mandatory)\\
+% \DescribeMacro{\defensedate} [phd] (mandatory)\\
 % Mention the full date, i.e. day month and year of your public defense
 % 
-% \DescribeMacro{\defenselocation} [phdthesis]
+% \DescribeMacro{\defenselocation} [phd]
 % (optional)\\ 
 % Location of the defense. Defaults to ``Antwerpen''.
 %
-%
-% \changes{v1.6}{2016/02/04}{Added diploma code documentation}
-% \changes{v2.0}{2018/05/16}{Updated diploma code documentation to
-% incorporate PhD degrees}
-% \changes{v2.3}{2019/03/27}{Introduced bachelor level codes to allow
-% for bachelor theses}
-% \changes{v4.00}{2021/07/11}{Removed diploma codes, as too many
-% faculties are requesting to maintain them}
-% \DescribeMacro{\diploma} [bamathesis] (discontinued)\\
-% This macro is no longer used. Use |\degree{}| instead.
-%
-%
-% \changes{v4.10}{2025/05/30}{Added doi option and removed isbn and
-% depot options}
-% \DescribeMacro{\doi} [phdthesis] (optional)\\
+% \DescribeMacro{\doi} [phd] (optional)\\
 % Specify the correct doi URL you obtained for your document.
 % It will be typeset in your colofon.
 %
-% \changes{v4.10}{2025/05/30}{Added full embargo option}
-% \DescribeMacro{\embargofull} [phdthesis] (optional)\\
+% \DescribeMacro{\embargofull} [phd] (optional)\\
 % Generates the correct embargo message in your colofon. Adds the word
 % 'CONFIDENTIAL' to your title page.
 %
-% \changes{v4.10}{2025/05/30}{Added temporary embargo option}
-% \DescribeMacro{\embargotemp} [phdthesis] (optional)\\
+% \DescribeMacro{\embargotemp} [phd] (optional)\\
 % This macro takes two arguments, an embargo starting date and an
 % embargo ending date.
 % Generates the correct temporary embargo message in your colofon.
 % Adds the word 'CONFIDENTIAL' to your title page.
 %
-% \DescribeMacro{\lecturer} [coursetext] (mandatory)\\
+% \DescribeMacro{\lecturer} [course] (mandatory)\\
 % You can add one or more lecturers to the course notes (in
 % Dutch: titularis). If there are multiple persons, please, use the
 % macro multiple times. 
 %
-% \DescribeMacro{\phddegree} [phdthesis] (discontinued)\\
-% This macro is no longer used. Use |\degree{}| instead.
-%
-% \DescribeMacro{\degree} [bamathesis,phdthesis,coursetext] (mandatory)\\
+% \DescribeMacro{\degree} [bama,phd,course] (mandatory)\\
 % This is the official degree name (in the appropriate language,
 % possibly mixed ``dutch (english)'').
 % Specify the official title of your diploma. This must be the
@@ -430,34 +409,14 @@
 % bachelor and master degree titles. Consult the Doctoral bylaws of
 % the university for correct PhD degree titles.
 % Students of FTI and FWET, can use the |\bamadegree| command instead.
-%
-% \DescribeMacro{\bamadoctype} [bamadocument] (mandatory)\\
-% This allows to set the nature of the thesis. The proper values of
-% the argument are listed below. Don't use this macro when you are
-% using the |\bamadegree| macro (see below), unless you want to change
-% the document type to 'project'.
-%
-%
-% \DescribeMacro{\bamadegree} [bamathesis] (mandatory)\\
-% This allows to specify the official degree through an
-% abbreviation. Using this abbreviation 
 % 
-% \DescribeMacro{\programme} [coursetext] (discontinued)\\
-% This macro is no longer used. Use |\degree{}| instead.%
-% \DescribeMacro{\publisher} [coursetext] (mandatory)\\
-% This macro sets the publisher information of the document.
-% It is printed on the front page. It defaults to the repographic
-% service of campus Groenenborger, one of the standard printing
-% services of Universiteit Antwerpen. Separate the different fields
-% (name, addres, a.s.o) using a pipe symbol.
-%
-% \DescribeMacro{\publishercode} [coursetext] (mandatory)\\
+% \DescribeMacro{\publishercode} [course] (mandatory)\\
 % This macro sets the publisher code of the document.
 % It is printed on the front page. This is code that the publisher
 % uses for its internal administration. It may be a proprietary code,
 % or an ISBN number.
 %
-% \DescribeMacro{\subtitle} [coursetext / phdthesis / report] (optional)\\
+% \DescribeMacro{\subtitle} [course / phd / report] (optional)\\
 % This macro sets the title of the document. You may use this 
 % \begin{itemize}
 % \item to further clarify the title
@@ -470,18 +429,18 @@
 % it is loaded), 
 % so that the PDF-document meta-information is correct.
 %
-% \DescribeMacro{\supervisor} [bamathesis / phdthesis] (mandatory)\\
-% Specifies the person(s) that promote(s)/supervise(s) the thesis.
+% \DescribeMacro{\supervisor} [bama / phd] (mandatory)\\
+% Specifies the person(s) that promote(s)/supervise(s) the dissertation.
 % Please, use the macro multiple times if needed.
 %
-% \DescribeMacro{\title} [coursetext / bamathesis / phdthesis /
+% \DescribeMacro{\title} [course / bama / phd /
 % report] (mandatory)\\  
 % This macro sets the title of the document.
 % It also sets the |pdftitle| tag of the hyperref package (if it is
 % loaded), so that 
 % the PDF-document meta-information is correct.
 %
-% \DescribeMacro{\titlepageimage} [phdthesis / report]
+% \DescribeMacro{\titlepageimage} [phd / report]
 % (optional)\\
 % This sets the filename of the central image on the title page to
 % appear clipped % within the curves. For PhD theses this is highly
@@ -489,7 +448,7 @@
 % set, a flat colored area will appear. This is part of the house
 % style.
 %
-% \DescribeMacro{\year} [coursetext / report] (mandatory)\\
+% \DescribeMacro{\year} [course / report] (mandatory)\\
 % This is to be the year in which you published the current version of
 % the course in the form YYYY.
 %
@@ -656,9 +615,6 @@
 % You can add one or more lecturers to the course notes (in
 % Dutch: titularis). If there are multiple persons, please, use the
 % macro multiple times. 
-%
-% \DescribeMacro{\programme} [exam] (discontinued)\\
-% This macro is no longer used. Use |\degree{}| instead.%
 %
 % \DescribeMacro{\room}
 % specifies the rooms in which the exam will take place. This is
@@ -4621,7 +4577,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \end{imacro}
 % 
 % \begin{imacro}{\course}
-%   Four the |coursetext| class, this macro sets one or more
+%   Four the |course| class, this macro sets one or more
 %   courses. 
 %   and |\@course| tags that later will be used on the title
 %   page.
@@ -5480,7 +5436,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 % \subsection{Header and Footer}
 % The |fancyhdr| package is used to make a decent header and footer.
-% The header and footer of the |coursetext| class are defined to be:
+% The header and footer of the |course| class are defined to be:
 %    \begin{macrocode}
 %<*crs>      
 \if@twoside
