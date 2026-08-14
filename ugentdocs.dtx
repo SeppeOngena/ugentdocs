@@ -7991,35 +7991,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \end{codesnippet}~\\[1ex]
 \end{frame}
 
-\begin{frame}
-  {Some genuine advice}
-  \small
-  
-  Dear user,
-  
-  Candy slides are nice for PR, but bad for conveying a message.
-
-  Beamer is a tool to typeset technical presentations. Need more
-  animation and eye candy? Use other tools. They are much easier in
-  ruining your audiences' day.
-  
-  Effective slides are simple slides.\\
-  Go by cognitive consonance, flirt with cognitive dissonance, but
-  stay away from cognitive cacophony. 
-  This presentation is i.m.ho. a bad one, as it shows the 
-  cacophony of possibilities. But hey, you were the one asking for it.
-
-  A lot of effort has gone into this template. I hope you like it.
-  If you have good suggestions, e-mail me. If you have questions, I
-  might even help you.
-
-  Cheers!
-  
-  Walter Daems\\
-  (April 2024)
-  
-\end{frame}
-
 \end{document}
 %</bmrug> 
 % \end{verbatim}
@@ -8030,25 +8001,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % 
 %    \begin{macrocode}
 %<*bmr>      
-%      Copyright 2024 by Walter Daems <walter.daems@uantwerpen.be>
-%      
-%      This file may be distributed and/or modified
-%      
-%      1. under the LaTeX Project Public License and/or
-%      2. under the GNU Public License.
-%      
-%      See the file doc/licenses/LICENSE for more details.
-
-\ExplSyntaxOn
-\bool_new:N {\_@@_fonts_bool}
-\bool_set_true:N \l_@@_fonts_bool
-\keys_define:nn { ugentdocs } {
-	fonts .bool_set:N = \l_@@_fonts_bool,
-	fonts .default:n = true ,
-	
-}
-\ExplSyntaxOff
-
 \input{ugentcommon.clo}
 \ExplSyntaxOn
 \ProcessKeyOptions[ ugentdocs ]
@@ -8109,15 +8061,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % \subsubsection{Beamer color theme}
 %    \begin{macrocode}
 %<*bmrcolor>      
-%      Copyright 2024 by Walter Daems <walter.daems@uantwerpen.be>
-%      
-%      This file may be distributed and/or modified
-%      
-%      1. under the LaTeX Project Public License and/or
-%      2. under the GNU Public License.
-%      
-%      See the file doc/licenses/LICENSE for more details.
-
 \mode<presentation>
 
 \RequirePackage{ugentcolor}
@@ -8192,40 +8135,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % 
 %    \begin{macrocode}
 %<*bmrfont>      
-%      Copyright 2024 by Walter Daems
-%      
-%      This file may be distributed and/or modified
-%      
-%      1. under the LaTeX Project Public License and/or
-%      2. under the GNU Public License.
-%      
-%      See the file doc/licenses/LICENSE for more details.
 \usetikzlibrary{calc}
-\ExplSyntaxOn
-\bool_if:NT \l_@@_fonts_bool { 
-\RequirePackage{iftex}
-  % Uncomment the following line if in MiKTeX you get the error
-  % message that \ifluatex is already defined.
-  % You first option is to update all your packages both in user as in
-  % admin mode to fix your setup.
-  % Your second option is to avoid the warning uncommenting the
-  % following line:
-  % \let\ifluatex\relax
-  \iftutex
-    \usepackage{cmbright}
-    \usefonttheme{serif}
-    \usepackage{fontspec}
-    %%\setmainfont
-    %%[UprightFont = *,
-    %% BoldFont = *b,
-    %% ItalicFont = *i,
-    %% BoldItalicFont = *z,
-    %%]
-    %%{calibri}
-    \usepackage{sansmathaccent}
-  \fi
-}
-\usepackage{bm}
 
 \mode<presentation>
 
@@ -8340,15 +8250,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 %    \begin{macrocode}
 %<*bmrinner>
-% Copyright 2024 by Walter Daems <walter.daems@uantwerpen.be>
-%
-% This file may be distributed and/or modified
-%
-% 1. under the LaTeX Project Public License and/or
-% 2. under the GNU Public License.
-%
-% See the file doc/licenses/LICENSE for more details.
-
 \mode<presentation>
 
 \setlength\parskip{0.5\baselineskip}
@@ -8434,15 +8335,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %
 %    \begin{macrocode}
 %<*bmrouter>
-% Copyright 2024 by Walter Daems <walter.daems@uantwerpen.be>
-%
-% This file may be distributed and/or modified
-%
-% 1. under the LaTeX Project Public License and/or
-% 2. under the GNU Public License.
-%
-% See the file doc/licenses/LICENSE for more details.
-
 \mode<presentation>
 
 \newcommand*\getlength[1]{\strip@pt#1/28.45274}
