@@ -2903,7 +2903,6 @@ faculty / fw .code:n = {
 	\exp_args:Nx \str_case:nnF { \l_@@_campus_tl } {
 		{ ugent }    {
 			\renewcommand{\@ugentlogotext}{
-				\logotextface\fontsize{13.6pt}{12.5pt}\selectfont
 				\tl_set:Nx \l_@@_logotext_tmpa_tl { \translatekey[uppercase]{org-ugent} }
 				\nohyphens{\l_@@_logotext_tmpa_tl}
 			}
@@ -2912,7 +2911,6 @@ faculty / fw .code:n = {
 		}
 		{ gugc }     {
 			\renewcommand{\@ugentlogotext}{
-				\logotextface\fontsize{13.6pt}{12.5pt}\selectfont
 				\tl_set:Nx \l_@@_logotext_tmpa_tl { GHENT~UNIVERSITY }
 				\nohyphens{\l_@@_logotext_tmpa_tl}\\
 				\logosubtextface\fontsize{13.6pt}{12.5pt}\selectfont
@@ -2924,7 +2922,6 @@ faculty / fw .code:n = {
 		}
 		{ kortrijk } {
 			\renewcommand{\@ugentlogotext}{
-				\logotextface\fontsize{13.6pt}{12.5pt}\selectfont
 				\tl_set:Nx \l_@@_logotext_tmpa_tl { \translatekey[uppercase]{org-ugent} }
 				\nohyphens{\l_@@_logotext_tmpa_tl}\\
 				\logosubtextface\fontsize{13.6pt}{12.5pt}\selectfont
@@ -2951,8 +2948,7 @@ faculty / fw .code:n = {
 		\begin{scope}[shift={(\@logounit,2*\@logounit)},every path/.append style={fill=#2}]
 			\@ugenticonpath
 		\end{scope}
-		
-		\node[anchor=south west, text width=\@ugenttextw+\@ugenttextmarginextra, align=left] at (\@logounit-0.03cm,\@logounit-0.005cm) {\spaceskip=0.0825cm%
+		\node[anchor=south west, text width=\@ugenttextw+\@ugenttextmarginextra, align=left, font=\logotextface\fontsize{13.6pt}{12.5pt}\selectfont] at (\@logounit-0.03cm,\@logounit-0.005cm) {\spaceskip=0.0825cm%
 			\@ugentlogotext};
 	\end{scope}
 }
