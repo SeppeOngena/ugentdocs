@@ -10,9 +10,9 @@ Overview
 > The package is not currently guaranteed to be in a usable state, as this repository is still a WIP. See the [ugentdocs 1.0 project](https://github.com/users/SeppeOngena/projects/1) for up-to-date progress towards v1.0. See the [releases page](https://github.com/SeppeOngena/ugentdocs/releases) to try pre-releases.
 
 This package provides the following classes (implementation status shown):
-- ✅ `ugentthesis`: Master/bachelor's thesis
-- ✅ `ugentdissertation`: PhD thesis/dissertation
-- ✅ `ugentbookcover` class to create full covers (back/spine/front) for dissertations and courses
+- ✅ `ugentbama`: Master/bachelor's dissertation
+- ✅ `ugentphd`: PhD dissertation
+- ✅ `ugentbookcover` class to create full covers (back/spine/front) for PhD dissertations and courses
 - ✅ `ugentreport`: Project reports, e.g. group assignments
 - ✅ `ugentcourse`: Course notes
 - ⬜ `ugentexam`: Exams
@@ -35,14 +35,14 @@ To use it currently:
     │   ├── 1-Introduction.tex
     │   ├── 2-MaterialsMethods.tex
     │   └── ......
-    ├── MyThesis.tex or example-dissertation1.tex         <--
+    ├── MyThesis.tex or example-phd.tex                   <--
     ├── MyBibliography.bib
-    ├── ugentthesis.cls or ugentdissertation.cls or ....  <--
+    ├── ugentbama.cls or ugentphd.cls or ....             <--
     ├── ugentcommon.clo                                   <--
     ├── ugentdocs-english.dict                            <--
     └── ugentdocs-dutch.dict                              <--
 ```
-- Once it is installed (and in the future if it's on CTAN you can skip the previous steps), use the class as in the examples by setting e.g. `\documentclass[<options>]{ugentdissertation}`
+- Once it is installed (and in the future if it's on CTAN you can skip the previous steps), use the class as in the examples by setting e.g. `\documentclass[<options>]{ugentphd}`
 
 >[!WARNING]
 > Due to the use of `fontspec` for the official logos, your documents need to be compiled using LuaLaTeX or XeTeX (you can easily set this in your editor), and the UGent Panno Text Medium and SemiBold fonts need to be installed
@@ -55,8 +55,8 @@ For a complete list of features, you will be able to check the documentation (wh
     
 <summary> Click to expand </summary>
     
-### 1. `ugentthesis`
-- Implements bachelor's and master's theses. See the examples for all functionality and specific use.
+### 1. `ugentbama`
+- Implements bachelor's and master's dissertation. See the examples for all functionality and specific use.
 - Generates coverpage and copyright page with signature fields automatically based on your data input, e.g. `\author`, `\supervisor`, `\tutor`, `\title`, etc.
 - The copyright page sets a confidentiality notice automatically when you set `\embargotemp{startdate}{enddate}` or `\embargofull`
 - You can change the copyright page to the signed one using `\copyrightnotices{\includepdf{copyright_signed.pdf}}`
@@ -64,8 +64,8 @@ For a complete list of features, you will be able to check the documentation (wh
   
   <table border="0" style="width: 100%;">
   <tr>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-thesis-1</th>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-thesis-2</th>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-bama-1</th>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-bama-2</th>
   </tr>
   <tr>
     <td style="border: none; text-align: left;">Using options bw (faculty), coverbg, neutralcolors, and font is UGent Panno Text (default)</td>
@@ -80,7 +80,7 @@ For a complete list of features, you will be able to check the documentation (wh
   </tr>
 </table>
 
-### 2. `ugentdissertation` and `ugentbookcover` 
+### 2. `ugentphd` and `ugentbookcover` 
 - Implements PhD dissertation. See the examples for all functionality and specific use.
 - Generates a coverpage and automatically generates a `filename-cover.tex` file which includes the full cover (back/spine/front).
 - The data pages are automatically set based on your data input.
@@ -88,8 +88,8 @@ For a complete list of features, you will be able to check the documentation (wh
 - A `cameraready` option that embeds your content and cover into a larger (for the content an A4) page for printing.
 <table border="0" style="width: 100%;">
   <tr>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-dissertation-1</th>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-dissertation-2</th>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-phd-1</th>
+    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-phd-2</th>
   </tr>
   <tr>
     <td style="border: none; text-align: left;">Using options we (faculty),surnamefirst, dutch, and font is overridden to Arial</td>
@@ -192,18 +192,19 @@ There are already five (or more?) existing templates, why add another one? This 
  
 The goal is also to transfer this repository to UGent one when complete, so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 
 
-Integration status
+Relation to other packages
 --
-This work will try to integrate and expand on as many of the existing fragmented templates into a common framework based on Walter Daem's excellent `uantwerpendocs v4.12` package (available on [CTAN](https://ctan.org/pkg/uantwerpendocs), so that package was already present by default in my installation!). If the integration status says complete, it means the current package has the same (or more!) functionality than the listed package.
+This work will try to integrate and expand on as many of the existing fragmented templates into a common framework based on Walter Daem's excellent `uantwerpendocs v4.12` package (available on [CTAN](https://ctan.org/pkg/uantwerpendocs), so that package was already present by default in my installation!). If the integration status says complete, it means the current package has the same (or more!) functionality than the listed package. 
 
 Templates to integrate (that I know of):
-| Integrated? | Project      | Maintainer | Status          | Document types |
-|:-----------:|:-------------|:-----------| :---------------|:---------------|
-| ✅ | [ugent2016](https://github.com/niknetniko/ugent2016)                | Niko Strijbol  | Left UGent             | `article`, `book`, `report`, `course`, `notes` |
-| ✅ | [ugent-doc](https://github.com/driesbenoit/ugent-doc)               | Dries Benoit   | Stale/Complete?        | `article`, `report` (only coverpage) |
-| ⬜ | [ugent-beamer](https://github.com/driesbenoit/ugent-beamer)         | Dries Benoit   | Complete               | `beamer` |
-| ✅ | [ugent-letter](https://github.com/driesbenoit/ugent-letter)         | Dries Benoit   | Complete               | `letter` |
-| ✅ | [Latex at UGent](https://github.ugent.be/LatexInfo) (internal only) | Joris Meys     | Incomplete, but active | `ba/ma thesis` (only BW faculty templates, separate classes for NL and EN)|
+| Integrated? | How? | Project      | Maintainer | Status          | Document types |
+|:-----------:|:-------------|:-------------|:-----------| :---------------|:---------------|
+| ✅ | Starting point, basis of framework    | [uantwerpendocs](https://ctan.org/pkg/uantwerpendocs)               | Walter Daems   | Active                 | `report`, `coursetext`, `phdthesis`, `bamathesis`, `letter`, `exam`, `beamer` |
+| ✅ | Served as reference for functionality | [ugent2016](https://github.com/niknetniko/ugent2016)                | Niko Strijbol  | Left UGent             | `article`, `book`, `report`, `course`, `notes` |
+| ✅ | Served as reference for functionality | [ugent-doc](https://github.com/driesbenoit/ugent-doc)               | Dries Benoit   | Stale/Complete?        | `article`, `report` (only coverpage) |
+| ⬜ | Served as reference for functionality | [ugent-beamer](https://github.com/driesbenoit/ugent-beamer)         | Dries Benoit   | Complete               | `beamer` |
+| ✅ | Served as reference for functionality | [ugent-letter](https://github.com/driesbenoit/ugent-letter)         | Dries Benoit   | Complete               | `letter` |
+| ✅ | Cover page and headers code           | [Latex at UGent](https://github.ugent.be/LatexInfo) (internal only) | Joris Meys     | Incomplete, but active | `ba/ma thesis` (only BW faculty templates, separate classes for NL and EN)|
 
 ---
 
