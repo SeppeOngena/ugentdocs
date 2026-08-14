@@ -5409,25 +5409,18 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \begin{macrocode}
 %<*ex>
 \newcommand{\@extrainfo}{}
-\newcommand\extrainfo[2][separatepage]{
-  \ifthenelse{\equal{#1}{separatepage}}{
-    % then
-    \renewcommand{\@extrainfo}{\clearpage #2 \clearpage}
-  }
-  {
-    % else
-    \ifthenelse{\equal{#1}{firstpage}}
-    {
-      \renewcommand{\@extrainfo}{#2}
-    }
-    {
-      \PackageError{ugentdocs}
-      {The first (optional) argument of '\protect\extrainfo' can
-        only be 'separatepage' or 'firstpage'}
-      {See the ugentdocs manual)'} 
-    }
-  }
+\ExplSyntaxOn
+\NewDocumentCommand{\extrainfo}{O{separatepage} +m} {
+	\str_case:nnF { #1 } {
+		{ separatepage } { \renewcommand{\@extrainfo}{\clearpage #2 \clearpage} }
+		{ firstpage    } { \renewcommand{\@extrainfo}{#2} }
+	}{
+		\PackageError{ugentdocs}
+		{ The~first~(optional)~argument~of~\protect\extrainfo~can~only~be~'separatepage'~or~'firstpage' }
+		{ See~the~ugentdocs~manual. }
+	}
 }
+\ExplSyntaxOff
 %</ex> 
 %    \end{macrocode}
 % \end{imacro}
