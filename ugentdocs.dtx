@@ -7199,7 +7199,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % 
 % \begin{verbatim}
 %<*bmrug> 
-\documentclass[aspectratio=1610]{beamer}
+\documentclass{beamer}
 \usetheme[bw]{ugent}
 \usepackage[english]{babel}
 
@@ -8063,8 +8063,25 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
     \insertframenumber/\inserttotalframenumber}%
 }
 
+\setlength\@PW{33.87cm}
+\setlength\@PH{19.05cm}
+
+\pgfmathsetmacro{\@PWnum}{\@PW/1cm}
+\pgfmathsetmacro{\@PHnum}{\@PH/1cm}
+\pgfmathsetlength{\gridunit}{max(\@PW,\@PH)/7/4/1.3} % Gridunit seems 1.3x smaller than its actual definition
+
+\newlength{\@HBS}\setlength\@HBS{4\gridunit}
+\newlength{\@HTS}
+
+\ifx\@fselector\@empty
+	\setlength\@HTS{0}
+\else
+	\setlength\@HTS{3\gridunit}
+\fi
+
 \mode<presentation>
 
+\usepackage[orientation=landscape,size=custom,width=\@PWnum,height=\@PHnum,scale=1]{beamerposter} 
 \RequirePackage{tikz}
 \RequirePackage{graphicx}
 \RequirePackage{graphbox}
@@ -8072,8 +8089,8 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \RequirePackage{environ}
 
 \setbeamersize{
-  text margin left=.8cm,
-  text margin right=.8cm
+  text margin left=2\gridunit,
+  text margin right=2\gridunit
 }
 
 \usecolortheme{ugent}
