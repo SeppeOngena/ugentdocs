@@ -17,6 +17,49 @@
 
 set -euxo pipefail
 
+# Changelog generation
+generate_changelog() {
+  local output="$1"
+  local upstream_tag="uantwerpendocs-v4.12-code"
+
+  {
+    echo "# Changelog"
+    echo
+    echo "## Derived from uantwerpendocs v4.12"
+    echo
+    echo "This work was derived from the \`uantwerpendocs\` v4.12 code,"
+    echo "preserved at the Git tag \`$upstream_tag\`."
+    echo
+    echo "The original source was substantially modified and expanded"
+    echo "for the UGent house style. The major changes include:"
+    echo
+    echo "- Restructuring and merging of substantial portions of the code."
+    echo "- Renaming and restructuring of classes."
+    echo "- Reworking of dictionary handling. Including empty lines, newline placeholders, "
+    echo "     casing typesetting of the keys, improving compatibility with babel"
+    echo "- Reworking of logo input and handling. No images are used, only tikz paths and text."
+    echo "- Reworking of book-cover generation. A separate ugentbookcover class is added which"
+    echo "     prints the covers based on commands inputs instead of relying on PDF inputs."
+    echo "- Integration of UGent-specific cover, chapter, and header/footer code."
+    echo "- UGent-specific class functionality."
+    echo "- Extensive changes to documentation and examples."
+    echo
+    echo "The detailed development history below is generated from Git."
+    echo
+    echo "## Development history"
+    echo
+
+    git log --reverse --no-merges \
+      --format='## %ad — `%H`%n%n### %s%n%n**Author:** %an%n%n%b%n' \
+      --date=short \
+      "$upstream_tag..HEAD"
+
+    echo
+    echo "The complete development history is available in the Git repository:"
+    echo
+    echo "https://github.com/SeppeOngena/ugentdocs/"
+  } > "$output"
+}
 
 # 1. Argument parse and tmp folder setup
 
@@ -89,6 +132,8 @@ fi
 # 3.2 Full build: move results into release layout
 DIST="ugentdocs-${VERSION}"
 mkdir -p "./build/${DIST}/ugentdocs" "./build/${DIST}/examples"
+generate_changelog "./build/${DIST}/CHANGELOG.md"
+
 
 mv "$TMP"/*.cls    "./build/${DIST}/ugentdocs/" 2>/dev/null || true
 mv "$TMP"/*.sty    "./build/${DIST}/ugentdocs/" 2>/dev/null || true
