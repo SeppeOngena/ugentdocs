@@ -700,7 +700,7 @@
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
-%%\setmainfont{Arial}[
+%%\setsansfont{Arial}[
 %%BoldFont           = {Arial},
 %%BoldFeatures       = {FakeBold=2.5},
 %%ItalicFont         = {Arial},
@@ -878,7 +878,7 @@
 %% in the correct order with the other packages you load!
 
 %% You may want to use common fonts such as arial (still within house style)
-%%\setmainfont{Arial}[
+%%\setsansfont{Arial}[
 %%BoldFont           = {Arial},
 %%BoldFeatures       = {FakeBold=2.5},
 %%ItalicFont         = {Arial},
@@ -1065,7 +1065,7 @@
 %% in the correct order with the other packages you load!
 
 %% You may want to use common fonts such as arial (still within house style)
-\setmainfont{Arial}[
+\setsansfont{Arial}[
 BoldFont           = {Arial},
 BoldFeatures       = {FakeBold=2.5},
 ItalicFont         = {Arial},
@@ -1261,7 +1261,7 @@ e^{-j\pi} + 1 = 0
 
 %% You may want to use common fonts such as arial (still within house style)
 %% If you override font here, you also need to adjust it in the bookcover file!
-\setmainfont{Arial}[
+\setsansfont{Arial}[
 BoldFont           = {Arial},
 BoldFeatures       = {FakeBold=2.5},
 ItalicFont         = {Arial},
@@ -1463,7 +1463,7 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
-%%\setmainfont{Arial}[
+%%\setsansfont{Arial}[
 %%BoldFont           = {Arial},
 %%BoldFeatures       = {FakeBold=2.5},
 %%ItalicFont         = {Arial},
@@ -1661,7 +1661,7 @@ Department of Biotechnology}
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
-%%\setmainfont{Arial}[
+%%\setsansfont{Arial}[
 %%BoldFont           = {Arial},
 %%BoldFeatures       = {FakeBold=2.5},
 %%ItalicFont         = {Arial},
@@ -1783,7 +1783,7 @@ e^{-j\pi} + 1 = 0
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
-\setmainfont{Arial}[
+\setsansfont{Arial}[
 BoldFont           = {Arial},
 BoldFeatures       = {FakeBold=2.5},
 ItalicFont         = {Arial},
@@ -1948,7 +1948,7 @@ Minute taker}}\\
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
-\setmainfont{Arial}[
+\setsansfont{Arial}[
 BoldFont           = {Arial},
 BoldFeatures       = {FakeBold=2.5},
 ItalicFont         = {Arial},
@@ -2057,7 +2057,7 @@ their details enclosed.
 \iftutex
 \usepackage{cmbright}
 \usepackage{fontspec}
-\setmainfont
+\setsansfont
 [UprightFont = *,
  BoldFont = *b,
  ItalicFont = *i,
@@ -2139,7 +2139,7 @@ their details enclosed.
 %% *default
 
 %% You may want to use common fonts such as arial (still within house style)
-%%\setmainfont{Arial}[
+%%\setsansfont{Arial}[
 %%BoldFont           = {Arial},
 %%BoldFeatures       = {FakeBold=2.5},
 %%ItalicFont         = {Arial},
@@ -2305,7 +2305,7 @@ een b\'echamel saus:
 %%              using \selectlanguage or \foreignlanguage (see babel package)
 
 %% You may want to use common fonts such as arial (still within house style)
-%%\setmainfont{Arial}[
+%%\setsansfont{Arial}[
 %%BoldFont           = {Arial},
 %%BoldFeatures       = {FakeBold=2.5},
 %%ItalicFont         = {Arial},
@@ -3305,7 +3305,7 @@ faculty / fw .code:n = {
 %    \end{macrocode}
 %
 % \subsubsection{Font packages}
-% UGent Panno Text (and its Medium and SemiLight variants) should always be installed (and the document compiled using Lua\LaTeX) as they are used in the logo's. For the document itself, it is recommended to use UGent Panno Text as well, which is set through |\setmainfont{UGent Panno Text}|. However, Arial is also a valid official alternative and can override UGent Panno Text by adding |\setmainfont{Arial}[BoldFont = {Arial}, BoldFeatures = {FakeBold=2.5}, ItalicFont = {Arial}, ItalicFeatures = {FakeSlant=0.15}, BoldItalicFont = {Arial}, BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},]| to the beginning of your document. UGent uses Arial as default for Word and PowerPoint templates as these are distributed outside Ghent University. This is not applicable for \LaTeX however, as pdf's are always generated. Thus, UGent Panno Text is used everywhere.
+% UGent Panno Text (and its Medium and SemiLight variants) should always be installed (and the document compiled using Lua\LaTeX) as they are used in the logo's. For the document itself, it is recommended to use UGent Panno Text as well, which is set through the |\setsansfont{UGent Panno Text}[...]| block below. However, Arial is also a valid official alternative and can override UGent Panno Text by adding the |\setsansfont{Arial}[...]| block below to the beginning of your document. UGent uses Arial as default for Word and PowerPoint templates as these are distributed outside Ghent University. This is not applicable for \LaTeX however, as pdf's are always generated. Thus, UGent Panno Text is used everywhere.
 %
 %    \begin{macrocode}
 %<*crs|bama|phd|rp|le|ex|bkc|bmrfont>  
@@ -3314,7 +3314,7 @@ faculty / fw .code:n = {
   \IfFontExistsTF{UGent Panno Text Medium}{
   	\IfFontExistsTF{UGent Panno Text SemiLight}{
   	  \IfFontExistsTF{UGent Panno Text}{
-  	    \setmainfont{UGent Panno Text}[
+  	    \setsansfont{UGent Panno Text}[
   		  BoldFont           = {UGent Panno Text},
   	 	  BoldFeatures       = {FakeBold=2.5},
   		  ItalicFont         = {UGent Panno Text},
@@ -3324,7 +3324,7 @@ faculty / fw .code:n = {
   		]
   	  }{
   		\IfFontExistsTF{Arial}{
-  		  \setmainfont{Arial}[
+  		  \setsansfont{Arial}[
   			BoldFont           = {Arial},
   			BoldFeatures       = {FakeBold=2.5},
   			ItalicFont         = {Arial},
@@ -3369,6 +3369,7 @@ faculty / fw .code:n = {
   \PackageError{ugentdocs}{Only LuaTeX or XeTeX is supported for compilation}
   {See the ugentdocs manual}
 \fi
+\renewcommand{\familydefault}{\sfdefault}
 %</crs|bama|phd|rp|le|ex|bkc|bmrfont>
 %    \end{macrocode}
 %
