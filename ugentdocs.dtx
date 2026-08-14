@@ -65,7 +65,6 @@
 \usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{metalogo}
-\usepackage{xstring}
 %
 \IfFileExists{tocbibind.sty}{\usepackage{tocbibind}}{}
 \IfFileExists{hyperref.sty}{\usepackage[bookmarksopen]{hyperref}}{}
@@ -92,7 +91,7 @@
 %</driver>
 % \fi
 %
-% \DoNotIndex{\newcommand,\newenvironment,\begin,\bfseries,\draw,\clip,\else,\fi,\if,\fill,\filldraw,\ifthenelse,\ifx,\textwidth,\node,\\,\@empty,\@tempdima,\@tempdimb,\@tempswatrue,\{,\},\ ,\bf,\BODY,\break,\Alph,\and,\define@key,\color,\dx,\dy,\g,\gdef,\hbox,\tiny,\scriptsize,\footnotesize,\small,\normalsize,\large,\Large,\LARGE,\huge,\Huge,\l,\LaTeX,\let,\p@,\relax,\renewcommand,\Requirepackage,\textbf,\textsf,\texttt,\textbackslash,\vspace,\hspace,\hfill,\hskip,\vskip,\hline,\vrule,\typeout,\usebox,\end,\paperheight,\paperwidth,\par,\NewDocumentCommand,\seq}
+% \DoNotIndex{\newcommand,\newenvironment,\begin,\bfseries,\draw,\clip,\else,\fi,\if,\fill,\filldraw,\ifx,\textwidth,\node,\\,\@empty,\@tempdima,\@tempdimb,\@tempswatrue,\{,\},\ ,\bf,\BODY,\break,\Alph,\and,\define@key,\color,\dx,\dy,\g,\gdef,\hbox,\tiny,\scriptsize,\footnotesize,\small,\normalsize,\large,\Large,\LARGE,\huge,\Huge,\l,\LaTeX,\let,\p@,\relax,\renewcommand,\Requirepackage,\textbf,\textsf,\texttt,\textbackslash,\vspace,\hspace,\hfill,\hskip,\vskip,\hline,\vrule,\typeout,\usebox,\end,\paperheight,\paperwidth,\par,\NewDocumentCommand,\seq}
 %
 % \setlength{\parindent}{0em}
 % \addtolength{\parskip}{0.5\baselineskip}
@@ -3319,7 +3318,6 @@ faculty / fw .code:n = {
 %<*crs|bama|phd|rp|le|ex|bkc>      
 \RequirePackage{expl3}
 %\RequirePackage[check-declarations]{expl3} % I use this during debug phase
-\RequirePackage{xparse}
 %</crs|bama|phd|rp|le|ex|bkc>
 %    \end{macrocode}
 %
@@ -3399,9 +3397,7 @@ faculty / fw .code:n = {
 %    \begin{macrocode}
 %<*crs|bama|phd|rp|le|ex|bkc>
 \RequirePackage{iftex}
-\RequirePackage{xstring}
 \RequirePackage{etoolbox}
-\RequirePackage{ifthen}
 \IfFileExists{shellesc.sty}{\RequirePackage{shellesc}}{}
 %</crs|bama|phd|rp|le|ex|bkc>
 %    \end{macrocode}
