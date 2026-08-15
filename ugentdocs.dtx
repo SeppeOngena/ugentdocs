@@ -371,6 +371,7 @@
 %</col>
 % \fi
 %
+% \newpage
 % Some class options change colour handling:
 % 
 % \DescribeOption[common]{neutralcolors}\DescribeDefault{false}
@@ -553,8 +554,6 @@
 \newlength\@ftextwnl
 %</clo>
 % \fi
-%
-% The faculty is specified as a class option:
 %
 % \DescribeOption[common]{faculty}\DescribeDefault{empty}
 % Options: |lw|, |re|, |we|, |ge|, |ea|, |eb|, |di|, |pp|, |bw|, |fw|, |ps|\\
@@ -776,18 +775,9 @@
 %	\item \txtcmd{makeatletter}\txtcmd{@facultyacronym}\txtcmd{makeatother}:
 %		\makeatletter\@facultyacronym\makeatother
 % \end{itemize}
-%
-% The faculty icon and logos are used with the following macros:
-%
-% \DescribeMacro[common]{\ficon}\marg{height}\marg{color}\marg{alignment}
-% When used within a tikzpicture, this prints the faculty icon. The height is a
-% length, the alignment ranges from 0 (left edge) to 1 (right edge).\\
-% Usage:
-%
-% \txtcmd{begin\{tikzpicture\}}\txtcmd{ficon\{1cm\}\{ugent@faculty\}\{0\}}\txtcmd{end\{tikzpicture\}}\\
-% \begin{tikzpicture}
-%	\ficon{1cm}{ugent@faculty}{0}
-% \end{tikzpicture}
+% \DescribeMacro{\department}[common]\marg{name}\\
+% Setting the department with this macro overrides \txtcmd{@faculty} 
+% with the |name| entered.
 %
 % \iffalse
 %<*clo>
@@ -801,12 +791,37 @@
 	{~\translatekey[#1,expand]{org-\@fselector}}%
 	\fi
 }
+
+\newcommand*{\department}[1]{%
+	\RenewDocumentCommand{\@faculty}{O{}}{
+		\str_case:nnF {##1}{
+			{uppercase}{\text_uppercase:n{#1}}
+			{lowercase}{\text_lowercase:n{#1}}
+		}{
+			#1
+		}
+	}%
+}
 \ExplSyntaxOff
 
 \newcommand*\@facultyacronym{
 	\MakeUppercase{F\@fselector}
 }
-
+%</clo>
+% \fi
+%
+% \DescribeMacro[common]{\ficon}\marg{height}\marg{color}\marg{alignment}
+% When used within a tikzpicture, this prints the faculty icon. The height is a
+% length, the alignment ranges from 0 (left edge) to 1 (right edge).\\
+% Usage:
+%
+% \txtcmd{begin\{tikzpicture\}}\txtcmd{ficon\{1cm\}\{ugent@faculty\}\{0\}}\txtcmd{end\{tikzpicture\}}\\
+% \begin{tikzpicture}
+%	\ficon{1cm}{ugent@faculty}{0}
+% \end{tikzpicture}
+%
+% \iffalse
+%<*clo>
 \newcommand{\ficon}[3]{
 	\ifx\@fselector\@empty\else
 	\pgfmathsetmacro{\@ficonscale}{#1/\@logounit}
@@ -3466,27 +3481,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
   \textbackslash{}sender\{name\}\{role\} >}
 \newcommand*{\@senderrole}{~}
 \newcommand*{\sender}[2]{\renewcommand*{\@sender}{#1}\renewcommand*{\@senderrole}{#2}}
-%</le>
-%    \end{macrocode}
-% \end{imacro}
-%
-% \begin{imacro}{\department}
-%   This macro overrides the |\@faculty| tag that will be used in the letter's
-%   heading text.
-%    \begin{macrocode}
-%<*le>
-\ExplSyntaxOn
-\newcommand*{\department}[1]{%
-	\RenewDocumentCommand{\@faculty}{O{}}{
-		\str_case:nnF {##1}{
-			{uppercase}{\text_uppercase:n{#1}}
-			{lowercase}{\text_lowercase:n{#1}}
-		}{
-			#1
-		}
-	}%
-}
-\ExplSyntaxOff
 %</le>
 %    \end{macrocode}
 % \end{imacro}
