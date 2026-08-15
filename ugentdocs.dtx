@@ -677,1899 +677,7 @@
 % specifies the start time of the exam, preferrable in the format
 % 'HHhMM', e.g. '08h30'.
 %
-% \clearpage
-% \newgeometry{left=3cm,right=2cm,top=2cm,bottom=2.5cm}
-% \subsection{Examples}
 %
-% Below you can find an example for every class. They also serve as
-% their quickstart documentation.
-%
-% Remember to
-% \begin{itemize}
-% \item use modern compiler: no pdf\LaTeX{}, use \LuaLaTeX{} instead!
-% \item compile your source file twice.
-% \end{itemize}
-%
-% Especially in the beamer theme some features require to run \LaTeX{}
-% twice in order to get the position of some elements correct.
-%
-% In many of the classes, you need to specify a faculty option. The
-% available faculty options are listed in a table on page \pageref{sec:classopt}.
-%
-% \subsubsection{\texttt{ugentcourse}}
-%
-% \begin{verbatim}
-%<*crs-example> 
-\documentclass[bw,11pt,twoside,openright,dutch]{ugentcourse}
-%% faculty            Specifies the faculty abbreviation, can be empty*.
-%%                    Used in colouring, logos, and text.
-%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% campus             Specifies the campus, overriding UGent logo
-%%                    Options: ugent*, gugc, kortrijk
-%% neutralcolors      Uses ugent colour scheme instead of faculty colors
-%%                    Options: true, false*
-%% colormodel         Uses rgb (display) or cmyk (print) colouring
-%%                    Options: rgb*, cmyk
-%% language           Sets the document main language. Determines, i.a., logo
-%%                    and copyright language. Can be overridden locally for the text
-%%                    using \selectlanguage or \foreignlanguage (see babel package)
-%%                    Options: english* / dutch
-%% 11pt               Sets the font size to 11pt
-%% twoside            If you want a two-sided document, change to oneside if you
-%%                    want a recto only document
-%% openright          Causes you chapters to start on a right-hand page when
-%%                    your document is twosided
-%% nameformat         Format all names as "surname firstname"
-%%                    or "firstname surname"
-%%                    Options: surnamefirst, surnamelast* 
-%% cameraready        Embeds the official 24 cm x 18 cm into an A4 page and
-%%                    trigger alignment marks and cut-lines for your printing service
-%%                    This will also apply to the generated bookcover file.
-%%                    Options: true, false*
-%% copyright          Prints a copyright watermark
-%%                    Options: true, false*
-%% bare               Removes front and back cover. Many
-%%                    print services require this format for the contents.
-%%                    Options: true, false*
-%% thumbs             Adds chapter thumbs to the side of the pages
-%%                    Options: true*, false
-%% *default
-
-%% You may want to use common fonts such as arial (still within house style)
-%%\setsansfont{Arial}[
-%%BoldFont           = {Arial},
-%%BoldFeatures       = {FakeBold=2.5},
-%%ItalicFont         = {Arial},
-%%ItalicFeatures     = {FakeSlant=0.15},
-%%BoldItalicFont     = {Arial},
-%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-%%]
-
-%% make paragraphs indent
-\setlength\parindent{1in}
-%% provide a space of 1ex bewteen paragraphs
-\setlength\parskip{0ex}
-
-%% this is just for some dummy text, please remove in your copy
-\usepackage{kantlipsum}
-
-%% set title, subtitle and author
-\title{Z\'agen, zoeken en zuchten}
-\subtitle{Course unit}
-\author{}{Daems, Walter}{}
-\author{}{Levrie, Paul}{}
-
-%% better keep track of the different versions (and the corresponding
-%% publication year) of your course
-\courseversion{1.3}
-\year=2023
-
-%% mention who lectures the course (can be different from the author)
-\lecturer{}{Zo\"ekers, Zoltan}{}
-\lecturer{}{Sigh, Siana}{}
-
-%% Specify the degree(s):
-\degree{Master of Science in de industri\"ele wetenschappen: elektronica-ICT}
-
-%% you can specify multiple courses:
-%% - first  argument is the course number
-%% - second argument is the course name
-\course{2023FTIZZZ}{5-Zoekmachines in een zaagperspectief}
-\course{2045FTIIII}{6-Zaagmachines in \'e\'en zuchtperspectief}
-
-%% for which academic year the course is intended
-\academicyear{2023-2024}
-
-%% leave this as is if you use Universitas as print shop
-\publisher{Academia Press |
-  Coupure Rechts 88 |
-  9000 Gent |
-  T +32 9 233 80 88 |
-  E info@academiapress.be}
-
-%% Academia Press may provide you with a code, that you can provide on
-%% your PDF copy (if you distribute any to your students. If not, just omit.
-\publishercode{C11111102}
-
-%% you can specify additional copyright notices on the copyright page
-%% (i.e. the back of the title page)
-\extranotices{%
-  The graphics in this document have been typeset using \texttt{TikZ}.\\
-  This document has been \TeX-ed on a GNU/Linux workstation.
-}
-
-%% Add publisher logo
-\backcoverlogos{\includegraphics[height = 2\gridunit]{Images/logo_AcademiaPress.jpg}} % Back cover
-\frontcoverlogos{\includegraphics[height=2\gridunit]{Images/logo_AcademiaPress.jpg}} % Front cover
-
-\begin{document}
-
-%% creates the title page, remove if you don't want any
-\maketitle
-
-%% Creates a bookcover file \jobname-cover.tex
-%% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
-%% a caliper (paper thickness) of 0.1 mm:
-%% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
-%% If you're using a different paper type, override the spine width 
-%% in the \jobname-cover.tex file using the formula above.
-\generatebookcover
-
-%% causes the first pages to be roman numbered
-\frontmatter
-
-%% sets the table of contents (automatically for you)
-\tableofcontents
-
-%% changes the numbering system to arabic and restart from 1
-\mainmatter
-
-%% a non-numbered chapter
-\chapter*{Inleiding}
-%% some automatically generated bogus text: remove in your copy
-\kant[1]
-
-%% a first numbered chapter
-\chapter{Onzin voor dummies}
-
-%% a first numbered section
-\section{Het gebeuren}
-\kant[2]
-\begin{equation}
-  e^{-j\pi} + 1 = 0
-\end{equation}
-
-\kant[3]
-\section{En waartoe het geleid heeft}
-
-\kant[4]
-
-\subsection{Herhaling}
-\kant[5]
-
-\subsection{Begint vervelend te worden}
-\kant[6]
-
-\clearpage
-
-\subsection{Begint echt vervelend te worden}
-\kant[7-10]
-
-\chapter{Besluit}
-
-%% changes the chapter numbering to letters and uses 'Appendix' or
-%% 'Bijlage' (in dutch) as chapter name.
-\appendix
-
-\chapter{Symbolen}
-\chapter{Romeinse sprekers}
-\chapter{Referentielijst}
-
-%% typeset the final page with some graphic material on it
-\makefinalpage
-
-\end{document}
-%</crs-example> 
-% \end{verbatim}
-% 
-% 
-% \subsubsection{\texttt{ugentbama}}
-%
-% \begin{verbatim}
-%<*bama-example1> 
-\documentclass[bw,11pt,twoside,openright,coverbg,neutralcolors]{ugentbama}
-%% faculty            Specifies the faculty abbreviation, can be empty*.
-%%                    Used in colouring, logos, and text.
-%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% campus             Specifies the campus, overriding UGent logo
-%%                    Options: ugent*, gugc, kortrijk
-%% neutralcolors      Uses ugent colour scheme instead of faculty colors
-%%                    Options: true, false*
-%% coverbg            Adds a coloured background area to the cover page
-%%                    Options: true, false*
-%% colormodel         Uses rgb (display) or cmyk (print) colouring
-%%                    Options: rgb*, cmyk
-%% language           Sets the document main language. Determines, i.a., logo
-%%                    and copyright language. Can be overridden locally for the text
-%%                    using \selectlanguage or \foreignlanguage (see babel package)
-%%                    Options: english* / dutch
-%% 11pt               Sets the font size to 11pt
-%% twoside            If you want a two-sided document, change to oneside if you
-%%                    want a recto only document
-%% openright          Causes you chapters to start on a right-hand page when
-%%                    your document is twosided
-%% nameformat         Format all names as "surname firstname"
-%%                    or "firstname surname"
-%%                    Options: surnamefirst, surnamelast* 
-%% *default
-
-%% this is just for some dummy text, please remove in your copy
-\usepackage{kantlipsum}
-
-%% this package allows to generate a PDF with clickable links
-\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref}
-%% you must load the hyperref package yourself, to allow putting it
-%% in the correct order with the other packages you load!
-
-%% You may want to use common fonts such as arial (still within house style)
-%%\setsansfont{Arial}[
-%%BoldFont           = {Arial},
-%%BoldFeatures       = {FakeBold=2.5},
-%%ItalicFont         = {Arial},
-%%ItalicFeatures     = {FakeSlant=0.15},
-%%BoldItalicFont     = {Arial},
-%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-%%]
-
-%% Use this package if you need to provide a twocolumn summary at the
-%% start of your document.
-\usepackage{multicol}
-
-%% specify your degree and doctype (dissertation-ma/dissertation-ba)
-\degree{Master Of Science in Bioscience Engineering: Environmental Technology}
-\doctype{dissertation-ma}
-
-%% specify word count
-\wordcount{2501}
-%% You can also let wordcount be fetched automatically by using \wordcount{\runwordcount}
-%% But this may be inacurrate since for command only the arguments are counted, even if they expand to more words
-%% e.g. this example has a bunch of dummy text generated through \kant, but the scanned word count is only 57.
-%% And you need to enable shell escape by adding --shell-escape to your latex build command.
-
-%% set title, subtitle and author
-\title{Minimax optimisation for performance-space modelling}
-\subtitle{You can remove this subtitle}
-\author{}{Bibber, Bert}{}
-
-%% you can specify multiple supervisors, cosupervisors and external supervisors
-%% in Dutch: promotoren, copromotoren (dagelijkse begeleiders) en
-%% bedrijfspromotoren
-\supervisor{prof. dr. ir.}{Kumulus, P.}{UGent}
-\supervisor{prof. dr. ir.}{Snuffel, E.}{UGent}
-\cosupervisor{ing.}{Pienter, P.}{UGent}
-\extsupervisor{prof. dr.}{Warwinkel, H.}{TNT-Bang, N.V.}
-\tutor{ir.}{Post, Pieter}{UGent}
-%% set the academic year: keep the spaces around the dash!
-\academicyear{2026 -- 2027}
-
-%% If you have a signed copyrightpage (after extracting the one in this document),
-%% you can include it back in using
-%% \usepackage{pdfpages}
-%% \copyrightnotices{\includepdf{copyright_signed.pdf}}
-
-%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
-%% please, specify (language agnostic) begin and end date of the embargo period
-%% as first and second argument to the \tempembargo command:
-\embargotemp{21/05/2027}{20/05/2032}
-%% or if it's a full embargo, use
-%% \embargofull
-
-%% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
-%% multiple logos should be spaced 1 \gridunit
-\frontcoverlogos{\includegraphics[height=2\gridunit]{example-image-a}
-                 \hspace{\gridunit}
-                 \includegraphics[height=2\gridunit]{example-image-b}
-                 }
-
-\begin{document}
-
-%% creates the title page, remove if you don't want any
-\maketitle
-
-%% causes the first pages to be roman numbered
-\frontmatter
-
-%% sets the table of contents (automatically for you)
-\tableofcontents
-
-%% changes the numbering system to arabic and restart from 1
-\mainmatter
-
-%% Use this template if you need to provide a twocolumn summary at the
-%% start of your document. Remove it if you don't need it.
-\pagestyle{empty}
-\thispagestyle{empty}
-\chapter*{Samenvatting}
-\makeatletter
-\begin{multicols}{2}
-  [
-  \begin{center}
-    \textbf{
-      \Large\@title~\\[1ex]
-      \large \@subtitle\\[0.5ex]}
-    \printauthors{~\&~}{,~}{\translatekey{andlist}~}
-  \end{center}
-  ]
-  
-  \kant[11]
-  
-  \kant[12]
-
-  \kant [13]
-  
-  \kant [14]
-
-  \kant [15]
-  
-\end{multicols}
-\makeatother
-\pagestyle{fancy}
-
-%% a first numbered chapter
-\chapter{Inleiding}
-
-%% some fancy typeset text (see the PDF yourself)
-\insettext{Example title}{Bene vixit qui bene latuit!}
-
-%% some dummy text: remove in your copy
-\kant[1]
-
-%% a second numbered chapter
-\chapter{Onderzoeksvraag}
-
-\insetquote{As any dedicated reader can clearly see, the Ideal of
-  practical reason is a representation of
-  as far as I know, the things themselves, a vast overexaggeration.}
-
-%% a first numbered section
-\section{Het gebeuren}
-\kant[2]
-
-\begin{equation}
-  e^{-j\pi} + 1 = 0
-\end{equation}
-
-\foreach \i in {3,4,...,10} {
-\kant[\i]
-
-}
-
-\chapter{Literatuurstudie}
-
-\chapter{Theoretische achtergrond}
-
-\chapter{Eigen realisatie}
-
-\chapter{Besluit}
-
-%% changes the chapter numbering to letters and uses 'Appendix' or
-%% 'Bijlage' (in dutch) as chapter name.
-\appendix
-
-\chapter{Symbolen}
-\chapter{Referentielijst}
-
-\end{document}
-%</bama-example1> 
-%<*bama-example2> 
-\documentclass[bw,11pt,twoside,openright,surnamefirst,dutch]{ugentbama}
-%% faculty            Specifies the faculty abbreviation, can be empty*.
-%%                    Used in colouring, logos, and text.
-%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% campus             Specifies the campus, overriding UGent logo
-%%                    Options: ugent*, gugc, kortrijk
-%% neutralcolors      Uses ugent colour scheme instead of faculty colors
-%%                    Options: true, false*
-%% coverbg            Adds a coloured background area to the cover page
-%%                    Options: true, false*
-%% colormodel         Uses rgb (display) or cmyk (print) colouring
-%%                    Options: rgb*, cmyk
-%% language           Sets the document main language. Determines, i.a., logo
-%%                    and copyright language. Can be overridden locally for the text
-%%                    using \selectlanguage or \foreignlanguage (see babel package)
-%%                    Options: english* / dutch
-%% 11pt               Sets the font size to 11pt
-%% twoside            If you want a two-sided document, change to oneside if you
-%%                    want a recto only document
-%% openright          Causes you chapters to start on a right-hand page when
-%%                    your document is twosided
-%% nameformat         Format all names as "surname firstname"
-%%                    or "firstname surname"
-%%                    Options: surnamefirst, surnamelast* 
-%% *default
-
-%% this is just for some dummy text, please remove in your copy
-\usepackage{kantlipsum}
-
-%% this package allows to generate a PDF with clickable links
-\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref}
-%% you must load the hyperref package yourself, to allow putting it
-%% in the correct order with the other packages you load!
-
-%% You may want to use common fonts such as arial (still within house style)
-\setsansfont{Arial}[
-BoldFont           = {Arial},
-BoldFeatures       = {FakeBold=2.5},
-ItalicFont         = {Arial},
-ItalicFeatures     = {FakeSlant=0.15},
-BoldItalicFont     = {Arial},
-BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-]
-
-%% Use this package if you need to provide a twocolumn summary at the
-%% start of your document.
-\usepackage{multicol}
-
-%% specify your degree and doctype (dissertation-ma/dissertation-ba)
-\degree{Bachelor of Science in de Bio-ingenieurswetenschappen}
-\doctype{dissertation-ba}
-
-%% specify word count
-\wordcount{2501}
-%% You can also let wordcount be fetched automatically by using \wordcount{\runwordcount}
-%% But this may be inacurrate since for command only the arguments are counted, even if they expand to more words
-%% e.g. this example has a bunch of dummy text generated through \kant, but the scanned word count is only 57.
-%% And you need to enable shell escape by adding --shell-escape to your latex build command.
-
-%% set title, subtitle and author
-\title{Minimax optimisatie voor performantie-
-ruimtemodellering} %% either don't split titles, or do so with hyphen
-%% and a newline
-\subtitle{Deze subtitel mag je weglaten}
-\author{}{Bibber, Bert}{studentnr. xxxxxx}
-\author{}{De Bakker, Jos}{studentnr. xxxxxx}
-\author{}{Callewaert, Gerrit}{studentnr. xxxxxx}
-
-%% you can specify multiple supervisors, cosupervisors and external supervisors
-%% in Dutch: promotoren, copromotoren (dagelijkse begeleiders) en
-%% bedrijfspromotoren
-\supervisor{prof. dr. ir.}{Snuffel, E.}{UGent}
-\tutor{ir.}{Post, Pieter}{UGent}
-
-%% set the academic year: keep the spaces around the dash!
-\academicyear{2026 -- 2027}
-
-%% If you have a signed copyrightpage (after extracting the one in this document),
-%% you can include it back in using
-%% \usepackage{pdfpages}
-%% \copyrightnotices{\includepdf{copyright_signed.pdf}}
-
-%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
-%% please, specify (language agnostic) begin and end date of the embargo period
-%% as first and second argument to the \tempembargo command:
-%%\embargotemp{21/05/2027}{20/05/2032}
-%% or if it's a full embargo, use
-%% \embargofull
-
-%% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
-%% multiple logos should be spaced 1 \gridunit
-%%\frontcoverlogos{\includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
-%%                 \hspace{\gridunit}
-%%                 \includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
-%%}
-
-\begin{document}
-
-%% creates the title page, remove if you don't want any
-\maketitle
-
-%% causes the first pages to be roman numbered
-\frontmatter
-
-%% sets the table of contents (automatically for you)
-\tableofcontents
-
-%% changes the numbering system to arabic and restart from 1
-\mainmatter
-
-%% Use this template if you need to provide a twocolumn summary at the
-%% start of your document. Remove it if you don't need it.
-\pagestyle{empty}
-\thispagestyle{empty}
-\chapter*{Samenvatting}
-\makeatletter
-\begin{multicols}{2}
-[
-\begin{center}
-\textbf{
-\Large\@title~\\[1ex]
-\large \@subtitle\\[0.5ex]}
-\printauthors{~\&~}{,~}{\translatekey{andlist}~}
-\end{center}
-]
-
-\kant[11]
-
-\kant[12]
-
-\kant [13]
-
-\kant [14]
-
-\kant [15]
-
-\end{multicols}
-\makeatother
-\pagestyle{fancy}
-
-%% a first numbered chapter
-\chapter{Inleiding}
-
-%% some fancy typeset text (see the PDF yourself)
-\insettext{Example title}{Bene vixit qui bene latuit!}
-
-%% some dummy text: remove in your copy
-\kant[1]
-
-%% a second numbered chapter
-\chapter{Onderzoeksvraag}
-
-\insetquote{As any dedicated reader can clearly see, the Ideal of
-practical reason is a representation of
-as far as I know, the things themselves, a vast overexaggeration.}
-
-%% a first numbered section
-\section{Het gebeuren}
-\kant[2]
-
-\begin{equation}
-e^{-j\pi} + 1 = 0
-\end{equation}
-
-\foreach \i in {3,4,...,10} {
-\kant[\i]
-
-}
-
-\chapter{Literatuurstudie}
-
-\chapter{Theoretische achtergrond}
-
-\chapter{Eigen realisatie}
-
-\chapter{Besluit}
-
-%% changes the chapter numbering to letters and uses 'Appendix' or
-%% 'Bijlage' (in dutch) as chapter name.
-\appendix
-
-\chapter{Symbolen}
-\chapter{Referentielijst}
-
-\end{document}
-%</bama-example2> 
-% \end{verbatim}
-% 
-%
-% \subsubsection{\texttt{ugentphd}}
-%
-% \paragraph{Dutch}
-% \begin{verbatim}
-%<*phd-example1> 
-\documentclass[we,10pt,twoside,openright,surnamefirst,dutch]{ugentphd}
-%% faculty            Specifies the faculty abbreviation, can be empty*.
-%%                    Used in colouring, logos, and text.
-%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% campus             Specifies the campus, overriding UGent logo
-%%                    Options: ugent*, gugc, kortrijk
-%% neutralcolors      Uses ugent colour scheme instead of faculty colors
-%%                    Options: true, false*
-%% colormodel         Uses rgb (display) or cmyk (print) colouring
-%%                    Options: rgb*, cmyk
-%% language           Sets the document main language. Determines, i.a., logo
-%%                    and copyright language. Can be overridden locally for the text
-%%                    using \selectlanguage or \foreignlanguage (see babel package)
-%%                    Options: english* / dutch
-%% 10pt               Sets the font size to 10pt
-%% twoside            If you want a two-sided document, change to oneside if you
-%%                    want a recto only document
-%% openright          Causes you chapters to start on a right-hand page when
-%%                    your document is twosided
-%% nameformat         Format all names as "surname firstname"
-%%                    or "firstname surname"
-%%                    Options: surnamefirst, surnamelast* 
-%% cameraready        Embeds the official 24 cm x 18 cm into an A4 page and
-%%                    trigger alignment marks and cut-lines for your printing service
-%%                    This will also apply to the generated bookcover file.
-%%                    Options: true, false*
-%% bare               Removes front and back cover. Many
-%%                    print services require this format for the contents.
-%%                    Options: true, false*
-%% thumbs             Adds chapter thumbs to the side of the pages
-%%                    Options: true*, false
-%% *default
-
-%% You may want to use common fonts such as arial (still within house style)
-%% If you override font here, you also need to adjust it in the bookcover file!
-\setsansfont{Arial}[
-BoldFont           = {Arial},
-BoldFeatures       = {FakeBold=2.5},
-ItalicFont         = {Arial},
-ItalicFeatures     = {FakeSlant=0.15},
-BoldItalicFont     = {Arial},
-BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-]
-
-%% this is just for some dummy text, please remove in your copy
-\usepackage{kantlipsum}
-
-%% this package allows to generate a PDF with clickable links
-\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref} 
-%% you must load the hyperref package yourself, to allow putting it
-%% in the correct order with the other packages you load!
-
-%% set title, subtitle and author and their title, affilliation and
-%% address 
-\title{Harmonische Signaalanalyse\\met Lineaire
-  Operatoren}
-\subtitle{Waarom moeten titels van doctoraatsproefschriften toch altijd
-  lang en onverstaanbaar zijn?}
-\author{Ir.}{Hoekaff, Theofiel}{\\Universiteit Gent\\
-Faculteit Wetenschappen\\
-Vakgroep Plantenbiotechnologie en Bio-informatica}
-\address{K.L. Ledeganckstraat 35, 9000 Gent, Belgi\"e\\
-  M: theofiel.hoekaff@ugent.be\\
-  T: +32 9 264 51 19
-}
-
-%% specify your supervisors and their affiliation
-\supervisor{prof. dr.}{Vlaams, W.}{Universiteit Gent, Belgi\"e}
-\supervisor{prof. dr.}{Stekker, J.}{Universiteit Gent, Belgi\"e}
-
-%% specify the chairman of the jury and his/her/their affiliation
-\jurychair{prof. dr.}{Dalinckx, P.}{Universiteit Gent, Belgi\"e}
-
-%% specify the memers of the jury and their affiliations
-\jurymember{prof. dr.}{Dezerooder, J.}{Universiteit Gent, Belgi\"e}
-\jurymember{prof. dr.}{De Tollenaere, P.}{Flanders Make, Belgi\"e}
-\jurymember{prof. dr.}{Byr, M.}{IMEC, Nederland}
-
-%% specify the dean of the faculty and rector of Ghent University
-\dean{prof. dr.}{Decaan, Do}
-\rector{prof. dr.}{De Sutter, Petra}
-
-%% specify your degree (manually) and where and when you obtain your degree
-\degree{doctor in de plantbiotechnologie}
-\location{Gent}
-\date{21 mei 2025}
-\academicyear{2024--2025}
-
-%% specify a fancy photo for your titlepage (if you don't want a dull one)
-%%\titlepageimage{Images/ugent-oehoe}
-%% \coverdesigner{De Kat, Kroketje}
-
-%% change title colour if it clashes with your image 
-%% \letcolor{covertitlecolor}{black}
-
-%% specify your funding
-\grants{FWO PhD Fellowship strategic basic research 1SXXXXXXN}
-
-%% add different publisher logo
-\backcoverlogos{\includegraphics[height = \gridunit]{Images/logo_UniversityPress_blue}}
-
-%% if your manuscript is under full embargo, give the following command
-%% \embargofull
-
-%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
-%% please, specify begin and end date of the embargo period as first
-%% and second argument to the \tempembargo command:
-\embargotemp{21 mei 2025}{20 mei 2030}
-
-%% some data about your manuscript (if you obtained DOI/ISBN)
-%% \doi{10.1000/182}
-%% \isbn{978-9-463-57748-9}
-
-\begin{document}
-%%\raggedright %% For non-justified text
-%%\raggedbottom %% For non-filled / non-flush pages
-
-%% creates the title pages, remove if you don't want any
-\maketitle
-
-%% Creates a bookcover file \jobname-cover.tex
-%% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
-%% a caliper (paper thickness) of 0.1 mm:
-%% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
-%% If you're using a different paper type, override the spine width 
-%% in the \jobname-cover.tex file using the formula above.
-\generatebookcover
-
-%% causes the first pages to be roman numbered
-\frontmatter
-
-%% sets the table of contents (automatically for you)
-\tableofcontents
-
-%% changes the numbering system to arabic and restart from 1
-\mainmatter
-
-%% a first unnumbered chapter
-\chapter*{Inleiding}
-
-%% some dummy text, remove in your copy
-\kant[1]
-
-%% a first numbered chapter
-\chapter{Onderzoeksvraag}
-
-%% a first numbered section
-\section{Het gegeven}
-
-\kant[2]
-
-\begin{equation}
-  e^{-j\pi} + 1 = 0
-\end{equation}
-
-\kant[3-17]
-
-%% This has been temporarily commented out to increase build speed
-%% Remove comment if you want to see spine text in the auto-generated cover
-%%---------------------------------
-%%\chapter{Literatuurstudie}
-
-%%\kant[18-19]
-
-%%\chapter{Theoretische achtergrond}
-
-%%\kant[20-21]
-
-%%\foreach \i in {A,B,C,D} {
-%%  \chapter{Dummy hoofdstuk \i}
-%%  \foreach \j in {1,...,50} {
-%%    \kant[22-24]
-%%  }
-%%}
-
-%%\chapter{Eigen realisatie}
-
-%%\chapter{Besluit}
-
-%%\kant[25]
-%%---------------------------------
-
-%% change the chapter numbering to letters and uses 'Appendix' or
-%% 'Bijlage' (in dutch) as chapter name.
-\appendix
-
-\chapter{Symbolen}
-
-\chapter{Publicaties}
-%% Put your bibliography here using BibTeX
-
-%% typeset the final page with some graphic material on it
-\makefinalpage
-
-\end{document}
-%</phd-example1> 
-% \end{verbatim}
-%
-% \paragraph{English}
-% \begin{verbatim}
-%<*phd-example2> 
-\documentclass[bw,10pt,twoside,openright,cameraready]{ugentphd}
-%% faculty            Specifies the faculty abbreviation, can be empty*.
-%%                    Used in colouring, logos, and text.
-%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% campus             Specifies the campus, overriding UGent logo
-%%                    Options: ugent*, gugc, kortrijk
-%% neutralcolors      Uses ugent colour scheme instead of faculty colors
-%%                    Options: true, false*
-%% colormodel         Uses rgb (display) or cmyk (print) colouring
-%%                    Options: rgb*, cmyk
-%% language           Sets the document main language. Determines, i.a., logo
-%%                    and copyright language. Can be overridden locally for the text
-%%                    using \selectlanguage or \foreignlanguage (see babel package)
-%%                    Options: english* / dutch
-%% 10pt               Sets the font size to 10pt
-%% twoside            If you want a two-sided document, change to oneside if you
-%%                    want a recto only document
-%% openright          Causes you chapters to start on a right-hand page when
-%%                    your document is twosided
-%% nameformat         Format all names as "surname firstname"
-%%                    or "firstname surname"
-%%                    Options: surnamefirst, surnamelast* 
-%% cameraready        Embeds the official 24 cm x 18 cm into an A4 page and
-%%                    trigger alignment marks and cut-lines for your printing service
-%%                    This will also apply to the generated bookcover file.
-%%                    Options: true, false*
-%% bare               Removes front and back cover. Many
-%%                    print services require this format for the contents.
-%%                    Options: true, false*
-%% thumbs             Adds chapter thumbs to the side of the pages
-%%                    Options: true*, false
-%% *default
-
-%% You may want to use common fonts such as arial (still within house style)
-%%\setsansfont{Arial}[
-%%BoldFont           = {Arial},
-%%BoldFeatures       = {FakeBold=2.5},
-%%ItalicFont         = {Arial},
-%%ItalicFeatures     = {FakeSlant=0.15},
-%%BoldItalicFont     = {Arial},
-%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-%%]
-
-%% this is just for some dummy text, please remove in your copy
-\usepackage{kantlipsum}
-
-%% this package allows to generate a PDF with clickable links
-\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref} 
-%% you must load the hyperref package yourself, to allow putting it
-%% in the correct order with the other packages you load!
-
-%% set title, subtitle
-\title{Harmonic Signal analysis\\based on Linear Operators}
-\subtitle{How did Mindy linearly kill Mork's IC signal analyzer?}
-
-%% Add title and subtitle in dutch for the data page
-\titel{Harmonische Signaalanalyse\\met behulp van Lineaire
-  Operatoren}
-\subtitel{Waarom moeten titels van doctoraatsproefschriften toch altijd
-  lang en onverstaanbaar zijn?}
-
-%% specify the author and their title, affilliation and address
-\author{}{Edgeoff, Theodore}{\\Ghent University\\
-Faculty of Bioscience Engineering\\
-Department of Biotechnology}
-\address{Frieda Saeysstraat 1, 9052 Gent, Belgi\"e\\
-  M: theofiel.hoekaff@ugent.be\\
-  T: +32 9 264 51 19
-}
-
-%% specify your supervisors and their affiliation
-\supervisor{prof. dr.}{Vlaams, W.}{Ghent University, Belgium}
-\supervisor{prof. dr.}{Stekker, J.}{Ghent University, Belgium}
-
-%% specify the chairman of the jury and his/her/their affiliation
-\jurychair{prof. dr.}{Dalinckx, P.}{Ghent University, Belgium}
-
-%% specify the memers of the jury and their affiliations
-\jurymember{prof. dr.}{Dezerooder, J.}{Ghent University, Belgium}
-\jurymember{prof. dr.}{De Tollenaere, P.}{Flanders Make, Belgium}
-\jurymember{prof. dr.}{Byr, M.}{IMEC, The Netherlands}
-
-%% specify the dean of the faculty and rector of Ghent University
-\dean{prof. dr.}{Decaan, Do}
-\rector{prof. dr.}{De Sutter, Petra}
-
-%% specify your degree (manually) and where and when you obtain your degree
-\degree{doctor in Bioscience Engineering}
-\location{Ghent}
-\date{May 24, 2025}
-
-%% specify a fancy photo for your coverpage and the designer (if you don't want a dull one)
-\titlepageimage{Images/ugent-oehoe}
-\coverdesigner{De Kat, Kroketje}
-
-%% change title colour if it clashes with your image 
-%% \letcolor{covertitlecolor}{black}
-
-%% specify your funding
-\grants{FWO PhD Fellowship strategic basic research 1SXXXXXXN}
-
-%% add different publisher logo
-\backcoverlogos{\includegraphics[height = \gridunit]{Images/logo_UniversityPress_blue}}
-
-%% if your manuscript is under full embargo, give the following command
-\embargofull
-
-%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
-%% please, specify begin and end date of the embargo period as first
-%% and second argument to the \tempembargo command:
-%% \embargotemp{May 24, 2025}{May 23, 2030}
-
-%% some data about your manuscript  (if you obtained DOI/ISBN)
-%% \doi{10.1000/182}
-\isbn{978-9-463-57748-9}
-
-\begin{document}
-\raggedright %% For non-justified text
-\raggedbottom %% For non-filled / non-flush pages
-
-%% creates the title page, remove if you don't want any
-\maketitle
-
-%% Creates a bookcover file \jobname-cover.tex
-%% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
-%% a caliper (paper thickness) of 0.1 mm:
-%% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
-%% If you're using a different paper type, override the spine width 
-%% in the \jobname-cover.tex file using the formula above.
-\generatebookcover
-
-%% causes the first pages to be roman numbered
-\frontmatter
-
-%% sets the table of contents (automatically for you)
-\tableofcontents
-
-%% changes the numbering system to arabic and restart from 1
-\mainmatter
-
-%% a first unnumbered chapter
-\chapter*{Introduction}
-
-%% some dummy text, remove in your copy
-\kant[1]
-
-%% a first numbered chapter
-\chapter{Research question}
-
-%% a first numbered section
-\section{The datum}
-\kant[2]
-
-\begin{equation}
-  e^{-j\pi} + 1 = 0
-\end{equation}
-
-\kant[3-17]
-
-%% This has been temporarily commented out to increase build speed
-%% Remove comment if you want to see spine text in the auto-generated cover
-%%---------------------------------
-%%\chapter{Literature review}
-%%\kant[18-19]
-
-%%\chapter{Theoretical background}
-%%\kant[20-21]
-
-%%\chapter{Technical results}
-%%\kant[22-24]
-
-%%\foreach \i in {A,B,C,D,E} {
-%%\chapter{Dummy chapter \i}
-%%\foreach \j in {1,...,50} {
-%%\kant[22-24]
-%%}
-%%}
-
-%%\chapter{Conclusion}
-%%\kant[25]
-%%---------------------------------
-
-%% change the chapter numbering to letters and uses 'Appendix' or
-%% 'Bijlage' (in dutch) as chapter name.
-\appendix
-
-\chapter{Symbols}
-
-%% Put your bibliography here using BibTeX
-
-%% typeset the final page with some graphic material on it
-\makefinalpage
-
-\end{document}
-%</phd-example2> 
-% \end{verbatim}
-%
-% \subsubsection{\texttt{ugentreport}}
-%
-% \begin{verbatim}
-%<*rp-example1>
-\documentclass[bw,10pt,twoside,openright,dutch,coverbg]{ugentreport}
-%% faculty            Specifies the faculty abbreviation, can be empty*.
-%%                    Used in colouring, logos, and text.
-%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% campus             Specifies the campus, overriding UGent logo
-%%                    Options: ugent*, gugc, kortrijk
-%% neutralcolors      Uses ugent colour scheme instead of faculty colors
-%%                    Options: true, false*
-%% coverbg            Adds a coloured background area to the cover page
-%%                    Options: true, false*
-%% colormodel         Uses rgb (display) or cmyk (print) colouring
-%%                    Options: rgb*, cmyk
-%% language           Sets the document main language. Determines, i.a., logo
-%%                    and copyright language. Can be overridden locally for the text
-%%                    using \selectlanguage or \foreignlanguage (see babel package)
-%%                    Options: english* / dutch
-%% 10pt               Sets the font size to 10pt
-%% twoside            If you want a two-sided document, change to oneside if you
-%%                    want a recto only document
-%% openright          Causes you chapters to start on a right-hand page when
-%%                    your document is twosided
-%% nameformat         Format all names as "surname firstname"
-%%                    or "firstname surname"
-%%                    Options: surnamefirst, surnamelast* 
-%% copyright          Prints a copyright watermark
-%%                    Options: true, false*
-%% *default
-
-%% You may want to use common fonts such as arial (still within house style)
-%%\setsansfont{Arial}[
-%%BoldFont           = {Arial},
-%%BoldFeatures       = {FakeBold=2.5},
-%%ItalicFont         = {Arial},
-%%ItalicFeatures     = {FakeSlant=0.15},
-%%BoldItalicFont     = {Arial},
-%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-%%]
-
-%% this is just for some dummy text, please remove in your copy
-\usepackage{kantlipsum}
-
-%% this package allows to generate a PDF with clickable links
-\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref} 
-%% you must load the hyperref package yourself, to allow putting it
-%% in the correct order with the other packages you load!
-
-%% set title, subtitle, extra subtitle, and contact information
-\title{<Titel>}
-\subtitle{<Opdracht>}
-\extra{<Vak>}
-
-\author{}{Bibber, Bert}{studentnr. xxxxxx}
-\author{}{De Bakker, Jos}{studentnr. xxxxxx}
-\author{}{Callewaert, Gerrit}{studentnr. xxxxxx}
-
-\academicyear{2026--2027}
-
-\lecturer{prof. dr.}{Vlaams, W.}{Ghent University, Belgium}
-\lecturer{prof. dr.}{Stekker, J.}{Ghent University, Belgium}
-
-%% skip copyrightnotices (replace with empty)
-%%\copyrightnotices{}
-
-
-\begin{document}
-
-%% creates the title page, remove if you don't want any
-\maketitle
-
-%% causes the first pages to be roman numbered
-\frontmatter
-
-%% sets the table of contents (automatically for you)
-\tableofcontents
-
-%% changes the numbering system to arabic and restart from 1
-\mainmatter
-
-%% a first unnumbered chapter
-\chapter*{Samenvatting}
-%% some dummy text, remove in your copy
-\kant[1]
-
-%% a first numbered chapter
-\chapter{Procesbeschrijving}
-
-%% a first numbered section
-\section{Overzicht waterzuivering}
-\kant[2]
-
-\begin{equation}
-e^{-j\pi} + 1 = 0
-\end{equation}
-
-\kant[3-17]
-
-\chapter{Berekeningen}
-\kant[18-19]
-
-\chapter{Discussie}
-\kant[20-21]
-
-\chapter{Conclusies}
-\kant[22-24]
-
-
-%% change the chapter numbering to letters and uses 'Appendix' or
-%% 'Bijlage' (in dutch) as chapter name.
-\appendix
-
-\chapter{Meetreeksen waterzuivering}
-
-\chapter{Extra info}
-
-%% typeset the final page
-\makefinalpage
-
-\end{document}
-%</rp-example1> 
-%<*rp-example2>
-\documentclass[10pt,oneside,openany]{ugentreport}
-%% faculty            Specifies the faculty abbreviation, can be empty*.
-%%                    Used in colouring, logos, and text.
-%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% campus             Specifies the campus, overriding UGent logo
-%%                    Options: ugent*, gugc, kortrijk
-%% neutralcolors      Uses ugent colour scheme instead of faculty colors
-%%                    Options: true, false*
-%% coverbg            Adds a coloured background area to the cover page
-%%                    Options: true, false*
-%% colormodel         Uses rgb (display) or cmyk (print) colouring
-%%                    Options: rgb*, cmyk
-%% language           Sets the document main language. Determines, i.a., logo
-%%                    and copyright language. Can be overridden locally for the text
-%%                    using \selectlanguage or \foreignlanguage (see babel package)
-%%                    Options: english* / dutch
-%% 10pt               Sets the font size to 10pt
-%% twoside            If you want a two-sided document, change to oneside if you
-%%                    want a recto only document
-%% openright          Causes you chapters to start on a right-hand page when
-%%                    your document is twosided
-%% nameformat         Format all names as "surname firstname"
-%%                    or "firstname surname"
-%%                    Options: surnamefirst, surnamelast* 
-%% copyright          Prints a copyright watermark
-%%                    Options: true, false*
-%% *default
-
-%% You may want to use common fonts such as arial (still within house style)
-\setsansfont{Arial}[
-BoldFont           = {Arial},
-BoldFeatures       = {FakeBold=2.5},
-ItalicFont         = {Arial},
-ItalicFeatures     = {FakeSlant=0.15},
-BoldItalicFont     = {Arial},
-BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-]
-
-%% this is just for some dummy text, please remove in your copy
-\usepackage{kantlipsum}
-
-%% this package allows to generate a PDF with clickable links
-\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref} 
-%% you must load the hyperref package yourself, to allow putting it
-%% in the correct order with the other packages you load!
-
-%% set title, subtitle, extra subtitle, and contact information
-\title{<Title>}
-\subtitle{<Subtitle or project number>}
-\extra{<additional text to title>}
-
-\email{firstname.name}{ugent.be}
-\phone{+32 9 000 00 00}
-\mobile{+32 400 00 00 00}
-\address{
-    <Faculty \ldots>\\
-    <Department or Office \ldots>\\
-    <Research group \ldots>
-        \newline\newline
-        \begin{tabular}{ll}
-    E: &\printemails{ | }{ | }{ | }\\
-    T: &\printphones{ | }{ | }{ | }\\
-    M: &\printmobiles{ | }{ | }{ | }
-        \end{tabular}
-        \newline\newline
-    <Campus \ldots, building \ldots>\\
-    <Street 123 c >, <0000 City>
-        \newline\newline
-    \href{https://www.ugent.be}{www.ugent.be}
-}
-
-%% year in which the report appears
-\year=2026
-
-%% skip copyrightnotices (replace with empty)
-\copyrightnotices{}
-
-
-\begin{document}
-
-%% creates the title page, remove if you don't want any
-\maketitle
-
-%% causes the first pages to be roman numbered
-\frontmatter
-
-%% report data page
-\textcolor{titlecolor}{\uppercase{%
-Date}}\\
-\today
-
-\textcolor{titlecolor}{\uppercase{%
-Location}}\\
-\makeatletter
-\@location
-\makeatother
-
-\textcolor{titlecolor}{\uppercase{%
-Attendees}}\\
-< names separated by commas>
-
-\textcolor{titlecolor}{\uppercase{%
-Excused}}\\
-< names separated by commas>
-
-\textcolor{titlecolor}{\uppercase{%
-Chair}}\\
-< chair>
-
-\textcolor{titlecolor}{\uppercase{%
-Minute taker}}\\
-< minute taker>
-
-
-%% sets the table of contents (automatically for you)
-\tableofcontents
-
-%% changes the numbering system to arabic and restart from 1
-\mainmatter
-
-%% a first unnumbered chapter
-\chapter*{Inleiding}
-%% some dummy text, remove in your copy
-\kant[1]
-
-%% a first numbered chapter
-\chapter{Summary}
-
-%% a first numbered section
-\section{First chapter}
-\kant[2]
-
-\begin{equation}
-  e^{-j\pi} + 1 = 0
-\end{equation}
-
-\kant[3-17]
-
-\chapter{Second chapter}
-\kant[18-19]
-
-\chapter{Third chapter}
-\kant[20-21]
-
-\chapter{Fourth chapter}
-\kant[22-24]
-
-%% change the chapter numbering to letters and uses 'Appendix' or
-%% 'Bijlage' (in dutch) as chapter name.
-\appendix
-
-\chapter{First Appendix}
-
-\chapter{Second Appendix}
-
-%% typeset the final page
-\makefinalpage
-
-\end{document}
-%</rp-example2> 
-% \end{verbatim}
-%
-%
-% \subsubsection{\texttt{ugentletter}}
-% 
-% \paragraph{Plain example}
-%
-% \begin{verbatim}
-%<*le-example> 
-\documentclass[bw]{ugentletter}
-%% faculty            Specifies the faculty abbreviation, can be empty*.
-%%                    Used in colouring, logos, and text.
-%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% campus             Specifies the campus, overriding UGent logo
-%%                    Options: ugent*, gugc, kortrijk
-%% neutralcolors      Uses ugent colour scheme instead of faculty colors
-%%                    Options: true, false*
-%% colormodel         Uses rgb (display) or cmyk (print) colouring
-%%                    Options: rgb*, cmyk
-%% language           Sets the document main language. Determines, i.a., logo
-%%                    and copyright language. Can be overridden locally for the text
-%%                    using \selectlanguage or \foreignlanguage (see babel package)
-%%                    Options: english* / dutch
-%% 11pt               Sets the font size to 11pt
-%% twoside            If you want a two-sided document, change to oneside if you
-%%                    want a recto only document
-%% nameformat         Format all names as "surname firstname"
-%%                    or "firstname surname"
-%%                    Options: surnamefirst, surnamelast* 
-%% foldline           Prints a fold line at 2/3 page height
-%%                    Options: true*, false
-%% *default
-
-%% You may want to use common fonts such as arial (still within house style)
-\setsansfont{Arial}[
-BoldFont           = {Arial},
-BoldFeatures       = {FakeBold=2.5},
-ItalicFont         = {Arial},
-ItalicFeatures     = {FakeSlant=0.15},
-BoldItalicFont     = {Arial},
-BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-]
-
-%% this is just for some dummy text, please remove in your copy
-\usepackage{kantlipsum}
-
-%% provide info on who sensd the letter, you can put this in a
-%% configuration file, see the documentation of the letter class!
-\sender{ir.~Seppe Ongena}{PhD Student}
-
-%% override department (if needed for e.g. UGent university services, GUGC, etc.)
-%% \department{Directie ICT}
-\unit{TRASLAB}
-\address{
-  CAPTURE building\\
-  Frieda Saysstraat 1\\
-  9052 Ghent\\
-  BELGIUM}
-\email{seppe.ongena}{ugent.be}
-\phone{+32 3 265 98 43}
-\mobile{+32 499 355 115}
-
-%% set a return address
-\returnaddress{UGent-CAPTURE -- Frieda Saeysstraat 1, 9052 Ghent, BELGIUM}
-
-%% provide some details on who you want to write to
-\to{prof.~B.~Bonette}
-\toorganization{Mumford University}
-\toaddress{
-  450 Morning Mall\\
-  Mumford, DX 94305-2004\\
-  USA}
-
-%% a proper letter mentions a date of writing and a subject
-\date{January 3, 2026}
-\subject{Congratulations for online video lectures}
-
-\begin{document}
-%% This puts all logo's / address / subject where it needs to be
-\maketitle
-
-%% be polite when starting a letter, and address your audience
-\opening{Dear prof.~Bonette,}
-
-I'd like to congratulate you and the other professors of your
-university on the very instructive video lectures
-provided by your University. They are valued very
-highly. 
-
-You inspired many a professor at our university to provide more
-technical content beyond classical paper courses.
-Based on your inspiring lectures, some students desire to candidate
-themselves for taking an internship at your university. You can find
-their details enclosed.
-
-%% Below, you can find a few more dummy paragraphs to illustrate that
-%% this class can generate multipage letters.
-\kant[1-3]
-
-%% time to say goodbye
-\closing{Kind regards,}
-
-%% you might want to insert a signature picture or text.
-%% \signature{\includegraphics{signature.jpg}}
-
-%% you can also remove the signature space altogether:
-%% \signature{}
-
-%% add the reference
-\reference{2608001}
-
-%% mention who receives a copy of this letter if needed
-\carboncopy{prof.~S.~Mariotte, Mumford University}
-
-%% specify what extras can be found in the envelope if needed
-\enclosed{
-  \begin{enumerate}
-  \item list of course numbers that are most fequently viewed at
-    our university (1pp)
-  \item a list of students desiring to take an internship at
-    Mumford University (2pp)
-  \end{enumerate}
-}
-\closeletter
-\end{document}
-%</le-example> 
-% \end{verbatim}
-%
-% \paragraph{Example with configuration file}~\\
-%
-% Probably, one has to write many letters. The sender details will be
-% most certainly valid for many an occasion. Therefore, you might want
-% to consider putting this default setup in a configuration file,
-% e.g. \texttt{ugentletter.cfg}:
-%
-% \begin{verbatim}
-%<*le-cfg>
-%% configuration file for ugentletter class
-
-%% you can put your font setup in the configuration file!
-\iftutex
-\usepackage{cmbright}
-\usepackage{fontspec}
-\setsansfont
-[UprightFont = *,
- BoldFont = *b,
- ItalicFont = *i,
- BoldItalicFont = *z,
-]
-{calibri}
-\usepackage{sansmathaccent}
-\fi
-
-%% as you probably will always be the sender of your letters,
-%% put this info in the configuration file too.
-\sender{prof.~Walter Daems}{Senior Lecturer}
-\unit{Cosys-Lab}
-\address{
-  Campus Groenenborger\\
-  Groenenborgerlaan 171\\
-  B-2020 Antwerpen\\
-  BELGIUM}
-\email{walter.daems}{uantwerpen.be}
-\phone{+32 3 265 98 43}
-\mobile{+32 499 355 115}
-\returnaddress{FTI - U.301 -- Groenenborgerlaan 171, 2020 Antwerpen, BELGIUM}
-%</le-cfg>
-% \end{verbatim}
-%
-% The file can then be loaded in the preamble of your letter as follows:
-% \begin{verbatim}
-% \input{ugentletter.cfg}
-% \end{verbatim}
-%
-% After loading this configuration file, you may override some
-% elements if this is appropriate.
-%
-% You may also consider using multiple configuration files in case you
-% have multiple roles in the university. Just make sure they are on your
-% \LaTeX\ search path (most often this search path can be set with an
-% environment variable \texttt{TEXINPUTS}).
-%
-% \subsubsection{\texttt{ugentexam}}
-%
-% Below you can find two examples:
-% \begin{itemize}
-% \item A single column layout (single language) exam
-% \item A double column layout (English-Dutch) exam
-% \end{itemize}
-% If you require more language combinations, aks the author to
-% implement this.
-%
-% \paragraph{Single column}
-% \begin{verbatim}
-%<*ex-example1> 
-\documentclass[bw,a4paper,10pt, dutch]{ugentexam}
-%% faculty            Specifies the faculty abbreviation, can be empty*.
-%%                    Used in colouring, logos, and text.
-%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
-%% campus             Specifies the campus, overriding UGent logo
-%%                    Options: ugent*, gugc, kortrijk
-%% neutralcolors      Uses ugent colour scheme instead of faculty colors
-%%                    Options: true, false*
-%% colormodel         Uses rgb (display) or cmyk (print) colouring
-%%                    Options: rgb*, cmyk
-%% language           Sets the document main language. Determines, i.a., logo
-%%                    and copyright language. Can be overridden locally for the text
-%%                    using \selectlanguage or \foreignlanguage (see babel package)
-%%                    Options: english* / dutch
-%% 10pt               Sets the font size to 10pt
-%% twoside            If you want a two-sided document, change to oneside if you
-%%                    want a recto only document
-%% openright          Causes you chapters to start on a right-hand page when
-%%                    your document is twosided
-%% nameformat         Format all names as "surname firstname"
-%%                    or "firstname surname"
-%%                    Options: surnamefirst, surnamelast*
-%% examiner           Compiles an examiner version
-%%                    with watermark and "examiner version" in the headers
-%%                    Options: true, false*
-%% *default
-
-%% You may want to use common fonts such as arial (still within house style)
-%%\setsansfont{Arial}[
-%%BoldFont           = {Arial},
-%%BoldFeatures       = {FakeBold=2.5},
-%%ItalicFont         = {Arial},
-%%ItalicFeatures     = {FakeSlant=0.15},
-%%BoldItalicFont     = {Arial},
-%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-%%]
-
-%% this package eases numbering of subquestions
-\usepackage{enumitem}
-
-%% some data about your course and the authors/lecturers
-\course{1876FTIDUM}{5-Bistrologie}
-\author{}{Daems, Walter}{}     %% can be omitted if 'lecturers' are sufficient
-\lecturer{}{Daems, Walter}{}
-
-%% specify the degree of the program the course fits in
-\degree{Bachelor of Science in de industri\"ele wetenschappen -
-  elektronica-ICT}
-
-%% specify the academic year
-\academicyear{2017-2018}
-
-%% specify the particular examination form
-\exampart{Schriftelijk Examen}
-
-%% specify the group
-\examgroupnumber{1 (eerste examenkans-inhaal)}
-
-%% specify import time-related info about the exam - this will help
-%% supervisors to hand-out the correct exam copies!
-\examdate{2018-01-29}
-\examlength{4h}
-\tstart{08h30}
-\tend{12h30}
-
-%% same for the room(s), you may specify multiple!
-\room{G.U.024}
-\room{G.U.025}
-
-%% instruct your students about important details.
-%% 'firstpage' puts in on the first page, if omitted the extra info is
-%% printed on the back of the first page
-\extrainfo[firstpage]{
-  Belangrijke informatie:\\\par
-  Het volledige Onderwijs- en Examenregelement (OER) is van toepassing
-  op dit examen. 
-  Toch wil ik vooraf nog een aantal regels duidelijk stellen:
-  \begin{enumerate}
-  \item Mogen op je tafeltje aanwezig zijn:
-    (1) schrijfgerief, los d.w.z. \emph{niet} in een pennenzak (geen
-    papier; er zit examenpapier bij de opgaven), 
-    (2) je rekenmachine (zonder alfanumerieke data en zonder
-    geheugenkaarten),
-    (3) het formularium.
-  \item Volledig \emph{verboden te gebruiken}: alle apparatuur met
-    geheugen- of communicatiefunctionaliteit zoals GSM, smartphone,
-    smartwatch, muziekspeler, \ldots
-    Je tas staat vooraan in het lokaal. Hang je jas aan de kapstok of
-    leg hem bij je tas.
-  \item Schrijf je naam op het titelblad van de opgave in het daartoe
-    voorziene vak. Op de andere bladen schrijf je je naam
-    \emph{niet}. Je examenopgave heeft een uniek nummer dat toelaat het
-    te identificeren.
-  \item Op het einde van het examen geef je \emph{alle} bladen weer af
-    aan de aanwezige docent.
-  \end{enumerate}
-  Succes!
-}
-
-%% if you make a copy per student, you can provide a number on the copy
-\studentnr{127}
-
-%% set the multiple choice symbol you fancy
-\setmcsymbol{\bigcirc}
-
-
-\begin{document}
-
-%% set the title page of the exam
-\maketitle
-
-%% a first question (with an identifier that can help you remember wich
-%% question it is out of your huge database)
-\question{[VLATOP-BISTRO]}
-%% give some idea to the student about the importance of the question
-\questionweight{3}
-
-Geef de eerste vijf laureaten van de VLATOP-bistro
-competitie.
-
-%% a second question
-\question{[BECHAMEL]}
-\questionweight{7}
-
-Welk van de onderstaande ingredi\"enten hoort niet thuis in
-een b\'echamel saus:
-
-%% this is how you specify the multiple choice answering options
-\mc{Melk}
-\mc{Boter}
-\mc{Bloem}
-\mc{Eieren}
-\mc{Suiker}
-
-%% you can insert some pages for the studen to write his/her answers
-%% on.
-%% a. below the question, in this case for the remaining 11.5cm on the page
-\insertsolutionspagepartial{11.5}
-
-%% b. a full page
-\insertsolutionspage{}
-\clearpage
-
-%% a third question
-\question{[BISTROCULTURE-1]}
-\questionweight{10}
-
-%% the option of the enumerate environment is thanks to the enumitem package
-\begin{enumerate}[label=\alph*)]
-\item Bespreek de evolutie van de Noord-Europese bistrocultuur
-  gedurende de laatste vijftig jaar.
-\item Breng dit in relatie tot de
-  opkomst van de georganiseerde recensies zoals die van Michelin en
-  Gault-Millau.
-\end{enumerate}
-
-%% you can insert some pages for the studen to write his/her answers
-%% on.
-%% a. below the question, in this case for the remaining 23cm on the page
-\insertsolutionspagepartial{23}
-
-%% b. full pages: 3 in this case
-\foreach \i in {1,2,3} {
-  \insertsolutionspage{}
-}
-
-%% c. special 'scrap' pages with a watermark on them: two in this case
-\foreach \i in {1,2} {
-  \insertsolutionspage{Kladpapier}
-}
-\end{document}
-%</ex-example1>
-% \end{verbatim}
-%
-% \paragraph{Two columns}
-%
-% This might be of use to professors that teach courses in English in
-% a Dutch program, you then can make a bilingual exam. This makes you
-% 100\% compliant to the very restrictive Flemish language
-% legislation.
-%
-% \begin{verbatim}
-%<*ex-example2> 
-\documentclass[bw,a4paper,10pt]{ugentexam}
-
-%% ti           specifies the department, change to the letter combination of
-%%              your department
-%% a4paper      specifies the paper format
-%% 10pt         students have good eyes, they still can read 10pt fonts
-%% dutch        (or english) sets the document main language. Determines logo
-%%              and copyright etc. language. Can be overridden locally for the text
-%%              using \selectlanguage or \foreignlanguage (see babel package)
-
-%% You may want to use common fonts such as arial (still within house style)
-%%\setsansfont{Arial}[
-%%BoldFont           = {Arial},
-%%BoldFeatures       = {FakeBold=2.5},
-%%ItalicFont         = {Arial},
-%%ItalicFeatures     = {FakeSlant=0.15},
-%%BoldItalicFont     = {Arial},
-%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-%%]
-
-%% this package eases numbering of subquestions
-\usepackage{enumitem}
-
-%% some data about your course and the authors/lecturers
-\course{1876FTIDUM}{5-Bistrology}
-\lecturer{}{Daems, Walter}{}
-\lecturer{}{Levrie, Paul}{}
-
-%% specify the degree of the program the course fits in
-\degree{Bachelor of Science in de industri\"ele wetenschappen - elektronica-ICT}
-
-%% specify the academic year
-\academicyear{2017-2018}
-
-%% specify the particular examination form
-\exampart{Written Exam}
-
-%% specify the group
-\examgroupnumber{1 (eerste examenkans-inhaal)}
-
-%% specify import time-related info about the exam - this will help
-%% supervisors to hand-out the correct exam copies!
-\examdate{2018-01-29}
-\examlength{4h}
-\tstart{08h30}
-\tend{12h30}
-
-%% same for the room(s)
-\room{G.U.025}
-\room{G.U.026}
-
-%% instruct your students about important details.
-%% 'firstpage' puts in on the first page, if omitted the extra info is
-%% printed on the back of the first page
-\extrainfo{
-  %% the engdut command allows you to specify a left column in english
-  %% and right column in dutch
-  %% use multiple engdut-environments to keep the page flow synchronized
-  \engdut{
-    Important information:\\\par
-    The Education and Examination Regulations (EER) hold for this
-    examination in full.
-    However, before starting, I'd like to set some rules straight:
-  }
-  {
-    Belangrijke informatie:\\\par
-    Het volledige Onderwijs- en Examenregelement (OER) is van toepassing
-    op dit examen. 
-    Toch wil ik vooraf nog een aantal regels duidelijk stellen:
-  }
-  
-  \engdut{
-    \begin{itemize}
-    \item \emph{Can be used:} (1) writing gear (\emph{not} in a pencil
-      case); you don't need paper; there's plenty of paper in your exam
-      copy;
-      (2) your calculator (without alphanumerical data and without memory
-      cards); (3) the formula collection.
-    \end{itemize}
-  }
-  {
-    \begin{itemize}
-    \item Mogen op je tafeltje aanwezig zijn:
-      (1) schrijfgerief, los d.w.z. \emph{niet} in een pennenzak (geen
-      papier; er zit examenpapier bij de opgaven), 
-      (2) je rekenmachine (zonder alfanumerieke data en zonder
-      geheugenkaarten),
-      (3) het formularium.
-    \end{itemize}
-  }
-  
-  \engdut{
-    \begin{itemize}
-    \item \emph{May not be used:} all equipment with memory or
-      communications facilities, like cell phones, smart phones, smart
-      watches, music players, \ldots
-      Your bag must be put in the front of the room. Put your coat on the
-      hallstand or next to your bag.
-    \end{itemize}
-  }
-  {
-    \begin{itemize}
-    \item Volledig \emph{verboden te gebruiken}: alle apparatuur met
-      geheugen- of communicatiefunctionaliteit zoals GSM, smartphone,
-      smartwatch, muziekspeler, \ldots
-      Je tas staat vooraan in het lokaal. Hang je jas aan de kapstok of
-      leg hem bij je tas.
-    \end{itemize}
-  }
-  
-  \engdut{
-    \begin{itemize}
-    \item Write your name on the title page. Don't write your name on
-      the subsequent pages. Your copy has a unique number to identify it
-      as yours.
-    \end{itemize}
-  }
-  {
-    \begin{itemize}
-    \item Schrijf je naam op het titelblad van de opgave in het daartoe
-      voorziene vak. Op de andere bladen schrijf je je naam
-      \emph{niet}. Je examenopgave heeft een uniek nummer dat toelaat het
-      te identificeren.
-    \end{itemize}
-  }
-  
-  \engdut{
-    \begin{itemize}
-    \item Take your time to \emph{answer all questions in writing}. The
-      point weights are listed above every question. Be complete in your
-      answer, but stick to the point. Take into account the available time.
-    \end{itemize}
-  }
-  {
-    \begin{itemize}
-    \item Neem je tijd om \emph{alle vragen schriftelijk te
-        beantwoorden}. Het puntengewicht van een vraag is bovenaan de vraag
-      op de opgavebladen vermeld. Wees volledig in je antwoord, maar ter
-      zake. Houd rekening met de beschikbare tijd.
-    \end{itemize}
-  }
-  
-  \engdut{
-    \begin{itemize}
-    \item Hand in \emph{all} papers to the staff member on duty, at the
-      end of the examination.
-    \end{itemize}
-    Success!
-  }
-  {
-    \begin{itemize}
-    \item Op het einde van het examen geef je \emph{alle} bladen weer af
-      aan de aanwezige docent.
-    \end{itemize}
-    Succes!
-  }
-  \clearpage
-}
-
-%% if you make a copy per student, you can provide a number on the copy
-\studentnr{29}
-
-\begin{document}
-
-%% set the title page of the exam
-\maketitle
-
-%% a first question (with an identifier that can help you remember wich
-%% question it is out of your huge database)
-\question{[VLATOP-BISTRO]}
-%% give some idea to the student about the importance of the question
-\questionweight{3}
-
-%% typeset the question in two columns
-\engdut{
-  Write down the first five laureates of the VALTOP-bistro competition.
-}
-{
-  Geef de eerste vijf laureaten van de VLATOP-bistro
-  competitie.
-}
-
-%% a second question
-\question{[BECHAMEL]}
-\questionweight{7}
-
-\engdut{
-  Which of the ingredients below does not belong in a b\'echamel
-  sauce:
-}
-{
-  Welk van de onderstaande ingredi\"enten hoort niet thuis in
-  een b\'echamel saus:
-}
-
-%% this is how you specify multipel choice answering options in two languages
-\engdutmc{Milk}{Melk}
-\engdutmc{Butter}{Boter}
-\engdutmc{Flower}{Bloem}
-\engdutmc{Eggs}{Eieren}
-\engdutmc{Sugar}{Suiker}
-
-%% you can insert some pages for the studen to write his/her answers
-%% on.
-%% a. below the question, in this case for the remaining 19.5cm on the page
-\insertsolutionspagepartial{19.5}
-
-%% b. a full page
-\insertsolutionspage{}
-
-\clearpage
-
-%% a third questoin
-\question{[BISTROCULTURE-1]}
-\questionweight{10}
-
-\engdut{
-%% the option of the enumerate environment is thanks to the enumitem package
-  \begin{enumerate}[label=\alph*)]
-  \item Discuss the evolution of the Northern European bistro culture during
-    the latest fifty years.
-  \item Relate this to the rise of organized reviews
-    like the ones of Michelin and Gault-Millau.
-  \end{enumerate}
-}
-{
-  \begin{enumerate}[label=\alph*)]
-  \item Bespreek de evolutie van de Noord-Europese bistrocultuur
-    gedurende de laatste vijftig jaar.
-  \item Breng dit in relatie tot de
-    opkomst van de georganiseerde recensies zoals die van Michelin en
-    Gault-Millau.
-  \end{enumerate}
-}
-
-%% you can insert some pages for the studen to write his/her answers
-%% on.
-%% a. below the question, in this case for the remaining 22.5cm on the page
-\insertsolutionspagepartial{22.5}
-
-%% b. full pages: 3 in this case
-\foreach \i in {1,2,3} {
-  \insertsolutionspage{}
-}
-
-%% c. special 'scrap' pages with a watermark on them: two in this case
-\foreach \i in {1,2} {
-  \insertsolutionspage{Scrap/Klad}
-}
-\end{document}
-%</ex-example2>
-% \end{verbatim}
-%
-% \StopEventually{\clearpage\PrintChanges\clearpage\PrintIndex}
 % 
 % \newgeometry{left=1.75cm,right=1.75cm,top=2cm,bottom=2.5cm}
 % \section{Implementation of the classes}
@@ -7203,6 +5311,1900 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 }
 %</crs|bama|phd|rp> 
 %    \end{macrocode}
+
+ \clearpage
+% \newgeometry{left=3cm,right=2cm,top=2cm,bottom=2.5cm}
+% \subsection{Examples}
+%
+% Below you can find an example for every class. They also serve as
+% their quickstart documentation.
+%
+% Remember to
+% \begin{itemize}
+	% \item use modern compiler: no pdf\LaTeX{}, use \LuaLaTeX{} instead!
+	% \item compile your source file twice.
+	% \end{itemize}
+%
+% Especially in the beamer theme some features require to run \LaTeX{}
+% twice in order to get the position of some elements correct.
+%
+% In many of the classes, you need to specify a faculty option. The
+% available faculty options are listed in a table on page \pageref{sec:classopt}.
+%
+% \subsubsection{\texttt{ugentcourse}}
+%
+% \begin{verbatim}
+%<*crs-example> 
+\documentclass[bw,11pt,twoside,openright,dutch]{ugentcourse}
+%% faculty            Specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%%                    Options: english* / dutch
+%% 11pt               Sets the font size to 11pt
+%% twoside            If you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          Causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
+%% cameraready        Embeds the official 24 cm x 18 cm into an A4 page and
+%%                    trigger alignment marks and cut-lines for your printing service
+%%                    This will also apply to the generated bookcover file.
+%%                    Options: true, false*
+%% copyright          Prints a copyright watermark
+%%                    Options: true, false*
+%% bare               Removes front and back cover. Many
+%%                    print services require this format for the contents.
+%%                    Options: true, false*
+%% thumbs             Adds chapter thumbs to the side of the pages
+%%                    Options: true*, false
+%% *default
+
+%% You may want to use common fonts such as arial (still within house style)
+%%\setsansfont{Arial}[
+%%BoldFont           = {Arial},
+%%BoldFeatures       = {FakeBold=2.5},
+%%ItalicFont         = {Arial},
+%%ItalicFeatures     = {FakeSlant=0.15},
+%%BoldItalicFont     = {Arial},
+%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%%]
+
+%% make paragraphs indent
+\setlength\parindent{1in}
+%% provide a space of 1ex bewteen paragraphs
+\setlength\parskip{0ex}
+
+%% this is just for some dummy text, please remove in your copy
+\usepackage{kantlipsum}
+
+%% set title, subtitle and author
+\title{Z\'agen, zoeken en zuchten}
+\subtitle{Course unit}
+\author{}{Daems, Walter}{}
+\author{}{Levrie, Paul}{}
+
+%% better keep track of the different versions (and the corresponding
+%% publication year) of your course
+\courseversion{1.3}
+\year=2023
+
+%% mention who lectures the course (can be different from the author)
+\lecturer{}{Zo\"ekers, Zoltan}{}
+\lecturer{}{Sigh, Siana}{}
+
+%% Specify the degree(s):
+\degree{Master of Science in de industri\"ele wetenschappen: elektronica-ICT}
+
+%% you can specify multiple courses:
+%% - first  argument is the course number
+%% - second argument is the course name
+\course{2023FTIZZZ}{5-Zoekmachines in een zaagperspectief}
+\course{2045FTIIII}{6-Zaagmachines in \'e\'en zuchtperspectief}
+
+%% for which academic year the course is intended
+\academicyear{2023-2024}
+
+%% leave this as is if you use Universitas as print shop
+\publisher{Academia Press |
+Coupure Rechts 88 |
+9000 Gent |
+T +32 9 233 80 88 |
+E info@academiapress.be}
+
+%% Academia Press may provide you with a code, that you can provide on
+%% your PDF copy (if you distribute any to your students. If not, just omit.
+\publishercode{C11111102}
+
+%% you can specify additional copyright notices on the copyright page
+%% (i.e. the back of the title page)
+\extranotices{%
+The graphics in this document have been typeset using \texttt{TikZ}.\\
+This document has been \TeX-ed on a GNU/Linux workstation.
+}
+
+%% Add publisher logo
+\backcoverlogos{\includegraphics[height = 2\gridunit]{Images/logo_AcademiaPress.jpg}} % Back cover
+\frontcoverlogos{\includegraphics[height=2\gridunit]{Images/logo_AcademiaPress.jpg}} % Front cover
+
+\begin{document}
+
+%% creates the title page, remove if you don't want any
+\maketitle
+
+%% Creates a bookcover file \jobname-cover.tex
+%% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
+%% a caliper (paper thickness) of 0.1 mm:
+%% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
+%% If you're using a different paper type, override the spine width 
+%% in the \jobname-cover.tex file using the formula above.
+\generatebookcover
+
+%% causes the first pages to be roman numbered
+\frontmatter
+
+%% sets the table of contents (automatically for you)
+\tableofcontents
+
+%% changes the numbering system to arabic and restart from 1
+\mainmatter
+
+%% a non-numbered chapter
+\chapter*{Inleiding}
+%% some automatically generated bogus text: remove in your copy
+\kant[1]
+
+%% a first numbered chapter
+\chapter{Onzin voor dummies}
+
+%% a first numbered section
+\section{Het gebeuren}
+\kant[2]
+\begin{equation}
+e^{-j\pi} + 1 = 0
+\end{equation}
+
+\kant[3]
+\section{En waartoe het geleid heeft}
+
+\kant[4]
+
+\subsection{Herhaling}
+\kant[5]
+
+\subsection{Begint vervelend te worden}
+\kant[6]
+
+\clearpage
+
+\subsection{Begint echt vervelend te worden}
+\kant[7-10]
+
+\chapter{Besluit}
+
+%% changes the chapter numbering to letters and uses 'Appendix' or
+%% 'Bijlage' (in dutch) as chapter name.
+\appendix
+
+\chapter{Symbolen}
+\chapter{Romeinse sprekers}
+\chapter{Referentielijst}
+
+%% typeset the final page with some graphic material on it
+\makefinalpage
+
+\end{document}
+%</crs-example> 
+% \end{verbatim}
+% 
+% 
+% \subsubsection{\texttt{ugentbama}}
+%
+% \begin{verbatim}
+%<*bama-example1> 
+\documentclass[bw,11pt,twoside,openright,coverbg,neutralcolors]{ugentbama}
+%% faculty            Specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% coverbg            Adds a coloured background area to the cover page
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%%                    Options: english* / dutch
+%% 11pt               Sets the font size to 11pt
+%% twoside            If you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          Causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
+%% *default
+
+%% this is just for some dummy text, please remove in your copy
+\usepackage{kantlipsum}
+
+%% this package allows to generate a PDF with clickable links
+\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref}
+%% you must load the hyperref package yourself, to allow putting it
+%% in the correct order with the other packages you load!
+
+%% You may want to use common fonts such as arial (still within house style)
+%%\setsansfont{Arial}[
+%%BoldFont           = {Arial},
+%%BoldFeatures       = {FakeBold=2.5},
+%%ItalicFont         = {Arial},
+%%ItalicFeatures     = {FakeSlant=0.15},
+%%BoldItalicFont     = {Arial},
+%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%%]
+
+%% Use this package if you need to provide a twocolumn summary at the
+%% start of your document.
+\usepackage{multicol}
+
+%% specify your degree and doctype (dissertation-ma/dissertation-ba)
+\degree{Master Of Science in Bioscience Engineering: Environmental Technology}
+\doctype{dissertation-ma}
+
+%% specify word count
+\wordcount{2501}
+%% You can also let wordcount be fetched automatically by using \wordcount{\runwordcount}
+%% But this may be inacurrate since for command only the arguments are counted, even if they expand to more words
+%% e.g. this example has a bunch of dummy text generated through \kant, but the scanned word count is only 57.
+%% And you need to enable shell escape by adding --shell-escape to your latex build command.
+
+%% set title, subtitle and author
+\title{Minimax optimisation for performance-space modelling}
+\subtitle{You can remove this subtitle}
+\author{}{Bibber, Bert}{}
+
+%% you can specify multiple supervisors, cosupervisors and external supervisors
+%% in Dutch: promotoren, copromotoren (dagelijkse begeleiders) en
+%% bedrijfspromotoren
+\supervisor{prof. dr. ir.}{Kumulus, P.}{UGent}
+\supervisor{prof. dr. ir.}{Snuffel, E.}{UGent}
+\cosupervisor{ing.}{Pienter, P.}{UGent}
+\extsupervisor{prof. dr.}{Warwinkel, H.}{TNT-Bang, N.V.}
+\tutor{ir.}{Post, Pieter}{UGent}
+%% set the academic year: keep the spaces around the dash!
+\academicyear{2026 -- 2027}
+
+%% If you have a signed copyrightpage (after extracting the one in this document),
+%% you can include it back in using
+%% \usepackage{pdfpages}
+%% \copyrightnotices{\includepdf{copyright_signed.pdf}}
+
+%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
+%% please, specify (language agnostic) begin and end date of the embargo period
+%% as first and second argument to the \tempembargo command:
+\embargotemp{21/05/2027}{20/05/2032}
+%% or if it's a full embargo, use
+%% \embargofull
+
+%% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
+%% multiple logos should be spaced 1 \gridunit
+\frontcoverlogos{\includegraphics[height=2\gridunit]{example-image-a}
+\hspace{\gridunit}
+\includegraphics[height=2\gridunit]{example-image-b}
+}
+
+\begin{document}
+
+%% creates the title page, remove if you don't want any
+\maketitle
+
+%% causes the first pages to be roman numbered
+\frontmatter
+
+%% sets the table of contents (automatically for you)
+\tableofcontents
+
+%% changes the numbering system to arabic and restart from 1
+\mainmatter
+
+%% Use this template if you need to provide a twocolumn summary at the
+%% start of your document. Remove it if you don't need it.
+\pagestyle{empty}
+\thispagestyle{empty}
+\chapter*{Samenvatting}
+\makeatletter
+\begin{multicols}{2}
+[
+\begin{center}
+\textbf{
+\Large\@title~\\[1ex]
+\large \@subtitle\\[0.5ex]}
+\printauthors{~\&~}{,~}{\translatekey{andlist}~}
+\end{center}
+]
+
+\kant[11]
+
+\kant[12]
+
+\kant [13]
+
+\kant [14]
+
+\kant [15]
+
+\end{multicols}
+\makeatother
+\pagestyle{fancy}
+
+%% a first numbered chapter
+\chapter{Inleiding}
+
+%% some fancy typeset text (see the PDF yourself)
+\insettext{Example title}{Bene vixit qui bene latuit!}
+
+%% some dummy text: remove in your copy
+\kant[1]
+
+%% a second numbered chapter
+\chapter{Onderzoeksvraag}
+
+\insetquote{As any dedicated reader can clearly see, the Ideal of
+practical reason is a representation of
+as far as I know, the things themselves, a vast overexaggeration.}
+
+%% a first numbered section
+\section{Het gebeuren}
+\kant[2]
+
+\begin{equation}
+e^{-j\pi} + 1 = 0
+\end{equation}
+
+\foreach \i in {3,4,...,10} {
+\kant[\i]
+
+}
+
+\chapter{Literatuurstudie}
+
+\chapter{Theoretische achtergrond}
+
+\chapter{Eigen realisatie}
+
+\chapter{Besluit}
+
+%% changes the chapter numbering to letters and uses 'Appendix' or
+%% 'Bijlage' (in dutch) as chapter name.
+\appendix
+
+\chapter{Symbolen}
+\chapter{Referentielijst}
+
+\end{document}
+%</bama-example1> 
+%<*bama-example2> 
+\documentclass[bw,11pt,twoside,openright,surnamefirst,dutch]{ugentbama}
+%% faculty            Specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% coverbg            Adds a coloured background area to the cover page
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%%                    Options: english* / dutch
+%% 11pt               Sets the font size to 11pt
+%% twoside            If you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          Causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
+%% *default
+
+%% this is just for some dummy text, please remove in your copy
+\usepackage{kantlipsum}
+
+%% this package allows to generate a PDF with clickable links
+\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref}
+%% you must load the hyperref package yourself, to allow putting it
+%% in the correct order with the other packages you load!
+
+%% You may want to use common fonts such as arial (still within house style)
+\setsansfont{Arial}[
+BoldFont           = {Arial},
+BoldFeatures       = {FakeBold=2.5},
+ItalicFont         = {Arial},
+ItalicFeatures     = {FakeSlant=0.15},
+BoldItalicFont     = {Arial},
+BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+]
+
+%% Use this package if you need to provide a twocolumn summary at the
+%% start of your document.
+\usepackage{multicol}
+
+%% specify your degree and doctype (dissertation-ma/dissertation-ba)
+\degree{Bachelor of Science in de Bio-ingenieurswetenschappen}
+\doctype{dissertation-ba}
+
+%% specify word count
+\wordcount{2501}
+%% You can also let wordcount be fetched automatically by using \wordcount{\runwordcount}
+%% But this may be inacurrate since for command only the arguments are counted, even if they expand to more words
+%% e.g. this example has a bunch of dummy text generated through \kant, but the scanned word count is only 57.
+%% And you need to enable shell escape by adding --shell-escape to your latex build command.
+
+%% set title, subtitle and author
+\title{Minimax optimisatie voor performantie-
+ruimtemodellering} %% either don't split titles, or do so with hyphen
+%% and a newline
+\subtitle{Deze subtitel mag je weglaten}
+\author{}{Bibber, Bert}{studentnr. xxxxxx}
+\author{}{De Bakker, Jos}{studentnr. xxxxxx}
+\author{}{Callewaert, Gerrit}{studentnr. xxxxxx}
+
+%% you can specify multiple supervisors, cosupervisors and external supervisors
+%% in Dutch: promotoren, copromotoren (dagelijkse begeleiders) en
+%% bedrijfspromotoren
+\supervisor{prof. dr. ir.}{Snuffel, E.}{UGent}
+\tutor{ir.}{Post, Pieter}{UGent}
+
+%% set the academic year: keep the spaces around the dash!
+\academicyear{2026 -- 2027}
+
+%% If you have a signed copyrightpage (after extracting the one in this document),
+%% you can include it back in using
+%% \usepackage{pdfpages}
+%% \copyrightnotices{\includepdf{copyright_signed.pdf}}
+
+%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
+%% please, specify (language agnostic) begin and end date of the embargo period
+%% as first and second argument to the \tempembargo command:
+%%\embargotemp{21/05/2027}{20/05/2032}
+%% or if it's a full embargo, use
+%% \embargofull
+
+%% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
+%% multiple logos should be spaced 1 \gridunit
+%%\frontcoverlogos{\includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
+%%                 \hspace{\gridunit}
+%%                 \includegraphics[height=2\gridunit]{Images/logo_UniversityPress_blue}
+%%}
+
+\begin{document}
+
+%% creates the title page, remove if you don't want any
+\maketitle
+
+%% causes the first pages to be roman numbered
+\frontmatter
+
+%% sets the table of contents (automatically for you)
+\tableofcontents
+
+%% changes the numbering system to arabic and restart from 1
+\mainmatter
+
+%% Use this template if you need to provide a twocolumn summary at the
+%% start of your document. Remove it if you don't need it.
+\pagestyle{empty}
+\thispagestyle{empty}
+\chapter*{Samenvatting}
+\makeatletter
+\begin{multicols}{2}
+[
+\begin{center}
+\textbf{
+\Large\@title~\\[1ex]
+\large \@subtitle\\[0.5ex]}
+\printauthors{~\&~}{,~}{\translatekey{andlist}~}
+\end{center}
+]
+
+\kant[11]
+
+\kant[12]
+
+\kant [13]
+
+\kant [14]
+
+\kant [15]
+
+\end{multicols}
+\makeatother
+\pagestyle{fancy}
+
+%% a first numbered chapter
+\chapter{Inleiding}
+
+%% some fancy typeset text (see the PDF yourself)
+\insettext{Example title}{Bene vixit qui bene latuit!}
+
+%% some dummy text: remove in your copy
+\kant[1]
+
+%% a second numbered chapter
+\chapter{Onderzoeksvraag}
+
+\insetquote{As any dedicated reader can clearly see, the Ideal of
+practical reason is a representation of
+as far as I know, the things themselves, a vast overexaggeration.}
+
+%% a first numbered section
+\section{Het gebeuren}
+\kant[2]
+
+\begin{equation}
+e^{-j\pi} + 1 = 0
+\end{equation}
+
+\foreach \i in {3,4,...,10} {
+\kant[\i]
+
+}
+
+\chapter{Literatuurstudie}
+
+\chapter{Theoretische achtergrond}
+
+\chapter{Eigen realisatie}
+
+\chapter{Besluit}
+
+%% changes the chapter numbering to letters and uses 'Appendix' or
+%% 'Bijlage' (in dutch) as chapter name.
+\appendix
+
+\chapter{Symbolen}
+\chapter{Referentielijst}
+
+\end{document}
+%</bama-example2> 
+% \end{verbatim}
+% 
+%
+% \subsubsection{\texttt{ugentphd}}
+%
+% \paragraph{Dutch}
+% \begin{verbatim}
+%<*phd-example1> 
+\documentclass[we,10pt,twoside,openright,surnamefirst,dutch]{ugentphd}
+%% faculty            Specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%%                    Options: english* / dutch
+%% 10pt               Sets the font size to 10pt
+%% twoside            If you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          Causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
+%% cameraready        Embeds the official 24 cm x 18 cm into an A4 page and
+%%                    trigger alignment marks and cut-lines for your printing service
+%%                    This will also apply to the generated bookcover file.
+%%                    Options: true, false*
+%% bare               Removes front and back cover. Many
+%%                    print services require this format for the contents.
+%%                    Options: true, false*
+%% thumbs             Adds chapter thumbs to the side of the pages
+%%                    Options: true*, false
+%% *default
+
+%% You may want to use common fonts such as arial (still within house style)
+%% If you override font here, you also need to adjust it in the bookcover file!
+\setsansfont{Arial}[
+BoldFont           = {Arial},
+BoldFeatures       = {FakeBold=2.5},
+ItalicFont         = {Arial},
+ItalicFeatures     = {FakeSlant=0.15},
+BoldItalicFont     = {Arial},
+BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+]
+
+%% this is just for some dummy text, please remove in your copy
+\usepackage{kantlipsum}
+
+%% this package allows to generate a PDF with clickable links
+\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref} 
+%% you must load the hyperref package yourself, to allow putting it
+%% in the correct order with the other packages you load!
+
+%% set title, subtitle and author and their title, affilliation and
+%% address 
+\title{Harmonische Signaalanalyse\\met Lineaire
+Operatoren}
+\subtitle{Waarom moeten titels van doctoraatsproefschriften toch altijd
+lang en onverstaanbaar zijn?}
+\author{Ir.}{Hoekaff, Theofiel}{\\Universiteit Gent\\
+Faculteit Wetenschappen\\
+Vakgroep Plantenbiotechnologie en Bio-informatica}
+\address{K.L. Ledeganckstraat 35, 9000 Gent, Belgi\"e\\
+M: theofiel.hoekaff@ugent.be\\
+T: +32 9 264 51 19
+}
+
+%% specify your supervisors and their affiliation
+\supervisor{prof. dr.}{Vlaams, W.}{Universiteit Gent, Belgi\"e}
+\supervisor{prof. dr.}{Stekker, J.}{Universiteit Gent, Belgi\"e}
+
+%% specify the chairman of the jury and his/her/their affiliation
+\jurychair{prof. dr.}{Dalinckx, P.}{Universiteit Gent, Belgi\"e}
+
+%% specify the memers of the jury and their affiliations
+\jurymember{prof. dr.}{Dezerooder, J.}{Universiteit Gent, Belgi\"e}
+\jurymember{prof. dr.}{De Tollenaere, P.}{Flanders Make, Belgi\"e}
+\jurymember{prof. dr.}{Byr, M.}{IMEC, Nederland}
+
+%% specify the dean of the faculty and rector of Ghent University
+\dean{prof. dr.}{Decaan, Do}
+\rector{prof. dr.}{De Sutter, Petra}
+
+%% specify your degree (manually) and where and when you obtain your degree
+\degree{doctor in de plantbiotechnologie}
+\location{Gent}
+\date{21 mei 2025}
+\academicyear{2024--2025}
+
+%% specify a fancy photo for your titlepage (if you don't want a dull one)
+%%\titlepageimage{Images/ugent-oehoe}
+%% \coverdesigner{De Kat, Kroketje}
+
+%% change title colour if it clashes with your image 
+%% \letcolor{covertitlecolor}{black}
+
+%% specify your funding
+\grants{FWO PhD Fellowship strategic basic research 1SXXXXXXN}
+
+%% add different publisher logo
+\backcoverlogos{\includegraphics[height = \gridunit]{Images/logo_UniversityPress_blue}}
+
+%% if your manuscript is under full embargo, give the following command
+%% \embargofull
+
+%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
+%% please, specify begin and end date of the embargo period as first
+%% and second argument to the \tempembargo command:
+\embargotemp{21 mei 2025}{20 mei 2030}
+
+%% some data about your manuscript (if you obtained DOI/ISBN)
+%% \doi{10.1000/182}
+%% \isbn{978-9-463-57748-9}
+
+\begin{document}
+%%\raggedright %% For non-justified text
+%%\raggedbottom %% For non-filled / non-flush pages
+
+%% creates the title pages, remove if you don't want any
+\maketitle
+
+%% Creates a bookcover file \jobname-cover.tex
+%% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
+%% a caliper (paper thickness) of 0.1 mm:
+%% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
+%% If you're using a different paper type, override the spine width 
+%% in the \jobname-cover.tex file using the formula above.
+\generatebookcover
+
+%% causes the first pages to be roman numbered
+\frontmatter
+
+%% sets the table of contents (automatically for you)
+\tableofcontents
+
+%% changes the numbering system to arabic and restart from 1
+\mainmatter
+
+%% a first unnumbered chapter
+\chapter*{Inleiding}
+
+%% some dummy text, remove in your copy
+\kant[1]
+
+%% a first numbered chapter
+\chapter{Onderzoeksvraag}
+
+%% a first numbered section
+\section{Het gegeven}
+
+\kant[2]
+
+\begin{equation}
+e^{-j\pi} + 1 = 0
+\end{equation}
+
+\kant[3-17]
+
+%% This has been temporarily commented out to increase build speed
+%% Remove comment if you want to see spine text in the auto-generated cover
+%%---------------------------------
+%%\chapter{Literatuurstudie}
+
+%%\kant[18-19]
+
+%%\chapter{Theoretische achtergrond}
+
+%%\kant[20-21]
+
+%%\foreach \i in {A,B,C,D} {
+%%  \chapter{Dummy hoofdstuk \i}
+%%  \foreach \j in {1,...,50} {
+%%    \kant[22-24]
+%%  }
+%%}
+
+%%\chapter{Eigen realisatie}
+
+%%\chapter{Besluit}
+
+%%\kant[25]
+%%---------------------------------
+
+%% change the chapter numbering to letters and uses 'Appendix' or
+%% 'Bijlage' (in dutch) as chapter name.
+\appendix
+
+\chapter{Symbolen}
+
+\chapter{Publicaties}
+%% Put your bibliography here using BibTeX
+
+%% typeset the final page with some graphic material on it
+\makefinalpage
+
+\end{document}
+%</phd-example1> 
+% \end{verbatim}
+%
+% \paragraph{English}
+% \begin{verbatim}
+%<*phd-example2> 
+\documentclass[bw,10pt,twoside,openright,cameraready]{ugentphd}
+%% faculty            Specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%%                    Options: english* / dutch
+%% 10pt               Sets the font size to 10pt
+%% twoside            If you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          Causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
+%% cameraready        Embeds the official 24 cm x 18 cm into an A4 page and
+%%                    trigger alignment marks and cut-lines for your printing service
+%%                    This will also apply to the generated bookcover file.
+%%                    Options: true, false*
+%% bare               Removes front and back cover. Many
+%%                    print services require this format for the contents.
+%%                    Options: true, false*
+%% thumbs             Adds chapter thumbs to the side of the pages
+%%                    Options: true*, false
+%% *default
+
+%% You may want to use common fonts such as arial (still within house style)
+%%\setsansfont{Arial}[
+%%BoldFont           = {Arial},
+%%BoldFeatures       = {FakeBold=2.5},
+%%ItalicFont         = {Arial},
+%%ItalicFeatures     = {FakeSlant=0.15},
+%%BoldItalicFont     = {Arial},
+%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%%]
+
+%% this is just for some dummy text, please remove in your copy
+\usepackage{kantlipsum}
+
+%% this package allows to generate a PDF with clickable links
+\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref} 
+%% you must load the hyperref package yourself, to allow putting it
+%% in the correct order with the other packages you load!
+
+%% set title, subtitle
+\title{Harmonic Signal analysis\\based on Linear Operators}
+\subtitle{How did Mindy linearly kill Mork's IC signal analyzer?}
+
+%% Add title and subtitle in dutch for the data page
+\titel{Harmonische Signaalanalyse\\met behulp van Lineaire
+Operatoren}
+\subtitel{Waarom moeten titels van doctoraatsproefschriften toch altijd
+lang en onverstaanbaar zijn?}
+
+%% specify the author and their title, affilliation and address
+\author{}{Edgeoff, Theodore}{\\Ghent University\\
+Faculty of Bioscience Engineering\\
+Department of Biotechnology}
+\address{Frieda Saeysstraat 1, 9052 Gent, Belgi\"e\\
+M: theofiel.hoekaff@ugent.be\\
+T: +32 9 264 51 19
+}
+
+%% specify your supervisors and their affiliation
+\supervisor{prof. dr.}{Vlaams, W.}{Ghent University, Belgium}
+\supervisor{prof. dr.}{Stekker, J.}{Ghent University, Belgium}
+
+%% specify the chairman of the jury and his/her/their affiliation
+\jurychair{prof. dr.}{Dalinckx, P.}{Ghent University, Belgium}
+
+%% specify the memers of the jury and their affiliations
+\jurymember{prof. dr.}{Dezerooder, J.}{Ghent University, Belgium}
+\jurymember{prof. dr.}{De Tollenaere, P.}{Flanders Make, Belgium}
+\jurymember{prof. dr.}{Byr, M.}{IMEC, The Netherlands}
+
+%% specify the dean of the faculty and rector of Ghent University
+\dean{prof. dr.}{Decaan, Do}
+\rector{prof. dr.}{De Sutter, Petra}
+
+%% specify your degree (manually) and where and when you obtain your degree
+\degree{doctor in Bioscience Engineering}
+\location{Ghent}
+\date{May 24, 2025}
+
+%% specify a fancy photo for your coverpage and the designer (if you don't want a dull one)
+\titlepageimage{Images/ugent-oehoe}
+\coverdesigner{De Kat, Kroketje}
+
+%% change title colour if it clashes with your image 
+%% \letcolor{covertitlecolor}{black}
+
+%% specify your funding
+\grants{FWO PhD Fellowship strategic basic research 1SXXXXXXN}
+
+%% add different publisher logo
+\backcoverlogos{\includegraphics[height = \gridunit]{Images/logo_UniversityPress_blue}}
+
+%% if your manuscript is under full embargo, give the following command
+\embargofull
+
+%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
+%% please, specify begin and end date of the embargo period as first
+%% and second argument to the \tempembargo command:
+%% \embargotemp{May 24, 2025}{May 23, 2030}
+
+%% some data about your manuscript  (if you obtained DOI/ISBN)
+%% \doi{10.1000/182}
+\isbn{978-9-463-57748-9}
+
+\begin{document}
+\raggedright %% For non-justified text
+\raggedbottom %% For non-filled / non-flush pages
+
+%% creates the title page, remove if you don't want any
+\maketitle
+
+%% Creates a bookcover file \jobname-cover.tex
+%% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
+%% a caliper (paper thickness) of 0.1 mm:
+%% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
+%% If you're using a different paper type, override the spine width 
+%% in the \jobname-cover.tex file using the formula above.
+\generatebookcover
+
+%% causes the first pages to be roman numbered
+\frontmatter
+
+%% sets the table of contents (automatically for you)
+\tableofcontents
+
+%% changes the numbering system to arabic and restart from 1
+\mainmatter
+
+%% a first unnumbered chapter
+\chapter*{Introduction}
+
+%% some dummy text, remove in your copy
+\kant[1]
+
+%% a first numbered chapter
+\chapter{Research question}
+
+%% a first numbered section
+\section{The datum}
+\kant[2]
+
+\begin{equation}
+e^{-j\pi} + 1 = 0
+\end{equation}
+
+\kant[3-17]
+
+%% This has been temporarily commented out to increase build speed
+%% Remove comment if you want to see spine text in the auto-generated cover
+%%---------------------------------
+%%\chapter{Literature review}
+%%\kant[18-19]
+
+%%\chapter{Theoretical background}
+%%\kant[20-21]
+
+%%\chapter{Technical results}
+%%\kant[22-24]
+
+%%\foreach \i in {A,B,C,D,E} {
+%%\chapter{Dummy chapter \i}
+%%\foreach \j in {1,...,50} {
+%%\kant[22-24]
+%%}
+%%}
+
+%%\chapter{Conclusion}
+%%\kant[25]
+%%---------------------------------
+
+%% change the chapter numbering to letters and uses 'Appendix' or
+%% 'Bijlage' (in dutch) as chapter name.
+\appendix
+
+\chapter{Symbols}
+
+%% Put your bibliography here using BibTeX
+
+%% typeset the final page with some graphic material on it
+\makefinalpage
+
+\end{document}
+%</phd-example2> 
+% \end{verbatim}
+%
+% \subsubsection{\texttt{ugentreport}}
+%
+% \begin{verbatim}
+%<*rp-example1>
+\documentclass[bw,10pt,twoside,openright,dutch,coverbg]{ugentreport}
+%% faculty            Specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% coverbg            Adds a coloured background area to the cover page
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%%                    Options: english* / dutch
+%% 10pt               Sets the font size to 10pt
+%% twoside            If you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          Causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
+%% copyright          Prints a copyright watermark
+%%                    Options: true, false*
+%% *default
+
+%% You may want to use common fonts such as arial (still within house style)
+%%\setsansfont{Arial}[
+%%BoldFont           = {Arial},
+%%BoldFeatures       = {FakeBold=2.5},
+%%ItalicFont         = {Arial},
+%%ItalicFeatures     = {FakeSlant=0.15},
+%%BoldItalicFont     = {Arial},
+%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%%]
+
+%% this is just for some dummy text, please remove in your copy
+\usepackage{kantlipsum}
+
+%% this package allows to generate a PDF with clickable links
+\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref} 
+%% you must load the hyperref package yourself, to allow putting it
+%% in the correct order with the other packages you load!
+
+%% set title, subtitle, extra subtitle, and contact information
+\title{<Titel>}
+\subtitle{<Opdracht>}
+\extra{<Vak>}
+
+\author{}{Bibber, Bert}{studentnr. xxxxxx}
+\author{}{De Bakker, Jos}{studentnr. xxxxxx}
+\author{}{Callewaert, Gerrit}{studentnr. xxxxxx}
+
+\academicyear{2026--2027}
+
+\lecturer{prof. dr.}{Vlaams, W.}{Ghent University, Belgium}
+\lecturer{prof. dr.}{Stekker, J.}{Ghent University, Belgium}
+
+%% skip copyrightnotices (replace with empty)
+%%\copyrightnotices{}
+
+
+\begin{document}
+
+%% creates the title page, remove if you don't want any
+\maketitle
+
+%% causes the first pages to be roman numbered
+\frontmatter
+
+%% sets the table of contents (automatically for you)
+\tableofcontents
+
+%% changes the numbering system to arabic and restart from 1
+\mainmatter
+
+%% a first unnumbered chapter
+\chapter*{Samenvatting}
+%% some dummy text, remove in your copy
+\kant[1]
+
+%% a first numbered chapter
+\chapter{Procesbeschrijving}
+
+%% a first numbered section
+\section{Overzicht waterzuivering}
+\kant[2]
+
+\begin{equation}
+e^{-j\pi} + 1 = 0
+\end{equation}
+
+\kant[3-17]
+
+\chapter{Berekeningen}
+\kant[18-19]
+
+\chapter{Discussie}
+\kant[20-21]
+
+\chapter{Conclusies}
+\kant[22-24]
+
+
+%% change the chapter numbering to letters and uses 'Appendix' or
+%% 'Bijlage' (in dutch) as chapter name.
+\appendix
+
+\chapter{Meetreeksen waterzuivering}
+
+\chapter{Extra info}
+
+%% typeset the final page
+\makefinalpage
+
+\end{document}
+%</rp-example1> 
+%<*rp-example2>
+\documentclass[10pt,oneside,openany]{ugentreport}
+%% faculty            Specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% coverbg            Adds a coloured background area to the cover page
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%%                    Options: english* / dutch
+%% 10pt               Sets the font size to 10pt
+%% twoside            If you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          Causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
+%% copyright          Prints a copyright watermark
+%%                    Options: true, false*
+%% *default
+
+%% You may want to use common fonts such as arial (still within house style)
+\setsansfont{Arial}[
+BoldFont           = {Arial},
+BoldFeatures       = {FakeBold=2.5},
+ItalicFont         = {Arial},
+ItalicFeatures     = {FakeSlant=0.15},
+BoldItalicFont     = {Arial},
+BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+]
+
+%% this is just for some dummy text, please remove in your copy
+\usepackage{kantlipsum}
+
+%% this package allows to generate a PDF with clickable links
+\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref} 
+%% you must load the hyperref package yourself, to allow putting it
+%% in the correct order with the other packages you load!
+
+%% set title, subtitle, extra subtitle, and contact information
+\title{<Title>}
+\subtitle{<Subtitle or project number>}
+\extra{<additional text to title>}
+
+\email{firstname.name}{ugent.be}
+\phone{+32 9 000 00 00}
+\mobile{+32 400 00 00 00}
+\address{
+<Faculty \ldots>\\
+<Department or Office \ldots>\\
+<Research group \ldots>
+\newline\newline
+\begin{tabular}{ll}
+E: &\printemails{ | }{ | }{ | }\\
+T: &\printphones{ | }{ | }{ | }\\
+M: &\printmobiles{ | }{ | }{ | }
+\end{tabular}
+\newline\newline
+<Campus \ldots, building \ldots>\\
+<Street 123 c >, <0000 City>
+\newline\newline
+\href{https://www.ugent.be}{www.ugent.be}
+}
+
+%% year in which the report appears
+\year=2026
+
+%% skip copyrightnotices (replace with empty)
+\copyrightnotices{}
+
+
+\begin{document}
+
+%% creates the title page, remove if you don't want any
+\maketitle
+
+%% causes the first pages to be roman numbered
+\frontmatter
+
+%% report data page
+\textcolor{titlecolor}{\uppercase{%
+Date}}\\
+\today
+
+\textcolor{titlecolor}{\uppercase{%
+Location}}\\
+\makeatletter
+\@location
+\makeatother
+
+\textcolor{titlecolor}{\uppercase{%
+Attendees}}\\
+< names separated by commas>
+
+\textcolor{titlecolor}{\uppercase{%
+Excused}}\\
+< names separated by commas>
+
+\textcolor{titlecolor}{\uppercase{%
+Chair}}\\
+< chair>
+
+\textcolor{titlecolor}{\uppercase{%
+Minute taker}}\\
+< minute taker>
+
+
+%% sets the table of contents (automatically for you)
+\tableofcontents
+
+%% changes the numbering system to arabic and restart from 1
+\mainmatter
+
+%% a first unnumbered chapter
+\chapter*{Inleiding}
+%% some dummy text, remove in your copy
+\kant[1]
+
+%% a first numbered chapter
+\chapter{Summary}
+
+%% a first numbered section
+\section{First chapter}
+\kant[2]
+
+\begin{equation}
+e^{-j\pi} + 1 = 0
+\end{equation}
+
+\kant[3-17]
+
+\chapter{Second chapter}
+\kant[18-19]
+
+\chapter{Third chapter}
+\kant[20-21]
+
+\chapter{Fourth chapter}
+\kant[22-24]
+
+%% change the chapter numbering to letters and uses 'Appendix' or
+%% 'Bijlage' (in dutch) as chapter name.
+\appendix
+
+\chapter{First Appendix}
+
+\chapter{Second Appendix}
+
+%% typeset the final page
+\makefinalpage
+
+\end{document}
+%</rp-example2> 
+% \end{verbatim}
+%
+%
+% \subsubsection{\texttt{ugentletter}}
+% 
+% \paragraph{Plain example}
+%
+% \begin{verbatim}
+%<*le-example> 
+\documentclass[bw]{ugentletter}
+%% faculty            Specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%%                    Options: english* / dutch
+%% 11pt               Sets the font size to 11pt
+%% twoside            If you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast* 
+%% foldline           Prints a fold line at 2/3 page height
+%%                    Options: true*, false
+%% *default
+
+%% You may want to use common fonts such as arial (still within house style)
+\setsansfont{Arial}[
+BoldFont           = {Arial},
+BoldFeatures       = {FakeBold=2.5},
+ItalicFont         = {Arial},
+ItalicFeatures     = {FakeSlant=0.15},
+BoldItalicFont     = {Arial},
+BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+]
+
+%% this is just for some dummy text, please remove in your copy
+\usepackage{kantlipsum}
+
+%% provide info on who sensd the letter, you can put this in a
+%% configuration file, see the documentation of the letter class!
+\sender{ir.~Seppe Ongena}{PhD Student}
+
+%% override department (if needed for e.g. UGent university services, GUGC, etc.)
+%% \department{Directie ICT}
+\unit{TRASLAB}
+\address{
+CAPTURE building\\
+Frieda Saysstraat 1\\
+9052 Ghent\\
+BELGIUM}
+\email{seppe.ongena}{ugent.be}
+\phone{+32 3 265 98 43}
+\mobile{+32 499 355 115}
+
+%% set a return address
+\returnaddress{UGent-CAPTURE -- Frieda Saeysstraat 1, 9052 Ghent, BELGIUM}
+
+%% provide some details on who you want to write to
+\to{prof.~B.~Bonette}
+\toorganization{Mumford University}
+\toaddress{
+450 Morning Mall\\
+Mumford, DX 94305-2004\\
+USA}
+
+%% a proper letter mentions a date of writing and a subject
+\date{January 3, 2026}
+\subject{Congratulations for online video lectures}
+
+\begin{document}
+%% This puts all logo's / address / subject where it needs to be
+\maketitle
+
+%% be polite when starting a letter, and address your audience
+\opening{Dear prof.~Bonette,}
+
+I'd like to congratulate you and the other professors of your
+university on the very instructive video lectures
+provided by your University. They are valued very
+highly. 
+
+You inspired many a professor at our university to provide more
+technical content beyond classical paper courses.
+Based on your inspiring lectures, some students desire to candidate
+themselves for taking an internship at your university. You can find
+their details enclosed.
+
+%% Below, you can find a few more dummy paragraphs to illustrate that
+%% this class can generate multipage letters.
+\kant[1-3]
+
+%% time to say goodbye
+\closing{Kind regards,}
+
+%% you might want to insert a signature picture or text.
+%% \signature{\includegraphics{signature.jpg}}
+
+%% you can also remove the signature space altogether:
+%% \signature{}
+
+%% add the reference
+\reference{2608001}
+
+%% mention who receives a copy of this letter if needed
+\carboncopy{prof.~S.~Mariotte, Mumford University}
+
+%% specify what extras can be found in the envelope if needed
+\enclosed{
+\begin{enumerate}
+\item list of course numbers that are most fequently viewed at
+our university (1pp)
+\item a list of students desiring to take an internship at
+Mumford University (2pp)
+\end{enumerate}
+}
+\closeletter
+\end{document}
+%</le-example> 
+% \end{verbatim}
+%
+% \paragraph{Example with configuration file}~\\
+%
+% Probably, one has to write many letters. The sender details will be
+% most certainly valid for many an occasion. Therefore, you might want
+% to consider putting this default setup in a configuration file,
+% e.g. \texttt{ugentletter.cfg}:
+%
+% \begin{verbatim}
+%<*le-cfg>
+%% configuration file for ugentletter class
+
+%% you can put your font setup in the configuration file!
+\iftutex
+\usepackage{cmbright}
+\usepackage{fontspec}
+\setsansfont
+[UprightFont = *,
+BoldFont = *b,
+ItalicFont = *i,
+BoldItalicFont = *z,
+]
+{calibri}
+\usepackage{sansmathaccent}
+\fi
+
+%% as you probably will always be the sender of your letters,
+%% put this info in the configuration file too.
+\sender{prof.~Walter Daems}{Senior Lecturer}
+\unit{Cosys-Lab}
+\address{
+Campus Groenenborger\\
+Groenenborgerlaan 171\\
+B-2020 Antwerpen\\
+BELGIUM}
+\email{walter.daems}{uantwerpen.be}
+\phone{+32 3 265 98 43}
+\mobile{+32 499 355 115}
+\returnaddress{FTI - U.301 -- Groenenborgerlaan 171, 2020 Antwerpen, BELGIUM}
+%</le-cfg>
+% \end{verbatim}
+%
+% The file can then be loaded in the preamble of your letter as follows:
+% \begin{verbatim}
+% \input{ugentletter.cfg}
+% \end{verbatim}
+%
+% After loading this configuration file, you may override some
+% elements if this is appropriate.
+%
+% You may also consider using multiple configuration files in case you
+% have multiple roles in the university. Just make sure they are on your
+% \LaTeX\ search path (most often this search path can be set with an
+% environment variable \texttt{TEXINPUTS}).
+%
+% \subsubsection{\texttt{ugentexam}}
+%
+% Below you can find two examples:
+% \begin{itemize}
+	% \item A single column layout (single language) exam
+	% \item A double column layout (English-Dutch) exam
+	% \end{itemize}
+% If you require more language combinations, aks the author to
+% implement this.
+%
+% \paragraph{Single column}
+% \begin{verbatim}
+%<*ex-example1> 
+\documentclass[bw,a4paper,10pt, dutch]{ugentexam}
+%% faculty            Specifies the faculty abbreviation, can be empty*.
+%%                    Used in colouring, logos, and text.
+%%                    Options: bw, di, ea, re, we, pp, lw, eb, ps, ge, fw
+%% campus             Specifies the campus, overriding UGent logo
+%%                    Options: ugent*, gugc, kortrijk
+%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%%                    Options: true, false*
+%% colormodel         Uses rgb (display) or cmyk (print) colouring
+%%                    Options: rgb*, cmyk
+%% language           Sets the document main language. Determines, i.a., logo
+%%                    and copyright language. Can be overridden locally for the text
+%%                    using \selectlanguage or \foreignlanguage (see babel package)
+%%                    Options: english* / dutch
+%% 10pt               Sets the font size to 10pt
+%% twoside            If you want a two-sided document, change to oneside if you
+%%                    want a recto only document
+%% openright          Causes you chapters to start on a right-hand page when
+%%                    your document is twosided
+%% nameformat         Format all names as "surname firstname"
+%%                    or "firstname surname"
+%%                    Options: surnamefirst, surnamelast*
+%% examiner           Compiles an examiner version
+%%                    with watermark and "examiner version" in the headers
+%%                    Options: true, false*
+%% *default
+
+%% You may want to use common fonts such as arial (still within house style)
+%%\setsansfont{Arial}[
+%%BoldFont           = {Arial},
+%%BoldFeatures       = {FakeBold=2.5},
+%%ItalicFont         = {Arial},
+%%ItalicFeatures     = {FakeSlant=0.15},
+%%BoldItalicFont     = {Arial},
+%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%%]
+
+%% this package eases numbering of subquestions
+\usepackage{enumitem}
+
+%% some data about your course and the authors/lecturers
+\course{1876FTIDUM}{5-Bistrologie}
+\author{}{Daems, Walter}{}     %% can be omitted if 'lecturers' are sufficient
+\lecturer{}{Daems, Walter}{}
+
+%% specify the degree of the program the course fits in
+\degree{Bachelor of Science in de industri\"ele wetenschappen -
+elektronica-ICT}
+
+%% specify the academic year
+\academicyear{2017-2018}
+
+%% specify the particular examination form
+\exampart{Schriftelijk Examen}
+
+%% specify the group
+\examgroupnumber{1 (eerste examenkans-inhaal)}
+
+%% specify import time-related info about the exam - this will help
+%% supervisors to hand-out the correct exam copies!
+\examdate{2018-01-29}
+\examlength{4h}
+\tstart{08h30}
+\tend{12h30}
+
+%% same for the room(s), you may specify multiple!
+\room{G.U.024}
+\room{G.U.025}
+
+%% instruct your students about important details.
+%% 'firstpage' puts in on the first page, if omitted the extra info is
+%% printed on the back of the first page
+\extrainfo[firstpage]{
+Belangrijke informatie:\\\par
+Het volledige Onderwijs- en Examenregelement (OER) is van toepassing
+op dit examen. 
+Toch wil ik vooraf nog een aantal regels duidelijk stellen:
+\begin{enumerate}
+\item Mogen op je tafeltje aanwezig zijn:
+(1) schrijfgerief, los d.w.z. \emph{niet} in een pennenzak (geen
+papier; er zit examenpapier bij de opgaven), 
+(2) je rekenmachine (zonder alfanumerieke data en zonder
+geheugenkaarten),
+(3) het formularium.
+\item Volledig \emph{verboden te gebruiken}: alle apparatuur met
+geheugen- of communicatiefunctionaliteit zoals GSM, smartphone,
+smartwatch, muziekspeler, \ldots
+Je tas staat vooraan in het lokaal. Hang je jas aan de kapstok of
+leg hem bij je tas.
+\item Schrijf je naam op het titelblad van de opgave in het daartoe
+voorziene vak. Op de andere bladen schrijf je je naam
+\emph{niet}. Je examenopgave heeft een uniek nummer dat toelaat het
+te identificeren.
+\item Op het einde van het examen geef je \emph{alle} bladen weer af
+aan de aanwezige docent.
+\end{enumerate}
+Succes!
+}
+
+%% if you make a copy per student, you can provide a number on the copy
+\studentnr{127}
+
+%% set the multiple choice symbol you fancy
+\setmcsymbol{\bigcirc}
+
+
+\begin{document}
+
+%% set the title page of the exam
+\maketitle
+
+%% a first question (with an identifier that can help you remember wich
+%% question it is out of your huge database)
+\question{[VLATOP-BISTRO]}
+%% give some idea to the student about the importance of the question
+\questionweight{3}
+
+Geef de eerste vijf laureaten van de VLATOP-bistro
+competitie.
+
+%% a second question
+\question{[BECHAMEL]}
+\questionweight{7}
+
+Welk van de onderstaande ingredi\"enten hoort niet thuis in
+een b\'echamel saus:
+
+%% this is how you specify the multiple choice answering options
+\mc{Melk}
+\mc{Boter}
+\mc{Bloem}
+\mc{Eieren}
+\mc{Suiker}
+
+%% you can insert some pages for the studen to write his/her answers
+%% on.
+%% a. below the question, in this case for the remaining 11.5cm on the page
+\insertsolutionspagepartial{11.5}
+
+%% b. a full page
+\insertsolutionspage{}
+\clearpage
+
+%% a third question
+\question{[BISTROCULTURE-1]}
+\questionweight{10}
+
+%% the option of the enumerate environment is thanks to the enumitem package
+\begin{enumerate}[label=\alph*)]
+\item Bespreek de evolutie van de Noord-Europese bistrocultuur
+gedurende de laatste vijftig jaar.
+\item Breng dit in relatie tot de
+opkomst van de georganiseerde recensies zoals die van Michelin en
+Gault-Millau.
+\end{enumerate}
+
+%% you can insert some pages for the studen to write his/her answers
+%% on.
+%% a. below the question, in this case for the remaining 23cm on the page
+\insertsolutionspagepartial{23}
+
+%% b. full pages: 3 in this case
+\foreach \i in {1,2,3} {
+\insertsolutionspage{}
+}
+
+%% c. special 'scrap' pages with a watermark on them: two in this case
+\foreach \i in {1,2} {
+\insertsolutionspage{Kladpapier}
+}
+\end{document}
+%</ex-example1>
+% \end{verbatim}
+%
+% \paragraph{Two columns}
+%
+% This might be of use to professors that teach courses in English in
+% a Dutch program, you then can make a bilingual exam. This makes you
+% 100\% compliant to the very restrictive Flemish language
+% legislation.
+%
+% \begin{verbatim}
+%<*ex-example2> 
+\documentclass[bw,a4paper,10pt]{ugentexam}
+
+%% ti           specifies the department, change to the letter combination of
+%%              your department
+%% a4paper      specifies the paper format
+%% 10pt         students have good eyes, they still can read 10pt fonts
+%% dutch        (or english) sets the document main language. Determines logo
+%%              and copyright etc. language. Can be overridden locally for the text
+%%              using \selectlanguage or \foreignlanguage (see babel package)
+
+%% You may want to use common fonts such as arial (still within house style)
+%%\setsansfont{Arial}[
+%%BoldFont           = {Arial},
+%%BoldFeatures       = {FakeBold=2.5},
+%%ItalicFont         = {Arial},
+%%ItalicFeatures     = {FakeSlant=0.15},
+%%BoldItalicFont     = {Arial},
+%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%%]
+
+%% this package eases numbering of subquestions
+\usepackage{enumitem}
+
+%% some data about your course and the authors/lecturers
+\course{1876FTIDUM}{5-Bistrology}
+\lecturer{}{Daems, Walter}{}
+\lecturer{}{Levrie, Paul}{}
+
+%% specify the degree of the program the course fits in
+\degree{Bachelor of Science in de industri\"ele wetenschappen - elektronica-ICT}
+
+%% specify the academic year
+\academicyear{2017-2018}
+
+%% specify the particular examination form
+\exampart{Written Exam}
+
+%% specify the group
+\examgroupnumber{1 (eerste examenkans-inhaal)}
+
+%% specify import time-related info about the exam - this will help
+%% supervisors to hand-out the correct exam copies!
+\examdate{2018-01-29}
+\examlength{4h}
+\tstart{08h30}
+\tend{12h30}
+
+%% same for the room(s)
+\room{G.U.025}
+\room{G.U.026}
+
+%% instruct your students about important details.
+%% 'firstpage' puts in on the first page, if omitted the extra info is
+%% printed on the back of the first page
+\extrainfo{
+%% the engdut command allows you to specify a left column in english
+%% and right column in dutch
+%% use multiple engdut-environments to keep the page flow synchronized
+\engdut{
+Important information:\\\par
+The Education and Examination Regulations (EER) hold for this
+examination in full.
+However, before starting, I'd like to set some rules straight:
+}
+{
+Belangrijke informatie:\\\par
+Het volledige Onderwijs- en Examenregelement (OER) is van toepassing
+op dit examen. 
+Toch wil ik vooraf nog een aantal regels duidelijk stellen:
+}
+
+\engdut{
+\begin{itemize}
+\item \emph{Can be used:} (1) writing gear (\emph{not} in a pencil
+case); you don't need paper; there's plenty of paper in your exam
+copy;
+(2) your calculator (without alphanumerical data and without memory
+cards); (3) the formula collection.
+\end{itemize}
+}
+{
+\begin{itemize}
+\item Mogen op je tafeltje aanwezig zijn:
+(1) schrijfgerief, los d.w.z. \emph{niet} in een pennenzak (geen
+papier; er zit examenpapier bij de opgaven), 
+(2) je rekenmachine (zonder alfanumerieke data en zonder
+geheugenkaarten),
+(3) het formularium.
+\end{itemize}
+}
+
+\engdut{
+\begin{itemize}
+\item \emph{May not be used:} all equipment with memory or
+communications facilities, like cell phones, smart phones, smart
+watches, music players, \ldots
+Your bag must be put in the front of the room. Put your coat on the
+hallstand or next to your bag.
+\end{itemize}
+}
+{
+\begin{itemize}
+\item Volledig \emph{verboden te gebruiken}: alle apparatuur met
+geheugen- of communicatiefunctionaliteit zoals GSM, smartphone,
+smartwatch, muziekspeler, \ldots
+Je tas staat vooraan in het lokaal. Hang je jas aan de kapstok of
+leg hem bij je tas.
+\end{itemize}
+}
+
+\engdut{
+\begin{itemize}
+\item Write your name on the title page. Don't write your name on
+the subsequent pages. Your copy has a unique number to identify it
+as yours.
+\end{itemize}
+}
+{
+\begin{itemize}
+\item Schrijf je naam op het titelblad van de opgave in het daartoe
+voorziene vak. Op de andere bladen schrijf je je naam
+\emph{niet}. Je examenopgave heeft een uniek nummer dat toelaat het
+te identificeren.
+\end{itemize}
+}
+
+\engdut{
+\begin{itemize}
+\item Take your time to \emph{answer all questions in writing}. The
+point weights are listed above every question. Be complete in your
+answer, but stick to the point. Take into account the available time.
+\end{itemize}
+}
+{
+\begin{itemize}
+\item Neem je tijd om \emph{alle vragen schriftelijk te
+beantwoorden}. Het puntengewicht van een vraag is bovenaan de vraag
+op de opgavebladen vermeld. Wees volledig in je antwoord, maar ter
+zake. Houd rekening met de beschikbare tijd.
+\end{itemize}
+}
+
+\engdut{
+\begin{itemize}
+\item Hand in \emph{all} papers to the staff member on duty, at the
+end of the examination.
+\end{itemize}
+Success!
+}
+{
+\begin{itemize}
+\item Op het einde van het examen geef je \emph{alle} bladen weer af
+aan de aanwezige docent.
+\end{itemize}
+Succes!
+}
+\clearpage
+}
+
+%% if you make a copy per student, you can provide a number on the copy
+\studentnr{29}
+
+\begin{document}
+
+%% set the title page of the exam
+\maketitle
+
+%% a first question (with an identifier that can help you remember wich
+%% question it is out of your huge database)
+\question{[VLATOP-BISTRO]}
+%% give some idea to the student about the importance of the question
+\questionweight{3}
+
+%% typeset the question in two columns
+\engdut{
+Write down the first five laureates of the VALTOP-bistro competition.
+}
+{
+Geef de eerste vijf laureaten van de VLATOP-bistro
+competitie.
+}
+
+%% a second question
+\question{[BECHAMEL]}
+\questionweight{7}
+
+\engdut{
+Which of the ingredients below does not belong in a b\'echamel
+sauce:
+}
+{
+Welk van de onderstaande ingredi\"enten hoort niet thuis in
+een b\'echamel saus:
+}
+
+%% this is how you specify multipel choice answering options in two languages
+\engdutmc{Milk}{Melk}
+\engdutmc{Butter}{Boter}
+\engdutmc{Flower}{Bloem}
+\engdutmc{Eggs}{Eieren}
+\engdutmc{Sugar}{Suiker}
+
+%% you can insert some pages for the studen to write his/her answers
+%% on.
+%% a. below the question, in this case for the remaining 19.5cm on the page
+\insertsolutionspagepartial{19.5}
+
+%% b. a full page
+\insertsolutionspage{}
+
+\clearpage
+
+%% a third questoin
+\question{[BISTROCULTURE-1]}
+\questionweight{10}
+
+\engdut{
+%% the option of the enumerate environment is thanks to the enumitem package
+\begin{enumerate}[label=\alph*)]
+\item Discuss the evolution of the Northern European bistro culture during
+the latest fifty years.
+\item Relate this to the rise of organized reviews
+like the ones of Michelin and Gault-Millau.
+\end{enumerate}
+}
+{
+\begin{enumerate}[label=\alph*)]
+\item Bespreek de evolutie van de Noord-Europese bistrocultuur
+gedurende de laatste vijftig jaar.
+\item Breng dit in relatie tot de
+opkomst van de georganiseerde recensies zoals die van Michelin en
+Gault-Millau.
+\end{enumerate}
+}
+
+%% you can insert some pages for the studen to write his/her answers
+%% on.
+%% a. below the question, in this case for the remaining 22.5cm on the page
+\insertsolutionspagepartial{22.5}
+
+%% b. full pages: 3 in this case
+\foreach \i in {1,2,3} {
+\insertsolutionspage{}
+}
+
+%% c. special 'scrap' pages with a watermark on them: two in this case
+\foreach \i in {1,2} {
+\insertsolutionspage{Scrap/Klad}
+}
+\end{document}
+%</ex-example2>
+% \end{verbatim}
+%
+% \StopEventually{\clearpage\PrintChanges\clearpage\PrintIndex}
 %
 % \clearpage
 % \part*{Part II. The beamer theme}
