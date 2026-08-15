@@ -1142,91 +1142,7 @@
 %
 % \newpage
 % \subsection{Dictionaries}
-%
-% \subsection{Name parsing}
-% Some official UGent templates use the "Surname Firstname" formatting.
-% These functions return the firstname, firstnameinitial, surname, and
-% the full name formatted following the surnamefirst option.
-%    \begin{macrocode}
-%<*clo>
-\ExplSyntaxOn
 
-\seq_new:N \l_@@_name_seq
-\seq_new:N \l_@@_authors_seq
-\tl_new:N  \l_@@_nameinput_tl
-\tl_new:N  \l_@@_surname_tl
-\tl_new:N  \l_@@_firstname_tl
-\tl_new:N  \l_@@_formattedname_tl
-
-\msg_new:nnnn { ugentdocs } { name-not-bibtex-format }
-{ The~name~'#1'~is~not~formatted~as~'Surname,~Firstname'. }
-{ Names~must~be~given~as~'Surname,~Firstname'~(BibTeX~style,~separated~by~a~comma).~Multiple~authors~should~be~separated~by~'~and~'. }
-
-\cs_new_protected:Npn \@@parsename:n #1
-{
-	\tl_set:Nx \l_@@_nameinput_tl { #1 }
-	\seq_set_split:NnV \l_@@_name_seq { , } \l_@@_nameinput_tl
-	\int_compare:nNnTF { \seq_count:N \l_@@_name_seq } = { 2 } {
-		\seq_pop_left:NN \l_@@_name_seq \l_@@_surname_tl
-		\tl_trim_spaces:N \l_@@_surname_tl
-		\seq_pop_left:NN \l_@@_name_seq \l_@@_firstname_tl
-		\tl_trim_spaces:N \l_@@_firstname_tl
-	}{
-		\msg_error:nnx { ugentdocs } { name-not-bibtex-format } { \l_@@_nameinput_tl }
-		\tl_set_eq:NN \l_@@_surname_tl \l_@@_nameinput_tl
-		\tl_clear:N \l_@@_firstname_tl
-	}
-}
-
-\cs_new_protected:Npn \@@buildformattedname:
-{
-	\str_if_eq:VnTF \l_@@_nameformat_tl {surnamefirst} {
-		\tl_set:Nn \l_@@_formattedname_tl { \l_@@_surname_tl }
-		\tl_if_empty:NF \l_@@_firstname_tl
-		{ \tl_put_right:Nn \l_@@_formattedname_tl { \space \l_@@_firstname_tl } }
-	}{
-		\tl_clear:N \l_@@_formattedname_tl
-		\tl_if_empty:NF \l_@@_firstname_tl
-		{ \tl_set:Nn \l_@@_formattedname_tl { \l_@@_firstname_tl \space } }
-		\tl_put_right:Nn \l_@@_formattedname_tl { \l_@@_surname_tl }
-	}
-}
-
-\NewDocumentCommand \@surname { m }
-{ \@@parsename:n {#1} \l_@@_surname_tl }
-
-\NewDocumentCommand \@firstname { m }
-{ \@@parsename:n {#1} \l_@@_firstname_tl }
-
-\NewDocumentCommand \@firstnameinitial { m }
-{
-	\@@parsename:n {#1}
-	\tl_if_empty:NF \l_@@_firstname_tl { \tl_head:N \l_@@_firstname_tl . }
-}
-
-\NewDocumentCommand \@formatname { m }
-{
-	\@@parsename:n {#1}
-	\@@buildformattedname:
-	\l_@@_formattedname_tl
-}
-
-\NewDocumentCommand \@formatnames { m }
-{
-	\tl_set:Nx \l_@@_nameinput_tl { #1 }
-	\seq_set_split:NnV \l_@@_authors_seq { ~and~ } \l_@@_nameinput_tl
-	\seq_set_map:NNn \l_@@_authors_seq \l_@@_authors_seq
-	{
-		\@@parsename:n {##1}
-		\@@buildformattedname:
-		\l_@@_formattedname_tl
-	}
-	\seq_use:Nnnn \l_@@_authors_seq { ,~ } { ~and~ } { ,~and~ }
-}
-
-\ExplSyntaxOff
-%</clo>
-%    \end{macrocode}
 %
 % \subsection{Data dictionary and parser}
 %
@@ -2555,6 +2471,90 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %</ex> 
 %    \end{macrocode}
 % \end{imacro}
+% \subsection{Name parsing}
+% Some official UGent templates use the "Surname Firstname" formatting.
+% These functions return the firstname, firstnameinitial, surname, and
+% the full name formatted following the surnamefirst option.
+%    \begin{macrocode}
+%<*clo>
+\ExplSyntaxOn
+
+\seq_new:N \l_@@_name_seq
+\seq_new:N \l_@@_authors_seq
+\tl_new:N  \l_@@_nameinput_tl
+\tl_new:N  \l_@@_surname_tl
+\tl_new:N  \l_@@_firstname_tl
+\tl_new:N  \l_@@_formattedname_tl
+
+\msg_new:nnnn { ugentdocs } { name-not-bibtex-format }
+{ The~name~'#1'~is~not~formatted~as~'Surname,~Firstname'. }
+{ Names~must~be~given~as~'Surname,~Firstname'~(BibTeX~style,~separated~by~a~comma).~Multiple~authors~should~be~separated~by~'~and~'. }
+
+\cs_new_protected:Npn \@@parsename:n #1
+{
+	\tl_set:Nx \l_@@_nameinput_tl { #1 }
+	\seq_set_split:NnV \l_@@_name_seq { , } \l_@@_nameinput_tl
+	\int_compare:nNnTF { \seq_count:N \l_@@_name_seq } = { 2 } {
+		\seq_pop_left:NN \l_@@_name_seq \l_@@_surname_tl
+		\tl_trim_spaces:N \l_@@_surname_tl
+		\seq_pop_left:NN \l_@@_name_seq \l_@@_firstname_tl
+		\tl_trim_spaces:N \l_@@_firstname_tl
+	}{
+		\msg_error:nnx { ugentdocs } { name-not-bibtex-format } { \l_@@_nameinput_tl }
+		\tl_set_eq:NN \l_@@_surname_tl \l_@@_nameinput_tl
+		\tl_clear:N \l_@@_firstname_tl
+	}
+}
+
+\cs_new_protected:Npn \@@buildformattedname:
+{
+	\str_if_eq:VnTF \l_@@_nameformat_tl {surnamefirst} {
+		\tl_set:Nn \l_@@_formattedname_tl { \l_@@_surname_tl }
+		\tl_if_empty:NF \l_@@_firstname_tl
+		{ \tl_put_right:Nn \l_@@_formattedname_tl { \space \l_@@_firstname_tl } }
+	}{
+		\tl_clear:N \l_@@_formattedname_tl
+		\tl_if_empty:NF \l_@@_firstname_tl
+		{ \tl_set:Nn \l_@@_formattedname_tl { \l_@@_firstname_tl \space } }
+		\tl_put_right:Nn \l_@@_formattedname_tl { \l_@@_surname_tl }
+	}
+}
+
+\NewDocumentCommand \@surname { m }
+{ \@@parsename:n {#1} \l_@@_surname_tl }
+
+\NewDocumentCommand \@firstname { m }
+{ \@@parsename:n {#1} \l_@@_firstname_tl }
+
+\NewDocumentCommand \@firstnameinitial { m }
+{
+	\@@parsename:n {#1}
+	\tl_if_empty:NF \l_@@_firstname_tl { \tl_head:N \l_@@_firstname_tl . }
+}
+
+\NewDocumentCommand \@formatname { m }
+{
+	\@@parsename:n {#1}
+	\@@buildformattedname:
+	\l_@@_formattedname_tl
+}
+
+\NewDocumentCommand \@formatnames { m }
+{
+	\tl_set:Nx \l_@@_nameinput_tl { #1 }
+	\seq_set_split:NnV \l_@@_authors_seq { ~and~ } \l_@@_nameinput_tl
+	\seq_set_map:NNn \l_@@_authors_seq \l_@@_authors_seq
+	{
+		\@@parsename:n {##1}
+		\@@buildformattedname:
+		\l_@@_formattedname_tl
+	}
+	\seq_use:Nnnn \l_@@_authors_seq { ,~ } { ~and~ } { ,~and~ }
+}
+
+\ExplSyntaxOff
+%</clo>
+%    \end{macrocode}
 %
 % \begin{imacro}{\author}
 %   This macro allows to specify one or more authors with their
