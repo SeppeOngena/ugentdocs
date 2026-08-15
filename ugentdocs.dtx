@@ -414,7 +414,7 @@
 %	\item \textcolor{titlecolor}{|titlecolor|} (ugent@main): chapter and section titles
 %	\item \textcolor{toccolor}{|toccolor|} (black): table of contents
 %	\item \textcolor{hypercolor}{|hypercolor|} (ugent@main!50!black): hyperlinks, in-text citations
-%	\item \textcolor{watermark}{|watermark|} (lightgray): course, exam, and report watermarks
+%	\item \textcolor{watermarkcolor}{|watermarkcolor|} (lightgray): course, exam, and report watermarks
 % \end{itemize}
 %
 % \iffalse
@@ -423,7 +423,7 @@
 \colorlet{titlecolor}{ugent@main}
 \colorlet{toccolor}{black}
 \colorlet{hypercolor}{ugent@main!50!black}
-\colorlet{watermark}{lightgray}
+\colorlet{watermarkcolor}{lightgray}
 \ExplSyntaxOff
 %</col>
 % \fi
@@ -1706,7 +1706,7 @@
 %<*crs|rp>
 \ExplSyntaxOn
 \bool_if:NT \l_@@_copyright_bool {
-	\RequirePackage[contents={},color=lightgray,scale=3]{background}
+	\RequirePackage[contents={},color=watermarkcolor,scale=3]{background}
 }
 \ExplSyntaxOff
 %</crs|rp>
@@ -3861,7 +3861,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \bool_if:NTF \l_@@_examiner_bool {
 	\rhead[\small EXAMINER~VERSION]{\small EXAMINER~VERSION}
 	\AddToShipoutPicture{% TODO change to \AddToHook{shipout/foreground}{
-	  \put(60,40){\rotatebox{60}{\textcolor{watermark}{
+	  \put(60,40){\rotatebox{60}{\textcolor{watermarkcolor}{
 	        \fontsize{105}{130}\selectfont Examiner~Version}}}}
 }{
 	\rhead[\small Student~nr.~\@studentnr]{\small Student~nr.~\@studentnr}
@@ -5387,7 +5387,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
         \draw[densely dotted, step=0.5cm,black!20] (19.499,28) grid (20,28.5);
       \end{tikzpicture}
     }
-    \put(120,150){\rotatebox{60}{\textcolor{watermark}{
+    \put(120,150){\rotatebox{60}{\textcolor{watermarkcolor}{
           \fontsize{105}{130}\selectfont\textsf{#1}}
       }
     }
