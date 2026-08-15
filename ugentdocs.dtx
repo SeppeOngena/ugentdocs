@@ -1289,6 +1289,9 @@
 % Before loading the class, we provide the extra options.
 % 
 %    \begin{macrocode}
+%<*crs|bama|phd|rp|bkc|le|ex|bmr>
+\input{ugentcommon.clo}
+%</crs|bama|phd|rp|bkc|le|ex|bmr>
 %<*phd|bkc|rp|ex|le|crs|bama|bmr|clo> 
 \ExplSyntaxOn
 %</phd|bkc|rp|ex|le|crs|bama|bmr|clo> 
@@ -1399,7 +1402,6 @@
 % We load the |book| class for course texts, reports, and bachelor, master, and PhD dissertations.
 %    \begin{macrocode}
 %<*crs|bama|phd|rp>
-\input{ugentcommon.clo}
 \PassOptionsToClass{a4paper,11pt,final,oneside,openright}{book}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption, a4paper}{book}}
 \ProcessOptions\relax
@@ -1408,7 +1410,6 @@
 %</crs|bama|phd|rp>
 % We load the |bookcover| class for PhD dissertation covers
 %<*bkc>
-\input{ugentcommon.clo}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{bookcover}}
 \ProcessOptions\relax
 \ProcessKeyOptions[ugentdocs]
@@ -1449,7 +1450,6 @@
 %</bkc>
 % We load the |letter| class for letters
 %<*le> 
-\input{ugentcommon.clo}
 \PassOptionsToClass{a4paper,10pt,final,oneside}{letter}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{letter}}
 \ProcessOptions\relax
@@ -1458,7 +1458,6 @@
 %</le>
 % We load the |article| class for exams
 %<*ex>
-\input{ugentcommon.clo}
 \PassOptionsToClass{a4paper,10pt,final,twoside}{article}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -1466,7 +1465,6 @@
 \LoadClass{article}
 %</ex>
 %<*bmr>
-\input{ugentcommon.clo}
 \ProcessKeyOptions[ugentdocs]
 %</bmr>
 %    \end{macrocode}
