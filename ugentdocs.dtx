@@ -168,20 +168,23 @@
 %    \begin{minipage}{0.92\textwidth}
 %      The documentation of the class files for PhD dissertations, 
 %      MSc/BSc dissertations, letters, course texts, reports,
-%      and exams can be found in this document.
+%      and exams can be found in this document (Part~\ref{P:I}).
+%
+%      Template files for all of the classes can be found below in 
+%      Part~\ref{P:I} Section~\ref{S:examples}.
 %
 %      The documentation for the beamer theme is embedded in the
 %      demo/user-guide presentation |beamerthemeugentuserguide.pdf|.
+%      (Part~\ref{P:II})
 %
-%      Template files for all of the formats can be found below in
-%      Section~\ref{S:examples}.
 %    \end{minipage}
 %   }
 % \end{center}
 %
-% So make sure these packages are available to your
-% \LaTeX{} compiler. Most of these should be installed by default
-% in TeXLive distributions or can be made to auto-install for MikTeX.
+% A number of packages are required by |ugentdocs|.\watchout See Part~\ref{P:I}
+% Section~\ref{S:packages} for an overview. Make sure these packages are
+% available to your \LaTeX{} compiler. Most of these should be installed by
+% default in TeXLive distributions or can be made to auto-install for MikTeX.
 %
 % \section*{A note on fonts}
 %
@@ -198,7 +201,7 @@
 % \item Secondary font: Arial. This is normally used for office templates
 %    distributed outside of Ghent University. Since \LaTeX{} outputs PDFs,
 %    this is not a concern. Still, you can override the font to Arial should
-%    you wish (see Section~\ref{S:fonts}).
+%    you wish (see Part~\ref{P:I}Section~\ref{S:fonts}).
 % \end{itemize}
 %
 % If somehow neither UGent Panno Text Normal nor Arial are installed, the font
@@ -220,8 +223,8 @@
 % \section*{A note on customization}
 % We do not recommend altering the UGent house style too much, and we 
 % certainly do not recommend altering any of the class files directly.
-% You can customize the classes by overwriting the commands below in 
-% Section~\ref{S:basicusage} in a .sty file. A recommended naming scheme is
+% You can customize the classes by overwriting any of the commands in 
+% Part~\ref{P:I} in a .sty file. A recommended naming scheme is
 % |<classname>-customization.sty|, e.g. |ugentphd-customization.sty|.
 % You can then load this customization using
 % \txtcmd{usepackage\{ugentphd-customization\}}.
@@ -248,9 +251,10 @@
 % \clearpage
 %
 % \newgeometry{left=4.75cm,right=2cm,top=2cm,bottom=2.5cm}
-%
-% \part*{\hspace*{-2cm}Part I. The paper classes}
-% \addcontentsline{toc}{section}{Part I. The paper classes}
+
+% \renewcommand{\partname}{Part}
+% \part{The paper classes}
+% \label{P:I}
 %
 % \section{Usage}
 %
@@ -7203,9 +7207,7 @@ Gault-Millau.
 % \StopEventually{\clearpage\PrintChanges\clearpage\PrintIndex}
 %
 % \clearpage
-% \part*{Part II. The beamer theme}
-% \addcontentsline{toc}{section}{Part II. The beamer theme}
-% \setcounter{section}{0}
+% \part{The beamer theme}
 % \section{User guide}
 % 
 % \begin{Verbatim}
