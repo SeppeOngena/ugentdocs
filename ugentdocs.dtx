@@ -95,8 +95,13 @@
 %
 % \setlength{\parindent}{0em}
 % \addtolength{\parskip}{0.5\baselineskip}
+% \newcommand{\githubmain}{https://github.com/SeppeOngena/ugentdocs}
+% \newcommand*\command[1]{{\tt \textbackslash #1}}
 %
-% \title{The |ugentdocs| classes\thanks{Thanks to Walter Daems for the original \texttt{uantwerpendocs} package and Joris Meys for the \texttt{bama} and \texttt{report} titles, cover, and header/footer code}}
+% \title{The |ugentdocs| classes
+%   \thanks{Thanks to Walter Daems for the original \texttt{uantwerpendocs}
+%   package and Joris Meys for the \texttt{bama} and \texttt{report}
+%   titles style, cover text, and header/footer code}}
 % \author{Seppe Ongena (|seppe.ongena@ugent.be|)}
 % \date{release \ugentdocsdate{} --- \ugentdocsversion{}}
 %
@@ -106,162 +111,161 @@
 %
 % \section*{Introduction}
 %
-% This package implements the house style of Universiteit Antwerpen
-% (version 2021) for letters, course texts, master/PhD theses, reports and
-% slides (beamer). It also implements a class to format exams.
-% Using these class files will make it easy for you to make and keep
-% your course texts and theses compliant to this version and future
-% versions of the UAntwerpen house style. 
+% This package implements the house style of Ghent University (version 2025)
+% for letters, course notes, master/bachelor/PhD dissertations, reports 
+% (meeting notes or course assignments), exams, and slides (beamer).
+% These class files allow you to make and keep most of your document needs
+% compliant to this version and future versions of the UGent house style. 
 %
-% If you think (1) there's an error in compliancy w.r.t. the house
-% style, (2) there's a feature missing in this class or theme file, or
-% (3) there's a bug in this package, please, contact me through e-mail
-% (|walter.daems@uantwerpen.be|) about the issue.
-% I'll provide you with an answer and if (and as soon as) possible
-% with a solution to the problem you spotted.
+% If you think (1) there's an error in compliancy with regards to the house
+% style, (2) there's a feature missing in the classes or beamer theme, or
+% (3) there's a bug in this package, please,
+% \href{\githubmain/issues}{open an issue on GitHub} or contact me via
+% email (\href{mailto:seppe.ongena@ugent.be}{seppe.ongena@ugent.be}).%
 %
-% Do you like these class files? You're welcome to send us beer, wine,
-% or just kind words.
 %
 % \section*{Synopsis}
-% The |course|, |bama| and |phd| 
-% classes\footnote{For readability the class names have been
-% abbreviated by omitting the |ugent| prefix} are 
-% an extension of the standard \LaTeX{} |book| class.  They are
-% intended to be used for writing course texts and master's or PhD
-% theses. They provides a title page that is compliant to the
-% UAntwerpen house style, and they also typeset the rest of your
-% document appropriately.
+% The |course| and |phd| classes\footnote{For readability the class names
+% have been abbreviated by omitting the |ugent| prefix} are an extension
+% of the standard \LaTeX{} |book| class. They are intended to be used for
+% writing course texts and PhD dissertations and provide a cover page compliant
+% to the UGent house style. They also typeset the data pages automatically
+% (e.g., jury list, title page, copyright) and style the rest of the document
+% appropriately. These two classes additionally enable the generation of 
+% a full book cover (back/spine/front) with auto-generated ISBN barcode.
 %
-% The |report| class is derived from the standard \LaTeX{}
-% |report| class. It is intended for writing generic (e.g. research or
-% educational) reports.
-% The |letter| class is derived from the standard \LaTeX{}
-% |letter| class. It is intended to be used for writing business
-% letters. It is compliant to the house style and allows for using
-% windowed envelopes of the DL format, with right-aligned window.
+% The |bama| and |report| classes are also derived from the standard \LaTeX{}
+% |book| class. These are intended for writing BSc/MSc dissertations and
+% generic reports (e.g. research reports, course assignments, meeting notes).
+% The |bama| class additionally populates a copyright page with signature fields
+% based on the authors, supervisors, and tutors added.
 %
-% The |exam| class is derived from the standard \LaTeX{}
-% |article| class.
+% The |letter| class is derived from the standard \LaTeX{} |letter| class.
+% It is intended to be used for writing business letters compliant to the house
+% style and allows for using left-aligned windowed envelopes of the DL format.
 %
-% The slides come under the form of a custom beamer theme.
+% The |exam| class is derived from the standard \LaTeX{} |article| class.
+% It allows typesetting bilingual exams.
+%
+% The slides come under the form of a beamer theme. The beamer theme is based
+% on the modern 2025 UGent Panno Text one (with support for Arial), \emph{not}
+% the 2016 Arial theme as that does not adhere to, e.g., grid spacing and feels
+% less refined / more loud in general (large font size of slide titles,
+% in both caps and underline).
 %
 % \begin{center}
 %   \framebox[0.95\textwidth]{
 %    \begin{minipage}{0.92\textwidth}
-%      The documentation of the class files for letters, course texts
-%      theses, and exams can be found in this document.
+%      The documentation of the class files for PhD dissertations, 
+%      MSc/BSc dissertations, letters, course texts, reports,
+%      and exams can be found in this document.
 %
 %      The documentation for the beamer theme is embedded in the
-%      demo/user-guide presentation
-%      |beamerthemeugentuserguide.pdf|.
-%
-%      The beamer theme is based on the modern 2025 UGent Panno Text one --
-%      with support for Arial, not the 2016 Arial theme as ithat does not adhere to
-%      e.g. gridunit spacing and feels less refined in general.
+%      demo/user-guide presentation |beamerthemeugentuserguide.pdf|.
 %
 %      Template files for all of the formats can be found below in
-%      section~\ref{sec:basicusage}.
+%      Section~\ref{S:examples}.
 %    \end{minipage}
 %   }
 % \end{center}
 %
-% Using this package, requires the following packages:
-% \begin{itemize}
-% \item the |adjustbox| package
-% \item the |babel| package
-% \item the |background| package
-% \item the |color| package
-% \item the |environ| package
-% \item the |eso-pic| package
-% \item the |etooblox| package
-% \item the |expl3| package
-% \item the |fancyhdr| package
-% \item the |geometry| package
-% \item the |graphicx| package
-% \item the |graphbox| package
-% \item the |iftex| package
-% \item the |ifthen| package
-% \item the |tikz| package
-% \item the |ulem| package
-% \item the |xparse| package
-% \end{itemize}
+% \newpage
+% The following packages are required by |ugentdocs|:
+% \begin{center}\small
+%   \begin{tabular}{lp{8cm}}
+%       \toprule
+%		|adjustbox|			& Trimming and clipping of images				\\
+%		|babel|				& Translations of keywords and logos			\\
+%		|background|		& Copyright watermarks for courses and reports	\\
+%		|beamerposter|		& Custom slide dimensions for beamer			\\
+%		|color|				& Colour management								\\
+%		|crop|				& Camera-ready version of PhD dissertations		\\
+%		|environ|			& Custom environments for beamer template		\\
+%		|eso-pic|			& \textcolor{red}{replacement in progress}		\\
+%		|etoolbox|			& Toolbox for class definitions	internally		\\
+%		|expl3|				& Use of \LaTeX{}3 code internally				\\
+%		|fancyhdr|			& Headers and footers							\\
+%		|geometry|			& Page geometry and margins						\\
+%		|graphbox|			& Improved placement of graphics				\\
+%		|graphicx|			& Enhanced support for graphics					\\
+%		|hyphenat|			& Hyphenation control							\\
+%		|iftex|				& Checking compiler type						\\
+%		|setspace|			& Set line spacing								\\
+%		|shellesc|			& Shell command execution, used in 
+%							  \command{runwordcount}						\\
+%		|tabularx|			& Auto-expandable paragraph columns				\\
+%		|thumbs|			& Thumb indexes for PhDs and courses			\\
+%		|tikz|				& logos, cover pages, etc.						\\
+%		|titlesec|			& Chapter title formatting						\\
+%		|ulem|				& Line-breaking underline						\\
+%		|unicode-math|\textsuperscript{a} or |sansmath| & Sans-serif math	\\
+%		|zref-totpages|		& Page count 									\\
+%		\bottomrule
+% 		\multicolumn{2}{l}{\textsuperscript{a}with Fira Math font installed}\\
+%   \end{tabular}
+% \end{center}
+%
 % So make sure these packages are available to your
-% \LaTeX{} compiler.
-%
-% You will notice that as of version 4.0 |expl3| and |xparse| are part
-% of the game. Indeed, the ugentdocs package will be slowly
-% refactored to \LaTeX3{} to prepare for a package that is easier to
-% maintain. However, the \LaTeX3{} constructs are never exposed to the
-% user of the classes. So: don't worry about it!
-%
+% \LaTeX{} compiler. Most of these should be installed by default
+% in TeXLive distributions or can be made to auto-install for MikTeX.
 %
 % \section*{A note on fonts}
 %
-% The house style of the University of Antwerp recommends using
+% The house style of Ghent University recommends two fonts.
 % \begin{itemize}
-% \item Prenton RP Pro for the logos and sublogos; all the logoware is
-%   included in this package, so nothing to worry about.
-% \item ITC Officina Sans for posters, titlepages, cards a.s.o.\\
-%   This font is not a part of the \LaTeX{} standard fonts.
-%   It is also not provided with this package. I cannot do
-%   this without incurring legal problems (the font is not free).
-%   However, if you have a valid license, for
-%   this font, I can help you to set it up, such that you can typeset
-%   proper title pages for course texts, PhD theses and the like. Just
-%   send me an e-mail.
-% \item Calibri for office-like documents. Just load the |\fontspec|
-%   package and issue a |\setmainfont{Calibri}| and you're all set.
+% \item Primary font: UGent Panno Text. ``This font does justice to the historical
+%    values of Ghent University and is simultaneously modern, distinctive and
+%    charismatic.''
+%    The Medium and SemiLight variants are needed for the logos, so they are an
+%    absolute requirement. If the Normal variant is installed, it is used by
+%    default for all class files. You can download it 
+%    \href{https://ugentbe.sharepoint.com/sites/intranet-communicatie/SitePages/en/corporate-design.aspx}
+%    {from the intranet}.
+% \item Secondary font: Arial. This is normally used for office templates
+%    distributed outside of Ghent University. Since \LaTeX{} outputs PDFs,
+%    this is not a concern. Still, you can override the font to Arial should
+%    you wish (see Section~\ref{S:fonts}).
 % \end{itemize}
 %
-% Adhering to these fonts is recommended, but not
-% enforced. Personally, I always use a Palatine serif font for my courses.
-% I did not find any better (free) font yet. My second favorite is
-% still the original computer modern font by Donald E. Knuth. You are
-% reading it right now.
+% If somehow neither UGent Panno Text Normal nor Arial are installed, the font
+% falls back to Arev. As both official fonts are sans-serif styled, a similar
+% math font is preferred. For this, we load the Fira Math font (if it is
+% installed), with a |sansmath| package fallback.
 %
 %
-% \section*{Portability}
+% \section*{A note on compilers}
 % These class files should be ready to use with all common modern \LaTeX{}
-% compilers (XeLaTeX{}, \LuaLaTeX{}, \ldots)
-% from the major \TeX{}-distributions (TeTeX, TexLive, MikTeX).
-% However, using an old \LaTeX{} + dvips setup or PDF\LaTeX{}, is
-% likely to get you into font 
-% problems. Advice: ditch the route via dvi and abandon the old
-% PDF\LaTeX{} compiler. If you experience other problems, please
-% inform the author.
+% compilers (XeLaTeX{}, \LuaLaTeX{}, \ldots) and \LaTeX{}2e kernel versions 
+% newer than October 2020 from the major \TeX{}-distributions
+% (TeTeX, TexLive, MikTeX).
+% Using an old \LaTeX{} + dvips setup or PDF\LaTeX{}, is
+% not supported due to the logo implementation. So ditch the route via dvi
+% and abandon the old PDF\LaTeX{} compiler.
+% If you experience other problems, please inform the author.
+%
 %
 % \section*{Thanks}
 % This package is derived from the excellent |uantwerpendocs| package by
 % Walter Daems, Paul Levrie, and Lukas Leitner 
-% (\href{https://ctan.org/pkg/uantwerpendocs}{CTAN}).
-% Version 4.12 was used as the starting point, and as such, many similarities can be found
-% between the two packages, although a lot of stuff has been reworked. For a complete
-% changelog, please see the 
+% (\href{https://ctan.org/pkg/uantwerpendocs}{available on CTAN}).
+% Version 4.12 was used as the starting point, and as such, many similarities
+% can be found between the two packages, although a lot of stuff has been
+% reworked. For a complete changelog, please see the CHANGELOG.md file, or
+% for even more in-depth analysis, you can browse the
 % \href{\githubmain}{GitHub repository}.
-% Special thanks to Joris Meys for his previous work on the LaTeX at UGent faculty of
-% Bioscience Engineering templates, of which the cover, chapter title, and header/footer
-% code has been adapted and integrated.
+% Special thanks to Joris Meys for his previous work on the LaTeX at UGent
+% faculty of Bioscience Engineering templates, of which the cover text,
+% chapter title, and header/footer code has been adapted and integrated.
 %
-% In the first part, we will describe the classes intended to produce
-% paper documents:
-% \begin{itemize}
-% \item course text class
-% \item bachelor and master dissertation classes
-% \item phd dissertation class
-% \item letter class
-% \item report class
-% \item exam class
-% \end{itemize}
-%
-% In the second part, we will describe the ugent beamer theme that can be
-% used to make PDF slides.
 %
 % \tableofcontents
 % \clearpage
+%
 % \newgeometry{left=4.75cm,right=2cm,top=2cm,bottom=2.5cm}
+%
 % \part*{\hspace*{-2cm}Part I. The paper classes}
 % \addcontentsline{toc}{section}{Part I. The paper classes}
+%
 % \section{Usage}
 %
 % \subsection{Basic Usage}
