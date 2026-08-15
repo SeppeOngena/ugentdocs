@@ -65,6 +65,8 @@
 \usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{metalogo}
+\usepackage{fancyvrb}
+\fvset{fontsize=\tiny}
 %
 \IfFileExists{tocbibind.sty}{\usepackage{tocbibind}}{}
 \IfFileExists{hyperref.sty}{\usepackage[bookmarksopen]{hyperref}}{}
@@ -244,13 +246,13 @@
 % If you experience other problems, please inform the author.
 %
 % \section*{A note on customization}
-% While we do not recommend altering the UGent house style too much, and we 
+% We do not recommend altering the UGent house style too much, and we 
 % certainly do not recommend altering any of the class files directly.
 % You can customize the classes by overwriting the commands below in 
 % Section~\ref{S:basicusage} in a .sty file. A recommended naming scheme is
 % |<classname>-customization.sty|, e.g. |ugentphd-customization.sty|.
 % You can then load this customization using
-% \command{usepackage\{ugentphd-customization\}}|.
+% \command{usepackage\{ugentphd-customization\}}.
 % Be sure to overwrite commands, e.g. use \command{renewcommand} and
 % \command{RenewDocumentCommand}. Colours can be adjusted using 
 % \command{definecolor\{customcolor\}\{colormodel\}\{...\}}. Overwrite
@@ -5281,7 +5283,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %    \end{macrocode}
 % \end{imacro}
 % 
-% \subsection{References}
+% \subsection{Cross-references}
 %    \begin{macrocode}
 %<*crs|bama|phd|rp>
 \AtBeginDocument{
@@ -5314,26 +5316,25 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 
  \clearpage
 % \newgeometry{left=3cm,right=2cm,top=2cm,bottom=2.5cm}
-% \subsection{Examples}
+% \section{Examples}
+% \label{S:examples}
 %
 % Below you can find an example for every class. They also serve as
 % their quickstart documentation.
 %
 % Remember to
 % \begin{itemize}
-	% \item use modern compiler: no pdf\LaTeX{}, use \LuaLaTeX{} instead!
-	% \item compile your source file twice.
-	% \end{itemize}
-%
-% Especially in the beamer theme some features require to run \LaTeX{}
-% twice in order to get the position of some elements correct.
+% \item Use a modern compiler: no pdf\LaTeX{}, use \LuaLaTeX{} instead!
+% \item Compile your source file twice or thrice. Most modern editors do this
+%    automatically
+% \end{itemize}
 %
 % In many of the classes, you need to specify a faculty option. The
-% available faculty options are listed in a table on page \pageref{sec:classopt}.
+% available faculty options are listed in a table on page \pageref{S:classopt}.
 %
-% \subsubsection{\texttt{ugentcourse}}
+% \subsection{\texttt{ugentcourse}}
 %
-% \begin{verbatim}
+% \begin{Verbatim}
 %<*crs-example> 
 \documentclass[bw,11pt,twoside,openright,dutch]{ugentcourse}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
@@ -5505,12 +5506,12 @@ e^{-j\pi} + 1 = 0
 
 \end{document}
 %</crs-example> 
-% \end{verbatim}
+% \end{Verbatim}
 % 
 % 
-% \subsubsection{\texttt{ugentbama}}
+% \subsection{\texttt{ugentbama}}
 %
-% \begin{verbatim}
+% \begin{Verbatim}
 %<*bama-example1> 
 \documentclass[bw,11pt,twoside,openright,coverbg,neutralcolors]{ugentbama}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
@@ -5883,13 +5884,13 @@ e^{-j\pi} + 1 = 0
 
 \end{document}
 %</bama-example2> 
-% \end{verbatim}
+% \end{Verbatim}
 % 
 %
-% \subsubsection{\texttt{ugentphd}}
+% \subsection{\texttt{ugentphd}}
 %
 % \paragraph{Dutch}
-% \begin{verbatim}
+% \begin{Verbatim}
 %<*phd-example1> 
 \documentclass[we,10pt,twoside,openright,surnamefirst,dutch]{ugentphd}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
@@ -6087,10 +6088,10 @@ e^{-j\pi} + 1 = 0
 
 \end{document}
 %</phd-example1> 
-% \end{verbatim}
+% \end{Verbatim}
 %
 % \paragraph{English}
-% \begin{verbatim}
+% \begin{Verbatim}
 %<*phd-example2> 
 \documentclass[bw,10pt,twoside,openright,cameraready]{ugentphd}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
@@ -6287,11 +6288,11 @@ e^{-j\pi} + 1 = 0
 
 \end{document}
 %</phd-example2> 
-% \end{verbatim}
+% \end{Verbatim}
 %
-% \subsubsection{\texttt{ugentreport}}
+% \subsection{\texttt{ugentreport}}
 %
-% \begin{verbatim}
+% \begin{Verbatim}
 %<*rp-example1>
 \documentclass[bw,10pt,twoside,openright,dutch,coverbg]{ugentreport}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
@@ -6573,14 +6574,14 @@ e^{-j\pi} + 1 = 0
 
 \end{document}
 %</rp-example2> 
-% \end{verbatim}
+% \end{Verbatim}
 %
 %
-% \subsubsection{\texttt{ugentletter}}
+% \subsection{\texttt{ugentletter}}
 % 
 % \paragraph{Plain example}
 %
-% \begin{verbatim}
+% \begin{Verbatim}
 %<*le-example> 
 \documentclass[bw]{ugentletter}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
@@ -6699,7 +6700,7 @@ Mumford University (2pp)
 \closeletter
 \end{document}
 %</le-example> 
-% \end{verbatim}
+% \end{Verbatim}
 %
 % \paragraph{Example with configuration file}~\\
 %
@@ -6708,7 +6709,7 @@ Mumford University (2pp)
 % to consider putting this default setup in a configuration file,
 % e.g. \texttt{ugentletter.cfg}:
 %
-% \begin{verbatim}
+% \begin{Verbatim}
 %<*le-cfg>
 %% configuration file for ugentletter class
 
@@ -6740,12 +6741,11 @@ BELGIUM}
 \mobile{+32 499 355 115}
 \returnaddress{FTI - U.301 -- Groenenborgerlaan 171, 2020 Antwerpen, BELGIUM}
 %</le-cfg>
-% \end{verbatim}
+% \end{Verbatim}
 %
 % The file can then be loaded in the preamble of your letter as follows:
-% \begin{verbatim}
-% \input{ugentletter.cfg}
-% \end{verbatim}
+%
+% \command{input\{ugentletter.cfg\}}
 %
 % After loading this configuration file, you may override some
 % elements if this is appropriate.
@@ -6755,18 +6755,16 @@ BELGIUM}
 % \LaTeX\ search path (most often this search path can be set with an
 % environment variable \texttt{TEXINPUTS}).
 %
-% \subsubsection{\texttt{ugentexam}}
+% \subsection{\texttt{ugentexam}}
 %
 % Below you can find two examples:
 % \begin{itemize}
-	% \item A single column layout (single language) exam
-	% \item A double column layout (English-Dutch) exam
-	% \end{itemize}
-% If you require more language combinations, aks the author to
-% implement this.
+% \item A single column layout (single language) exam
+% \item A double column layout (English-Dutch) exam
+% \end{itemize}
 %
 % \paragraph{Single column}
-% \begin{verbatim}
+% \begin{Verbatim}
 %<*ex-example1> 
 \documentclass[bw,a4paper,10pt, dutch]{ugentexam}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
@@ -6940,7 +6938,7 @@ Gault-Millau.
 }
 \end{document}
 %</ex-example1>
-% \end{verbatim}
+% \end{Verbatim}
 %
 % \paragraph{Two columns}
 %
@@ -6949,7 +6947,7 @@ Gault-Millau.
 % 100\% compliant to the very restrictive Flemish language
 % legislation.
 %
-% \begin{verbatim}
+% \begin{Verbatim}
 %<*ex-example2> 
 \documentclass[bw,a4paper,10pt]{ugentexam}
 
@@ -7202,7 +7200,7 @@ Gault-Millau.
 }
 \end{document}
 %</ex-example2>
-% \end{verbatim}
+% \end{Verbatim}
 %
 % \StopEventually{\clearpage\PrintChanges\clearpage\PrintIndex}
 %
@@ -7212,7 +7210,7 @@ Gault-Millau.
 % \setcounter{section}{0}
 % \section{User guide}
 % 
-% \begin{verbatim}
+% \begin{Verbatim}
 %<*bmrug> 
 \documentclass{beamer}
 \usetheme[bw]{ugent}
@@ -8008,7 +8006,7 @@ Gault-Millau.
 
 \end{document}
 %</bmrug> 
-% \end{verbatim}
+% \end{Verbatim}
 %
 % \section{Implementation}
 % 
