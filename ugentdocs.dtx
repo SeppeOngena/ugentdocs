@@ -1625,327 +1625,7 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 %   that copy to students and suppressing the fillout pages.
 %
 %
-% \subsection{The macros explained}
-%
-% \subsubsection{Macros for the course, bama, phd
-% classes}
-%
-% \DescribeMacro{\academicyear} [course / bama]
-% (mandatory)\\
-% Use this macro to specify the academic year in full, i.e. in the
-% form |XXXX-YYYY|. 
-% 
-% \DescribeMacro{\author} [course / bama / phd /
-% report ] (mandatory)\\ 
-% This macro sets the author of the document.
-% It also sets the |pdfauthor| tag of the hyperref package (if it is
-% loaded), so that 
-% the PDF-document meta-information is correct.
-%
-% \DescribeMacro{\copyrightnotices} [course / report]
-% (optional)\\ 
-% Use this macro to specify additional copyright notice messages to
-% appear in the copyright notice on the bottom of page 2 of your
-% course text.
-% 
-% \DescribeMacro{\course} [course] (mandatory)\\
-% \label{dm-course}
-% Code (first argument) and name (second argument) of the curriculum
-% course this coursematerial or exam belongs to. The code should be of
-% the form:\\ 
-% |TNNNFFFAAA|,
-% with:
-% \begin{center}
-%   \begin{tabular}{cp{10cm}}
-%     \toprule
-%       Code & Explanation \\
-%     \midrule
-%       |T|    & a number indicating the type of programme \\
-%              & (1 for Bachelor courses, 2 for Master courses , 5 for
-%                specific courses of preparatory programmes) \\
-%       |NNN|  & a number assigned by the Faculty's administration\\
-%       |FFF|  & the acronym of your Faculty, e.g., FTI\\
-%       |AAA|  & an alphanumeric code assigned by the Faculty's
-%                administration \\
-%     \bottomrule
-%   \end{tabular}
-% \end{center}
-%
-% An example of such a code: 1001FTIWIS, for the first-semester
-% mathematics course of the Faculty of Applied Engineering.
-%
-% \DescribeMacro{\courseversion} [course] (optional)\\
-% This macro indicates which version of the course this is.
-%
-%
-% \DescribeMacro{\defensedate} [phd] (mandatory)\\
-% Mention the full date, i.e. day month and year of your public defense
-% 
-% \DescribeMacro{\defenselocation} [phd]
-% (optional)\\ 
-% Location of the defense. Defaults to ``Antwerpen''.
-%
-% \DescribeMacro{\doi} [phd] (optional)\\
-% Specify the correct doi URL you obtained for your document.
-% It will be typeset in your colofon.
-%
-% \DescribeMacro{\embargofull} [phd] (optional)\\
-% Generates the correct embargo message in your colofon. Adds the word
-% 'CONFIDENTIAL' to your title page.
-%
-% \DescribeMacro{\embargotemp} [phd] (optional)\\
-% This macro takes two arguments, an embargo starting date and an
-% embargo ending date.
-% Generates the correct temporary embargo message in your colofon.
-% Adds the word 'CONFIDENTIAL' to your title page.
-%
-% \DescribeMacro{\lecturer} [course] (mandatory)\\
-% You can add one or more lecturers to the course notes (in
-% Dutch: titularis). If there are multiple persons, please, use the
-% macro multiple times. 
-%
-% \DescribeMacro{\degree} [bama,phd,course] (mandatory)\\
-% This is the official degree name (in the appropriate language,
-% possibly mixed ``dutch (english)'').
-% Specify the official title of your diploma. This must be the
-% official title. For bachelor and master programmes in Dutch, it must
-% be the Dutch title. For programmes in English it may be the English
-% title. For PhD degrees, language constraints are less strict.\\
-% Consult \url{https://www.hogeronderwijsregister.be} for correct
-% bachelor and master degree titles. Consult the Doctoral bylaws of
-% the university for correct PhD degree titles.
-% Students of FTI and FWET, can use the |\bamadegree| command instead.
-% 
-% \DescribeMacro{\publishercode} [course] (mandatory)\\
-% This macro sets the publisher code of the document.
-% It is printed on the front page. This is code that the publisher
-% uses for its internal administration. It may be a proprietary code,
-% or an ISBN number.
-%
-% \DescribeMacro{\subtitle} [course / phd / report] (optional)\\
-% This macro sets the title of the document. You may use this 
-% \begin{itemize}
-% \item to further clarify the title
-% \item to indicate the nature of this document
-% \end{itemize}
-% The latter is to be considered when you want to provide multiple
-% documents as parts of the full course text (e.g., Course Notes,
-% Formula Collection, Exercise Book, Solution Book).
-% This macro also sets the |subject| tag of the hyperref package  (if
-% it is loaded), 
-% so that the PDF-document meta-information is correct.
-%
-% \DescribeMacro{\supervisor} [bama / phd] (mandatory)\\
-% Specifies the person(s) that promote(s)/supervise(s) the dissertation.
-% Please, use the macro multiple times if needed.
-%
-% \DescribeMacro{\title} [course / bama / phd /
-% report] (mandatory)\\  
-% This macro sets the title of the document.
-% It also sets the |pdftitle| tag of the hyperref package (if it is
-% loaded), so that 
-% the PDF-document meta-information is correct.
-%
-% \DescribeMacro{\titlepageimage} [phd / report]
-% (optional)\\
-% This sets the filename of the central image on the title page to
-% appear clipped % within the curves. For PhD dissertations this is highly
-% advized. For course texts, this is optional. If the image is not
-% set, a flat colored area will appear. This is part of the house
-% style.
-%
-% \DescribeMacro{\year} [course / report] (mandatory)\\
-% This is to be the year in which you published the current version of
-% the course in the form YYYY.
-%
-% 
-% \subsubsection{Macros for the letter class}
-%
-% \DescribeMacro{\address} [letter] (mandatory)\\
-% Address of the sending unit (or faculty). This can be different from
-% the return address. Newlines are allowed and encouraged.
-%
-% \DescribeMacro{\carboncopy} [letter] (optional)\\
-% List of persons receiving a copy of this letter. Format at will.
-%
-% \DescribeMacro{\closeletter} [letter] (optiontal)\\
-% Close the letter (with the closing greetings and underwriting) such
-% that the letter can be continued if desired with attachments. This
-% macro generates a |\textbackslash{}clearpage|. The default is not to use this macro.
-% It is automatically invoked at the end of the letter if you did not do
-% so.
-%
-% \DescribeMacro{\closing}  [letter] (mandatory) \\
-% Closing clause of the letter. E.g. 'Best regards,'.
-%
-% \DescribeMacro{\date} [letter] (optional) \\
-% Date of the letter. If not specified today's date (at the time of
-% running \LaTeX{}) will be used.
-%
-% \DescribeMacro{\email} [letter] (optional)\\
-% E-mail address of the sending person, or the administrative person
-% tracking the letter. This must definitely be someone that can answer
-% questions related to this letter.
-% \begin{itemize}
-% \item first argument: user name
-% \item second argument: domain name
-% \end{itemize}
-% You can specify multiple email addresses by using the command
-% multiple times.
-%
-% \DescribeMacro{\enclosed} [letter] (optional)\\
-% List of enclosed documents. Format at will.
-%
-% \DescribeMacro{\fax} [letter] (optional)\\
-% Probably facsimile is not used anymore, but anyway: fax number of
-% the sending person. See also |\email|.
-% You can specify multiple fax addresses by using the command
-% multiple times.
-%
-% \DescribeMacro{\logo} [letter] (optional)\\
-% file name of an alternative logo to use. The file name must be the
-% name of a file in the search path of type PDF.
-% If this macro is not used, The default logo of the university or
-% your faculty/institute will
-% be used.
-%
-% \DescribeMacro{\mobile} [letter] (optional)\\
-% Mobile phone number of the sending person. See also |\email|.
-% You can specify multiple mobile phone numbers by using the command
-% multiple times.
-%
-% \DescribeMacro{\opening}  [letter] (mandatory) \\
-% Opening address of the letter. E.g. 'Dear X,'.
-%
-% \DescribeMacro{\phone} [letter] (optional)\\
-% Phone number of the sending person. See also |\email|.
-% You can specify multiple phone numbers by using the command
-% multiple times.
-%
-% \DescribeMacro{\returnaddress} [letter] (mandatory)\\
-% This is a short return address (listed in small font on top of the
-% destination address (such that it is visible in a windowed envelope
-% (European format)). It should fit on a single line. Typically we list
-% an acronym for the unit, a room number, a campus name and address.
-% The goal is to get the undelivered letter back to the person that
-% can take action accordingly.
-%
-% \DescribeMacro{\sender} [letter] (mandatory)\\
-% Description of the person writing the letter.
-% \begin{itemize}
-% \item first argument: name of the person writing the letter
-% \item second argument: title / role of the person
-% \end{itemize}
-% Newlines are not allowed in the arguments.
-%
-% \DescribeMacro{\signature}  [letter] (optional) \\
-% Add a signature (in between the closing statement of the
-% letter and the sender's name. This might be a text message or a
-% picture of your signature.
-%
-% \DescribeMacro{\subject} [letter] (mandatory) \\
-% Short descriptive subject that describes the contents of the
-% letter.
-%
-% \DescribeMacro{\to} [letter] (mandatory)\\
-% Name of the addressee. Newlines are allowed. 
-% Preferably name and role are split over two lines.
-%
-% \DescribeMacro{\toaddress} [letter] (optional)\\
-% Address of the addressee. Newlines are allowed. The address should
-% fit on max. 3 lines.
-%
-% \DescribeMacro{\toorganization} [letter] (optional)\\
-% Name of the organization that employs the addressee.
-%
-% \DescribeMacro{\unit} [letter] (optional)\\
-% Name of the unit to which the person belongs. This can be a
-% research group, a laboratory, an administrative division, etc.
-% Newlines are allowed.
-%
-% \subsubsection{Macros for the exam class}
-%
-% \DescribeMacro{\author} [exam] (mandatory)\\
-% The author of the exam (may be multiple authors, separated by
-% commas). On the title page, these will be labeled as 'Professor(s) -
-% Titularis(sen)'.
-%
-% \DescribeMacro{\academicyear} [exam] (mandatory)\\
-% Use this macro to specify the academic year in full, i.e. in the
-% form |XXXX-YYYY|.
-%
-% \DescribeMacro{\course} [exam] (mandatory)\\
-% see description of |\course| macro on page~\pageref{dm-course}.
-%
-% \DescribeMacro{\degree} [exam] (mandatory)\\
-% This is the official degree name (in the appropriate language,
-% possibly mixed ``dutch (english)'').
-% Specify the official title of your diploma. This must be the
-% official title. For bachelor and master programmes in Dutch, it must
-% be the Dutch title. For programmes in English ti may be the English
-% title. For PhD degrees, language constraints are less strict.\\
-% Consult \url{https://www.hogeronderwijsregister.be} for correct
-% bachelor and master degree titles. Consult the Doctoral bylaws of
-% the university for correct PhD degree titles.
-%
-% \DescribeMacro{\examdate}
-% specifies the date of the exam. We recommend the YYYY-MM-DD format,
-% but you are free to chose your own coding scheme for dates. We
-% advize against using UNIX epoch time, to avoid problems in the first
-% semester exams in 2038.
-%
-% \DescribeMacro{\examgroupnumber} [exam]\\
-% mentions the group number (may be empty)
-%
-% \DescribeMacro{\examlength}
-% specifies the length of the exam in a unit of time, e.g. '4h'
-%
-% \DescribeMacro{\exampart} [exam] (mandatory)\\
-% Description of the part of the course the exam covers.
-% Often the evaluation of a course consists of multiple evaluation
-% elements (e.g. a written exam, a portfolio defense and lab
-% reports). Using this macro you can indicate the part this exam
-% covers. E.g. it could be 'Written Exam' (to distinguish from the
-% other parts 'portfolio defense' and 'lab reports').
-%
-% \DescribeMacro{\extrainfo}
-% specifies the extra information that appears on the back of the
-% title page, regarding the materials that can be used during the
-% examination and cautioning the students not to commit fraude.
-% You can specify an optional first argument 'firstpage', such that
-% your extra info starts on the first page, below the title block. In
-% that case the extra info will also not be terminated with a
-% clearpage (as we assume you want to conserve space).
-%
-% \DescribeMacro{\lecturer} [exam] (mandatory)\\
-% You can add one or more lecturers to the course notes (in
-% Dutch: titularis). If there are multiple persons, please, use the
-% macro multiple times. 
-%
-% \DescribeMacro{\room}
-% specifies the rooms in which the exam will take place. This is
-% useless info for the student, but may be of convenience for you as
-% author or supervisor of the exam. Use UAntwerpen standard room
-% designators, e.g. 'G.U.025' for room number 025, on the
-% Groenenborgercampus in the U-building.
-% If your exam is taken in multiple rooms, just specify multiple
-% |\room{}| commands.
-%
-% \DescribeMacro{\studentnr}
-% specifies the exam copy number. This will appear on every page of
-% the exam, easing the reassembly of pages that do not contain any
-% name. Moreover, it allows for blind correction as the student only
-% writes his name ot he front page.
-%
-% \DescribeMacro{\tend}
-% specifies the end time of the exam in a format identical to the one
-% chosen for |\tstart|.
-%
-% \DescribeMacro{\tstart}
-% specifies the start time of the exam, preferrable in the format
-% 'HHhMM', e.g. '08h30'.
-%
-%
+
 % 
 % \section{Implementation of the classes}
 %
@@ -2446,6 +2126,328 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 \RequirePackage{fancyhdr}
 %</crs|bama|phd|rp|le|ex> 
 %    \end{macrocode}
+
+% \subsection{The macros explained}
+%
+% \subsubsection{Macros for the course, bama, phd
+	% classes}
+%
+% \DescribeMacro{\academicyear} [course / bama]
+% (mandatory)\\
+% Use this macro to specify the academic year in full, i.e. in the
+% form |XXXX-YYYY|. 
+% 
+% \DescribeMacro{\author} [course / bama / phd /
+% report ] (mandatory)\\ 
+% This macro sets the author of the document.
+% It also sets the |pdfauthor| tag of the hyperref package (if it is
+% loaded), so that 
+% the PDF-document meta-information is correct.
+%
+% \DescribeMacro{\copyrightnotices} [course / report]
+% (optional)\\ 
+% Use this macro to specify additional copyright notice messages to
+% appear in the copyright notice on the bottom of page 2 of your
+% course text.
+% 
+% \DescribeMacro{\course} [course] (mandatory)\\
+% \label{dm-course}
+% Code (first argument) and name (second argument) of the curriculum
+% course this coursematerial or exam belongs to. The code should be of
+% the form:\\ 
+% |TNNNFFFAAA|,
+% with:
+% \begin{center}
+	%   \begin{tabular}{cp{10cm}}
+		%     \toprule
+		%       Code & Explanation \\
+		%     \midrule
+		%       |T|    & a number indicating the type of programme \\
+		%              & (1 for Bachelor courses, 2 for Master courses , 5 for
+		%                specific courses of preparatory programmes) \\
+		%       |NNN|  & a number assigned by the Faculty's administration\\
+		%       |FFF|  & the acronym of your Faculty, e.g., FTI\\
+		%       |AAA|  & an alphanumeric code assigned by the Faculty's
+		%                administration \\
+		%     \bottomrule
+		%   \end{tabular}
+	% \end{center}
+%
+% An example of such a code: 1001FTIWIS, for the first-semester
+% mathematics course of the Faculty of Applied Engineering.
+%
+% \DescribeMacro{\courseversion} [course] (optional)\\
+% This macro indicates which version of the course this is.
+%
+%
+% \DescribeMacro{\defensedate} [phd] (mandatory)\\
+% Mention the full date, i.e. day month and year of your public defense
+% 
+% \DescribeMacro{\defenselocation} [phd]
+% (optional)\\ 
+% Location of the defense. Defaults to ``Antwerpen''.
+%
+% \DescribeMacro{\doi} [phd] (optional)\\
+% Specify the correct doi URL you obtained for your document.
+% It will be typeset in your colofon.
+%
+% \DescribeMacro{\embargofull} [phd] (optional)\\
+% Generates the correct embargo message in your colofon. Adds the word
+% 'CONFIDENTIAL' to your title page.
+%
+% \DescribeMacro{\embargotemp} [phd] (optional)\\
+% This macro takes two arguments, an embargo starting date and an
+% embargo ending date.
+% Generates the correct temporary embargo message in your colofon.
+% Adds the word 'CONFIDENTIAL' to your title page.
+%
+% \DescribeMacro{\lecturer} [course] (mandatory)\\
+% You can add one or more lecturers to the course notes (in
+% Dutch: titularis). If there are multiple persons, please, use the
+% macro multiple times. 
+%
+% \DescribeMacro{\degree} [bama,phd,course] (mandatory)\\
+% This is the official degree name (in the appropriate language,
+% possibly mixed ``dutch (english)'').
+% Specify the official title of your diploma. This must be the
+% official title. For bachelor and master programmes in Dutch, it must
+% be the Dutch title. For programmes in English it may be the English
+% title. For PhD degrees, language constraints are less strict.\\
+% Consult \url{https://www.hogeronderwijsregister.be} for correct
+% bachelor and master degree titles. Consult the Doctoral bylaws of
+% the university for correct PhD degree titles.
+% Students of FTI and FWET, can use the |\bamadegree| command instead.
+% 
+% \DescribeMacro{\publishercode} [course] (mandatory)\\
+% This macro sets the publisher code of the document.
+% It is printed on the front page. This is code that the publisher
+% uses for its internal administration. It may be a proprietary code,
+% or an ISBN number.
+%
+% \DescribeMacro{\subtitle} [course / phd / report] (optional)\\
+% This macro sets the title of the document. You may use this 
+% \begin{itemize}
+	% \item to further clarify the title
+	% \item to indicate the nature of this document
+	% \end{itemize}
+% The latter is to be considered when you want to provide multiple
+% documents as parts of the full course text (e.g., Course Notes,
+% Formula Collection, Exercise Book, Solution Book).
+% This macro also sets the |subject| tag of the hyperref package  (if
+% it is loaded), 
+% so that the PDF-document meta-information is correct.
+%
+% \DescribeMacro{\supervisor} [bama / phd] (mandatory)\\
+% Specifies the person(s) that promote(s)/supervise(s) the dissertation.
+% Please, use the macro multiple times if needed.
+%
+% \DescribeMacro{\title} [course / bama / phd /
+% report] (mandatory)\\  
+% This macro sets the title of the document.
+% It also sets the |pdftitle| tag of the hyperref package (if it is
+% loaded), so that 
+% the PDF-document meta-information is correct.
+%
+% \DescribeMacro{\titlepageimage} [phd / report]
+% (optional)\\
+% This sets the filename of the central image on the title page to
+% appear clipped % within the curves. For PhD dissertations this is highly
+% advized. For course texts, this is optional. If the image is not
+% set, a flat colored area will appear. This is part of the house
+% style.
+%
+% \DescribeMacro{\year} [course / report] (mandatory)\\
+% This is to be the year in which you published the current version of
+% the course in the form YYYY.
+%
+% 
+% \subsubsection{Macros for the letter class}
+%
+% \DescribeMacro{\address} [letter] (mandatory)\\
+% Address of the sending unit (or faculty). This can be different from
+% the return address. Newlines are allowed and encouraged.
+%
+% \DescribeMacro{\carboncopy} [letter] (optional)\\
+% List of persons receiving a copy of this letter. Format at will.
+%
+% \DescribeMacro{\closeletter} [letter] (optiontal)\\
+% Close the letter (with the closing greetings and underwriting) such
+% that the letter can be continued if desired with attachments. This
+% macro generates a |\textbackslash{}clearpage|. The default is not to use this macro.
+% It is automatically invoked at the end of the letter if you did not do
+% so.
+%
+% \DescribeMacro{\closing}  [letter] (mandatory) \\
+% Closing clause of the letter. E.g. 'Best regards,'.
+%
+% \DescribeMacro{\date} [letter] (optional) \\
+% Date of the letter. If not specified today's date (at the time of
+% running \LaTeX{}) will be used.
+%
+% \DescribeMacro{\email} [letter] (optional)\\
+% E-mail address of the sending person, or the administrative person
+% tracking the letter. This must definitely be someone that can answer
+% questions related to this letter.
+% \begin{itemize}
+	% \item first argument: user name
+	% \item second argument: domain name
+	% \end{itemize}
+% You can specify multiple email addresses by using the command
+% multiple times.
+%
+% \DescribeMacro{\enclosed} [letter] (optional)\\
+% List of enclosed documents. Format at will.
+%
+% \DescribeMacro{\fax} [letter] (optional)\\
+% Probably facsimile is not used anymore, but anyway: fax number of
+% the sending person. See also |\email|.
+% You can specify multiple fax addresses by using the command
+% multiple times.
+%
+% \DescribeMacro{\logo} [letter] (optional)\\
+% file name of an alternative logo to use. The file name must be the
+% name of a file in the search path of type PDF.
+% If this macro is not used, The default logo of the university or
+% your faculty/institute will
+% be used.
+%
+% \DescribeMacro{\mobile} [letter] (optional)\\
+% Mobile phone number of the sending person. See also |\email|.
+% You can specify multiple mobile phone numbers by using the command
+% multiple times.
+%
+% \DescribeMacro{\opening}  [letter] (mandatory) \\
+% Opening address of the letter. E.g. 'Dear X,'.
+%
+% \DescribeMacro{\phone} [letter] (optional)\\
+% Phone number of the sending person. See also |\email|.
+% You can specify multiple phone numbers by using the command
+% multiple times.
+%
+% \DescribeMacro{\returnaddress} [letter] (mandatory)\\
+% This is a short return address (listed in small font on top of the
+% destination address (such that it is visible in a windowed envelope
+% (European format)). It should fit on a single line. Typically we list
+% an acronym for the unit, a room number, a campus name and address.
+% The goal is to get the undelivered letter back to the person that
+% can take action accordingly.
+%
+% \DescribeMacro{\sender} [letter] (mandatory)\\
+% Description of the person writing the letter.
+% \begin{itemize}
+	% \item first argument: name of the person writing the letter
+	% \item second argument: title / role of the person
+	% \end{itemize}
+% Newlines are not allowed in the arguments.
+%
+% \DescribeMacro{\signature}  [letter] (optional) \\
+% Add a signature (in between the closing statement of the
+% letter and the sender's name. This might be a text message or a
+% picture of your signature.
+%
+% \DescribeMacro{\subject} [letter] (mandatory) \\
+% Short descriptive subject that describes the contents of the
+% letter.
+%
+% \DescribeMacro{\to} [letter] (mandatory)\\
+% Name of the addressee. Newlines are allowed. 
+% Preferably name and role are split over two lines.
+%
+% \DescribeMacro{\toaddress} [letter] (optional)\\
+% Address of the addressee. Newlines are allowed. The address should
+% fit on max. 3 lines.
+%
+% \DescribeMacro{\toorganization} [letter] (optional)\\
+% Name of the organization that employs the addressee.
+%
+% \DescribeMacro{\unit} [letter] (optional)\\
+% Name of the unit to which the person belongs. This can be a
+% research group, a laboratory, an administrative division, etc.
+% Newlines are allowed.
+%
+% \subsubsection{Macros for the exam class}
+%
+% \DescribeMacro{\author} [exam] (mandatory)\\
+% The author of the exam (may be multiple authors, separated by
+% commas). On the title page, these will be labeled as 'Professor(s) -
+% Titularis(sen)'.
+%
+% \DescribeMacro{\academicyear} [exam] (mandatory)\\
+% Use this macro to specify the academic year in full, i.e. in the
+% form |XXXX-YYYY|.
+%
+% \DescribeMacro{\course} [exam] (mandatory)\\
+% see description of |\course| macro on page~\pageref{dm-course}.
+%
+% \DescribeMacro{\degree} [exam] (mandatory)\\
+% This is the official degree name (in the appropriate language,
+% possibly mixed ``dutch (english)'').
+% Specify the official title of your diploma. This must be the
+% official title. For bachelor and master programmes in Dutch, it must
+% be the Dutch title. For programmes in English ti may be the English
+% title. For PhD degrees, language constraints are less strict.\\
+% Consult \url{https://www.hogeronderwijsregister.be} for correct
+% bachelor and master degree titles. Consult the Doctoral bylaws of
+% the university for correct PhD degree titles.
+%
+% \DescribeMacro{\examdate}
+% specifies the date of the exam. We recommend the YYYY-MM-DD format,
+% but you are free to chose your own coding scheme for dates. We
+% advize against using UNIX epoch time, to avoid problems in the first
+% semester exams in 2038.
+%
+% \DescribeMacro{\examgroupnumber} [exam]\\
+% mentions the group number (may be empty)
+%
+% \DescribeMacro{\examlength}
+% specifies the length of the exam in a unit of time, e.g. '4h'
+%
+% \DescribeMacro{\exampart} [exam] (mandatory)\\
+% Description of the part of the course the exam covers.
+% Often the evaluation of a course consists of multiple evaluation
+% elements (e.g. a written exam, a portfolio defense and lab
+% reports). Using this macro you can indicate the part this exam
+% covers. E.g. it could be 'Written Exam' (to distinguish from the
+% other parts 'portfolio defense' and 'lab reports').
+%
+% \DescribeMacro{\extrainfo}
+% specifies the extra information that appears on the back of the
+% title page, regarding the materials that can be used during the
+% examination and cautioning the students not to commit fraude.
+% You can specify an optional first argument 'firstpage', such that
+% your extra info starts on the first page, below the title block. In
+% that case the extra info will also not be terminated with a
+% clearpage (as we assume you want to conserve space).
+%
+% \DescribeMacro{\lecturer} [exam] (mandatory)\\
+% You can add one or more lecturers to the course notes (in
+% Dutch: titularis). If there are multiple persons, please, use the
+% macro multiple times. 
+%
+% \DescribeMacro{\room}
+% specifies the rooms in which the exam will take place. This is
+% useless info for the student, but may be of convenience for you as
+% author or supervisor of the exam. Use UAntwerpen standard room
+% designators, e.g. 'G.U.025' for room number 025, on the
+% Groenenborgercampus in the U-building.
+% If your exam is taken in multiple rooms, just specify multiple
+% |\room{}| commands.
+%
+% \DescribeMacro{\studentnr}
+% specifies the exam copy number. This will appear on every page of
+% the exam, easing the reassembly of pages that do not contain any
+% name. Moreover, it allows for blind correction as the student only
+% writes his name ot he front page.
+%
+% \DescribeMacro{\tend}
+% specifies the end time of the exam in a format identical to the one
+% chosen for |\tstart|.
+%
+% \DescribeMacro{\tstart}
+% specifies the start time of the exam, preferrable in the format
+% 'HHhMM', e.g. '08h30'.
+%
+%
 %
 % \subsection{Fancy inset texts and quotes}
 %    \begin{macrocode}
