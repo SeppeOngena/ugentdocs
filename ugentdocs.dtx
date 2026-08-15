@@ -908,6 +908,8 @@
 			\@ficonpath
 		\end{scope}
 		
+		\path (0,0) rectangle (3*\@logounit+\@ftextw,3*\@logounit);
+		
 		\node[	anchor=south~west, align=left,
 		text~width=\@ftextw+\@ftextmarginextra,
 		font = \logotextface\fontsize{13.6pt}{12.4pt}\selectfont]
@@ -1105,6 +1107,7 @@
 		shift={(\@logoxshift, 0.0cm)},
 		yscale=\@logoscale,xscale=\@logoscale, every node/.append style={scale=\@logoscale, color=#2}, inner sep=0pt, outer sep=0pt]
 		%\draw[step=\@logounit,black,thin] (0,0) grid (5*\@logounit,4*\@logounit); % logo grid
+		\path (0,0) rectangle (2*\@logounit+\@ugenttextw,4*\@logounit);
 		\begin{scope}[shift={(\@logounit,2*\@logounit)},every path/.append style={fill=#2}]
 			\@ugenticonpath
 		\end{scope}
