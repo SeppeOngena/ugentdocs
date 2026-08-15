@@ -1126,8 +1126,10 @@
 % Before loading the class, we provide the extra options.
 % 
 %    \begin{macrocode}
-%<*phd|bkc|rp|ex|le|crs|bama|bmr>
+%<*phd|bkc|rp|ex|le|crs|bama|bmr|clo> 
 \ExplSyntaxOn
+%</phd|bkc|rp|ex|le|crs|bama|bmr|clo> 
+%<*clo>
 \tl_new:N \l_@@_language_tl
 \tl_set:Nn \l_@@_language_tl {english}
 
@@ -1146,7 +1148,7 @@
 	gugc     .code:n   = { \tl_set:Nn \l_@@_campus_tl {gugc} } ,
 	kortrijk .code:n   = { \tl_set:Nn \l_@@_campus_tl {kortrijk} } ,
 }
-%</phd|bkc|rp|ex|le|crs|bama|bmr>
+%</clo>
 %<*crs|rp>      
 \bool_new:N \l_@@_copyright_bool
 
@@ -1188,7 +1190,7 @@
 	thumbs .default:n = true ,
 }
 %</phd|crs>
-%<*phd|bkc|rp|ex|le|crs|bama|bmr>
+%<*clo>
 \tl_new:N \l_@@_nameformat_tl
 \tl_set:Nn \l_@@_nameformat_tl {surnamelast}
 
@@ -1197,7 +1199,7 @@
 	surnamefirst .code:n   = { \tl_set:Nn \l_@@_nameformat_tl {surnamefirst} } ,
 	surnamelast  .code:n   = { \tl_set:Nn \l_@@_nameformat_tl {surnamelast} } ,
 }
-%</phd|bkc|rp|ex|le|crs|bama|bmr>
+%</clo>
 %<*le>
 \bool_new:N \l_@@_foldline_bool
 \bool_set_true:N \l_@@_foldline_bool
@@ -1231,9 +1233,9 @@
 %<crs> \tl_set:Nn \l_@@_covertype_tl {course}
 %<bama> \tl_set:Nn \l_@@_covertype_tl {bama}
 %<rp>  \tl_set:Nn \l_@@_covertype_tl {report}
-%<*phd|bkc|rp|ex|le|crs|bama|bmr> 
+%<*phd|bkc|rp|ex|le|crs|bama|bmr|clo> 
 \ExplSyntaxOff
-%</phd|bkc|rp|ex|le|crs|bama|bmr> 
+%</phd|bkc|rp|ex|le|crs|bama|bmr|clo> 
 %    \end{macrocode}
 %
 %
@@ -1245,9 +1247,7 @@
 \PassOptionsToClass{a4paper,11pt,final,oneside,openright}{book}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption, a4paper}{book}}
 \ProcessOptions\relax
-\ExplSyntaxOn
 \ProcessKeyOptions[ ugentdocs ]
-\ExplSyntaxOff
 \LoadClass{book}
 %</crs|bama|phd|rp>
 % We load the |bookcover| class for PhD dissertation covers
@@ -1255,12 +1255,11 @@
 \input{ugentcommon.clo}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{bookcover}}
 \ProcessOptions\relax
+\ProcessKeyOptions[ugentdocs]
 
 \newlength{\@bleedspace}
 \newlength{\@markerlength}
 \ExplSyntaxOn
-\ProcessKeyOptions[ugentdocs]
-
 \bool_if:NTF \l_@@_cameraready_bool {
   \setlength\@bleedspace{3mm}
   \setlength\@markerlength{10mm}
@@ -1298,9 +1297,7 @@
 \PassOptionsToClass{a4paper,10pt,final,oneside}{letter}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{letter}}
 \ProcessOptions\relax
-\ExplSyntaxOn
-\ProcessKeyOptions[ ugentdocs ]
-\ExplSyntaxOff
+\ProcessKeyOptions[ugentdocs]
 \LoadClass{letter}
 %</le>
 % We load the |article| class for exams
@@ -1309,9 +1306,7 @@
 \PassOptionsToClass{a4paper,10pt,final,twoside}{article}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
-\ExplSyntaxOn
-\ProcessKeyOptions[ ugentdocs ]
-\ExplSyntaxOff
+\ProcessKeyOptions[ugentdocs]
 \LoadClass{article}
 %</ex>
 %    \end{macrocode}
@@ -1656,7 +1651,7 @@
 % These functions return the firstname, firstnameinitial, surname, and
 % the full name formatted following the surnamefirst option.
 %    \begin{macrocode}
-%<*phd|bkc|rp|ex|le|crs|bama|bmr>
+%<*clo>
 \ExplSyntaxOn
 
 \seq_new:N \l_@@_name_seq
@@ -1733,24 +1728,24 @@
 }
 
 \ExplSyntaxOff
-%</phd|bkc|rp|ex|le|crs|bama|bmr>
+%</clo>
 %    \end{macrocode}
 %
 % \subsection{Data dictionary and parser}
 %
 % Let's start by defining our dictionary:
 %    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*clo>
 \ExplSyntaxOn
 \prop_new:N \g_@@_dict_keyvals_prop
 \seq_new:N  \g_@@_loaded_dicts_seq
 \seq_new:N  \l_@@_value_paragraphs_seq
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%</clo>
 %    \end{macrocode}
 %
 % The dictionary can be accessed using the following document command:
 %    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*clo>
 
 \tl_new:N \l_@@_lookup_key_tl
 \tl_new:N \l_@@_value_cased_tl
@@ -1796,12 +1791,12 @@
 	  \_@@_translate:xn {\l_@@_case_tl} {#2}
 	}
 }
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%</clo>
 %    \end{macrocode}
 %
 % To this end, we use the following parsing infrastructure:
 %    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*clo>
 \NewDocumentCommand{\useugentdocsdictionary}{m}{
   \seq_if_in:NnTF \g_@@_loaded_dicts_seq {#1}{
   }{
@@ -1831,11 +1826,11 @@
   \tl_trim_spaces:N \l_@@_key_tl
   \tl_trim_spaces:N \l_@@_value_tl
 }
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%</clo>
 %    \end{macrocode}
 % invoked by the following data file reader:
 %    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*clo>
 \ior_new:N \l_@@_dict_ior
 \cs_new_nopar:Nn \@@_dictreader:n {
 	\tl_set:Nn \l_@@_dictlang_tl {#1}
@@ -1857,15 +1852,15 @@
 	\@@_flush_value:
 	\ior_close:N \l_@@_dict_ior
 }
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%</clo>
 %    \end{macrocode}
 % By default, we load the generic (not yet implemented!) and the english data file:
 %    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*clo>
 \useugentdocsdictionary{english}
 \useugentdocsdictionary{dutch}
 \ExplSyntaxOff
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%</clo>
 %    \end{macrocode}
 %
 % \subsection{Babel provisions}
@@ -6739,7 +6734,7 @@ BELGIUM}
 %
 % The file can then be loaded in the preamble of your letter as follows:
 %
-% \command{input\{ugentletter.cfg\}}
+% \txtcmd{input\{ugentletter.cfg\}}
 %
 % After loading this configuration file, you may override some
 % elements if this is appropriate.
