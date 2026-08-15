@@ -74,7 +74,12 @@ for arg in "$@"; do
 done
 
 ROOT="$(pwd)"
-TMP="./build/_tmp"
+
+if [ "$TEST" = false ]; then
+  TMP="./build/_tmp"
+else
+  TMP="./build"
+fi
 
 FONT_DIR="${FONT_DIR:-./Fonts}"
 if [ -d "$FONT_DIR" ]; then
@@ -123,8 +128,6 @@ popd >/dev/null
 
 # 3.1 Test build, just flat copy for ease of iterative testing, no zip
 if [ "$TEST" = true ]; then
-  mv "$TMP"/*  ./build/ 2>/dev/null || true
-  rm -rf "$TMP"
   echo "Test build complete"
   exit 0
 fi
