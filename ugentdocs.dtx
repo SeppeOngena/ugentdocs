@@ -514,13 +514,13 @@
 % \tl_clear_new:N \l__ugentdocs_facultyrows_tl
 % \clist_map_inline:nn { lw,re,we,ge,ea,eb,di,pp,bw,fw,ps } {
 %     \tl_put_right:Nn \l__ugentdocs_facultyrows_tl {
-%          \texttt{#1} & \renewcommand*{\@fselector}{#1}\@faculty \\
+%          \texttt{#1} & \translatekey{org-#1} &  \foreignlanguage{dutch}{\translatekey{org-#1}}\\
 %     }
 % }
 % \begin{center}\small
-%   \begin{tabular}{cp{10cm}}
+%   \begin{tabular}{cp{6cm}p{6.5cm}}
 %       \toprule
-%       Option & Faculty \\
+%       Option & Faculty~(EN) & Faculty~(NL) \\
 %       \midrule
 %       \l__ugentdocs_facultyrows_tl
 %       \bottomrule
