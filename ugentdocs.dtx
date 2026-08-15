@@ -59,6 +59,7 @@
 \providecommand{\ugentdocsversion}{v1.0.0}
 %
 \usepackage{geometry}
+\usepackage[dutch,main=english]{babel}
 \usepackage{newpxtext,newpxmath}
 \usepackage{makeidx}
 \usepackage{alltt}
@@ -66,6 +67,7 @@
 \usepackage{booktabs}
 \usepackage{metalogo}
 \usepackage{tikz}
+\usetikzlibrary{backgrounds}
 \usepackage{dtxdescribe}
 \usepackage{hyphenat}
 \usepackage{fancyvrb}
@@ -73,6 +75,9 @@
 %
 \makeatletter
 \input{ugentcommon.clo}
+\ExplSyntaxOn
+\keys_set:nn { ugentdocs } { faculty = bw }
+\ExplSyntaxOff
 \makeatother
 \usepackage{ugentcolor}
 %
@@ -272,8 +277,11 @@
 % \section{Usage}
 % \label{S:usage}
 %
-% \subsection{Colours, logos, faculties, and campuses}
+% \subsection{Colours, faculties, campuses, and logos}
 % \label{S:collogofaccampus}
+%
+% \subsubsection{Colours}
+% \label{S:colours}
 %
 % Colours, logos, faculty, and campus handling is shared between all classes.
 % The colours are defined in the |ugentcolors.sty| package, and are shown below:
@@ -493,29 +501,40 @@
 %</col>
 % \fi
 %
+% \subsubsection{Faculty}
+% \label{S:faculty}
+% 
+% Faculties determine colour, logos, in some cases specific cover types (such as
+% BW for PhDs), and the faculty name used throughout the documents. The UGent
+% faculties are:
 %
+% \makeatletter
+% \ExplSyntaxOn
+% \tl_clear_new:N \l__ugentdocs_facultyrows_tl
+% \clist_map_inline:nn { lw,re,we,ge,ea,eb,di,pp,bw,fw,ps } {
+%     \tl_put_right:Nn \l__ugentdocs_facultyrows_tl {
+%          \texttt{#1} & \renewcommand*{\@fselector}{#1}\@faculty \\
+%     }
+% }
+% \begin{center}\small
+%   \begin{tabular}{cp{10cm}}
+%       \toprule
+%       Option & Faculty \\
+%       \midrule
+%       \l__ugentdocs_facultyrows_tl
+%       \bottomrule
+%   \end{tabular}
+% \end{center}
+% \ExplSyntaxOff
+% \makeatother
 %
-%    \begin{macrocode}
+% \iffalse
 %<*clo>
-% First, we set some 
-\ExplSyntaxOn
-\bool_new:N \l_@@_coverbg_bool
-\tl_new:N \l_@@_covertype_tl
-\msg_new:nnn { ugentdocs } { cover~type~not~implemented }
-{ Cover~type~'#1'~is~not~implemented. }
-\ExplSyntaxOff
-% Logo fonts
-\AtBeginDocument{
-	\newfontface\logotextface{UGent Panno Text Medium}[LetterSpace=-0.75]
-	\newfontface\logosubtextface{UGent Panno Text SemiLight}[LetterSpace=0.1]
-}
-
-% Faculty logo spacing and text
+% Faculty: initializing variables
 \ExplSyntaxOn
 \tl_new:N \l_@@_fselector_tl
 \newcommand*\@fselector{}
 \newcommand*\@ficonpath{}
-\newcommand*\faclogo[3]{}
 
 \NewDocumentCommand{\@flogotext}{}{
 	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
@@ -524,8 +543,6 @@
 	{~\translatekey[uppercase]{facultyof}}%
 	{~\translatekey[uppercase,expand]{org-\@fselector}}%
 }
-\ExplSyntaxOff
-
 \newcommand*\@flogosubtext{~}
 
 \newlength\@logounit			\setlength\@logounit			{0.75cm}
@@ -534,16 +551,25 @@
 \newlength\@ftextmarginextra	\setlength\@ftextmarginextra	{0mm}
 \newlength\@ftextwen
 \newlength\@ftextwnl
-
-\ExplSyntaxOn
-\NewDocumentCommand{\@faculty}{O{}}{%
-	\translatekey[#1]{faculty}{}%
-	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
-	\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
-	{~\translatekey[#1]{facultyof}}%
-	{~\translatekey[#1,expand]{org-\@fselector}}%
-}
-
+%</clo>
+% \fi
+%
+% The faculty is specified as a class option:
+%
+% \DescribeOption[common]{faculty}\DescribeDefault{empty}
+% Options: |lw|, |re|, |we|, |ge|, |ea|, |eb|, |di|, |pp|, |bw|, |fw|, |ps|\\
+% Used as, e.g., |faculty=bw|, but also plain |bw| works. Sets the faculty selector
+% (\txtcmd{@fselector}) to this value, which is used to determine the faculty
+% text (for both EN and NL) and colour.
+% Also loads the faculty icon and its width, the faculty logo text format (newline behaviour),
+% the faculty logo text width (for both EN and NL), and any additional text spacing
+% needed.\\
+% An empty faculty will not print the logo, faculty name, or acronym, and will
+% extend the cover or beamer slide background to the top.
+%
+% \iffalse
+%<*clo>
+% Faculty: class options
 \keys_define:nn { ugentdocs } {
 	faculty .choice:,
 	bw .meta:n = { faculty = bw },
@@ -737,6 +763,49 @@
 	},
 }
 \ExplSyntaxOff
+%</clo>
+% \fi
+%
+% When the faculty is specified, the \txtcmd{@faculty} and \txtcmd{@facultyacronym}
+% tags are set. You can retrieve these similar to the \txtcmd{@title} tag by
+% wrapping it in \txtcmd{makeatletter} and \txtcmd{makeatother} (due to the @ sign).
+% For example:
+% \begin{itemize}
+%	\item \txtcmd{makeatletter}\txtcmd{@faculty}\txtcmd{makeatother}:
+%		\makeatletter\@faculty\makeatother
+%	\item \txtcmd{makeatletter}\txtcmd{@facultyacronym}\txtcmd{makeatother}:
+%		\makeatletter\@facultyacronym\makeatother
+% \end{itemize}
+%
+% The faculty icon and logos are used with the following macros:
+%
+% \DescribeMacro[common]{\ficon}\marg{height}\marg{color}\marg{alignment}
+% When used within a tikzpicture, this prints the faculty icon. The height is a
+% length, the alignment ranges from 0 (left edge) to 1 (right edge).\\
+% Usage:
+%
+% \txtcmd{begin\{tikzpicture\}}\txtcmd{ficon\{1cm\}\{ugent@faculty\}\{0\}}\txtcmd{end\{tikzpicture\}}\\
+% \begin{tikzpicture}
+%	\ficon{1cm}{ugent@faculty}{0}
+% \end{tikzpicture}
+%
+% \iffalse
+%<*clo>
+\ExplSyntaxOn
+\NewDocumentCommand{\@faculty}{O{}}{%
+	\ifx\@fselector\@empty\else
+	\translatekey[#1]{faculty}{}%
+	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : facultyof }
+	\tl_if_empty:eF { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+	{~\translatekey[#1]{facultyof}}%
+	{~\translatekey[#1,expand]{org-\@fselector}}%
+	\fi
+}
+\ExplSyntaxOff
+
+\newcommand*\@facultyacronym{
+	\MakeUppercase{F\@fselector}
+}
 
 \newcommand{\ficon}[3]{
 	\ifx\@fselector\@empty\else
@@ -749,20 +818,83 @@
 	\end{scope}
 	\fi
 }
-
-\newcommand*\@facultyacronym{
-	\MakeUppercase{\@fselector}
+%</clo>
+% \fi
+%
+% \DescribeMacro[common]{\faclogo}\marg{height}\marg{color}\marg{alignment}
+% When used within a tikzpicture, this prints the faculty logo. The height is a
+% length, the alignment ranges from 0 (left edge) to 1 (right edge).
+% The color can be set to, e.g., white to print on a dark background.\\
+% The logo text uses the current language.\\
+% Usage (the rectangle is just to visualize the boundaries here):
+%
+% {\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
+% \begin{verbatim}
+% \begin{tikzpicture}
+%	\faclogo{3cm}{ugent@faculty}{0}
+% \end{tikzpicture}
+% \end{verbatim}
+% \vspace{-\parskip}\nointerlineskip
+% \begin{tikzpicture}[show background rectangle]
+%	\faclogo{3cm}{ugent@faculty}{0}
+% \end{tikzpicture}
+%
+% \begin{verbatim}
+% \foreignlanguage{dutch}{
+%	\begin{tikzpicture}
+%		\faclogo{3cm}{ugent@faculty}{0}
+%	\end{tikzpicture}
+% }
+% \end{verbatim}
+% \vspace{-\parskip}\nointerlineskip
+% \foreignlanguage{dutch}{
+% \begin{tikzpicture}[show background rectangle]
+%	\faclogo{3cm}{ugent@faculty}{0}
+% \end{tikzpicture}
+% }
+%
+% \begin{verbatim}
+% \makeatletter
+% \ExplSyntaxOn
+%	\keys_set:nn { ugentdocs } { faculty = di }
+%	\colorlet{ugent@faculty}{ugent@\@fselector}
+%	\begin{tikzpicture}
+%		\faclogo{3cm}{ugent@faculty}{0}
+%	\end{tikzpicture}
+% \ExplSyntaxOff
+% \makeatother
+% \end{verbatim}
+% \vspace{-\parskip}\nointerlineskip
+% \makeatletter
+% \ExplSyntaxOn
+%   \keys_set:nn { ugentdocs } { faculty = di }
+%	\colorlet{ugent@faculty}{ugent@\@fselector}
+% 	\begin{tikzpicture}[show~background~rectangle]
+%		\faclogo{3cm}{ugent@faculty}{0}
+%	\end{tikzpicture}
+%	\keys_set:nn { ugentdocs } { faculty = bw }
+%	\colorlet{ugent@faculty}{ugent@\@fselector}
+% \ExplSyntaxOff
+% \makeatother
+% }
+%
+% \iffalse
+%<*clo>
+% Logo fonts
+\AtBeginDocument{
+	\newfontface\logotextface{UGent Panno Text Medium}[LetterSpace=-0.75]
+	\newfontface\logosubtextface{UGent Panno Text SemiLight}[LetterSpace=0.1]
 }
-
+% Faculty: set text width
 \newlength{\@ftextw}
-
 \ExplSyntaxOn
 \newcommand{\@setfaclogotext}{
 	\exp_args:Nx \str_case:nnF { \languagename } {	
 		{ dutch }{ \setlength{\@ftextw}{\@ftextwnl} }
 	}		 { \setlength{\@ftextw}{\@ftextwen}	}
 }
-\renewcommand*{\faclogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
+% Faculty: logo
+\newcommand*{\faclogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
 	\ifx\@fselector\@empty\else
 	\@setfaclogotext
 	\pgfmathsetmacro{\@flogoscale}{#1/3/\@logounit}
@@ -793,10 +925,47 @@
 	\fi
 }
 \ExplSyntaxOff
+%</clo>
+%\fi
+%
+% \subsubsection{Campus}
+% \label{S:campus}
+%
+% \DescribeOption[common]{campus}\DescribeDefault{ugent}
+% Options: |ugent|, |kortrijk|, |gugc|\\
+% Used as, e.g., |campus=kortrijk|, but also plain |kortrijk| works.
+% Only affects the ugent logo.
+%
+% \iffalse
+%<*clo>
+% UGent: campus
+\ExplSyntaxOn
+\tl_new:N \l_@@_campus_tl
+\tl_set:Nn \l_@@_campus_tl {ugent}
 
-
-% UGent logos
-
+\keys_define:nn { ugentdocs } {
+	campus .tl_set:N = \l_@@_campus_tl ,
+	ugent    .code:n   = { \tl_set:Nn \l_@@_campus_tl {ugent} } ,
+	gugc     .code:n   = { \tl_set:Nn \l_@@_campus_tl {gugc} } ,
+	kortrijk .code:n   = { \tl_set:Nn \l_@@_campus_tl {kortrijk} } ,
+}
+\ExplSyntaxOff
+%</clo>
+% \fi
+%
+% \DescribeMacro[common]{\ugenticon}\marg{height}\marg{color}\marg{alignment}
+% When used within a tikzpicture, this prints the ugent icon.
+% The height is a length, the alignment ranges from 0 (left edge) to 1 (right edge).\\
+% Usage:
+%
+% \txtcmd{begin\{tikzpicture\}}\txtcmd{ugenticon\{1cm\}\{ugent@main\}\{0\}}\txtcmd{end\{tikzpicture\}}\\
+% \begin{tikzpicture}
+%	\ugenticon{1cm}{ugent@main}{0}
+% \end{tikzpicture}
+%
+% \iffalse
+%<*clo>
+% UGent: icon
 \newcommand{\@ugenticonpath}{
 	\path[nonzero rule,line width=0.1pt] (11.25, 18.07) -- (10.01, 18.07) -- (10.01, 9.98) -- (11.25, 9.98) -- (11.25, 18.07);
 	\path[nonzero rule,line width=0.1pt] (8.76, 18.07) -- (7.51, 18.07) -- (7.51, 9.98) -- (8.76, 9.98) -- (8.76, 18.07);
@@ -820,15 +989,74 @@
 		\@ugenticonpath
 	\end{scope}
 }
+%</clo>
+% \fi
 
+% \DescribeMacro[common]{\ugentlogo}\marg{height}\marg{color}\marg{alignment}
+% When used within a tikzpicture, this prints the ugent logo, dependent on
+% the campus. The height is a length, the alignment ranges from 0 (left edge)
+% to 1 (right edge).
+% The color can be set to, e.g., white to print on a dark background.\\
+% The logo text uses the current language.\\
+% Usage (the rectangle is just to visualize the boundaries here):
+%
+% {\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
+% \begin{verbatim}
+% \begin{tikzpicture}
+%	\ugentlogo{4cm}{ugent@main}{0}
+% \end{tikzpicture}
+% \end{verbatim}
+% \vspace{-\parskip}\nointerlineskip
+% \begin{tikzpicture}[show background rectangle]
+%	\ugentlogo{4cm}{ugent@main}{0}
+% \end{tikzpicture}
+%
+% \begin{verbatim}
+% \foreignlanguage{dutch}{
+%	\begin{tikzpicture}
+%		\ugentlogo{4cm}{ugent@main}{0}
+%	\end{tikzpicture}
+% }
+% \end{verbatim}
+% \vspace{-\parskip}\nointerlineskip
+% \foreignlanguage{dutch}{
+% \begin{tikzpicture}[show background rectangle]
+%	\ugentlogo{4cm}{ugent@main}{0}
+% \end{tikzpicture}
+% }
+%
+% \begin{verbatim}
+% \makeatletter
+% \ExplSyntaxOn
+%	\keys_set:nn { ugentdocs } { campus = kortrijk }
+%	\begin{tikzpicture}
+%		\ugentlogo{4cm}{ugent@main}{0}
+%	\end{tikzpicture}
+% \ExplSyntaxOff
+% \makeatother
+% \end{verbatim}
+% \vspace{-\parskip}\nointerlineskip
+% \makeatletter
+% \ExplSyntaxOn
+%   \keys_set:nn { ugentdocs } { campus = kortrijk }
+%	\colorlet{ugent@faculty}{ugent@\@fselector}
+% 	\begin{tikzpicture}[show~background~rectangle]
+%		\ugentlogo{4cm}{ugent@main}{0}
+%	\end{tikzpicture}
+%	\keys_set:nn { ugentdocs } { campus = ugent }
+% \ExplSyntaxOff
+% \makeatother
+% }
+%
+% \iffalse
+%<*clo>
+% UGent: set logo text and textwidth
 \newcommand*\@ugentlogotext{}
 \newlength{\@ugenttextw}
 \newlength{\@ugenttextmarginextra}
 \ExplSyntaxOn
 \tl_new:N \l_@@_logotext_tmpa_tl
 \tl_new:N \l_@@_logotext_tmpb_tl
-\msg_new:nnn { ugentdocs } { unknown~campus }
-{ The~campus~'#1'~is~not~implemented,~options~are~'ugent',~'gugc',~and~'kortrijk'. }
 
 \newcommand*\@setugentlogotext{
 	\exp_args:Nx \str_case:nnF { \l_@@_campus_tl } {
@@ -868,6 +1096,7 @@
 }
 \ExplSyntaxOff
 
+% UGent: logo
 \newcommand*{\ugentlogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
 	\@setugentlogotext
 	\pgfmathsetmacro{\@logoscale}{#1/4/\@logounit}%
@@ -883,9 +1112,8 @@
 			\@ugentlogotext};
 	\end{scope}
 }
-\newif\if@bwbookcover
 %</clo>
-%    \end{macrocode}
+% \fi
 %
 % \subsection{The class options explained}
 % \label{sec:classopt}
@@ -893,37 +1121,6 @@
 % After every option, it has been indicated to which class the option
 % applies (between square brackets, without prefix ugent).
 %
-% \DescribeMacro{xx(x)} [letter / course / bama / phd
-% / report / beamertheme]\\
-% \begin{center}\small
-%   \begin{tabular}{cp{10cm}}
-%       \toprule
-%       Option & Faculty \\
-%       \midrule
-%       |be|  & Faculty of Business and Economics\\
-%                & Faculteit Bedrijfswetenschappen en Economie\\
-%       |fbd| & Faculty of Pharmaceutical, Biomedical and Veterinary Sciences\\
-%                & Faculteit Farmaceutische, Biomedische en Diergeneeskundige
-%                    Wetenschappen\\
-%       |ggw| & Faculty of Medicine and Health Sciences\\
-%                & Faculteit Geneeskunde en Gezondheidswetenschappen\\
-%       |lw|  & Faculty of Arts \\
-%                & Faculteit Letteren en Wijsbegeerte\\
-%       |ow|  & Faculty of Design Sciences\\
-%                & Faculteit Ontwerpwetenschappen\\
-%       |re|  & Faculty of Law\\
-%                & Faculteit Rechten\\
-%       |sw|  & Faculty of Social Sciences\\
-%                & Faculteit Sociale Wetenschappen\\
-%       |ti|  & Faculty of Applied Engineering\\
-%                & Faculteit Toegepaste Ingenieurswetenschappen\\
-%       |we|  & Faculty of Science\\
-%                & Faculteit Wetenschappen\\
-%       |iob| & Institute of Development Policy\\
-%                & Instituut voor Ontwikkelingsbeleid- en beheer\\
-%       \bottomrule
-%   \end{tabular}
-% \end{center}
 %
 % \DescribeMacro{cameraready} [phd/course]\\
 % For the |phd| class, this option forces the book format to be
@@ -1296,6 +1493,14 @@
 \ExplSyntaxOn
 %</phd|bkc|rp|ex|le|crs|bama|bmr|clo> 
 %<*clo>
+\newif\if@bwbookcover
+% Declare some variables used later in the classes:
+\bool_new:N \l_@@_coverbg_bool
+\tl_new:N \l_@@_covertype_tl
+\msg_new:nnn { ugentdocs } { cover~type~not~implemented }
+{ Cover~type~'#1'~is~not~implemented. }
+
+
 \tl_new:N \l_@@_language_tl
 \tl_set:Nn \l_@@_language_tl {english}
 
@@ -1305,15 +1510,6 @@
 	english  .code:n   = { \tl_set:Nn \l_@@_language_tl {english} } ,
 }
 
-\tl_new:N \l_@@_campus_tl
-\tl_set:Nn \l_@@_campus_tl {ugent}
-
-\keys_define:nn { ugentdocs } {
-	campus .tl_set:N = \l_@@_campus_tl ,
-	ugent    .code:n   = { \tl_set:Nn \l_@@_campus_tl {ugent} } ,
-	gugc     .code:n   = { \tl_set:Nn \l_@@_campus_tl {gugc} } ,
-	kortrijk .code:n   = { \tl_set:Nn \l_@@_campus_tl {kortrijk} } ,
-}
 %</clo>
 %<*crs|rp>      
 \bool_new:N \l_@@_copyright_bool
