@@ -1309,6 +1309,10 @@
 \ProcessKeyOptions[ugentdocs]
 \LoadClass{article}
 %</ex>
+%<*bmr>
+\input{ugentcommon.clo}
+\ProcessKeyOptions[ugentdocs]
+%</bmr>
 %    \end{macrocode}
 % 
 % \subsection{Modern typesetting}
@@ -1595,9 +1599,9 @@
 %
 % \subsubsection{UGent color and logo scheme}
 %    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \RequirePackage{ugentcolor}
-%</crs|bama|phd|rp|le|ex|bkc>
+%</crs|bama|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 %
 % \subsubsection{Header/Footer}
@@ -7203,7 +7207,6 @@ Gault-Millau.
 %<*bmrug> 
 \documentclass{beamer}
 \usetheme[bw]{ugent}
-\usepackage[english]{babel}
 
 % The packages below are for demonstration purpose only.
 % They are not required for the template to work
@@ -8003,13 +8006,6 @@ Gault-Millau.
 % 
 %    \begin{macrocode}
 %<*bmr>      
-\input{ugentcommon.clo}
-\ExplSyntaxOn
-\ProcessKeyOptions[ ugentdocs ]
-\ExplSyntaxOff
-
-\RequirePackage{ugentcolor}
-
 \AtBeginDocument{
   \def\appropriatelogo{\@ugentlogo{2.5cm}{ugent@main}{0.0}}
   \def\appropriateslidenumber{%
