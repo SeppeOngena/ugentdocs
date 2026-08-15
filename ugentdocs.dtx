@@ -1448,6 +1448,15 @@
 \ExplSyntaxOff
 \LoadClass{bookcover}
 %</bkc>
+%<*phd|bkc>
+\ExplSyntaxOn
+\exp_args:Nx \str_if_eq:eeT { \l_@@_fselector_tl } { bw } {
+	\exp_args:Nx \str_if_eq:eeT { \l_@@_covertype_tl } { phd } {
+		\@bwbookcovertrue
+	}
+}
+\ExplSyntaxOff
+%</phd|bkc>
 % We load the |letter| class for letters
 %<*le> 
 \PassOptionsToClass{a4paper,10pt,final,oneside}{letter}
@@ -4196,29 +4205,6 @@ embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel
 % using the |\@frontcover| and |\@backcover| commands.
 % These are used in the |\maketitle| and |\makefinalpage| commands.
 % For this fancier style, a titlepageimage is included.
-%
-% First, we need to check if the Bioscience Engineering variant of the bookcover should be used:
-%    \begin{macrocode}
-%<*phd|bkc|crs>
-\newif\if@bwbookcover
-\ExplSyntaxOn
-\exp_args:Nx \str_if_eq:eeTF { \l_@@_fselector_tl } { bw } {
-	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-	{ phd } {
-		\@bwbookcovertrue
-	}
-	{ course } {
-		\@bwbookcoverfalse
-	}
-	}{
-		\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
-	}	
-}{ 
-	\@bwbookcoverfalse
-}
-\ExplSyntaxOff
-%</phd|bkc|crs>
-%    \end{macrocode}
 %
 % Next, we set lengths and colours:
 %    \begin{macrocode}
