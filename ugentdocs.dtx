@@ -987,7 +987,7 @@
 	\pgfmathsetmacro{\@ugenticonxshift}{-#3*\@logounit*\@ugenticonscale}
 	\begin{scope}[	y=1pt, x=1pt, inner sep=0pt, outer sep=0pt,
 		shift={(\@ugenticonxshift, 0.0cm)},yscale=\@ugenticonscale,xscale=\@ugenticonscale,
-		every node/.append style={scale=\@ugenticonscale, color=#2} ]
+		every node/.append style={scale=\@ugenticonscale, color=#2},every path/.append style={fill=#2} ]
 		\@ugenticonpath
 	\end{scope}
 }
