@@ -1142,9 +1142,31 @@
 % \fi
 %
 % \newpage
-% \subsection{Dictionaries}
-% To support multi-language documents and setting all template text -- e.g.,
-% copyright page, faculty name, or other specific terms automatically set by 
+% \subsection{Language}
+% \label{S:dict}
+% The |ugentdocs| documents can be written in either english or dutch. 
+% The following option sets the main language:
+%
+% \DescribeOption{language}
+% Options: |dutch|, |english|\\
+% Sets the main document language and all automatic text.
+%
+%<*clo>
+\ExplSyntaxOn
+% Dictionaries: language class options
+\tl_new:N \l_@@_language_tl
+\tl_set:Nn \l_@@_language_tl {english}
+
+\keys_define:nn { ugentdocs } {
+	language .tl_set:N = \l_@@_language_tl ,
+	dutch    .code:n   = { \tl_set:Nn \l_@@_language_tl {dutch} } ,
+	english  .code:n   = { \tl_set:Nn \l_@@_language_tl {english} } ,
+} 
+\ExplSyntaxOff
+%</clo>
+%
+% To support multi-language documents and automatically setting all template
+% text -- e.g., copyright page, faculty name, or other specific terms set by
 % the class -- a dictionary system was implemented.
 % \iffalse
 %<*clo>
@@ -1285,9 +1307,10 @@
 		\seq_gput_right:Nn \g_@@_loaded_dicts_seq {#1}
 	}
 }
-\ExplSyntaxOff
+
 \useugentdocsdictionary{english}
 \useugentdocsdictionary{dutch}
+\ExplSyntaxOff
 %</clo>
 % \fi
 %
@@ -1595,15 +1618,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \msg_new:nnn { ugentdocs } { cover~type~not~implemented }
 { Cover~type~'#1'~is~not~implemented. }
 
-
-\tl_new:N \l_@@_language_tl
-\tl_set:Nn \l_@@_language_tl {english}
-
-\keys_define:nn { ugentdocs } {
-	language .tl_set:N = \l_@@_language_tl ,
-	dutch    .code:n   = { \tl_set:Nn \l_@@_language_tl {dutch} } ,
-	english  .code:n   = { \tl_set:Nn \l_@@_language_tl {english} } ,
-}
 
 %</clo>
 %<*crs|rp>      
