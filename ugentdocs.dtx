@@ -71,6 +71,7 @@
 \usepackage{dtxdescribe}
 \usepackage{hyphenat}
 \usepackage{fancyvrb}
+\usepackage{fvextra}
 \fvset{fontsize=\tiny}
 %
 \makeatletter
@@ -374,12 +375,12 @@
 % \newpage
 % Some class options change colour handling:
 % 
-% \DescribeOption[common]{neutralcolors}\DescribeDefault{false}
+% \DescribeOption{neutralcolors}\DescribeDefault{false}
 % Options: |true|, |false|\\
 % When enabled (|neutralcolors=true|), UGent colours override the faculty colour.
 % If the faculty option is empty (see later), UGent colours will always be used.
 % 
-% \DescribeOption[common]{colormodel}\DescribeDefault{rgb}
+% \DescribeOption{colormodel}\DescribeDefault{rgb}
 % Options: |rgb|, |cmyk|\\
 % These set the colour model of faculty and UGent colours used.
 % For digital display, rgb is preferable. 
@@ -555,7 +556,7 @@
 %</clo>
 % \fi
 %
-% \DescribeOption[common]{faculty}\DescribeDefault{empty}
+% \DescribeOption{faculty}\DescribeDefault{empty}
 % Options: |lw|, |re|, |we|, |ge|, |ea|, |eb|, |di|, |pp|, |bw|, |fw|, |ps|\\
 % Used as, e.g., |faculty=bw|, but also plain |bw| works. Sets the faculty selector
 % (\txtcmd{@fselector}) to this value, which is used to determine the faculty
@@ -775,7 +776,7 @@
 %	\item \txtcmd{makeatletter}\txtcmd{@facultyacronym}\txtcmd{makeatother}:
 %		\makeatletter\@facultyacronym\makeatother
 % \end{itemize}
-% \DescribeMacro{\department}[common]\marg{name}\\
+% \DescribeMacro{\department}\marg{name}\\
 % Setting the department with this macro overrides \txtcmd{@faculty} 
 % with the |name| entered.
 %
@@ -810,7 +811,7 @@
 %</clo>
 % \fi
 %
-% \DescribeMacro[common]{\ficon}\marg{height}\marg{color}\marg{alignment}\\
+% \DescribeMacro{\ficon}\marg{height}\marg{color}\marg{alignment}\\
 % When used within a tikzpicture, this prints the faculty icon. The height is a
 % length, the alignment ranges from 0 (left edge) to 1 (right edge).\\
 % Usage:
@@ -836,7 +837,7 @@
 %</clo>
 % \fi
 %
-% \DescribeMacro[common]{\faclogo}\marg{height}\marg{color}\marg{alignment}\\
+% \DescribeMacro{\faclogo}\marg{height}\marg{color}\marg{alignment}\\
 % When used within a tikzpicture, this prints the faculty logo. The height is a
 % length, the alignment ranges from 0 (left edge) to 1 (right edge).
 % The color can be set to, e.g., white to print on a dark background.\\
@@ -948,7 +949,7 @@
 % \subsubsection{Campus}
 % \label{S:campus}
 %
-% \DescribeOption[common]{campus}\DescribeDefault{ugent}
+% \DescribeOption{campus}\DescribeDefault{ugent}
 % Options: |ugent|, |kortrijk|, |gugc|\\
 % Used as, e.g., |campus=kortrijk|, but also plain |kortrijk| works.
 % Only affects the ugent logo.
@@ -970,7 +971,7 @@
 %</clo>
 % \fi
 %
-% \DescribeMacro[common]{\ugenticon}\marg{height}\marg{color}\marg{alignment}\\
+% \DescribeMacro{\ugenticon}\marg{height}\marg{color}\marg{alignment}\\
 % When used within a tikzpicture, this prints the ugent icon.
 % The height is a length, the alignment ranges from 0 (left edge) to 1 (right edge).\\
 % Usage:
@@ -1009,7 +1010,7 @@
 %</clo>
 % \fi
 
-% \DescribeMacro[common]{\ugentlogo}\marg{height}\marg{color}\marg{alignment}\\
+% \DescribeMacro{\ugentlogo}\marg{height}\marg{color}\marg{alignment}\\
 % When used within a tikzpicture, this prints the ugent logo, dependent on
 % the campus. The height is a length, the alignment ranges from 0 (left edge)
 % to 1 (right edge).
@@ -1142,24 +1143,15 @@
 %
 % \newpage
 % \subsection{Dictionaries}
-
-%
-% \subsection{Data dictionary and parser}
-%
-% Let's start by defining our dictionary:
-%    \begin{macrocode}
+% To support multi-language documents and setting all template text -- e.g.,
+% copyright page, faculty name, or other specific terms automatically set by 
+% the class -- a dictionary system was implemented.
+% \iffalse
 %<*clo>
 \ExplSyntaxOn
+% Dictionaries: translation machinery
 \prop_new:N \g_@@_dict_keyvals_prop
-\seq_new:N  \g_@@_loaded_dicts_seq
 \seq_new:N  \l_@@_value_paragraphs_seq
-%</clo>
-%    \end{macrocode}
-%
-% The dictionary can be accessed using the following document command:
-%    \begin{macrocode}
-%<*clo>
-
 \tl_new:N \l_@@_lookup_key_tl
 \tl_new:N \l_@@_value_cased_tl
 
@@ -1181,43 +1173,8 @@
 	\regex_split:nVN { __NEWLINE__ } \l_@@_value_cased_tl \l_@@_value_paragraphs_seq
 	\seq_use:Nn \l_@@_value_paragraphs_seq { \newline\newline }
 }
-\cs_generate_variant:Nn \_@@_translate:nn { xn, xx }
 
-\bool_new:N \l_@@_expand_bool
-\tl_new:N \l_@@_case_tl
-
-\NewDocumentCommand{\translatekey}{O{} m}{
-	\bool_set_false:N \l_@@_expand_bool
-	\tl_clear:N \l_@@_case_tl
-	\clist_map_inline:nn {#1} {
-		\str_case:nnF {##1}{
-			{expand}    { \bool_set_true:N \l_@@_expand_bool 		}
-			{uppercase} { \tl_set:Nn \l_@@_case_tl {uppercase} 	}
-			{lowercase} { \tl_set:Nn \l_@@_case_tl {lowercase} 	}
-		}{
-			\msg_error:nnn {ugentdocs}{Unknown~translatekey~option}{##1}
-		}
-	}
-	\bool_if:NTF \l_@@_expand_bool {
-		\_@@_translate:xx {\l_@@_case_tl} {#2}
-	}{ 
-		\_@@_translate:xn {\l_@@_case_tl} {#2}
-	}
-}
-%</clo>
-%    \end{macrocode}
-%
-% To this end, we use the following parsing infrastructure:
-%    \begin{macrocode}
-%<*clo>
-\NewDocumentCommand{\useugentdocsdictionary}{m}{
-	\seq_if_in:NnTF \g_@@_loaded_dicts_seq {#1}{
-	}{
-		\@@_dictreader:n {#1}
-		\seq_gput_right:Nn \g_@@_loaded_dicts_seq {#1}
-	}
-}	
-
+% Dictionaries: key-value parsing
 \tl_new:N \l_@@_key_tl
 \tl_new:N \l_@@_value_tl
 \bool_new:N \l_@@_keyval_flushpending_bool
@@ -1239,11 +1196,8 @@
 	\tl_trim_spaces:N \l_@@_key_tl
 	\tl_trim_spaces:N \l_@@_value_tl
 }
-%</clo>
-%    \end{macrocode}
-% invoked by the following data file reader:
-%    \begin{macrocode}
-%<*clo>
+
+% Dictionaries: dictionary file reader
 \ior_new:N \l_@@_dict_ior
 \cs_new_nopar:Nn \@@_dictreader:n {
 	\tl_set:Nn \l_@@_dictlang_tl {#1}
@@ -1265,171 +1219,241 @@
 	\@@_flush_value:
 	\ior_close:N \l_@@_dict_ior
 }
-%</clo>
-%    \end{macrocode}
-% By default, we load the generic (not yet implemented!) and the english data file:
-%    \begin{macrocode}
-%<*clo>
-\useugentdocsdictionary{english}
-\useugentdocsdictionary{dutch}
 \ExplSyntaxOff
 %</clo>
-%    \end{macrocode}
+% \fi
+% A key can be translated to the currently active babel language using:
 %
-% \subsection{Babel provisions}
-%
-% We will fill the dictionary from the generic data file (for elements
-% that should not be translated, currently empty) and the language
-% specific data files (for elements that can be translated).
-%
-% The English dictionary can be found below:
-%    \begin{macrocode}
-%<*endict>
-org-ugent	= Ghent University
-org-deugent = Ghent University
-ghent		= Ghent
-domain		= ugent.be
-faculty		= Faculty
-facultyof	= of
-org-bw		= Bioscience Engineering
-org-lw		= Arts and Philosophy
-org-re		= Law and Criminology
-org-we		= Sciences
-org-ge		= Medicine and Health Sciences
-org-ea		= Engineering and Architecture
-org-eb		= Economics and Business Administration
-org-di		= Veterinary Medicine
-org-pp		= Psychology and Educational Sciences
-org-fw		= Pharmaceutical Sciences
-org-ps		= Political and Social Sciences
+% \DescribeMacro{\translatekey}\oarg{expand}\oarg{casing}\marg{key}\\
+% Translates the |<key>| using the currently active language (babel), either the main
+% language, overridden with \txtcmd{selectlanguage\{<languagename>\}} or
+% temporarily set using the\\ \txtcmd{foreignlanguage\{<languagename>\{\ldots\}\}}
+% wrapper. A list of keys can be found in the dictionaries below.\\
+% Optional arguments:\\
+% |expand| - expands the |key|, for use with a key such as |org-\@fselector|\\
+% |uppercase| or |lowercase| - changes key result casing.
+% 
+% \iffalse
+%<*clo>
+% Dictionaries: translate keys
+\ExplSyntaxOn
+\cs_generate_variant:Nn \_@@_translate:nn { xn, xx }
+\bool_new:N \l_@@_expand_bool
+\tl_new:N \l_@@_case_tl
 
-date		= Date
-acyear		= Academic year
-subject		= Subject
-of			= Of
+\NewDocumentCommand{\translatekey}{O{} m}{
+	\bool_set_false:N \l_@@_expand_bool
+	\tl_clear:N \l_@@_case_tl
+	\clist_map_inline:nn {#1} {
+		\str_case:nnF {##1}{
+			{expand}    { \bool_set_true:N \l_@@_expand_bool 		}
+			{uppercase} { \tl_set:Nn \l_@@_case_tl {uppercase} 	}
+			{lowercase} { \tl_set:Nn \l_@@_case_tl {lowercase} 	}
+		}{
+			\msg_error:nnn {ugentdocs}{Unknown~translatekey~option}{##1}
+		}
+	}
+	\bool_if:NTF \l_@@_expand_bool {
+		\_@@_translate:xx {\l_@@_case_tl} {#2}
+	}{ 
+		\_@@_translate:xn {\l_@@_case_tl} {#2}
+	}
+}
+\ExplSyntaxOff
+%</clo>
+% \fi
+%
+% By default, only english and dutch dictionaries are supported, but a different
+% language can be loaded using:
+%
+% \DescribeMacro{\useugentdocsdictionary}\marg{languagename}\\
+% When used, the dictionary reader will load a file named
+% |ugentdocs-<languagename>.dict| into the dictionary library.
+% If you want to use this language as main document language, be sure to load
+% the |babel| package again immediately after class load using\\
+% \txtcmd{usepackage[main=languagename]\{babel\}}.
+% 
+% \iffalse
+%<*clo>
+\ExplSyntaxOn
+% Dictionaries: translation macro
+\seq_new:N  \g_@@_loaded_dicts_seq
+\NewDocumentCommand{\useugentdocsdictionary}{m}{
+	\seq_if_in:NnTF \g_@@_loaded_dicts_seq {#1}{
+	}{
+		\@@_dictreader:n {#1}
+		\seq_gput_right:Nn \g_@@_loaded_dicts_seq {#1}
+	}
+}
+\ExplSyntaxOff
+\useugentdocsdictionary{english}
+\useugentdocsdictionary{dutch}
+%</clo>
+% \fi
+%
+% Dictionaries support paragraphs using a \_\_NEWLINE\_\_ placeholder
+% and empty lines for readability.
+%
+% The English dictionary:
+% \begin{Verbatim}[
+%   fontsize=\scriptsize,
+%   breaklines=true,
+%   breakautoindent=true,
+%   breakanywhere=true,
+%   breaksymbolleft={},
+% ]
+%<*english>
+org-ugent   = Ghent University
+org-deugent = Ghent University
+ghent       = Ghent
+domain      = ugent.be
+faculty     = Faculty
+facultyof   = of
+org-bw      = Bioscience Engineering
+org-lw      = Arts and Philosophy
+org-re      = Law and Criminology
+org-we      = Sciences
+org-ge      = Medicine and Health Sciences
+org-ea      = Engineering and Architecture
+org-eb      = Economics and Business Administration
+org-di      = Veterinary Medicine
+org-pp      = Psychology and Educational Sciences
+org-fw      = Pharmaceutical Sciences
+org-ps      = Political and Social Sciences
+
+date        = Date
+acyear      = Academic year
+subject     = Subject
+of          = Of
 the-de      = The
 the-het     = The
-and			= And
-andlist		= , and
+and         = And
+andlist     = , and
 version     = Version
 
-baprog		= Bachelor's programme
-sprog		= Linking Course
-vprog		= Preparatory Course
-maprog		= Master's programme
-phdprog		= PhD
+baprog           = Bachelor's programme
+sprog            = Linking Course
+vprog            = Preparatory Course
+maprog           = Master's programme
+phdprog          = PhD
 
 dissertation     = Dissertation
 dissertation-ma  = Master's dissertation
-dissertation-ba	 = Bachelor's dissertation
+dissertation-ba  = Bachelor's dissertation
 dissertation-phd = Doctoral dissertation
-projreport	     = Project report
+projreport       = Project report
 
-submittedto	= Submitted to
-bmfulfil	= in partial Fulfilment of the Requirements for the Degree of
-phdfulfil	= in Fulfilment of the Requirements for the Degree of 
-badegree	= Bachelor
-madegree	= Master
-phddegree	= Doctor
+submittedto      = Submitted to
+bmfulfil         = in partial Fulfilment of the Requirements for the Degree of
+phdfulfil        = in Fulfilment of the Requirements for the Degree of 
+badegree         = Bachelor
+madegree         = Master
+phddegree        = Doctor
 
-author			= Author
-authors			= Authors
-lecturer		= Lecturer
-lecturers		= Lecturers
-examiner		= Examiner
-examiners		= Examiners
-supervisor		= Supervisor
-supervisors		= Supervisors
-cosupervisor	= Cosupervisor
-cosupervisors	= Cosupervisors
-extsupervisor	= External supervisor
-extsupervisors	= External supervisors
-tutor			= Tutor
-tutors			= Tutors
-jury			= Examination committee
-jurymembers		= Jury members
-jurychair		= Chair
-dean			= Dean
-rector			= Rector
-coverdesigner	= Cover illustration designer
+author         = Author
+authors        = Authors
+lecturer       = Lecturer
+lecturers      = Lecturers
+examiner       = Examiner
+examiners      = Examiners
+supervisor     = Supervisor
+supervisors    = Supervisors
+cosupervisor   = Cosupervisor
+cosupervisors  = Cosupervisors
+extsupervisor  = External supervisor
+extsupervisors = External supervisors
+tutor          = Tutor
+tutors         = Tutors
+jury           = Examination committee
+jurymembers    = Jury members
+jurychair      = Chair
+dean           = Dean
+rector         = Rector
+coverdesigner  = Cover illustration designer
 
-exam			= Exam --- Examen
-series			= Series
-lastname		= Last name --- Naam
-firstname		= First name --- Voornaam
-studentnr		= Student ID
-room			= Room --- Lokaal
-rooms			= Rooms --- Lokalen
-examstart		= Start --- Begin
-examend			= End --- Einde
-examduration	= Exam duration --- Duur van het examen
-weight			= Weight
-wordcount		= Word count
-page			= Page
-appendix		= Appendix
-package         = Package
+exam           = Exam --- Examen
+series         = Series
+lastname       = Last name --- Naam
+firstname      = First name --- Voornaam
+studentnr      = Student ID
+room           = Room --- Lokaal
+rooms          = Rooms --- Lokalen
+examstart      = Start --- Begin
+examend        = End --- Einde
+examduration   = Exam duration --- Duur van het examen
+weight         = Weight
+wordcount      = Word count
+page           = Page
+appendix       = Appendix
+package        = Package
 
-confidential	= Confidential
+confidential    = Confidential
 confidentiality = Confidentiality
-arr				= All rights reserved
-crdisclaimer	= Copyright
-supportedby		= This work was supported by
+arr             = All rights reserved
+crdisclaimer    = Copyright
+supportedby     = This work was supported by
 typeset         = This document has been typeset using
-pleaserefer		= Please refer to this work as
-ourref			= Our reference
+pleaserefer     = Please refer to this work as
+ourref          = Our reference
 
-arrphd			= The author allows to consult and copy parts of this work for personal use. Further reproduction or transmission in any form or by any means, without the prior permission of the author is strictly forbidden.
+arrphd          = The author allows to consult and copy parts of this work for personal use. Further reproduction or transmission in any form or by any means, without the prior permission of the author is strictly forbidden.
 
-integrityclause	= The PhD researcher and supervisor(s) declare that the PhD research was conducted according to the principles of scientific integrity, as mentioned in the general PhD regulations and charter for PhD researchers of Ghent University and the integrity charter for PhD researchers and supervisors affiliated with Ghent University.
+integrityclause = The PhD researcher and supervisor(s) declare that the PhD research was conducted according to the principles of scientific integrity, as mentioned in the general PhD regulations and charter for PhD researchers of Ghent University and the integrity charter for PhD researchers and supervisors affiliated with Ghent University.
 
-embargofullphd		= The author of this dissertation declares that this document is marked confidential. The content of this doctoral dissertation is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+embargofullphd  = The author of this dissertation declares that this document is marked confidential. The content of this doctoral dissertation is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 
-embargotempphd		= The author of this dissertation declares that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral dissertation is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+embargotempphd  = The author of this dissertation declares that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral dissertation is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 
-arrbama			=  give the permission to use this dissertation for consultation and to copy parts of it for personal use. Every other use is subject to the copyright laws, more specifically the source must be extensively specified when using results from this dissertation.
+arrbama         =  give the permission to use this dissertation for consultation and to copy parts of it for personal use. Every other use is subject to the copyright laws, more specifically the source must be extensively specified when using results from this dissertation.
 
-embargofullbama		= of this dissertation declare that this document is marked confidential. The content of this dissertation is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+embargofullbama = of this dissertation declare that this document is marked confidential. The content of this dissertation is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 
-embargotempbama		= of this dissertation declare that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this dissertation is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
-%</endict>
-%    \end{macrocode}
+embargotempbama = of this dissertation declare that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this dissertation is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+%</english>
+% \end{Verbatim}
 %
-% The Dutch dictionary can be found below:
-%    \begin{macrocode}
-%<*nldict>
-org-ugent	= Universiteit Gent
+% The Dutch dictionary:
+% \begin{Verbatim}[
+%   fontsize=\scriptsize,
+%   breaklines=true,
+%   breakautoindent=true,
+%   breakanywhere=true,
+%   breaksymbolleft={},
+% ]
+%<*dutch>
+org-ugent   = Universiteit Gent
 org-deugent = de Universiteit Gent
-ghent		= Gent
-domain		= ugent.be
-faculty		= Faculteit
-facultyof	= 
-org-bw		= Bio-ingenieurswetenschappen
-org-lw		= Letteren en Wĳsbegeerte
-org-re		= Recht en Criminologie
-org-we		= Wetenschappen
-org-ge		= Geneeskunde en Gezondheidswetenschappen
-org-ea		= Ingenieurswetenschappen en Architectuur
-org-eb		= Economie en Bedrĳfskunde
-org-di		= Diergeneeskunde
-org-pp		= Psychologie en Pedagogische Wetenschappen
-org-fw		= Farmaceutische Wetenschappen
-org-ps		= Politieke en Sociale Wetenschappen
+ghent       = Gent
+domain      = ugent.be
+faculty     = Faculteit
+facultyof   = 
+org-bw      = Bio-ingenieurswetenschappen
+org-lw      = Letteren en Wĳsbegeerte
+org-re      = Recht en Criminologie
+org-we      = Wetenschappen
+org-ge      = Geneeskunde en Gezondheidswetenschappen
+org-ea      = Ingenieurswetenschappen en Architectuur
+org-eb      = Economie en Bedrĳfskunde
+org-di      = Diergeneeskunde
+org-pp      = Psychologie en Pedagogische Wetenschappen
+org-fw      = Farmaceutische Wetenschappen
+org-ps      = Politieke en Sociale Wetenschappen
 
-date		= Datum
-acyear		= Academiejaar
-subject		= Onderwerp
-of			= Van
-the-de		= De
-the-het		= Het
-and			= En
-andlist		= ~en
+date        = Datum
+acyear      = Academiejaar
+subject     = Onderwerp
+of          = Van
+the-de      = De
+the-het     = Het
+and         = En
+andlist     = ~en
 version     = Versie
 
-baprog		= Bacheloropleiding
-sprog		= Schakelprogramma
-vprog		= Voorbereidingsprogramma
-maprog		= Masteropleiding
-phdprog		= Doctoraat
+baprog           = Bacheloropleiding
+sprog            = Schakelprogramma
+vprog            = Voorbereidingsprogramma
+maprog           = Masteropleiding
+phdprog          = Doctoraat
 
 dissertation     = Proefschrift
 dissertation-ma  = Masterproef
@@ -1437,74 +1461,74 @@ dissertation-ba  = Bachelorproef
 dissertation-phd = Doctoraatsproefschrift
 projreport       = Projectverslag
 
-submittedto	= Voorgelegd aan
-bmfulfil	= ter gedeeltelijke voldoening aan de vereisten voor de graad van
-phdfulfil	= ter voldoening aan de vereisten voor de graad van
-badegree	= Bachelor
-madegree	= Master
-phddegree	= Doctor
+submittedto      = Voorgelegd aan
+bmfulfil         = ter gedeeltelijke voldoening aan de vereisten voor de graad van
+phdfulfil        = ter voldoening aan de vereisten voor de graad van
+badegree         = Bachelor
+madegree         = Master
+phddegree        = Doctor
 
-author			= Auteur
-authors			= Auteurs
-lecturer		= Lesgever
-lecturers		= Lesgevers
-examiner		= Examinator
-examiners		= Examinators
-supervisor		= Promotor
-supervisors		= Promotoren
-cosupervisor	= Copromotor
-cosupervisors	= Copromotoren
-extsupervisor	= Externe Promotor
-extsupervisors	= Externe Promotoren
-tutor			= Mentor
-tutors			= Mentors
-jury			= Examencommissie
-jurymembers		= Juryleden
-jurychair		= Voorzitter
-dean			= Decaan
-rector			= Rector
-coverdesigner	= Ontwerper kaftillustratie
+author         = Auteur
+authors        = Auteurs
+lecturer       = Lesgever
+lecturers      = Lesgevers
+examiner       = Examinator
+examiners      = Examinators
+supervisor     = Promotor
+supervisors    = Promotoren
+cosupervisor   = Copromotor
+cosupervisors  = Copromotoren
+extsupervisor  = Externe Promotor
+extsupervisors = Externe Promotoren
+tutor          = Mentor
+tutors         = Mentors
+jury           = Examencommissie
+jurymembers    = Juryleden
+jurychair      = Voorzitter
+dean           = Decaan
+rector         = Rector
+coverdesigner  = Ontwerper kaftillustratie
 
-exam			= Examen
-series			= Reeks
-lastname		= Achternaam
-firstname		= Voornaam
-studentnr		= Student nr.
-room			= Lokaal
-rooms			= Lokalen
-examstart		= Begin
-examend			= Einde
-examduration	= Duur van het examen
-weight			= Gewicht
-wordcount		= Aantal woorden
-page			= Pagina
-appendix		= Bijlage
-package			= Pakket
+exam         = Examen
+series       = Reeks
+lastname     = Achternaam
+firstname    = Voornaam
+studentnr    = Student nr.
+room         = Lokaal
+rooms        = Lokalen
+examstart    = Begin
+examend      = Einde
+examduration = Duur van het examen
+weight       = Gewicht
+wordcount    = Aantal woorden
+page         = Pagina
+appendix     = Bijlage
+package      = Pakket
 
-confidential	= Confidentieel
+confidential    = Confidentieel
 confidentiality = Confidentialiteit
-arr				= Alle rechten voorbehouden
-crdisclaimer	= Copyright
-supportedby		= Dit werk werd ondersteund door
+arr             = Alle rechten voorbehouden
+crdisclaimer    = Copyright
+supportedby     = Dit werk werd ondersteund door
 typeset         = Dit document is opgemaakt met
 pleaserefer     = Gelieve naar dit werk te verwijzen als
-ourref			= Ons kenmerk
+ourref          = Ons kenmerk
 
-arrphd			= De auteur staat toe dat delen van dit werk geraadpleegd en gekopieerd worden voor persoonlijk gebruik. Verdere reproductie of transmissie zonder voorafgaande toestemming van de auteur in eender welke vorm of op eender welke manier is strikt verboden.
+arrphd          = De auteur staat toe dat delen van dit werk geraadpleegd en gekopieerd worden voor persoonlijk gebruik. Verdere reproductie of transmissie zonder voorafgaande toestemming van de auteur in eender welke vorm of op eender welke manier is strikt verboden.
 
-integrityclause	= De doctoraatsonderzoeker en promotor(en) verklaren dat het doctoraatsonderzoek werd uitgevoerd volgens de principes van de wetenschappelijke integriteit, zoals vermeld in het algemeen doctoraatsreglement en algemeen charter van de doctorandus van de UGent en het integriteitscharter voor doctorandi en promotoren verbonden aan de Universiteit Gent.
+integrityclause = De doctoraatsonderzoeker en promotor(en) verklaren dat het doctoraatsonderzoek werd uitgevoerd volgens de principes van de wetenschappelijke integriteit, zoals vermeld in het algemeen doctoraatsreglement en algemeen charter van de doctorandus van de UGent en het integriteitscharter voor doctorandi en promotoren verbonden aan de Universiteit Gent.
 
-embargofullphd		= De auteur van dit proefschrift verklaart dat dit document confidentieel is. De inhoud van dit doctoraatsproefschrift is confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+embargofullphd  = De auteur van dit proefschrift verklaart dat dit document confidentieel is. De inhoud van dit doctoraatsproefschrift is confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
 
-embargotempphd		= De auteur van dit proefschrift verklaart dat dit document confidentieel is van __START__ tot en met __END__ (embargoperiode), en vrij beschikbaar wordt na deze embargoperiode. Tijdens de embargoperiode is de inhoud van dit doctoraatsproefschrift confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+embargotempphd  = De auteur van dit proefschrift verklaart dat dit document confidentieel is van __START__ tot en met __END__ (embargoperiode), en vrij beschikbaar wordt na deze embargoperiode. Tijdens de embargoperiode is de inhoud van dit doctoraatsproefschrift confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de doctoraatsjury om de doctoraatskwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
 
-arrbama			=  geven de toelating deze scriptie voor consultatie beschikbaar te stellen en delen ervan te kopiëren voor persoonlijk gebruik. Elk ander gebruik valt onder de beperkingen van het auteursrecht, in het bijzonder met betrekking tot de verplichting uitdrukkelijk de bron te vermelden bij het aanhalen van resultaten uit deze scriptie.
+arrbama         =  geven de toelating deze scriptie voor consultatie beschikbaar te stellen en delen ervan te kopiëren voor persoonlijk gebruik. Elk ander gebruik valt onder de beperkingen van het auteursrecht, in het bijzonder met betrekking tot de verplichting uitdrukkelijk de bron te vermelden bij het aanhalen van resultaten uit deze scriptie.
 
-embargofullbama		= van dit proefschrift verklaren dat dit document confidentieel is. De inhoud van dit proefschrift is confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de jury om de kwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+embargofullbama = van dit proefschrift verklaren dat dit document confidentieel is. De inhoud van dit proefschrift is confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de jury om de kwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
 
-embargotempbama		= van dit proefschrift verklaren dat dit document confidentieel is van __START__ tot en met __END__ (embargoperiode), en vrij beschikbaar wordt na deze embargoperiode. Tijdens de embargoperiode is de inhoud van dit proefschrift confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de jury om de kwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
-%</nldict>
-%    \end{macrocode}
+embargotempbama = van dit proefschrift verklaren dat dit document confidentieel is van __START__ tot en met __END__ (embargoperiode), en vrij beschikbaar wordt na deze embargoperiode. Tijdens de embargoperiode is de inhoud van dit proefschrift confidentieel en uitsluitend voorbehouden voor gebruik door de promotoren en de jury om de kwaliteit van het proefschrift te evalueren. Het verdelen, kopiëren of verspreiden van dit document, zij het volledig of gedeeltelijk, zal voldoen aan alle wettelijke bepalingen die van toepassing zijn met betrekking tot het gebruik van confidentiële informatie. Het gebruik van de informatie die hierin vervat zit door elke andere persoon of entiteit is verboden.
+%</dutch>
+% \end{Verbatim}
 %
 % \subsection{The class options explained}
 % \label{sec:classopt}
