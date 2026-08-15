@@ -481,7 +481,7 @@
 % \DescribeMacro{\titlepageimage} [phd / report]
 % (optional)\\
 % This sets the filename of the central image on the title page to
-% appear clipped % within the curves. For PhD theses this is highly
+% appear clipped % within the curves. For PhD dissertations this is highly
 % advized. For course texts, this is optional. If the image is not
 % set, a flat colored area will appear. This is part of the house
 % style.
@@ -719,8 +719,6 @@
 %%                    want a recto only document
 %% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options
-%% for one-sided theses, specify 'oneside' and 'openany' as options
 %% nameformat         Format all names as "surname firstname"
 %%                    or "firstname surname"
 %%                    Options: surnamefirst, surnamelast* 
@@ -900,8 +898,6 @@
 %%                    want a recto only document
 %% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options
-%% for one-sided theses, specify 'oneside' and 'openany' as options
 %% nameformat         Format all names as "surname firstname"
 %%                    or "firstname surname"
 %%                    Options: surnamefirst, surnamelast* 
@@ -1087,8 +1083,6 @@
 %%                    want a recto only document
 %% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options
-%% for one-sided theses, specify 'oneside' and 'openany' as options
 %% nameformat         Format all names as "surname firstname"
 %%                    or "firstname surname"
 %%                    Options: surnamefirst, surnamelast* 
@@ -1281,8 +1275,6 @@ e^{-j\pi} + 1 = 0
 %%                    want a recto only document
 %% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options
-%% for one-sided theses, specify 'oneside' and 'openany' as options
 %% nameformat         Format all names as "surname firstname"
 %%                    or "firstname surname"
 %%                    Options: surnamefirst, surnamelast* 
@@ -1484,8 +1476,6 @@ Vakgroep Plantenbiotechnologie en Bio-informatica}
 %%                    want a recto only document
 %% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options
-%% for one-sided theses, specify 'oneside' and 'openany' as options
 %% nameformat         Format all names as "surname firstname"
 %%                    or "firstname surname"
 %%                    Options: surnamefirst, surnamelast* 
@@ -1689,8 +1679,6 @@ Department of Biotechnology}
 %%                    want a recto only document
 %% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options
-%% for one-sided theses, specify 'oneside' and 'openany' as options
 %% nameformat         Format all names as "surname firstname"
 %%                    or "firstname surname"
 %%                    Options: surnamefirst, surnamelast* 
@@ -1811,8 +1799,6 @@ e^{-j\pi} + 1 = 0
 %%                    want a recto only document
 %% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options
-%% for one-sided theses, specify 'oneside' and 'openany' as options
 %% nameformat         Format all names as "surname firstname"
 %%                    or "firstname surname"
 %%                    Options: surnamefirst, surnamelast* 
@@ -2166,8 +2152,6 @@ their details enclosed.
 %%                    want a recto only document
 %% openright          Causes you chapters to start on a right-hand page when
 %%                    your document is twosided
-%% for two-sided theses, specify 'twoside' and 'openright' as options
-%% for one-sided theses, specify 'oneside' and 'openany' as options
 %% nameformat         Format all names as "surname firstname"
 %%                    or "firstname surname"
 %%                    Options: surnamefirst, surnamelast*
@@ -3174,7 +3158,7 @@ faculty / fw .code:n = {
 %
 %
 % We execute some standard options:
-% We load the |book| class for course texts, reports, bachelor and master theses, and PhD dissertations.
+% We load the |book| class for course texts, reports, and bachelor, master, and PhD dissertations.
 %    \begin{macrocode}
 %<*crs|bama|phd|rp>
 \input{ugentcommon.clo}
@@ -3294,7 +3278,7 @@ faculty / fw .code:n = {
                 top=2.54cm,bottom=2.54cm,inner=2cm,outer=2cm,twoside]
                 {geometry}
 %</phd>
-% Following the bachelor's and master's theses office template:
+% Following the bachelor's and master's dissertations office template:
 %<*bama>      
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
@@ -3329,7 +3313,10 @@ faculty / fw .code:n = {
 %    \end{macrocode}
 % 
 % \subsubsection{Preparing for \LaTeX3}
-% Let's make things a bit easier for me.
+% The ugentdocs package will be slowly
+% refactored to \LaTeX3{} to prepare for a package that is easier to
+% maintain. However, the \LaTeX3{} constructs are never exposed to the
+% user of the classes. So: don't worry about it!
 %    \begin{macrocode}
 %<*crs|bama|phd|rp|le|ex|bkc>      
 \RequirePackage{expl3}
@@ -3338,6 +3325,7 @@ faculty / fw .code:n = {
 %    \end{macrocode}
 %
 % \subsubsection{Font packages}
+% \label{S:fonts}
 % UGent Panno Text (and its Medium and SemiLight variants) should always be installed (and the document compiled using Lua\LaTeX) as they are used in the logo's. For the document itself, it is recommended to use UGent Panno Text as well, which is set through the |\setsansfont{UGent Panno Text}[...]| block below. However, Arial is also a valid official alternative and can override UGent Panno Text by adding the |\setsansfont{Arial}[...]| block below to the beginning of your document. UGent uses Arial as default for Word and PowerPoint templates as these are distributed outside Ghent University. This is not applicable for \LaTeX however, as pdf's are always generated. Thus, UGent Panno Text is used everywhere.
 %
 %    \begin{macrocode}
