@@ -243,6 +243,18 @@
 % and abandon the old PDF\LaTeX{} compiler.
 % If you experience other problems, please inform the author.
 %
+% \section*{A note on customization}
+% While we do not recommend altering the UGent house style too much, and we 
+% certainly do not recommend altering any of the class files directly.
+% You can customize the classes by overwriting the commands below in 
+% Section~\ref{S:basicusage} in a .sty file. A recommended naming scheme is
+% |<classname>-customization.sty|, e.g. |ugentphd-customization.sty|.
+% You can then load this customization using
+% \command{usepackage\{ugentphd-customization\}}|.
+% Be sure to overwrite commands, e.g. use \command{renewcommand} and
+% \command{RenewDocumentCommand}. Colours can be adjusted using 
+% \command{definecolor\{customcolor\}\{colormodel\}\{...\}}. Overwrite
+% colors using, e.g. \command{colorlet\{titlecolor\}\{customcolor\}}.
 %
 % \section*{Thanks}
 % This package is derived from the excellent |uantwerpendocs| package by
