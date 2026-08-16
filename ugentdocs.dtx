@@ -1004,9 +1004,10 @@
 %	\item \txtcmd{makeatletter}\txtcmd{@facultyacronym}\txtcmd{makeatother}:
 %		\makeatletter\@facultyacronym\makeatother
 % \end{itemize}
-% \DescribeMacro{\department}\marg{name}\\
-% Setting the department with this macro overrides \txtcmd{@faculty} 
-% with the |name| entered.
+% \DescribeMacro{\faculty}\marg{name}\\
+% Overrides the faculty tag \txtcmd{@faculty} with the |name| entered.
+% Name only, no logos or colours! 
+% To use for, e.g., faculty services like |Directie ICT| for letters or beamer.
 %
 % \iffalse
 %<*clo>
@@ -1021,7 +1022,7 @@
 	\fi
 }
 
-\newcommand*{\department}[1]{%
+\newcommand*{\faculty}[1]{%
 	\RenewDocumentCommand{\@faculty}{O{}}{
 		\str_case:nnF {##1}{
 			{uppercase}{\text_uppercase:n{#1}}
@@ -1036,6 +1037,44 @@
 \newcommand*\@facultyacronym{
 	\MakeUppercase{F\@fselector}
 }
+%</clo>
+% \fi
+%
+% \DescribeMacro{\department}\marg{name}\\
+% Sets the department tag \txtcmd{@department} with the |name| entered.
+% Currently unused.
+%
+% \DescribeMacro{\unit}\marg{name}\\
+% Sets the unit tag \txtcmd{@unit} with the |name| entered.
+% Can be used to set ``Team ...'' or your research lab to the second line of the
+% letter header or beamer title page.
+%
+% \iffalse
+%<*clo>
+\ExplSyntaxOn
+\newcommand*{\@department}{}
+\newcommand*{\department}[1]{
+	\RenewDocumentCommand{\@department}{O{}}{
+		\str_case:nnF {##1}{
+			{uppercase}{\text_uppercase:n{#1}}
+			{lowercase}{\text_lowercase:n{#1}}
+		}{
+			#1
+		}
+	}%
+}
+\newcommand*{\@unit}{}
+\newcommand*{\unit}[1]{
+		\RenewDocumentCommand{\@unit}{O{}}{
+		\str_case:nnF {##1}{
+			{uppercase}{\text_uppercase:n{#1}}
+			{lowercase}{\text_lowercase:n{#1}}
+		}{
+			#1
+		}
+	}%
+}
+\ExplSyntaxOff
 %</clo>
 % \fi
 %
@@ -3627,17 +3666,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</le>
 %    \end{macrocode}
 % \end{imacro}
-%
-% \begin{imacro}{\unit}
-%   This macro sets the |\@unit| tag that will be used in the letter's
-%   heading text.
-%    \begin{macrocode}
-%<*le>
-\newcommand*{\@unit}{}
-\newcommand*{\unit}[1]{\renewcommand*{\@unit}{#1}}
-%</le>
-%    \end{macrocode}
-% \end{imacro}
+
 %
 % \begin{imacro}{\email}
 %   This macro allows for the registration of contact email addresses
@@ -7032,8 +7061,8 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% configuration file, see the documentation of the letter class!
 \sender{ir.~Seppe Ongena}{PhD Student}
 
-%% override department (if needed for e.g. UGent university services, GUGC, etc.)
-%% \department{Directie ICT}
+%% override faculty name (if needed for e.g. UGent university services, GUGC, etc.)
+%% \faculty{Directie ICT}
 \unit{TRASLAB}
 \address{
 CAPTURE building\\
