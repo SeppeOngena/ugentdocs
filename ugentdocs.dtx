@@ -206,14 +206,15 @@
 %   }
 % \end{center}
 %
-% A number of packages are required by |ugentdocs|.\watchout See Part~I 
+% A number of packages are required by |ugentdocs|. \watchout See Part~I 
 % Section~\ref{S:packages} for an overview. Make sure these packages are
 % available to your \LaTeX{} compiler. Most of these should be installed by
 % default in TeXLive distributions or can be made to auto-install for MikTeX.
 %
 % \section*{A note on fonts}
 %
-% The house style of Ghent University recommends two fonts.
+% The house style of Ghent University recommends two fonts:
+% \vspace{-\parskip}
 % \begin{itemize}
 % \item Primary font: UGent Panno Text. ``This font does justice to the historical
 %    values of Ghent University and is simultaneously modern, distinctive and
@@ -228,7 +229,7 @@
 %    this is not a concern. Still, you can override the font to Arial should
 %    you wish (see Part~I Section~\ref{S:fonts}).
 % \end{itemize}
-%
+% \vspace{-\parskip}
 % As both official fonts are sans-serif styled, a similar
 % math font is preferred. For this, we load the Noto Sans Math font (if it is
 % installed), with a TeX Gyre DejaVu Math fallback.
@@ -254,9 +255,32 @@
 % You can then load this customization using
 % \txtcmd{usepackage\{ugentphd-customization\}}.
 % Be sure to overwrite commands, e.g. use \txtcmd{renewcommand} and
-% \txtcmd{RenewDocumentCommand}. Colours can be adjusted using 
-% \txtcmd{definecolor\{<customcolor>\}\{<colormodel>\}\{...\}}. Overwrite
-% colors using, e.g. \txtcmd{colorlet\{titlecolor\}\{<customcolor>\}}.
+% \txtcmd{RenewDocumentCommand}. Colours can be adjusted using e.g.:
+% {\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
+% \begin{verbatim}
+% \ExplSyntaxOn
+% \str_if_eq:VnTF \l_@@_colormodel_tl {cmyk} {
+%    \definecolor{<customcolor>}{cmyk}{<C,M,Y,K>} % From 0 to 1
+% }{
+%    \definecolor{<customcolor>}{RGB}{<R,G,B>} % From 0 to 255
+% }
+% \ExplSyntaxOff
+% \colorlet{titlecolor}{<customcolor>}
+% \end{verbatim}
+% }
+%
+% \section*{\LaTeX3}
+% The |ugentdocs| package relies for a large part of its codebase on
+% \LaTeX3{}, for which the |expl3| package is required. The \LaTeX3{}
+% constructs are never exposed directly so this has no effect on the
+% user of the classes, unless you wish to customize parts (see above).
+% \iffalse
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>      
+\RequirePackage{expl3}
+%\RequirePackage[check-declarations]{expl3} % I use this during debug phase
+%</crs|bama|phd|rp|le|ex|bkc|bmr>
+% \fi
+%
 %
 % \section*{Thanks}
 % This package is derived from the excellent |uantwerpendocs| package by
@@ -527,7 +551,7 @@
 % \subsubsection{Fonts}
 % \label{S:fonts}
 % UGent Panno Text and its Medium and SemiLight variants should always be 
-% installed \watchout -- and the document compiled using \LuaLaTeX{} -- as they are used in
+% installed\watchout -- and the document compiled using \LuaLaTeX{} -- as they are used in
 % the logo's. For the document itself, it is recommended to use UGent Panno Text
 % as well, which is set through the |\setsansfont{UGent Panno Text}[...]| block
 % below. However, Arial is also a valid official alternative and can override
