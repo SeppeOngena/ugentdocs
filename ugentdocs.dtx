@@ -2168,9 +2168,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 %   \item |background|: adds background watermark support for the courses and
 %			reports if |copyright| is |true|.
-%			Currently, only the course class uses this through 
+%			Currently, only the course class uses this through\\
 %			\txtcmd{backgroundsetup\{contents=\{Copyright Ghent~University, All Rights Reserved\}\}},
-%			but you can set your own watermark if you want by calling
+%			but you can set your own watermark if you want by calling\\
 %			\txtcmd{backgroundsetup\{contents=\{<yourwatermark>\}\}}
 %    \begin{macrocode}
 %<*crs|rp>
@@ -2217,7 +2217,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	]{thumbs}
 	
 	\newcommand*{\@addthumb}{%
-		\addthumb{\chaptername~\thechapter}{\Large\bfseries\thechapter}{white}{gray!50}%
+		\addthumb{\chaptername~\thechapter}
+			{\Large\bfseries\thechapter}{white}{gray!50}%
 	}
 	
 	\AddToHook{cmd/@makechapterhead/after}{%
@@ -2231,14 +2232,25 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %
 % \subsubsection{Geometry}
-% Following the report office template:
-%    \begin{macrocode}
+% The |geometry| package is used to set the paper size for the documents.
+% Based on the paper width and height, we define the \txtcmd{gridunit} length
+% from the official grid layout. It is calculated by dividing the long paper edge
+% by 7, and then again by 4. You can use this length in your own graphics, and
+% you \emph{can} tecnically override it in your customization file using
+% \txtcmd{setlength\textbackslash gridunit\{<length>\}},
+% although this is not recommended.
+%
+% \iffalse
 %<*crs|bama|phd|rp|le|ex|bkc|bmr>      
-\newlength{\@PW} % Paper width
-\newlength{\@PH} % Paper height
+\newlength{\@PW}      % Paper width
+\newlength{\@PH}      % Paper height
 \newlength{\gridunit} % Grid unit layout
 \newcommand*{\@setgridunit}{\pgfmathsetlength{\gridunit}{max(\@PW,\@PH)/7/4}}
 %</crs|bama|phd|rp|le|ex|bkc|bmr>
+% \fi
+%
+% The paper size and margins are then set based on the official Office templates:
+%    \begin{macrocode}
 %<*crs|rp|ex>
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
@@ -2246,7 +2258,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \RequirePackage[paperwidth=\@PW,paperheight=\@PH,
 				top=2.54cm, bottom=2.54cm, left=2\gridunit, right=2.97cm]{geometry}
 %</crs|rp|ex>
-% Margin glue provision for PhD:
 %<*phd>
 \setlength\@PW{160mm}
 \setlength\@PH{240mm}
@@ -2255,7 +2266,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
                 top=2.54cm,bottom=2.54cm,inner=2cm,outer=2cm,twoside]
                 {geometry}
 %</phd>
-% Following the bachelor's and master's dissertations office template:
 %<*bama>      
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
@@ -2263,13 +2273,17 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \RequirePackage[paperwidth=\@PW,paperheight=\@PH,
 				top=2.54cm, bottom=2.54cm, left=2\gridunit, right=2\gridunit]{geometry}
 %</bama>
-% Following letter office template:
 %<*le>      
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
 \@setgridunit
-\RequirePackage[a4paper,top=5\gridunit, bottom=4\gridunit,footskip=4\gridunit, left=2\gridunit, right=4.07cm]{geometry}
-%</le>       
+\RequirePackage[a4paper, footskip=4\gridunit,
+				top=5\gridunit, bottom=4\gridunit, left=2\gridunit, right=4.07cm]{geometry}
+%</le>
+%    \end{macrocode}
+%
+% For the |bookcover| class, the dimensions are dependent on the cover type (phd or course):
+%    \begin{macrocode} 
 %<*bkc>
 \ExplSyntaxOn
 \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
