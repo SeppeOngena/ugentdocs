@@ -1697,13 +1697,13 @@ integrityclause = The PhD researcher and supervisor(s) declare that the PhD rese
 
 embargofullphd  = The author of this dissertation declares that this document is marked confidential. The content of this doctoral dissertation is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 
-embargotempphd  = The author of this dissertation declares that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral dissertation is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+embargotempphd  = The author of this dissertation declares that this document is confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this doctoral dissertation is confidential and is reserved solely for use by the supervisors and the doctoral jury to evaluate the doctoral quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 
 arrbama         =  give the permission to use this dissertation for consultation and to copy parts of it for personal use. Every other use is subject to the copyright laws, more specifically the source must be extensively specified when using results from this dissertation.
 
-embargofullbama = of this dissertation declare that this document is marked confidential. The content of this dissertation is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+embargofullbama = of this dissertation declare that this document is confidential. The content of this dissertation is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 
-embargotempbama = of this dissertation declare that this document is marked confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this dissertation is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
+embargotempbama = of this dissertation declare that this document is confidential from __START__ until __END__ (embargo period), and becomes freely accessible after this embargo period. During the embargo period the content of this dissertation is confidential and is reserved solely for use by the supervisors and the jury to evaluate the quality of the dissertation. Any distribution, copying or dissemination of this document in whole or in part shall comply with all applicable legal stipulations governing the use of confidential information. The use of the information contained herein by any other person or entity is prohibited.
 %</english>
 % \end{Verbatim}
 %
@@ -2286,10 +2286,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %		|tikz|				& logos, cover pages, etc.						\\
 %		|titlesec|			& Chapter title formatting						\\
 %		|ulem|				& Line-breaking underline						\\
-%		|unicode-math|\textsuperscript{a} or |sansmath| & Sans-serif math	\\
+%		|unicode-math|		& Sans-serif math								\\
 %		|zref-totpages|		& Page count 									\\
 %		\bottomrule
-% 		\multicolumn{2}{l}{\textsuperscript{a}with Fira Math font installed}\\
 %   \end{tabular}
 % \end{center}
 %
@@ -3318,53 +3317,64 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
-% \begin{imacro}{\embargofull}
-%   This macro causes the full embargo message to be printed in
+% \begin{imacro}{\embargo}
+%   This macro causes the embargo message to be printed in
 %   colofon of your dissertation.
 %    \begin{macrocode}
 %<*phd|bkc|bama>
-\newif\if@embargo % TODO convert to L3
-\@embargofalse
-\newif\if@fullembargo % TODO convert to L3
-\@fullembargofalse
-\newif\if@tempembargo % TODO convert to L3
-\@tempembargofalse
-\newcommand*{\embargofull}{
-  \@tempembargofalse
-  \@fullembargotrue
-  \@embargotrue
+\ExplSyntaxOn
+\bool_new:N \l_@@_embargo_bool
+\bool_new:N \l_@@_embargotemp_bool
+\tl_new:N \@embargotempstart
+\tl_new:N \@embargotempend
+\tl_new:N \l_@@_embargostartdate_tl
+\tl_new:N \l_@@_embargoenddate_tl
+
+\msg_new:nnn { ugentdocs } 
+	{ embargo-start-without-end }
+	{ An~embargo~start~date~was~given,~but~no~end~date}
+\msg_new:nnn { ugentdocs } 
+	{ embargo-end-without-start }
+	{ An~embargo~end~date~was~given,~but~no~start~date}
+
+\keys_define:nn { ugentdocs/embargo } {
+	start .tl_set:N = \l_@@_embargostartdate_tl ,
+	end   .tl_set:N = \l_@@_embargoenddate_tl ,
 }
+
+\NewDocumentCommand{\embargo}{O{}}{
+	\bool_set_true:N \l_@@_embargo_bool
+	\tl_clear:N \l_@@_embargostartdate_tl
+	\tl_clear:N \l_@@_embargoenddate_tl
+	\keys_set:nn { ugentdocs/embargo } { #1 }
+	\tl_if_empty:NTF \l_@@_embargostartdate_tl {
+		\tl_if_empty:NF \l_@@_embargoenddate_tl {
+			\msg_error:nn { ugentdocs } { embargo-end-without-start }
+		}
+	}{
+		\tl_if_empty:NTF \l_@@_embargoenddate_tl { 
+			\msg_error:nn { ugentdocs } { embargo-start-without-end } 
+		}{
+			\bool_set_true:N \l_@@_embargotemp_bool
+			\regex_replace_all:nnN {\s} {\c{space}} \l_@@_embargostartdate_tl
+			\regex_replace_all:nnN {\s} {\c{space}} \l_@@_embargoenddate_tl
+			\tl_gset_eq:NN \@embargotempstart \l_@@_embargostartdate_tl
+			\tl_gset_eq:NN \@embargotempend \l_@@_embargoenddate_tl
+		}
+	}
+}
+\ExplSyntaxOff
 %</phd|bkc|bama>
 %    \end{macrocode}
 % \end{imacro}
 %
-% \begin{imacro}{\embargotemp}
+% \begin{imacro}{\embargo}
 %   This macro causes the temporary embargo message to be printed in
 %   colofon of your dissertation using the first argument of the macro as
 %   start date and the second argument as the end date.
 %    \begin{macrocode}
 %<*phd|bkc|bama>
-\newif\if@tempembargo % TODO convert to L3
-\@tempembargofalse
-
 \ExplSyntaxOn
-\tl_new:N \@embargotempstart
-\tl_new:N \@embargotempend
-\tl_new:N \l_@@_embargostartdate_tl
-\tl_new:N \l_@@_embargoenddate_tl
-\newcommand*{\embargotemp}[2]{
-  \@fullembargofalse
-  \@tempembargotrue
-  \@embargotrue
-  \tl_set:Nx \l_@@_embargostartdate_tl {#1}
-  \tl_set:Nx \l_@@_embargoenddate_tl {#2}
-  \regex_replace_all:nnN {\s} {\c{space}} \l_@@_embargostartdate_tl
-  \regex_replace_all:nnN {\s} {\c{space}} \l_@@_embargoenddate_tl
-  \tl_gset_eq:NN \@embargotempstart \l_@@_embargostartdate_tl
-  \tl_gset_eq:NN \@embargotempend \l_@@_embargoenddate_tl
-}
-
-\tl_new:N \@embargotempwithdates
 \tl_new:N \l_@@_embargotemp_tl
 \seq_new:N \l_@@_embargosplit_seq
 \cs_new:Nn \_@@_embargosubstitute:nN {
@@ -3374,30 +3384,22 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\tl_put_right:Nx \l_@@_embargotemp_tl { \exp_not:V #2 }
 	\tl_put_right:Nx \l_@@_embargotemp_tl { \seq_item:Nn \l_@@_embargosplit_seq {2} }
 }
-\newcommand\@prepmaketitle{
-%</phd|bkc|bama>
-%<*phd|bkc>
-\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : embargotempphd }
-%</phd|bkc>
-%<*bama>
-\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : embargotempbama }
-%</bama>
-%<*phd|bkc|bama>
-\tl_set:Nx \l_@@_embargotemp_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
-\_@@_embargosubstitute:nN {__START__} \@embargotempstart
-\_@@_embargosubstitute:nN {__END__} \@embargotempend
-\tl_gset_eq:NN \@embargotempwithdates \l_@@_embargotemp_tl
+\NewDocumentCommand{\@embargotempwithdates}{}{
+	%<*phd|bkc>
+	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : embargotempphd }
+	%</phd|bkc>
+	%<*bama>
+	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : embargotempbama }
+	%</bama>
+	\tl_set:Nx \l_@@_embargotemp_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+	\_@@_embargosubstitute:nN {__START__} \@embargotempstart
+	\_@@_embargosubstitute:nN {__END__} \@embargotempend
+	\l_@@_embargotemp_tl
 }
 \ExplSyntaxOff
 %</phd|bkc|bama>
 %    \end{macrocode}
 %
-% Let's add empty prepmaketitles for the |course| and |report classes|
-%    \begin{macrocode}
-%<*crs|rp>
-\newcommand\@prepmaketitle{}
-%</crs|rp>
-%    \end{macrocode}
 % \end{imacro}
 %
 % \begin{imacro}{\doi}
@@ -3523,16 +3525,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
 \newcommand{\@bamadisclaimer}{
 	{\translatekey{the-de}~\getseqcaption[lowercase]{authors}{}~\translatekey[lowercase]{and}~\getseqcaption[lowercase]{allsupervisors}{}}
-	\if@tempembargo
-	
-	   {~\@embargotempwithdates}
-	\else
-		\if@fullembargo
+	\bool_if:NTF \l_@@_embargo_bool {
+		\bool_if:NTF \l_@@_embargotemp_bool {
+			{~\@embargotempwithdates}
+		}{
 			{~\translatekey{embargofullbama}}
-		\else
-			{~\translatekey{arrbama}}
-		\fi
-	\fi
+		}
+	}{
+		{~\translatekey{arrbama}}
+	}
 }
 
 \renewcommand{\@copyrightnotices}{%
@@ -3570,38 +3571,37 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			{\renewcommand{\\}[1][]{~}\@titel{}:~\@subtitel}
 		}
 		\ifx\@coverdesigner\@empty\else
-		\\[\baselineskip]
-		\textbf{\translatekey{coverdesigner}:}\\
-		\@coverdesigner
+			\\[\baselineskip]
+			\textbf{\translatekey{coverdesigner}:}\\
+			\@coverdesigner
 		\fi
 		%
 		\\[\baselineskip]
 		\translatekey{integrityclause}
 		%
 		\ifx\@grants\@empty\else
-		\\[\baselineskip]
-		{\translatekey{supportedby}~\@grants.}
+			\\[\baselineskip]
+			{\translatekey{supportedby}~\@grants.}
 		\fi
-		\if@embargo
-		\\[\baselineskip]
-		{\textbf{\translatekey{confidentiality}}}\\
-		\if@fullembargo
-		\translatekey{embargofullphd}
-		\fi
-		\if@tempembargo
-		\@embargotempwithdates
-		\fi
-		\else
-		\\[\baselineskip]
-		\textbf{\translatekey{crdisclaimer}~\textcopyright\~\the\year}\\
-		{\translatekey{arrphd}}%
-		\fi
+		\bool_if:NTF \l_@@_embargo_bool {
+			\\[\baselineskip]
+			{\textbf{\translatekey{confidentiality}}}\\
+			\bool_if:NTF \l_@@_embargotemp_bool {
+				\@embargotempwithdates
+			}{
+				\translatekey{embargofullphd}
+			}
+		}{
+			\\[\baselineskip]
+			\textbf{\translatekey{crdisclaimer}~\textcopyright\~\the\year}\\
+			{\translatekey{arrphd}}%
+		}
 		\\[\baselineskip]
 		{\textbf{\translatekey{pleaserefer}:}\\  		
 			\printseq{authorlist}{~\&~}{,~}{\translatekey{andlist}~}~(\the\year).~
 			{\renewcommand{\\}[1][]{~}\@title{}:~\@subtitle}.~PhD~Thesis,~Ghent~University,~Belgium.}%
 		\ifx\@isbn\@empty\else
-		\\[\baselineskip]{\small ISBN~\@isbn}%
+			\\[\baselineskip]{\small ISBN~\@isbn}%
 		\fi
 		\ifdefempty{\@doi}{}{
 			\ifx\@isbn\@empty\\[\baselineskip]\else\\\fi
@@ -4338,9 +4338,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % so we set it here. Code adapted from Joris Meys' LaTeX at UGent.
 %    \begin{macrocode}
 %<*bama|rp>
+\ExplSyntaxOn
 \newcommand{\@coverbodybama}{
-	\node[anchor=north west, inner sep=0pt, text width=\paperwidth-\@ML-\gridunit,
-	minimum height=22.05cm, align=left] at (\@ML,\@TP)
+	\node[anchor=north~west, inner~sep=0pt, text~width=\paperwidth-\@ML-\gridunit,
+	minimum~height=22.05cm, align=left] at (\@ML,\@TP)
 	{%
 		\raggedright
 		\begin{spacing}{2.5}
@@ -4360,13 +4361,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\translatekey{wordcount}:~\@wordcount
 		\fi
 		
-		\if@embargo
-		\vskip 5em
-		{\fontsize{15}{18}\selectfont\translatekey[uppercase]{confidential}}
-		\vskip 5em
-		\else
-		\vskip 10em
-		\fi
+		\bool_if:NTF \l_@@_embargo_bool {
+			\vskip 5em
+			{\fontsize{15}{18}\selectfont\translatekey[uppercase]{confidential}}
+			\vskip 5em
+		}{
+			\vskip 10em
+		}
 		
 		{\fontsize{15}{18}\selectfont\printseq{authorswithaffiliation}{\\}{\\}{\\}}
 		
@@ -4406,8 +4407,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 
 \newcommand{\@coverbodyreport}{
-	\node[anchor=north west, inner sep=0pt, text width=\paperwidth-\@ML-\gridunit,
-	minimum height=22.05cm, align=left] at (\@ML,\@TP)
+	\node[anchor=north~west, inner~sep=0pt, text~width=\paperwidth-\@ML-\gridunit,
+	minimum~height=22.05cm, align=left] at (\@ML,\@TP)
 	{%
 		\raggedright
 		\begin{spacing}{2.5}
@@ -4460,7 +4461,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	};
 }
 
-\ExplSyntaxOn
 \newcommand*\@coverbody{
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 		{ bama } { \@coverbodybama }
@@ -4641,9 +4641,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	
 	}
 	
-	\if@embargo
+	\bool_if:NT \l_@@_embargo_bool {
 	\@printconfidentialcover
-	\fi
+	}
 }
 \ExplSyntaxOff
 %</bkc|phd>
@@ -4851,7 +4851,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*bama|phd|rp|crs>
 \ExplSyntaxOn
 \renewcommand\maketitle{%
-	\@prepmaketitle
 	\pagestyle{empty}
 %</bama|phd|rp|crs>
 %<*phd|crs>
@@ -4951,13 +4950,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\vspace{5\baselineskip}%
 		{\Large\printseq{authors}{\\}{\\}{\\}\par}%
 		
-		\if@embargo
-		\vspace{5\baselineskip}
-		{\large\translatekey[uppercase]{confidential}\par}
-		\vspace{5\baselineskip}
-		\else
-		\vspace{10\baselineskip}%
-		\fi
+		\bool_if:NTF \l_@@_embargo_bool {
+			\vspace{5\baselineskip}
+			{\large\translatekey[uppercase]{confidential}\par}
+			\vspace{5\baselineskip}
+		}{
+			\vspace{10\baselineskip}%
+		}
 		
 		{\small \translatekey{submittedto}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}\par}%
 		
@@ -5236,11 +5235,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		{ phd }    {
 			\tl_put_right:Nn \l_@@_covertemplate_tl {
 				\l_@@_supervisorcalls_tl									   \iow_newline:
-				\if@tempembargo
-				\exp_not:N\embargotemp	{\@embargotempstart}{\@embargotempend} \iow_newline:
-				\else\if@fullembargo
-				\exp_not:N\embargofull \iow_newline:
-				\fi\fi	
+				\bool_if:NT \l_@@_embargo_bool {
+					\bool_if:NTF \l_@@_embargotemp_bool {
+						\exp_not:N\embargo[start={\@embargotempstart}, end={\@embargotempend}] \iow_newline:
+					}{
+						\exp_not:N\embargo \iow_newline:
+					}
+				}	
 			}	
 		}
 		{ course }     {
@@ -6030,12 +6031,10 @@ e^{-j\pi} + 1 = 0
 %% \usepackage{pdfpages}
 %% \copyrightnotices{\includepdf{copyright_signed.pdf}}
 
-%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
-%% please, specify (language agnostic) begin and end date of the embargo period
-%% as first and second argument to the \tempembargo command:
-\embargotemp{21/05/2027}{20/05/2032}
-%% or if it's a full embargo, use
-%% \embargofull
+%% if your manuscript is under an embargo, use the \embargo macro.
+%% If the embargo is temporary (1, 2 or 5 years), please
+%%  specify (language agnostic) start and end date of the embargo period:
+\embargo[start={21/05/2027},end={20/05/2032}]
 
 %% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
 %% multiple logos should be spaced 1 \gridunit
@@ -6217,12 +6216,10 @@ ruimtemodellering} %% either don't split titles, or do so with hyphen
 %% \usepackage{pdfpages}
 %% \copyrightnotices{\includepdf{copyright_signed.pdf}}
 
-%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
-%% please, specify (language agnostic) begin and end date of the embargo period
-%% as first and second argument to the \tempembargo command:
-%%\embargotemp{21/05/2027}{20/05/2032}
-%% or if it's a full embargo, use
-%% \embargofull
+%% if your manuscript is under an embargo, use the \embargo macro.
+%% If the embargo is temporary (1, 2 or 5 years), please
+%% specify (language agnostic) start and end date of the embargo period:
+%% \embargo[start={21/05/2027},end={20/05/2032}]
 
 %% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
 %% multiple logos should be spaced 1 \gridunit
@@ -6430,13 +6427,10 @@ T: +32 9 264 51 19
 %% add different publisher logo
 \backcoverlogos{\includegraphics[height = \gridunit]{Images/logo_UniversityPress_blue}}
 
-%% if your manuscript is under full embargo, give the following command
-%% \embargofull
-
-%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
-%% please, specify begin and end date of the embargo period as first
-%% and second argument to the \tempembargo command:
-\embargotemp{21 mei 2025}{20 mei 2030}
+%% if your manuscript is under an embargo, use the \embargo macro.
+%% If the embargo is temporary (1, 2 or 5 years), please
+%%  specify (language agnostic) start and end date of the embargo period:
+\embargo[start={21/05/2027},end={20/05/2032}]
 
 %% some data about your manuscript (if you obtained DOI/ISBN)
 %% \doi{10.1000/182}
@@ -6634,13 +6628,11 @@ T: +32 9 264 51 19
 %% add different publisher logo
 \backcoverlogos{\includegraphics[height = \gridunit]{Images/logo_UniversityPress_blue}}
 
-%% if your manuscript is under full embargo, give the following command
-\embargofull
-
-%% if your manuscript is under a temporary embargo (1, 2 or 5 years),
-%% please, specify begin and end date of the embargo period as first
-%% and second argument to the \tempembargo command:
-%% \embargotemp{May 24, 2025}{May 23, 2030}
+%% if your manuscript is under an embargo, use the \embargo macro.
+%% If the embargo is temporary (1, 2 or 5 years), please
+%%  specify (language agnostic) start and end date of the embargo period:
+%% \embargo[start={21/05/2027},end={20/05/2032}]
+\embargo
 
 %% some data about your manuscript  (if you obtained DOI/ISBN)
 %% \doi{10.1000/182}
