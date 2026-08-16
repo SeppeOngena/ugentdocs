@@ -1960,9 +1960,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<bama> \tl_set:Nn \l_@@_covertype_tl {bama}
 %<rp>   \tl_set:Nn \l_@@_covertype_tl {report}
 %
-%<*phd|bkc|crs|rp|le|ex|bama> 
+%<*phd|bkc|crs|rp|le|ex|bama>
 \ExplSyntaxOff
-%</phd|bkc|crs|rp|le|ex|bama> 
+%</phd|bkc|crs|rp|le|ex|bama>
 % \fi
 %
 % Class loading operates as follows. The standard options such as |11pt|,
@@ -1988,12 +1988,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %\fi
 % Then, our custom options are processed,
 % \iffalse
-%<*crs|bama|phd|rp|bkc|le|ex> 
+%<*crs|bama|phd|rp|bkc|le|ex>
 \ProcessOptions\relax
-%</crs|bama|phd|rp|bkc|le|ex> 
+%</crs|bama|phd|rp|bkc|le|ex>
 %<*crs|bama|phd|rp|bkc|le|ex|bmr> 
 \ProcessKeyOptions[ ugentdocs ]
-%</crs|bama|phd|rp|bkc|le|ex|bmr> 
+%</crs|bama|phd|rp|bkc|le|ex|bmr>
 % \fi
 % and the base classes are loaded in.
 % \iffalse
@@ -2115,7 +2115,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % or can be made to auto-install for MikTeX.
 %
 % \iffalse
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>  
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \RequirePackage{etoolbox}
 \IfFileExists{shellesc.sty}{
 	\RequirePackage{shellesc}}{}
@@ -2134,8 +2134,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \renewcommand{\ULthickness}{1pt}
 \RequirePackage{setspace}
 \RequirePackage{ugentcolor}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr> 
-%<*crs|bama|phd|rp|le|ex>      
+%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex>
 \RequirePackage{fancyhdr}
 %</crs|bama|phd|rp|le|ex> 
 %<*bkc|phd>
@@ -2155,7 +2155,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %			again in your customization file, but make sure a dictionary is available for
 %           the |main| language (see Section \ref{S:dict}).
 %    \begin{macrocode}
-%</crs|bama|phd|rp|le|ex|bkc|bmr> 
+%<*crs|bama|phd|rp|le|ex|bkc|bmr> 
 \ExplSyntaxOn
 \str_if_eq:VnTF \l_@@_language_tl {dutch} {
 	\PassOptionsToPackage{main=dutch}{babel}
@@ -2232,6 +2232,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %
 % \subsubsection{Geometry}
+% \label{S:geometry}
 % The |geometry| package is used to set the paper size for the documents.
 % Based on the paper width and height, we define the \txtcmd{gridunit} length
 % from the official grid layout. It is calculated by dividing the long paper edge
