@@ -475,7 +475,7 @@
 	}
 }
 \str_if_eq:VnT \l_@@_covertype_tl {phd} {
-	\if@bwbookcover % BW cover
+	\bool_if:NTF \l_@@_bwbookcover_bool { % BW cover
 		\colorlet{covertitlecolor}	{white}
 		\colorlet{coverdatacolor}	{white}
 		\colorlet{coverbgcolor}		{lightgray}
@@ -483,7 +483,7 @@
 		\colorlet{spinecolor}		{ugent@main}
 		\colorlet{spinetextcolor}	{white}
 		\colorlet{spinetextcoloralt}{white}
-	\else % UGent cover
+	}{ % UGent cover
 		\colorlet{covertitlecolor}	{ugent@faculty}
 		\colorlet{coverdatacolor}	{white}
 		\colorlet{coverbgcolor}		{ugent@faculty!10}
@@ -491,7 +491,7 @@
 		\colorlet{spinecolor}		{white}
 		\colorlet{spinetextcolor}	{ugent@main}
 		\colorlet{spinetextcoloralt}{ugent@faculty}
-	\fi
+	}
 }
 \str_if_eq:VnT \l_@@_covertype_tl {course} {
 	\colorlet{covertitlecolor}	{white}
@@ -955,7 +955,7 @@
 }
 \ExplSyntaxOff
 %</clo>
-%\fi
+% \fi
 %
 % \subsubsection{Campus}
 % \label{S:campus}
@@ -1622,8 +1622,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOn
 %</phd|bkc|rp|ex|le|crs|bama|bmr|clo> 
 %<*clo>
-\newif\if@bwbookcover
 % Declare some variables used later in the classes:
+\bool_new:N \l_@@_bwbookcover_bool
 \bool_new:N \l_@@_coverbg_bool
 \tl_new:N \l_@@_covertype_tl
 \msg_new:nnn { ugentdocs } { cover~type~not~implemented }
@@ -1787,7 +1787,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOn
 \exp_args:Nx \str_if_eq:eeT { \l_@@_fselector_tl } { bw } {
 	\exp_args:Nx \str_if_eq:eeT { \l_@@_covertype_tl } { phd } {
-		\@bwbookcovertrue
+		\bool_set_true:N \l_@@_bwbookcover_bool
 	}
 }
 \ExplSyntaxOff
@@ -3201,11 +3201,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   colofon of your dissertation.
 %    \begin{macrocode}
 %<*phd|bkc|bama>
-\newif\if@embargo
+\newif\if@embargo % TODO convert to L3
 \@embargofalse
-\newif\if@fullembargo
+\newif\if@fullembargo % TODO convert to L3
 \@fullembargofalse
-\newif\if@tempembargo
+\newif\if@tempembargo % TODO convert to L3
 \@tempembargofalse
 \newcommand*{\embargofull}{
   \@tempembargofalse
@@ -3222,7 +3222,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   start date and the second argument as the end date.
 %    \begin{macrocode}
 %<*phd|bkc|bama>
-\newif\if@tempembargo
+\newif\if@tempembargo % TODO convert to L3
 \@tempembargofalse
 
 \ExplSyntaxOn
@@ -4476,7 +4476,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newlength{\@HI}	% Image height
 \newlength{\@WFI}	% Faculty icon width
 
-\if@bwbookcover % BW cover
+\bool_if:NTF \l_@@_bwbookcover_bool { % BW cover
 	\setlength\@HBS{4\gridunit}
 	\setlength\@HTS{0mm}
 	\setlength\@BT{\@B}
@@ -4485,7 +4485,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\setlength\@MTTB{\gridunit}
 	\setlength\@WD{0mm} 
 	\setlength\@HD{0mm}
-\else % UGent cover
+}{ % UGent cover
 	\setlength\@HBS{4\gridunit}
 	\tl_if_empty:NTF \l_@@_fselector_tl {
 		\setlength\@HTS{0mm}		
@@ -4499,7 +4499,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\setlength\@MTTB{\gridunit}
 	\setlength\@WD{12\gridunit}
 	\setlength\@HD{10\gridunit}
-\fi
+}
 \ExplSyntaxOff
 %</phd|bkc|crs>
 %    \end{macrocode}
@@ -4507,18 +4507,20 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % For confidential covers, we add a command to print the notice:
 %    \begin{macrocode}
 %<*phd|bkc|crs>
+\ExplSyntaxOn
 \newcommand{\@printconfidentialcover}{
-	\if@bwbookcover
+	\bool_if:NTF \l_@@_bwbookcover_bool {
 	\@setugentlogotext
 	\@setfaclogotext
-	\node[anchor=center,font=\fontsize{15}{18}\selectfont,ugent@main] at	(0.5*\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5*\gridunit,1.5*\gridunit) {\textbf{\translatekey[uppercase]{confidential}}};
+	\node[anchor=center,font=\fontsize{15}{18}\selectfont,ugent@main] at (0.5*\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5*\gridunit,1.5*\gridunit) {\textbf{\translatekey[uppercase]{confidential}}};
 	% pos = (\@PW-\@ftextw/\@logounit*\gridunit-3*\gridunit-\@ugenttextw/\@logounit*\gridunit-2*\gridunit)/2+\@ugenttextw/\@logounit*\gridunit+2*\gridunit
 	%     = 0.5*\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5\gridunit
-	\else
-	\node[anchor=south east,font=\fontsize{15}{18}\selectfont,ugent@main] at	(\@PW-\@MTLR,\@MTLR) 
+	}{
+	\node[anchor=south~east,font=\fontsize{15}{18}\selectfont,ugent@main] at (\@PW-\@MTLR,\@MTLR) 
 	{\textbf{\translatekey[uppercase]{confidential}}};
-	\fi
+	}
 }
+\ExplSyntaxOff
 %</phd|bkc|crs>
 %    \end{macrocode}
 %
@@ -4526,22 +4528,23 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % so let's set it here:
 %    \begin{macrocode}
 %<*bkc|phd>
+\ExplSyntaxOn
 \newcommand\@coverbodyphd{
-		% Title, subtitle, author	
-	\if@bwbookcover
-	\node[anchor=south east, text width=\@PW-2*\@MTLR, align=right, text=covertitlecolor]
+	% Title, subtitle, author	
+	\bool_if:NTF \l_@@_bwbookcover_bool {
+	\node[anchor=south~east, text~width=\@PW-2*\@MTLR, align=right, text=covertitlecolor]
 	at (\@PW-\@MTLR, 2*\@HBS)
 	{{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
 		\ifx\@subtitle\@empty\else\vspace{4pt}%
 		\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par\fi}%
 		\vspace{30pt}\hyphenpenalty=100000{\fontsize{20}{24}\selectfont\printauthors{\\}{\\}{\\}}};
-	\else
-	\node[anchor=west, text width=\@PW-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
+	}{
+	\node[anchor=west, text~width=\@PW-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
 	at (\@MS+\@MTLR, 0.5*\@PH+0.5*\@HBS-0.5*\@HTS+0.5*\@HD)
 	{{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
 		\ifx\@subtitle\@empty\else\vspace{5pt}\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par\fi}};
 	
-	\node[anchor=north west, text width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
+	\node[anchor=north~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
 	at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB)
 	{{\fontsize{20}{24}\selectfont\bfseries\printauthors{\\}{\\}{\\}}%
 		\\[15pt]
@@ -4550,23 +4553,24 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\\[15pt]
 		{\fontsize{11}{15}\selectfont\translatekey{acyear}~\@academicyear}};
 	
-	\node[anchor=south west, text width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
+	\node[anchor=south~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
 	at (\@MS+\@MTLR, \@HBS+\@MTTB)
 	{\fontsize{11}{15}\selectfont\nohyphens{\translatekey{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printdegrees{~\&~}{,~}{\translatekey{andlist}~}}};
 	
 	\ifx\@frontcoverlogos\@empty\else
-	\node[anchor=south east, inner sep=0pt,
-	text width=\@PW-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
+	\node[anchor=south~east, inner~sep=0pt,
+	text~width=\@PW-(2+\@ugenttextw/\@logounit)*\gridunit, minimum~height=2*\gridunit,
 	align=right] at (\@PW-\gridunit,\gridunit)
 	{\@frontcoverlogos};
 	\fi
 	
-	\fi
+	}
 	
 	\if@embargo
 	\@printconfidentialcover
 	\fi
 }
+\ExplSyntaxOff
 %</bkc|phd>
 %<*bkc|crs>
 \newcommand\@coverbodycourse{
@@ -4667,8 +4671,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	Defines the front cover layout
 %    \begin{macrocode}
 %<*phd|bkc|crs>
+\ExplSyntaxOn
 \newcommand{\@frontcover}{%
-	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
+	\begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt]
 	\useasboundingbox (0,0) rectangle (\@PW,\@PH);
 	
 	% Image zone
@@ -4680,8 +4685,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\pgfmathsetlength{\@WI}{\@PW+\@B-\@MS}
 		\pgfmathsetlength{\@HI}{\@PH-\@HBS-\@HTS+\@BT}
 		\clip (\@MS,\@HBS) rectangle (\@PW+\@B,\@PH-\@HTS+\@BT);
-		\node[anchor=south west, inner sep=0pt] at (\@MS, \@HBS)%
-		{\adjustbox{min width=\@WI, min height=\@HI, keepaspectratio}{%
+		\node[anchor=south~west, inner~sep=0pt] at (\@MS, \@HBS)%
+		{\adjustbox{min~width=\@WI, min~height=\@HI, keepaspectratio}{%
 				\includegraphics[width=\@WI]{\@titlepageimage}%
 			}%
 		};%
@@ -4699,18 +4704,19 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\end{scope}
 	
 	% Faculty logo
-	\if@bwbookcover
+	\bool_if:NTF \l_@@_bwbookcover_bool {
 	\begin{scope}[shift={(\@PW,0)}]
 		\faclogo{3\gridunit}{ugent@\@fselector}{1}
 	\end{scope}
-	\else
+	} {
 	\begin{scope}[shift={(\@MS-\gridunit,\@PH-\@HTS)}]
 		\faclogo{3\gridunit}{ugent@\@fselector}{0}
 	\end{scope}
-	\fi
+	}
 	
 	\end{tikzpicture}
 }
+\ExplSyntaxOff
 %</phd|bkc|crs>
 %    \end{macrocode}
 % \end{imacro}
@@ -4947,7 +4953,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %  and check if we can print on the spine:
 %    \begin{macrocode}
 %<*bkc>
-\newif\if@printonspine
+\newif\if@printonspine % TODO convert to L3
 
 \ExplSyntaxOn
 \msg_new:nnnn { bookcover } { spine-too-small }
@@ -4988,21 +4994,23 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	}%
 	\vfill
 }
+\ExplSyntaxOn
 \newbookcovercomponenttype{authoryear}{
 	\vfill\centering
-	\if@bwbookcover
+	\bool_if:NTF \l_@@_bwbookcover_bool {
 		\rotatebox[origin=c]{-90}{
 			\fontsize{13}{0}\selectfont\color{spinetextcoloralt}\textbf{\vphantom{Ag}#1%
 				\hspace{30pt}\the\year%
 				}
 		}
-	\else
+	}{
 		\rotatebox[origin=c]{-90}{
 			\fontsize{13}{0}\selectfont\color{spinetextcoloralt}\textbf{\vphantom{Ag}#1}
 		}
-	\fi
+	}
 	\vspace{10mm}
 }
+\ExplSyntaxOff
 \newbookcovercomponenttype{logo}{
 	\vspace{0mm}\centering
 	\rotatebox{-90}{
@@ -5136,18 +5144,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\exp_not:N\frontcoverlogos	{\l_@@_frontcoverlogos_tl}	\iow_newline:							
 	}
 	
-	\if@bwbookcover
+	\bool_if:NTF \l_@@_bwbookcover_bool {
 	\tl_put_right:Nn \l_@@_covertemplate_tl {
 		\iow_newline:
 		\exp_not:N\year=\l_@@_year_tl\iow_newline:
 	}
-	\else
+	}{
 	\tl_put_right:Nn \l_@@_covertemplate_tl {
 		\iow_newline:
 		\l_@@_degreecalls_tl							\iow_newline:
 		\exp_not:N\academicyear	{\l_@@_academicyear_tl}	\iow_newline:
 	}
-	\fi	
+	}
 	
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 		{ phd }    {
@@ -5283,7 +5291,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % The trailer of the page is automatically generated at the end of the document:
 %    \begin{macrocode}
 %<*le>
-\newif\ifletterclosed
+\newif\ifletterclosed % TODO convert to L3
 \letterclosedfalse
 \newcommand\closeletter{
   \ifletterclosed
