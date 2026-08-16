@@ -62,13 +62,14 @@
 \usepackage[dutch,main=english]{babel}
 \usepackage{makeidx}
 \usepackage{alltt}
+\usepackage{adjustbox}
 \usepackage{fontspec}
 \usepackage{unicode-math}
 \usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{metalogo}
 \usepackage{tikz}
-\usetikzlibrary{backgrounds}
+\usetikzlibrary{positioning,calc,fit,backgrounds}
 \usepackage{dtxdescribe}
 % Patch category not printing
 \makeatletter
@@ -2415,6 +2416,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{itemize}
 %
 %
+% \newpage
 % \subsubsection{Geometry}
 % \label{S:geometry}
 % The |geometry| package is used to set the paper size for the documents.
@@ -2489,6 +2491,139 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 %
 % \subsection{Macros}
+% \label{S:macros}
+% \subsubsection{Inset text and quotes}
+% \label{S:inset}
+% 
+% \DescribeMacro[bama|phd|course|report]{\insettext}\marg{title}\marg{content}\\
+% Formats the |title| and |content| into a text box. By default, the colours are\\
+% faculty-based (|insetboxcolor|).\\
+% Examples:\\
+%
+% \newcommand{\insettext}[2]{
+%	\begin{adjustbox}{center}
+%		\begin{tikzpicture}
+%		\node[align=left, text width=\linewidth-6mm, inner sep=3mm] (body) {#2};
+%		\ifblank{#1}{}{%
+%			\node[align=left, text width=\linewidth-6mm, inner sep=3mm,
+%			fill=insetboxcolor, text=white, font=\bfseries,
+%			above=0pt of body, anchor=south] (title) {#1};
+%		}%
+%		\begin{scope}[on background layer]
+%		\ifblank{#1}{%
+%			\node[fill=insetboxcolor!10, fit=(body), inner sep=0mm] {};
+%		}{%
+%			\node[fill=insetboxcolor!10, fit=(body)(title), inner sep=0mm] {};
+%		}%
+%		\end{scope}
+%		\end{tikzpicture}
+%	\end{adjustbox}
+%}
+% \txtcmd{insettext\{An example title\}\{This is the content.\}}\\
+% \insettext{An example title}{This is the content.}
+% \txtcmd{insettext\{\}\{This is the content without a title.\}}\\
+% \insettext{}{This is the content without a title.}
+% \txtcmd{colorlet\{insetboxcolor\}\{ugent@accent\}}\\
+% \txtcmd{insettext\{An example title\}\{This is the content.\}}\\
+% \begingroup\colorlet{insetboxcolor}{ugent@accent}
+% \insettext{An example title}{This is the content.}
+% \endgroup
+%
+% Implementation:
+%    \begin{macrocode}
+%<*bama|phd|crs|rp>
+\newcommand{\insettext}[2]{
+	\begin{adjustbox}{center}
+		\begin{tikzpicture}
+		\node[align=left, text width=\linewidth-6mm, inner sep=3mm] (body) {#2};
+		\ifblank{#1}{}{%
+			\node[align=left, text width=\linewidth-6mm, inner sep=3mm,
+			fill=insetboxcolor, text=white, font=\bfseries,
+			above=0pt of body, anchor=south] (title) {#1};
+		}%
+		\begin{scope}[on background layer]
+		\ifblank{#1}{%
+			\node[fill=insetboxcolor!10, fit=(body), inner sep=0mm] {};
+		}{%
+			\node[fill=insetboxcolor!10, fit=(body)(title), inner sep=0mm] {};
+		}%
+		\end{scope}
+		\end{tikzpicture}
+	\end{adjustbox}
+}
+%</bama|phd|crs|rp>
+%    \end{macrocode}
+%
+%% \DescribeMacro[bama|phd|course|report]{\insetquote}\marg{quote}\marg{citation}\\
+% Formats the |quote| and |citation| into a text box using |insettext|.
+% By default, the colours are faculty-based (|insetboxcolor|).\\
+% Example:\\ \txtcmd{insetquote\{I feel quite hungry!\}\{Some dude from Bohemia named Henry\}}\\
+%
+% \makeatletter
+% \newlength{\quotetextwidth}
+% \newlength{\quoteinnerxsep}
+% \setlength{\quoteinnerxsep}{10mm}
+%
+% \newcommand{\insetquotepicture}[2]{
+%	\begin{tikzpicture}[baseline]
+%	\node[align=#1, text width=\quotetextwidth,
+%	inner xsep=\quoteinnerxsep, inner ysep=6mm] (qtext) {#2};
+%	\node[font=\Huge, anchor=north west] at (qtext.north west) {``};
+%	\node[font=\Huge, anchor=south east] at (qtext.south east) {''};
+%	\end{tikzpicture}
+% }
+%
+% \newcommand{\insetquote}[2]{
+%	\insettext{}{%
+%		\settowidth{\quotetextwidth}{#1}%
+%		\ifdim\quotetextwidth>\dimexpr\linewidth-6mm-2\quoteinnerxsep\relax
+%		\setlength{\quotetextwidth}{\dimexpr\linewidth-6mm-2\quoteinnerxsep\relax}%
+%		\insetquotepicture{justify}{#1}\par
+%		\else
+%		\begin{center}
+%			\insetquotepicture{center}{#1}\par
+%		\end{center}
+%		\fi
+%		\ifblank{#2}{}{\raggedleft #2\par}%
+%	}%
+% }
+% \makeatother
+%
+% \insetquote{I feel quite hungry!}{Some dude from Bohemia named Henry}
+
+% Implementation:
+%    \begin{macrocode}
+%<*bama|phd|crs|rp>
+ \newlength{\quotetextwidth}
+ \newlength{\quoteinnerxsep}
+ \setlength{\quoteinnerxsep}{10mm}
+
+ \newcommand{\insetquotepicture}[2]{
+	\begin{tikzpicture}[baseline]
+	\node[align=#1, text width=\quotetextwidth,
+	inner xsep=\quoteinnerxsep, inner ysep=6mm] (qtext) {#2};
+	\node[font=\Huge, anchor=north west] at (qtext.north west) {``};
+	\node[font=\Huge, anchor=south east] at (qtext.south east) {''};
+	\end{tikzpicture}
+ }
+
+ \newcommand{\insetquote}[2]{
+	\insettext{}{%
+		\settowidth{\quotetextwidth}{#1}%
+		\ifdim\quotetextwidth>\dimexpr\linewidth-6mm-2\quoteinnerxsep\relax
+		\setlength{\quotetextwidth}{\dimexpr\linewidth-6mm-2\quoteinnerxsep\relax}%
+		\insetquotepicture{justify}{#1}\par
+		\else
+		\begin{center}
+			\insetquotepicture{center}{#1}\par
+		\end{center}
+		\fi
+		\ifblank{#2}{}{\raggedleft #2\par}%
+	}%
+ }
+%</bama|phd|crs|rp>
+%    \end{macrocode}
+%
 %
 % \subsubsection{Macros for the course, bama, phd
 	% classes}
@@ -2810,41 +2945,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %
 %
-% \subsubsection{Fancy inset texts and quotes}
-%    \begin{macrocode}
-%<*bama|phd|crs|rp>
-\newcommand{\insettext}[2]{% args: title, content
-	\begin{adjustbox}{center}
-		\begin{tikzpicture}
-		\node[align=left, text width=\linewidth-6mm, inner sep=3mm] (body) {#2};
-		\ifblank{#1}{}{%
-			\node[align=left, text width=\linewidth-6mm, inner sep=3mm,
-			fill=ugent@faculty, text=white, font=\bfseries,
-			above=0pt of body, anchor=south] (title) {#1};
-		}%
-		\begin{scope}[on background layer]
-		\ifblank{#1}{%
-			\node[fill=ugent@faculty!10, fit=(body), inner sep=0mm] {};
-		}{%
-			\node[fill=ugent@faculty!10, fit=(body)(title), inner sep=0mm] {};
-		}%
-		\end{scope}
-		\end{tikzpicture}
-	\end{adjustbox}
-}
 
-\newcommand{\insetquote}[2]{% args: quote, citation
-	\insettext{}{%
-		\begin{tikzpicture}[baseline]
-		\node[align=left, text width=\linewidth-12mm] (qtext) {#1};
-		\node[font=\Huge, anchor=north west, xshift=-3mm, yshift=3mm] at (qtext.north west) {``};
-		\node[font=\Huge, anchor=south east, xshift=3mm, yshift=-3mm] at (qtext.south east) {''};
-		\end{tikzpicture}\par
-		\ifblank{#2}{}{\raggedleft #2\par}%
-	}%
-}
-%</bama|phd|crs|rp>
-%    \end{macrocode}
 %
 %
 % \subsubsection{Tags}
