@@ -1925,24 +1925,43 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|bkc|crs|rp|le|ex|bama> 
 % \fi
 %
-%
-% We execute some standard options:
-% We load the |book| class for course texts, reports, and bachelor, master, and PhD dissertations.
-%    \begin{macrocode}
+% Class loading operates as follows. The standard options such as |11pt|,
+% |oneside|, or |openright| are passed to the relevant base classes. For courses,
+% BSc/MSc and PhD dissertations, and reports, this is the |book| class. 
+% The |ugentletter| class expands |letter|, while exams are based on |article|.
+% \iffalse
 %<*crs|bama|phd|rp>
 \PassOptionsToClass{a4paper,11pt,final,oneside,openright}{book}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption, a4paper}{book}}
-\ProcessOptions\relax
-\ProcessKeyOptions[ ugentdocs ]
-\LoadClass{book}
-\@loadfonts
 %</crs|bama|phd|rp>
-% We load the |bookcover| class for PhD dissertation covers
 %<*bkc>
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{bookcover}}
+%</bkc>
+%<*le>
+\PassOptionsToClass{a4paper,10pt,final,oneside}{letter}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{letter}}
+%</le>
+%<*ex>
+\PassOptionsToClass{a4paper,10pt,final,twoside}{article}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+%</ex>
+%\fi
+% Then, our custom options are processed,
+% \iffalse
+%<*crs|bama|phd|rp|bkc|le|ex> 
 \ProcessOptions\relax
-\ProcessKeyOptions[ugentdocs]
-
+%</crs|bama|phd|rp|bkc|le|ex> 
+%<*crs|bama|phd|rp|bkc|le|ex|bmr> 
+\ProcessKeyOptions[ ugentdocs ]
+%</crs|bama|phd|rp|bkc|le|ex|bmr> 
+% \fi
+% and the base classes are loaded in.
+% \iffalse
+%<*crs|bama|phd|rp>
+\LoadClass{book}
+%</crs|bama|phd|rp>
+%<*bkc>
+% Apply bleed space and marker length for cameraready
 \newlength{\@bleedspace}
 \newlength{\@markerlength}
 \ExplSyntaxOn
@@ -1954,6 +1973,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \setlength\@markerlength{0mm}
 }
   
+% Set cover dimensions based on cover type
 \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 	{ phd }    {
 		\PassOptionsToClass{
@@ -1976,31 +1996,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 \LoadClass{bookcover}
-\@loadfonts
 %</bkc>
-% We load the |letter| class for letters
 %<*le> 
-\PassOptionsToClass{a4paper,10pt,final,oneside}{letter}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{letter}}
-\ProcessOptions\relax
-\ProcessKeyOptions[ugentdocs]
 \LoadClass{letter}
-\@loadfonts
 %</le>
-% We load the |article| class for exams
 %<*ex>
-\PassOptionsToClass{a4paper,10pt,final,twoside}{article}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
-\ProcessOptions\relax
-\ProcessKeyOptions[ugentdocs]
 \LoadClass{article}
-\@loadfonts
 %</ex>
-%<*bmr>
-\ProcessKeyOptions[ugentdocs]
-\@loadfonts
-%</bmr>
 %<*phd|bkc>
+% Check if BW bookcover should be set
 \ExplSyntaxOn
 \exp_args:Nx \str_if_eq:eeT { \l_@@_fselector_tl } { bw } {
 	\exp_args:Nx \str_if_eq:eeT { \l_@@_covertype_tl } { phd } {
@@ -2009,21 +2013,24 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</phd|bkc>
-%    \end{macrocode}
-% 
-% \subsection{Modern typesetting}
-% Let's force some modern typesetting without paragraph indentation
-% and with a decent paragraph spacing.
-% 
-%    \begin{macrocode}
+% \fi
+% Finally, the fonts are loaded and modern typesetting is applied: no
+% paragraph indentation and decent paragraph spacing.
+% \iffalse
+%<*crs|bama|phd|rp|bkc|le|ex|bmr>
+\@loadfonts
+%</crs|bama|phd|rp|bkc|le|ex|bmr>
 %<*crs|bama|phd|rp|le|ex>      
+% Modern typesetting
 \setlength{\parindent}{0pt}
 \addtolength{\parskip}{0.75\baselineskip}
 \setcounter{secnumdepth}{3}
 %</crs|bama|phd|rp|le|ex>
-%    \end{macrocode}
+% \fi
 % 
-% \subsection{Auxiliary packages}
+%
+% \newpage
+% \subsection{Packages}
 % Reinventing the wheel is a waste of time, let's preload some
 % appropriate auxiliary packages that have proven their value.
 %
