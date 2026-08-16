@@ -1155,13 +1155,13 @@
 % \newpage
 % \subsection{Language}
 % \label{S:dict}
-% The |ugentdocs| documents can be written in either english or dutch. 
-% The following option sets the main language:
+% The |ugentdocs| documents can be written in either english or dutch:
 %
-% \DescribeOption{language}
+% \DescribeOption{language}\DescribeDefault{english}
 % Options: |dutch|, |english|\\
 % Sets the main document language and all automatic text.
 %
+% \iffalse
 %<*clo>
 \ExplSyntaxOn
 % Dictionaries: language class options
@@ -1175,6 +1175,27 @@
 } 
 \ExplSyntaxOff
 %</clo>
+% \fi
+% 
+% \DescribeOption{nameformat}\DescribeDefault{surnamelast}
+% Options:\\
+%|surnamefirst|: outputs all names as ``Surname Firstname''\\
+%|surnamelast|: outputs all names as ``Firstname Surname''
+%
+% \iffalse
+%<*clo>
+\ExplSyntaxOn
+\tl_new:N \l_@@_nameformat_tl
+\tl_set:Nn \l_@@_nameformat_tl {surnamelast}
+
+\keys_define:nn { ugentdocs } {
+	nameformat .tl_set:N = \l_@@_nameformat_tl ,
+	surnamefirst .code:n   = { \tl_set:Nn \l_@@_nameformat_tl {surnamefirst} } ,
+	surnamelast  .code:n   = { \tl_set:Nn \l_@@_nameformat_tl {surnamelast} } ,
+}
+\ExplSyntaxOff
+%</clo>
+% \fi
 %
 % To support multi-language documents and automatically setting all template
 % text -- e.g., copyright page, faculty name, or other specific terms set by
@@ -1564,90 +1585,42 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</dutch>
 % \end{Verbatim}
 %
-% \subsection{The class options explained}
-% \label{sec:classopt}
-% The classes have several options. They are listed below.
-% After every option, it has been indicated to which class the option
-% applies (between square brackets, without prefix ugent).
+% \newpage
+% \subsection{Class options}
+% \label{S:classopt}
 %
-%
-% \DescribeMacro{cameraready} [phd/course]\\
-% For the |phd| class, this option forces the book format to be
-% printed on A4 with bleed space. This accomodates what your printshop
-% requires you to provide as a camera-ready copy.
-%
-% For the |course| class, this options removes the colored areas
-% and the logo from the titlepage (and removes the finalpage
-% altogether) to allow for universitas to print the text of your
-% titlepage on a standard sheet that contains these colored areas and
-% the logo (pre-printed).
-%
-% \DescribeMacro{bare} [phd]\\
-% For the |phd| class, this option removes the
-% title page and the back page from the file, such that you can give a
-% 'bare' version to your printshop.
-%
-% \DescribeMacro{copyright} [course]\\
-%   This option forces printing a watermark on every page. For the
-%   paper version of your document, this is inappropriate, but for any
-%   e-copy you make available, this may be appropriate;
-%
-% \DescribeMacro{examiner} [exam]\\
-%   This option allows to set the exam class in examiner mode,
-%   mentioning the examiner mode on every page (as regular text in the
-%   header and also in a watermark) to make sure you never hand out
-%   that copy to students and suppressing the fillout pages.
-%
-%
-
-% 
-% \section{Implementation of the classes}
-%
-
-%
-% \subsection{Class inheritance}
-% 
-% 
-% For convenience, we'll derive from the standard \LaTeX{} |book|, 
-% |letter| and |article| class. 
-% 
-%
-% Before loading the class, we provide the extra options.
-% 
-%    \begin{macrocode}
+% Some common options such as were previously defined in the common options
+% above, found in |ugentcommon.clo|.%
+% \iffalse
 %<*crs|bama|phd|rp|bkc|le|ex|bmr>
 \input{ugentcommon.clo}
 %</crs|bama|phd|rp|bkc|le|ex|bmr>
-%<*phd|bkc|rp|ex|le|crs|bama|bmr|clo> 
-\ExplSyntaxOn
-%</phd|bkc|rp|ex|le|crs|bama|bmr|clo> 
+% \fi
+% A few of the document classes have specialized options, which will be
+% described in this section.
+% \iffalse
 %<*clo>
-% Declare some variables used later in the classes:
+\ExplSyntaxOn
+% Class options: declare some variables used commonly
 \bool_new:N \l_@@_bwbookcover_bool
 \bool_new:N \l_@@_coverbg_bool
 \tl_new:N \l_@@_covertype_tl
 \msg_new:nnn { ugentdocs } { cover~type~not~implemented }
 { Cover~type~'#1'~is~not~implemented. }
-
-
+\ExplSyntaxOff
 %</clo>
-%<*crs|rp>      
-\bool_new:N \l_@@_copyright_bool
-
-\keys_define:nn { ugentdocs } {
-	copyright .bool_set:N = \l_@@_copyright_bool ,
-	copyright .default:n = true ,
-}
-%</crs|rp>
+%<*phd|bkc|crs|rp|le|ex|bama> 
+\ExplSyntaxOn
+%</phd|bkc|crs|rp|le|ex|bama> 
+% \fi
 %
-%<*ex>
-\bool_new:N \l_@@_examiner_bool
-
-\keys_define:nn { ugentdocs } {
-	examiner .bool_set:N = \l_@@_examiner_bool ,
-	examiner .default:n = true ,
-}
-%</ex>
+% \DescribeOption[phd|bookcover]{cameraready}\DescribeDefault{false}
+% Options: |true|, |false|\\
+% Forces the PhD format to be printed on A4 with bleed space,
+% accomodating that your printshop requires as a camera-ready copy.
+% For the bookcover class, this sets a bleed space and fold or cut
+% markers.
+% \iffalse
 %<*phd|bkc>
 \bool_new:N \l_@@_cameraready_bool
 
@@ -1656,6 +1629,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	cameraready .default:n = true ,
 }
 %</phd|bkc>
+% \fi
+%
+% \DescribeOption[phd|course]{bare}\DescribeDefault{false}
+% Options: |true|, |false|\\
+% Removes the title page and the back page from the file, such that you can give
+% a 'bare' version to your printshop.
+% \iffalse
 %<*phd|crs>
 \bool_new:N \l_@@_bare_bool
 
@@ -1672,16 +1652,58 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	thumbs .default:n = true ,
 }
 %</phd|crs>
-%<*clo>
-\tl_new:N \l_@@_nameformat_tl
-\tl_set:Nn \l_@@_nameformat_tl {surnamelast}
+% \fi
+%
+% \DescribeOption[course|report]{copyright}\DescribeDefault{false}
+% Options: |true|, |false|\\
+% Forces printing a watermark on every page. For the
+% paper version of your document, this is inappropriate, but for any
+% e-copy you make available, this may be appropriate.
+% \iffalse
+%<*crs|rp>      
+\bool_new:N \l_@@_copyright_bool
 
 \keys_define:nn { ugentdocs } {
-	nameformat .tl_set:N = \l_@@_nameformat_tl ,
-	surnamefirst .code:n   = { \tl_set:Nn \l_@@_nameformat_tl {surnamefirst} } ,
-	surnamelast  .code:n   = { \tl_set:Nn \l_@@_nameformat_tl {surnamelast} } ,
+	copyright .bool_set:N = \l_@@_copyright_bool ,
+	copyright .default:n = true ,
 }
-%</clo>
+%</crs|rp>
+% \fi
+%
+% \DescribeOption[exam]{examiner}\DescribeDefault{false}
+% Options: |true|, |false|\\
+% Allows setting the exam class in examiner mode,
+% mentioning the examiner mode on every page (as regular text in the
+% header and also in a watermark) to make sure you never hand out
+% that copy to students and suppressing the fillout pages.
+% \iffalse
+%<*ex>
+\bool_new:N \l_@@_examiner_bool
+
+\keys_define:nn { ugentdocs } {
+	examiner .bool_set:N = \l_@@_examiner_bool ,
+	examiner .default:n = false ,
+}
+%</ex>
+% \fi
+%
+% \DescribeOption[bama|report]{coverbg}\DescribeDefault{false}
+% Options: |true|, |false|\\
+% Sets a cover background with the relevant UGent or faculty color,
+% depending on |faculty| and |neutralcolors| options.
+% \iffalse
+%<*bama|rp>
+\keys_define:nn { ugentdocs } {
+	coverbg .bool_set:N = \l_@@_coverbg_bool ,
+	coverbg .default:n = false ,
+}
+%</bama|rp>
+% \fi
+%
+% \DescribeOption[letter]{foldline}\DescribeDefault{true}
+% Options: |true|, |false|\\
+% Adds a little fold line to the letter, 1/3 of the page from the top.
+% \iffalse
 %<*le>
 \bool_new:N \l_@@_foldline_bool
 \bool_set_true:N \l_@@_foldline_bool
@@ -1691,12 +1713,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	foldline .default:n = true ,
 }
 %</le>
-%<*bama|rp>
-\keys_define:nn { ugentdocs } {
-	coverbg .bool_set:N = \l_@@_coverbg_bool ,
-	coverbg .default:n = true ,
-}
-%</bama|rp>
+% \fi
+%
+% \DescribeOption[bookcover]{covertype}
+% Options: |phd|, |course|\\
+% Passes the cover type to construct to the bookcover class.
+% \iffalse
 %<*bkc>
 \keys_define:nn { ugentdocs } {
 	covertype .tl_set:N = \l_@@_covertype_tl ,
@@ -1704,14 +1726,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	course       .code:n   = { \tl_set:Nn \l_@@_covertype_tl {course} } ,
 }
 %</bkc>
-%<phd> \tl_set:Nn \l_@@_covertype_tl {phd}
-%<crs> \tl_set:Nn \l_@@_covertype_tl {course}
+%<phd>  \tl_set:Nn \l_@@_covertype_tl {phd}
+%<crs>  \tl_set:Nn \l_@@_covertype_tl {course}
 %<bama> \tl_set:Nn \l_@@_covertype_tl {bama}
-%<rp>  \tl_set:Nn \l_@@_covertype_tl {report}
-%<*phd|bkc|rp|ex|le|crs|bama|bmr|clo> 
+%<rp>   \tl_set:Nn \l_@@_covertype_tl {report}
+%
+%<*phd|bkc|crs|rp|le|ex|bama> 
 \ExplSyntaxOff
-%</phd|bkc|rp|ex|le|crs|bama|bmr|clo> 
-%    \end{macrocode}
+%</phd|bkc|crs|rp|le|ex|bama> 
+% \fi
 %
 %
 % We execute some standard options:
