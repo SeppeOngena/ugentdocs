@@ -3237,7 +3237,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   and |\@course| tags that later will be used on the title
 %   page.
 %    \begin{macrocode}
-%<*crs>
+%<*crs|ex>
 \ExplSyntaxOn
 \seq_new:N \g_@@_courseswithcodes_seq
 \seq_new:N \g_@@_courses_seq
@@ -3251,20 +3251,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \@@_addcourse:nn { #1 } { #2 }
 }
 \ExplSyntaxOff
-%</crs>
-%    \end{macrocode}
-%   For the |exam| class (assuming that an exam only holds for a
-%   single course), the situation is simple and we assume only a
-%   single coursecode and course name.
-%    \begin{macrocode}
-%<*ex>      
-\newcommand*{\@coursecode}{}
-\newcommand*{\@course}{}
-\newcommand*{\course}[2]{
-  \renewcommand*{\@coursecode}{#1}
-  \renewcommand*{\@course}{#2}
-}
-%</ex>
+%</crs|ex>
 %    \end{macrocode}
 % \end{imacro}
 % 
