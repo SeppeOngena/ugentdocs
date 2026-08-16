@@ -1863,7 +1863,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	bare .bool_set:N = \l_@@_bare_bool ,
 	bare .default:n = true ,
 }
-
+%</phd|crs>
+% \fi
+%
+% \DescribeOption[phd|course]{thumbs}\DescribeDefault{true}
+% Options: |true|, |false|\\
+% Adds chapter thumb indexes to your document.
+% \iffalse
+%<*phd|crs>
 \bool_new:N \l_@@_thumbs_bool
 \bool_set_true:N \l_@@_thumbs_bool
 
