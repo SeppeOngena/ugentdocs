@@ -1839,7 +1839,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % Forces the PhD format to be printed on A4 with bleed space,
 % accomodating that your printshop requires as a camera-ready copy.
 % For the bookcover class, this sets a bleed space and fold or cut
-% markers.
+% markers. See Section~\ref{S:optionspackages} for customization.
 % \iffalse
 %<*phd|bkc>
 \bool_new:N \l_@@_cameraready_bool
@@ -1869,6 +1869,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeOption[phd|course]{thumbs}\DescribeDefault{true}
 % Options: |true|, |false|\\
 % Adds chapter thumb indexes to your document.
+% See Section~\ref{S:optionspackages} for customization.
 % \iffalse
 %<*phd|crs>
 \bool_new:N \l_@@_thumbs_bool
@@ -1886,6 +1887,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % Forces printing a watermark on every page. For the
 % paper version of your document, this is inappropriate, but for any
 % e-copy you make available, this may be appropriate.
+% See Section~\ref{S:optionspackages} for customization.
 % \iffalse
 %<*crs|rp>      
 \bool_new:N \l_@@_copyright_bool
@@ -2069,14 +2071,169 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \newpage
 % \subsection{Packages}
-% Reinventing the wheel is a waste of time, let's preload some
-% appropriate auxiliary packages that have proven their value.
+% \label{S:packages}
+% The following packages are required by |ugentdocs|:
+% \begin{center}\small
+%   \begin{tabular}{lp{8cm}}
+%       \toprule
+%		|adjustbox|			& Trimming and clipping of images				\\
+%		|babel|				& Translations of keywords and logos			\\
+%		|background|		& Copyright watermarks for courses and reports	\\
+%		|beamerposter|		& Custom slide dimensions for beamer			\\
+%		|color|				& Colour management								\\
+%		|crop|				& Camera-ready version of PhD dissertations		\\
+%		|environ|			& Custom environments for beamer template		\\
+%		|eso-pic|			& \textcolor{red}{replacement in progress}		\\
+%		|etoolbox|			& Toolbox for class definitions	internally		\\
+%		|expl3|				& Use of \LaTeX{}3 code internally				\\
+%		|fancyhdr|			& Headers and footers							\\
+%		|fontspec|			& Fonts											\\
+%		|geometry|			& Page geometry and margins						\\
+%		|graphbox|			& Improved placement of graphics				\\
+%		|graphicx|			& Enhanced support for graphics					\\
+%		|GS1|				& ISBN barcode for PhDs and courses				\\
+%		|hyphenat|			& Hyphenation control							\\
+%		|iftex|				& Checking compiler type						\\
+%		|setspace|			& Set line spacing								\\
+%		|shellesc|			& Shell command execution, used in 
+%							  \txtcmd{runwordcount}							\\
+%		|soul|				& Underline spanning multiple lines				\\
+%		|tabularx|			& Auto-expandable paragraph columns				\\
+%		|thumbs|			& Thumb indexes for PhDs and courses			\\
+%		|tikz|				& logos, cover pages, etc.						\\
+%		|titlesec|			& Chapter title formatting						\\
+%		|ulem|				& Line-breaking underline						\\
+%		|unicode-math|\textsuperscript{a} or |sansmath| & Sans-serif math	\\
+%		|zref-totpages|		& Page count 									\\
+%		\bottomrule
+% 		\multicolumn{2}{l}{\textsuperscript{a}with Fira Math font installed}\\
+%   \end{tabular}
+% \end{center}
+%
+% Make sure\watchout these packages are available to your \LaTeX{} compiler.
+% Most of these should be installed by default in TeXLive distributions 
+% or can be made to auto-install for MikTeX.
+%
+% \iffalse
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>  
+\RequirePackage{etoolbox}
+\IfFileExists{shellesc.sty}{
+	\RequirePackage{shellesc}}{}
+\RequirePackage{hyphenat}    
+\RequirePackage{graphicx}
+\RequirePackage{tabularx}
+\RequirePackage{graphbox}
+\RequirePackage{soul}
+\RequirePackage[export]{adjustbox}
+\RequirePackage{color}
+\RequirePackage{tikz}
+\usetikzlibrary{positioning,calc,fit,backgrounds}
+\RequirePackage{eso-pic}
+\RequirePackage{zref-totpages}
+\RequirePackage[normalem]{ulem}
+\renewcommand{\ULthickness}{1pt}
+\RequirePackage{setspace}
+\RequirePackage{ugentcolor}
+%<*crs|bama|phd|rp|le|ex|bkc|bmr> 
+%<*crs|bama|phd|rp|le|ex>      
+\RequirePackage{fancyhdr}
+%</crs|bama|phd|rp|le|ex> 
+%<*bkc|phd>
+\RequirePackage{GS1}
+%</bkc|phd>
+% \fi
+%
+%
+% \subsubsection{Options-specific packages}
+% \label{S:optionspackages}
+%
+% Some of these packages are loaded depending on the class options set:
+%
+% \begin{itemize}
+%   \item |babel|: sets the main document language from the |language| option.
+%			You can add more languages by calling \txtcmd{usepackage[<languages>]\{babel\}}
+%			again in your customization file, but make sure a dictionary is available for
+%           the |main| language (see Section \ref{S:dict}).
+%    \begin{macrocode}
+%</crs|bama|phd|rp|le|ex|bkc|bmr> 
+\ExplSyntaxOn
+\str_if_eq:VnTF \l_@@_language_tl {dutch} {
+	\PassOptionsToPackage{main=dutch}{babel}
+}{
+	\PassOptionsToPackage{main=english}{babel}
+}
+\RequirePackage[dutch,english]{babel}
+\ExplSyntaxOff
+%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%    \end{macrocode}
+%   \item |background|: adds background watermark support for the courses and
+%			reports if |copyright| is |true|.
+%			Currently, only the course class uses this through 
+%			\txtcmd{backgroundsetup\{contents=\{Copyright Ghent~University, All Rights Reserved\}\}},
+%			but you can set your own watermark if you want by calling
+%			\txtcmd{backgroundsetup\{contents=\{<yourwatermark>\}\}}
+%    \begin{macrocode}
+%<*crs|rp>
+\ExplSyntaxOn
+\bool_if:NT \l_@@_copyright_bool {
+	\RequirePackage[contents={},color=watermarkcolor,scale=3]{background}
+}
+\ExplSyntaxOff
+%</crs|rp>
+%    \end{macrocode}
+%   \item |crop|: handles the |camereready| option for the PhD class,
+%		embedding the smaller page into an A4 page with cut marks.
+%    \begin{macrocode}
+%<*phd>
+\ExplSyntaxOn
+\bool_if:NT \l_@@_cameraready_bool {
+	\RequirePackage[cam,center,width=21truecm,height=29.7truecm]{crop}
+}
+\ExplSyntaxOff
+%</phd>
+%    \end{macrocode}
+%   \item |thumbs|: handles thumb indexes for courses and reports.
+%		You can customize them by calling \txtcmd{usepackage[<options>]\{thumbs\}}
+%		in your customization file. Be sure to apply the correct |ignorehoffset| and
+%		|ingnorevoffset| values if you use |cameraready=true| as class option.
+%		You can customize the thumb content (e.g., number) by overwriting the 
+%		\txtcmd{@addthumb} command in your customization file.
+%    \begin{macrocode}
+%<*phd|crs>
+\ExplSyntaxOn
+\bool_if:NT \l_@@_thumbs_bool {
+	\IfPackageLoadedTF{crop}{% Thumbs should be loaded after crop!
+		\PassOptionsToPackage{ignorehoffset=false,ignorevoffset=false}{thumbs}% crop
+	}{
+		\PassOptionsToPackage{ignorehoffset=true,ignorevoffset=true}{thumbs}% no crop
+	}
+	\RequirePackage[
+	height=25.4mm,
+	width=auto,
+	distance=2mm,
+	bottomthumbmargin=auto,
+	txtcentered=true,
+	topthumbmargin=3in
+	]{thumbs}
+	
+	\newcommand*{\@addthumb}{%
+		\addthumb{\chaptername~\thechapter}{\Large\bfseries\thechapter}{white}{gray!50}%
+	}
+	
+	\AddToHook{cmd/@makechapterhead/after}{%
+		\@addthumb
+	}
+}
+\ExplSyntaxOff
+%</phd|crs>
+%    \end{macrocode}
+% \end{itemize}
+%
 %
 % \subsubsection{Geometry}
 % Following the report office template:
 %    \begin{macrocode}
 %<*crs|bama|phd|rp|le|ex|bkc|bmr>      
-\RequirePackage{tikz}
 \newlength{\@PW} % Paper width
 \newlength{\@PH} % Paper height
 \newlength{\gridunit} % Grid unit layout
@@ -2131,161 +2288,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOff
 %</bkc>
 %    \end{macrocode}
-% 
-% \subsubsection{Preparing for \LaTeX3}
-% The ugentdocs package will be slowly
-% refactored to \LaTeX3{} to prepare for a package that is easier to
-% maintain. However, the \LaTeX3{} constructs are never exposed to the
-% user of the classes. So: don't worry about it!
-%    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>      
-\RequirePackage{expl3}
-%\RequirePackage[check-declarations]{expl3} % I use this during debug phase
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
-%    \end{macrocode}
 %
-%
-% \subsubsection{Boilerplate packages}
-% \label{S:packages}
-% The following packages are required by |ugentdocs|:
-% \begin{center}\small
-%   \begin{tabular}{lp{8cm}}
-%       \toprule
-%		|adjustbox|			& Trimming and clipping of images				\\
-%		|babel|				& Translations of keywords and logos			\\
-%		|background|		& Copyright watermarks for courses and reports	\\
-%		|beamerposter|		& Custom slide dimensions for beamer			\\
-%		|color|				& Colour management								\\
-%		|crop|				& Camera-ready version of PhD dissertations		\\
-%		|environ|			& Custom environments for beamer template		\\
-%		|eso-pic|			& \textcolor{red}{replacement in progress}		\\
-%		|etoolbox|			& Toolbox for class definitions	internally		\\
-%		|expl3|				& Use of \LaTeX{}3 code internally				\\
-%		|fancyhdr|			& Headers and footers							\\
-%		|fontspec|			& Fonts											\\
-%		|geometry|			& Page geometry and margins						\\
-%		|graphbox|			& Improved placement of graphics				\\
-%		|graphicx|			& Enhanced support for graphics					\\
-%		|GS1|				& ISBN barcode for PhDs and courses				\\
-%		|hyphenat|			& Hyphenation control							\\
-%		|iftex|				& Checking compiler type						\\
-%		|setspace|			& Set line spacing								\\
-%		|shellesc|			& Shell command execution, used in 
-%							  \txtcmd{runwordcount}							\\
-%		|tabularx|			& Auto-expandable paragraph columns				\\
-%		|thumbs|			& Thumb indexes for PhDs and courses			\\
-%		|tikz|				& logos, cover pages, etc.						\\
-%		|titlesec|			& Chapter title formatting						\\
-%		|ulem|				& Line-breaking underline						\\
-%		|unicode-math|\textsuperscript{a} or |sansmath| & Sans-serif math	\\
-%		|zref-totpages|		& Page count 									\\
-%		\bottomrule
-% 		\multicolumn{2}{l}{\textsuperscript{a}with Fira Math font installed}\\
-%   \end{tabular}
-% \end{center}
-% Some boilerplate packages and an empty macro to test against
-% (using|\ifx|)
-%    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc>
-\RequirePackage{etoolbox}
-\IfFileExists{shellesc.sty}{\RequirePackage{shellesc}}{}
-%</crs|bama|phd|rp|le|ex|bkc>
-%    \end{macrocode}
-% 
-% \subsubsection{Graphics packages}
-% 
-% Graphics packages that are required for the title page, but may come
-% in handy for regular use as well.
-%
-% Some packages for course and bama:
-%    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>  
-\RequirePackage{hyphenat}    
-\RequirePackage{graphicx}
-\RequirePackage{tabularx}
-\RequirePackage{graphbox}
-\RequirePackage{soul}
-\RequirePackage[export]{adjustbox}
-\RequirePackage{color}
-\usetikzlibrary{positioning,calc,fit,backgrounds}
-\RequirePackage{eso-pic}
-\RequirePackage{zref-totpages}
-\RequirePackage[normalem]{ulem}
-\renewcommand{\ULthickness}{1pt}
-\RequirePackage{setspace}
-\ExplSyntaxOn
-\str_if_eq:VnTF \l_@@_language_tl {dutch} {
-  \PassOptionsToPackage{main=dutch}{babel}
-}{
-  \PassOptionsToPackage{main=english}{babel}
-}
-\RequirePackage[dutch,english]{babel}
-\ExplSyntaxOff
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
-%<*crs|rp>
-\ExplSyntaxOn
-\bool_if:NT \l_@@_copyright_bool {
-	\RequirePackage[contents={},color=watermarkcolor,scale=3]{background}
-}
-\ExplSyntaxOff
-%</crs|rp>
-%<*phd>
-\ExplSyntaxOn
-\bool_if:NT \l_@@_cameraready_bool {
-	\RequirePackage[cam,center,width=21truecm,height=29.7truecm]{crop}
-}
-\ExplSyntaxOff
-%</phd>
-%<*phd|crs>
-\ExplSyntaxOn
-\bool_if:NT \l_@@_thumbs_bool {
-	\IfPackageLoadedTF{crop}{%
-		\PassOptionsToPackage{ignorehoffset=false,ignorevoffset=false}{thumbs}% crop
-	}{
-		\PassOptionsToPackage{ignorehoffset=true,ignorevoffset=true}{thumbs}% no crop
-	}
-	\RequirePackage[
-	height=25.4mm,
-	width=auto,
-	distance=2mm,
-	bottomthumbmargin=auto,
-	txtcentered=true,
-	topthumbmargin=3in
-	]{thumbs}
-	
-	\newcommand*{\@addthumb}{%
-		\addthumb{\chaptername~\thechapter}{\Large\bfseries\thechapter}{white}{gray!50}%
-	}
-	
-	\AddToHook{cmd/@makechapterhead/after}{%
-		\@addthumb
-	}
-}
-\ExplSyntaxOff
-%</phd|crs>
-%    \end{macrocode}
-%
-% \subsection{ISBN code generation}
-%    \begin{macrocode}
-%<bkc|phd>\RequirePackage{GS1}
-%    \end{macrocode}
-%
-% \subsubsection{UGent color and logo scheme}
-%    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
-\RequirePackage{ugentcolor}
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
-%    \end{macrocode}
-%
-% \subsubsection{Header/Footer}
-% 
-% The de-facto standard for headers and footers:
-%    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex>      
-\RequirePackage{fancyhdr}
-%</crs|bama|phd|rp|le|ex> 
-%    \end{macrocode}
-
 % \subsection{The macros explained}
 %
 % \subsubsection{Macros for the course, bama, phd
