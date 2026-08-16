@@ -1923,11 +1923,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</clo>
 % \fi
 %
-% \DescribeMacro{\getseqcaption}\oarg{casing option}\marg{sequence name}\\
+% \DescribeMacro{\getseqcaption}\oarg{casing option}\marg{sequence name}\marg{post-caption content}\\
 % Fetches the caption of a sequence depending on its length. For example, using
 % this macro on the |authors| sequence returns the dictionary key |author|
 % (i.e., 'Author') if only one entry is present and |authors| (i.e., 'Authors')
 % if multiple are present. Does not support non-'s' terminated sequences.
+% For empty sequences, the |<post-caption content>| is not executed.
 %
 % \iffalse
 %<*clo>
@@ -2895,43 +2896,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\seq_gput_right:Nx \g_@@_authorcalls_seq
 	{ \exp_not:N\author { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
 }
-\prg_new_conditional:Nnn \@@_authors_empty: { p, T, F, TF } {
-	\seq_if_empty:NTF \g_@@_authors_seq
-	{ \prg_return_true: }
-	{ \prg_return_false: }
-}
 
 \RenewDocumentCommand{\author}{mmm}{
 	\@@_addauthor:nnn { #1 } { #2 } { #3 }
 }
-
-\NewDocumentCommand{\printauthors}{mmm}{
-	\seq_use:Nnnn \g_@@_authors_seq { #1 } { #2 } { #3 }
-}
-
-\NewDocumentCommand{\printauthorswithaffiliation}{mmm}{
-	\seq_use:Nnnn \g_@@_authorswithaffiliation_seq { #1 } { #2 } { #3 }
-}
-
-\NewDocumentCommand{\printauthorlist}{}{
-	\seq_use:Nnnn \g_@@_authorlist_seq {,~} {\translatekey{andlist}~} {~\&~}
-}
-
-\NewDocumentCommand{\authorscaption}{O{} m}{
-	\int_compare:nNnTF { \seq_count:N \g_@@_authors_seq } > {1} {
-		\translatekey[#1]{authors} #2
-	}{
-		\int_compare:nNnTF { \seq_count:N \g_@@_authors_seq } = {1} {
-			\translatekey[#1]{author} #2
-		}{
-			% empty
-		}
-	}
-}
-\NewDocumentCommand{\ifauthorsempty}{mm}{
-	\@@_authors_empty:TF { #1 } { #2 }
-}
-
 \ExplSyntaxOff
 %</phd|crs|bama|bkc|ex|le|rp>
 %    \end{macrocode}
@@ -2999,34 +2967,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \seq_gput_right:Nx \g_@@_lecturercalls_seq
   { \exp_not:N\lecturer { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
 }
-\prg_new_conditional:Nnn \@@_lecturers_empty: { p, T, F, TF } {
-	\seq_if_empty:NTF \g_@@_lecturers_seq
-	{ \prg_return_true: }
-	{ \prg_return_false: }
-}
 \NewDocumentCommand{\lecturer}{mmm}{
   \@@_addlecturer:nnn { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\printlecturers}{mmm}{
-  \seq_use:Nnnn \g_@@_lecturers_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\printlecturerswithaffiliation}{mmm}{
-	\seq_use:Nnnn \g_@@_lecturerswithaffiliation_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\lecturerscaption}{O{}}{
-  \int_compare:nNnTF {\seq_count:N \g_@@_lecturers_seq} > {1}{
-    \translatekey[#1]{lecturers}
-  }{
-  	\int_compare:nNnTF {\seq_count:N \g_@@_lecturers_seq} = {1}{
-    \translatekey[#1]{lecturer}
-  	}{
-  	% empty
-  	}
-  }
-}
-\NewDocumentCommand{\iflecturersempty}{mm}{
-	\@@_lecturers_empty:TF { #1 } { #2 }
-}
+
 \ExplSyntaxOff
 %</crs|ex|rp|bkc>
 %    \end{macrocode}
@@ -3065,45 +3009,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \seq_gput_right:Nx \g_@@_supervisorcalls_seq
   { \exp_not:N\supervisor { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
 }
-\prg_new_conditional:Nnn \@@_supervisors_empty: { p, T, F, TF } {
-	\seq_if_empty:NTF \g_@@_supervisors_seq
-	{ \prg_return_true: }
-	{ \prg_return_false: }
-}
 \NewDocumentCommand{\supervisor}{mmm}{
   \@@_addsupervisor:nnn { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\printsupervisors}{mmm}{
-  \seq_use:Nnnn \g_@@_supervisors_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\printsupervisorswithaffiliation}{mmm}{
-  \seq_use:Nnnn \g_@@_supervisorswithaffiliation_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\supervisorscaption}{O{} m}{
-  \int_compare:nNnTF { \seq_count:N \g_@@_supervisors_seq } > {1} {
-  	\translatekey[#1]{supervisors} #2
-  }{
-    \int_compare:nNnTF { \seq_count:N \g_@@_supervisors_seq } = {1} {
-  	  \translatekey[#1]{supervisor} #2
-  	}{
-  	 % empty
-  	}
-  }
-}
-\NewDocumentCommand{\ifsupervisorsempty}{mm}{
-	\@@_supervisors_empty:TF { #1 } { #2 }
-}
-
-\NewDocumentCommand{\allsupervisorscaption}{O{} m}{
-  \int_compare:nNnTF { \seq_count:N \g_@@_allsupervisors_seq } > {1} {
-	\translatekey[#1]{supervisors} #2
-  }{
-	\int_compare:nNnTF { \seq_count:N \g_@@_allsupervisors_seq } = {1} {
-	  \translatekey[#1]{supervisor} #2
-	}{
-	  % empty
-	}
-  }
 }
 %</bama|phd|bkc>
 %<*bama>
@@ -3115,33 +3022,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
   \seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
 }
-\prg_new_conditional:Nnn \@@_cosupervisors_empty: { p, T, F, TF } {
-	\seq_if_empty:NTF \g_@@_cosupervisors_seq
-	{ \prg_return_true: }
-	{ \prg_return_false: }
-}
 \NewDocumentCommand{\cosupervisor}{mmm}{
   \@@_addcosupervisor:nnn { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\printcosupervisors}{mmm}{
-  \seq_use:Nnnn \g_@@_cosupervisors_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\printcosupervisorswithaffiliation}{mmm}{
-  \seq_use:Nnnn \g_@@_cosupervisorswithaffiliation_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\cosupervisorscaption}{O{} m}{
-  \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors_seq} > {1} {
-  	\translatekey[#1]{cosupervisors} #2
-  }{
-    \int_compare:nNnTF {\seq_count:N \g_@@_cosupervisors_seq} = {1} {
-  	  \translatekey[#1]{cosupervisor} #2
-  	}{
-  	}
-  }
-}
-\NewDocumentCommand{\ifcosupervisorsempty}{mm}{
-	\@@_cosupervisors_empty:TF { #1 } { #2 }
-}
+
 \seq_new:N \g_@@_extsupervisors_seq
 \seq_new:N \g_@@_extsupervisorswithaffiliation_seq
 \cs_new:Nn \@@_addextsupervisor:nnn {
@@ -3150,65 +3034,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
   \seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
 }
-\prg_new_conditional:Nnn \@@_extsupervisors_empty: { p, T, F, TF } {
-	\seq_if_empty:NTF \g_@@_extsupervisors_seq
-	{ \prg_return_true: }
-	{ \prg_return_false: }
-}
 \NewDocumentCommand{\extsupervisor}{mmm}{
   \@@_addextsupervisor:nnn { #1 } { #2 } { #3 }
 }
-\NewDocumentCommand{\printextsupervisors}{mmm}{
-  \seq_use:Nnnn \g_@@_extsupervisors_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\printextsupervisorswithaffiliation}{mmm}{
-  \seq_use:Nnnn \g_@@_extsupervisorswithaffiliation_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\extsupervisorscaption}{O{} m}{
-  \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors_seq} > {1}{
-  	\translatekey[#1]{extsupervisors} #2
-  }{
-    \int_compare:nNnTF {\seq_count:N \g_@@_extsupervisors_seq} = {1}{
-  	  \translatekey[#1]{extsupervisor} #2
-  	}{
-    }
-  }
-}
-\NewDocumentCommand{\ifextsupervisorsempty}{mm}{
-	\@@_extsupervisors_empty:TF { #1 } { #2 }
-}
+
 \seq_new:N \g_@@_tutors_seq
 \seq_new:N \g_@@_tutorswithaffiliation_seq
 \cs_new:Nn \@@_addtutor:nnn {
 	\seq_gput_right:Nn \g_@@_tutors_seq { #1~\@formatname{#2}\strut }
 	\seq_gput_right:Nn \g_@@_tutorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
 }
-\prg_new_conditional:Nnn \@@_tutors_empty: { p, T, F, TF } {
-	\seq_if_empty:NTF \g_@@_tutors_seq
-	{ \prg_return_true: }
-	{ \prg_return_false: }
-}
 \NewDocumentCommand{\tutor}{mmm}{
 	\@@_addtutor:nnn { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\printtutors}{mmm}{
-	\seq_use:Nnnn \g_@@_tutors_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\printtutorswithaffiliation}{mmm}{
-	\seq_use:Nnnn \g_@@_tutorswithaffiliation_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\tutorscaption}{O{} m}{
-	\int_compare:nNnTF {\seq_count:N \g_@@_tutors_seq} > {1} {
-		\translatekey[#1]{tutors} #2
-	}{
-		\int_compare:nNnTF {\seq_count:N \g_@@_tutors_seq} = {1} {
-			\translatekey[#1]{tutor} #2
-		}{%
-		}
-	}
-}
-\NewDocumentCommand{\iftutorsempty}{mm}{
-	\@@_tutors_empty:TF { #1 } { #2 }
 }
 %</bama>
 %<*bama|phd|bkc>
@@ -3249,9 +3086,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \NewDocumentCommand{\jurymember}{mmm}{
   \@@_addjurymember:nnn { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\printjurymembers}{mmm}{
-  \seq_use:Nnnn \g_@@_jurymemberswithaffiliation_seq { #1 } { #2 } { #3 }
 }
 \ExplSyntaxOff
 %</phd> 
@@ -3339,9 +3173,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \NewDocumentCommand{\degree}{m}{
 	\@@_adddegree:n { #1\strut }
 }
-\NewDocumentCommand{\printdegrees}{mmm}{
-	\seq_use:Nnnn \g_@@_degrees_seq { #1 } { #2 } { #3 }
-}
 \AtBeginDocument{
 	\let\degree\relax
 }
@@ -3409,14 +3240,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*crs>
 \ExplSyntaxOn
 \seq_new:N \g_@@_courseswithcodes_seq
+\seq_new:N \g_@@_courses_seq
+\seq_new:N \g_@@_coursecodes_seq
 \cs_new:Nn \@@_addcourse:nn {
   \seq_gput_right:Nn \g_@@_courseswithcodes_seq { \texttt{#1}~#2\strut }
+  \seq_gput_right:Nn \g_@@_courses_seq 			{ #2\strut }
+  \seq_gput_right:Nn \g_@@_coursecodes_seq { \texttt{#1}\strut }
 }
 \NewDocumentCommand{\course}{mm}{
   \@@_addcourse:nn { #1 } { #2 }
-}
-\NewDocumentCommand{\printcourseswithcodes}{mmm}{
-  \seq_use:Nnnn \g_@@_courseswithcodes_seq { #1 } { #2 } { #3 }
 }
 \ExplSyntaxOff
 %</crs>
@@ -3650,21 +3482,21 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
 \cs_new:Nn \@@_autographpage: {
 	\seq_if_empty:NF \g_@@_authors_seq {
-		\translatekey{the-de}~\authorscaption[lowercase]{}, \par\vskip 1em
+		\translatekey{the-de}~\getseqcaption[lowercase]{authors}{}, \par\vskip 1em
 		\@@_siggroup:Nn \g_@@_authors_seq { } % Sub-name key not implemented
 	}
 	\vskip 2em
 	\seq_clear:N \l_@@_allsupervisorstutors_seq
 	\seq_concat:NNN \l_@@_allsupervisorstutors_seq \g_@@_allsupervisors_seq \g_@@_tutors_seq
 	\seq_if_empty:NF \g_@@_allsupervisors_seq {
-		\translatekey{the-de}~\allsupervisorscaption[lowercase]{}
-		\iftutorsempty{}{~\translatekey[lowercase]{and}~\tutorscaption[lowercase]{}}, \par\vskip 1em
+		\translatekey{the-de}~\getseqcaption[lowercase]{allsupervisors}{}
+		\ifseqempty{tutors}{}{~\translatekey[lowercase]{and}~\getseqcaption[lowercase]{tutors}{}}, \par\vskip 1em
 		\@@_siggroup:Nn \l_@@_allsupervisorstutors_seq { } % Sub-name key not implemented
 	}
 }
 
 \newcommand{\@bamadisclaimer}{
-	{\translatekey{the-de}~\authorscaption[lowercase]{}~\translatekey[lowercase]{and}~\allsupervisorscaption[lowercase]{}}
+	{\translatekey{the-de}~\getseqcaption[lowercase]{authors}{}~\translatekey[lowercase]{and}~\getseqcaption[lowercase]{allsupervisors}{}}
 	\if@tempembargo
 	
 	   {~\@embargotempwithdates}
@@ -3704,7 +3536,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\noindent\begin{minipage}[b]{\textwidth}
 		\textbf{Contact}\\
 		\smallskip
-		\printauthorswithaffiliation{~|~}{~|~}{~|~}\\
+		\printseq{authorswithaffiliation}{~|~}{~|~}{~|~}\\
 		\@address
 		\str_if_eq:VnF \l_@@_language_tl {dutch} {
 			\\[\baselineskip]
@@ -3740,7 +3572,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\fi
 		\\[\baselineskip]
 		{\textbf{\translatekey{pleaserefer}:}\\  		
-			\printauthorlist~(\the\year).~
+			\printseq{authorlist}{~\&~}{,~}{\translatekey{andlist}~}~(\the\year).~
 			{\renewcommand{\\}[1][]{~}\@title{}:~\@subtitle}.~PhD~Thesis,~Ghent~University,~Belgium.}%
 		\ifx\@isbn\@empty\else
 		\\[\baselineskip]{\small ISBN~\@isbn}%
@@ -3760,10 +3592,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	{
 	\setlength\parindent{0em}
 	\translatekey{version}~\@courseversion\\
-	\printcourseswithcodes{\\}{\\}{\\}
-	\ifauthorsempty{}{
+	\printseq{courseswithcodes}{\\}{\\}{\\}
+	\ifseqempty{authors}{}{
 		\vskip 1em
-		\authorscaption{}:~\printauthors{~\&~}{,~}{\translatekey{andlist}~}
+		\getseqcaption{authors}{}:~\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
 	}
 	
 	\translatekey{typeset}~\LaTeX{}~\translatekey[lowercase]{and}~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
@@ -3839,12 +3671,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \NewDocumentCommand{\email}{mm}{
   \@@_addemailaddress:nn { #1 } { #2 }
 }
-\NewDocumentCommand{\printemails}{mmm}{
-  \seq_use:Nnnn \g_@@_emailaddresses_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\ifemails}{m}{
-  \seq_if_empty:NTF \g_@@_emailaddresses_seq {} {#1}
-}
 \ExplSyntaxOff
 %</le|rp> 
 %    \end{macrocode}
@@ -3865,12 +3691,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \NewDocumentCommand{\phone}{m}{
   \@@_addphonenumber:n { #1 }
-}
-\NewDocumentCommand{\printphones}{mmm}{
-  \seq_use:Nnnn \g_@@_phonenumbers_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\ifphones}{m}{
-  \seq_if_empty:NTF \g_@@_phonenumbers_seq {} {#1}
 }
 \ExplSyntaxOff
 %</le|rp> 
@@ -3893,12 +3713,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \NewDocumentCommand{\fax}{m}{
   \@@_addfaxnumber:n { #1 }
 }
-\NewDocumentCommand{\printfaxes}{mmm}{
-  \seq_use:Nnnn \g_@@_faxnumbers_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\iffaxes}{m}{
-  \seq_if_empty:NTF \g_@@_faxnumbers_seq {} {#1}
-}
 \ExplSyntaxOff
 %</le> 
 %    \end{macrocode}
@@ -3919,12 +3733,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \NewDocumentCommand{\mobile}{m}{
   \@@_addmobilenumber:n { #1 }
-}
-\NewDocumentCommand{\printmobiles}{mmm}{
-  \seq_use:Nnnn \g_@@_mobilenumbers_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\ifmobiles}{m}{
-  \seq_if_empty:NTF \g_@@_mobilenumbers_seq {} {#1}
 }
 \ExplSyntaxOff
 %</le|rp> 
@@ -4159,21 +3967,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \NewDocumentCommand{\room}{m}{
   \@@_addroom:n { #1 }
 }
-\NewDocumentCommand{\printrooms}{mmm}{
-  \seq_use:Nnnn \g_@@_rooms_seq { #1 } { #2 } { #3 }
-}
-\NewDocumentCommand{\roomscaption}{}{
-  \int_compare:nNnTF {\seq_count:N \g_@@_rooms_seq} > {1}{
-    \translatekey{rooms}
-  }{
-    \int_compare:nNnTF {\seq_count:N \g_@@_rooms_seq} = {1}{
-  	  \translatekey{room}
-  	}{
-  	  % empty
-  	}
-  }
-}
-
 \ExplSyntaxOff
 %</ex>
 %    \end{macrocode}
@@ -4559,7 +4352,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\vskip 10em
 		\fi
 		
-		{\fontsize{15}{18}\selectfont\printauthorswithaffiliation{\\}{\\}{\\}}
+		{\fontsize{15}{18}\selectfont\printseq{authorswithaffiliation}{\\}{\\}{\\}}
 		
 		\ifx\@studentnr\@empty\else
 		\translatekey{studentnr}:~\@studentnr
@@ -4568,27 +4361,27 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\vskip 1em
 		
 		{\fontsize{12}{15}\selectfont
-			\supervisorscaption{}:~\printsupervisors{~\&~}{,~}{\translatekey{andlist}~}}
+			\getseqcaption{supervisors}{}:~\printseq{supervisors}{~\&~}{,~}{\translatekey{andlist}~}}
 		
-		\ifcosupervisorsempty{}{
+		\ifseqempty{cosupervisors}{}{
 			{\fontsize{12}{15}\selectfont
-				\cosupervisorscaption{}:~\printcosupervisors{~\&~}{,~}{\translatekey{andlist}~}}
+				\getseqcaption{cosupervisors}{}:~\printseq{cosupervisors}{~\&~}{,~}{\translatekey{andlist}~}}
 		}
 		
-		\ifextsupervisorsempty{}{
+		\ifseqempty{extsupervisors}{}{
 			{\fontsize{12}{15}\selectfont
-				\extsupervisorscaption{}:~\printextsupervisors{~\&~}{,~}{\translatekey{andlist}~}}
+				\getseqcaption{extsupervisors}{}:~\printseq{extsupervisors}{~\&~}{,~}{\translatekey{andlist}~}}
 		}
 		
-		\iftutorsempty{}{
+		\ifseqempty{tutors}{}{
 			\vskip 1em
 			{\fontsize{12}{15}\selectfont
-				\tutorscaption{}:~\printtutors{~\&~}{,~}{\translatekey{andlist}~}}
+				\getseqcaption{tutors}{}:~\printseq{tutors}{~\&~}{,~}{\translatekey{andlist}~}}
 		}
 		
 		\vskip 1em
 		
-		{\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{bmfulfil}~\printdegrees{~\&~}{,~}{\translatekey{andlist}~}}
+		{\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{bmfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}
 		
 		\vskip 1em
 		\translatekey{acyear}:~\@academicyear
@@ -4622,20 +4415,20 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\translatekey{wordcount}:~\@wordcount
 		\fi
 		
-		\ifauthorsempty{
+		\ifseqempty{authors}{
 			\vskip 10em
 		}{
 			\vskip 5em
-			{\fontsize{12}{15}\selectfont\printauthorswithaffiliation{\\}{\\}{\\}}
+			{\fontsize{12}{15}\selectfont\printseq{authorswithaffiliation}{\\}{\\}{\\}}
 			\ifx\@studentnr\@empty\else
 			\translatekey{studentnr}:~\@studentnr
 			\fi
 			\vskip 5em
 		}
 		
-		\iflecturersempty{}{
+		\ifseqempty{lecturers}{}{
 			{\fontsize{12}{15}\selectfont
-				\lecturerscaption{}:~\printlecturers{~\&~}{,~}{\translatekey{andlist}~}}
+				\getseqcaption{lecturers}{}:~\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}}
 			\vskip 2 em
 		}
 		
@@ -4803,7 +4596,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	{{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
 		\ifx\@subtitle\@empty\else\vspace{4pt}%
 		\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par\fi}%
-		\vspace{30pt}\hyphenpenalty=100000{\fontsize{20}{24}\selectfont\printauthors{\\}{\\}{\\}}};
+		\vspace{30pt}\hyphenpenalty=100000{\fontsize{20}{24}\selectfont\printseq{authors}{\\}{\\}{\\}}};
 	}{
 	\node[anchor=west, text~width=\@PW-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
 	at (\@MS+\@MTLR, 0.5*\@PH+0.5*\@HBS-0.5*\@HTS+0.5*\@HD)
@@ -4812,16 +4605,16 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	
 	\node[anchor=north~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
 	at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB)
-	{{\fontsize{20}{24}\selectfont\bfseries\printauthors{\\}{\\}{\\}}%
+	{{\fontsize{20}{24}\selectfont\bfseries\printseq{authors}{\\}{\\}{\\}}%
 		\\[15pt]
-		{\fontsize{14}{17}\selectfont\supervisorscaption{}:\newline
-		\printsupervisors{\\}{\\}{\\}}%
+		{\fontsize{14}{17}\selectfont\getseqcaption{supervisors}{}:\newline
+		\printseq{supervisors}{\\}{\\}{\\}}%
 		\\[15pt]
 		{\fontsize{11}{15}\selectfont\translatekey{acyear}~\@academicyear}};
 	
 	\node[anchor=south~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
 	at (\@MS+\@MTLR, \@HBS+\@MTTB)
-	{\fontsize{11}{15}\selectfont\nohyphens{\translatekey{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printdegrees{~\&~}{,~}{\translatekey{andlist}~}}};
+	{\fontsize{11}{15}\selectfont\nohyphens{\translatekey{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}};
 	
 	\ifx\@frontcoverlogos\@empty\else
 	\node[anchor=south~east, inner~sep=0pt,
@@ -4860,12 +4653,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\par
 			\vfill
 			\par
-			{\fontsize{18}{22}\selectfont \printlecturers{\\}{\\}{\\}}%
+			{\fontsize{18}{22}\selectfont \printseq{lecturers}{\\}{\\}{\\}}%
 			%
 			\vskip 2 em
 			%
 			{\fontsize{15}{20}\selectfont 
-				\printdegrees{\\}{\\}{\\}\\
+				\printseq{degrees}{\\}{\\}{\\}\\
 				\translatekey{acyear}~\@academicyear}%
 		}
 	};
@@ -5107,9 +4900,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\null\vfill % flush to bottom
 	\noindent\begin{minipage}[b]{\textwidth}
 		%
-		\textbf{\supervisorscaption{}}\hfill\break
+		\textbf{\getseqcaption{supervisors}{}}\hfill\break
 		%
-		\printsupervisorswithaffiliation{\\}{\\}{\\}\\[2ex]
+		\printseq{supervisorswithaffiliation}{\\}{\\}{\\}\\[2ex]
 		%
 		%
 		\textbf{\translatekey{jury}}\hfill\\[1ex]
@@ -5118,7 +4911,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\@jurychair{}\ifdefvoid{\@jurychairaff}{}{,~\@jurychairaff}\\[1ex]
 		%
 		\textit{\translatekey{jurymembers}}\hfill\break
-		{\printjurymembers{\\}{\\}{\\}}\\[2ex]%
+		{\printseq{jurymemberswithaffiliation}{\\}{\\}{\\}}\\[2ex]%
 		%
 		%
 		\textbf{\translatekey{dean}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty}}\hfill\break
@@ -5140,7 +4933,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\fi
 		
 		\vspace{5\baselineskip}%
-		{\Large\printauthors{\\}{\\}{\\}\par}%
+		{\Large\printseq{authors}{\\}{\\}{\\}\par}%
 		
 		\if@embargo
 		\vspace{5\baselineskip}
@@ -5150,7 +4943,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\vspace{10\baselineskip}%
 		\fi
 		
-		{\small \translatekey{submittedto}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printdegrees{~\&~}{,~}{\translatekey{andlist}~}\par}%
+		{\small \translatekey{submittedto}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}\par}%
 		
 		\vspace{.3\baselineskip}%
 		{\small\translatekey{org-ugent},~\@location,~\@date}%
@@ -5304,7 +5097,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\if@printonspine
 		\bookcovercomponent{logo}{spine}{spinetextcolor}
 		\bookcovercomponent{title}{spine}{\@title}
-		\bookcovercomponent{authoryear}{spine}{\printauthors{~\&~}{,~}{\translatekey{andlist}~}}
+		\bookcovercomponent{authoryear}{spine}{\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}}
 		\fi 
 		\makeatother 
 		\bookcovercomponent {normal}{back}{\@backcover}
@@ -5518,10 +5311,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		node[anchor=north~east,text~width=61.5mm,align=left] {
 				\textcolor{ugent@main}{\textbf{\@sender}}
 			\ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
-			\ifemails{E~\printemails{\\\phantom{E~}}{}{}\\}
-			\ifphones{T~\printphones{\\\phantom{T~}}{}{}\\}
-			\iffaxes{F~\printfaxes{\\\phantom{F~}}{}{}\\}
-			\ifmobiles{M~\printmobiles{\\\phantom{M~}}{}{}\\}
+			\ifseqempty{emailaddresses}	{}{E~\printseq{emailaddresses}	{\\\phantom{E~}}{\\\phantom{E~}}{\\\phantom{E~}}\\}
+			\ifseqempty{phonenumbers}	{}{T~\printseq{phonenumbers}	{\\\phantom{T~}}{\\\phantom{T~}}{\\\phantom{T~}}\\}
+			\ifseqempty{faxnumbers}		{}{F~\printseq{faxnumbers}		{\\\phantom{F~}}{\\\phantom{F~}}{\\\phantom{F~}}\\}
+			\ifseqempty{mobilenumbers}	{}{M~\printseq{mobilenumbers}	{\\\phantom{M~}}{\\\phantom{M~}}{\\\phantom{M~}}\\}
 			\vskip 1.75ex
 			\@address\\[1.75ex]
 			\@ifpackageloaded{hyperref}{
@@ -5600,7 +5393,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
         at (2.125,{\paperheight-3cm}) 
         {%
           \fontsize{18}{22}\selectfont%
-          \textsf{\textbf{\@course{}}}
+          \textsf{\textbf{\printseq{courses}{\\}{\\}{\\}}}
           \ifx\@exampart\@empty
           \else \textsf{\textbf{ --- \@exampart}}\fi
         };
@@ -5609,7 +5402,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
         at (2.125,{\paperheight-4cm}) 
         {%
           \fontsize{12}{18}\selectfont%
-          \textsf{\@coursecode}
+          \textsf{\printseq{coursecodes}{\\}{\\}{\\}}
         };
 
         \node
@@ -5674,7 +5467,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
         at (3,8)
         {%
           \fontsize{12}{21}\selectfont%
-          \textsf{\roomscaption: \printrooms{~\&~}{,~}{\translatekey{andlist}~}}
+          \textsf{\getseqcaption{rooms}{}: \printseq{rooms}{~\&~}{,~}{\translatekey{andlist}~}}
         };
         
         %\node
@@ -5694,14 +5487,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
         (SN) at (2.55,4.9)
         {
           \begin{tabular}{@{}l@{~\,}p{14.5cm}}
-            \textsf{\lecturerscaption}
-            & \textsf{\textbf{\printlecturers{~\&~}{,~}{\translatekey{andlist}~}}}
+            \textsf{\getseqcaption{lecturers}{}}
+            & \textsf{\textbf{\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}}}
           \end{tabular}
         };
 
         \node[white,anchor=west,text width=17.5cm,align=left,font=\small]
         at (2.55,3.7)
-        {\textsf{\printdegrees{\\}{\\}{\\}}\\
+        {\textsf{\printseq{degrees}{\\}{\\}{\\}}\\
           \textsf{\textbf{\@faculty{}}}}; % TODO should handle empty
         
         \begin{scope}[shift={(2.125,1.313)}]
@@ -5922,7 +5715,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\def\\{ }%
 		\protected@xdef\@pdftitle{\@title}%
 		\protected@xdef\@pdfsubtitle{\@subtitle}%
-		\protected@xdef\@pdfauthor{\printauthorlist}%
+		\protected@xdef\@pdfauthor{\printseq{authorlist}{~\&~}{,~}{\translatekey{andlist}~}}%
 		\endgroup
 		\hypersetup{
 			breaklinks=true,
@@ -6261,7 +6054,7 @@ e^{-j\pi} + 1 = 0
 \textbf{
 \Large\@title~\\[1ex]
 \large \@subtitle\\[0.5ex]}
-\printauthors{~\&~}{,~}{\translatekey{andlist}~}
+\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
 \end{center}
 ]
 
@@ -6448,7 +6241,7 @@ ruimtemodellering} %% either don't split titles, or do so with hyphen
 \textbf{
 \Large\@title~\\[1ex]
 \large \@subtitle\\[0.5ex]}
-\printauthors{~\&~}{,~}{\translatekey{andlist}~}
+\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
 \end{center}
 ]
 
@@ -7102,9 +6895,9 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 <Research group \ldots>
 \newline\newline
 \begin{tabular}{ll}
-E: &\printemails{ | }{ | }{ | }\\
-T: &\printphones{ | }{ | }{ | }\\
-M: &\printmobiles{ | }{ | }{ | }
+E: &\printseq{emailaddresses}{ | }{ | }{ | }\\
+T: &\printseq{phonenumbers}  { | }{ | }{ | }\\
+M: &\printseq{mobilenumbers} { | }{ | }{ | }
 \end{tabular}
 \newline\newline
 <Campus \ldots, building \ldots>\\
