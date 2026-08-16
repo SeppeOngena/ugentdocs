@@ -69,6 +69,17 @@
 \usepackage{tikz}
 \usetikzlibrary{backgrounds}
 \usepackage{dtxdescribe}
+% Patch category not printing
+\makeatletter
+\ExplSyntaxOn
+\keys_define:nn {doc}
+{
+	unknown .code:n = {
+		\tl_set:Nx \DTXD@category { \l_keys_key_str }
+	},
+}
+\ExplSyntaxOff
+\makeatother
 \usepackage{hyphenat}
 \usepackage{fancyvrb}
 \usepackage{fvextra}
