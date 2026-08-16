@@ -60,9 +60,10 @@
 %
 \usepackage{geometry}
 \usepackage[dutch,main=english]{babel}
-\usepackage{newpxtext,newpxmath}
 \usepackage{makeidx}
 \usepackage{alltt}
+\usepackage{fontspec}
+\usepackage{unicode-math}
 \usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{metalogo}
@@ -221,10 +222,9 @@
 %    you wish (see Part~I Section~\ref{S:fonts}).
 % \end{itemize}
 %
-% If somehow neither UGent Panno Text Normal nor Arial are installed, the font
-% falls back to Arev. As both official fonts are sans-serif styled, a similar
-% math font is preferred. For this, we load the Fira Math font (if it is
-% installed), with a |sansmath| package fallback.
+% As both official fonts are sans-serif styled, a similar
+% math font is preferred. For this, we load the Noto Sans Math font (if it is
+% installed), with a TeX Gyre DejaVu Math fallback.
 %
 %
 % \section*{A note on compilers}
@@ -248,8 +248,8 @@
 % \txtcmd{usepackage\{ugentphd-customization\}}.
 % Be sure to overwrite commands, e.g. use \txtcmd{renewcommand} and
 % \txtcmd{RenewDocumentCommand}. Colours can be adjusted using 
-% \txtcmd{definecolor\{customcolor\}\{colormodel\}\{...\}}. Overwrite
-% colors using, e.g. \txtcmd{colorlet\{titlecolor\}\{customcolor\}}.
+% \txtcmd{definecolor\{<customcolor>\}\{<colormodel>\}\{...\}}. Overwrite
+% colors using, e.g. \txtcmd{colorlet\{titlecolor\}\{<customcolor>\}}.
 %
 % \section*{Thanks}
 % This package is derived from the excellent |uantwerpendocs| package by
@@ -289,8 +289,9 @@
 % \section{Usage}
 % \label{S:usage}
 %
-% \subsection{Colours, faculties, campuses, and logos}
-% \label{S:collogofaccampus}
+%
+% \subsection{Colours, fonts, faculties, campuses, and logos}
+% \label{S:cffcl}
 %
 % \subsubsection{Colours}
 % \label{S:colours}
@@ -402,6 +403,7 @@
 % \iffalse
 %<*clo>
 \ExplSyntaxOn
+% Colours
 \bool_new:N \l_@@_neutralcolors_bool
 \tl_new:N \l_@@_colormodel_tl
 \tl_set:Nn \l_@@_colormodel_tl {rgb}
@@ -513,6 +515,190 @@
 \ExplSyntaxOff
 %</col>
 % \fi
+%
+%
+% \subsubsection{Fonts}
+% \label{S:fonts}
+% UGent Panno Text and its Medium and SemiLight variants should always be 
+% installed \watchout -- and the document compiled using \LuaLaTeX{} -- as they are used in
+% the logo's. For the document itself, it is recommended to use UGent Panno Text
+% as well, which is set through the |\setsansfont{UGent Panno Text}[...]| block
+% below. However, Arial is also a valid official alternative and can override
+% UGent Panno Text by adding the |\setsansfont{Arial}[...]| block below to the
+% beginning of your document. UGent uses Arial as default for Word and
+% PowerPoint templates as these are distributed outside Ghent University.
+% This is not applicable for \LaTeX however, as pdf's are always generated.
+% Thus, UGent Panno Text is used everywhere.
+%
+% \begin{verbatim}
+% \setsansfont{UGent Panno Text}[
+%     BoldFont           = {UGent Panno Text},
+%     BoldFeatures       = {FakeBold=2.5},
+%     ItalicFont         = {UGent Panno Text},
+%     ItalicFeatures     = {FakeSlant=0.15},
+%     BoldItalicFont     = {UGent Panno Text},
+%     BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+% ]
+% \end{verbatim}
+%
+% \begin{verbatim}
+% \setsansfont{Arial}[
+%     BoldFont           = {Arial},
+%     BoldFeatures       = {FakeBold=2.5},
+%     ItalicFont         = {Arial},
+%     ItalicFeatures     = {FakeSlant=0.15},
+%     BoldItalicFont     = {Arial},
+%     BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+% ]
+% \end{verbatim}	
+%
+% Since both the official fonts are sans-serif, we use the |unicode-math| package
+% with the Noto Sans Math font if available with, and the TeX Gyre DejaVu Math
+% font otherwise. You can override these fonts by using \txtcmd{setmathfont\{<font>\}}.
+%
+% \iffalse
+%<*clo>  
+% Fonts
+\RequirePackage{iftex}
+\iftutex
+\newcommand{\@loadfonts}{
+	\RequirePackage{fontspec}
+	\IfFontExistsTF{UGent Panno Text Medium}{
+		\IfFontExistsTF{UGent Panno Text SemiLight}{
+			\IfFontExistsTF{UGent Panno Text}{
+				\setsansfont{UGent Panno Text}[
+				BoldFont           = {UGent Panno Text},
+				BoldFeatures       = {FakeBold=2.5},
+				ItalicFont         = {UGent Panno Text},
+				ItalicFeatures     = {FakeSlant=0.15},
+				BoldItalicFont     = {UGent Panno Text},
+				BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+				]
+			}{
+				\IfFontExistsTF{Arial}{
+					\setsansfont{Arial}[
+					BoldFont           = {Arial},
+					BoldFeatures       = {FakeBold=2.5},
+					ItalicFont         = {Arial},
+					ItalicFeatures     = {FakeSlant=0.15},
+					BoldItalicFont     = {Arial},
+					BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+					]		
+				}{
+					\PackageWarning{ugentdocs}
+					{Neither UGent Panno Text nor Arial are installed, no font set!}
+				}
+			}
+		}{
+			\PackageError{ugentdocs}
+			{UGent Panno Text Medium and SemiLight font variants are required for logo typesetting}
+			{See the ugentdocs manual}
+		}
+	}{
+		\PackageError{ugentdocs}
+		{UGent Panno Text Medium and SemiLight font variants are required for logo typesetting}
+		{See the ugentdocs manual}
+	}
+	\IfFontExistsTF{Noto Sans Math}{
+		\RequirePackage{unicode-math}
+		\setmathfont{Noto Sans Math}
+	}{
+		\setmathfont{TeX Gyre DejaVu Math}
+	}	
+	\renewcommand{\familydefault}{\sfdefault}
+	}
+\else
+\PackageError{ugentdocs}{Only LuaTeX or XeTeX is supported for compilation}
+{See the ugentdocs manual}
+\fi
+
+% Small caps for fontspec fonts
+\renewcommand\textsc[1]{\textschelper#1 \relax\relax}
+\def\textschelper#1 #2\relax{%
+	\textschelphelp#1\relax\relax%
+	\if\relax#2\relax\else\ \textschelper#2\relax\fi%
+}
+\def\Hscale{.83}\def\Vscale{.72}\def\Cscale{1.00}
+\def\textschelphelp#1#2\relax{%
+	\ifnum`#1=\lccode`#1\relax\scalebox{\Hscale}[\Vscale]{\char\uccode`#1}\else%
+	\scalebox{\Cscale}[1]{#1}\fi%
+	\ifx\relax#2\relax\else\textschelphelp#2\relax\fi}
+
+% Sample math
+\newcommand{\samplemath}{%
+	\[
+	\int_0^\infty e^{-x^2}\,\mathrm{d}x = \frac{\sqrt{\pi}}{2}
+	\qquad
+	\sum_{k=1}^{n} k = \frac{n(n+1)}{2}
+	\qquad
+	\alpha + \beta \le \gamma \;\Rightarrow\; \Omega \in \mathbb{R}
+	\]
+	\[
+	\mathcal{F}(\omega) = \int_{-\infty}^{\infty} f(t)\, e^{-i \omega t}\, \mathrm{d}t
+	\qquad
+	\mathbf{v} \cdot \mathbf{w} = \lVert \mathbf{v} \rVert\, \lVert \mathbf{w} \rVert \cos\theta
+	\]
+}
+%</clo>
+% \fi
+%
+% Font examples:
+% \begingroup\renewcommand{\familydefault}{\sfdefault}
+% \begin{itemize}
+%    \item {
+%	    \setsansfont{UGent Panno Text}[
+%			BoldFont           = {UGent Panno Text},
+%			BoldFeatures       = {FakeBold=2.5},
+%			ItalicFont         = {UGent Panno Text},
+%			ItalicFeatures     = {FakeSlant=0.15},
+%			BoldItalicFont     = {UGent Panno Text},
+%			BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%		]
+%		UGent Panno Text: \textbf{bold}, \textit{italic}, \textbf{\textit{bolditalic}}, and \textsc{Small Caps}
+%		}
+%    \item {
+%	    \setsansfont{UGent Panno Text Medium}[
+%			BoldFont           = {UGent Panno Text Medium},
+%			BoldFeatures       = {FakeBold=2.5},
+%			ItalicFont         = {UGent Panno Text Medium},
+%			ItalicFeatures     = {FakeSlant=0.15},
+%			BoldItalicFont     = {UGent Panno Text Medium},
+%			BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%		]
+%		UGent Panno Text Medium: \textbf{bold}, \textit{italic}, \textbf{\textit{bolditalic}}, and \textsc{Small Caps}
+%		}
+%    \item {
+%	    \setsansfont{UGent Panno Text SemiLight}[
+%			BoldFont           = {UGent Panno Text SemiLight},
+%			BoldFeatures       = {FakeBold=2.5},
+%			ItalicFont         = {UGent Panno Text SemiLight},
+%			ItalicFeatures     = {FakeSlant=0.15},
+%			BoldItalicFont     = {UGent Panno Text SemiLight},
+%			BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%		]
+%		UGent Panno Text SemiLight: \textbf{bold}, \textit{italic}, \textbf{\textit{bolditalic}}, and \textsc{Small Caps}
+%		}
+%    \item {
+%	    \setsansfont{Arial}[
+%			BoldFont           = {Arial},
+%			BoldFeatures       = {FakeBold=2.5},
+%			ItalicFont         = {Arial},
+%			ItalicFeatures     = {FakeSlant=0.15},
+%			BoldItalicFont     = {Arial},
+%			BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%		]
+%		Arial: \textbf{bold}, \textit{italic}, \textbf{\textit{bolditalic}}, and \textsc{Small Caps}
+%		}
+%    \item {
+%	    \setmathfont{Noto Sans Math}
+%		Noto Sans Math:\\ \samplemath
+%		}
+%    \item {
+%	    \setmathfont{TeX Gyre DejaVu Math}
+%		TeX Gyre DejaVu Math:\\ \samplemath
+%		}
+% \end{itemize}
+% \endgroup
 %
 % \subsubsection{Faculty}
 % \label{S:faculty}
@@ -1327,7 +1513,7 @@
 % |ugentdocs-<languagename>.dict| into the dictionary library.
 % If you want to use this language as main document language, be sure to load
 % the |babel| package again immediately after class load using\\
-% \txtcmd{usepackage[main=languagename]\{babel\}}.
+% \txtcmd{usepackage[main=<languagename>]\{babel\}}.
 % 
 % \iffalse
 %<*clo>
@@ -1749,6 +1935,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ProcessOptions\relax
 \ProcessKeyOptions[ ugentdocs ]
 \LoadClass{book}
+\@loadfonts
 %</crs|bama|phd|rp>
 % We load the |bookcover| class for PhD dissertation covers
 %<*bkc>
@@ -1789,6 +1976,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 \LoadClass{bookcover}
+\@loadfonts
 %</bkc>
 % We load the |letter| class for letters
 %<*le> 
@@ -1797,6 +1985,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ProcessOptions\relax
 \ProcessKeyOptions[ugentdocs]
 \LoadClass{letter}
+\@loadfonts
 %</le>
 % We load the |article| class for exams
 %<*ex>
@@ -1805,9 +1994,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ProcessOptions\relax
 \ProcessKeyOptions[ugentdocs]
 \LoadClass{article}
+\@loadfonts
 %</ex>
 %<*bmr>
 \ProcessKeyOptions[ugentdocs]
+\@loadfonts
 %</bmr>
 %<*phd|bkc>
 \ExplSyntaxOn
@@ -1908,75 +2099,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|bama|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 %
-% \subsubsection{Font packages}
-% \label{S:fonts}
-% UGent Panno Text (and its Medium and SemiLight variants) should always be installed (and the document compiled using Lua\LaTeX) as they are used in the logo's. For the document itself, it is recommended to use UGent Panno Text as well, which is set through the |\setsansfont{UGent Panno Text}[...]| block below. However, Arial is also a valid official alternative and can override UGent Panno Text by adding the |\setsansfont{Arial}[...]| block below to the beginning of your document. UGent uses Arial as default for Word and PowerPoint templates as these are distributed outside Ghent University. This is not applicable for \LaTeX however, as pdf's are always generated. Thus, UGent Panno Text is used everywhere.
-%
-%    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmrfont>  
-\iftutex
-  \RequirePackage{fontspec}
-  \IfFontExistsTF{UGent Panno Text Medium}{
-  	\IfFontExistsTF{UGent Panno Text SemiLight}{
-  	  \IfFontExistsTF{UGent Panno Text}{
-  	    \setsansfont{UGent Panno Text}[
-  		  BoldFont           = {UGent Panno Text},
-  	 	  BoldFeatures       = {FakeBold=2.5},
-  		  ItalicFont         = {UGent Panno Text},
-  		  ItalicFeatures     = {FakeSlant=0.15},
-  		  BoldItalicFont     = {UGent Panno Text},
-  		  BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-  		]
-  	  }{
-  		\IfFontExistsTF{Arial}{
-  		  \setsansfont{Arial}[
-  			BoldFont           = {Arial},
-  			BoldFeatures       = {FakeBold=2.5},
-  			ItalicFont         = {Arial},
-  			ItalicFeatures     = {FakeSlant=0.15},
-  			BoldItalicFont     = {Arial},
-  			BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-  		  ]
-  		}{
-  		  \PackageWarning{ugentdocs}{Arial font not installed, using arev.}
-  		  \RequirePackage{arev}
-  		  \renewcommand{\familydefault}{\sfdefault}
-  		}
-  	  }
-    }{
-  	  \PackageError{ugentdocs}
-  	  {UGent Panno Text Medium and SemiLight font variants are required for logo typesetting}
-  	  {See the ugentdocs manual}
-  	}
-  }{
-  	\PackageError{ugentdocs}
-  	{UGent Panno Text Medium and SemiLight font variants are required for logo typesetting}
-  	{See the ugentdocs manual}
-  }
-  \IfFontExistsTF{Fira Math}{
-  	\RequirePackage{unicode-math}
-  	\setmathfont{Fira Math}
-  }{
-  	\RequirePackage{sansmath}
-  	\sansmath
-  }
-  \renewcommand\textsc[1]{\textschelper#1 \relax\relax}
-  \def\textschelper#1 #2\relax{%
-  	\textschelphelp#1\relax\relax%
-  	\if\relax#2\relax\else\ \textschelper#2\relax\fi%
-  }
-  \def\Hscale{.83}\def\Vscale{.72}\def\Cscale{1.00}
-  \def\textschelphelp#1#2\relax{%
-  	\ifnum`#1=\lccode`#1\relax\scalebox{\Hscale}[\Vscale]{\char\uccode`#1}\else%
-  	\scalebox{\Cscale}[1]{#1}\fi%
-  	\ifx\relax#2\relax\else\textschelphelp#2\relax\fi}
-\else
-  \PackageError{ugentdocs}{Only LuaTeX or XeTeX is supported for compilation}
-  {See the ugentdocs manual}
-\fi
-\renewcommand{\familydefault}{\sfdefault}
-%</crs|bama|phd|rp|le|ex|bkc|bmrfont>
-%    \end{macrocode}
 %
 % \subsubsection{Boilerplate packages}
 % \label{S:packages}
@@ -1995,9 +2117,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %		|etoolbox|			& Toolbox for class definitions	internally		\\
 %		|expl3|				& Use of \LaTeX{}3 code internally				\\
 %		|fancyhdr|			& Headers and footers							\\
+%		|fontspec|			& Fonts											\\
 %		|geometry|			& Page geometry and margins						\\
 %		|graphbox|			& Improved placement of graphics				\\
 %		|graphicx|			& Enhanced support for graphics					\\
+%		|GS1|				& ISBN barcode for PhDs and courses				\\
 %		|hyphenat|			& Hyphenation control							\\
 %		|iftex|				& Checking compiler type						\\
 %		|setspace|			& Set line spacing								\\
@@ -2018,7 +2142,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % (using|\ifx|)
 %    \begin{macrocode}
 %<*crs|bama|phd|rp|le|ex|bkc>
-\RequirePackage{iftex}
 \RequirePackage{etoolbox}
 \IfFileExists{shellesc.sty}{\RequirePackage{shellesc}}{}
 %</crs|bama|phd|rp|le|ex|bkc>
