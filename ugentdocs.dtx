@@ -2879,16 +2879,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*phd|crs|bama|bkc|ex|le|rp>      
 \ExplSyntaxOn
-
 \seq_new:N \g_@@_authors_seq
-\seq_new:N \g_@@_affiliations_seq
 \seq_new:N \g_@@_authorswithaffiliation_seq
 \seq_new:N \g_@@_authorlist_seq
 \seq_new:N \g_@@_authorcalls_seq
 
 \cs_new:Nn \@@_addauthor:nnn {
 	\seq_gput_right:Nn \g_@@_authors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_affiliations_seq { #3\strut }
 	\seq_gput_right:Nn \g_@@_authorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
 	\seq_gput_right:Nn \g_@@_authorlist_seq { \@surname{#2},~\@firstnameinitial{#2} }
 	\seq_gput_right:Nx \g_@@_authorcalls_seq
@@ -2906,10 +2903,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
 \NewDocumentCommand{\printauthors}{mmm}{
 	\seq_use:Nnnn \g_@@_authors_seq { #1 } { #2 } { #3 }
-}
-
-\NewDocumentCommand{\printaffiliations}{mmm}{
-	\seq_use:Nnnn \g_@@_affiliations_seq { #1 } { #2 } { #3 }
 }
 
 \NewDocumentCommand{\printauthorswithaffiliation}{mmm}{
