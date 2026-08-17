@@ -2681,6 +2681,20 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   The |title| tag is native to \LaTeX{}. It sets the |\@title| tag
 %   that will be used on the title page.
 % \end{imacro}
+% \iffalse
+%<*crs|rp|bkc|phd|bmr|ex> 
+\ExplSyntaxOn
+\renewcommand{\@title}{<This is your document title>}
+\newcommand{\@shorttitle}{\@title}
+\RenewDocumentCommand{\title}{o m}{
+	\gdef\@title{#2}
+	\IfNoValueTF{#1}
+	{\gdef\@shorttitle{#2}}
+	{\gdef\@shorttitle{#1}}
+}
+\ExplSyntaxOff
+%</crs|rp|bkc|phd|bmr|ex>
+% \fi
 %
 %
 % \begin{imacro}{\titel}
