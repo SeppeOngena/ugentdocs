@@ -320,7 +320,7 @@
 % constructs are never exposed directly so this has no effect on the
 % user of the classes, unless you wish to customize parts (see above).
 % \iffalse
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>      
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \RequirePackage{expl3}
 %\RequirePackage[check-declarations]{expl3} % I use this during debug phase
 %</crs|bama|phd|rp|le|ex|bkc|bmr>
@@ -341,6 +341,7 @@
 % chapter title, and header/footer code has been adapted and integrated.
 %
 %
+% \newpage
 % \tableofcontents
 % \clearpage
 %
@@ -635,7 +636,7 @@
 % font otherwise. You can override these fonts by using \txtcmd{setmathfont\{<font>\}}.
 %
 % \iffalse
-%<*clo>  
+%<*clo>
 % Fonts
 \RequirePackage{iftex}
 \iftutex
@@ -1051,7 +1052,7 @@
 %	\item \txtcmd{makeatletter}\txtcmd{@facultyacronym}\txtcmd{makeatother}:
 %		\makeatletter\@facultyacronym\makeatother
 % \end{itemize}
-% \DescribeMacro[common]{\faculty}\marg{name}\\
+% \DescribeMacro[common]{\faculty}\marg{name}\margintag{(tag)}\\
 %	Overrides the faculty tag \txtcmd{@faculty} with the |name| entered.
 %	Name only, no logos or colours! 
 %	To use for, e.g., faculty services like |Directie ICT| for letters or beamer slides.
@@ -1091,7 +1092,7 @@
 %	Sets the department tag \txtcmd{@department} with the |name| entered.
 %	Currently unused.
 %
-% \DescribeMacro[common]{\unit}\marg{name}\\
+% \DescribeMacro[common]{\unit}\marg{name}\margintag{(tag)}\\
 %	Sets the unit tag \txtcmd{@unit} with the |name| entered.
 %	Can be used to set ``Team ...'' or your research lab to the second line of the
 %	letter header or beamer title page.
@@ -1162,7 +1163,7 @@
 % {\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
 % \begin{verbatim}
 % \begin{tikzpicture}
-%	\faclogo{3cm}{ugent@faculty}{0}
+%     \faclogo{3cm}{ugent@faculty}{0}
 % \end{tikzpicture}
 % \end{verbatim}
 % \vspace{-\parskip}\nointerlineskip
@@ -1172,9 +1173,9 @@
 %
 % \begin{verbatim}
 % \foreignlanguage{dutch}{
-%	\begin{tikzpicture}
-%		\faclogo{3cm}{ugent@faculty}{0}
-%	\end{tikzpicture}
+%     \begin{tikzpicture}
+%         \faclogo{3cm}{ugent@faculty}{0}
+%     \end{tikzpicture}
 % }
 % \end{verbatim}
 % \vspace{-\parskip}\nointerlineskip
@@ -1187,11 +1188,11 @@
 % \begin{verbatim}
 % \makeatletter
 % \ExplSyntaxOn
-%	\keys_set:nn { ugentdocs } { faculty = di }
-%	\colorlet{ugent@faculty}{ugent@\@fselector}
-%	\begin{tikzpicture}
-%		\faclogo{3cm}{ugent@faculty}{0}
-%	\end{tikzpicture}
+%     \keys_set:nn { ugentdocs } { faculty = di }
+%     \colorlet{ugent@faculty}{ugent@\@fselector}
+%     \begin{tikzpicture}
+%         \faclogo{3cm}{ugent@faculty}{0}
+%     \end{tikzpicture}
 % \ExplSyntaxOff
 % \makeatother
 % \end{verbatim}
@@ -1330,55 +1331,58 @@
 %	When used within a tikzpicture, this prints the UGent logo, dependent on
 %	the campus. The height is a length, the alignment ranges from 0 (left edge)
 %	to 1 (right edge).
-%	The color can be set to, e.g., white to print on a dark background.\\
+%	The color can be set to, e.g., white to print on a dark background.
 %	The logo text uses the current language.\\
 %	Usage (the rectangle is just to visualize the boundaries here):
 %
 % {\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
-% \begin{verbatim}
-% \begin{tikzpicture}
-%	\ugentlogo{4cm}{ugent@main}{0}
-% \end{tikzpicture}
-% \end{verbatim}
-% \vspace{-\parskip}\nointerlineskip
-% \begin{tikzpicture}[show background rectangle]
-%	\ugentlogo{4cm}{ugent@main}{0}
-% \end{tikzpicture}
+%	\begin{verbatim}
+%		\begin{tikzpicture}
+%		    \ugentlogo{4cm}{ugent@main}{0}
+%		\end{tikzpicture}
 %
-% \begin{verbatim}
-% \foreignlanguage{dutch}{
-%	\begin{tikzpicture}
+%		\hspace{0.5cm}
+%
+%		\foreignlanguage{dutch}{
+%		    \begin{tikzpicture}
+%		        \ugentlogo{4cm}{ugent@main}{0}
+%		    \end{tikzpicture}
+% 		}
+%	\end{verbatim}
+% 	\begin{tikzpicture}[show background rectangle]
+%			\ugentlogo{4cm}{ugent@main}{0}
+% 	\end{tikzpicture}	
+%	\hspace{0.5cm}
+% 	\foreignlanguage{dutch}{
+% 	\begin{tikzpicture}[show background rectangle]
 %		\ugentlogo{4cm}{ugent@main}{0}
-%	\end{tikzpicture}
-% }
-% \end{verbatim}
-% \vspace{-\parskip}\nointerlineskip
-% \foreignlanguage{dutch}{
-% \begin{tikzpicture}[show background rectangle]
-%	\ugentlogo{4cm}{ugent@main}{0}
-% \end{tikzpicture}
-% }
+% 	\end{tikzpicture}
+% 	}
 %
-% \begin{verbatim}
-% \makeatletter
-% \ExplSyntaxOn
+%	\begin{verbatim}
+%	\makeatletter
+%	\ExplSyntaxOn
+%
 %	\keys_set:nn { ugentdocs } { campus = kortrijk }
 %	\begin{tikzpicture}
-%		\ugentlogo{4cm}{ugent@main}{0}
+%	    \ugentlogo{4cm}{ugent@main}{0}
 %	\end{tikzpicture}
-%   \hspace{0.5cm}
-%   \keys_set:nn { ugentdocs } { campus = gugc }
+%
+%	\hspace{0.5cm}
+%
+%	\keys_set:nn { ugentdocs } { campus = gugc }
 %	\begin{tikzpicture}
-%		\ugentlogo{4cm}{ugent@main}{0}
+%	    \ugentlogo{4cm}{ugent@main}{0}
 %	\end{tikzpicture}
-% \ExplSyntaxOff
-% \makeatother
-% \end{verbatim}
-% \vspace{-\parskip}\nointerlineskip
-% \makeatletter
-% \ExplSyntaxOn
-%   \keys_set:nn { ugentdocs } { campus = kortrijk }
-% 	\begin{tikzpicture}[show~background~rectangle]
+%
+%	\ExplSyntaxOff
+%	\makeatother
+%	\end{verbatim}
+%	\vspace{-\parskip}\nointerlineskip
+%	\makeatletter
+%	\ExplSyntaxOn
+%	\keys_set:nn { ugentdocs } { campus = kortrijk }
+%	\begin{tikzpicture}[show~background~rectangle]
 %		\ugentlogo{4cm}{ugent@main}{0}
 %	\end{tikzpicture}
 %   \hspace{0.5cm}
@@ -1387,8 +1391,8 @@
 %		\ugentlogo{4cm}{ugent@main}{0}
 %	\end{tikzpicture}
 %	\keys_set:nn { ugentdocs } { campus = ugent }
-% \ExplSyntaxOff
-% \makeatother
+%	\ExplSyntaxOff
+%	\makeatother
 % }
 %
 % \iffalse
@@ -1882,8 +1886,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Time and location}
 % \label{S:timeloc}
 %
-% By default in \LaTeX{}, the |\@date| is set to |\today|.
-% The output format of the dates is set by the following option:
+% Per \LaTeX{} default, the |\@date| tag is set to |\today|.
+% The output format of dates is set by:
 %
 % \DescribeOption[common]{localizedates}\DescribeDefault{true}
 %	Options: |true|, |false|\\
@@ -1904,8 +1908,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</clo>
 % \fi
 %
-% \DescribeMacro[common]{\date}\DescribeDefault{\today}\\
-%	Sets the document date tag (|\@date|).
+% \DescribeMacro[common]{\date}\marg{new date}\DescribeDefault{\today}\margintag{(tag)}\\
+%	Sets the document date.
 %	If the date is input as ISO format, it is localized
 %	based on the |localizedates| option. If not, the date is printed verbatim.
 % \iffalse
@@ -1927,8 +1931,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	and the PhD spine year.
 %	If not set, the current year is used.
 %
-% \DescribeMacro[common]{\academicyear}\marg{YYYY--YYYY}\margintext{(mandatory)}\\
-%	Specifies the academic year and sets the |\@academicyear| tag.
+% \DescribeMacro[common]{\academicyear}\marg{YYYY--YYYY}\margintag{(mandatory)}\margintag{(tag)}\\
+%	Specifies the academic year.
 %	Not mandatory for report class.
 %	Used in title page of the report, bama, course, and phd classes,
 %	and the footer of the exam class.
@@ -1940,12 +1944,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<rp> \renewcommand*{\@academicyear}{}
 % \fi
 %
-% \DescribeMacro[common]{\location}\marg{location}\DescribeDefault{(Ghent)}\\
-%	Sets the location tag (|\@location|).
+% \DescribeMacro[common]{\location}\marg{new location}\DescribeDefault{Ghent}\margintag{(tag)}\\
+%	Sets the location.
 %	The default is Ghent, translated to NL or EN using the dictionaries.
 %	Used in the default signing page of the bama class and the PhD data page.
 % \iffalse
-%<*clo>      
+%<*clo>
 \newcommand*\@location{\translatekey{ghent}}
 \AtEndOfClass{ % after letter class loads
 	\providecommand*{\location}{} % if not letter class
@@ -1956,6 +1960,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 %
+% \newpage
 % \subsection{Name and sequence parsing}
 % \label{S:nameseqparse}
 % Names are always input as "Surname, Firstname"
@@ -2142,7 +2147,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</clo>
 %<*phd|bkc|crs|rp|le|ex|bama> 
 \ExplSyntaxOn
-%</phd|bkc|crs|rp|le|ex|bama> 
+%</phd|bkc|crs|rp|le|ex|bama>
 % \fi
 %
 % \DescribeOption[phd|bookcover]{cameraready}\DescribeDefault{false}
@@ -2200,7 +2205,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	e-copy you make available, this may be appropriate.
 %	See Section~\ref{S:optionspackages} for customization.
 % \iffalse
-%<*crs|rp>      
+%<*crs|rp>
 \bool_new:N \l_@@_copyright_bool
 
 \keys_define:nn { ugentdocs } {
@@ -2302,7 +2307,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*crs|bama|phd|rp|bkc|le|ex>
 \ProcessOptions\relax
 %</crs|bama|phd|rp|bkc|le|ex>
-%<*crs|bama|phd|rp|bkc|le|ex|bmr> 
+%<*crs|bama|phd|rp|bkc|le|ex|bmr>
 \ProcessKeyOptions[ ugentdocs ]
 %</crs|bama|phd|rp|bkc|le|ex|bmr>
 % \fi
@@ -2348,7 +2353,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOff
 \LoadClass{bookcover}
 %</bkc>
-%<*le> 
+%<*le>
 \LoadClass{letter}
 %</le>
 %<*ex>
@@ -2371,7 +2376,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*crs|bama|phd|rp|bkc|le|ex|bmr>
 \@loadfonts
 %</crs|bama|phd|rp|bkc|le|ex|bmr>
-%<*crs|bama|phd|rp|le|ex>      
+%<*crs|bama|phd|rp|le|ex>
 % Modern typesetting
 \setlength{\parindent}{0pt}
 \addtolength{\parskip}{0.75\baselineskip}
@@ -2384,6 +2389,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsection{Packages}
 % \label{S:packages}
 % The following packages are required by |ugentdocs|:
+%
 % \begin{center}\small
 %   \begin{tabular}{lp{8cm}}
 %       \toprule
@@ -2448,13 +2454,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|bama|phd|rp|le|ex|bkc|bmr>
 %<*crs|bama|phd|rp|le|ex>
 \RequirePackage{fancyhdr}
-%</crs|bama|phd|rp|le|ex> 
+%</crs|bama|phd|rp|le|ex>
 %<*bkc|phd>
 \RequirePackage{GS1}
 %</bkc|phd>
 % \fi
 %
-%
+% \newpage
 % \subsubsection{Options-specific packages}
 % \label{S:optionspackages}
 %
@@ -2466,7 +2472,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %			again in your customization file, but make sure a dictionary is available for
 %           the |main| language (see Section \ref{S:dict}).
 %    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr> 
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \ExplSyntaxOn
 \str_if_eq:VnTF \l_@@_language_tl {dutch} {
 	\PassOptionsToPackage{main=dutch}{babel}
@@ -2482,7 +2488,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %			again in your customization file, but make sure a dictionary is available for
 %           the |main| language (see Section \ref{S:dict}).
 %    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr> 
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \ExplSyntaxOn
 \bool_if:NTF \l_@@_localizedates_bool {
 	\RequirePackage[useregional]{datetime2}
@@ -2571,7 +2577,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % although this is not recommended.
 %
 % \iffalse
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>      
+%<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \newlength{\@PW}      % Paper width
 \newlength{\@PH}      % Paper height
 \newlength{\gridunit} % Grid unit layout
@@ -2596,14 +2602,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
                 top=2.54cm,bottom=2.54cm,inner=2cm,outer=2cm,twoside]
                 {geometry}
 %</phd>
-%<*bama>      
+%<*bama>
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
 \@setgridunit
 \RequirePackage[paperwidth=\@PW,paperheight=\@PH,
 				top=2.54cm, bottom=2.54cm, left=2\gridunit, right=2\gridunit]{geometry}
 %</bama>
-%<*le>      
+%<*le>
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
 \@setgridunit
@@ -2788,7 +2794,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   that will be used on the title page.
 % \end{imacro}
 % \iffalse
-%<*crs|rp|bkc|phd|bmr|ex> 
+%<*crs|rp|bkc|phd|bmr|ex>
 \ExplSyntaxOn
 \renewcommand{\@title}{<This is your document title>}
 \newcommand{\@shorttitle}{\@title}
@@ -2896,18 +2902,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   This macro sets the |\@frontcoverlogos| tag that later will be used on
 %   the title page.
 %    \begin{macrocode}
-%<*bama|rp|crs|phd|bkc>      
+%<*bama|rp|crs|phd|bkc>
 \newcommand*{\@frontcoverlogos}{}
 \newcommand*{\frontcoverlogos}[1]{\renewcommand*{\@frontcoverlogos}{#1}}
-%</bama|rp|crs|phd|bkc> 
+%</bama|rp|crs|phd|bkc>
 %    \end{macrocode}
 % \end{imacro}
 % \begin{imacro}{\backcoverlogos}
 %   This macro will set the |\@backcoverlogos| tag that will be used
 %   to print the publisher logo on the back cover.
 %    \begin{macrocode}
-%<*bkc|phd|crs>      
 \newcommand*{\@backcoverlogos}{\includegraphics[height = 2\gridunit]{Images/logo_UniversityPress_blue}}
+%<*bkc|phd|crs>
 \newcommand*{\backcoverlogos}[1]{\renewcommand*{\@backcoverlogos}{#1}}
 %</bkc|phd|crs>
 %    \end{macrocode}
@@ -2954,7 +2960,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\let\degree\relax
 }
 \ExplSyntaxOff
-%</crs|ex|bkc|phd|bama> 
+%</crs|ex|bkc|phd|bama>
 %
 %    \end{macrocode}
 % \end{imacro}
@@ -3011,12 +3017,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   This macro sets the |\@grants| tag that later will be used on
 %   the data page.
 %    \begin{macrocode}
-%<*phd>      
+%<*phd>
 \newcommand*{\@grants}{}
 \newcommand*{\grants}[1]{
 	\renewcommand*{\@grants}{#1}
 }
-%</phd> 
+%</phd>
 %    \end{macrocode}
 % \end{imacro}
 % \DescribeMacro{\doi} [phd] (optional)\\
@@ -3027,10 +3033,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   be used on the data page. If you don't have a doi number, just
 %   don't specify one (i.e. don't use this macro).
 %    \begin{macrocode}
-%<*phd>      
+%<*phd>
 \newcommand*{\@doi}{}
 \newcommand*{\doi}[1]{\renewcommand*{\@doi}{#1}}
-%</phd> 
+%</phd>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3164,11 +3170,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   These macros set the |\@copyrightnotices| tag that later will be
 %   used on the back of the title page.
 %    \begin{macrocode}
-%<*crs|rp|bama|phd>      
+%<*crs|rp|bama|phd>
 \newcommand{\@copyrightnotices}{}
 \newcommand{\copyrightnotices}[1]{\renewcommand{\@copyrightnotices}{#1}}
 %</crs|rp|bama|phd>
-%<*crs|rp>      
+%<*crs|rp>
 \newcommand{\@extranotices}{}
 \newcommand{\extranotices}[1]{\renewcommand{\@extranotices}{#1}}
 %</crs|rp>
@@ -3191,7 +3197,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   affiliation. This can be done by invoking the macro as many times
 %   as needed.
 %    \begin{macrocode}
-%<*phd|crs|bama|bkc|ex|le|rp>      
+%<*phd|crs|bama|bkc|ex|le|rp>
 \ExplSyntaxOn
 \seq_new:N \g_@@_authors_seq
 \seq_new:N \g_@@_authorswithaffiliation_seq
@@ -3254,7 +3260,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   affiliation. This can be done by invoking the macro as many times
 %   as needed.
 %    \begin{macrocode}
-%<*bama|phd|bkc>     
+%<*bama|phd|bkc>
 \ExplSyntaxOn
 \seq_new:N \g_@@_supervisors_seq
 \seq_new:N \g_@@_supervisorcalls_seq
@@ -3334,7 +3340,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\@@_addjurymember:nnn { #1 } { #2 } { #3 }
 }
 \ExplSyntaxOff
-%</phd> 
+%</phd>
 %    \end{macrocode}
 % \end{imacro}
 % \DescribeMacro{\studentnr}
@@ -3346,7 +3352,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   This macro will set the |\@studentnr| tag that will be used in the
 %   exam and bama class.
 %    \begin{macrocode}
-%<*ex|bama|rp>      
+%<*ex|bama|rp>
 \newcommand*{\@studentnr}{}
 \newcommand*{\studentnr}[1]{\renewcommand*{\@studentnr}{#1}}
 %</ex|bama|rp>
@@ -3356,7 +3362,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   This macro sets the |\@jurychair| tag that later will be used on
 %   the data page.
 %    \begin{macrocode}
-%<*phd>      
+%<*phd>
 \newcommand*{\@jurychair}{
 	\PackageError{ugentdocs}
 	{Please, define a chair of the jury using the
@@ -3367,14 +3373,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand*{\@jurychairaff}{}
 \newcommand*{\jurychair}[3]{
 	\renewcommand*{\@jurychair}{#1~\@formatname{#2}}\renewcommand*{\@jurychairaff}{#3}}
-%</phd> 
+%</phd>
 %    \end{macrocode}
 % \end{imacro}
 % \begin{imacro}{\dean}
 %   This macro sets the |\@dean| tag that later will be used on
 %   the data page.
 %    \begin{macrocode}
-%<*phd>      
+%<*phd>
 \newcommand*{\@dean}[2]{
 	\PackageError{ugentdocs}
 	{Please, define a dean of the faculty using the
@@ -3385,7 +3391,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand*{\dean}[2]{
 	\renewcommand*{\@dean}{#1~\@formatname{#2}}
 }
-%</phd> 
+%</phd>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3393,7 +3399,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   This macro sets the |\@rector| tag that later will be used on
 %   the data page.
 %    \begin{macrocode}
-%<*phd>      
+%<*phd>
 \newcommand*{\@rector}[2]{
 	\PackageError{ugentdocs}
 	{Please, define a rector of Ghent University using the
@@ -3404,7 +3410,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand*{\rector}[2]{
 	\renewcommand*{\@rector}{#1~\@formatname{#2}}
 }
-%</phd> 
+%</phd>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3412,12 +3418,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   This macro sets the |\@coverdesigner| tag that later will be used on
 %   the data page.
 %    \begin{macrocode}
-%<*phd>      
+%<*phd>
 \newcommand*{\@coverdesigner}{}
 \newcommand*{\coverdesigner}[1]{
 	\renewcommand*{\@coverdesigner}{\@formatname{#1}}
 }
-%</phd> 
+%</phd>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3476,7 +3482,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\@@_addemailaddress:nn { #1 } { #2 }
 }
 \ExplSyntaxOff
-%</le|rp> 
+%</le|rp>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3501,7 +3507,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\@@_addphonenumber:n { #1 }
 }
 \ExplSyntaxOff
-%</le|rp> 
+%</le|rp>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3527,7 +3533,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\@@_addfaxnumber:n { #1 }
 }
 \ExplSyntaxOff
-%</le> 
+%</le>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3552,7 +3558,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\@@_addmobilenumber:n { #1 }
 }
 \ExplSyntaxOff
-%</le|rp> 
+%</le|rp>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3615,10 +3621,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   This macro sets the |\@courseversion| tag that later will be used
 %   on the title page and in the header/footer.
 %    \begin{macrocode}
-%<*crs>      
+%<*crs>
 \newcommand*{\@courseversion}{}
 \newcommand*{\courseversion}[1]{\renewcommand*{\@courseversion}{#1}}
-%</crs> 
+%</crs>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3626,10 +3632,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   This macro sets the |\@publisher| tag that later will be used on
 %   the title page.
 %    \begin{macrocode}
-%<*crs>      
+%<*crs>
 \newcommand{\@publisher}{}
 \newcommand*{\publisher}[1]{\renewcommand*{\@publisher}{#1}}
-%</crs> 
+%</crs>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3642,10 +3648,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   This macro sets the |\@publishercode| tag that later will be used on
 %   the title page.
 %    \begin{macrocode}
-%<*crs>      
+%<*crs>
 \newcommand*{\@publishercode}{}
 \newcommand*{\publishercode}[1]{\renewcommand*{\@publishercode}{#1}}
-%</crs> 
+%</crs>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3804,7 +3810,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	}
 }
 \ExplSyntaxOff
-%</ex> 
+%</ex>
 %    \end{macrocode}
 % \end{imacro}
 % \begin{imacro}{\question}
@@ -3812,7 +3818,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   (right aligned).
 %   
 %    \begin{macrocode}
-%<*ex>      
+%<*ex>
 \newcounter{question}
 \setcounter{question}{0}
 \renewcommand*\thequestion{\@arabic\c@question}
@@ -3820,7 +3826,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\stepcounter{question}
 	\thequestion.~#1%
 }
-%</ex> 
+%</ex>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3829,7 +3835,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   (right aligned).
 %   
 %    \begin{macrocode}
-%<*ex>      
+%<*ex>
 \newcommand*{\questionweight}[1]{%
 	\hspace{\fill}
 	\begin{tabular}{|c|}
@@ -3838,7 +3844,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\hline
 	\end{tabular}\\
 }
-%</ex> 
+%</ex>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3847,7 +3853,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   English variant of the question and the right column taking the
 %   Dutch variant.
 %    \begin{macrocode}
-%<*ex>      
+%<*ex>
 \newcommand{\engdut}[2]{%
 	\begin{tabular}{ccc}% 
 		\selectlanguage{english}%
@@ -3862,7 +3868,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\end{tabular}
 	\selectlanguage{english}%
 }
-%</ex> 
+%</ex>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3871,11 +3877,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   sets the symbol to be used as multiple choice mark (by default a
 %   square).
 %    \begin{macrocode}
-%<*ex>      
+%<*ex>
 \newcommand*\@mcsymbol{}%\square} 
 % TODO this needs to be fixed
 \newcommand*\setmcsymbol[1]{\renewcommand\@mcsymbol{#1}}
-%</ex> 
+%</ex>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3883,7 +3889,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   typesets a multiple choice answer candidate (monolingual, i.e. in a
 %   single column).
 %    \begin{macrocode}
-%<*ex>      
+%<*ex>
 \newcommand\mc[1]{%
 	\hfill\break\qquad\begin{tabular}{cc}
 		$\@mcsymbol$
@@ -3893,7 +3899,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\end{minipage}%
 	\end{tabular}
 }
-%</ex> 
+%</ex>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3904,7 +3910,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   column taking the Dutch variant.
 %   
 %    \begin{macrocode}
-%<*ex>      
+%<*ex>
 \newcommand{\engdutmc}[2]{%
 	\hfill\break\begin{tabular}{cccc}
 		$\@mcsymbol$
@@ -3921,7 +3927,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\end{tabular}
 	\selectlanguage{english}%
 }
-%</ex> 
+%</ex>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3933,7 +3939,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   
 %   
 %    \begin{macrocode}
-%<*ex>      
+%<*ex>
 \newcommand\insertsolutionspagepartial[1]{
 ~\relax
 \AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{
@@ -3956,7 +3962,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\clearpage
 	\relax
 }
-%</ex> 
+%</ex>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -3967,7 +3973,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   paper'). 
 %   
 %    \begin{macrocode}
-%<*ex>      
+%<*ex>
 \newcommand\insertsolutionspage[1]{
 \clearpage
 \AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{
@@ -3989,7 +3995,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	}%
 	~\relax
 }
-%</ex> 
+%</ex>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -4178,7 +4184,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % The |fancyhdr| package is used to make a decent header and footer.
 % The header and footer of the |course| class are defined to be:
 %    \begin{macrocode}
-%<*crs>      
+%<*crs>
 \if@twoside
 \lhead[\small\thepage]{\slshape\small\rightmark}
 \chead[]{}
@@ -5322,10 +5328,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \begin{imacro}{\makefinalpage}
 %   Below, one can find the code for the final page: 
 %    \begin{macrocode}
-%<*bama|phd|crs|rp> 
+%<*bama|phd|crs|rp>
 \ExplSyntaxOn
 \newcommand\makefinalpage{
-%</bama|phd|crs|rp> 
+%</bama|phd|crs|rp>
 %<bama>	\@backcover{}
 %<*phd|crs>
 \bool_if:NF \l_@@_bare_bool {
@@ -5348,10 +5354,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\null
 }
 %</phd|crs>
-%<*bama|phd|crs|rp> 
+%<*bama|phd|crs|rp>
 }
 \ExplSyntaxOff
-%</bama|phd|crs|rp> 
+%</bama|phd|crs|rp>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -5600,7 +5606,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\iow_close:N \g_@@_coverfile_iow
 }
 \ExplSyntaxOff
-%</phd|crs> 
+%</phd|crs>
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -5726,7 +5732,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \AtEndDocument{
   \closeletter
 }
-%</le> 
+%</le>
 %    \end{macrocode}
 %
 % \subsection{Title page for the exam class}
@@ -5869,7 +5875,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \renewcommand*{\footrulewidth}{1pt}
   \@extrainfo{}
 }
-%</ex> 
+%</ex>
 %    \end{macrocode}
 % \end{imacro}
 % 
@@ -5903,7 +5909,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		}
 	}{}
 }
-%</crs|bama|phd|rp> 
+%</crs|bama|phd|rp>
 %    \end{macrocode}
 %
 % \clearpage
@@ -5927,7 +5933,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsection{\texttt{ugentcourse}}
 %
 % \begin{Verbatim}
-%<*crs-example> 
+%<*crs-example>
 \documentclass[bw,11pt,twoside,openright,dutch]{ugentcourse}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
@@ -6097,14 +6103,14 @@ e^{-j\pi} + 1 = 0
 \makefinalpage
 
 \end{document}
-%</crs-example> 
+%</crs-example>
 % \end{Verbatim}
 % 
 % 
 % \subsection{\texttt{ugentbama}}
 %
 % \begin{Verbatim}
-%<*bama-example1> 
+%<*bama-example1>
 \documentclass[bw,11pt,twoside,openright,coverbg,neutralcolors]{ugentbama}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
@@ -6286,8 +6292,8 @@ e^{-j\pi} + 1 = 0
 \chapter{Referentielijst}
 
 \end{document}
-%</bama-example1> 
-%<*bama-example2> 
+%</bama-example1>
+%<*bama-example2>
 \documentclass[bw,11pt,twoside,openright,surnamefirst,dutch]{ugentbama}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
@@ -6471,7 +6477,7 @@ e^{-j\pi} + 1 = 0
 \chapter{Referentielijst}
 
 \end{document}
-%</bama-example2> 
+%</bama-example2>
 % \end{Verbatim}
 % 
 %
@@ -6479,7 +6485,7 @@ e^{-j\pi} + 1 = 0
 %
 % \paragraph{Dutch}
 % \begin{Verbatim}
-%<*phd-example1> 
+%<*phd-example1>
 \documentclass[we,10pt,twoside,openright,surnamefirst,dutch]{ugentphd}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
@@ -6672,12 +6678,12 @@ e^{-j\pi} + 1 = 0
 \makefinalpage
 
 \end{document}
-%</phd-example1> 
+%</phd-example1>
 % \end{Verbatim}
 %
 % \paragraph{English}
 % \begin{Verbatim}
-%<*phd-example2> 
+%<*phd-example2>
 \documentclass[bw,10pt,twoside,openright,cameraready]{ugentphd}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
@@ -6870,7 +6876,7 @@ e^{-j\pi} + 1 = 0
 \makefinalpage
 
 \end{document}
-%</phd-example2> 
+%</phd-example2>
 % \end{Verbatim}
 %
 % \subsection{\texttt{ugentreport}}
@@ -6995,7 +7001,7 @@ e^{-j\pi} + 1 = 0
 \makefinalpage
 
 \end{document}
-%</rp-example1> 
+%</rp-example1>
 %<*rp-example2>
 \documentclass[10pt,oneside,openany]{ugentreport}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
@@ -7156,7 +7162,7 @@ e^{-j\pi} + 1 = 0
 \makefinalpage
 
 \end{document}
-%</rp-example2> 
+%</rp-example2>
 % \end{Verbatim}
 %
 %
@@ -7165,7 +7171,7 @@ e^{-j\pi} + 1 = 0
 % \paragraph{Plain example}
 %
 % \begin{Verbatim}
-%<*le-example> 
+%<*le-example>
 \documentclass[bw]{ugentletter}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
@@ -7282,7 +7288,7 @@ Mumford University (2pp)
 }
 \closeletter
 \end{document}
-%</le-example> 
+%</le-example>
 % \end{Verbatim}
 %
 % \paragraph{Example with configuration file}~\\
@@ -7348,7 +7354,7 @@ BELGIUM}
 %
 % \paragraph{Single column}
 % \begin{Verbatim}
-%<*ex-example1> 
+%<*ex-example1>
 \documentclass[bw,a4paper,10pt, dutch]{ugentexam}
 %% faculty            Specifies the faculty abbreviation, can be empty*.
 %%                    Used in colouring, logos, and text.
@@ -7531,7 +7537,7 @@ Gault-Millau.
 % legislation.
 %
 % \begin{Verbatim}
-%<*ex-example2> 
+%<*ex-example2>
 \documentclass[bw,a4paper,10pt]{ugentexam}
 
 %% ti           specifies the department, change to the letter combination of
@@ -7794,7 +7800,7 @@ Gault-Millau.
 % \section{User guide}
 % 
 % \begin{Verbatim}
-%<*bmrug> 
+%<*bmrug>
 \documentclass{beamer}
 \usetheme[bw]{ugent}
 
@@ -7848,7 +7854,6 @@ Gault-Millau.
 \end{frame}
 
 \section{Loading the theme and theme options}
-
 \begin{frame}[negative]
   \sectionpage
 \end{frame}
@@ -7944,7 +7949,6 @@ Gault-Millau.
 \end{frame}
 
 \section{Title slides}
-
 \begin{frame}[negative]
   \sectionpage
 \end{frame}
@@ -7976,7 +7980,6 @@ Gault-Millau.
 \section{Regular slides}
 
 \subsection{Bare}
-
 \begin{frame}[negative]
   \sectionpage
 \end{frame}
@@ -8121,8 +8124,8 @@ Gault-Millau.
 
 \begin{frame}[t]
   {Logo demo}
-  
   The logo's can be used as follows (but you should not need them):
+
   \begin{itemize}
   \item \command{includegraphics[width=3cm]\{\command{logopos}\}}\\
     \begin{center}
@@ -8149,7 +8152,6 @@ Gault-Millau.
 \end{frame}
 
 \subsection{With graphic eye candy}
-
 \begin{frame}[negative]
   \subsectionpage
 \end{frame}
@@ -8318,13 +8320,11 @@ Gault-Millau.
 \end{thframe}
 
 \section{Intermission slides}
-
 \begin{frame}[negative]
   \sectionpage
 \end{frame}
 
 \subsection{Standard section slides}
-
 \begin{frame}[negative]
   \subsectionpage
 \end{frame}
@@ -8352,7 +8352,6 @@ Gault-Millau.
 \end{frame}
 
 \subsection{Custom intermission slides}
-
 \begin{frame}[negative]
   \subsectionpage
 \end{frame}
@@ -8460,7 +8459,6 @@ Gault-Millau.
 \end{frame}
 
 \section{Demo of some inner theme parts}
-
 \begin{frame}[negative]
   \sectionpage
 \end{frame}
@@ -8587,7 +8585,7 @@ Gault-Millau.
 \end{frame}
 
 \end{document}
-%</bmrug> 
+%</bmrug>
 % \end{Verbatim}
 %
 % \section{Implementation}
@@ -8595,7 +8593,7 @@ Gault-Millau.
 % \subsubsection{Main beamer theme}
 % 
 %    \begin{macrocode}
-%<*bmr>      
+%<*bmr>
 \AtBeginDocument{
   \def\appropriatelogo{\@ugentlogo{2.5cm}{ugent@main}{0.0}}
   \def\appropriateslidenumber{%
@@ -8643,12 +8641,12 @@ Gault-Millau.
 
 \mode
 <all>
-%</bmr> 
+%</bmr>
 %    \end{macrocode}
 % 
 % \subsubsection{Beamer color theme}
 %    \begin{macrocode}
-%<*bmrcolor>      
+%<*bmrcolor>
 \mode<presentation>
 
 \RequirePackage{ugentcolor}
@@ -8716,13 +8714,13 @@ Gault-Millau.
 \setbeamercolor{inverse subsection name}{fg=white!75!ugent@main}
 \mode
 <all>
-%</bmrcolor> 
+%</bmrcolor>
 %    \end{macrocode}
 % 
 % \subsubsection{Beamer font theme}
 % 
 %    \begin{macrocode}
-%<*bmrfont>      
+%<*bmrfont>
 \usetikzlibrary{calc}
 
 \mode<presentation>
