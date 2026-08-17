@@ -4671,7 +4671,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % The cover pages tikzpictures for the |phd| and |course| classes are generated
 % using the |\@frontcover| and |\@backcover| commands.
 % These are used in the |\maketitle| and |\makefinalpage| commands.
-% For this fancier style, a titlepageimage is included.
+% For this fancier style, a coverimage is included.
 %
 % Next, we set lengths and colours:
 %    \begin{macrocode}
@@ -4891,7 +4891,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\useasboundingbox (0,0) rectangle (\@PW,\@PH);
 	
 	% Image zone
-	{\ifx\@titlepageimage\@empty%
+	{\ifx\@coverimage\@empty%
 		\fill[coverbgcolor] (\@MS,\@HBS) rectangle (\@PW+\@B,\@PH-\@HTS+\@BT);%
 		\@coverblankimage
 	\else%
@@ -4901,7 +4901,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\clip (\@MS,\@HBS) rectangle (\@PW+\@B,\@PH-\@HTS+\@BT);
 		\node[anchor=south~west, inner~sep=0pt] at (\@MS, \@HBS)%
 		{\adjustbox{min~width=\@WI, min~height=\@HI, keepaspectratio}{%
-				\includegraphics[width=\@WI]{\@titlepageimage}%
+				\includegraphics[width=\@WI]{\@coverimage}%
 			}%
 		};%
 		\end{scope}
@@ -5475,7 +5475,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \tl_new:N \l_@@_title_tl
 \tl_new:N \l_@@_subtitle_tl
 \tl_new:N \l_@@_isbn_tl
-\tl_new:N \l_@@_titlepageimage_tl
+\tl_new:N \l_@@_coverimage_tl
 \tl_new:N \l_@@_backcoverlogos_tl
 \tl_new:N \l_@@_frontcoverlogos_tl
 \tl_new:N \l_@@_academicyear_tl
@@ -5500,7 +5500,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\tl_set:Nx \l_@@_title_tl       	{ \exp_not:n{\@title} }
 	\tl_set:Nx \l_@@_subtitle_tl    	{ \exp_not:n{\@subtitle} }
 	\tl_set:Nx \l_@@_isbn_tl			{ \exp_not:n{\@isbn} }
-	\tl_set:Nx \l_@@_titlepageimage_tl 	{ \exp_not:n{\@titlepageimage} }
+	\tl_set:Nx \l_@@_coverimage_tl 		{ \exp_not:n{\@coverimage} }
 	\tl_set:Nx \l_@@_backcoverlogos_tl	{ \exp_not:n{\@backcoverlogos} }
 	\tl_set:Nx \l_@@_frontcoverlogos_tl	{ \exp_not:n{\@frontcoverlogos} }
 	
@@ -5553,7 +5553,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\exp_not:N\subtitle			{\l_@@_subtitle_tl}			\iow_newline:
 		\l_@@_authorcalls_tl								    \iow_newline:
 		\exp_not:N\isbn				{\l_@@_isbn_tl}				\iow_newline:
-		\exp_not:N\titlepageimage	{\l_@@_titlepageimage_tl}	\iow_newline:
+		\exp_not:N\coverimage		{\l_@@_coverimage_tl}	\iow_newline:
 		\exp_not:N\backcoverlogos	{\l_@@_backcoverlogos_tl}	\iow_newline:
 		\exp_not:N\frontcoverlogos	{\l_@@_frontcoverlogos_tl}	\iow_newline:							
 	}
@@ -6575,7 +6575,7 @@ T: +32 9 264 51 19
 \academicyear{2024--2025}
 
 %% specify a fancy photo for your titlepage (if you don't want a dull one)
-%%\titlepageimage{Images/ugent-oehoe}
+%%\coverimage{Images/ugent-oehoe}
 %% \coverdesigner{De Kat, Kroketje}
 
 %% change title colour if it clashes with your image 
@@ -6776,7 +6776,7 @@ T: +32 9 264 51 19
 \date{2025-05-24}
 
 %% specify a fancy photo for your coverpage and the designer (if you don't want a dull one)
-\titlepageimage{Images/ugent-oehoe}
+\coverimage{Images/ugent-oehoe}
 \coverdesigner{De Kat, Kroketje}
 
 %% change title colour if it clashes with your image 
