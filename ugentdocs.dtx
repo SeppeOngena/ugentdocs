@@ -5140,7 +5140,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\fi
 		\ifdefempty{\@doi}{}{
 			\ifx\@isbn\@empty\\[\baselineskip]\else\\\fi
-			{\small DOI~\href{https://doi.org/\@doi}{\@doi}}
+			{\small DOI~
+				\@ifpackageloaded{hyperref}{
+					\href{https://doi.org/\@doi}{\@doi}
+					}{
+					\@doi
+					}
+			}
 		}
 	\end{minipage}
 }
