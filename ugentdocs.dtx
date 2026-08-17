@@ -104,7 +104,7 @@
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
-
+%
 \usepackage{accsupp}
 \renewcommand\theCodelineNo{%
 	\BeginAccSupp{method=plain,ActualText={}}%
@@ -340,7 +340,7 @@
 % \clearpage
 %
 % \newgeometry{left=4.75cm,right=2cm,top=2cm,bottom=2.5cm}
-
+%
 % \renewcommand{\partname}{Part}
 % \part{The paper classes}
 % \label{P:I}
@@ -827,15 +827,15 @@
 % \fi
 %
 % \DescribeOption[common]{faculty}\DescribeDefault{empty}
-% Options: |lw|, |re|, |we|, |ge|, |ea|, |eb|, |di|, |pp|, |bw|, |fw|, |ps|\\
-% Used as, e.g., |faculty=bw|, but also plain |bw| works. Sets the faculty selector
-% (\txtcmd{@fselector}) to this value, which is used to determine the faculty
-% text (for both EN and NL) and colour.
-% Also loads the faculty icon and its width, the faculty logo text format (newline behaviour),
-% the faculty logo text width (for both EN and NL), and any additional text spacing
-% needed.\\
-% An empty faculty will not print the logo, faculty name, or acronym, and will
-% extend the cover or beamer slide background to the top.
+%	Options: |lw|, |re|, |we|, |ge|, |ea|, |eb|, |di|, |pp|, |bw|, |fw|, |ps|\\
+%	Used as, e.g., |faculty=bw|, but also plain |bw| works. Sets the faculty selector
+%	(\txtcmd{@fselector}) to this value, which is used to determine the faculty
+%	text (for both EN and NL) and colour.
+%	Also loads the faculty icon and its width, the faculty logo text format (newline behaviour),
+%	the faculty logo text width (for both EN and NL), and any additional text spacing
+%	needed.\\
+%	An empty faculty will not print the logo, faculty name, or acronym, and will
+%	extend the cover or beamer slide background to the top.
 %
 % \iffalse
 %<*clo>
@@ -1047,9 +1047,9 @@
 %		\makeatletter\@facultyacronym\makeatother
 % \end{itemize}
 % \DescribeMacro[common]{\faculty}\marg{name}\\
-% Overrides the faculty tag \txtcmd{@faculty} with the |name| entered.
-% Name only, no logos or colours! 
-% To use for, e.g., faculty services like |Directie ICT| for letters or beamer slides.
+%	Overrides the faculty tag \txtcmd{@faculty} with the |name| entered.
+%	Name only, no logos or colours! 
+%	To use for, e.g., faculty services like |Directie ICT| for letters or beamer slides.
 %
 % \iffalse
 %<*clo>
@@ -1083,13 +1083,13 @@
 % \fi
 %
 % \DescribeMacro[common]{\department}\marg{name}\\
-% Sets the department tag \txtcmd{@department} with the |name| entered.
-% Currently unused.
+%	Sets the department tag \txtcmd{@department} with the |name| entered.
+%	Currently unused.
 %
 % \DescribeMacro[common]{\unit}\marg{name}\\
-% Sets the unit tag \txtcmd{@unit} with the |name| entered.
-% Can be used to set ``Team ...'' or your research lab to the second line of the
-% letter header or beamer title page.
+%	Sets the unit tag \txtcmd{@unit} with the |name| entered.
+%	Can be used to set ``Team ...'' or your research lab to the second line of the
+%	letter header or beamer title page.
 %
 % \iffalse
 %<*clo>
@@ -1121,10 +1121,10 @@
 % \fi
 %
 % \DescribeMacro[common]{\ficon}\marg{height}\marg{color}\marg{alignment}\\
-% When used within a tikzpicture, this prints the faculty icon. The height is a
-% length, the alignment ranges from 0 (left edge) to 1 (right edge).
-% The color can be set to, e.g., white to print on a dark background.\\
-% Usage:
+%	When used within a tikzpicture, this prints the faculty icon. The height is a
+%	length, the alignment ranges from 0 (left edge) to 1 (right edge).
+%	The color can be set to, e.g., white to print on a dark background.\\
+%	Usage:
 %
 % \txtcmd{begin\{tikzpicture\}}\txtcmd{ficon\{1cm\}\{ugent@faculty\}\{0\}}\txtcmd{end\{tikzpicture\}}\\
 % \begin{tikzpicture}
@@ -1148,11 +1148,11 @@
 % \fi
 %
 % \DescribeMacro[common]{\faclogo}\marg{height}\marg{color}\marg{alignment}\\
-% When used within a tikzpicture, this prints the faculty logo. The height is a
-% length, the alignment ranges from 0 (left edge) to 1 (right edge).
-% The color can be set to, e.g., white to print on a dark background.\\
-% The logo text uses the current language.\\
-% Usage (the rectangle is just to visualize the boundaries here):
+%	When used within a tikzpicture, this prints the faculty logo. The height is a
+%	length, the alignment ranges from 0 (left edge) to 1 (right edge).
+%	The color can be set to, e.g., white to print on a dark background.\\
+%	The logo text uses the current language.\\
+%	Usage (the rectangle is just to visualize the boundaries here):
 %
 % {\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
 % \begin{verbatim}
@@ -1260,9 +1260,9 @@
 % \label{S:campus}
 %
 % \DescribeOption[common]{campus}\DescribeDefault{ugent}
-% Options: |ugent|, |kortrijk|, |gugc|\\
-% Used as, e.g., |campus=kortrijk|, but also plain |kortrijk| works.
-% Only affects the UGent logo.
+%	Options: |ugent|, |kortrijk|, |gugc|\\
+%	Used as, e.g., |campus=kortrijk|, but also plain |kortrijk| works.
+%	Only affects the UGent logo.
 %
 % \iffalse
 %<*clo>
@@ -1282,10 +1282,10 @@
 % \fi
 %
 % \DescribeMacro[common]{\ugenticon}\marg{height}\marg{color}\marg{alignment}\\
-% When used within a tikzpicture, this prints the UGent icon.
-% The height is a length, the alignment ranges from 0 (left edge) to 1 (right edge).
-% The color can be set to, e.g., white to print on a dark background.\\
-% Usage:
+%	When used within a tikzpicture, this prints the UGent icon.
+%	The height is a length, the alignment ranges from 0 (left edge) to 1 (right edge).
+%	The color can be set to, e.g., white to print on a dark background.\\
+%	Usage:
 %
 % \txtcmd{begin\{tikzpicture\}}\txtcmd{ugenticon\{1cm\}\{ugent@main\}\{0\}}\txtcmd{end\{tikzpicture\}}\\
 % \begin{tikzpicture}
@@ -1320,14 +1320,14 @@
 }
 %</clo>
 % \fi
-
+%
 % \DescribeMacro[common]{\ugentlogo}\marg{height}\marg{color}\marg{alignment}\\
-% When used within a tikzpicture, this prints the UGent logo, dependent on
-% the campus. The height is a length, the alignment ranges from 0 (left edge)
-% to 1 (right edge).
-% The color can be set to, e.g., white to print on a dark background.\\
-% The logo text uses the current language.\\
-% Usage (the rectangle is just to visualize the boundaries here):
+%	When used within a tikzpicture, this prints the UGent logo, dependent on
+%	the campus. The height is a length, the alignment ranges from 0 (left edge)
+%	to 1 (right edge).
+%	The color can be set to, e.g., white to print on a dark background.\\
+%	The logo text uses the current language.\\
+%	Usage (the rectangle is just to visualize the boundaries here):
 %
 % {\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
 % \begin{verbatim}
@@ -1455,13 +1455,15 @@
 % \fi
 %
 % \newpage
-% \subsection{Language}
+% \subsection{Language, time, and location}
+% \label{S:ltl}
+% \subsubsection{Language}
 % \label{S:dict}
 % The |ugentdocs| documents can be written in either english or dutch:
 %
 % \DescribeOption[common]{language}\DescribeDefault{english}
-% Options: |dutch|, |english|\\
-% Sets the main document language and all automatic text.
+%	Options: |dutch|, |english|\\
+%	Sets the main document language and all automatic text.
 %
 % \iffalse
 %<*clo>
@@ -1561,13 +1563,13 @@
 % A key can be translated to the currently active babel language using:
 %
 % \DescribeMacro[common]{\translatekey}\oarg{expand}\oarg{casing}\marg{key}\\
-% Translates the |<key>| using the currently active language (babel), either the main
-% language, overridden with \txtcmd{selectlanguage\{<languagename>\}} or
-% temporarily set using the\\ \txtcmd{foreignlanguage\{<languagename>\}\{\ldots\}}
-% wrapper. A list of keys can be found in the dictionaries below.\\
-% Optional arguments:\\
-% |expand| - expands the |key|, for use with a key such as |org-\@fselector|\\
-% |uppercase| or |lowercase| - changes key result casing.
+%	Translates the |<key>| using the currently active language (babel), either the main
+%	language, overridden with \txtcmd{selectlanguage\{<languagename>\}} or
+%	temporarily set using the\\ \txtcmd{foreignlanguage\{<languagename>\}\{\ldots\}}
+%	wrapper. A list of keys can be found in the dictionaries below.\\
+%	Optional arguments:\\
+%	|expand| - expands the |key|, for use with a key such as |org-\@fselector|\\
+%	|uppercase| or |lowercase| - changes key result casing.
 % 
 % \iffalse
 %<*clo>
@@ -1603,11 +1605,11 @@
 % language can be loaded using:
 %
 % \DescribeMacro[common]{\useugentdocsdictionary}\marg{languagename}\\
-% When used, the dictionary reader will load a file named
-% |ugentdocs-<languagename>.dict| into the dictionary library.
-% If you want to use this language as main document language, be sure to load
-% the |babel| package again immediately after class load using\\
-% \txtcmd{usepackage[main=<languagename>]\{babel\}}.
+%	When used, the dictionary reader will load a file named
+%	|ugentdocs-<languagename>.dict| into the dictionary library.
+%	If you want to use this language as main document language, be sure to load
+%	the |babel| package again immediately after class load using\\
+%	\txtcmd{usepackage[main=<languagename>]\{babel\}}.
 % 
 % \iffalse
 %<*clo>
@@ -1872,6 +1874,79 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{Verbatim}
 %
 % \newpage
+% \subsubsection{Time and location}
+% \label{S:timeloc}
+%
+% By default in \LaTeX{}, the |\@date| is set to |\today|.
+% The output format of the dates is set by the following option:
+%
+% \DescribeOption[common]{localizedates}\DescribeDefault{true}
+%	Options: |true|, |false|\\
+%	Localizes the date format based on the active language.
+%	Also sets the embargo period format (see later).
+%	If |false|, the ISO format is used instead (YYYY-MM-DD).
+% \iffalse
+%<*clo>
+\ExplSyntaxOn
+\bool_new:N \l_@@_localizedates_bool
+\bool_set_true:N \l_@@_localizedates_bool
+
+\keys_define:nn { ugentdocs } {
+	localizedates .bool_set:N = \l_@@_localizedates_bool ,
+	localizedates .default:n = true ,
+}
+\ExplSyntaxOff
+%</clo>
+% \fi
+%
+% \DescribeMacro[common]{\date}\DescribeDefault{\today}\\
+%	Sets the document date tag (|\@date|).
+%	If the date is input as ISO format, it is localized
+%	based on the |localizedates| option. If not, the date is printed verbatim.
+% \iffalse
+%<*clo>
+\ExplSyntaxOn
+\renewcommand{\date}[1]{
+	\regex_match:nnTF {^\d{4}-\d{2}-\d{2}$} {#1}%$
+	{ \gdef\@date{\DTMdate{#1}} }
+	{ \gdef\@date{#1} }
+}
+\ExplSyntaxOff
+%</clo>
+% \fi
+%
+% \DescribeMacro[native]{\year}\marg{YYYY}\DescribeDefault{current year}\\
+%	Sets the document year using native \LaTeX{}, e.g., through |\year=2026|.
+%	This is independent from the |\date|.
+%	Used in the copyright sections (e.g., Copyright 2026), the PhD ``cite as'',
+%	and the PhD spine year.
+%	If not set, the current year is used.
+%
+% \DescribeMacro[common]{\academicyear}\marg{YYYY--YYYY}\margintext{(mandatory)}\\
+%	Specifies the academic year and sets the |\@academicyear| tag.
+%	Not mandatory for report class.
+%	Used in title page of the report, bama, course, and phd classes,
+%	and the footer of the exam class.
+% \iffalse
+%<*clo>
+\newcommand*{\@academicyear}{YYYY--YYYY}
+\newcommand*{\academicyear}[1]{\renewcommand*{\@academicyear}{#1}}
+%</clo>
+%<rp> \renewcommand*{\@academicyear}{}
+% \fi
+%
+% \DescribeMacro[common]{\location}\marg{location}\DescribeDefault{(Ghent)}\\
+%	Sets the location tag (|\@location|).
+%	The default is Ghent, translated to NL or EN using the dictionaries.
+%	Used in the default signing page of the bama class and the PhD data page.
+% \iffalse
+%<*clo>      
+\newcommand*\@location{\translatekey{ghent}}
+\newcommand*{\location}[1]{\renewcommand*\@location{#1}}
+%</clo>
+% \fi
+%
+%
 % \subsection{Name and sequence parsing}
 % \label{S:nameseqparse}
 % Names are always input as "Surname, Firstname"
@@ -1946,9 +2021,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeOption[common]{nameformat}\DescribeDefault{surnamelast}
-% Options:\\
-%|surnamefirst|: outputs all names as ``Surname Firstname''\\
-%|surnamelast|: outputs all names as ``Firstname Surname''
+%	Options:\\
+%	|surnamefirst|: outputs all names as ``Surname Firstname''\\
+%	|surnamelast|: outputs all names as ``Firstname Surname''
 %
 % \iffalse
 %<*clo>
@@ -1970,12 +2045,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % sequences.
 %
 % \DescribeMacro[common]{\printseq}\marg{sequence name}\marg{two-item-separator}\marg{separator}\marg{last-separator}\\
-% When used, returns the items in |<sequence name>| in order with the separators.
-% These separators can be anything, even newlines.\\
-% For example, \txtcmd{printseq\{authors\}\{\textasciitilde{}\&\textasciitilde{}\}\{,\textasciitilde{}\}\{\textbackslash translatekey\{andlist\},\textasciitilde{}\}} returns:\\
-% Single item: |Name1|\\
-% Two-item list:  |Name1| \& |Name2|\\
-% Multi-item list: |Name1|, |Name2|, and |Name3|
+%	When used, returns the items in |<sequence name>| in order with the separators.
+%	These separators can be anything, even newlines.\\
+%	For example, \txtcmd{printseq\{authors\}\{\textasciitilde{}\&\textasciitilde{}\}\{,\textasciitilde{}\}\{\textbackslash translatekey\{andlist\},\textasciitilde{}\}} returns:\\
+%	Single item: |Name1|\\
+%	Two-item list:  |Name1| \& |Name2|\\
+%	Multi-item list: |Name1|, |Name2|, and |Name3|
 %
 % \iffalse
 %<*clo>
@@ -1988,8 +2063,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeMacro[common]{\ifseqempty}\marg{sequence name}\marg{true code}\marg{false code}\\
-% If the sequence |<sequence name>| is empty, the |<true code>| is executed,
-% otherwise the |<false code>| is executed.
+%	If the sequence |<sequence name>| is empty, the |<true code>| is executed,
+%	otherwise the |<false code>| is executed.
 %
 % \iffalse
 %<*clo>
@@ -2007,11 +2082,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeMacro[common]{\getseqcaption}\oarg{casing option}\marg{sequence name}\marg{post-caption content}\\
-% Fetches the caption of a sequence depending on its length. For example, using
-% this macro on the |authors| sequence returns the dictionary key |author|
-% (i.e., 'Author') if only one entry is present and |authors| (i.e., 'Authors')
-% if multiple are present. Does not support non-'s' terminated sequences.
-% For empty sequences, the |<post-caption content>| is not executed.
+%	Fetches the caption of a sequence depending on its length. For example, using
+%	this macro on the |authors| sequence returns the dictionary key |author|
+%	(i.e., 'Author') if only one entry is present and |authors| (i.e., 'Authors')
+%	if multiple are present. Does not support non-'s' terminated sequences.
+%	For empty sequences, the |<post-caption content>| is not executed.
 %
 % \iffalse
 %<*clo>
@@ -2062,11 +2137,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeOption[phd|bookcover]{cameraready}\DescribeDefault{false}
-% Options: |true|, |false|\\
-% Forces the PhD format to be printed on A4 with bleed space,
-% for if your printshop requires as a camera-ready copy.
-% For the bookcover class, this sets a bleed space and fold or cut
-% markers. See Section~\ref{S:optionspackages} for customization.
+%	Options: |true|, |false|\\
+%	Forces the PhD format to be printed on A4 with bleed space,
+%	for if your printshop requires as a camera-ready copy.
+%	For the bookcover class, this sets a bleed space and fold or cut
+%	markers. See Section~\ref{S:optionspackages} for customization.
 % \iffalse
 %<*phd|bkc>
 \bool_new:N \l_@@_cameraready_bool
@@ -2079,9 +2154,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeOption[phd|course]{bare}\DescribeDefault{false}
-% Options: |true|, |false|\\
-% Removes the front and back cover, such that you can give
-% a 'bare' version containing only the paper contents to your printshop.
+%	Options: |true|, |false|\\
+%	Removes the front and back cover, such that you can give
+%	a 'bare' version containing only the paper contents to your printshop.
 % \iffalse
 %<*phd|crs>
 \bool_new:N \l_@@_bare_bool
@@ -2094,9 +2169,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeOption[phd|course]{thumbs}\DescribeDefault{true}
-% Options: |true|, |false|\\
-% Adds chapter thumb indexes to your document.
-% See Section~\ref{S:optionspackages} for customization.
+%	Options: |true|, |false|\\
+%	Adds chapter thumb indexes to your document.
+%	See Section~\ref{S:optionspackages} for customization.
 % \iffalse
 %<*phd|crs>
 \bool_new:N \l_@@_thumbs_bool
@@ -2110,11 +2185,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeOption[course|report]{copyright}\DescribeDefault{false}
-% Options: |true|, |false|\\
-% Forces printing a watermark on every page. For the
-% paper version of your document, this is inappropriate, but for any
-% e-copy you make available, this may be appropriate.
-% See Section~\ref{S:optionspackages} for customization.
+%	Options: |true|, |false|\\
+%	Forces printing a watermark on every page. For the
+%	paper version of your document, this is inappropriate, but for any
+%	e-copy you make available, this may be appropriate.
+%	See Section~\ref{S:optionspackages} for customization.
 % \iffalse
 %<*crs|rp>      
 \bool_new:N \l_@@_copyright_bool
@@ -2127,11 +2202,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeOption[exam]{examiner}\DescribeDefault{false}
-% Options: |true|, |false|\\
-% Allows setting the exam class in examiner mode,
-% mentioning the examiner mode on every page (as regular text in the
-% header and also in a watermark) to make sure you never hand out
-% that copy to students. Also suppresses the fillout pages.
+%	Options: |true|, |false|\\
+%	Allows setting the exam class in examiner mode,
+%	mentioning the examiner mode on every page (as regular text in the
+%	header and also in a watermark) to make sure you never hand out
+%	that copy to students. Also suppresses the fillout pages.
 % \iffalse
 %<*ex>
 \bool_new:N \l_@@_examiner_bool
@@ -2143,10 +2218,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 % \fi
 %
-% \DescribeOption[bama|report]{coverbg}\DescribeDefault{false}
-% Options: |true|, |false|\\
-% Sets a cover background with the relevant UGent or faculty color,
-% depending on |faculty| and |neutralcolors| options.
+%	\DescribeOption[bama|report]{coverbg}\DescribeDefault{false}
+%	Options: |true|, |false|\\
+%	Sets a cover background with the relevant UGent or faculty color,
+%	depending on |faculty| and |neutralcolors| options.
 % \iffalse
 %<*bama|rp>
 \keys_define:nn { ugentdocs } {
@@ -2157,8 +2232,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeOption[letter]{foldline}\DescribeDefault{true}
-% Options: |true|, |false|\\
-% Adds a little fold line to the letter margin, 1/3 of the page height from the top.
+%	Options: |true|, |false|\\
+%	Adds a little fold line to the letter margin, 1/3 of the page height from the top.
 % \iffalse
 %<*le>
 \bool_new:N \l_@@_foldline_bool
@@ -2172,8 +2247,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeOption[bookcover]{covertype}
-% Options: |phd|, |course|\\
-% Passes the cover type to construct to the bookcover class.
+%	Options: |phd|, |course|\\
+%	Passes the cover type to construct to the bookcover class.
 % \iffalse
 %<*bkc>
 \keys_define:nn { ugentdocs } {
@@ -2309,6 +2384,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %		|beamerposter|		& Custom slide dimensions for beamer			\\
 %		|color|				& Colour management								\\
 %		|crop|				& Camera-ready version of PhD dissertations		\\
+%		|datetime2|			& Enhanced date parsing with language support	\\
 %		|environ|			& Custom environments for beamer template		\\
 %		|eso-pic|			& \textcolor{red}{replacement in progress}		\\
 %		|etoolbox|			& Toolbox for class definitions	internally		\\
@@ -2389,6 +2465,21 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\PassOptionsToPackage{main=english}{babel}
 }
 \RequirePackage[dutch,english]{babel}
+\ExplSyntaxOff
+%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%    \end{macrocode}
+%   \item |datetime2|: sets the date format based on the |localizedates| option.
+%			You can add more languages by calling \txtcmd{usepackage[<languages>]\{babel\}}
+%			again in your customization file, but make sure a dictionary is available for
+%           the |main| language (see Section \ref{S:dict}).
+%    \begin{macrocode}
+%<*crs|bama|phd|rp|le|ex|bkc|bmr> 
+\ExplSyntaxOn
+\bool_if:NTF \l_@@_localizedates_bool {
+	\RequirePackage[useregional]{datetime2}
+}{
+	\RequirePackage{datetime2}
+}
 \ExplSyntaxOff
 %</crs|bama|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
@@ -2535,13 +2626,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \subsection{Macros}
 % \label{S:macros}
+% In the following sections, the macros used in the documents are explained.
+% If a macro is mandatory, it is noted in the margin, and a placeholder text is
+% set by default.
+%
+%
 % \subsubsection{Inset text and quotes}
 % \label{S:inset}
 % 
 % \DescribeMacro[bama|phd|course|report]{\insettext}\marg{title}\marg{content}\\
-% Formats the |title| and |content| into a text box. By default, the colours are\\
-% faculty-based (|insetboxcolor|).\\
-% Examples:\\
+%	Formats the |title| and |content| into a text box. By default, the colours are\\
+%	faculty-based (|insetboxcolor|).\\
+%	Examples:\\
 %
 % \newcommand{\insettext}[2]{
 %	\begin{adjustbox}{center}
@@ -2597,10 +2693,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bama|phd|crs|rp>
 %    \end{macrocode}
 %
-%% \DescribeMacro[bama|phd|course|report]{\insetquote}\marg{quote}\marg{citation}\\
-% Formats the |quote| and |citation| into a text box using |insettext|.
-% By default, the colours are faculty-based (|insetboxcolor|).\\
-% Example:\\ \txtcmd{insetquote\{I feel quite hungry!\}\{Some dude from Bohemia named Henry\}}\\
+% \DescribeMacro[bama|phd|course|report]{\insetquote}\marg{quote}\marg{citation}\\
+%	Formats the |quote| and |citation| into a text box using |insettext|.
+%	By default, the colours are faculty-based (|insetboxcolor|).\\
+%	Example:\\ 
+%	\txtcmd{insetquote\{I feel quite hungry!\}\{Some dude from Bohemia named Henry\}}\\
 %
 % \makeatletter
 % \newlength{\quotetextwidth}
@@ -2633,7 +2730,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \makeatother
 %
 % \insetquote{I feel quite hungry!}{Some dude from Bohemia named Henry}
-
+%
 % Implementation:
 %    \begin{macrocode}
 %<*bama|phd|crs|rp>
@@ -2766,46 +2863,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</rp>
 %    \end{macrocode}
 % \end{imacro}
-% \DescribeMacro{\defensedate} [phd] (mandatory)\\
-% Mention the full date, i.e. day month and year of your public defense
-% 
-% \DescribeMacro{\date} [letter] (optional) \\
-% Date of the letter. If not specified today's date (at the time of
-% running \LaTeX{}) will be used.
 %
-% \DescribeMacro{\year} [course / report] (mandatory)\\
-% This is to be the year in which you published the current version of
-% the course in the form YYYY.
-% \DescribeMacro{\academicyear} [course / bama]
-% (mandatory)\\
-% Use this macro to specify the academic year in full, i.e. in the
-% form |XXXX-YYYY|. 
-% \DescribeMacro{\academicyear} [exam] (mandatory)\\
-% Use this macro to specify the academic year in full, i.e. in the
-% form |XXXX-YYYY|.
-% \begin{imacro}{\academicyear}
-%   This macro sets the |\@academicyear| tag that later will be used on
-%   the title page.
-%    \begin{macrocode}
-%<*crs|bama|phd|ex|bkc|rp>      
-\newcommand*{\@academicyear}{}
-\newcommand*{\academicyear}[1]{\renewcommand*{\@academicyear}{#1}}
-%</crs|bama|phd|ex|bkc|rp>
-%    \end{macrocode}
-% \end{imacro}
-% \DescribeMacro{\defenselocation} [phd]
-% (optional)\\ 
-% Location of the defense. Defaults to ``Antwerpen''.
-% \begin{imacro}{\location}
-%   This macro sets the |\@location| tags that later will
-%   be used on the dissertation copyright page. 
-%    \begin{macrocode}
-%<*phd|bkc|bama|rp>      
-\newcommand*\@location{\translatekey{ghent}}
-\newcommand*{\location}[1]{\renewcommand*\@location{#1}}
-%</phd|bkc|bama|rp>
-%    \end{macrocode}
-% \end{imacro}
 %
 %
 % \DescribeMacro{\titlepageimage} [phd / report]
@@ -2888,7 +2946,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</crs|ex|bkc|phd|bama> 
-
+%
 %    \end{macrocode}
 % \end{imacro}
 %
@@ -3022,17 +3080,33 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\msg_error:nn { ugentdocs } { embargo-end-without-start }
 		}
 	}{
-		\tl_if_empty:NTF \l_@@_embargoenddate_tl { 
-			\msg_error:nn { ugentdocs } { embargo-start-without-end } 
+		\tl_if_empty:NTF \l_@@_embargoenddate_tl {
+			\msg_error:nn { ugentdocs } { embargo-start-without-end }
 		}{
 			\bool_set_true:N \l_@@_embargotemp_bool
 			\regex_replace_all:nnN {\s} {\c{space}} \l_@@_embargostartdate_tl
 			\regex_replace_all:nnN {\s} {\c{space}} \l_@@_embargoenddate_tl
-			\tl_gset_eq:NN \@embargotempstart \l_@@_embargostartdate_tl
-			\tl_gset_eq:NN \@embargotempend \l_@@_embargoenddate_tl
+			\@@_embargostoredate:NN \@embargotempstart \l_@@_embargostartdate_tl
+			\@@_embargostoredate:NN \@embargotempend \l_@@_embargoenddate_tl
 		}
 	}
 }
+
+\cs_new_protected:Nn \@@_embargostoredate:NN {
+	\tl_set:Nx \l_@@_embargodatetmp_tl {#2}
+	\exp_args:Nnx \regex_match:nnTF {^\d{4}-\d{2}-\d{2}$} {\l_@@_embargodatetmp_tl} %$
+	{
+		\tl_gset:Nx #1 {
+			\exp_not:N \DTMdisplaydate
+			{ \exp_args:NV \tl_range:nnn \l_@@_embargodatetmp_tl {1} {4} }
+			{ \exp_args:NV \tl_range:nnn \l_@@_embargodatetmp_tl {6} {7} }
+			{ \exp_args:NV \tl_range:nnn \l_@@_embargodatetmp_tl {9} {10} }
+			{-1}
+		}
+	}
+	{ \tl_gset_eq:NN #1 #2 }
+}
+
 \ExplSyntaxOff
 %</phd|bkc|bama>
 %    \end{macrocode}
@@ -3472,7 +3546,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</le|rp> 
 %    \end{macrocode}
 % \end{imacro}
-
+%
 % \subsubsection{Course macros}
 % \label{S:course}
 % \DescribeMacro{\course} [exam] (mandatory)\\
@@ -3503,28 +3577,28 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % An example of such a code: 1001FTIWIS, for the first-semester
 % mathematics course of the Faculty of Applied Engineering.
 % \begin{imacro}{\course}
-	%   Four the |course| class, this macro sets one or more
-	%   courses. 
-	%   and |\@course| tags that later will be used on the title
-	%   page.
-	%    \begin{macrocode}
-	%<*crs|ex>
-	\ExplSyntaxOn
-	\seq_new:N \g_@@_courseswithcodes_seq
-	\seq_new:N \g_@@_courses_seq
-	\seq_new:N \g_@@_coursecodes_seq
-	\cs_new:Nn \@@_addcourse:nn {
-		\seq_gput_right:Nn \g_@@_courseswithcodes_seq { \texttt{#1}~#2\strut }
-		\seq_gput_right:Nn \g_@@_courses_seq 			{ #2\strut }
-		\seq_gput_right:Nn \g_@@_coursecodes_seq { \texttt{#1}\strut }
-	}
-	\NewDocumentCommand{\course}{mm}{
-		\@@_addcourse:nn { #1 } { #2 }
-	}
-	\ExplSyntaxOff
-	%</crs|ex>
-	%    \end{macrocode}
-	% \end{imacro}
+%   Four the |course| class, this macro sets one or more
+%   courses. 
+%   and |\@course| tags that later will be used on the title
+%   page.
+%    \begin{macrocode}
+%<*crs|ex>
+\ExplSyntaxOn
+\seq_new:N \g_@@_courseswithcodes_seq
+\seq_new:N \g_@@_courses_seq
+\seq_new:N \g_@@_coursecodes_seq
+\cs_new:Nn \@@_addcourse:nn {
+	\seq_gput_right:Nn \g_@@_courseswithcodes_seq { \texttt{#1}~#2\strut }
+	\seq_gput_right:Nn \g_@@_courses_seq 			{ #2\strut }
+	\seq_gput_right:Nn \g_@@_coursecodes_seq { \texttt{#1}\strut }
+}
+\NewDocumentCommand{\course}{mm}{
+	\@@_addcourse:nn { #1 } { #2 }
+}
+\ExplSyntaxOff
+%</crs|ex>
+%    \end{macrocode}
+% \end{imacro}
 %
 % \DescribeMacro{\courseversion} [course] (optional)\\
 % This macro indicates which version of the course this is.
@@ -3565,7 +3639,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs> 
 %    \end{macrocode}
 % \end{imacro}
-
+%
 %
 %
 % 
@@ -3917,9 +3991,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeMacro{\sender} [letter] (mandatory)\\
 % Description of the person writing the letter.
 % \begin{itemize}
-	% \item first argument: name of the person writing the letter
-	% \item second argument: title / role of the person
-	% \end{itemize}
+% \item first argument: name of the person writing the letter
+% \item second argument: title / role of the person
+% \end{itemize}
 % Newlines are not allowed in the arguments.
 % \begin{imacro}{\sender}
 % This macro sets the |\@sender| and |\@senderrole| tags that will be
@@ -4256,7 +4330,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOff
 %</ex>
 %    \end{macrocode}
-
+%
 % Some common code remains:
 %    \begin{macrocode}
 %<*crs>
@@ -5488,7 +5562,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 				\l_@@_supervisorcalls_tl									   \iow_newline:
 				\bool_if:NT \l_@@_embargo_bool {
 					\bool_if:NTF \l_@@_embargotemp_bool {
-						\exp_not:N\embargo[start={\@embargotempstart}, end={\@embargotempend}] \iow_newline:
+						\exp_not:N\embargo[start=\l_@@_embargostartdate_tl, end=\l_@@_embargoenddate_tl] \iow_newline:
 					}{
 						\exp_not:N\embargo \iow_newline:
 					}
@@ -5791,7 +5865,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{imacro}
 % 
 % 
-
+%
 % \subsection{Cross-references}
 %    \begin{macrocode}
 %<*crs|bama|phd|rp>
@@ -5822,7 +5896,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 %</crs|bama|phd|rp> 
 %    \end{macrocode}
-
+%
 % \clearpage
 % \newgeometry{left=3cm,right=2cm,top=2cm,bottom=2.5cm}
 % \section{Examples}
@@ -6105,7 +6179,7 @@ e^{-j\pi} + 1 = 0
 %% if your manuscript is under an embargo, use the \embargo macro.
 %% If the embargo is temporary (1, 2 or 5 years), please
 %%  specify (language agnostic) start and end date of the embargo period:
-\embargo[start={21/05/2027},end={20/05/2032}]
+\embargo[start = 2027-05-21, end = 2032-05-20]
 
 %% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
 %% multiple logos should be spaced 1 \gridunit
@@ -6290,7 +6364,7 @@ ruimtemodellering} %% either don't split titles, or do so with hyphen
 %% if your manuscript is under an embargo, use the \embargo macro.
 %% If the embargo is temporary (1, 2 or 5 years), please
 %% specify (language agnostic) start and end date of the embargo period:
-%% \embargo[start={21/05/2027},end={20/05/2032}]
+%% \embargo[start = 2027-05-21, end = 2032-05-20]
 
 %% you can specify company logos. Height should be (at most) 2\gridunit (or about 2.12cm),
 %% multiple logos should be spaced 1 \gridunit
@@ -6482,7 +6556,7 @@ T: +32 9 264 51 19
 %% specify your degree (manually) and where and when you obtain your degree
 \degree{doctor in de plantbiotechnologie}
 \location{Gent}
-\date{21 mei 2025}
+\date{2025-05-21}
 \academicyear{2024--2025}
 
 %% specify a fancy photo for your titlepage (if you don't want a dull one)
@@ -6501,7 +6575,7 @@ T: +32 9 264 51 19
 %% if your manuscript is under an embargo, use the \embargo macro.
 %% If the embargo is temporary (1, 2 or 5 years), please
 %%  specify (language agnostic) start and end date of the embargo period:
-\embargo[start={21/05/2027},end={20/05/2032}]
+\embargo[start = 2027-05-21, end = 2032-05-20]
 
 %% some data about your manuscript (if you obtained DOI/ISBN)
 %% \doi{10.1000/182}
@@ -6684,7 +6758,7 @@ T: +32 9 264 51 19
 %% specify your degree (manually) and where and when you obtain your degree
 \degree{doctor in Bioscience Engineering}
 \location{Ghent}
-\date{May 24, 2025}
+\date{2025-05-24}
 
 %% specify a fancy photo for your coverpage and the designer (if you don't want a dull one)
 \titlepageimage{Images/ugent-oehoe}
@@ -6702,7 +6776,7 @@ T: +32 9 264 51 19
 %% if your manuscript is under an embargo, use the \embargo macro.
 %% If the embargo is temporary (1, 2 or 5 years), please
 %%  specify (language agnostic) start and end date of the embargo period:
-%% \embargo[start={21/05/2027},end={20/05/2032}]
+%% \embargo[start = 2027-05-21, end = 2032-05-20]
 \embargo
 
 %% some data about your manuscript  (if you obtained DOI/ISBN)
@@ -7148,7 +7222,7 @@ Mumford, DX 94305-2004\\
 USA}
 
 %% a proper letter mentions a date of writing and a subject
-\date{January 3, 2026}
+\date{2026-01-03}
 \subject{Congratulations for online video lectures}
 
 \begin{document}
