@@ -215,6 +215,42 @@
 % available to your \LaTeX{} compiler. Most of these should be installed by
 % default in TeXLive distributions or can be made to auto-install for MikTeX.
 %
+% \section*{How to read this documentation}
+% \begin{itemize}
+%	\item When an option or macro (command) is being described, its name
+%		 is shown in the left margin.
+%	\item If an option is being described instead of a macro,
+%		this is shown in the margin by the \textit{(Opt)} note.
+%	\item The classes for which an option or macro is available are given
+%		between square brackets in the margin, e.g. [phd|course].
+%	\item Most options can be set as |option=value| in your
+%		\txtcmd{documentclass[<options>]\{class\}} command, but also plain
+%		|value| works.
+%	\item This: |<name>| is a placeholder. Replace it with your own text.
+%	\item For macros, mandatory arguments are shown between curly braces \{\},
+%		and optional arguments are shown between square braces [], just as they
+%		are when you use them.
+%	\item When implementation code is shown, in the docstrip guard blocks
+%		denoting for which classes the code is available, some shorthand class
+%		names are used, e.g., |crs=course|, |rp=report|, |le=letter|, |ex=exam|,
+% 		|bkc=bookcover|, and |bmr=beamer|. |bama| remains |bama|.
+%	\item In general, \txtcmd{macros} are commands you can use in your main.tex
+%		document file. 
+%	\item Some \txtcmd{@macros} or \txtcmd{@tags} are for internal usage, but
+%		they can be retrieved or executed by wrapping them in 
+%		\txtcmd{makeatletter} and \txtcmd{makeatother} (required due to the @
+%		sign). Some of these are also meant to be sections of code you can
+%		customize (see ``A note on customization'' below). If so, their
+%		implementation code is shown in this docs for copy-pasting to your
+%		customization file.
+%	\item \LaTeX{3} variables are formatted as |\scope_@@_varname_vartype|,
+%		e.g., the local boolean variable |\l_@@_embargo_bool| (g is used instead
+%		for global). Control sequences are formatted as |\@@_csname| or 
+%		|\_@@_csname| (for private control sequences). If you want to use 
+%		L3 control sequences or variables in customized code, you need to 
+%		replace '|@@|' with '|_ugentdocs|'!
+% \end{itemize}   
+%
 % \section*{A note on fonts}
 %
 % The house style of Ghent University recommends two fonts:
