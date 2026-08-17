@@ -19,6 +19,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Mark repo safe for changelog.md compilation
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Determine version string
         id: version
         run: |
