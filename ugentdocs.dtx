@@ -1942,7 +1942,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \iffalse
 %<*clo>      
 \newcommand*\@location{\translatekey{ghent}}
-\newcommand*{\location}[1]{\renewcommand*\@location{#1}}
+\AtEndOfClass{ % after letter class loads
+	\providecommand*{\location}{} % if not letter class
+	\renewcommand*{\location}[1]{\renewcommand*\@location{##1}}
+	\def\fromlocation{##1} % letter class compat
+}
 %</clo>
 % \fi
 %
