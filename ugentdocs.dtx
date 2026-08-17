@@ -222,7 +222,7 @@
 %	\item If an option is being described instead of a macro,
 %		this is shown in the margin by the \textit{(Opt)} note.
 %	\item The classes for which an option or macro is available are given
-%		between square brackets in the margin, e.g. [phd|course].
+%		between square brackets in the margin, e.g. [phd\|course].
 %	\item Most options can be set as |option=value| in your
 %		\txtcmd{documentclass[<options>]\{class\}} command, but also plain
 %		|value| works.
@@ -458,12 +458,12 @@
 % \newpage
 % Some class options change colour handling:
 % 
-% \DescribeOption{neutralcolors}\DescribeDefault{false}
+% \DescribeOption[common]{neutralcolors}\DescribeDefault{false}
 % Options: |true|, |false|\\
-% When enabled (|neutralcolors=true|), UGent colours override the faculty colour.
+% When enabled (|neutralcolors=true| or plain |neutralcolors|), UGent colours override the faculty colour.
 % If the faculty option is empty (see later), UGent colours will always be used.
 % 
-% \DescribeOption{colormodel}\DescribeDefault{rgb}
+% \DescribeOption[common]{colormodel}\DescribeDefault{rgb}
 % Options: |rgb|, |cmyk|\\
 % These set the colour model of faculty and UGent colours used.
 % For digital display, rgb is preferable. 
@@ -595,13 +595,13 @@
 % UGent Panno Text and its Medium and SemiLight variants should always be 
 % installed\watchout -- and the document compiled using \LuaLaTeX{} -- as they are used in
 % the logo's. For the document itself, it is recommended to use UGent Panno Text
-% as well, which is set through the |\setsansfont{UGent Panno Text}[...]| block
+% as well, which is why it is set by default through the |\setsansfont{UGent Panno Text}[...]| block
 % below. However, Arial is also a valid official alternative and can override
 % UGent Panno Text by adding the |\setsansfont{Arial}[...]| block below to the
 % beginning of your document. UGent uses Arial as default for Word and
 % PowerPoint templates as these are distributed outside Ghent University.
 % This is not applicable for \LaTeX however, as pdf's are always generated.
-% Thus, UGent Panno Text is used everywhere.
+% Thus, UGent Panno Text is the default everywhere.
 %
 % \begin{verbatim}
 % \setsansfont{UGent Panno Text}[
@@ -626,7 +626,7 @@
 % \end{verbatim}	
 %
 % Since both the official fonts are sans-serif, we use the |unicode-math| package
-% with the Noto Sans Math font if available with, and the TeX Gyre DejaVu Math
+% with the Noto Sans Math font if available, and the TeX Gyre DejaVu Math
 % font otherwise. You can override these fonts by using \txtcmd{setmathfont\{<font>\}}.
 %
 % \iffalse
@@ -826,7 +826,7 @@
 %</clo>
 % \fi
 %
-% \DescribeOption{faculty}\DescribeDefault{empty}
+% \DescribeOption[common]{faculty}\DescribeDefault{empty}
 % Options: |lw|, |re|, |we|, |ge|, |ea|, |eb|, |di|, |pp|, |bw|, |fw|, |ps|\\
 % Used as, e.g., |faculty=bw|, but also plain |bw| works. Sets the faculty selector
 % (\txtcmd{@fselector}) to this value, which is used to determine the faculty
@@ -1037,8 +1037,8 @@
 % \fi
 %
 % When the faculty is specified, the \txtcmd{@faculty} and \txtcmd{@facultyacronym}
-% tags are set. You can retrieve these similar to the \txtcmd{@title} tag by
-% wrapping it in \txtcmd{makeatletter} and \txtcmd{makeatother} (due to the @ sign).
+% tags are set. You can retrieve these similar to the \LaTeX{}-native \txtcmd{@title} tag by
+% wrapping it in \txtcmd{makeatletter} and \txtcmd{makeatother} (required due to the @ sign).
 % For example:
 % \begin{itemize}
 %	\item \txtcmd{makeatletter}\txtcmd{@faculty}\txtcmd{makeatother}:
@@ -1046,10 +1046,10 @@
 %	\item \txtcmd{makeatletter}\txtcmd{@facultyacronym}\txtcmd{makeatother}:
 %		\makeatletter\@facultyacronym\makeatother
 % \end{itemize}
-% \DescribeMacro{\faculty}\marg{name}\\
+% \DescribeMacro[common]{\faculty}\marg{name}\\
 % Overrides the faculty tag \txtcmd{@faculty} with the |name| entered.
 % Name only, no logos or colours! 
-% To use for, e.g., faculty services like |Directie ICT| for letters or beamer.
+% To use for, e.g., faculty services like |Directie ICT| for letters or beamer slides.
 %
 % \iffalse
 %<*clo>
@@ -1082,11 +1082,11 @@
 %</clo>
 % \fi
 %
-% \DescribeMacro{\department}\marg{name}\\
+% \DescribeMacro[common]{\department}\marg{name}\\
 % Sets the department tag \txtcmd{@department} with the |name| entered.
 % Currently unused.
 %
-% \DescribeMacro{\unit}\marg{name}\\
+% \DescribeMacro[common]{\unit}\marg{name}\\
 % Sets the unit tag \txtcmd{@unit} with the |name| entered.
 % Can be used to set ``Team ...'' or your research lab to the second line of the
 % letter header or beamer title page.
@@ -1120,9 +1120,10 @@
 %</clo>
 % \fi
 %
-% \DescribeMacro{\ficon}\marg{height}\marg{color}\marg{alignment}\\
+% \DescribeMacro[common]{\ficon}\marg{height}\marg{color}\marg{alignment}\\
 % When used within a tikzpicture, this prints the faculty icon. The height is a
-% length, the alignment ranges from 0 (left edge) to 1 (right edge).\\
+% length, the alignment ranges from 0 (left edge) to 1 (right edge).
+% The color can be set to, e.g., white to print on a dark background.\\
 % Usage:
 %
 % \txtcmd{begin\{tikzpicture\}}\txtcmd{ficon\{1cm\}\{ugent@faculty\}\{0\}}\txtcmd{end\{tikzpicture\}}\\
@@ -1146,7 +1147,7 @@
 %</clo>
 % \fi
 %
-% \DescribeMacro{\faclogo}\marg{height}\marg{color}\marg{alignment}\\
+% \DescribeMacro[common]{\faclogo}\marg{height}\marg{color}\marg{alignment}\\
 % When used within a tikzpicture, this prints the faculty logo. The height is a
 % length, the alignment ranges from 0 (left edge) to 1 (right edge).
 % The color can be set to, e.g., white to print on a dark background.\\
@@ -1258,10 +1259,10 @@
 % \subsubsection{Campus}
 % \label{S:campus}
 %
-% \DescribeOption{campus}\DescribeDefault{ugent}
+% \DescribeOption[common]{campus}\DescribeDefault{ugent}
 % Options: |ugent|, |kortrijk|, |gugc|\\
 % Used as, e.g., |campus=kortrijk|, but also plain |kortrijk| works.
-% Only affects the ugent logo.
+% Only affects the UGent logo.
 %
 % \iffalse
 %<*clo>
@@ -1280,9 +1281,10 @@
 %</clo>
 % \fi
 %
-% \DescribeMacro{\ugenticon}\marg{height}\marg{color}\marg{alignment}\\
-% When used within a tikzpicture, this prints the ugent icon.
-% The height is a length, the alignment ranges from 0 (left edge) to 1 (right edge).\\
+% \DescribeMacro[common]{\ugenticon}\marg{height}\marg{color}\marg{alignment}\\
+% When used within a tikzpicture, this prints the UGent icon.
+% The height is a length, the alignment ranges from 0 (left edge) to 1 (right edge).
+% The color can be set to, e.g., white to print on a dark background.\\
 % Usage:
 %
 % \txtcmd{begin\{tikzpicture\}}\txtcmd{ugenticon\{1cm\}\{ugent@main\}\{0\}}\txtcmd{end\{tikzpicture\}}\\
@@ -1319,8 +1321,8 @@
 %</clo>
 % \fi
 
-% \DescribeMacro{\ugentlogo}\marg{height}\marg{color}\marg{alignment}\\
-% When used within a tikzpicture, this prints the ugent logo, dependent on
+% \DescribeMacro[common]{\ugentlogo}\marg{height}\marg{color}\marg{alignment}\\
+% When used within a tikzpicture, this prints the UGent logo, dependent on
 % the campus. The height is a length, the alignment ranges from 0 (left edge)
 % to 1 (right edge).
 % The color can be set to, e.g., white to print on a dark background.\\
@@ -1457,7 +1459,7 @@
 % \label{S:dict}
 % The |ugentdocs| documents can be written in either english or dutch:
 %
-% \DescribeOption{language}\DescribeDefault{english}
+% \DescribeOption[common]{language}\DescribeDefault{english}
 % Options: |dutch|, |english|\\
 % Sets the main document language and all automatic text.
 %
@@ -1558,10 +1560,10 @@
 % \fi
 % A key can be translated to the currently active babel language using:
 %
-% \DescribeMacro{\translatekey}\oarg{expand}\oarg{casing}\marg{key}\\
+% \DescribeMacro[common]{\translatekey}\oarg{expand}\oarg{casing}\marg{key}\\
 % Translates the |<key>| using the currently active language (babel), either the main
 % language, overridden with \txtcmd{selectlanguage\{<languagename>\}} or
-% temporarily set using the\\ \txtcmd{foreignlanguage\{<languagename>\{\ldots\}\}}
+% temporarily set using the\\ \txtcmd{foreignlanguage\{<languagename>\}\{\ldots\}}
 % wrapper. A list of keys can be found in the dictionaries below.\\
 % Optional arguments:\\
 % |expand| - expands the |key|, for use with a key such as |org-\@fselector|\\
@@ -1600,7 +1602,7 @@
 % By default, only english and dutch dictionaries are supported, but a different
 % language can be loaded using:
 %
-% \DescribeMacro{\useugentdocsdictionary}\marg{languagename}\\
+% \DescribeMacro[common]{\useugentdocsdictionary}\marg{languagename}\\
 % When used, the dictionary reader will load a file named
 % |ugentdocs-<languagename>.dict| into the dictionary library.
 % If you want to use this language as main document language, be sure to load
@@ -1943,7 +1945,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</clo>
 % \fi
 %
-% \DescribeOption{nameformat}\DescribeDefault{surnamelast}
+% \DescribeOption[common]{nameformat}\DescribeDefault{surnamelast}
 % Options:\\
 %|surnamefirst|: outputs all names as ``Surname Firstname''\\
 %|surnamelast|: outputs all names as ``Firstname Surname''
@@ -1967,7 +1969,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % in \LaTeX{}3 sequences. Several macros are introduced here to work with those
 % sequences.
 %
-% \DescribeMacro{\printseq}\marg{sequence name}\marg{two-item-separator}\marg{separator}\marg{last-separator}\\
+% \DescribeMacro[common]{\printseq}\marg{sequence name}\marg{two-item-separator}\marg{separator}\marg{last-separator}\\
 % When used, returns the items in |<sequence name>| in order with the separators.
 % These separators can be anything, even newlines.\\
 % For example, \txtcmd{printseq\{authors\}\{\textasciitilde{}\&\textasciitilde{}\}\{,\textasciitilde{}\}\{\textbackslash translatekey\{andlist\},\textasciitilde{}\}} returns:\\
@@ -1985,7 +1987,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</clo>
 % \fi
 %
-% \DescribeMacro{\ifseqempty}\marg{sequence name}\marg{true code}\marg{false code}\\
+% \DescribeMacro[common]{\ifseqempty}\marg{sequence name}\marg{true code}\marg{false code}\\
 % If the sequence |<sequence name>| is empty, the |<true code>| is executed,
 % otherwise the |<false code>| is executed.
 %
@@ -2004,7 +2006,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</clo>
 % \fi
 %
-% \DescribeMacro{\getseqcaption}\oarg{casing option}\marg{sequence name}\marg{post-caption content}\\
+% \DescribeMacro[common]{\getseqcaption}\oarg{casing option}\marg{sequence name}\marg{post-caption content}\\
 % Fetches the caption of a sequence depending on its length. For example, using
 % this macro on the |authors| sequence returns the dictionary key |author|
 % (i.e., 'Author') if only one entry is present and |authors| (i.e., 'Authors')
@@ -2062,7 +2064,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeOption[phd|bookcover]{cameraready}\DescribeDefault{false}
 % Options: |true|, |false|\\
 % Forces the PhD format to be printed on A4 with bleed space,
-% accomodating that your printshop requires as a camera-ready copy.
+% for if your printshop requires as a camera-ready copy.
 % For the bookcover class, this sets a bleed space and fold or cut
 % markers. See Section~\ref{S:optionspackages} for customization.
 % \iffalse
@@ -2078,8 +2080,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \DescribeOption[phd|course]{bare}\DescribeDefault{false}
 % Options: |true|, |false|\\
-% Removes the title page and the back page from the file, such that you can give
-% a 'bare' version to your printshop.
+% Removes the front and back cover, such that you can give
+% a 'bare' version containing only the paper contents to your printshop.
 % \iffalse
 %<*phd|crs>
 \bool_new:N \l_@@_bare_bool
@@ -2129,7 +2131,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % Allows setting the exam class in examiner mode,
 % mentioning the examiner mode on every page (as regular text in the
 % header and also in a watermark) to make sure you never hand out
-% that copy to students and suppressing the fillout pages.
+% that copy to students. Also suppresses the fillout pages.
 % \iffalse
 %<*ex>
 \bool_new:N \l_@@_examiner_bool
@@ -2156,7 +2158,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \DescribeOption[letter]{foldline}\DescribeDefault{true}
 % Options: |true|, |false|\\
-% Adds a little fold line to the letter, 1/3 of the page from the top.
+% Adds a little fold line to the letter margin, 1/3 of the page height from the top.
 % \iffalse
 %<*le>
 \bool_new:N \l_@@_foldline_bool
@@ -2334,7 +2336,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   \end{tabular}
 % \end{center}
 %
-% Make sure\watchout these packages are available to your \LaTeX{} compiler.
+% Make sure \watchout these packages are available to your \LaTeX{} compiler.
 % Most of these should be installed by default in TeXLive distributions 
 % or can be made to auto-install for MikTeX.
 %
@@ -2371,7 +2373,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Options-specific packages}
 % \label{S:optionspackages}
 %
-% Some of these packages are loaded depending on the class options set:
+% Some of the packages listed above are loaded depending on the class options set:
 %
 % \begin{itemize}
 %   \item |babel|: sets the main document language from the |language| option.
@@ -2405,7 +2407,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOff
 %</crs|rp>
 %    \end{macrocode}
-%   \item |crop|: handles the |camereready| option for the PhD class,
+%   \item |crop|: handles the |cameraready| option for the PhD class,
 %		embedding the smaller page into an A4 page with cut marks.
 %    \begin{macrocode}
 %<*phd>
@@ -2420,7 +2422,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %		You can customize them by calling \txtcmd{usepackage[<options>]\{thumbs\}}
 %		in your customization file. Be sure to apply the correct |ignorehoffset| and
 %		|ingnorevoffset| values if you use |cameraready=true| as class option.
-%		You can customize the thumb content (e.g., number) by overwriting the 
+%		You can customize the thumb content (e.g., number) and colour by overwriting the 
 %		\txtcmd{@addthumb} command in your customization file.
 %    \begin{macrocode}
 %<*phd|crs>
@@ -2441,12 +2443,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	]{thumbs}
 	
 	\newcommand*{\@addthumb}{%
-		\addthumb{\chaptername~\thechapter}
-			{\Large\bfseries\thechapter}{white}{gray!50}%
+		\addthumb{\chaptername~\thechapter}% Full chapter name
+			{\Large\bfseries\thechapter}% Chapter name in thumb (\thechapter = 1, 2, ...)
+			{white}% Chapter name color
+			{gray!50}% Thumb color
 	}
 	
 	\AddToHook{cmd/@makechapterhead/after}{%
-		\@addthumb
+		\@addthumb % Add thumb for every numbered chapter
 	}
 }
 \ExplSyntaxOff
@@ -2664,332 +2668,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 %
 %
-% \subsubsection{Macros for the course, bama, phd
-	% classes}
-%
-% \DescribeMacro{\academicyear} [course / bama]
-% (mandatory)\\
-% Use this macro to specify the academic year in full, i.e. in the
-% form |XXXX-YYYY|. 
-% 
-% \DescribeMacro{\author} [course / bama / phd /
-% report ] (mandatory)\\ 
-% This macro sets the author of the document.
-% It also sets the |pdfauthor| tag of the hyperref package (if it is
-% loaded), so that 
-% the PDF-document meta-information is correct.
-%
-% \DescribeMacro{\copyrightnotices} [course / report]
-% (optional)\\ 
-% Use this macro to specify additional copyright notice messages to
-% appear in the copyright notice on the bottom of page 2 of your
-% course text.
-% 
-% \DescribeMacro{\course} [course] (mandatory)\\
-% \label{dm-course}
-% Code (first argument) and name (second argument) of the curriculum
-% course this coursematerial or exam belongs to. The code should be of
-% the form:\\ 
-% |TNNNFFFAAA|,
-% with:
-% \begin{center}
-	%   \begin{tabular}{cp{10cm}}
-		%     \toprule
-		%       Code & Explanation \\
-		%     \midrule
-		%       |T|    & a number indicating the type of programme \\
-		%              & (1 for Bachelor courses, 2 for Master courses , 5 for
-		%                specific courses of preparatory programmes) \\
-		%       |NNN|  & a number assigned by the Faculty's administration\\
-		%       |FFF|  & the acronym of your Faculty, e.g., FTI\\
-		%       |AAA|  & an alphanumeric code assigned by the Faculty's
-		%                administration \\
-		%     \bottomrule
-		%   \end{tabular}
-	% \end{center}
-%
-% An example of such a code: 1001FTIWIS, for the first-semester
-% mathematics course of the Faculty of Applied Engineering.
-%
-% \DescribeMacro{\courseversion} [course] (optional)\\
-% This macro indicates which version of the course this is.
-%
-%
-% \DescribeMacro{\defensedate} [phd] (mandatory)\\
-% Mention the full date, i.e. day month and year of your public defense
-% 
-% \DescribeMacro{\defenselocation} [phd]
-% (optional)\\ 
-% Location of the defense. Defaults to ``Antwerpen''.
-%
-% \DescribeMacro{\doi} [phd] (optional)\\
-% Specify the correct doi URL you obtained for your document.
-% It will be typeset in your colofon.
-%
-% \DescribeMacro{\embargofull} [phd] (optional)\\
-% Generates the correct embargo message in your colofon. Adds the word
-% 'CONFIDENTIAL' to your title page.
-%
-% \DescribeMacro{\embargotemp} [phd] (optional)\\
-% This macro takes two arguments, an embargo starting date and an
-% embargo ending date.
-% Generates the correct temporary embargo message in your colofon.
-% Adds the word 'CONFIDENTIAL' to your title page.
-%
-% \DescribeMacro{\lecturer} [course] (mandatory)\\
-% You can add one or more lecturers to the course notes (in
-% Dutch: titularis). If there are multiple persons, please, use the
-% macro multiple times. 
-%
-% \DescribeMacro{\degree} [bama,phd,course] (mandatory)\\
-% This is the official degree name (in the appropriate language,
-% possibly mixed ``dutch (english)'').
-% Specify the official title of your diploma. This must be the
-% official title. For bachelor and master programmes in Dutch, it must
-% be the Dutch title. For programmes in English it may be the English
-% title. For PhD degrees, language constraints are less strict.\\
-% Consult \url{https://www.hogeronderwijsregister.be} for correct
-% bachelor and master degree titles. Consult the Doctoral bylaws of
-% the university for correct PhD degree titles.
-% Students of FTI and FWET, can use the |\bamadegree| command instead.
-% 
-% \DescribeMacro{\publishercode} [course] (mandatory)\\
-% This macro sets the publisher code of the document.
-% It is printed on the front page. This is code that the publisher
-% uses for its internal administration. It may be a proprietary code,
-% or an ISBN number.
-%
-% \DescribeMacro{\subtitle} [course / phd / report] (optional)\\
-% This macro sets the title of the document. You may use this 
-% \begin{itemize}
-	% \item to further clarify the title
-	% \item to indicate the nature of this document
-	% \end{itemize}
-% The latter is to be considered when you want to provide multiple
-% documents as parts of the full course text (e.g., Course Notes,
-% Formula Collection, Exercise Book, Solution Book).
-% This macro also sets the |subject| tag of the hyperref package  (if
-% it is loaded), 
-% so that the PDF-document meta-information is correct.
-%
-% \DescribeMacro{\supervisor} [bama / phd] (mandatory)\\
-% Specifies the person(s) that promote(s)/supervise(s) the dissertation.
-% Please, use the macro multiple times if needed.
-%
-% \DescribeMacro{\title} [course / bama / phd /
+% \newpage
+% \subsubsection{Document data}
+% \label{S:data}
+% % \DescribeMacro{\title} [course / bama / phd /
 % report] (mandatory)\\  
 % This macro sets the title of the document.
 % It also sets the |pdftitle| tag of the hyperref package (if it is
 % loaded), so that 
 % the PDF-document meta-information is correct.
-%
-% \DescribeMacro{\titlepageimage} [phd / report]
-% (optional)\\
-% This sets the filename of the central image on the title page to
-% appear clipped % within the curves. For PhD dissertations this is highly
-% advized. For course texts, this is optional. If the image is not
-% set, a flat colored area will appear. This is part of the house
-% style.
-%
-% \DescribeMacro{\year} [course / report] (mandatory)\\
-% This is to be the year in which you published the current version of
-% the course in the form YYYY.
-%
-% 
-% \subsubsection{Macros for the letter class}
-%
-% \DescribeMacro{\address} [letter] (mandatory)\\
-% Address of the sending unit (or faculty). This can be different from
-% the return address. Newlines are allowed and encouraged.
-%
-% \DescribeMacro{\carboncopy} [letter] (optional)\\
-% List of persons receiving a copy of this letter. Format at will.
-%
-% \DescribeMacro{\closeletter} [letter] (optiontal)\\
-% Close the letter (with the closing greetings and underwriting) such
-% that the letter can be continued if desired with attachments. This
-% macro generates a |\textbackslash{}clearpage|. The default is not to use this macro.
-% It is automatically invoked at the end of the letter if you did not do
-% so.
-%
-% \DescribeMacro{\closing}  [letter] (mandatory) \\
-% Closing clause of the letter. E.g. 'Best regards,'.
-%
-% \DescribeMacro{\date} [letter] (optional) \\
-% Date of the letter. If not specified today's date (at the time of
-% running \LaTeX{}) will be used.
-%
-% \DescribeMacro{\email} [letter] (optional)\\
-% E-mail address of the sending person, or the administrative person
-% tracking the letter. This must definitely be someone that can answer
-% questions related to this letter.
-% \begin{itemize}
-	% \item first argument: user name
-	% \item second argument: domain name
-	% \end{itemize}
-% You can specify multiple email addresses by using the command
-% multiple times.
-%
-% \DescribeMacro{\enclosed} [letter] (optional)\\
-% List of enclosed documents. Format at will.
-%
-% \DescribeMacro{\fax} [letter] (optional)\\
-% Probably facsimile is not used anymore, but anyway: fax number of
-% the sending person. See also |\email|.
-% You can specify multiple fax addresses by using the command
-% multiple times.
-%
-% \DescribeMacro{\logo} [letter] (optional)\\
-% file name of an alternative logo to use. The file name must be the
-% name of a file in the search path of type PDF.
-% If this macro is not used, The default logo of the university or
-% your faculty/institute will
-% be used.
-%
-% \DescribeMacro{\mobile} [letter] (optional)\\
-% Mobile phone number of the sending person. See also |\email|.
-% You can specify multiple mobile phone numbers by using the command
-% multiple times.
-%
-% \DescribeMacro{\opening}  [letter] (mandatory) \\
-% Opening address of the letter. E.g. 'Dear X,'.
-%
-% \DescribeMacro{\phone} [letter] (optional)\\
-% Phone number of the sending person. See also |\email|.
-% You can specify multiple phone numbers by using the command
-% multiple times.
-%
-% \DescribeMacro{\returnaddress} [letter] (mandatory)\\
-% This is a short return address (listed in small font on top of the
-% destination address (such that it is visible in a windowed envelope
-% (European format)). It should fit on a single line. Typically we list
-% an acronym for the unit, a room number, a campus name and address.
-% The goal is to get the undelivered letter back to the person that
-% can take action accordingly.
-%
-% \DescribeMacro{\sender} [letter] (mandatory)\\
-% Description of the person writing the letter.
-% \begin{itemize}
-	% \item first argument: name of the person writing the letter
-	% \item second argument: title / role of the person
-	% \end{itemize}
-% Newlines are not allowed in the arguments.
-%
-% \DescribeMacro{\signature}  [letter] (optional) \\
-% Add a signature (in between the closing statement of the
-% letter and the sender's name. This might be a text message or a
-% picture of your signature.
-%
-% \DescribeMacro{\subject} [letter] (mandatory) \\
-% Short descriptive subject that describes the contents of the
-% letter.
-%
-% \DescribeMacro{\to} [letter] (mandatory)\\
-% Name of the addressee. Newlines are allowed. 
-% Preferably name and role are split over two lines.
-%
-% \DescribeMacro{\toaddress} [letter] (optional)\\
-% Address of the addressee. Newlines are allowed. The address should
-% fit on max. 3 lines.
-%
-% \DescribeMacro{\toorganization} [letter] (optional)\\
-% Name of the organization that employs the addressee.
-%
-% \DescribeMacro{\unit} [letter] (optional)\\
-% Name of the unit to which the person belongs. This can be a
-% research group, a laboratory, an administrative division, etc.
-% Newlines are allowed.
-%
-% \subsubsection{Macros for the exam class}
-%
-% \DescribeMacro{\author} [exam] (mandatory)\\
-% The author of the exam (may be multiple authors, separated by
-% commas). On the title page, these will be labeled as 'Professor(s) -
-% Titularis(sen)'.
-%
-% \DescribeMacro{\academicyear} [exam] (mandatory)\\
-% Use this macro to specify the academic year in full, i.e. in the
-% form |XXXX-YYYY|.
-%
-% \DescribeMacro{\course} [exam] (mandatory)\\
-% see description of |\course| macro on page~\pageref{dm-course}.
-%
-% \DescribeMacro{\degree} [exam] (mandatory)\\
-% This is the official degree name (in the appropriate language,
-% possibly mixed ``dutch (english)'').
-% Specify the official title of your diploma. This must be the
-% official title. For bachelor and master programmes in Dutch, it must
-% be the Dutch title. For programmes in English ti may be the English
-% title. For PhD degrees, language constraints are less strict.\\
-% Consult \url{https://www.hogeronderwijsregister.be} for correct
-% bachelor and master degree titles. Consult the Doctoral bylaws of
-% the university for correct PhD degree titles.
-%
-% \DescribeMacro{\examdate}
-% specifies the date of the exam. We recommend the YYYY-MM-DD format,
-% but you are free to chose your own coding scheme for dates. We
-% advize against using UNIX epoch time, to avoid problems in the first
-% semester exams in 2038.
-%
-% \DescribeMacro{\examgroupnumber} [exam]\\
-% mentions the group number (may be empty)
-%
-% \DescribeMacro{\examlength}
-% specifies the length of the exam in a unit of time, e.g. '4h'
-%
-% \DescribeMacro{\exampart} [exam] (mandatory)\\
-% Description of the part of the course the exam covers.
-% Often the evaluation of a course consists of multiple evaluation
-% elements (e.g. a written exam, a portfolio defense and lab
-% reports). Using this macro you can indicate the part this exam
-% covers. E.g. it could be 'Written Exam' (to distinguish from the
-% other parts 'portfolio defense' and 'lab reports').
-%
-% \DescribeMacro{\extrainfo}
-% specifies the extra information that appears on the back of the
-% title page, regarding the materials that can be used during the
-% examination and cautioning the students not to commit fraude.
-% You can specify an optional first argument 'firstpage', such that
-% your extra info starts on the first page, below the title block. In
-% that case the extra info will also not be terminated with a
-% clearpage (as we assume you want to conserve space).
-%
-% \DescribeMacro{\lecturer} [exam] (mandatory)\\
-% You can add one or more lecturers to the course notes (in
-% Dutch: titularis). If there are multiple persons, please, use the
-% macro multiple times. 
-%
-% \DescribeMacro{\room}
-% specifies the rooms in which the exam will take place. This is
-% useless info for the student, but may be of convenience for you as
-% author or supervisor of the exam. Use UAntwerpen standard room
-% designators, e.g. 'G.U.025' for room number 025, on the
-% Groenenborgercampus in the U-building.
-% If your exam is taken in multiple rooms, just specify multiple
-% |\room{}| commands.
-%
-% \DescribeMacro{\studentnr}
-% specifies the exam copy number. This will appear on every page of
-% the exam, easing the reassembly of pages that do not contain any
-% name. Moreover, it allows for blind correction as the student only
-% writes his name ot he front page.
-%
-% \DescribeMacro{\tend}
-% specifies the end time of the exam in a format identical to the one
-% chosen for |\tstart|.
-%
-% \DescribeMacro{\tstart}
-% specifies the start time of the exam, preferrable in the format
-% 'HHhMM', e.g. '08h30'.
-%
-%
-%
-
-%
-%
-% \subsubsection{Tags}
-%
-% 
 % \begin{imacro}{\title}
 %   The |title| tag is native to \LaTeX{}. It sets the |\@title| tag
 %   that will be used on the title page.
@@ -3005,24 +2692,36 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*phd>
 \newcommand*{\@titel}{}
 \newcommand*{\titel}[1]{%
-  \renewcommand*\@titel{#1}
+	\renewcommand*\@titel{#1}
 }
 %</phd>
 %    \end{macrocode}
 % \end{imacro}
 % 
+% \DescribeMacro{\subtitle} [course / phd / report] (optional)\\
+% This macro sets the title of the document. You may use this 
+% \begin{itemize}
+% \item to further clarify the title
+% \item to indicate the nature of this document
+% \end{itemize}
+% The latter is to be considered when you want to provide multiple
+% documents as parts of the full course text (e.g., Course Notes,
+% Formula Collection, Exercise Book, Solution Book).
+% This macro also sets the |subject| tag of the hyperref package  (if
+% it is loaded), 
+% so that the PDF-document meta-information is correct.
 % \begin{imacro}{\subtitle}
 %    \begin{macrocode}
 %<*crs|phd|rp|bama|bkc>
 \newcommand*{\@subtitle}{~}
 \newcommand*{\@subtitleshort}{~}
 \newcommand*{\subtitle}[2][]{%
-  \renewcommand*\@subtitle{#2}
-  \if\relax\detokenize{#1}\relax
-  \renewcommand*{\@subtitleshort}{#2}
-  \else
-  \renewcommand*{\@subtitleshort}{#1}
-  \fi
+	\renewcommand*\@subtitle{#2}
+	\if\relax\detokenize{#1}\relax
+	\renewcommand*{\@subtitleshort}{#2}
+	\else
+	\renewcommand*{\@subtitleshort}{#1}
+	\fi
 }
 %</crs|phd|rp|bama|bkc>
 %    \end{macrocode}
@@ -3038,7 +2737,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*phd>
 \newcommand*{\@subtitel}{}
 \newcommand*{\subtitel}[1]{%
-  \renewcommand*\@subtitel{#1}
+	\renewcommand*\@subtitel{#1}
 }
 %</phd>
 %    \end{macrocode}
@@ -3051,112 +2750,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*ex>      
 \newcommand*{\@shorttitle}{}
 \newcommand*{\shorttitle}[1]{%
-  \renewcommand*\@shorttitle{#1}
+	\renewcommand*\@shorttitle{#1}
 }
 %</ex> 
 %    \end{macrocode}
 % \end{imacro}
-%
-% \begin{imacro}{\author}
-%   This macro allows to specify one or more authors with their
-%   affiliation. This can be done by invoking the macro as many times
-%   as needed.
-%    \begin{macrocode}
-%<*phd|crs|bama|bkc|ex|le|rp>      
-\ExplSyntaxOn
-\seq_new:N \g_@@_authors_seq
-\seq_new:N \g_@@_authorswithaffiliation_seq
-\seq_new:N \g_@@_authorlist_seq
-\seq_new:N \g_@@_authorcalls_seq
-
-\cs_new:Nn \@@_addauthor:nnn {
-	\seq_gput_right:Nn \g_@@_authors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_authorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-	\seq_gput_right:Nn \g_@@_authorlist_seq { \@surname{#2},~\@firstnameinitial{#2} }
-	\seq_gput_right:Nx \g_@@_authorcalls_seq
-	{ \exp_not:N\author { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
-}
-
-\RenewDocumentCommand{\author}{mmm}{
-	\@@_addauthor:nnn { #1 } { #2 } { #3 }
-}
-\ExplSyntaxOff
-%</phd|crs|bama|bkc|ex|le|rp>
-%    \end{macrocode}
-% \end{imacro}
-%
-% 
-% \begin{imacro}{\courseversion}
-%   This macro sets the |\@courseversion| tag that later will be used
-%   on the title page and in the header/footer.
-%    \begin{macrocode}
-%<*crs>      
-\newcommand*{\@courseversion}{}
-\newcommand*{\courseversion}[1]{\renewcommand*{\@courseversion}{#1}}
-%</crs> 
-%    \end{macrocode}
-% \end{imacro}
-% 
-% \begin{imacro}{\publisher}
-%   This macro sets the |\@publisher| tag that later will be used on
-%   the title page.
-%    \begin{macrocode}
-%<*crs>      
-\newcommand{\@publisher}{}
-\newcommand*{\publisher}[1]{\renewcommand*{\@publisher}{#1}}
-%</crs> 
-%    \end{macrocode}
-% \end{imacro}
-% 
-% \begin{imacro}{\publishercode}
-%   This macro sets the |\@publishercode| tag that later will be used on
-%   the title page.
-%    \begin{macrocode}
-%<*crs>      
-\newcommand*{\@publishercode}{}
-\newcommand*{\publishercode}[1]{\renewcommand*{\@publishercode}{#1}}
-%</crs> 
-%    \end{macrocode}
-% \end{imacro}
-% 
-% \begin{imacro}{\frontcoverlogos}
-%   This macro sets the |\@frontcoverlogos| tag that later will be used on
-%   the title page.
-%    \begin{macrocode}
-%<*bama|rp|crs|phd|bkc>      
-\newcommand*{\@frontcoverlogos}{}
-\newcommand*{\frontcoverlogos}[1]{\renewcommand*{\@frontcoverlogos}{#1}}
-%</bama|rp|crs|phd|bkc> 
-%    \end{macrocode}
-% \end{imacro}
-%
-% \begin{imacro}{\lecturer}
-%   This macro adds lecturers (Dutch: lesgevers) to the course
-%   notes.
-%   Use the macro multiple times for multiple lecturers. The order
-%   will be preserved.
-%    \begin{macrocode}
-%<*crs|ex|rp|bkc>
-\ExplSyntaxOn
-\seq_new:N \g_@@_lecturers_seq
-\seq_new:N \g_@@_lecturercalls_seq
-\seq_new:N \g_@@_lecturerswithaffiliation_seq
-\cs_new:Nn \@@_addlecturer:nnn {
-  \seq_gput_right:Nn \g_@@_lecturers_seq { #1~\@formatname{#2}\strut }
-  \seq_gput_right:Nn \g_@@_lecturerswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-  \seq_gput_right:Nx \g_@@_lecturercalls_seq
-  { \exp_not:N\lecturer { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
-}
-\NewDocumentCommand{\lecturer}{mmm}{
-  \@@_addlecturer:nnn { #1 } { #2 } { #3 }
-}
-
-\ExplSyntaxOff
-%</crs|ex|rp|bkc>
-%    \end{macrocode}
-% \end{imacro}
-%
-%
 % \begin{imacro}{\extra}
 %   The |extra| tag allows to specify some extra comment (e.g. the
 %   nature of the document) in the bottom bar on the title page).
@@ -3167,175 +2765,106 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</rp>
 %    \end{macrocode}
 % \end{imacro}
-%
-%
-% \begin{imacro}{\supervisor}
-%   This macro allows to specify one or more supervisors with their
-%   affiliation. This can be done by invoking the macro as many times
-%   as needed.
-%    \begin{macrocode}
-%<*bama|phd|bkc>     
-\ExplSyntaxOn
-\seq_new:N \g_@@_supervisors_seq
-\seq_new:N \g_@@_supervisorcalls_seq
-\seq_new:N \g_@@_supervisorswithaffiliation_seq
-\seq_new:N \g_@@_allsupervisors_seq
-\seq_new:N \g_@@_allsupervisorswithaffiliation_seq
-\cs_new:Nn \@@_addsupervisor:nnn {
-  \seq_gput_right:Nn \g_@@_supervisors_seq { #1~\@formatname{#2}\strut }
-  \seq_gput_right:Nn \g_@@_supervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-  \seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
-  \seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-  \seq_gput_right:Nx \g_@@_supervisorcalls_seq
-  { \exp_not:N\supervisor { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
-}
-\NewDocumentCommand{\supervisor}{mmm}{
-  \@@_addsupervisor:nnn { #1 } { #2 } { #3 }
-}
-%</bama|phd|bkc>
-%<*bama>
-\seq_new:N \g_@@_cosupervisors_seq
-\seq_new:N \g_@@_cosupervisorswithaffiliation_seq
-\cs_new:Nn \@@_addcosupervisor:nnn {
-  \seq_gput_right:Nn \g_@@_cosupervisors_seq { #1~\@formatname{#2}\strut }
-  \seq_gput_right:Nn \g_@@_cosupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-  \seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
-  \seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-}
-\NewDocumentCommand{\cosupervisor}{mmm}{
-  \@@_addcosupervisor:nnn { #1 } { #2 } { #3 }
-}
-
-\seq_new:N \g_@@_extsupervisors_seq
-\seq_new:N \g_@@_extsupervisorswithaffiliation_seq
-\cs_new:Nn \@@_addextsupervisor:nnn {
-  \seq_gput_right:Nn \g_@@_extsupervisors_seq { #1~\@formatname{#2}\strut }
-  \seq_gput_right:Nn \g_@@_extsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-  \seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
-  \seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-}
-\NewDocumentCommand{\extsupervisor}{mmm}{
-  \@@_addextsupervisor:nnn { #1 } { #2 } { #3 }
-}
-
-\seq_new:N \g_@@_tutors_seq
-\seq_new:N \g_@@_tutorswithaffiliation_seq
-\cs_new:Nn \@@_addtutor:nnn {
-	\seq_gput_right:Nn \g_@@_tutors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_tutorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-}
-\NewDocumentCommand{\tutor}{mmm}{
-	\@@_addtutor:nnn { #1 } { #2 } { #3 }
-}
-%</bama>
-%<*bama|phd|bkc>
-\ExplSyntaxOff
-%</bama|phd|bkc>
-%    \end{macrocode}
-% \end{imacro}
+% \DescribeMacro{\defensedate} [phd] (mandatory)\\
+% Mention the full date, i.e. day month and year of your public defense
 % 
-% \begin{imacro}{\jurychair}
-%   This macro sets the |\@jurychair| tag that later will be used on
-%   the data page.
+% \DescribeMacro{\date} [letter] (optional) \\
+% Date of the letter. If not specified today's date (at the time of
+% running \LaTeX{}) will be used.
+%
+% \DescribeMacro{\year} [course / report] (mandatory)\\
+% This is to be the year in which you published the current version of
+% the course in the form YYYY.
+% \DescribeMacro{\academicyear} [course / bama]
+% (mandatory)\\
+% Use this macro to specify the academic year in full, i.e. in the
+% form |XXXX-YYYY|. 
+% \DescribeMacro{\academicyear} [exam] (mandatory)\\
+% Use this macro to specify the academic year in full, i.e. in the
+% form |XXXX-YYYY|.
+% \begin{imacro}{\academicyear}
+%   This macro sets the |\@academicyear| tag that later will be used on
+%   the title page.
 %    \begin{macrocode}
-%<*phd>      
-\newcommand*{\@jurychair}{
-  \PackageError{ugentdocs}
-  {Please, define a chair of the jury using the
-    '\protect\jurychair{}' command in the preamble of your
-    document.} 
-  {See the ugentdocs manual}
-}
-\newcommand*{\@jurychairaff}{}
-\newcommand*{\jurychair}[3]{
-  \renewcommand*{\@jurychair}{#1~\@formatname{#2}}\renewcommand*{\@jurychairaff}{#3}}
-%</phd> 
+%<*crs|bama|phd|ex|bkc|rp>      
+\newcommand*{\@academicyear}{}
+\newcommand*{\academicyear}[1]{\renewcommand*{\@academicyear}{#1}}
+%</crs|bama|phd|ex|bkc|rp>
 %    \end{macrocode}
 % \end{imacro}
-% 
-% \begin{imacro}{\jurymember}
-%   This macro allows for the registration of jury members and their
-%   affiliation. This can be done by invoking the macro as many times
-%   as needed.
+% \DescribeMacro{\defenselocation} [phd]
+% (optional)\\ 
+% Location of the defense. Defaults to ``Antwerpen''.
+% \begin{imacro}{\location}
+%   This macro sets the |\@location| tags that later will
+%   be used on the dissertation copyright page. 
 %    \begin{macrocode}
-%<*phd>
-\ExplSyntaxOn
-\seq_new:N \g_@@_jurymemberswithaffiliation_seq
-\cs_new:Nn \@@_addjurymember:nnn {
-  \seq_gput_right:Nn \g_@@_jurymemberswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-}
-\NewDocumentCommand{\jurymember}{mmm}{
-  \@@_addjurymember:nnn { #1 } { #2 } { #3 }
-}
-\ExplSyntaxOff
-%</phd> 
+%<*phd|bkc|bama|rp>      
+\newcommand*\@location{\translatekey{ghent}}
+\newcommand*{\location}[1]{\renewcommand*\@location{#1}}
+%</phd|bkc|bama|rp>
 %    \end{macrocode}
 % \end{imacro}
 %
-% \begin{imacro}{\dean}
-%   This macro sets the |\@dean| tag that later will be used on
-%   the data page.
+%
+% \DescribeMacro{\titlepageimage} [phd / report]
+% (optional)\\
+% This sets the filename of the central image on the title page to
+% appear clipped % within the curves. For PhD dissertations this is highly
+% advized. For course texts, this is optional. If the image is not
+% set, a flat colored area will appear. This is part of the house
+% style.
+% \begin{imacro}{\titepageimage}
+%   This macro sets the |\@titlepageimage| tags that later will
+%   be used on the title page, to include the graphics.
 %    \begin{macrocode}
-%<*phd>      
-\newcommand*{\@dean}[2]{
-	\PackageError{ugentdocs}
-	{Please, define a dean of the faculty using the
-		'\protect\dean{}{}' command in the preamble of your
-		document.} 
-	{See the ugentdocs manual}
-}
-\newcommand*{\dean}[2]{
-	\renewcommand*{\@dean}{#1~\@formatname{#2}}
-}
-%</phd> 
+%<*crs|phd|bkc>      
+\newcommand*\@titlepageimage{}
+\newcommand*\titlepageimage[1]{\renewcommand*\@titlepageimage{#1}}
+%</crs|phd|bkc>
 %    \end{macrocode}
 % \end{imacro}
-%
-% \begin{imacro}{\rector}
-%   This macro sets the |\@rector| tag that later will be used on
-%   the data page.
+% \begin{imacro}{\frontcoverlogos}
+%   This macro sets the |\@frontcoverlogos| tag that later will be used on
+%   the title page.
 %    \begin{macrocode}
-%<*phd>      
-\newcommand*{\@rector}[2]{
-	\PackageError{ugentdocs}
-	{Please, define a rector of Ghent University using the
-		'\protect\rector{}{}' command in the preamble of your
-		document.} 
-	{See the ugentdocs manual}
-}
-\newcommand*{\rector}[2]{
-\renewcommand*{\@rector}{#1~\@formatname{#2}}
-}
-%</phd> 
+%<*bama|rp|crs|phd|bkc>      
+\newcommand*{\@frontcoverlogos}{}
+\newcommand*{\frontcoverlogos}[1]{\renewcommand*{\@frontcoverlogos}{#1}}
+%</bama|rp|crs|phd|bkc> 
 %    \end{macrocode}
 % \end{imacro}
-%
-% \begin{imacro}{\coverdesigner}
-%   This macro sets the |\@coverdesigner| tag that later will be used on
-%   the data page.
+% \begin{imacro}{\backcoverlogos}
+%   This macro will set the |\@backcoverlogos| tag that will be used
+%   to print the publisher logo on the back cover.
 %    \begin{macrocode}
-%<*phd>      
-\newcommand*{\@coverdesigner}{}
-\newcommand*{\coverdesigner}[1]{
-	\renewcommand*{\@coverdesigner}{\@formatname{#1}}
-}
-%</phd> 
+%<*bkc|phd|crs>      
+\newcommand*{\@backcoverlogos}{\includegraphics[height = 2\gridunit]{Images/logo_UniversityPress_blue}}
+\newcommand*{\backcoverlogos}[1]{\renewcommand*{\@backcoverlogos}{#1}}
+%</bkc|phd|crs>
 %    \end{macrocode}
 % \end{imacro}
-%
-% \begin{imacro}{\grants}
-%   This macro sets the |\@grants| tag that later will be used on
-%   the data page.
-%    \begin{macrocode}
-%<*phd>      
-\newcommand*{\@grants}{}
-\newcommand*{\grants}[1]{
-	\renewcommand*{\@grants}{#1}
-}
-%</phd> 
-%    \end{macrocode}
-% \end{imacro}
-%
+% \DescribeMacro{\degree} [bama,phd,course] (mandatory)\\
+% This is the official degree name (in the appropriate language,
+% possibly mixed ``dutch (english)'').
+% Specify the official title of your diploma. This must be the
+% official title. For bachelor and master programmes in Dutch, it must
+% be the Dutch title. For programmes in English it may be the English
+% title. For PhD degrees, language constraints are less strict.\\
+% Consult \url{https://www.hogeronderwijsregister.be} for correct
+% bachelor and master degree titles. Consult the Doctoral bylaws of
+% the university for correct PhD degree titles.
+% Students of FTI and FWET, can use the |\bamadegree| command instead.
+% \DescribeMacro{\degree} [exam] (mandatory)\\
+% This is the official degree name (in the appropriate language,
+% possibly mixed ``dutch (english)'').
+% Specify the official title of your diploma. This must be the
+% official title. For bachelor and master programmes in Dutch, it must
+% be the Dutch title. For programmes in English ti may be the English
+% title. For PhD degrees, language constraints are less strict.\\
+% Consult \url{https://www.hogeronderwijsregister.be} for correct
+% bachelor and master degree titles. Consult the Doctoral bylaws of
+% the university for correct PhD degree titles.
 % \begin{imacro}{\degree}
 %   This macro sets the degree that later will
 %   be used on the title pages.
@@ -3369,12 +2898,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*bama|phd|crs|ex|bkc>
 \newcommand*\@doctype{
-  \PackageError{ugentdocs}
-  {Please, specify the offical document type using
-    the '\protect\doctype{}'  macro in the preamble of your document.}
-  {See the ugentdocs manual}}
+	\PackageError{ugentdocs}
+	{Please, specify the offical document type using
+		the '\protect\doctype{}'  macro in the preamble of your document.}
+	{See the ugentdocs manual}}
 \newcommand*\doctype[1]{
-  \renewcommand*\@doctype{\translatekey{#1}}
+	\renewcommand*\@doctype{\translatekey{#1}}
 }
 %</bama|phd|crs|ex|bkc>
 %    \end{macrocode}
@@ -3410,54 +2939,52 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bama|phd|rp>
 %    \end{macrocode}
 % \end{imacro}
-% 
-% \begin{imacro}{\course}
-%   Four the |course| class, this macro sets one or more
-%   courses. 
-%   and |\@course| tags that later will be used on the title
-%   page.
+% \begin{imacro}{\grants}
+%   This macro sets the |\@grants| tag that later will be used on
+%   the data page.
 %    \begin{macrocode}
-%<*crs|ex>
-\ExplSyntaxOn
-\seq_new:N \g_@@_courseswithcodes_seq
-\seq_new:N \g_@@_courses_seq
-\seq_new:N \g_@@_coursecodes_seq
-\cs_new:Nn \@@_addcourse:nn {
-  \seq_gput_right:Nn \g_@@_courseswithcodes_seq { \texttt{#1}~#2\strut }
-  \seq_gput_right:Nn \g_@@_courses_seq 			{ #2\strut }
-  \seq_gput_right:Nn \g_@@_coursecodes_seq { \texttt{#1}\strut }
+%<*phd>      
+\newcommand*{\@grants}{}
+\newcommand*{\grants}[1]{
+	\renewcommand*{\@grants}{#1}
 }
-\NewDocumentCommand{\course}{mm}{
-  \@@_addcourse:nn { #1 } { #2 }
-}
-\ExplSyntaxOff
-%</crs|ex>
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
-% 
-% 
-% \begin{imacro}{\location}
-%   This macro sets the |\@location| tags that later will
-%   be used on the dissertation copyright page. 
+% \DescribeMacro{\doi} [phd] (optional)\\
+% Specify the correct doi URL you obtained for your document.
+% It will be typeset in your colofon.
+% \begin{imacro}{\doi}
+%   This macro sets the |\@doi| tag that later will
+%   be used on the data page. If you don't have a doi number, just
+%   don't specify one (i.e. don't use this macro).
 %    \begin{macrocode}
-%<*phd|bkc|bama|rp>      
-\newcommand*\@location{\translatekey{ghent}}
-\newcommand*{\location}[1]{\renewcommand*\@location{#1}}
-%</phd|bkc|bama|rp>
+%<*phd>      
+\newcommand*{\@doi}{}
+\newcommand*{\doi}[1]{\renewcommand*{\@doi}{#1}}
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
 %
-%
-% \begin{imacro}{\titeplageimage}
-%   This macro sets the |\@titlepageimage| tags that later will
-%   be used on the title page, to include the graphics.
+% \begin{imacro}{\isbn}
+%   This macro sets the |\@isbn| tag that will be used to generate
+%   the ISBN number and barcode on the PhD dissertation back cover
 %    \begin{macrocode}
-%<*crs|phd|bkc>      
-\newcommand*\@titlepageimage{}
-\newcommand*\titlepageimage[1]{\renewcommand*\@titlepageimage{#1}}
-%</crs|phd|bkc>
-%    \end{macrocode}
+%<*phd|bkc|crs>
+\newcommand*{\@isbn}{}
+\newcommand*{\isbn}[1]{\renewcommand*{\@isbn}{#1}}
+%</phd|bkc|crs>
+%    \end{macrocode} 
 % \end{imacro}
+% \DescribeMacro{\embargofull} [phd] (optional)\\
+% Generates the correct embargo message in your colofon. Adds the word
+% 'CONFIDENTIAL' to your title page.
+%
+% \DescribeMacro{\embargotemp} [phd] (optional)\\
+% This macro takes two arguments, an embargo starting date and an
+% embargo ending date.
+% Generates the correct temporary embargo message in your colofon.
+% Adds the word 'CONFIDENTIAL' to your title page.
 %
 % \begin{imacro}{\embargo}
 %   This macro causes the embargo message to be printed in
@@ -3473,11 +3000,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \tl_new:N \l_@@_embargoenddate_tl
 
 \msg_new:nnn { ugentdocs } 
-	{ embargo-start-without-end }
-	{ An~embargo~start~date~was~given,~but~no~end~date}
+{ embargo-start-without-end }
+{ An~embargo~start~date~was~given,~but~no~end~date}
 \msg_new:nnn { ugentdocs } 
-	{ embargo-end-without-start }
-	{ An~embargo~end~date~was~given,~but~no~start~date}
+{ embargo-end-without-start }
+{ An~embargo~end~date~was~given,~but~no~start~date}
 
 \keys_define:nn { ugentdocs/embargo } {
 	start .tl_set:N = \l_@@_embargostartdate_tl ,
@@ -3527,12 +3054,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\tl_put_right:Nx \l_@@_embargotemp_tl { \seq_item:Nn \l_@@_embargosplit_seq {2} }
 }
 \NewDocumentCommand{\@embargotempwithdates}{}{
-	%<*phd|bkc>
+%<*phd|bkc>
 	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : embargotempphd }
-	%</phd|bkc>
-	%<*bama>
+%</phd|bkc>
+%<*bama>
 	\tl_set:Nx \l_@@_lookup_key_tl { \languagename {} : embargotempbama }
-	%</bama>
+%</bama>
 	\tl_set:Nx \l_@@_embargotemp_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
 	\_@@_embargosubstitute:nN {__START__} \@embargotempstart
 	\_@@_embargosubstitute:nN {__END__} \@embargotempend
@@ -3544,40 +3071,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \end{imacro}
 %
-% \begin{imacro}{\doi}
-%   This macro sets the |\@doi| tag that later will
-%   be used on the data page. If you don't have a doi number, just
-%   don't specify one (i.e. don't use this macro).
-%    \begin{macrocode}
-%<*phd>      
-\newcommand*{\@doi}{}
-\newcommand*{\doi}[1]{\renewcommand*{\@doi}{#1}}
-%</phd> 
-%    \end{macrocode}
-% \end{imacro}
-%
-% \begin{imacro}{\isbn}
-%   This macro sets the |\@isbn| tag that will be used to generate
-%   the ISBN number and barcode on the PhD dissertation back cover
-%    \begin{macrocode}
-%<*phd|bkc|crs>
-\newcommand*{\@isbn}{}
-\newcommand*{\isbn}[1]{\renewcommand*{\@isbn}{#1}}
-%</phd|bkc|crs>
-%    \end{macrocode} 
-% \end{imacro}
-%
-% \begin{imacro}{\academicyear}
-%   This macro sets the |\@academicyear| tag that later will be used on
-%   the title page.
-%    \begin{macrocode}
-%<*crs|bama|phd|ex|bkc|rp>      
-\newcommand*{\@academicyear}{}
-\newcommand*{\academicyear}[1]{\renewcommand*{\@academicyear}{#1}}
-%</crs|bama|phd|ex|bkc|rp>
-%    \end{macrocode}
-% \end{imacro}
-% 
+% \DescribeMacro{\copyrightnotices} [course / report]
+% (optional)\\ 
+% Use this macro to specify additional copyright notice messages to
+% appear in the copyright notice on the bottom of page 2 of your
+% course text.
 % \begin{imacro}{\copyrightnotices, \extranotices}
 %   These macros set the |\@copyrightnotices| tag that later will be
 %   used on the back of the title page.
@@ -3590,226 +3088,290 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand{\@extranotices}{}
 \newcommand{\extranotices}[1]{\renewcommand{\@extranotices}{#1}}
 %</crs|rp>
-%<*bama>
-%
+%    \end{macrocode}
+% \end{imacro}
+% \subsubsection{People}
+% \label{S:people}
+% \DescribeMacro{\author} [course / bama / phd /
+% report ] (mandatory)\\ 
+% This macro sets the author of the document.
+% It also sets the |pdfauthor| tag of the hyperref package (if it is
+% loaded), so that 
+% the PDF-document meta-information is correct.
+% \DescribeMacro{\author} [exam] (mandatory)\\
+% The author of the exam (may be multiple authors, separated by
+% commas). On the title page, these will be labeled as 'Professor(s) -
+% Titularis(sen)'.
+% \begin{imacro}{\author}
+%   This macro allows to specify one or more authors with their
+%   affiliation. This can be done by invoking the macro as many times
+%   as needed.
+%    \begin{macrocode}
+%<*phd|crs|bama|bkc|ex|le|rp>      
 \ExplSyntaxOn
-\cs_new:Nn \@@_sigblock:nn {
-	\begin{minipage}[t]{\linewidth}
-		\centering
-		\rule{0pt}{1.25cm}\\
-		\rule{0.8\linewidth}{0.4pt}\\[0.3em]
-		#2\\
-		{\small\itshape #1}
-	\end{minipage}
+\seq_new:N \g_@@_authors_seq
+\seq_new:N \g_@@_authorswithaffiliation_seq
+\seq_new:N \g_@@_authorlist_seq
+\seq_new:N \g_@@_authorcalls_seq
+
+\cs_new:Nn \@@_addauthor:nnn {
+	\seq_gput_right:Nn \g_@@_authors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_authorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+	\seq_gput_right:Nn \g_@@_authorlist_seq { \@surname{#2},~\@firstnameinitial{#2} }
+	\seq_gput_right:Nx \g_@@_authorcalls_seq
+	{ \exp_not:N\author { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
 }
 
-\int_new:N \l_@@_sigcount_int
-
-\cs_new:Nn \@@_sigrow_step:nn {
-	\int_incr:N \l_@@_sigcount_int
-	\@@_sigblock:nn {#1} {#2}
-	\int_compare:nNnTF {\int_mod:nn {\l_@@_sigcount_int}{2}} = {1}
-	{ & }
-	{ \tabularnewline[2em] }
-}
-
-\tl_new:N \l_@@_sigrow_tl
-\seq_new:N \l_@@_sigpairs_seq
-
-\cs_new:Nn \@@_siggroup:Nn {
-	\int_compare:nNnTF {\seq_count:N #1} = {1}
-	{
-		\noindent
-		\begin{tabularx}{\textwidth}{@{}X@{\hspace{1.5cm}}X@{}}
-			\seq_map_inline:Nn #1 { \@@_sigblock:nn {#2} {##1} } & \tabularnewline
-		\end{tabularx}
-	}{
-		\seq_clear:N \l_@@_sigpairs_seq
-		\int_zero:N \l_@@_sigcount_int
-		\tl_clear:N \l_@@_sigrow_tl
-		\seq_map_inline:Nn #1 {
-			\int_incr:N \l_@@_sigcount_int
-			\int_compare:nNnTF {\int_mod:nn {\l_@@_sigcount_int}{2}} = {1}
-			{
-				\tl_set:Nn \l_@@_sigrow_tl { \@@_sigblock:nn {#2} {##1} }
-			}{
-				\seq_put_right:Nx \l_@@_sigpairs_seq
-				{ \exp_not:V \l_@@_sigrow_tl & \exp_not:n { \@@_sigblock:nn {#2} {##1} } }
-				\tl_clear:N \l_@@_sigrow_tl
-			}
-		}
-		\tl_if_empty:NF \l_@@_sigrow_tl {
-			\seq_put_right:Nx \l_@@_sigpairs_seq { \exp_not:V \l_@@_sigrow_tl & }
-		}
-		\noindent
-		\begin{tabularx}{\textwidth}{@{}X@{\hspace{1.5cm}}X@{}}
-			\seq_use:Nn \l_@@_sigpairs_seq { \tabularnewline[2em] }
-		\end{tabularx}
-	}
-}
-
-\seq_new:N \l_@@_allsupervisorstutors_seq
-
-\cs_new:Nn \@@_autographpage: {
-	\seq_if_empty:NF \g_@@_authors_seq {
-		\translatekey{the-de}~\getseqcaption[lowercase]{authors}{}, \par\vskip 1em
-		\@@_siggroup:Nn \g_@@_authors_seq { } % Sub-name key not implemented
-	}
-	\vskip 2em
-	\seq_clear:N \l_@@_allsupervisorstutors_seq
-	\seq_concat:NNN \l_@@_allsupervisorstutors_seq \g_@@_allsupervisors_seq \g_@@_tutors_seq
-	\seq_if_empty:NF \g_@@_allsupervisors_seq {
-		\translatekey{the-de}~\getseqcaption[lowercase]{allsupervisors}{}
-		\ifseqempty{tutors}{}{~\translatekey[lowercase]{and}~\getseqcaption[lowercase]{tutors}{}}, \par\vskip 1em
-		\@@_siggroup:Nn \l_@@_allsupervisorstutors_seq { } % Sub-name key not implemented
-	}
-}
-
-\newcommand{\@bamadisclaimer}{
-	{\translatekey{the-de}~\getseqcaption[lowercase]{authors}{}~\translatekey[lowercase]{and}~\getseqcaption[lowercase]{allsupervisors}{}}
-	\bool_if:NTF \l_@@_embargo_bool {
-		\bool_if:NTF \l_@@_embargotemp_bool {
-			{~\@embargotempwithdates}
-		}{
-			{~\translatekey{embargofullbama}}
-		}
-	}{
-		{~\translatekey{arrbama}}
-	}
-}
-
-\renewcommand{\@copyrightnotices}{%
-	\str_if_eq:VnTF \l_@@_language_tl {dutch} {
-		\@bamadisclaimer
-	}{
-		\begingroup
-		\selectlanguage{dutch}
-			\@bamadisclaimer
-		\endgroup
-		\selectlanguage{english}
-		\newline\newline
-			\@bamadisclaimer
-	}
-	\newline\newline
-	\@location,~\@date
-	\newline\newline
-	\@@_autographpage:
-
-	\vspace*{\stretch{1}}
+\RenewDocumentCommand{\author}{mmm}{
+	\@@_addauthor:nnn { #1 } { #2 } { #3 }
 }
 \ExplSyntaxOff
+%</phd|crs|bama|bkc|ex|le|rp>
+%    \end{macrocode}
+% \end{imacro}
+% \DescribeMacro{\lecturer} [course] (mandatory)\\
+% You can add one or more lecturers to the course notes (in
+% Dutch: titularis). If there are multiple persons, please, use the
+% macro multiple times. 
+% \DescribeMacro{\lecturer} [exam] (mandatory)\\
+% You can add one or more lecturers to the course notes (in
+% Dutch: titularis). If there are multiple persons, please, use the
+% macro multiple times. 
+% \begin{imacro}{\lecturer}
+%   This macro adds lecturers (Dutch: lesgevers) to the course
+%   notes.
+%   Use the macro multiple times for multiple lecturers. The order
+%   will be preserved.
+%    \begin{macrocode}
+%<*crs|ex|rp|bkc>
+\ExplSyntaxOn
+\seq_new:N \g_@@_lecturers_seq
+\seq_new:N \g_@@_lecturercalls_seq
+\seq_new:N \g_@@_lecturerswithaffiliation_seq
+\cs_new:Nn \@@_addlecturer:nnn {
+	\seq_gput_right:Nn \g_@@_lecturers_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_lecturerswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+	\seq_gput_right:Nx \g_@@_lecturercalls_seq
+	{ \exp_not:N\lecturer { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
+}
+\NewDocumentCommand{\lecturer}{mmm}{
+	\@@_addlecturer:nnn { #1 } { #2 } { #3 }
+}
+
+\ExplSyntaxOff
+%</crs|ex|rp|bkc>
+%    \end{macrocode}
+% \end{imacro}
+% \DescribeMacro{\supervisor} [bama / phd] (mandatory)\\
+% Specifies the person(s) that promote(s)/supervise(s) the dissertation.
+% Please, use the macro multiple times if needed.
+% \begin{imacro}{\supervisor}
+%   This macro allows to specify one or more supervisors with their
+%   affiliation. This can be done by invoking the macro as many times
+%   as needed.
+%    \begin{macrocode}
+%<*bama|phd|bkc>     
+\ExplSyntaxOn
+\seq_new:N \g_@@_supervisors_seq
+\seq_new:N \g_@@_supervisorcalls_seq
+\seq_new:N \g_@@_supervisorswithaffiliation_seq
+\seq_new:N \g_@@_allsupervisors_seq
+\seq_new:N \g_@@_allsupervisorstutors_seq
+\seq_new:N \g_@@_allsupervisorswithaffiliation_seq
+\cs_new:Nn \@@_addsupervisor:nnn {
+	\seq_gput_right:Nn \g_@@_supervisors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_supervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+	\seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_allsupervisorstutors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+	\seq_gput_right:Nx \g_@@_supervisorcalls_seq
+	{ \exp_not:N\supervisor { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
+}
+\NewDocumentCommand{\supervisor}{mmm}{
+	\@@_addsupervisor:nnn { #1 } { #2 } { #3 }
+}
+%</bama|phd|bkc>
+%<*bama>
+\seq_new:N \g_@@_cosupervisors_seq
+\seq_new:N \g_@@_cosupervisorswithaffiliation_seq
+\cs_new:Nn \@@_addcosupervisor:nnn {
+	\seq_gput_right:Nn \g_@@_cosupervisors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_cosupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+	\seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_allsupervisorstutors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+}
+\NewDocumentCommand{\cosupervisor}{mmm}{
+	\@@_addcosupervisor:nnn { #1 } { #2 } { #3 }
+}
+
+\seq_new:N \g_@@_extsupervisors_seq
+\seq_new:N \g_@@_extsupervisorswithaffiliation_seq
+\cs_new:Nn \@@_addextsupervisor:nnn {
+	\seq_gput_right:Nn \g_@@_extsupervisors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_extsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+	\seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_allsupervisorstutors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+}
+\NewDocumentCommand{\extsupervisor}{mmm}{
+	\@@_addextsupervisor:nnn { #1 } { #2 } { #3 }
+}
+
+\seq_new:N \g_@@_tutors_seq
+\seq_new:N \g_@@_tutorswithaffiliation_seq
+\cs_new:Nn \@@_addtutor:nnn {
+	\seq_gput_right:Nn \g_@@_tutors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_allsupervisorstutors_seq { #1~\@formatname{#2}\strut }
+	\seq_gput_right:Nn \g_@@_tutorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+}
+\NewDocumentCommand{\tutor}{mmm}{
+	\@@_addtutor:nnn { #1 } { #2 } { #3 }
+}
 %</bama>
+%<*bama|phd|bkc>
+\ExplSyntaxOff
+%</bama|phd|bkc>
+%    \end{macrocode}
+% \end{imacro}
+%
+% \begin{imacro}{\jurymember}
+%   This macro allows for the registration of jury members and their
+%   affiliation. This can be done by invoking the macro as many times
+%   as needed.
+%    \begin{macrocode}
 %<*phd>
 \ExplSyntaxOn
-\renewcommand{\@copyrightnotices}{%
-	\noindent\begin{minipage}[b]{\textwidth}
-		\textbf{Contact}\\
-		\smallskip
-		\printseq{authorswithaffiliation}{~|~}{~|~}{~|~}\\
-		\@address
-		\str_if_eq:VnF \l_@@_language_tl {dutch} {
-			\\[\baselineskip]
-			\textbf{Titel~van~het~doctoraat~in~het~Nederlands:}\\
-			{\renewcommand{\\}[1][]{~}\@titel{}:~\@subtitel}
-		}
-		\ifx\@coverdesigner\@empty\else
-			\\[\baselineskip]
-			\textbf{\translatekey{coverdesigner}:}\\
-			\@coverdesigner
-		\fi
-		%
-		\\[\baselineskip]
-		\translatekey{integrityclause}
-		%
-		\ifx\@grants\@empty\else
-			\\[\baselineskip]
-			{\translatekey{supportedby}~\@grants.}
-		\fi
-		\bool_if:NTF \l_@@_embargo_bool {
-			\\[\baselineskip]
-			{\textbf{\translatekey{confidentiality}}}\\
-			\bool_if:NTF \l_@@_embargotemp_bool {
-				\@embargotempwithdates
-			}{
-				\translatekey{embargofullphd}
-			}
-		}{
-			\\[\baselineskip]
-			\textbf{\translatekey{crdisclaimer}~\textcopyright\~\the\year}\\
-			{\translatekey{arrphd}}%
-		}
-		\\[\baselineskip]
-		{\textbf{\translatekey{pleaserefer}:}\\  		
-			\printseq{authorlist}{~\&~}{,~}{\translatekey{andlist}~}~(\the\year).~
-			{\renewcommand{\\}[1][]{~}\@title{}:~\@subtitle}.~PhD~Thesis,~Ghent~University,~Belgium.}%
-		\ifx\@isbn\@empty\else
-			\\[\baselineskip]{\small ISBN~\@isbn}%
-		\fi
-		\ifdefempty{\@doi}{}{
-			\ifx\@isbn\@empty\\[\baselineskip]\else\\\fi
-			{\small DOI~\href{https://doi.org/\@doi}{\@doi}}
-		}
-	\end{minipage}
+\seq_new:N \g_@@_jurymemberswithaffiliation_seq
+\cs_new:Nn \@@_addjurymember:nnn {
+	\seq_gput_right:Nn \g_@@_jurymemberswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+}
+\NewDocumentCommand{\jurymember}{mmm}{
+	\@@_addjurymember:nnn { #1 } { #2 } { #3 }
 }
 \ExplSyntaxOff
-%</phd>
-%<*crs>
-\renewcommand{\@copyrightnotices}{
-	\null\par
-	\vspace*{\stretch{1}}
-	{
-	\setlength\parindent{0em}
-	\translatekey{version}~\@courseversion\\
-	\printseq{courseswithcodes}{\\}{\\}{\\}
-	\ifseqempty{authors}{}{
-		\vskip 1em
-		\getseqcaption{authors}{}:~\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
-	}
-	
-	\translatekey{typeset}~\LaTeX{}~\translatekey[lowercase]{and}~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
-	\@extranotices
-		
-	\vskip 1em
-	\@publisher\\
-	\@publishercode
-		
-	\vskip 1em
-	\copyright{}~\the\year~\translatekey{org-ugent},
-	\translatekey[lowercase]{arr}.
-	}
-}
-%</crs>
-%<*rp>
-\renewcommand{\@copyrightnotices}{
-	\null\par
-	\vspace*{\stretch{1}}
-	{
-		\setlength\parindent{0em}
-		\translatekey{typeset}~\LaTeX{}~\translatekey[lowercase]{and}~\translatekey[lowercase]{the-de}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
-		\@extranotices
-		
-		\copyright{}~\the\year~\translatekey{org-ugent},
-		\translatekey[lowercase]{arr}.
-	}
-}
-%</rp>
+%</phd> 
 %    \end{macrocode}
 % \end{imacro}
-%
-% \begin{imacro}{\sender}
-% This macro sets the |\@sender| and |\@senderrole| tags that will be
-% used in the letter's heading text.
+% \DescribeMacro{\studentnr}
+% specifies the exam copy number. This will appear on every page of
+% the exam, easing the reassembly of pages that do not contain any
+% name. Moreover, it allows for blind correction as the student only
+% writes his name ot he front page.
+% \begin{imacro}{\studentnr}
+%   This macro will set the |\@studentnr| tag that will be used in the
+%   exam and bama class.
 %    \begin{macrocode}
-%<*le>
-\newcommand*{\@sender}{< Specify sender using
-  \textbackslash{}sender\{name\}\{role\} >}
-\newcommand*{\@senderrole}{~}
-\newcommand*{\sender}[2]{\renewcommand*{\@sender}{#1}\renewcommand*{\@senderrole}{#2}}
-%</le>
+%<*ex|bama|rp>      
+\newcommand*{\@studentnr}{}
+\newcommand*{\studentnr}[1]{\renewcommand*{\@studentnr}{#1}}
+%</ex|bama|rp>
 %    \end{macrocode}
 % \end{imacro}
-
+% \begin{imacro}{\jurychair}
+%   This macro sets the |\@jurychair| tag that later will be used on
+%   the data page.
+%    \begin{macrocode}
+%<*phd>      
+\newcommand*{\@jurychair}{
+	\PackageError{ugentdocs}
+	{Please, define a chair of the jury using the
+		'\protect\jurychair{}' command in the preamble of your
+		document.} 
+	{See the ugentdocs manual}
+}
+\newcommand*{\@jurychairaff}{}
+\newcommand*{\jurychair}[3]{
+	\renewcommand*{\@jurychair}{#1~\@formatname{#2}}\renewcommand*{\@jurychairaff}{#3}}
+%</phd> 
+%    \end{macrocode}
+% \end{imacro}
+% \begin{imacro}{\dean}
+%   This macro sets the |\@dean| tag that later will be used on
+%   the data page.
+%    \begin{macrocode}
+%<*phd>      
+\newcommand*{\@dean}[2]{
+	\PackageError{ugentdocs}
+	{Please, define a dean of the faculty using the
+		'\protect\dean{}{}' command in the preamble of your
+		document.} 
+	{See the ugentdocs manual}
+}
+\newcommand*{\dean}[2]{
+	\renewcommand*{\@dean}{#1~\@formatname{#2}}
+}
+%</phd> 
+%    \end{macrocode}
+% \end{imacro}
 %
+% \begin{imacro}{\rector}
+%   This macro sets the |\@rector| tag that later will be used on
+%   the data page.
+%    \begin{macrocode}
+%<*phd>      
+\newcommand*{\@rector}[2]{
+	\PackageError{ugentdocs}
+	{Please, define a rector of Ghent University using the
+		'\protect\rector{}{}' command in the preamble of your
+		document.} 
+	{See the ugentdocs manual}
+}
+\newcommand*{\rector}[2]{
+	\renewcommand*{\@rector}{#1~\@formatname{#2}}
+}
+%</phd> 
+%    \end{macrocode}
+% \end{imacro}
+%
+% \begin{imacro}{\coverdesigner}
+%   This macro sets the |\@coverdesigner| tag that later will be used on
+%   the data page.
+%    \begin{macrocode}
+%<*phd>      
+\newcommand*{\@coverdesigner}{}
+\newcommand*{\coverdesigner}[1]{
+	\renewcommand*{\@coverdesigner}{\@formatname{#1}}
+}
+%</phd> 
+%    \end{macrocode}
+% \end{imacro}
+%
+% \subsubsection{Contact}
+% \label{S:contact}
+% \DescribeMacro{\address} [letter] (mandatory)\\
+% Address of the sending unit (or faculty). This can be different from
+% the return address. Newlines are allowed and encouraged.
+% \begin{imacro}{\address}
+%   This macro will set the |\@address| tag that will be used in
+%   the letter's heading text (in the area of the envelope's window).
+%    \begin{macrocode}
+%<*phd|le>
+\newcommand*{\@address}{
+	\PackageError{ugentdocs}
+	{Please, set your multi-line address and contact details using the
+		'\protect\address{}' command in the preamble of your document}
+	{See the ugentdocs manual}
+}
+%</phd|le>
+%<*rp>
+\newcommand*{\@address}{}
+%</rp>
+%
+%<phd|rp>\newcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
+%<le>\renewcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
+%    \end{macrocode}
+% \end{imacro}
+% \DescribeMacro{\email} [letter] (optional)\\
+% E-mail address of the sending person, or the administrative person
+% tracking the letter. This must definitely be someone that can answer
+% questions related to this letter.
+% \begin{itemize}
+% \item first argument: user name
+% \item second argument: domain name
+% \end{itemize}
+% You can specify multiple email addresses by using the command
+% multiple times.
 % \begin{imacro}{\email}
 %   This macro allows for the registration of contact email addresses
 %   for a letter. This can be done by invoking the macro as many times
@@ -3827,7 +3389,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	}
 }
 \NewDocumentCommand{\email}{mm}{
-  \@@_addemailaddress:nn { #1 } { #2 }
+	\@@_addemailaddress:nn { #1 } { #2 }
 }
 \ExplSyntaxOff
 %</le|rp> 
@@ -3835,6 +3397,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{imacro}
 %
 %
+% \DescribeMacro{\phone} [letter] (optional)\\
+% Phone number of the sending person. See also |\email|.
+% You can specify multiple phone numbers by using the command
+% multiple times.
 % \begin{imacro}{\phone}
 %   This macro allows for the registration of contact phone numbers
 %   for a letter. This can be done by invoking the macro as many times
@@ -3845,10 +3411,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOn
 \seq_new:N \g_@@_phonenumbers_seq
 \cs_new:Nn \@@_addphonenumber:n {
-  \seq_gput_right:Nn \g_@@_phonenumbers_seq {#1\strut}
+	\seq_gput_right:Nn \g_@@_phonenumbers_seq {#1\strut}
 }
 \NewDocumentCommand{\phone}{m}{
-  \@@_addphonenumber:n { #1 }
+	\@@_addphonenumber:n { #1 }
 }
 \ExplSyntaxOff
 %</le|rp> 
@@ -3856,6 +3422,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{imacro}
 %
 %
+% \DescribeMacro{\fax} [letter] (optional)\\
+% Probably facsimile is not used anymore, but anyway: fax number of
+% the sending person. See also |\email|.
+% You can specify multiple fax addresses by using the command
+% multiple times.
 % \begin{imacro}{\fax}
 %   This macro allows for the registration of contact fax numbers
 %   for a letter. This can be done by invoking the macro as many times
@@ -3866,10 +3437,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOn
 \seq_new:N \g_@@_faxnumbers_seq
 \cs_new:Nn \@@_addfaxnumber:n {
-  \seq_gput_right:Nn \g_@@_faxnumbers_seq {#1\strut}
+	\seq_gput_right:Nn \g_@@_faxnumbers_seq {#1\strut}
 }
 \NewDocumentCommand{\fax}{m}{
-  \@@_addfaxnumber:n { #1 }
+	\@@_addfaxnumber:n { #1 }
 }
 \ExplSyntaxOff
 %</le> 
@@ -3877,6 +3448,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{imacro}
 %
 %
+% \DescribeMacro{\mobile} [letter] (optional)\\
+% Mobile phone number of the sending person. See also |\email|.
+% You can specify multiple mobile phone numbers by using the command
+% multiple times.
 % \begin{imacro}{\mobile}
 %   This macro allows for the registration of contact mobile numbers
 %   for a letter. This can be done by invoking the macro as many times
@@ -3887,165 +3462,122 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOn
 \seq_new:N \g_@@_mobilenumbers_seq
 \cs_new:Nn \@@_addmobilenumber:n {
-  \seq_gput_right:Nn \g_@@_mobilenumbers_seq {#1\strut}
+	\seq_gput_right:Nn \g_@@_mobilenumbers_seq {#1\strut}
 }
 \NewDocumentCommand{\mobile}{m}{
-  \@@_addmobilenumber:n { #1 }
+	\@@_addmobilenumber:n { #1 }
 }
 \ExplSyntaxOff
 %</le|rp> 
 %    \end{macrocode}
 % \end{imacro}
+
+% \subsubsection{Course macros}
+% \label{S:course}
+% \DescribeMacro{\course} [exam] (mandatory)\\
+% see description of |\course| macro on page~\pageref{dm-course}.
+% \DescribeMacro{\course} [course] (mandatory)\\
+% \label{dm-course}
+% Code (first argument) and name (second argument) of the curriculum
+% course this coursematerial or exam belongs to. The code should be of
+% the form:\\ 
+% |TNNNFFFAAA|,
+% with:
+% \begin{center}
+%   \begin{tabular}{cp{10cm}}
+%     \toprule
+%       Code & Explanation \\
+%     \midrule
+%       |T|    & a number indicating the type of programme \\
+%              & (1 for Bachelor courses, 2 for Master courses , 5 for
+%                specific courses of preparatory programmes) \\
+%       |NNN|  & a number assigned by the Faculty's administration\\
+%       |FFF|  & the acronym of your Faculty, e.g., FTI\\
+%       |AAA|  & an alphanumeric code assigned by the Faculty's
+%                administration \\
+%     \bottomrule
+%   \end{tabular}
+% \end{center}
 %
+% An example of such a code: 1001FTIWIS, for the first-semester
+% mathematics course of the Faculty of Applied Engineering.
+% \begin{imacro}{\course}
+	%   Four the |course| class, this macro sets one or more
+	%   courses. 
+	%   and |\@course| tags that later will be used on the title
+	%   page.
+	%    \begin{macrocode}
+	%<*crs|ex>
+	\ExplSyntaxOn
+	\seq_new:N \g_@@_courseswithcodes_seq
+	\seq_new:N \g_@@_courses_seq
+	\seq_new:N \g_@@_coursecodes_seq
+	\cs_new:Nn \@@_addcourse:nn {
+		\seq_gput_right:Nn \g_@@_courseswithcodes_seq { \texttt{#1}~#2\strut }
+		\seq_gput_right:Nn \g_@@_courses_seq 			{ #2\strut }
+		\seq_gput_right:Nn \g_@@_coursecodes_seq { \texttt{#1}\strut }
+	}
+	\NewDocumentCommand{\course}{mm}{
+		\@@_addcourse:nn { #1 } { #2 }
+	}
+	\ExplSyntaxOff
+	%</crs|ex>
+	%    \end{macrocode}
+	% \end{imacro}
 %
-% \begin{imacro}{\returnaddress}
-%   This macro sets the |\@returnaddress| tag that will be used in the letter's
-%   heading text (in the area of the envelope's window).
+% \DescribeMacro{\courseversion} [course] (optional)\\
+% This macro indicates which version of the course this is.
+% \begin{imacro}{\courseversion}
+%   This macro sets the |\@courseversion| tag that later will be used
+%   on the title page and in the header/footer.
 %    \begin{macrocode}
-%<*le>
-\newcommand*{\@returnaddress}
-            {<specify return-address using \textbackslash\{single-line-return-address\}>}
-\renewcommand*{\returnaddress}[1]
-              {\renewcommand*{\@returnaddress}{#1}}
-%</le>
-%    \end{macrocode}
-% \end{imacro}
-%
-%
-% \begin{imacro}{\to}
-%   This macro sets the |\@to| tag that will be used in the letter's
-%   heading text (in the area of the envelope's window).
-%    \begin{macrocode}
-%<*le>
-\newcommand*{\@to}{<Specify addressee using \textbackslash{}to\{name\}>}
-\renewcommand*{\to}[1]{\renewcommand*{\@to}{#1}}
-%</le>
-%    \end{macrocode}
-% \end{imacro}
-%
-%
-% \begin{imacro}{\toorganization}
-%   This macro sets the |\@toorganization| tag that will be used in
-%   the letter's heading text (in the area of the envelope's window).
-%    \begin{macrocode}
-%<*le>
-\newcommand*{\@toorganization}{}
-\newcommand*{\toorganization}[1]{\renewcommand*{\@toorganization}{#1}}
-%</le>
-%    \end{macrocode}
-% \end{imacro}
-%
-% \begin{imacro}{\toaddress}
-%   This macro sets the |\@toaddress| tag that will be used in
-%   the letter's heading text (in the area of the envelope's window).
-%    \begin{macrocode}
-%<*le>
-\newcommand*{\@toaddress}{}
-\newcommand*{\toaddress}[1]{\renewcommand*{\@toaddress}{#1}}
-%</le>
-%    \end{macrocode}
-% \end{imacro}
-%
-% \begin{imacro}{\subject}
-%   This macro sets the |\@subject| tag that will be used in
-%   the letter's heading text.
-%    \begin{macrocode}
-%<*le>
-\newcommand*{\@subject}{-}
-\newcommand*{\subject}[1]{\renewcommand*{\@subject}{#1}}
-%</le>
-%    \end{macrocode}
-% \end{imacro}
-%
-% \begin{imacro}{\reference}
-%   This macro sets the |\@reference| tag that will be used in
-%   the letter's heading text.
-%    \begin{macrocode}
-%<*le>
-\newcommand*{\@reference}{-}
-\newcommand*{\reference}[1]{\renewcommand*{\@reference}{#1}}
-%</le>
-%    \end{macrocode}
-% \end{imacro}
-%
-% \begin{imacro}{\opening}
-%   This macro is much a do about nothing, but I prefer to do it this
-%   way for historic reasons.
-%    \begin{macrocode}
-%<*le>
-\renewcommand*{\opening}[1]{#1}
-%</le>
-%    \end{macrocode}
-% \end{imacro}
-%
-% \begin{imacro}{\closing}
-%   This macro sets the |\@closing| tag that will be used to finish
-%   the letter.
-%    \begin{macrocode}
-%<*le>
-\newcommand*{\@closing}{<specify a closing formula using
-  \textbackslash{}closing\{\}>}
-\renewcommand*{\closing}[1]{\renewcommand*{\@closing}{#1}}
-%</le>
-%    \end{macrocode}
-% \end{imacro}
-%
-% \begin{imacro}{\signature}
-%   This macro sets the |\@signature| tag that will be used to finish
-%   the letter. By default this corresponds to a decent amount of
-%   vertical white space 
-%    \begin{macrocode}
-%<*le>
-\newcommand*{\@signature}{\vspace*{8ex}}
-\renewcommand*{\signature}[1]{\renewcommand*{\@signature}{#1}}
-%</le>
+%<*crs>      
+\newcommand*{\@courseversion}{}
+\newcommand*{\courseversion}[1]{\renewcommand*{\@courseversion}{#1}}
+%</crs> 
 %    \end{macrocode}
 % \end{imacro}
 % 
-%
-% \begin{imacro}{\carboncopy}
-%   This macro will set the |\@carboncopy| tag that will be used in
-%   the trailer of the letter.
+% \begin{imacro}{\publisher}
+%   This macro sets the |\@publisher| tag that later will be used on
+%   the title page.
 %    \begin{macrocode}
-%<*le>
-\newcommand*{\@carboncopy}{}
-\newcommand*{\carboncopy}[1]{\renewcommand*{\@carboncopy}{#1}}
-%</le>
+%<*crs>      
+\newcommand{\@publisher}{}
+\newcommand*{\publisher}[1]{\renewcommand*{\@publisher}{#1}}
+%</crs> 
 %    \end{macrocode}
 % \end{imacro}
-%
-% \begin{imacro}{\enclosed}
-%   This macro will set the |\@enclosed| tag that will be used in
-%   the trailer of the letter.
+% 
+% \DescribeMacro{\publishercode} [course] (mandatory)\\
+% This macro sets the publisher code of the document.
+% It is printed on the front page. This is code that the publisher
+% uses for its internal administration. It may be a proprietary code,
+% or an ISBN number.
+% \begin{imacro}{\publishercode}
+%   This macro sets the |\@publishercode| tag that later will be used on
+%   the title page.
 %    \begin{macrocode}
-%<*le>
-\newcommand*{\@enclosed}{}
-\newcommand*{\enclosed}[1]{\renewcommand*{\@enclosed}{#1}}
-%</le>
+%<*crs>      
+\newcommand*{\@publishercode}{}
+\newcommand*{\publishercode}[1]{\renewcommand*{\@publishercode}{#1}}
+%</crs> 
 %    \end{macrocode}
 % \end{imacro}
+
 %
-% \begin{imacro}{\address}
-%   This macro will set the |\@address| tag that will be used in
-%   the letter's heading text (in the area of the envelope's window).
-%    \begin{macrocode}
-%<*phd|le>
-\newcommand*{\@address}{
-  \PackageError{ugentdocs}
-  {Please, set your multi-line address and contact details using the
-    '\protect\address{}' command in the preamble of your document}
-  {See the ugentdocs manual}
-}
-%</phd|le>
-%<*rp>
-\newcommand*{\@address}{}
-%</rp>
 %
-%<phd|rp>\newcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
-%<le>\renewcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
-%    \end{macrocode}
-% \end{imacro}
+% 
+% \subsubsection{Exam macros}
+% \label{S:exam}
 %
+% \DescribeMacro{\exampart} [exam] (mandatory)\\
+% Description of the part of the course the exam covers.
+% Often the evaluation of a course consists of multiple evaluation
+% elements (e.g. a written exam, a portfolio defense and lab
+% reports). Using this macro you can indicate the part this exam
+% covers. E.g. it could be 'Written Exam' (to distinguish from the
+% other parts 'portfolio defense' and 'lab reports').
 % \begin{imacro}{\exampart}
 %   This macro will set the |\@examgropunumber| tag that will be used on
 %   the exam title page.
@@ -4056,6 +3588,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
+%
+% \DescribeMacro{\examgroupnumber} [exam]\\
+% mentions the group number (may be empty)
 %
 % \begin{imacro}{\examgroupnumber}
 %   This macro will set the |\@examgroupnumber| tag that will be used on
@@ -4068,6 +3603,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
+% \DescribeMacro{\examdate}
+% specifies the date of the exam. We recommend the YYYY-MM-DD format,
+% but you are free to chose your own coding scheme for dates. We
+% advize against using UNIX epoch time, to avoid problems in the first
+% semester exams in 2038.
+%
 % \begin{imacro}{\examdate}
 %   This macro will set the |\@examdate| tag that will be used on
 %   the exam title page.
@@ -4079,6 +3620,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
+% \DescribeMacro{\examlength}
+% specifies the length of the exam in a unit of time, e.g. '4h'
 % \begin{imacro}{\examlength}
 %   This macro will set the |\@examlength| tag that will be used on
 %   the exam title page.
@@ -4090,6 +3633,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
+% \DescribeMacro{\tstart}
+% specifies the start time of the exam, preferrable in the format
+% 'HHhMM', e.g. '08h30'.
 % \begin{imacro}{\tstart}
 %   This macro will set the |\@tstart| tag that will be used on
 %   the exam title page.
@@ -4101,6 +3647,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
+% \DescribeMacro{\tend}
+% specifies the end time of the exam in a format identical to the one
+% chosen for |\tstart|.
 % \begin{imacro}{\tend}
 %   This macro will set the |\@tend| tag that will be used on
 %   the exam title page.
@@ -4112,6 +3661,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
+% \DescribeMacro{\room}
+% specifies the rooms in which the exam will take place. This is
+% useless info for the student, but may be of convenience for you as
+% author or supervisor of the exam. Use UAntwerpen standard room
+% designators, e.g. 'G.U.025' for room number 025, on the
+% Groenenborgercampus in the U-building.
+% If your exam is taken in multiple rooms, just specify multiple
+% |\room{}| commands.
 % \begin{imacro}{\room}
 %   This macro will set the |\@rooms| tag that will be used on
 %   the exam title page.
@@ -4120,16 +3677,24 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOn
 \seq_new:N \g_@@_rooms_seq
 \cs_new:Nn \@@_addroom:n {
-  \seq_gput_right:Nn \g_@@_rooms_seq { #1\strut }
+	\seq_gput_right:Nn \g_@@_rooms_seq { #1\strut }
 }
 \NewDocumentCommand{\room}{m}{
-  \@@_addroom:n { #1 }
+	\@@_addroom:n { #1 }
 }
 \ExplSyntaxOff
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
 %
+% \DescribeMacro{\extrainfo}
+% specifies the extra information that appears on the back of the
+% title page, regarding the materials that can be used during the
+% examination and cautioning the students not to commit fraude.
+% You can specify an optional first argument 'firstpage', such that
+% your extra info starts on the first page, below the title block. In
+% that case the extra info will also not be terminated with a
+% clearpage (as we assume you want to conserve space).
 % \begin{imacro}{\extrainfo}
 %   This macro will set the |\@extrainfo| tag that will be used on
 %   the back of the exam title page.
@@ -4158,28 +3723,370 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex> 
 %    \end{macrocode}
 % \end{imacro}
-%
-% \begin{imacro}{\backcoverlogos}
-%   This macro will set the |\@backcoverlogos| tag that will be used
-%   to print the publisher logo on the back cover.
+% \begin{imacro}{\question}
+%   Add a small box with the weight of the question on the current line
+%   (right aligned).
+%   
 %    \begin{macrocode}
-%<*bkc|phd|crs>      
-\newcommand*{\@backcoverlogos}{\includegraphics[height = 2\gridunit]{Images/logo_UniversityPress_blue}}
-\newcommand*{\backcoverlogos}[1]{\renewcommand*{\@backcoverlogos}{#1}}
-%</bkc|phd|crs>
+%<*ex>      
+\newcounter{question}
+\setcounter{question}{0}
+\renewcommand*\thequestion{\@arabic\c@question}
+\newcommand{\question}[1]{
+	\stepcounter{question}
+	\thequestion.~#1%
+}
+%</ex> 
+%    \end{macrocode}
+% \end{imacro}
+% 
+% \begin{imacro}{\questionweight}
+%   Add a small box with the weight of the question on the current line
+%   (right aligned).
+%   
+%    \begin{macrocode}
+%<*ex>      
+\newcommand*{\questionweight}[1]{%
+	\hspace{\fill}
+	\begin{tabular}{|c|}
+		\hline 
+		\small \translatekey{weight}: #1\\
+		\hline
+	\end{tabular}\\
+}
+%</ex> 
+%    \end{macrocode}
+% \end{imacro}
+% 
+% \begin{imacro}{\engdut}
+%   typesets the question in two columns, the left column taking the
+%   English variant of the question and the right column taking the
+%   Dutch variant.
+%    \begin{macrocode}
+%<*ex>      
+\newcommand{\engdut}[2]{%
+	\begin{tabular}{ccc}% 
+		\selectlanguage{english}%
+		\begin{minipage}[t]{0.45\textwidth}%
+			#1
+		\end{minipage}%
+		&~~~&
+		\selectlanguage{dutch}%
+		\begin{minipage}[t]{0.45\textwidth}%
+			#2
+		\end{minipage}% 
+	\end{tabular}
+	\selectlanguage{english}%
+}
+%</ex> 
+%    \end{macrocode}
+% \end{imacro}
+% 
+% 
+% \begin{imacro}{\setmcsymbol}
+%   sets the symbol to be used as multiple choice mark (by default a
+%   square).
+%    \begin{macrocode}
+%<*ex>      
+\newcommand*\@mcsymbol{}%\square} 
+% TODO this needs to be fixed
+\newcommand*\setmcsymbol[1]{\renewcommand\@mcsymbol{#1}}
+%</ex> 
+%    \end{macrocode}
+% \end{imacro}
+% 
+% \begin{imacro}{\mc}
+%   typesets a multiple choice answer candidate (monolingual, i.e. in a
+%   single column).
+%    \begin{macrocode}
+%<*ex>      
+\newcommand\mc[1]{%
+	\hfill\break\qquad\begin{tabular}{cc}
+		$\@mcsymbol$
+		&
+		\begin{minipage}[t]{0.9\textwidth}%
+			#1
+		\end{minipage}%
+	\end{tabular}
+}
+%</ex> 
+%    \end{macrocode}
+% \end{imacro}
+% 
+% 
+% \begin{imacro}{\engdutmc}
+%   typesets a multiple choice answer candidate in two columns, the left
+%   column taking the English variant of the question and the right
+%   column taking the Dutch variant.
+%   
+%    \begin{macrocode}
+%<*ex>      
+\newcommand{\engdutmc}[2]{%
+	\hfill\break\begin{tabular}{cccc}
+		$\@mcsymbol$
+		&
+		\selectlanguage{english}%
+		\begin{minipage}[t]{0.42\textwidth}%
+			#1
+		\end{minipage}%
+		&---&
+		\selectlanguage{dutch}%
+		\begin{minipage}[t]{0.42\textwidth}%
+			#2
+		\end{minipage}%
+	\end{tabular}
+	\selectlanguage{english}%
+}
+%</ex> 
+%    \end{macrocode}
+% \end{imacro}
+% 
+% \begin{imacro}{\insertsolutionspagepartial}
+%   fills the remainder of the page with 'fill-out' squares.
+%   as observing/controlling the current line position in \LaTeX{} is
+%   not easiy, one has to provide the number of centimeters below the
+%   bottom of the page, one wants to start the fill-out squares.
+%   
+%   
+%    \begin{macrocode}
+%<*ex>      
+\newcommand\insertsolutionspagepartial[1]{
+~\relax
+\AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{
+		\put(0,0){%
+			\begin{tikzpicture}
+			\clip (0,0) rectangle (21,#1);
+			% \draw[densely dotted, step=0.5cm,black!20] (0.999,0.990) grid (20,1.5);
+			\draw[densely dotted, step=0.5cm,black!20] (0.999,1.499) grid (2,2.5);
+			\draw[densely dotted, step=0.5cm,black!20] (18.999,1.499) grid (20,2.5);
+			
+			\draw[densely dotted, step=0.5cm,black!20] (0.999,2.499) grid (20,27);
+			\draw[densely dotted, step=0.5cm,black!20] (0.999,27) grid (16,28);
+			\draw[densely dotted, step=0.5cm,black!20] (19.499,27) grid (20,28);
+			\draw[densely dotted, step=0.5cm,black!20] (0.99,27.999) grid
+			(20,28.5);
+			\draw[ultra thick] (1,#1) -- (20,#1);
+			\end{tikzpicture}
+		}
+	}%
+	\clearpage
+	\relax
+}
+%</ex> 
+%    \end{macrocode}
+% \end{imacro}
+% 
+% \begin{imacro}{\insertsolutionspage}
+%   inserts a full solutions page, i.e. flushes the current page and
+%   inserts a full page with 'fill-out' squares.
+%   The argument allows for specifying a watermark text (e.g. 'Scrap
+%   paper'). 
+%   
+%    \begin{macrocode}
+%<*ex>      
+\newcommand\insertsolutionspage[1]{
+\clearpage
+\AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{
+		\put(0,0){%
+			\begin{tikzpicture}
+			\clip (0,0) rectangle (21,29.5);
+			\draw[densely dotted, step=0.5cm,black!20] (0.999,1.499) grid (2,2.5);
+			\draw[densely dotted, step=0.5cm,black!20] (18.999,1.499) grid (20,2.5);
+			
+			\draw[densely dotted, step=0.5cm,black!20] (0.999,2.499) grid (20,28);
+			\draw[densely dotted, step=0.5cm,black!20] (0.999,28) grid (16,28.5);
+			\draw[densely dotted, step=0.5cm,black!20] (19.499,28) grid (20,28.5);
+			\end{tikzpicture}
+		}
+		\put(120,150){\rotatebox{60}{\textcolor{watermarkcolor}{
+					\fontsize{105}{130}\selectfont\textsf{#1}}
+			}
+		}
+	}%
+	~\relax
+}
+%</ex> 
+%    \end{macrocode}
+% \end{imacro}
+% 
+%
+% \subsubsection{Letter macros}
+% \label{S:letter}
+% 
+% \DescribeMacro{\sender} [letter] (mandatory)\\
+% Description of the person writing the letter.
+% \begin{itemize}
+	% \item first argument: name of the person writing the letter
+	% \item second argument: title / role of the person
+	% \end{itemize}
+% Newlines are not allowed in the arguments.
+% \begin{imacro}{\sender}
+% This macro sets the |\@sender| and |\@senderrole| tags that will be
+% used in the letter's heading text.
+%    \begin{macrocode}
+%<*le>
+\newcommand*{\@sender}{< Specify sender using
+	\textbackslash{}sender\{name\}\{role\} >}
+\newcommand*{\@senderrole}{~}
+\newcommand*{\sender}[2]{\renewcommand*{\@sender}{#1}\renewcommand*{\@senderrole}{#2}}
+%</le>
 %    \end{macrocode}
 % \end{imacro}
 %
-% \begin{imacro}{\studentnr}
-%   This macro will set the |\@studentnr| tag that will be used in the
-%   exam and bama class.
+% \DescribeMacro{\returnaddress} [letter] (mandatory)\\
+% This is a short return address (listed in small font on top of the
+% destination address (such that it is visible in a windowed envelope
+% (European format)). It should fit on a single line. Typically we list
+% an acronym for the unit, a room number, a campus name and address.
+% The goal is to get the undelivered letter back to the person that
+% can take action accordingly.
+% \begin{imacro}{\returnaddress}
+%   This macro sets the |\@returnaddress| tag that will be used in the letter's
+%   heading text (in the area of the envelope's window).
 %    \begin{macrocode}
-%<*ex|bama|rp>      
-\newcommand*{\@studentnr}{}
-\newcommand*{\studentnr}[1]{\renewcommand*{\@studentnr}{#1}}
-%</ex|bama|rp>
+%<*le>
+\newcommand*{\@returnaddress}
+{<specify return-address using \textbackslash\{single-line-return-address\}>}
+\renewcommand*{\returnaddress}[1]
+{\renewcommand*{\@returnaddress}{#1}}
+%</le>
 %    \end{macrocode}
 % \end{imacro}
+%
+% \DescribeMacro{\to} [letter] (mandatory)\\
+% Name of the addressee. Newlines are allowed. 
+% Preferably name and role are split over two lines.
+% \begin{imacro}{\to}
+%   This macro sets the |\@to| tag that will be used in the letter's
+%   heading text (in the area of the envelope's window).
+%    \begin{macrocode}
+%<*le>
+\newcommand*{\@to}{<Specify addressee using \textbackslash{}to\{name\}>}
+\renewcommand*{\to}[1]{\renewcommand*{\@to}{#1}}
+%</le>
+%    \end{macrocode}
+% \end{imacro}
+%
+% \DescribeMacro{\toorganization} [letter] (optional)\\
+% Name of the organization that employs the addressee.
+% \begin{imacro}{\toorganization}
+%   This macro sets the |\@toorganization| tag that will be used in
+%   the letter's heading text (in the area of the envelope's window).
+%    \begin{macrocode}
+%<*le>
+\newcommand*{\@toorganization}{}
+\newcommand*{\toorganization}[1]{\renewcommand*{\@toorganization}{#1}}
+%</le>
+%    \end{macrocode}
+% \end{imacro}
+%
+% \DescribeMacro{\toaddress} [letter] (optional)\\
+% Address of the addressee. Newlines are allowed. The address should
+% fit on max. 3 lines.
+% \begin{imacro}{\toaddress}
+	%   This macro sets the |\@toaddress| tag that will be used in
+%   the letter's heading text (in the area of the envelope's window).
+%    \begin{macrocode}
+%<*le>
+\newcommand*{\@toaddress}{}
+\newcommand*{\toaddress}[1]{\renewcommand*{\@toaddress}{#1}}
+%</le>
+%    \end{macrocode}
+% \end{imacro}
+%
+% \DescribeMacro{\subject} [letter] (mandatory) \\
+% Short descriptive subject that describes the contents of the
+% letter.
+% \begin{imacro}{\subject}
+%   This macro sets the |\@subject| tag that will be used in
+%   the letter's heading text.
+%    \begin{macrocode}
+%<*le>
+\newcommand*{\@subject}{-}
+\newcommand*{\subject}[1]{\renewcommand*{\@subject}{#1}}
+%</le>
+%    \end{macrocode}
+% \end{imacro}
+%
+% \begin{imacro}{\reference}
+%   This macro sets the |\@reference| tag that will be used in
+%   the letter's heading text.
+%    \begin{macrocode}
+%<*le>
+\newcommand*{\@reference}{-}
+\newcommand*{\reference}[1]{\renewcommand*{\@reference}{#1}}
+%</le>
+%    \end{macrocode}
+% \end{imacro}
+%
+% \DescribeMacro{\opening}  [letter] (mandatory) \\
+% Opening address of the letter. E.g. 'Dear X,'.
+% \begin{imacro}{\opening}
+%   This macro is much a do about nothing, but I prefer to do it this
+%   way for historic reasons.
+%    \begin{macrocode}
+%<*le>
+\renewcommand*{\opening}[1]{#1}
+%</le>
+%    \end{macrocode}
+% \end{imacro}
+%
+% \DescribeMacro{\closing}  [letter] (mandatory) \\
+% Closing clause of the letter. E.g. 'Best regards,'.
+% \begin{imacro}{\closing}
+%   This macro sets the |\@closing| tag that will be used to finish
+%   the letter.
+%    \begin{macrocode}
+%<*le>
+\newcommand*{\@closing}{<specify a closing formula using
+	\textbackslash{}closing\{\}>}
+\renewcommand*{\closing}[1]{\renewcommand*{\@closing}{#1}}
+%</le>
+%    \end{macrocode}
+% \end{imacro}
+%
+% \DescribeMacro{\signature}  [letter] (optional) \\
+% Add a signature (in between the closing statement of the
+% letter and the sender's name. This might be a text message or a
+% picture of your signature.
+% \begin{imacro}{\signature}
+%   This macro sets the |\@signature| tag that will be used to finish
+%   the letter. By default this corresponds to a decent amount of
+%   vertical white space 
+%    \begin{macrocode}
+%<*le>
+\newcommand*{\@signature}{\vspace*{8ex}}
+\renewcommand*{\signature}[1]{\renewcommand*{\@signature}{#1}}
+%</le>
+%    \end{macrocode}
+% \end{imacro}
+%
+% \DescribeMacro{\carboncopy} [letter] (optional)\\
+% List of persons receiving a copy of this letter. Format at will.
+% \begin{imacro}{\carboncopy}
+%   This macro will set the |\@carboncopy| tag that will be used in
+%   the trailer of the letter.
+%    \begin{macrocode}
+%<*le>
+\newcommand*{\@carboncopy}{}
+\newcommand*{\carboncopy}[1]{\renewcommand*{\@carboncopy}{#1}}
+%</le>
+%    \end{macrocode}
+% \end{imacro}
+%
+% \DescribeMacro{\enclosed} [letter] (optional)\\
+% List of enclosed documents. Format at will.
+% \begin{imacro}{\enclosed}
+%   This macro will set the |\@enclosed| tag that will be used in
+%   the trailer of the letter.
+%    \begin{macrocode}
+%<*le>
+\newcommand*{\@enclosed}{}
+\newcommand*{\enclosed}[1]{\renewcommand*{\@enclosed}{#1}}
+%</le>
+%    \end{macrocode}
+% \end{imacro}
+%
 %
 % \section{Style}
 % \label{S:style}
@@ -4984,6 +4891,207 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \subsection{Title, data, and final pages}
 %
+%    \begin{macrocode}
+%<*bama>
+\ExplSyntaxOn
+\cs_new:Nn \@@_sigblock:nn {
+	\begin{minipage}[t]{\linewidth}
+		\centering
+		\rule{0pt}{1.25cm}\\
+		\rule{0.8\linewidth}{0.4pt}\\[0.3em]
+		#2\\
+		{\small\itshape #1}
+	\end{minipage}
+}
+
+\int_new:N \l_@@_sigcount_int
+
+\cs_new:Nn \@@_sigrow_step:nn {
+	\int_incr:N \l_@@_sigcount_int
+	\@@_sigblock:nn {#1} {#2}
+	\int_compare:nNnTF {\int_mod:nn {\l_@@_sigcount_int}{2}} = {1}
+	{ & }
+	{ \tabularnewline[2em] }
+}
+
+\tl_new:N \l_@@_sigrow_tl
+\seq_new:N \l_@@_sigpairs_seq
+
+\cs_new:Nn \@@_siggroup:Nn {
+	\int_compare:nNnTF {\seq_count:N #1} = {1}
+	{
+		\noindent
+		\begin{tabularx}{\textwidth}{@{}X@{\hspace{1.5cm}}X@{}}
+			\seq_map_inline:Nn #1 { \@@_sigblock:nn {#2} {##1} } & \tabularnewline
+		\end{tabularx}
+	}{
+		\seq_clear:N \l_@@_sigpairs_seq
+		\int_zero:N \l_@@_sigcount_int
+		\tl_clear:N \l_@@_sigrow_tl
+		\seq_map_inline:Nn #1 {
+			\int_incr:N \l_@@_sigcount_int
+			\int_compare:nNnTF {\int_mod:nn {\l_@@_sigcount_int}{2}} = {1}
+			{
+				\tl_set:Nn \l_@@_sigrow_tl { \@@_sigblock:nn {#2} {##1} }
+			}{
+				\seq_put_right:Nx \l_@@_sigpairs_seq
+				{ \exp_not:V \l_@@_sigrow_tl & \exp_not:n { \@@_sigblock:nn {#2} {##1} } }
+				\tl_clear:N \l_@@_sigrow_tl
+			}
+		}
+		\tl_if_empty:NF \l_@@_sigrow_tl {
+			\seq_put_right:Nx \l_@@_sigpairs_seq { \exp_not:V \l_@@_sigrow_tl & }
+		}
+		\noindent
+		\begin{tabularx}{\textwidth}{@{}X@{\hspace{1.5cm}}X@{}}
+			\seq_use:Nn \l_@@_sigpairs_seq { \tabularnewline[2em] }
+		\end{tabularx}
+	}
+}
+
+\cs_new:Nn \@@_autographpage: {
+	\seq_if_empty:NF \g_@@_authors_seq {
+		\translatekey{the-de}~\getseqcaption[lowercase]{authors}{}, \par\vskip 1em
+		\@@_siggroup:Nn \g_@@_authors_seq { } % Sub-name key not implemented
+	}
+	\vskip 2em
+	\seq_if_empty:NF \g_@@_allsupervisors_seq {
+		\translatekey{the-de}~\getseqcaption[lowercase]{allsupervisors}{}
+		\ifseqempty{tutors}{}{~\translatekey[lowercase]{and}~\getseqcaption[lowercase]{tutors}{}}, \par\vskip 1em
+		\@@_siggroup:Nn \g_@@_allsupervisorstutors_seq { } % Sub-name key not implemented
+	}
+}
+
+\newcommand{\@bamadisclaimer}{
+	{\translatekey{the-de}~\getseqcaption[lowercase]{authors}{}~\translatekey[lowercase]{and}~\getseqcaption[lowercase]{allsupervisors}{}}
+	\bool_if:NTF \l_@@_embargo_bool {
+		\bool_if:NTF \l_@@_embargotemp_bool {
+			{~\@embargotempwithdates}
+		}{
+			{~\translatekey{embargofullbama}}
+		}
+	}{
+		{~\translatekey{arrbama}}
+	}
+}
+
+\renewcommand{\@copyrightnotices}{%
+	\str_if_eq:VnTF \l_@@_language_tl {dutch} {
+		\@bamadisclaimer
+	}{
+		\begingroup
+		\selectlanguage{dutch}
+		\@bamadisclaimer
+		\endgroup
+		\selectlanguage{english}
+		\newline\newline
+		\@bamadisclaimer
+	}
+	\newline\newline
+	\@location,~\@date
+	\newline\newline
+	\@@_autographpage:
+	
+	\vspace*{\stretch{1}}
+}
+\ExplSyntaxOff
+%</bama>
+%<*phd>
+\ExplSyntaxOn
+\renewcommand{\@copyrightnotices}{%
+	\noindent\begin{minipage}[b]{\textwidth}
+		\textbf{Contact}\\
+		\smallskip
+		\printseq{authorswithaffiliation}{~|~}{~|~}{~|~}\\
+		\@address
+		\str_if_eq:VnF \l_@@_language_tl {dutch} {
+			\\[\baselineskip]
+			\textbf{Titel~van~het~doctoraat~in~het~Nederlands:}\\
+			{\renewcommand{\\}[1][]{~}\@titel{}:~\@subtitel}
+		}
+		\ifx\@coverdesigner\@empty\else
+		\\[\baselineskip]
+		\textbf{\translatekey{coverdesigner}:}\\
+		\@coverdesigner
+		\fi
+		%
+		\\[\baselineskip]
+		\translatekey{integrityclause}
+		%
+		\ifx\@grants\@empty\else
+		\\[\baselineskip]
+		{\translatekey{supportedby}~\@grants.}
+		\fi
+		\bool_if:NTF \l_@@_embargo_bool {
+			\\[\baselineskip]
+			{\textbf{\translatekey{confidentiality}}}\\
+			\bool_if:NTF \l_@@_embargotemp_bool {
+				\@embargotempwithdates
+			}{
+				\translatekey{embargofullphd}
+			}
+		}{
+			\\[\baselineskip]
+			\textbf{\translatekey{crdisclaimer}~\textcopyright\~\the\year}\\
+			{\translatekey{arrphd}}%
+		}
+		\\[\baselineskip]
+		{\textbf{\translatekey{pleaserefer}:}\\  		
+			\printseq{authorlist}{~\&~}{,~}{\translatekey{andlist}~}~(\the\year).~
+			{\renewcommand{\\}[1][]{~}\@title{}:~\@subtitle}.~PhD~Thesis,~Ghent~University,~Belgium.}%
+		\ifx\@isbn\@empty\else
+		\\[\baselineskip]{\small ISBN~\@isbn}%
+		\fi
+		\ifdefempty{\@doi}{}{
+			\ifx\@isbn\@empty\\[\baselineskip]\else\\\fi
+			{\small DOI~\href{https://doi.org/\@doi}{\@doi}}
+		}
+	\end{minipage}
+}
+\ExplSyntaxOff
+%</phd>
+%<*crs>
+\renewcommand{\@copyrightnotices}{
+	\null\par
+	\vspace*{\stretch{1}}
+	{
+		\setlength\parindent{0em}
+		\translatekey{version}~\@courseversion\\
+		\printseq{courseswithcodes}{\\}{\\}{\\}
+		\ifseqempty{authors}{}{
+			\vskip 1em
+			\getseqcaption{authors}{}:~\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
+		}
+		
+		\translatekey{typeset}~\LaTeX{}~\translatekey[lowercase]{and}~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
+		\@extranotices
+		
+		\vskip 1em
+		\@publisher\\
+		\@publishercode
+		
+		\vskip 1em
+		\copyright{}~\the\year~\translatekey{org-ugent},
+		\translatekey[lowercase]{arr}.
+	}
+}
+%</crs>
+%<*rp>
+\renewcommand{\@copyrightnotices}{
+	\null\par
+	\vspace*{\stretch{1}}
+	{
+		\setlength\parindent{0em}
+		\translatekey{typeset}~\LaTeX{}~\translatekey[lowercase]{and}~\translatekey[lowercase]{the-de}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
+		\@extranotices
+		
+		\copyright{}~\the\year~\translatekey{org-ugent},
+		\translatekey[lowercase]{arr}.
+	}
+}
+%</rp>
+%    \end{macrocode}
+%
 % The title page is generated using the |\maketitle| command. As the 
 % book class from which we inherit already defines this command, we
 % need to renew it.
@@ -5506,6 +5614,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
+% \DescribeMacro{\closeletter} [letter] (optiontal)\\
+% Close the letter (with the closing greetings and underwriting) such
+% that the letter can be continued if desired with attachments. This
+% macro generates a |\textbackslash{}clearpage|. The default is not to use this macro.
+% It is automatically invoked at the end of the letter if you did not do
+% so.
+%
 % The trailer of the page is automatically generated at the end of the document:
 %    \begin{macrocode}
 %<*le>
@@ -5675,194 +5790,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{imacro}
 % 
 % 
-% \subsection{Auxiliary functions to typeset exams}
-% 
-% \begin{imacro}{\question}
-%   Add a small box with the weight of the question on the current line
-%   (right aligned).
-%   
-%    \begin{macrocode}
-%<*ex>      
-\newcounter{question}
-\setcounter{question}{0}
-\renewcommand*\thequestion{\@arabic\c@question}
-\newcommand{\question}[1]{
-  \stepcounter{question}
-  \thequestion.~#1%
-}
-%</ex> 
-%    \end{macrocode}
-% \end{imacro}
-% 
-% \begin{imacro}{\questionweight}
-%   Add a small box with the weight of the question on the current line
-%   (right aligned).
-%   
-%    \begin{macrocode}
-%<*ex>      
-\newcommand*{\questionweight}[1]{%
-  \hspace{\fill}
-  \begin{tabular}{|c|}
-    \hline 
-    \small \translatekey{weight}: #1\\
-    \hline
-  \end{tabular}\\
-}
-%</ex> 
-%    \end{macrocode}
-% \end{imacro}
-% 
-% \begin{imacro}{\engdut}
-%   typesets the question in two columns, the left column taking the
-%   English variant of the question and the right column taking the
-%   Dutch variant.
-%    \begin{macrocode}
-%<*ex>      
-\newcommand{\engdut}[2]{%
-  \begin{tabular}{ccc}% 
-    \selectlanguage{english}%
-    \begin{minipage}[t]{0.45\textwidth}%
-      #1
-    \end{minipage}%
-    &~~~&
-          \selectlanguage{dutch}%
-          \begin{minipage}[t]{0.45\textwidth}%
-            #2
-          \end{minipage}% 
-  \end{tabular}
-  \selectlanguage{english}%
-}
-%</ex> 
-%    \end{macrocode}
-% \end{imacro}
-% 
-% 
-% \begin{imacro}{\setmcsymbol}
-%   sets the symbol to be used as multiple choice mark (by default a
-%   square).
-%    \begin{macrocode}
-%<*ex>      
-\newcommand*\@mcsymbol{}%\square} 
-% TODO this needs to be fixed
-\newcommand*\setmcsymbol[1]{\renewcommand\@mcsymbol{#1}}
-%</ex> 
-%    \end{macrocode}
-% \end{imacro}
-% 
-% \begin{imacro}{\mc}
-%   typesets a multiple choice answer candidate (monolingual, i.e. in a
-%   single column).
-%    \begin{macrocode}
-%<*ex>      
-\newcommand\mc[1]{%
-  \hfill\break\qquad\begin{tabular}{cc}
-                      $\@mcsymbol$
-                      &
-                        \begin{minipage}[t]{0.9\textwidth}%
-                          #1
-                        \end{minipage}%
-                    \end{tabular}
-                  }
-%</ex> 
-%    \end{macrocode}
-% \end{imacro}
-% 
-% 
-% \begin{imacro}{\engdutmc}
-%   typesets a multiple choice answer candidate in two columns, the left
-%   column taking the English variant of the question and the right
-%   column taking the Dutch variant.
-%   
-%    \begin{macrocode}
-%<*ex>      
-\newcommand{\engdutmc}[2]{%
-  \hfill\break\begin{tabular}{cccc}
-                $\@mcsymbol$
-                &
-                  \selectlanguage{english}%
-                  \begin{minipage}[t]{0.42\textwidth}%
-                    #1
-                  \end{minipage}%
-                &---&
-                      \selectlanguage{dutch}%
-                      \begin{minipage}[t]{0.42\textwidth}%
-                        #2
-                      \end{minipage}%
-              \end{tabular}
-              \selectlanguage{english}%
-            }
-%</ex> 
-%    \end{macrocode}
-% \end{imacro}
-% 
-% \begin{imacro}{\insertsolutionspagepartial}
-%   fills the remainder of the page with 'fill-out' squares.
-%   as observing/controlling the current line position in \LaTeX{} is
-%   not easiy, one has to provide the number of centimeters below the
-%   bottom of the page, one wants to start the fill-out squares.
-%   
-%   
-%    \begin{macrocode}
-%<*ex>      
-\newcommand\insertsolutionspagepartial[1]{
-  ~\relax
-  \AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{
-    \put(0,0){%
-      \begin{tikzpicture}
-        \clip (0,0) rectangle (21,#1);
-% \draw[densely dotted, step=0.5cm,black!20] (0.999,0.990) grid (20,1.5);
-\draw[densely dotted, step=0.5cm,black!20] (0.999,1.499) grid (2,2.5);
-\draw[densely dotted, step=0.5cm,black!20] (18.999,1.499) grid (20,2.5);
 
-\draw[densely dotted, step=0.5cm,black!20] (0.999,2.499) grid (20,27);
-\draw[densely dotted, step=0.5cm,black!20] (0.999,27) grid (16,28);
-\draw[densely dotted, step=0.5cm,black!20] (19.499,27) grid (20,28);
-\draw[densely dotted, step=0.5cm,black!20] (0.99,27.999) grid
-(20,28.5);
-\draw[ultra thick] (1,#1) -- (20,#1);
-\end{tikzpicture}
-}
-}%
-\clearpage
-\relax
-}
-%</ex> 
-%    \end{macrocode}
-% \end{imacro}
-% 
-% \begin{imacro}{\insertsolutionspage}
-%   inserts a full solutions page, i.e. flushes the current page and
-%   inserts a full page with 'fill-out' squares.
-%   The argument allows for specifying a watermark text (e.g. 'Scrap
-%   paper'). 
-%   
-%    \begin{macrocode}
-%<*ex>      
-\newcommand\insertsolutionspage[1]{
-  \clearpage
-  \AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{
-    \put(0,0){%
-      \begin{tikzpicture}
-        \clip (0,0) rectangle (21,29.5);
-        \draw[densely dotted, step=0.5cm,black!20] (0.999,1.499) grid (2,2.5);
-        \draw[densely dotted, step=0.5cm,black!20] (18.999,1.499) grid (20,2.5);
-
-        \draw[densely dotted, step=0.5cm,black!20] (0.999,2.499) grid (20,28);
-        \draw[densely dotted, step=0.5cm,black!20] (0.999,28) grid (16,28.5);
-        \draw[densely dotted, step=0.5cm,black!20] (19.499,28) grid (20,28.5);
-      \end{tikzpicture}
-    }
-    \put(120,150){\rotatebox{60}{\textcolor{watermarkcolor}{
-          \fontsize{105}{130}\selectfont\textsf{#1}}
-      }
-    }
-  }%
-  ~\relax
-}
-%</ex> 
-%    \end{macrocode}
-% \end{imacro}
-% 
 % \subsection{Cross-references}
 %    \begin{macrocode}
 %<*crs|bama|phd|rp>
