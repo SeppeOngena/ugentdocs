@@ -459,17 +459,17 @@
 % Some class options change colour handling:
 % 
 % \DescribeOption[common]{neutralcolors}\DescribeDefault{false}
-% Options: |true|, |false|\\
-% When enabled (|neutralcolors=true| or plain |neutralcolors|), UGent colours override the faculty colour.
-% If the faculty option is empty (see later), UGent colours will always be used.
+%	Options: |true|, |false|\\
+%	When enabled (|neutralcolors=true| or plain |neutralcolors|), UGent colours override the faculty colour.
+%	If the faculty option is empty (see later), UGent colours will always be used.
 % 
 % \DescribeOption[common]{colormodel}\DescribeDefault{rgb}
-% Options: |rgb|, |cmyk|\\
-% These set the colour model of faculty and UGent colours used.
-% For digital display, rgb is preferable. 
-% Switching to cmyk is reserved for printing,
-% although your printing service may prefer rgb to convert it themselves before printing.
-% Best to ask with them.
+%	Options: |rgb|, |cmyk|\\
+%	These set the colour model of faculty and UGent colours used.
+%	For digital display, rgb is preferable. 
+%	Switching to cmyk is reserved for printing,
+%	although your printing service may prefer rgb to convert it themselves before printing.
+%	Best to ask with them.
 % 
 % \iffalse
 %<*clo>
@@ -4660,13 +4660,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	at (\@PW-\@MTLR, 2*\@HBS)
 	{{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
 		\ifx\@subtitle\@empty\else\vspace{4pt}%
-		\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par\fi}%
+		\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par}\fi%
 		\vspace{30pt}\hyphenpenalty=100000{\fontsize{20}{24}\selectfont\printseq{authors}{\\}{\\}{\\}}};
 	}{
 	\node[anchor=west, text~width=\@PW-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
 	at (\@MS+\@MTLR, 0.5*\@PH+0.5*\@HBS-0.5*\@HTS+0.5*\@HD)
 	{{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
-		\ifx\@subtitle\@empty\else\vspace{5pt}\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par\fi}};
+		\ifx\@subtitle\@empty\else\vspace{5pt}\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par}\fi};
 	
 	\node[anchor=north~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
 	at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB)
@@ -5007,7 +5007,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\str_if_eq:VnF \l_@@_language_tl {dutch} {
 			\\[\baselineskip]
 			\textbf{Titel~van~het~doctoraat~in~het~Nederlands:}\\
-			{\renewcommand{\\}[1][]{~}\@titel{}:~\@subtitel}
+			{\renewcommand{\\}[1][]{~}\@titel{}\ifx\@subtitel\@empty\else{}:~\@subtitel\fi}
 		}
 		\ifx\@coverdesigner\@empty\else
 		\\[\baselineskip]
@@ -5038,7 +5038,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\\[\baselineskip]
 		{\textbf{\translatekey{pleaserefer}:}\\  		
 			\printseq{authorlist}{~\&~}{,~}{\translatekey{andlist}~}~(\the\year).~
-			{\renewcommand{\\}[1][]{~}\@title{}:~\@subtitle}.~PhD~Thesis,~Ghent~University,~Belgium.}%
+			{\renewcommand{\\}[1][]{~}\@title{}\ifx\@subtitle\@empty\else{}:~\@subtitle\fi}.~PhD~Thesis,~Ghent~University,~Belgium.}%
 		\ifx\@isbn\@empty\else
 		\\[\baselineskip]{\small ISBN~\@isbn}%
 		\fi
