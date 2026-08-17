@@ -2727,15 +2727,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \begin{imacro}{\subtitle}
 %    \begin{macrocode}
 %<*crs|phd|rp|bama|bkc>
-\newcommand*{\@subtitle}{~}
-\newcommand*{\@subtitleshort}{~}
-\newcommand*{\subtitle}[2][]{%
-	\renewcommand*\@subtitle{#2}
-	\if\relax\detokenize{#1}\relax
-	\renewcommand*{\@subtitleshort}{#2}
-	\else
-	\renewcommand*{\@subtitleshort}{#1}
-	\fi
+\ExplSyntaxOn
+\newcommand{\@subtitle}{}
+\newcommand{\@shortsubtitle}{\@subtitle}
+\NewDocumentCommand{\subtitle}{o m}{
+	\gdef\@subtitle{#2}
+	\IfNoValueTF{#1}
+	{\gdef\@shortsubtitle{#2}}
+	{\gdef\@shortsubtitle{#1}}
 }
 %</crs|phd|rp|bama|bkc>
 %    \end{macrocode}
@@ -2757,18 +2756,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
-% \begin{imacro}{\shorttitle}
-%   This macro sets the |\@shorttitle| tag that later will be used
-%   in the |exam| class.
-%    \begin{macrocode}
-%<*ex>      
-\newcommand*{\@shorttitle}{}
-\newcommand*{\shorttitle}[1]{%
-	\renewcommand*\@shorttitle{#1}
-}
-%</ex> 
-%    \end{macrocode}
-% \end{imacro}
 % \begin{imacro}{\extra}
 %   The |extra| tag allows to specify some extra comment (e.g. the
 %   nature of the document) in the bottom bar on the title page).
@@ -4115,7 +4102,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \rhead[\slshape\small\leftmark]{\small\thepage}
 \lfoot[\small\translatekey{org-ugent}\ifx\@fselector\@empty\else -- \@facultyacronym\fi]{\small\translatekey{version}\@courseversion}
 \cfoot[]{}
-\rfoot[]{\small\@title{}\ifdefvoid{\@subtitleshort}{}{ --- \@subtitleshort}}
+\rfoot[]{\small\@title{}\ifdefvoid{\@shortsubtitle}{}{ --- \@shortsubtitle}}
 \else
 \lhead[]{\small\leftmark}
 \chead[]{}
