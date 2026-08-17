@@ -1941,7 +1941,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand*{\@academicyear}{YYYY--YYYY}
 \newcommand*{\academicyear}[1]{\renewcommand*{\@academicyear}{#1}}
 %</clo>
-%<rp> \renewcommand*{\@academicyear}{}
+%<rp> \AtEndOfClass{\renewcommand*{\@academicyear}{}}
 % \fi
 %
 % \DescribeMacro[common]{\location}\marg{new location}\DescribeDefault{Ghent}\margintag{(tag)}\\
