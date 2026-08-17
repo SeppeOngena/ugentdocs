@@ -4542,7 +4542,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		}
 		
 		\vskip 1em
-		
 		{\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{bmfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}
 		
 		\vskip 1em
@@ -5072,6 +5071,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 
 \renewcommand{\@copyrightnotices}{%
+	\clearpage
 	\str_if_eq:VnTF \l_@@_language_tl {dutch} {
 		\@bamadisclaimer
 	}{
@@ -5089,6 +5089,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\@@_autographpage:
 	
 	\vspace*{\stretch{1}}
+	\clearpage
 }
 \ExplSyntaxOff
 %</bama>
@@ -5231,13 +5232,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\null
 	\end{titlepage}%
 %</bama|phd|rp|crs>
-%<bama> \null\par\clearpage
+%<bama> \null\par
 %<*bama|rp>
 	% Only 1 page: Copyrightnotices
-	\clearpage
 	\ifx\@copyrightnotices\@empty\else
 		\noindent\@copyrightnotices
-		\clearpage
 	\fi
 %</bama|rp>
 %<*crs>
@@ -6202,7 +6201,7 @@ e^{-j\pi} + 1 = 0
 %% If you have a signed copyrightpage (after extracting the one in this document),
 %% you can include it back in using
 %% \usepackage{pdfpages}
-%% \copyrightnotices{\includepdf{copyright_signed.pdf}}
+%% \copyrightnotices{\includepdf[pages={1}]{copyright_signed.pdf}}
 
 %% if your manuscript is under an embargo, use the \embargo macro.
 %% If the embargo is temporary (1, 2 or 5 years), please
@@ -6387,7 +6386,7 @@ ruimtemodellering} %% either don't split titles, or do so with hyphen
 %% If you have a signed copyrightpage (after extracting the one in this document),
 %% you can include it back in using
 %% \usepackage{pdfpages}
-%% \copyrightnotices{\includepdf{copyright_signed.pdf}}
+%% \copyrightnotices{\includepdf[pages={1}]{copyright_signed.pdf}}
 
 %% if your manuscript is under an embargo, use the \embargo macro.
 %% If the embargo is temporary (1, 2 or 5 years), please
