@@ -147,7 +147,7 @@
 % \newgeometry{left=3cm,right=2cm,top=2cm,bottom=2.5cm}
 %
 % \maketitle
-%
+% \vfill
 % \section*{Introduction}
 %
 % This package implements the house style of Ghent University (version 2025)
@@ -162,14 +162,15 @@
 % \href{\githubmain/issues}{open an issue on GitHub} or contact me via
 % email (\href{mailto:seppe.ongena@ugent.be}{seppe.ongena@ugent.be}).%
 %
-%
+% \vfill
+% \newpage
 % \section*{Synopsis}
 % The |course| and |phd| classes\footnote{For readability the class names
 % have been abbreviated by omitting the |ugent| prefix} are an extension
 % of the standard \LaTeX{} |book| class. They are intended to be used for
 % writing course texts and PhD dissertations and provide a cover page compliant
 % to the UGent house style. They also typeset the data pages automatically
-% (e.g., jury list, title page, copyright) and style the rest of the document
+% (e.g., examination committee, title page, colophon) and style the rest of the document
 % appropriately. These two classes additionally enable the generation of 
 % a full book cover (back/spine/front) with auto-generated ISBN barcode.
 %
@@ -211,10 +212,11 @@
 % \end{center}
 %
 % A number of packages are required by |ugentdocs|. \watchout See Part~I 
-% Section~\ref{S:packages} for an overview. Make sure these packages are
+% Section~\ref{S:usage:packages} for an overview. Make sure these packages are
 % available to your \LaTeX{} compiler. Most of these should be installed by
 % default in TeXLive distributions or can be made to auto-install for MikTeX.
 %
+% \newpage
 % \section*{How to read this documentation}
 % \begin{itemize}
 %	\item The classes are shown without the |ugent| prefix. In some cases,
@@ -232,7 +234,7 @@
 %	\item If a macro sets a sequence -- e.g., the |\degree| macro sets the
 %		|degrees| and |degreecalls| sequences -- it is noted by a 
 %		'seq:degrees' and 'seq:degreecalls' text in the left margin.
-%		See Section~\ref{S:nameseqparse} for more information.
+%		See Section~\ref{S:usage:nameseqparse} for more information.
 %		note further in this list on how to retrieve tags for use.
 %	\item The classes for which an option or macro is available are given
 %		between square brackets in the margin, e.g. [phd\|crs].
@@ -276,7 +278,7 @@
 % \item Secondary font: Arial. This is normally used for office templates
 %    distributed outside of Ghent University. Since \LaTeX{} outputs PDFs,
 %    this is not a concern. Still, you can override the font to Arial should
-%    you wish (see Part~I Section~\ref{S:fonts}).
+%    you wish (see Part~I Section~\ref{S:usage:cffcl:fonts}).
 % \end{itemize}
 % \vspace{-\parskip}
 % As both official fonts are sans-serif styled, a similar
@@ -303,12 +305,14 @@
 % |<classname>-customization.sty|, e.g. |ugentphd-customization.sty|.
 % You can then load this customization using
 % \txtcmd{usepackage\{ugentphd-customization\}}.
-% Be sure to overwrite commands, e.g. use \txtcmd{renewcommand} and
-% \txtcmd{RenewDocumentCommand}. Colours can be adjusted using e.g.:
+% Be sure to renew commands instead of redefining commands -- 
+% e.g., use \txtcmd{renewcommand} and \txtcmd{RenewDocumentCommand} 
+% -- and replace any '|@@|' with '|_ugentdocs|' (not single |@|'s!).
+% Colours can be adjusted using, e.g.:
 % {\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
 % \begin{verbatim}
 % \ExplSyntaxOn
-% \str_if_eq:VnTF \l_@@_colormodel_tl {cmyk} {
+% \str_if_eq:VnTF \l__ugentdocs_colormodel_tl {cmyk} {
 %    \definecolor{<customcolor>}{cmyk}{<C,M,Y,K>} % From 0 to 1
 % }{
 %    \definecolor{<customcolor>}{RGB}{<R,G,B>} % From 0 to 255
@@ -372,10 +376,10 @@
 %
 %
 % \subsection{Colours, fonts, faculties, campuses, and logos}
-% \label{S:cffcl}
+% \label{S:usage:cffcl}
 %
 % \subsubsection{Colours}
-% \label{S:colours}
+% \label{S:usage:cffcl:colours}
 %
 % Colours, logos, faculty, and campus handling is shared between all classes.
 % The colours are defined in the |ugentcolors.sty| package, and are shown below:
@@ -601,7 +605,7 @@
 %
 %
 % \subsubsection{Fonts}
-% \label{S:fonts}
+% \label{S:usage:cffcl:fonts}
 % UGent Panno Text and its Medium and SemiLight variants should always be 
 % installed\watchout -- and the document compiled using \LuaLaTeX{} -- as they are used in
 % the logo's. For the document itself, it is recommended to use UGent Panno Text
@@ -784,7 +788,7 @@
 % \endgroup
 %
 % \subsubsection{Faculty}
-% \label{S:faculty}
+% \label{S:usage:cffcl:faculty}
 % 
 % Faculties determine colour, logos, in some cases specific cover types (such as
 % BW for PhDs), and the faculty name used throughout the documents. The UGent
@@ -1267,7 +1271,7 @@
 % \fi
 %
 % \subsubsection{Campus}
-% \label{S:campus}
+% \label{S:usage:cffcl:campus}
 %
 % \DescribeOption[common]{campus}\DescribeDefault{ugent}
 %	Options: |ugent|, |kortrijk|, |gugc|\\
@@ -1469,9 +1473,9 @@
 %
 % \newpage
 % \subsection{Language, time, and location}
-% \label{S:ltl}
+% \label{S:usage:langtimeloc}
 % \subsubsection{Language}
-% \label{S:dict}
+% \label{S:usage:langtimeloc:dict}
 % The |ugentdocs| documents can be written in either english or dutch:
 %
 % \DescribeOption[common]{language}\DescribeDefault{english}
@@ -1888,7 +1892,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \newpage
 % \subsubsection{Time and location}
-% \label{S:timeloc}
+% \label{S:usage:langtimeloc:timeloc}
 %
 % Per \LaTeX{} default, the |\@date| tag is set to |\today|.
 % The output format of dates is set by:
@@ -1951,7 +1955,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeMacro[common]{\location}\marg{new location}\DescribeDefault{Ghent}\margintag{tag}\\
 %	Sets the location.
 %	The default is Ghent, translated to NL or EN using the dictionaries.
-%	Used in the default signing page of the bama class and the PhD data page.
+%	Used in the default signing page of the bama class and the PhD colophon page.
 % \iffalse
 %<*clo>
 \newcommand*\@location{\translatekey{ghent}}
@@ -1968,10 +1972,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \newpage
 % \subsection{Name and sequence parsing}
-% \label{S:nameseqparse}
+% \label{S:usage:nameseqparse}
 % Names are always input as "Surname, Firstname"
 % (BibTeX format) to, e.g, \txtcmd{author} commands, see the 
-% ``people'' macros in Section~\ref{S:people}. The |ugentdocs| classes have specialized mechanisms
+% ``people'' macros in Section~\ref{S:usage:macros:people}.
+% The |ugentdocs| classes have specialized mechanisms
 % to convert these to regular "Firstname Surname" or "Surname Firstname",
 % and extracting initials, first names, and surnames. 
 %
@@ -2128,7 +2133,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \newpage
 % \subsection{Class options}
-% \label{S:classopt}
+% \label{S:usage:classopt}
 %
 % Some common options such as |neutralcolors|, |colormodel|, |faculty|, |campus|,
 % |language|, and |nameformat| were previously defined in the section
@@ -2161,7 +2166,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	Forces the PhD format to be printed on A4 with bleed space,
 %	for if your printshop requires as a camera-ready copy.
 %	For the bookcover class, this sets a bleed space and fold or cut
-%	markers. See Section~\ref{S:optionspackages} for customization.
+%	markers. See Section~\ref{S:usage:packages:options} for customization.
 % \iffalse
 %<*phd|bkc>
 \bool_new:N \l_@@_cameraready_bool
@@ -2191,7 +2196,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeOption[phd|crs]{thumbs}\DescribeDefault{true}
 %	Options: |true|, |false|\\
 %	Adds chapter thumb indexes to your document.
-%	See Section~\ref{S:optionspackages} for customization.
+%	See Section~\ref{S:usage:packages:options} for customization.
 % \iffalse
 %<*phd|crs>
 \bool_new:N \l_@@_thumbs_bool
@@ -2209,7 +2214,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	Forces printing a watermark on every page. For the
 %	paper version of your document, this is inappropriate, but for any
 %	e-copy you make available, this may be appropriate.
-%	See Section~\ref{S:optionspackages} for customization.
+%	See Section~\ref{S:usage:packages:options} for customization.
 % \iffalse
 %<*crs|rp>
 \bool_new:N \l_@@_copyright_bool
@@ -2393,7 +2398,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \newpage
 % \subsection{Packages}
-% \label{S:packages}
+% \label{S:usage:packages}
 % The following packages are required by |ugentdocs|:
 %
 % \begin{center}\small
@@ -2468,7 +2473,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \newpage
 % \subsubsection{Options-specific packages}
-% \label{S:optionspackages}
+% \label{S:usage:packages:options}
 %
 % Some of the packages listed above are loaded depending on the class options set:
 %
@@ -2476,7 +2481,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   \item |babel|: sets the main document language from the |language| option.
 %			You can add more languages by calling \txtcmd{usepackage[<languages>]\{babel\}}
 %			again in your customization file, but make sure a dictionary is available for
-%           the |main| language (see Section \ref{S:dict}).
+%           the |main| language (see Section \ref{S:usage:langtimeloc:dict}).
 %    \begin{macrocode}
 %<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \ExplSyntaxOn
@@ -2492,7 +2497,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   \item |datetime2|: sets the date format based on the |localizedates| option.
 %			You can add more languages by calling \txtcmd{usepackage[<languages>]\{babel\}}
 %			again in your customization file, but make sure a dictionary is available for
-%           the |main| language (see Section \ref{S:dict}).
+%           the |main| language (see Section \ref{S:usage:langtimeloc:dict}).
 %    \begin{macrocode}
 %<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \ExplSyntaxOn
@@ -2573,7 +2578,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \newpage
 % \subsubsection{Geometry}
-% \label{S:geometry}
+% \label{S:usage:packages:geometry}
 % The |geometry| package is used to set the paper size for the documents.
 % Based on the paper width and height, we define the \txtcmd{gridunit} length
 % from the official grid layout. It is calculated by dividing the long paper edge
@@ -2646,14 +2651,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 %
 % \subsection{Macros}
-% \label{S:macros}
+% \label{S:usage:macros}
 % In the following sections, the macros used in the documents are explained.
 % If a macro is mandatory, it is noted in the margin, and a placeholder text is
 % set by default.
 %
 %
 % \subsubsection{Inset text and quotes}
-% \label{S:inset}
+% \label{S:usage:macros:inset}
 % 
 % \DescribeMacro[bama|phd|crs|rp]{\insettext}\marg{title}\marg{content}\\
 %	Formats the |title| and |content| into a text box. By default, the colours are\\
@@ -3187,7 +3192,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 % \subsubsection{People}
-% \label{S:people}
+% \label{S:usage:macros:people}
 % \DescribeMacro{\author} [course / bama / phd /
 % report ] mandatory\\ 
 % This macro sets the author of the document.
@@ -3366,7 +3371,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{imacro}
 % \begin{imacro}{\jurychair}
 %   This macro sets the |\@jurychair| tag that later will be used on
-%   the data page.
+%   the examination committee page.
 %    \begin{macrocode}
 %<*phd>
 \newcommand*{\@jurychair}{
@@ -3384,7 +3389,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{imacro}
 % \begin{imacro}{\dean}
 %   This macro sets the |\@dean| tag that later will be used on
-%   the data page.
+%   the examination committee page.
 %    \begin{macrocode}
 %<*phd>
 \newcommand*{\@dean}[2]{
@@ -3403,7 +3408,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \begin{imacro}{\rector}
 %   This macro sets the |\@rector| tag that later will be used on
-%   the data page.
+%   the examination committee page.
 %    \begin{macrocode}
 %<*phd>
 \newcommand*{\@rector}[2]{
@@ -3422,7 +3427,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \begin{imacro}{\coverdesigner}
 %   This macro sets the |\@coverdesigner| tag that later will be used on
-%   the data page.
+%   the colophon page.
 %    \begin{macrocode}
 %<*phd>
 \newcommand*{\@coverdesigner}{}
@@ -3434,7 +3439,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{imacro}
 %
 % \subsubsection{Contact}
-% \label{S:contact}
+% \label{S:usage:macros:contact}
 % \DescribeMacro{\address} [letter] mandatory\\
 % Address of the sending unit (or faculty). This can be different from
 % the return address. Newlines are allowed and encouraged.
@@ -3569,7 +3574,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{imacro}
 %
 % \subsubsection{Course macros}
-% \label{S:course}
+% \label{S:usage:macros:course}
 % \DescribeMacro{\course} [exam] mandatory\\
 % see description of |\course| macro on page~\pageref{dm-course}.
 % \DescribeMacro{\course} [course] mandatory\\
@@ -3665,7 +3670,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % 
 % \subsubsection{Exam macros}
-% \label{S:exam}
+% \label{S:usage:macros:exam}
 %
 % \DescribeMacro{\exampart} [exam] mandatory\\
 % Description of the part of the course the exam covers.
@@ -4007,7 +4012,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % 
 %
 % \subsubsection{Letter macros}
-% \label{S:letter}
+% \label{S:usage:macros:letter}
 % 
 % \DescribeMacro{\sender} [letter] mandatory\\
 % Description of the person writing the letter.
@@ -5940,7 +5945,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{itemize}
 %
 % In many of the classes, you need to specify a faculty option. The
-% available faculty options are listed in a table on page \pageref{S:classopt}.
+% available faculty options are listed in a table on page \pageref{S:usage:classopt}.
 %
 % \subsection{\texttt{ugentcourse}}
 %
@@ -6040,8 +6045,8 @@ E info@academiapress.be}
 %% you can specify additional copyright notices on the copyright page
 %% (i.e. the back of the title page)
 \extranotices{%
-The graphics in this document have been typeset using \texttt{TikZ}.\\
-This document has been \TeX-ed on a GNU/Linux workstation.
+The graphics in this document have been typeset using \textrm{TikZ}.\\
+This document has been \textrm{\TeX}-ed on a GNU/Linux workstation.
 }
 
 %% Add publisher logo
@@ -6751,7 +6756,7 @@ e^{-j\pi} + 1 = 0
 \title{Harmonic Signal analysis\\based on Linear Operators}
 \subtitle{How did Mindy linearly kill Mork's IC signal analyzer?}
 
-%% Add title and subtitle in dutch for the data page
+%% Add title and subtitle in dutch for the colophon page
 \titel{Harmonische Signaalanalyse\\met behulp van Lineaire
 Operatoren}
 \subtitel{Waarom moeten titels van doctoraatsproefschriften toch altijd
