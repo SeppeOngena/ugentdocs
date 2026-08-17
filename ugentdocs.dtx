@@ -2654,7 +2654,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \label{S:usage:macros}
 % In the following sections, the macros used in the documents are explained.
 % If a macro is mandatory, it is noted in the margin, and a placeholder text is
-% set by default.
+% set by default or an error message is printed.
 %
 %
 % \subsubsection{Inset text and quotes}
@@ -2793,17 +2793,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \newpage
 % \subsubsection{Document data}
-% \label{S:data}
-% % \DescribeMacro{\title} [course / bama / phd /
-% report] (mandatory)\\  
-% This macro sets the title of the document.
-% It also sets the |pdftitle| tag of the hyperref package (if it is
-% loaded), so that 
-% the PDF-document meta-information is correct.
-% \begin{imacro}{\title}
-%   The |title| tag is native to \LaTeX{}. It sets the |\@title| tag
-%   that will be used on the title page.
-% \end{imacro}
+% \label{S::usage:macros:data}
+% \DescribeMacro[crs|bama|phd|rp|bkc|bmr|ex]{\title}
+%	\oarg{short title}\marg{title}\margintag{mandatory}\margintag{tag}\\  
+%	This macro sets the title of the document.
+%	It is \LaTeX{}-native, but is extended here with an optional short title
+%	argument that additionally sets the |\@shorttitle| tag.
+%	It also sets the |pdftitle| tag of the hyperref package (if it is
+%	loaded), so that the PDF-document meta-information is correct.
 % \iffalse
 %<*crs|rp|bkc|phd|bmr|ex>
 \ExplSyntaxOn
@@ -2819,36 +2816,30 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|rp|bkc|phd|bmr|ex>
 % \fi
 %
-%
-% \begin{imacro}{\titel}
-%   This macro sets the |\@titel| tag that later will be used on
-%   the Dutch translation of the title page. Moreover, using this tag,
-%   will trigger the generation of a secondary Dutch title page.
-%   Only use this tag in an English dissertation!
-%    \begin{macrocode}
+% \DescribeMacro[phd]{\titel}\marg{dutch title}\margintag{mandatory}\margintag{tag}\\
+%	This macro sets the dutch title that will later be used in the PhD
+%	dissertation colophon page -- if the main document language is not Dutch.
+% \iffalse
 %<*phd>
 \newcommand*{\@titel}{<Dit is de nederlandse titel van het document>}
 \newcommand*{\titel}[1]{%
 	\renewcommand*\@titel{#1}
 }
 %</phd>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 % 
-% \DescribeMacro{\subtitle} [course / phd / report] (optional)\\
-% This macro sets the title of the document. You may use this 
-% \begin{itemize}
-% \item to further clarify the title
-% \item to indicate the nature of this document
-% \end{itemize}
-% The latter is to be considered when you want to provide multiple
-% documents as parts of the full course text (e.g., Course Notes,
-% Formula Collection, Exercise Book, Solution Book).
-% This macro also sets the |subject| tag of the hyperref package  (if
-% it is loaded), 
-% so that the PDF-document meta-information is correct.
-% \begin{imacro}{\subtitle}
-%    \begin{macrocode}
+% \DescribeMacro[crs|bama|phd|rp|bkc]{\subtitle}
+%	\oarg{short subtitle}\marg{subtitle}\margintag{tag}\\
+%	This macro sets the subtitle of the document through the |\@subtitle| and
+%	|\@shortsubtitle| tags.
+%	You may use this to further clarify the title or to indicate the nature of
+%	this document. The latter is to be considered when you want to provide
+%	multiple documents as parts of the full course text (e.g., Course Notes,
+%	Theoretical Exercises, Practical Exercises).
+%	This macro also sets the |subject| tag of the hyperref package  (if
+%	it is loaded), 
+%	so that the PDF-document meta-information is correct.
+% \iffalse
 %<*crs|phd|rp|bama|bkc>
 \ExplSyntaxOn
 \newcommand{\@subtitle}{}
@@ -2859,101 +2850,95 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	{\gdef\@shortsubtitle{#2}}
 	{\gdef\@shortsubtitle{#1}}
 }
+\ExplSyntaxOff
 %</crs|phd|rp|bama|bkc>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \begin{imacro}{\subtitel}
-%   This macro sets the |\@subtitel| tag that later will be used on
-%   the Dutch translation of the title page. It will not trigger the
-%   generation of a secondary Dutch title page. That can only be done
-%   by using the |\titel| command.
-%   Only use this tag in an English dissertation!
-%    \begin{macrocode}
+% \DescribeMacro[phd|bkc]{\subtitel}\marg{dutch subtitle}\margintag{tag}\\
+%	This macro sets the dutch subtitle that will later be used in the PhD
+%	dissertation colophon page if the main document language is not Dutch.
+% \iffalse
 %<*phd>
 \newcommand*{\@subtitel}{}
 \newcommand*{\subtitel}[1]{%
 	\renewcommand*\@subtitel{#1}
 }
 %</phd>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \begin{imacro}{\extra}
-%   The |extra| tag allows to specify some extra comment (e.g. the
-%   nature of the document) in the bottom bar on the title page).
-%    \begin{macrocode}
+% \DescribeMacro[rp]{\extra}\marg{extra title}\margintag{tag}\\
+%   Specifies some extra comment
+%	(e.g. the nature of the document)
+%	below the title or subtitle of the report class.
+% \iffalse
 %<*rp>
 \newcommand\@extra{}
 \newcommand\extra[1]{\renewcommand\@extra{#1}}
 %</rp>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-%
-%
-% \DescribeMacro{\titlepageimage} [phd / report]
-% (optional)\\
-% This sets the filename of the central image on the title page to
-% appear clipped % within the curves. For PhD dissertations this is highly
-% advized. For course texts, this is optional. If the image is not
-% set, a flat colored area will appear. This is part of the house
-% style.
-% \begin{imacro}{\titepageimage}
-%   This macro sets the |\@titlepageimage| tags that later will
-%   be used on the title page, to include the graphics.
-%    \begin{macrocode}
-%<*crs|phd|bkc>      
+% \DescribeMacro[phd|crs|bkc]{\coverimage}\marg{image path}\margintag{tag}\\
+%	Sets the filename of the front cover image
+%	for courses and PhD dissertations. 
+%	The cover image is automatically fitted and cropped to the cover,
+%	but it is best to set an approximately correctly sized image.
+%	If the image is not defined for a course text,
+%	the faculty icon will be used instead.
+% \iffalse
+%<*crs|phd|bkc>
 \newcommand*\@coverimage{}
 \newcommand*\coverimage[1]{\renewcommand*\@coverimage{#1}}
 %</crs|phd|bkc>
-%    \end{macrocode}
-% \end{imacro}
-% \begin{imacro}{\frontcoverlogos}
-%   This macro sets the |\@frontcoverlogos| tag that later will be used on
-%   the title page.
-%    \begin{macrocode}
+% \fi
+%
+% \DescribeMacro[bama|rp|phd|crs|bkc]{\frontcoverlogos}\marg{graphics}\margintag{tag}\\
+%   Sets the logos in the bottom right corner of the cover page of most classes,
+%	Used for, e.g., publisher logos (course) or company logos (bama or phd).
+%	The FBW PhD cover does not support this (there is no space).\\
+%	Example use -- see also |example-ugentbama-1.pdf|:
+%	\begin{verbatim}
+% 	\frontcoverlogos{
+%	    \includegraphics[height=2\gridunit]{example-image-a}
+%	    \hspace{\gridunit}
+%	    \includegraphics[height=2\gridunit]{example-image-b}
+%	}
+%	\end{verbatim}
+% \iffalse
 %<*bama|rp|crs|phd|bkc>
 \newcommand*{\@frontcoverlogos}{}
 \newcommand*{\frontcoverlogos}[1]{\renewcommand*{\@frontcoverlogos}{#1}}
 %</bama|rp|crs|phd|bkc>
-%    \end{macrocode}
-% \end{imacro}
-% \begin{imacro}{\backcoverlogos}
-%   This macro will set the |\@backcoverlogos| tag that will be used
-%   to print the publisher logo on the back cover.
-%    \begin{macrocode}
+% \fi
+%
+% \DescribeMacro[phd|crs|bkc]{\backcoverlogos}\marg{graphics}\margintag{tag}\\
+%   Sets the logos in the bottom right corner of the back cover page
+%	of the PhD and course classes,
+%	used for, e.g., a publisher logo.
+% \iffalse
 %<*bkc|phd|crs>
 \newcommand*{\@backcoverlogos}{}
 \newcommand*{\backcoverlogos}[1]{\renewcommand*{\@backcoverlogos}{#1}}
 %</bkc|phd|crs>
-%    \end{macrocode}
-% \end{imacro}
-% \DescribeMacro{\degree} [bama,phd,course] (mandatory)\\
-% This is the official degree name (in the appropriate language,
-% possibly mixed ``dutch (english)'').
-% Specify the official title of your diploma. This must be the
-% official title. For bachelor and master programmes in Dutch, it must
-% be the Dutch title. For programmes in English it may be the English
-% title. For PhD degrees, language constraints are less strict.\\
-% Consult \url{https://www.hogeronderwijsregister.be} for correct
-% bachelor and master degree titles. Consult the Doctoral bylaws of
-% the university for correct PhD degree titles.
-% Students of FTI and FWET, can use the |\bamadegree| command instead.
-% \DescribeMacro{\degree} [exam] mandatory\\
-% This is the official degree name (in the appropriate language,
-% possibly mixed ``dutch (english)'').
-% Specify the official title of your diploma. This must be the
-% official title. For bachelor and master programmes in Dutch, it must
-% be the Dutch title. For programmes in English ti may be the English
-% title. For PhD degrees, language constraints are less strict.\\
-% Consult \url{https://www.hogeronderwijsregister.be} for correct
-% bachelor and master degree titles. Consult the Doctoral bylaws of
-% the university for correct PhD degree titles.
-% \begin{imacro}{\degree}
-%   This macro sets the degree that later will
-%   be used on the title pages.
-%    \begin{macrocode}
+% \fi
+%
+% \DescribeMacro[crs|ex|bkc|phd|bama]{\degree}\marg{full degree}
+%	\margintag{mandatory}
+%	\margintag{seq:degrees}
+%	\margintag{seq:degreecalls}\\
+%	Sets the official degree name in full. You have to type it in the appropriate
+%	language yourself -- possibly mixed ``dutch (english)''.
+%	This must be the official title of your diploma.
+%	For bachelor and master programmes in Dutch, it must
+%	be the Dutch title. For programmes in English it may be the English
+%	title. For PhD degrees, language constraints are less strict.\\
+%	Consult the Flemish Higher Education Register 
+%	(\href{https://www.highereducation.be}{in english} or
+%	\href{https://www.hogeronderwijsregister.be}{in dutch})
+%	for correct bachelor and master degree titles.
+%	Consult the Doctoral bylaws of the university for PhD degree titles.\\
+%	The degree(s) are used on the cover pages of the |bama|, |phd|, |course|,
+%	and |exam| classes, and on the title page of the |phd| class.
+% \iffalse
 %<*crs|ex|bkc|phd|bama>
 \ExplSyntaxOn
 \seq_new:N \g_@@_degrees_seq
@@ -2972,16 +2957,19 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</crs|ex|bkc|phd|bama>
+% \fi
 %
-%    \end{macrocode}
-% \end{imacro}
-%
-% \begin{imacro}{\doctype}
-%   This macro sets the |\@doctype| tag that later will
-%   be used on the title pages.
-%
-%    \begin{macrocode}
-%<*bama|phd|crs|ex|bkc>
+% \DescribeMacro[bkc|phd|bama|rp]{\doctype}\marg{document type}
+%	\margintag{mandatory}
+%	\margintag{tag}\\
+%	Sets the document type for use in the |phd| and |bama| cover pages.
+%	Should be one of the doctype dictionary keys, being
+%	|dissertation-ba|, |dissertation-ma|, or |dissertation-phd|.
+%	The |report| class currently doesn't use this macro or tag,
+%	although you could set |\extra{\@doctype}| and |\doctype{projreport}|,
+%	probably.
+% \iffalse
+%<*bama|phd|bkc|rp>
 \newcommand*\@doctype{
 	\PackageError{ugentdocs}
 	{Please, specify the offical document type using
@@ -2994,26 +2982,47 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<phd> \doctype{dissertation-phd}
 % \fi
 %
-% \begin{imacro}{\wordcount}
-%   This macro sets the |\@wordcount| tag that later will
-%   be used on the title pages.
-%   Runs automatically but can be overridden.
-%    \begin{macrocode}
+% \DescribeMacro[bama|phd|rp]{\wordcount}\marg{word count}
+%	\margintag{tag}\\
+%	Sets the word count of your document for printing on the cover page of the
+%	|bama| and |report| classes. The |phd| class doesn't use it currently.
+%	If not called or set empty, the word count is not printed out.
+%	The |<word count>| can also be set to |\runwordcount|,
+%	which counts the words automatically (see below).
+% \iffalse
 %<*bama|phd|rp>
 \newcommand*\@wordcount{}
 \newcommand*\wordcount[1]{
 	\renewcommand*\@wordcount{#1}
 }
+%</bama|phd|rp>
+% \fi
+%
+% \DescribeMacro[bama|phd|rp]{\runwordcount}
+%	Runs |texcount| using |shell-escape| (see code below), which
+%	automatically counts the words and sets the |\@wordcount| tag.
+%	Command arguments that expand to more text (e.g., a |\translatekey| call)
+%	only count the arguments, so results may be inaccurate,
+%   but it's the best we have.\\
+%	You should also run your compiler with the flag '|--shell-escape|'.
+%	For notes on how to do this for your editor or compiler, visit
+%	\href
+%	{https://tex.stackexchange.com/questions/598818/how-can-i-enable-shell-escape}
+%	{the TeX StackExchange wiki}.\\
+%	\watchout Enabling |shell-escape| may allow the execution of malicious code
+%	from dubious packages. Be sure to only use reputable packages and disable
+%	|shell-escape| when not used. The packages required by the |ugentdocs|
+%	classes \emph{should} be safe, but better safe than sorry\ldots
+%    \begin{macrocode}
+%<*bama|phd|rp>
 \ExplSyntaxOn
 \cs_new:Nn \@@_runwordcount: {
 	\ShellEscape{texcount~-1~-sum~-merge~-q~\jobname.tex~>~\jobname.wc}
-	\file_if_exist:nTF { \jobname.wc }
-	{
+	\file_if_exist:nTF { \jobname.wc } {
 		\file_get:nnN { \jobname.wc } { } \l_tmpa_tl
 		\tl_to_str:N \l_tmpa_tl
 		\xdef\@wordcount{\l_tmpa_tl}
-	}
-	{
+	}{
 		\gdef\@wordcount{?}
 	}
 }
@@ -3023,58 +3032,71 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOff
 %</bama|phd|rp>
 %    \end{macrocode}
-% \end{imacro}
-% \begin{imacro}{\grants}
-%   This macro sets the |\@grants| tag that later will be used on
-%   the data page.
-%    \begin{macrocode}
+%
+% \DescribeMacro[phd]{\grants}\marg{grant text}
+%	\margintag{tag}\\
+%   Specifies any grants that supported the PhD research.
+%	Used to print a message in the PhD colophon page: 
+%	``This research was supported by |<grant text>|''
+% \iffalse
 %<*phd>
 \newcommand*{\@grants}{}
 \newcommand*{\grants}[1]{
 	\renewcommand*{\@grants}{#1}
 }
 %</phd>
-%    \end{macrocode}
-% \end{imacro}
-% \DescribeMacro{\doi} [phd] (optional)\\
-% Specify the correct doi URL you obtained for your document.
-% It will be typeset in your colofon.
-% \begin{imacro}{\doi}
-%   This macro sets the |\@doi| tag that later will
-%   be used on the data page. If you don't have a doi number, just
-%   don't specify one (i.e. don't use this macro).
-%    \begin{macrocode}
+% \fi
+%
+% \DescribeMacro[phd]{\doi}\marg{DOI}\margintag{tag}\\
+%	Specify the correct Digital Object Identifier (without the https://doi.org/)
+%	of your PhD for display on the colophon page of the |phd| class.
+%	If the |hyperref| package is loaded, the full url will be linked.
+% \iffalse
 %<*phd>
 \newcommand*{\@doi}{}
 \newcommand*{\doi}[1]{\renewcommand*{\@doi}{#1}}
 %</phd>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \begin{imacro}{\isbn}
-%   This macro sets the |\@isbn| tag that will be used to generate
-%   the ISBN number and barcode on the PhD dissertation back cover
-%    \begin{macrocode}
+% \DescribeMacro[crs|phd|bkc]{\isbn}\marg{ISBN}\margintag{tag}\\
+%   Specify your International Standard Book Number 
+%	(if you requested one in time).
+%	The ISBN will be used to generate the barcode on the back cover
+%	automatically.
+%	If no ISBN is given, no barcode or placeholder is produced.
+% \iffalse
 %<*phd|bkc|crs>
 \newcommand*{\@isbn}{}
 \newcommand*{\isbn}[1]{\renewcommand*{\@isbn}{#1}}
 %</phd|bkc|crs>
-%    \end{macrocode} 
-% \end{imacro}
-% \DescribeMacro{\embargofull} [phd] (optional)\\
-% Generates the correct embargo message in your colofon. Adds the word
-% 'CONFIDENTIAL' to your title page.
+% \fi
 %
-% \DescribeMacro{\embargotemp} [phd] (optional)\\
-% This macro takes two arguments, an embargo starting date and an
-% embargo ending date.
-% Generates the correct temporary embargo message in your colofon.
-% Adds the word 'CONFIDENTIAL' to your title page.
-%
-% \begin{imacro}{\embargo}
-%   This macro causes the embargo message to be printed in
-%   colofon of your dissertation.
-%    \begin{macrocode}
+% \DescribeMacro[bama|phd|bkc]{\embargo}\oarg{start = YYYY-MM-DD, end = YYYY-MM-DD}\\
+%	Generates the correct embargo message in your PhD colophon or
+%	Ba/Ma dissertation copyright signing page.
+%	Adds the word 'CONFIDENTIAL' (localized) to your cover and title pages.\\
+%	If no optional dates are given, 
+%	the document is considered under full embargo.
+%	If the dates are given as ISO format, 
+%	they interact with the |localizedates| option 
+%	(see Section~\ref{S:usage:langtimeloc:timeloc}).
+%	Otherwise, they are simply passed on.
+%	The document is then considered to be under temporary embargo, and
+%	the dates replace the |__START__| and |__END__| placeholders of the
+%	|embargotempbama| or |embargotempphd| dictionary keys
+%	(see Section~\ref{S:usage:langtimeloc:dict}).
+%	This message is then printed using the |\@embargotempwithdates| macro,
+%	which interacts with the current document language.
+%	
+%	Additional information for customization:
+%	The |\l_@@_embargo_bool| tracks if there is an embargo (either temp or full).
+%	The |\_@@_embargotemp_bool| additionally tracks if the embargo type
+%	is temporary. 
+%	The dates entered in the |\embargo| command are stored in the
+%	|\l_@@_embargostartdate_tl| and |\l_@@_embargoenddate_tl| token lists.
+%	The converted or localized dates are stored in the
+%	|\@embargotempstart| and |\@embargotempend| token lists.
+% \iffalse
 %<*phd|bkc|bama>
 \ExplSyntaxOn
 \bool_new:N \l_@@_embargo_bool
@@ -3133,18 +3155,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	{ \tl_gset_eq:NN #1 #2 }
 }
 
-\ExplSyntaxOff
-%</phd|bkc|bama>
-%    \end{macrocode}
-% \end{imacro}
-%
-% \begin{imacro}{\embargo}
-%   This macro causes the temporary embargo message to be printed in
-%   colofon of your dissertation using the first argument of the macro as
-%   start date and the second argument as the end date.
-%    \begin{macrocode}
-%<*phd|bkc|bama>
-\ExplSyntaxOn
 \tl_new:N \l_@@_embargotemp_tl
 \seq_new:N \l_@@_embargosplit_seq
 \cs_new:Nn \_@@_embargosubstitute:nN {
@@ -3168,29 +3178,38 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</phd|bkc|bama>
-%    \end{macrocode}
+% \fi
 %
-% \end{imacro}
-%
-% \DescribeMacro{\copyrightnotices} [course / report]
-% (optional)\\ 
-% Use this macro to specify additional copyright notice messages to
-% appear in the copyright notice on the bottom of page 2 of your
-% course text.
-% \begin{imacro}{\copyrightnotices, \extranotices}
-%   These macros set the |\@copyrightnotices| tag that later will be
-%   used on the back of the title page.
-%    \begin{macrocode}
+% \DescribeMacro[crs|rp|bama|phd]{\copyrightnotices}\marg{notice content}\margintag{tag}\\
+%	Used to override the default |\@copyrightnotices| content 
+%	(see Section~\ref{S:style:copyright}).
+%	Can be used to load a signed copyright page for the |bama| class
+%	using the |pdfpages| package and:
+%	|\copyrightnotices{\includepdf[pages={1}]{copyright_signed.pdf}}|
+% \iffalse
 %<*crs|rp|bama|phd>
 \newcommand{\@copyrightnotices}{}
 \newcommand{\copyrightnotices}[1]{\renewcommand{\@copyrightnotices}{#1}}
 %</crs|rp|bama|phd>
+% \fi
+%
+% \DescribeMacro[crs|rp]{\extranotices}\marg{extra copyright notices}\margintag{tag}\\
+%	Adds additional copyright notices to the default course and report
+%	copyright notices (see Section~\ref{S:style:copyright}).
+%	For example:
+%	\begin{verbatim}
+%	\extranotices{
+%	The graphics in this document have been typeset using \textrm{TikZ}.\\
+%	This document has been \textrm{\TeX}-ed on a GNU/Linux workstation.
+%	}
+%	\end{verbatim}
+% \iffalse
 %<*crs|rp>
 \newcommand{\@extranotices}{}
 \newcommand{\extranotices}[1]{\renewcommand{\@extranotices}{#1}}
 %</crs|rp>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
+%
 % \subsubsection{People}
 % \label{S:usage:macros:people}
 % \DescribeMacro{\author} [course / bama / phd /
