@@ -7967,10 +7967,10 @@ Gault-Millau.
   \item[normal]
     the ordinary white background slide
   \item[negativefill]
-    a reverse video slide on a background (in maincolor) without white
+    a reverse video slide on a background (in main color) without white
     margins 
   \item[negative]
-    a reverse video slide on a bakcground (in maincolor) with white
+    a reverse video slide on a bakcground (in main color) with white
     margins 
   \item[graphicfill]
     a graphic canvas without white margins (graphic can be photo,
@@ -8044,13 +8044,13 @@ Gault-Millau.
 
   \heading{Standard colors}\\
   You can select the theme colors using:\\
-  \textcolor{maincolor}{Main color}:
-  can be specified as \LaTeX-color \emph{maincolor}\\
-  \textcolor{sidecolor}{Side color}:
-  can be specified as \LaTeX-color \emph{sidecolor}\\
-  \textcolor{basecolor}{Base color}:
+  \textcolor{ugent@main}{Main color}:
+  can be specified as \LaTeX-color \emph{ugent@main}\\
+  \textcolor{ugent@accent}{Accent color}:
+  can be specified as \LaTeX-color \emph{ugent@accent}\\
+  \textcolor{ugent@faculty}{Faculty color}:
   can be specified as \LaTeX-color
-  \emph{basecolor}
+  \emph{ugent@faculty}
 
   \heading{Advice}\\
   \begin{itemize}
@@ -8528,9 +8528,9 @@ Gault-Millau.
     \ind\command{renewcommand*}\command{logoneg\{your-negative-logo-filename-here\}}\\
     \ind\command{renewcommand*}\command{logomonowhite\{your-mono-logo-filename-here\}}\\
     \ind\command{renewcommand*}\command{iconfile\{your-icon-filename-here\}}\\
-    \ind\command{colorlet\{maincolor\}\{your-favorite-color\}}\\
-    \ind\command{colorlet\{sidecolor\}\{your-secondfavorite-color\}}\\
-    \ind\command{colorlet\{basecolor\}\{some-solid-color\}}\\
+    \ind\command{setbeamercolor\{frametitle\}\{fg=your-favorite-color\}}\\
+    \ind\command{setbeamercolor\{title in title page\}\{fg=another-favorite-color\}}\\
+    \ind\command{setbeamercolor\{normal text\}\{fg=another-solid-color\}}\\
     \}
   \end{codesnippet}~\\[1ex]
 \end{frame}
@@ -8603,23 +8603,23 @@ Gault-Millau.
 \RequirePackage{ugentcolor}
 
 %% define main color
-\setbeamercolor{palette primary}{fg=maincolor}
-\setbeamercolor{palette secondary}{fg=sidecolor}
+\setbeamercolor{palette primary}{fg=ugent@main}
+\setbeamercolor{palette secondary}{fg=ugent@accent}
 \setbeamercolor{palette tertiary}{fg=ugent@accent}
 \setbeamercolor{palette quaternary}{fg=ugent@main}
 
-\setbeamercolor{normal text}{fg=basecolor}
-\setbeamercolor{inverse normal text}{fg=white!95!maincolor}
+\setbeamercolor{normal text}{fg=ugent@faculty}
+\setbeamercolor{inverse normal text}{fg=white!95!ugent@main}
 \setbeamercolor{alerted text}{fg=ugent@main}
 \setbeamercolor{example text}{}
 
-\setbeamercolor{heading}{fg=basecolor}
-\setbeamercolor{subheading}{fg=basecolor}
+\setbeamercolor{heading}{fg=ugent@faculty}
+\setbeamercolor{subheading}{fg=ugent@faculty}
 \setbeamercolor{inverse heading}{fg=white}
-\setbeamercolor{inverse subheading}{fg=white!75!maincolor}
+\setbeamercolor{inverse subheading}{fg=white!75!ugent@main}
 
 \setbeamercolor{block body}{bg=black!4}
-\setbeamercolor{block title}{bg=black!8,fg=maincolor}
+\setbeamercolor{block title}{bg=black!8,fg=ugent@main}
 \setbeamercolor{block body example}{bg=black!4}
 \setbeamercolor{block title example}{bg=black!8}
 \setbeamercolor{block body alerted}{bg=black!4}
@@ -8632,37 +8632,37 @@ Gault-Millau.
 \setbeamercolor{itemize subsubitem}{parent=normal text}
 \setbeamercolor{enumerate subsubitem}{parent=normal text}
 
-\setbeamercolor{frametitle}{fg=maincolor}
-\setbeamercolor{framesubtitle}{fg=sidecolor}
+\setbeamercolor{frametitle}{fg=ugent@main}
+\setbeamercolor{framesubtitle}{fg=ugent@faculty}
 \setbeamercolor{inverse frametitle}{fg=white}
-\setbeamercolor{inverse framesubtitle}{fg=white!80!maincolor}
+\setbeamercolor{inverse framesubtitle}{fg=white!80!ugent@main}
 
-\setbeamercolor{title in title page}{fg=maincolor}
-\setbeamercolor{subtitle in title page}{fg=sidecolor}
-\setbeamercolor{author in title page}{fg=maincolor}
-\setbeamercolor{date in title page}{fg=sidecolor}
+\setbeamercolor{title in title page}{fg=ugent@main}
+\setbeamercolor{subtitle in title page}{fg=ugent@accent}
+\setbeamercolor{author in title page}{fg=ugent@main}
+\setbeamercolor{date in title page}{fg=ugent@accent}
 \setbeamercolor{inverse title in title page}{fg=white}
-\setbeamercolor{inverse subtitle in title page}{fg=white!75!maincolor}
+\setbeamercolor{inverse subtitle in title page}{fg=white!75!ugent@main}
 \setbeamercolor{inverse author in title page}{fg=white}
-\setbeamercolor{inverse date in title page}{fg=white!75!maincolor}
+\setbeamercolor{inverse date in title page}{fg=white!75!ugent@main}
 
-\setbeamercolor{pageno in head/foot}{fg=basecolor}
+\setbeamercolor{pageno in head/foot}{fg=ugent@faculty}
 \setbeamercolor{inverse pageno in head/foot}{fg=white}
 
-\setbeamercolor{section in toc}{fg=basecolor}
-\setbeamercolor{subsection in toc}{fg=basecolor}
-\setbeamercolor{section number projected}{fg=white,bg=basecolor}
-\setbeamercolor{subsection number projected}{fg=white,bg=basecolor}
+\setbeamercolor{section in toc}{fg=ugent@faculty}
+\setbeamercolor{subsection in toc}{fg=ugent@faculty}
+\setbeamercolor{section number projected}{fg=white,bg=ugent@faculty}
+\setbeamercolor{subsection number projected}{fg=white,bg=ugent@faculty}
 
-\setbeamercolor{section title}{fg=maincolor}
-\setbeamercolor{section name}{fg=maincolor}
+\setbeamercolor{section title}{fg=ugent@main}
+\setbeamercolor{section name}{fg=ugent@main}
 \setbeamercolor{inverse section title}{fg=white}
 \setbeamercolor{inverse section name}{fg=white}
 
-\setbeamercolor{subsection title}{fg=sidecolor}
-\setbeamercolor{subsection name}{fg=sidecolor}
-\setbeamercolor{inverse subsection title}{fg=white!75!maincolor}
-\setbeamercolor{inverse subsection name}{fg=white!75!maincolor}
+\setbeamercolor{subsection title}{fg=ugent@accent}
+\setbeamercolor{subsection name}{fg=ugent@accent}
+\setbeamercolor{inverse subsection title}{fg=white!75!ugent@main}
+\setbeamercolor{inverse subsection name}{fg=white!75!ugent@main}
 \mode
 <all>
 %</bmrcolor> 
@@ -8841,7 +8841,7 @@ Gault-Millau.
 
 \newcommand\callout[1][scale=0.70711]{
   \begin{tikzpicture}[#1]
-    \fill[maincolor] (0.4,0) -- (0.5,0) -- (0.75,-0.15) -- (0.75,0) --
+    \fill[ugent@main] (0.4,0) -- (0.5,0) -- (0.75,-0.15) -- (0.75,0) --
     (0.9,0) arc(-90:0:0.1) -- (1,0.65) arc(0:90:0.1) -- (0.1,0.75) arc
     (90:180:0.1) -- (0,0.1) arc(-180:-90:0.1) -- cycle;
     \foreach \x in {0.35,0.7} {
@@ -9086,7 +9086,7 @@ Gault-Millau.
   \gdef\appropriatelogo{}%\logomonowhite}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
-  \color{maincolor}\vrule width\paperwidth height\paperheight
+  \color{ugent@main}\vrule width\paperwidth height\paperheight
 }
 
 \defbeamertemplate*{background canvas}{negative}[1]
@@ -9095,7 +9095,7 @@ Gault-Millau.
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\pw,\ph);
-    \ugentleftshape[fill=maincolor]{(0.8,0.8)}{(\pw-0.8,\ph-0.8)}
+    \ugentleftshape[fill=ugent@main]{(0.8,0.8)}{(\pw-0.8,\ph-0.8)}
   \end{tikzpicture}
 }
 
@@ -9250,7 +9250,7 @@ Gault-Millau.
     %{\includegraphics[height=.9\@logounit]{\logopos}};
     \node[
     text width=0.98\textwidth,
-    text=basecolor,
+    text=ugent@faculty,
     align=center] at (0.5*\textwidth,0.5*\ph) {
       \begin{beamercolorbox}[wd=\textwidth,center]{title in title page}
         \LARGE\bfseries\inserttitle\\[1ex]
@@ -9260,7 +9260,7 @@ Gault-Millau.
     };
     \node[
     text width=0.98\textwidth,
-    color=basecolor,
+    color=ugent@faculty,
     align=center] at (0.5*\textwidth,0.25*\ph) {
       \begin{beamercolorbox}[wd=\textwidth,center]{author in title page}
         \large\bfseries\insertauthor
@@ -9268,7 +9268,7 @@ Gault-Millau.
     };
     \node[
     text width=0.98\textwidth,
-    color=basecolor,
+    color=ugent@faculty,
     align=center] at (0.5*\textwidth,0.15*\ph) {
       \begin{beamercolorbox}[wd=\textwidth,center]{date in title page}
         \normalsize\bfseries\insertdate
@@ -9299,7 +9299,7 @@ Gault-Millau.
     };
     \node[
     text width=0.98\textwidth,
-    color=basecolor,
+    color=ugent@faculty,
     align=center] at (0.5*\textwidth,0.15*\ph) {
       \begin{beamercolorbox}[wd=\textwidth,center]{inverse date in title page}
         \normalsize\bfseries\insertdate
@@ -9318,7 +9318,7 @@ Gault-Millau.
     \node[
     draw,rectangle,
     text width=0.98\textwidth,
-    color=maincolor,
+    color=ugent@main,
     align=center] at (0.5*\textwidth,0.5*\ph) {
       \begin{beamercolorbox}[wd=\textwidth,center]{inverse title in title page}
         \LARGE\bfseries\inserttitle\\[1ex]
@@ -9328,7 +9328,7 @@ Gault-Millau.
     };
     \node[
     text width=0.98\textwidth,
-    color=maincolor,
+    color=ugent@main,
     align=center] at (0.5*\textwidth,0.25*\ph) {
       \begin{beamercolorbox}[wd=\textwidth,center]{inverse author in title page}
         \large\bfseries\insertauthor
@@ -9336,7 +9336,7 @@ Gault-Millau.
     };
     \node[
     text width=0.98\textwidth,
-    color=basecolor,
+    color=ugent@faculty,
     align=center] at (0.5*\textwidth,0.15*\ph) {
       \begin{beamercolorbox}[wd=\textwidth,center]{inverse date in title page}
         \normalsize\bfseries\insertdate
@@ -9351,7 +9351,7 @@ Gault-Millau.
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
     \node[
     text width=0.98\textwidth,
-    text=basecolor,
+    text=ugent@faculty,
     align=center] at (0.5*\textwidth,0.55*\ph) {
       \begin{beamercolorbox}[wd=\textwidth,center]{section title}
         \Large\bfseries\insertsectionnumber.~\insertsection
@@ -9366,7 +9366,7 @@ Gault-Millau.
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
     \node[
     text width=0.98\textwidth,
-    text=basecolor,
+    text=ugent@faculty,
     align=center] at (0.5*\textwidth,0.55*\ph) {
       \begin{beamercolorbox}[wd=\textwidth,center]{section title}
         \Large\bfseries\insertsectionnumber.~\insertsection
@@ -9374,7 +9374,7 @@ Gault-Millau.
     };
     \node[
     text width=0.98\textwidth,
-    text=basecolor,
+    text=ugent@faculty,
     align=center] at (0.5*\textwidth,0.45*\ph) {
       \begin{beamercolorbox}[wd=\textwidth,center]{subsection title}
         \large\bfseries\insertsubsection
@@ -9389,7 +9389,7 @@ Gault-Millau.
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
     \node[
     text width=0.98\textwidth,
-    text=basecolor,
+    text=ugent@faculty,
     align=center] at (0.5*\textwidth,0.55*\ph) {
       \begin{beamercolorbox}[wd=\textwidth,center]{inverse section title}
         \Large\bfseries\insertsectionnumber.~\insertsection
@@ -9404,7 +9404,7 @@ Gault-Millau.
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
     \node[
     text width=0.98\textwidth,
-    text=basecolor,
+    text=ugent@faculty,
     align=center] at (0.5*\textwidth,0.55*\ph) {
       \begin{beamercolorbox}[wd=\textwidth,center]{inverse section title}
         \Large\bfseries\insertsectionnumber.~\insertsection
@@ -9412,7 +9412,7 @@ Gault-Millau.
     };
     \node[
     text width=0.98\textwidth,
-    text=basecolor,
+    text=ugent@faculty,
     align=center] at (0.5*\textwidth,0.45*\ph) {
       \begin{beamercolorbox}[wd=\textwidth,center]{inverse subsection title}
         \large\bfseries\insertsubsection
