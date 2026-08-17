@@ -217,17 +217,21 @@
 %
 % \section*{How to read this documentation}
 % \begin{itemize}
+%	\item The classes are shown without the |ugent| prefix. In some cases,
+%		even shorter forms are used: |crs=course|, |rp=report|, |le=letter|,
+%		|ex=exam|, |bkc=bookcover|, and |bmr=beamer|. |bama| remains |bama|.
 %	\item When an option or macro (command) is being described, its name
 %		 is shown in the left margin.
 %	\item If an option is being described instead of a macro,
 %		this is shown in the margin by the \textit{(Opt)} note.
-%	\item If a macro is mandatory, '(mandatory)' is shown in the left margin.
+%	\item If a macro is mandatory, 'mandatory' is shown in the left margin.
 %		A placeholder is set for that macro, which you should override.
 %	\item If a macro sets a tag -- e.g., the |\date| macro sets the |\@date|
-%		tag -- it is noted by a '(tag)' text in the left margin. See the tag
+%		tag -- it is noted by a 'tag' text in the left margin. See the tag
+%		note further in this list on how to retrieve tags for use.
 %		note further in this list on how to retrieve tags for use.
 %	\item The classes for which an option or macro is available are given
-%		between square brackets in the margin, e.g. [phd\|course].
+%		between square brackets in the margin, e.g. [phd\|crs].
 %	\item Most options can be set as |option=value| in your
 %		\txtcmd{documentclass[<options>]\{class\}} command, but also plain
 %		|value| works.
@@ -235,10 +239,6 @@
 %	\item For macros, mandatory arguments are shown between curly braces \{\},
 %		and optional arguments are shown between square braces [], just as they
 %		are when you use them.
-%	\item When implementation code is shown, in the docstrip guard blocks
-%		denoting for which classes the code is available, some shorthand class
-%		names are used, e.g., |crs=course|, |rp=report|, |le=letter|, |ex=exam|,
-% 		|bkc=bookcover|, and |bmr=beamer|. |bama| remains |bama|.
 %	\item In general, \txtcmd{macros} are commands you can use in your main.tex
 %		document file. 
 %	\item Some \txtcmd{@macros} or \txtcmd{@tags} are for internal usage, but
@@ -1052,7 +1052,7 @@
 %	\item \txtcmd{makeatletter}\txtcmd{@facultyacronym}\txtcmd{makeatother}:
 %		\makeatletter\@facultyacronym\makeatother
 % \end{itemize}
-% \DescribeMacro[common]{\faculty}\marg{name}\margintag{(tag)}\\
+% \DescribeMacro[common]{\faculty}\marg{name}\margintag{tag}\\
 %	Overrides the faculty tag \txtcmd{@faculty} with the |name| entered.
 %	Name only, no logos or colours! 
 %	To use for, e.g., faculty services like |Directie ICT| for letters or beamer slides.
@@ -1092,7 +1092,7 @@
 %	Sets the department tag \txtcmd{@department} with the |name| entered.
 %	Currently unused.
 %
-% \DescribeMacro[common]{\unit}\marg{name}\margintag{(tag)}\\
+% \DescribeMacro[common]{\unit}\marg{name}\margintag{tag}\\
 %	Sets the unit tag \txtcmd{@unit} with the |name| entered.
 %	Can be used to set ``Team ...'' or your research lab to the second line of the
 %	letter header or beamer title page.
@@ -1908,7 +1908,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</clo>
 % \fi
 %
-% \DescribeMacro[common]{\date}\marg{new date}\DescribeDefault{\today}\margintag{(tag)}\\
+% \DescribeMacro[common]{\date}\marg{new date}\DescribeDefault{\today}\margintag{tag}\\
 %	Sets the document date.
 %	If the date is input as ISO format, it is localized
 %	based on the |localizedates| option. If not, the date is printed verbatim.
@@ -1931,7 +1931,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	and the PhD spine year.
 %	If not set, the current year is used.
 %
-% \DescribeMacro[common]{\academicyear}\marg{YYYY--YYYY}\margintag{(mandatory)}\margintag{(tag)}\\
+% \DescribeMacro[common]{\academicyear}\marg{YYYY--YYYY}\margintag{mandatory}\margintag{tag}\\
 %	Specifies the academic year.
 %	Not mandatory for report class.
 %	Used in title page of the report, bama, course, and phd classes,
@@ -1944,7 +1944,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<rp> \AtEndOfClass{\renewcommand*{\@academicyear}{}}
 % \fi
 %
-% \DescribeMacro[common]{\location}\marg{new location}\DescribeDefault{Ghent}\margintag{(tag)}\\
+% \DescribeMacro[common]{\location}\marg{new location}\DescribeDefault{Ghent}\margintag{tag}\\
 %	Sets the location.
 %	The default is Ghent, translated to NL or EN using the dictionaries.
 %	Used in the default signing page of the bama class and the PhD data page.
@@ -2152,7 +2152,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|bkc|crs|rp|le|ex|bama>
 % \fi
 %
-% \DescribeOption[phd|bookcover]{cameraready}\DescribeDefault{false}
+% \DescribeOption[phd|bkc]{cameraready}\DescribeDefault{false}
 %	Options: |true|, |false|\\
 %	Forces the PhD format to be printed on A4 with bleed space,
 %	for if your printshop requires as a camera-ready copy.
@@ -2169,7 +2169,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|bkc>
 % \fi
 %
-% \DescribeOption[phd|course]{bare}\DescribeDefault{false}
+% \DescribeOption[phd|crs]{bare}\DescribeDefault{false}
 %	Options: |true|, |false|\\
 %	Removes the front and back cover, such that you can give
 %	a 'bare' version containing only the paper contents to your printshop.
@@ -2184,7 +2184,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|crs>
 % \fi
 %
-% \DescribeOption[phd|course]{thumbs}\DescribeDefault{true}
+% \DescribeOption[phd|crs]{thumbs}\DescribeDefault{true}
 %	Options: |true|, |false|\\
 %	Adds chapter thumb indexes to your document.
 %	See Section~\ref{S:optionspackages} for customization.
@@ -2200,7 +2200,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|crs>
 % \fi
 %
-% \DescribeOption[course|report]{copyright}\DescribeDefault{false}
+% \DescribeOption[crs|rp]{copyright}\DescribeDefault{false}
 %	Options: |true|, |false|\\
 %	Forces printing a watermark on every page. For the
 %	paper version of your document, this is inappropriate, but for any
@@ -2217,7 +2217,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|rp>
 % \fi
 %
-% \DescribeOption[exam]{examiner}\DescribeDefault{false}
+% \DescribeOption[ex]{examiner}\DescribeDefault{false}
 %	Options: |true|, |false|\\
 %	Allows setting the exam class in examiner mode,
 %	mentioning the examiner mode on every page (as regular text in the
@@ -2234,7 +2234,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 % \fi
 %
-%	\DescribeOption[bama|report]{coverbg}\DescribeDefault{false}
+%	\DescribeOption[bama|rp]{coverbg}\DescribeDefault{false}
 %	Options: |true|, |false|\\
 %	Sets a cover background with the relevant UGent or faculty color,
 %	depending on |faculty| and |neutralcolors| options.
@@ -2247,7 +2247,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bama|rp>
 % \fi
 %
-% \DescribeOption[letter]{foldline}\DescribeDefault{true}
+% \DescribeOption[le]{foldline}\DescribeDefault{true}
 %	Options: |true|, |false|\\
 %	Adds a little fold line to the letter margin, 1/3 of the page height from the top.
 % \iffalse
@@ -2262,7 +2262,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</le>
 % \fi
 %
-% \DescribeOption[bookcover]{covertype}
+% \DescribeOption[bkc]{covertype}
 %	Options: |phd|, |course|\\
 %	Passes the cover type to construct to the bookcover class.
 % \iffalse
@@ -2651,7 +2651,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Inset text and quotes}
 % \label{S:inset}
 % 
-% \DescribeMacro[bama|phd|course|report]{\insettext}\marg{title}\marg{content}\\
+% \DescribeMacro[bama|phd|crs|rp]{\insettext}\marg{title}\marg{content}\\
 %	Formats the |title| and |content| into a text box. By default, the colours are\\
 %	faculty-based (|insetboxcolor|).\\
 %	Examples:\\
@@ -2710,7 +2710,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bama|phd|crs|rp>
 %    \end{macrocode}
 %
-% \DescribeMacro[bama|phd|course|report]{\insetquote}\marg{quote}\marg{citation}\\
+% \DescribeMacro[bama|phd|crs|rp]{\insetquote}\marg{quote}\marg{citation}\\
 %	Formats the |quote| and |citation| into a text box using |insettext|.
 %	By default, the colours are faculty-based (|insetboxcolor|).\\
 %	Example:\\ 
@@ -2931,7 +2931,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % bachelor and master degree titles. Consult the Doctoral bylaws of
 % the university for correct PhD degree titles.
 % Students of FTI and FWET, can use the |\bamadegree| command instead.
-% \DescribeMacro{\degree} [exam] (mandatory)\\
+% \DescribeMacro{\degree} [exam] mandatory\\
 % This is the official degree name (in the appropriate language,
 % possibly mixed ``dutch (english)'').
 % Specify the official title of your diploma. This must be the
@@ -3185,12 +3185,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{People}
 % \label{S:people}
 % \DescribeMacro{\author} [course / bama / phd /
-% report ] (mandatory)\\ 
+% report ] mandatory\\ 
 % This macro sets the author of the document.
 % It also sets the |pdfauthor| tag of the hyperref package (if it is
 % loaded), so that 
 % the PDF-document meta-information is correct.
-% \DescribeMacro{\author} [exam] (mandatory)\\
+% \DescribeMacro{\author} [exam] mandatory\\
 % The author of the exam (may be multiple authors, separated by
 % commas). On the title page, these will be labeled as 'Professor(s) -
 % Titularis(sen)'.
@@ -3221,11 +3221,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|crs|bama|bkc|ex|le|rp>
 %    \end{macrocode}
 % \end{imacro}
-% \DescribeMacro{\lecturer} [course] (mandatory)\\
+% \DescribeMacro{\lecturer} [course] mandatory\\
 % You can add one or more lecturers to the course notes (in
 % Dutch: titularis). If there are multiple persons, please, use the
 % macro multiple times. 
-% \DescribeMacro{\lecturer} [exam] (mandatory)\\
+% \DescribeMacro{\lecturer} [exam] mandatory\\
 % You can add one or more lecturers to the course notes (in
 % Dutch: titularis). If there are multiple persons, please, use the
 % macro multiple times. 
@@ -3254,7 +3254,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|ex|rp|bkc>
 %    \end{macrocode}
 % \end{imacro}
-% \DescribeMacro{\supervisor} [bama / phd] (mandatory)\\
+% \DescribeMacro{\supervisor} [bama / phd] mandatory\\
 % Specifies the person(s) that promote(s)/supervise(s) the dissertation.
 % Please, use the macro multiple times if needed.
 % \begin{imacro}{\supervisor}
@@ -3431,7 +3431,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \subsubsection{Contact}
 % \label{S:contact}
-% \DescribeMacro{\address} [letter] (mandatory)\\
+% \DescribeMacro{\address} [letter] mandatory\\
 % Address of the sending unit (or faculty). This can be different from
 % the return address. Newlines are allowed and encouraged.
 % \begin{imacro}{\address}
@@ -3566,9 +3566,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \subsubsection{Course macros}
 % \label{S:course}
-% \DescribeMacro{\course} [exam] (mandatory)\\
+% \DescribeMacro{\course} [exam] mandatory\\
 % see description of |\course| macro on page~\pageref{dm-course}.
-% \DescribeMacro{\course} [course] (mandatory)\\
+% \DescribeMacro{\course} [course] mandatory\\
 % \label{dm-course}
 % Code (first argument) and name (second argument) of the curriculum
 % course this coursematerial or exam belongs to. The code should be of
@@ -3641,7 +3641,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 % 
-% \DescribeMacro{\publishercode} [course] (mandatory)\\
+% \DescribeMacro{\publishercode} [course] mandatory\\
 % This macro sets the publisher code of the document.
 % It is printed on the front page. This is code that the publisher
 % uses for its internal administration. It may be a proprietary code,
@@ -3663,7 +3663,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Exam macros}
 % \label{S:exam}
 %
-% \DescribeMacro{\exampart} [exam] (mandatory)\\
+% \DescribeMacro{\exampart} [exam] mandatory\\
 % Description of the part of the course the exam covers.
 % Often the evaluation of a course consists of multiple evaluation
 % elements (e.g. a written exam, a portfolio defense and lab
@@ -4005,7 +4005,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Letter macros}
 % \label{S:letter}
 % 
-% \DescribeMacro{\sender} [letter] (mandatory)\\
+% \DescribeMacro{\sender} [letter] mandatory\\
 % Description of the person writing the letter.
 % \begin{itemize}
 % \item first argument: name of the person writing the letter
@@ -4025,7 +4025,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
-% \DescribeMacro{\returnaddress} [letter] (mandatory)\\
+% \DescribeMacro{\returnaddress} [letter] mandatory\\
 % This is a short return address (listed in small font on top of the
 % destination address (such that it is visible in a windowed envelope
 % (European format)). It should fit on a single line. Typically we list
@@ -4045,7 +4045,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
-% \DescribeMacro{\to} [letter] (mandatory)\\
+% \DescribeMacro{\to} [letter] mandatory\\
 % Name of the addressee. Newlines are allowed. 
 % Preferably name and role are split over two lines.
 % \begin{imacro}{\to}
@@ -4086,7 +4086,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
-% \DescribeMacro{\subject} [letter] (mandatory) \\
+% \DescribeMacro{\subject} [letter] mandatory \\
 % Short descriptive subject that describes the contents of the
 % letter.
 % \begin{imacro}{\subject}
@@ -4111,7 +4111,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
-% \DescribeMacro{\opening}  [letter] (mandatory) \\
+% \DescribeMacro{\opening}  [letter] mandatory \\
 % Opening address of the letter. E.g. 'Dear X,'.
 % \begin{imacro}{\opening}
 %   This macro is much a do about nothing, but I prefer to do it this
@@ -4123,7 +4123,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
-% \DescribeMacro{\closing}  [letter] (mandatory) \\
+% \DescribeMacro{\closing}  [letter] mandatory \\
 % Closing clause of the letter. E.g. 'Best regards,'.
 % \begin{imacro}{\closing}
 %   This macro sets the |\@closing| tag that will be used to finish
@@ -5706,7 +5706,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
-% \DescribeMacro{\closeletter} [letter] (optiontal)\\
+% \DescribeMacro{\closeletter} [le] (optiontal)\\
 % Close the letter (with the closing greetings and underwriting) such
 % that the letter can be continued if desired with attachments. This
 % macro generates a |\textbackslash{}clearpage|. The default is not to use this macro.
