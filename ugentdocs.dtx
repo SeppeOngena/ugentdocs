@@ -2899,8 +2899,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   be used on the title page, to include the graphics.
 %    \begin{macrocode}
 %<*crs|phd|bkc>      
-\newcommand*\@titlepageimage{}
-\newcommand*\titlepageimage[1]{\renewcommand*\@titlepageimage{#1}}
+\newcommand*\@coverimage{}
+\newcommand*\coverimage[1]{\renewcommand*\@coverimage{#1}}
 %</crs|phd|bkc>
 %    \end{macrocode}
 % \end{imacro}
@@ -2918,8 +2918,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   This macro will set the |\@backcoverlogos| tag that will be used
 %   to print the publisher logo on the back cover.
 %    \begin{macrocode}
-\newcommand*{\@backcoverlogos}{\includegraphics[height = 2\gridunit]{Images/logo_UniversityPress_blue}}
 %<*bkc|phd|crs>
+\newcommand*{\@backcoverlogos}{}
 \newcommand*{\backcoverlogos}[1]{\renewcommand*{\@backcoverlogos}{#1}}
 %</bkc|phd|crs>
 %    \end{macrocode}
@@ -2985,9 +2985,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand*\doctype[1]{
 	\renewcommand*\@doctype{\translatekey{#1}}
 }
-%</bama|phd|crs|ex|bkc>
-%    \end{macrocode}
-% \end{imacro}
+%</bama|phd|bkc|rp>
+%<phd> \doctype{dissertation-phd}
+% \fi
 %
 % \begin{imacro}{\wordcount}
 %   This macro sets the |\@wordcount| tag that later will
@@ -4775,7 +4775,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	
 	\node[anchor=south~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
 	at (\@MS+\@MTLR, \@HBS+\@MTTB)
-	{\fontsize{11}{15}\selectfont\nohyphens{\translatekey{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}};
+	{\fontsize{11}{15}\selectfont\nohyphens{\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}};
 	
 	\ifx\@frontcoverlogos\@empty\else
 	\node[anchor=south~east, inner~sep=0pt,
@@ -5134,7 +5134,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\\[\baselineskip]
 		{\textbf{\translatekey{pleaserefer}:}\\  		
 			\printseq{authorlist}{~\&~}{,~}{\translatekey{andlist}~}~(\the\year).~
-			{\renewcommand{\\}[1][]{~}\@title{}\ifx\@subtitle\@empty\else{}:~\@subtitle\fi}.~PhD~Thesis,~Ghent~University,~Belgium.}%
+			{\renewcommand{\\}[1][]{~}\@title{}\ifx\@subtitle\@empty\else{}:~\@subtitle\fi}.~\@doctype{}.~Ghent~University,~Belgium.}%
 		\ifx\@isbn\@empty\else
 		\\[\baselineskip]{\small ISBN~\@isbn}%
 		\fi
@@ -5304,7 +5304,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\vspace{10\baselineskip}%
 		}
 		
-		{\small \translatekey{submittedto}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}\par}%
+		{\small \@doctype{}~\translatekey[lowercase]{submittedto}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}\par}%
 		
 		\vspace{.3\baselineskip}%
 		{\small\translatekey{org-ugent},~\@location,~\@date}%
@@ -5580,7 +5580,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 		{ phd }    {
 			\tl_put_right:Nn \l_@@_covertemplate_tl {
-				\l_@@_supervisorcalls_tl									   \iow_newline:
+				\exp_not:N\doctype {dissertation-phd}	\iow_newline:		
+				\l_@@_supervisorcalls_tl						\iow_newline:
 				\bool_if:NT \l_@@_embargo_bool {
 					\bool_if:NTF \l_@@_embargotemp_bool {
 						\exp_not:N\embargo[start=\l_@@_embargostartdate_tl, end=\l_@@_embargoenddate_tl] \iow_newline:
