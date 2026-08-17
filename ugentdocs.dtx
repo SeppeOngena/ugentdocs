@@ -1953,8 +1953,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand*\@location{\translatekey{ghent}}
 \AtEndOfClass{ % after letter class loads
 	\providecommand*{\location}{} % if not letter class
-	\renewcommand*{\location}[1]{\renewcommand*\@location{##1}}
-	\def\fromlocation{##1} % letter class compat
+	\renewcommand*{\location}[1]{
+		\renewcommand*\@location{#1}
+		\def\fromlocation{#1} % letter class compat
+	}
 }
 %</clo>
 % \fi
@@ -2145,7 +2147,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 { Cover~type~'#1'~is~not~implemented. }
 \ExplSyntaxOff
 %</clo>
-%<*phd|bkc|crs|rp|le|ex|bama> 
+%<*phd|bkc|crs|rp|le|ex|bama>
 \ExplSyntaxOn
 %</phd|bkc|crs|rp|le|ex|bama>
 % \fi
