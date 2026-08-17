@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Mark repo safe for changelog.md compilation
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
