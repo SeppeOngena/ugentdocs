@@ -4568,7 +4568,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\vskip 10em
 		}
 		
-		{\fontsize{15}{18}\selectfont\printseq{authorswithaffiliation}{\\}{\\}{\\}}
+		 \tl_set:Nx \l_@@_authortable_tl { \printseq{authorswithaffiliation}{\cr}{\cr}{\cr} }
+		{\fontsize{15}{18}\selectfont
+			\leavevmode\vbox{\halign{##\hfil&\hskip1em##\hfil\cr
+			\l_@@_authortable_tl
+			\cr}}
+		}
 		
 		\ifx\@studentnr\@empty\else
 		\translatekey{studentnr}:~\@studentnr
@@ -4579,15 +4584,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		{\fontsize{12}{15}\selectfont
 			\getseqcaption{supervisors}{:~\printseq{supervisors}{~\&~}{,~}{\translatekey{andlist}~}\\}}
 		
-		\ifseqempty{cosupervisors}{}{
-			{\fontsize{12}{15}\selectfont
+		{\fontsize{12}{15}\selectfont
 				\getseqcaption{cosupervisors}{:~\printseq{cosupervisors}{~\&~}{,~}{\translatekey{andlist}~}\\}}
-		}
 		
-		\ifseqempty{extsupervisors}{}{
-			{\fontsize{12}{15}\selectfont
+		{\fontsize{12}{15}\selectfont
 				\getseqcaption{extsupervisors}{:~\printseq{extsupervisors}{~\&~}{,~}{\translatekey{andlist}~}\\}}
-		}
 		
 		\ifseqempty{tutors}{}{
 			\vskip 1em
@@ -4634,7 +4635,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\vskip 10em
 		}{
 			\vskip 5em
-			{\fontsize{12}{15}\selectfont\printseq{authorswithaffiliation}{\\}{\\}{\\}}
+			\tl_set:Nx \l_@@_authortable_tl { \printseq{authorswithaffiliation}{\cr}{\cr}{\cr} }
+			{\fontsize{12}{15}\selectfont
+				\leavevmode\vbox{\halign{##\hfil&\hskip1em##\hfil\cr
+				\l_@@_authortable_tl
+				\cr}}
+			}
 			\ifx\@studentnr\@empty\else
 			\translatekey{studentnr}:~\@studentnr
 			\fi
@@ -6424,9 +6430,9 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 ruimtemodellering} %% either don't split titles, or do so with hyphen
 %% and a newline
 \subtitle{Deze subtitel mag je weglaten}
-\author{}{Bibber, Bert}{studentnr. xxxxxx}
-\author{}{De Bakker, Jos}{studentnr. xxxxxx}
-\author{}{Callewaert, Gerrit}{studentnr. xxxxxx}
+\author{}{Bibber, Bert}{& (xxxxxx)}
+\author{}{De Bakker, Jos}{& (xxxxxx)}
+\author{}{Callewaert, Gerrit}{& (xxxxxx)}
 
 %% you can specify multiple supervisors, cosupervisors and external supervisors
 %% in Dutch: promotoren, copromotoren (dagelijkse begeleiders) en
@@ -7000,9 +7006,9 @@ e^{-j\pi} + 1 = 0
 \subtitle{<Opdracht>}
 \extra{<Vak>}
 
-\author{}{Bibber, Bert}{studentnr. xxxxxx}
-\author{}{De Bakker, Jos}{studentnr. xxxxxx}
-\author{}{Callewaert, Gerrit}{studentnr. xxxxxx}
+\author{}{Bibber, Bert}{& (xxxxxx)}
+\author{}{De Bakker, Jos}{& (xxxxxx)}
+\author{}{Callewaert, Gerrit}{& (xxxxxx)}
 
 \academicyear{2026--2027}
 
