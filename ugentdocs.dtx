@@ -5515,20 +5515,35 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   defined in the |bookcover| package, so we need to renew it.
 %    \begin{macrocode}
 %<*bkc>
+\ExplSyntaxOn
 \renewcommand\makebookcover{
 	\begin{bookcover}
 		\bookcovercomponent{normal}{front}{\@frontcover}
 		\makeatletter
-		\bookcovercomponent{color}{bg spine}{spinecolor}
+		\bookcovercomponent{color}{bg~spine}{spinecolor}
 		\if@printonspine
 		\bookcovercomponent{logo}{spine}{spinetextcolor}
 		\bookcovercomponent{title}{spine}{\@title}
-		\bookcovercomponent{authoryear}{spine}{\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}}
-		\fi 
-		\makeatother 
+		\bookcovercomponent{authoryear}{spine}{
+			\exp_args:Nx \str_case:nn { \l_@@_covertype_tl } {
+				{ phd }    {
+					\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
+				}
+				{ course }	{
+					\ifseqempty{lecturers}{
+					\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
+					}{
+					\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}
+					}
+				}
+			}
+		}
+		\fi
+		\makeatother
 		\bookcovercomponent {normal}{back}{\@backcover}
-	\end{bookcover}	
+	\end{bookcover}
 }
+\ExplSyntaxOff
 %</bkc>
 %    \end{macrocode}
 % \end{imacro}
