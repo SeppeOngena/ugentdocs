@@ -3230,17 +3230,44 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*phd|crs|bama|bkc|ex|le|rp>
 \ExplSyntaxOn
+% General add name helper
+\cs_new:Nn \@@_addto_nameseq:nnn {
+	% args: seq, title, name
+	\exp_args:Nc \seq_gput_right:Nn { g_@@_#1_seq } { #2~\@formatname{#3}\strut }
+}
+
+% General add name with affiliation helper
+\cs_new:Nn \@@_addto_nameaffiliationseq:nnnn {
+	% args: seq, title, name, affiliation
+	\exp_args:Nc \seq_gput_right:Nn { g_@@_#1withaffiliation_seq } {%
+		\tl_if_blank:nF {#2} { #2~ }
+		\@formatname{#3}\strut#4\strut % User specifies sep themselves
+	}
+}
+
+% General add call helper
+\cs_new:Nn \@@_addto_callseq:nnnn {
+	% args: seq, title, name, affiliation
+	\exp_args:Ncx \seq_gput_right:Nn { g_@@_#1calls_seq } {
+		\exp_not:c { \tl_range:nnn {#1} {1} {-2} }
+		{ \exp_not:n{#2} } { \exp_not:n{#3} } { \exp_not:n{#4} }
+	}
+}
+
+% Declare author sequences
 \seq_new:N \g_@@_authors_seq
 \seq_new:N \g_@@_authorswithaffiliation_seq
 \seq_new:N \g_@@_authorlist_seq
-\seq_new:N \g_@@_authorcalls_seq
+\seq_new:N \g_@@_authorscalls_seq
 
+% Add author to sequences
 \cs_new:Nn \@@_addauthor:nnn {
-	\seq_gput_right:Nn \g_@@_authors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_authorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-	\seq_gput_right:Nn \g_@@_authorlist_seq { \@surname{#2},~\@firstnameinitial{#2} }
-	\seq_gput_right:Nx \g_@@_authorcalls_seq
-	{ \exp_not:N\author { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
+	\@@_addto_nameseq:nnn 				{authors} {#1}{#2}
+	\@@_addto_nameaffiliationseq:nnnn 	{authors} {#1}{#2}{#3}
+	\@@_addto_callseq:nnnn 				{authors} {#1}{#2}{#3}
+	\seq_gput_right:Nn \g_@@_authorlist_seq { 
+		\@surname{#2},~\@firstnameinitial{#2} 
+	}
 }
 
 \RenewDocumentCommand{\author}{mmm}{
@@ -3267,13 +3294,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*crs|ex|rp|bkc>
 \ExplSyntaxOn
 \seq_new:N \g_@@_lecturers_seq
-\seq_new:N \g_@@_lecturercalls_seq
+\seq_new:N \g_@@_lecturerscalls_seq
 \seq_new:N \g_@@_lecturerswithaffiliation_seq
 \cs_new:Nn \@@_addlecturer:nnn {
-	\seq_gput_right:Nn \g_@@_lecturers_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_lecturerswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-	\seq_gput_right:Nx \g_@@_lecturercalls_seq
-	{ \exp_not:N\lecturer { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
+	\@@_addto_nameseq:nnn 				{lecturers} {#1}{#2}
+	\@@_addto_nameaffiliationseq:nnnn 	{lecturers} {#1}{#2}{#3}
+	\@@_addto_callseq:nnnn 				{lecturers} {#1}{#2}{#3}
 }
 \NewDocumentCommand{\lecturer}{mmm}{
 	\@@_addlecturer:nnn { #1 } { #2 } { #3 }
@@ -3300,13 +3326,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \seq_new:N \g_@@_allsupervisorstutors_seq
 \seq_new:N \g_@@_allsupervisorswithaffiliation_seq
 \cs_new:Nn \@@_addsupervisor:nnn {
-	\seq_gput_right:Nn \g_@@_supervisors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_supervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-	\seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_allsupervisorstutors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-	\seq_gput_right:Nx \g_@@_supervisorcalls_seq
-	{ \exp_not:N\supervisor { \exp_not:n{#1} } { \exp_not:n{#2} } { \exp_not:n{#3} } }
+	\@@_addto_nameseq:nnn 				{supervisors} {#1}{#2}
+	\@@_addto_nameaffiliationseq:nnnn 	{supervisors} {#1}{#2}{#3}
+	\@@_addto_callseq:nnnn 				{supervisors} {#1}{#2}{#3}
+	
+	\@@_addto_nameseq:nnn 				{allsupervisors} 		{#1}{#2}
+	\@@_addto_nameseq:nnn 				{allsupervisorstutors} 	{#1}{#2}
+	\@@_addto_nameaffiliationseq:nnnn 	{allsupervisors} 		{#1}{#2}{#3}
 }
 \NewDocumentCommand{\supervisor}{mmm}{
 	\@@_addsupervisor:nnn { #1 } { #2 } { #3 }
@@ -3316,11 +3342,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \seq_new:N \g_@@_cosupervisors_seq
 \seq_new:N \g_@@_cosupervisorswithaffiliation_seq
 \cs_new:Nn \@@_addcosupervisor:nnn {
-	\seq_gput_right:Nn \g_@@_cosupervisors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_cosupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-	\seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_allsupervisorstutors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+	\@@_addto_nameseq:nnn 				{cosupervisors} {#1}{#2}
+	\@@_addto_nameaffiliationseq:nnnn 	{cosupervisors} {#1}{#2}{#3}
+
+	\@@_addto_nameseq:nnn 				{allsupervisors} 		{#1}{#2}
+	\@@_addto_nameseq:nnn 				{allsupervisorstutors} 	{#1}{#2}
+	\@@_addto_nameaffiliationseq:nnnn 	{allsupervisors} 		{#1}{#2}{#3}
 }
 \NewDocumentCommand{\cosupervisor}{mmm}{
 	\@@_addcosupervisor:nnn { #1 } { #2 } { #3 }
@@ -3329,11 +3356,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \seq_new:N \g_@@_extsupervisors_seq
 \seq_new:N \g_@@_extsupervisorswithaffiliation_seq
 \cs_new:Nn \@@_addextsupervisor:nnn {
-	\seq_gput_right:Nn \g_@@_extsupervisors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_extsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
-	\seq_gput_right:Nn \g_@@_allsupervisors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_allsupervisorstutors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_allsupervisorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+	\@@_addto_nameseq:nnn 				{extsupervisors} {#1}{#2}
+	\@@_addto_nameaffiliationseq:nnnn 	{extsupervisors} {#1}{#2}{#3}
+	
+	\@@_addto_nameseq:nnn 				{allsupervisors} 		{#1}{#2}
+	\@@_addto_nameseq:nnn 				{allsupervisorstutors} 	{#1}{#2}
+	\@@_addto_nameaffiliationseq:nnnn 	{allsupervisors} 		{#1}{#2}{#3}
 }
 \NewDocumentCommand{\extsupervisor}{mmm}{
 	\@@_addextsupervisor:nnn { #1 } { #2 } { #3 }
@@ -3342,9 +3370,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \seq_new:N \g_@@_tutors_seq
 \seq_new:N \g_@@_tutorswithaffiliation_seq
 \cs_new:Nn \@@_addtutor:nnn {
-	\seq_gput_right:Nn \g_@@_tutors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_allsupervisorstutors_seq { #1~\@formatname{#2}\strut }
-	\seq_gput_right:Nn \g_@@_tutorswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+	\@@_addto_nameseq:nnn 				{tutors} {#1}{#2}
+	\@@_addto_nameaffiliationseq:nnnn 	{tutors} {#1}{#2}{#3}
+	
+	\@@_addto_nameseq:nnn 				{allsupervisorstutors} 	{#1}{#2}
 }
 \NewDocumentCommand{\tutor}{mmm}{
 	\@@_addtutor:nnn { #1 } { #2 } { #3 }
@@ -3365,7 +3394,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOn
 \seq_new:N \g_@@_jurymemberswithaffiliation_seq
 \cs_new:Nn \@@_addjurymember:nnn {
-	\seq_gput_right:Nn \g_@@_jurymemberswithaffiliation_seq { #1~\@formatname{#2} \tl_if_blank:nF {#3} { ,~#3 }\strut }
+	\@@_addto_nameaffiliationseq:nnnn 	{jurymembers} {#1}{#2}{#3}
 }
 \NewDocumentCommand{\jurymember}{mmm}{
 	\@@_addjurymember:nnn { #1 } { #2 } { #3 }
@@ -5543,9 +5572,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\tl_set:Nx \l_@@_year_tl 			{ \exp_not:n{\the\year} }
 	\tl_set:Nx \l_@@_academicyear_tl	{ \exp_not:n{\@academicyear} }
 	
-	\tl_clear_new:N \l_@@_authorcalls_tl
-	\seq_map_inline:Nn \g_@@_authorcalls_seq
-	{ \tl_put_right:Nn \l_@@_authorcalls_tl { ##1 \iow_newline: } }
+	\tl_clear_new:N \l_@@_authorscalls_tl
+	\seq_map_inline:Nn \g_@@_authorscalls_seq
+	{ \tl_put_right:Nn \l_@@_authorscalls_tl { ##1 \iow_newline: } }
 	
 	\tl_clear_new:N \l_@@_degreecalls_tl
 	\seq_map_inline:Nn \g_@@_degreecalls_seq
@@ -5564,9 +5593,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\tl_set:Nn \l_@@_covertypekeyval_tl { ,phd }
 		}
 		{ course }     {
-			\tl_clear_new:N \l_@@_lecturercalls_tl
-			\seq_map_inline:Nn \g_@@_lecturercalls_seq
-			{ \tl_put_right:Nn \l_@@_lecturercalls_tl { ##1 \iow_newline: } }
+			\tl_clear_new:N \l_@@_lecturerscalls_tl
+			\seq_map_inline:Nn \g_@@_lecturerscalls_seq
+			{ \tl_put_right:Nn \l_@@_lecturerscalls_tl { ##1 \iow_newline: } }
 			\tl_set:Nx \l_@@_camerareadykeyval_tl { }
 			\tl_set:Nn \l_@@_covertypekeyval_tl { ,course }
 		}
@@ -5587,7 +5616,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\iow_newline:
 		\exp_not:N\title			{\l_@@_title_tl}			\iow_newline:
 		\exp_not:N\subtitle			{\l_@@_subtitle_tl}			\iow_newline:
-		\l_@@_authorcalls_tl								    \iow_newline:
+		\l_@@_authorscalls_tl								    \iow_newline:
 		\exp_not:N\isbn				{\l_@@_isbn_tl}				\iow_newline:
 		\exp_not:N\coverimage		{\l_@@_coverimage_tl}	\iow_newline:
 		\exp_not:N\backcoverlogos	{\l_@@_backcoverlogos_tl}	\iow_newline:
@@ -5623,7 +5652,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		}
 		{ course }     {
 			\tl_put_right:Nn \l_@@_covertemplate_tl {
-				\l_@@_lecturercalls_tl							\iow_newline:
+				\l_@@_lecturerscalls_tl							\iow_newline:
 			}
 		}
 	}{
@@ -6215,11 +6244,11 @@ e^{-j\pi} + 1 = 0
 %% you can specify multiple supervisors, cosupervisors and external supervisors
 %% in Dutch: promotoren, copromotoren (dagelijkse begeleiders) en
 %% bedrijfspromotoren
-\supervisor{prof. dr. ir.}{Kumulus, P.}{UGent}
-\supervisor{prof. dr. ir.}{Snuffel, E.}{UGent}
-\cosupervisor{ing.}{Pienter, P.}{UGent}
-\extsupervisor{prof. dr.}{Warwinkel, H.}{TNT-Bang, N.V.}
-\tutor{ir.}{Post, Pieter}{UGent}
+\supervisor{prof. dr. ir.}{Kumulus, P.}{, UGent}
+\supervisor{prof. dr. ir.}{Snuffel, E.}{, UGent}
+\cosupervisor{ing.}{Pienter, P.}{, UGent}
+\extsupervisor{prof. dr.}{Warwinkel, H.}{, TNT-Bang, N.V.}
+\tutor{ir.}{Post, Pieter}{, UGent}
 %% set the academic year: keep the spaces around the dash!
 \academicyear{2026 -- 2027}
 
@@ -6402,8 +6431,8 @@ ruimtemodellering} %% either don't split titles, or do so with hyphen
 %% you can specify multiple supervisors, cosupervisors and external supervisors
 %% in Dutch: promotoren, copromotoren (dagelijkse begeleiders) en
 %% bedrijfspromotoren
-\supervisor{prof. dr. ir.}{Snuffel, E.}{UGent}
-\tutor{ir.}{Post, Pieter}{UGent}
+\supervisor{prof. dr. ir.}{Snuffel, E.}{, UGent}
+\tutor{ir.}{Post, Pieter}{, UGent}
 
 %% set the academic year: keep the spaces around the dash!
 \academicyear{2026 -- 2027}
@@ -6590,16 +6619,16 @@ T: +32 9 264 51 19
 }
 
 %% specify your supervisors and their affiliation
-\supervisor{prof. dr.}{Vlaams, W.}{Universiteit Gent, Belgi\"e}
-\supervisor{prof. dr.}{Stekker, J.}{Universiteit Gent, Belgi\"e}
+\supervisor{prof. dr.}{Vlaams, W.}{, Universiteit Gent, Belgi\"e}
+\supervisor{prof. dr.}{Stekker, J.}{, Universiteit Gent, Belgi\"e}
 
 %% specify the chairman of the jury and his/her/their affiliation
-\jurychair{prof. dr.}{Dalinckx, P.}{Universiteit Gent, Belgi\"e}
+\jurychair{prof. dr.}{Dalinckx, P.}{, Universiteit Gent, Belgi\"e}
 
 %% specify the memers of the jury and their affiliations
-\jurymember{prof. dr.}{Dezerooder, J.}{Universiteit Gent, Belgi\"e}
-\jurymember{prof. dr.}{De Tollenaere, P.}{Flanders Make, Belgi\"e}
-\jurymember{prof. dr.}{Byr, M.}{IMEC, Nederland}
+\jurymember{prof. dr.}{Dezerooder, J.}{, Universiteit Gent, Belgi\"e}
+\jurymember{prof. dr.}{De Tollenaere, P.}{, Flanders Make, Belgi\"e}
+\jurymember{prof. dr.}{Byr, M.}{, IMEC, Nederland}
 
 %% specify the dean of the faculty and rector of Ghent University
 \dean{prof. dr.}{Decaan, Do}
@@ -6792,16 +6821,16 @@ T: +32 9 264 51 19
 }
 
 %% specify your supervisors and their affiliation
-\supervisor{prof. dr.}{Vlaams, W.}{Ghent University, Belgium}
-\supervisor{prof. dr.}{Stekker, J.}{Ghent University, Belgium}
+\supervisor{prof. dr.}{Vlaams, W.}{, Ghent University, Belgium}
+\supervisor{prof. dr.}{Stekker, J.}{, Ghent University, Belgium}
 
 %% specify the chairman of the jury and his/her/their affiliation
-\jurychair{prof. dr.}{Dalinckx, P.}{Ghent University, Belgium}
+\jurychair{prof. dr.}{Dalinckx, P.}{, Ghent University, Belgium}
 
 %% specify the memers of the jury and their affiliations
-\jurymember{prof. dr.}{Dezerooder, J.}{Ghent University, Belgium}
-\jurymember{prof. dr.}{De Tollenaere, P.}{Flanders Make, Belgium}
-\jurymember{prof. dr.}{Byr, M.}{IMEC, The Netherlands}
+\jurymember{prof. dr.}{Dezerooder, J.}{, Ghent University, Belgium}
+\jurymember{prof. dr.}{De Tollenaere, P.}{, Flanders Make, Belgium}
+\jurymember{prof. dr.}{Byr, M.}{, IMEC, The Netherlands}
 
 %% specify the dean of the faculty and rector of Ghent University
 \dean{prof. dr.}{Decaan, Do}
@@ -6977,8 +7006,8 @@ e^{-j\pi} + 1 = 0
 
 \academicyear{2026--2027}
 
-\lecturer{prof. dr.}{Vlaams, W.}{Ghent University, Belgium}
-\lecturer{prof. dr.}{Stekker, J.}{Ghent University, Belgium}
+\lecturer{prof. dr.}{Vlaams, W.}{, Ghent University, Belgium}
+\lecturer{prof. dr.}{Stekker, J.}{, Ghent University, Belgium}
 
 %% skip copyrightnotices (replace with empty)
 %%\copyrightnotices{}
