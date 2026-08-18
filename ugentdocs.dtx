@@ -3253,8 +3253,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	is set using the |authorlist| 
 %	so that the PDF-document meta-information is correct.
 %
-%	Implementation:
-%    \begin{macrocode}
+% \iffalse
 %<*phd|crs|bama|bkc|ex|le|rp>
 \ExplSyntaxOn
 % General add name helper
@@ -3302,7 +3301,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</phd|crs|bama|bkc|ex|le|rp>
-%    \end{macrocode}
+% \fi
 %
 % \DescribeMacro[crs|rp|bkc|ex]{\lecturer}
 %	\marg{title}\marg{Surname, Firstname}\marg{affiliation}
@@ -3378,7 +3377,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bama|phd|bkc>
 % \fi
 %
-% \newpage
+% \vspace{1.5cm}
 % \DescribeMacro[bama]{\cosupervisor}
 %	\marg{title}\marg{Surname, Firstname}\marg{affiliation}
 %	\margintag{cosupervisors\_seq}
