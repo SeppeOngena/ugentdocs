@@ -135,7 +135,6 @@
 % \setlength{\parindent}{0em}
 % \addtolength{\parskip}{0.5\baselineskip}
 % \newcommand{\githubmain}{https://github.com/SeppeOngena/ugentdocs}
-% \newcommand*\txtcmd[1]{{\tt \textbackslash #1}}
 %
 % \title{The |ugentdocs| classes
 %   \thanks{Thanks to Walter Daems for the original \texttt{uantwerpendocs}
@@ -222,6 +221,8 @@
 %	\item The classes are shown without the |ugent| prefix. In some cases,
 %		even shorter forms are used: |crs=course|, |rp=report|, |le=letter|,
 %		|ex=exam|, |bkc=bookcover|, and |bmr=beamer|. |bama| remains |bama|.
+%	\item Common macros or options are defined in |ugentcommon.clo| and are
+%		denoted in the descriptions below using |common| or the shorthand |clo|.
 %	\item When an option or macro (command) is being described, its name
 %		 is shown in the left margin.
 %	\item If an option is being described instead of a macro,
@@ -239,17 +240,17 @@
 %	\item The classes for which an option or macro is available are given
 %		between square brackets in the margin, e.g. [phd\|crs].
 %	\item Most options can be set as |option=value| in your
-%		\txtcmd{documentclass[<options>]\{class\}} command, but also plain
+%		|\documentclass[<options>]{<class>}| command, but also plain
 %		|value| works.
 %	\item This: |<name>| is a placeholder. Replace it with your own text.
 %	\item For macros, mandatory arguments are shown between curly braces \{\},
 %		and optional arguments are shown between square braces [], just as they
 %		are when you use them.
-%	\item In general, \txtcmd{macros} are commands you can use in your main.tex
+%	\item In general, |\macros| are commands you can use in your main.tex
 %		document file. 
-%	\item Some \txtcmd{@macros} or \txtcmd{@tags} are for internal usage, but
+%	\item Some |\@macros| or |\@tags| are for internal usage, but
 %		they can be retrieved or executed by wrapping them in 
-%		\txtcmd{makeatletter} and \txtcmd{makeatother} (required due to the @
+%		|\makeatletter| and |\makeatother| (required due to the @
 %		sign). Some of these are also meant to be sections of code you can
 %		customize (see ``A note on customization'' below). If so, their
 %		implementation code is shown in this docs for copy-pasting to your
@@ -304,9 +305,9 @@
 % Part~\ref{P:I} in a .sty file. A recommended naming scheme is
 % |<classname>-customization.sty|, e.g. |ugentphd-customization.sty|.
 % You can then load this customization using
-% \txtcmd{usepackage\{ugentphd-customization\}}.
+% |\usepackage{ugentphd-customization}|.
 % Be sure to renew commands instead of redefining commands -- 
-% e.g., use \txtcmd{renewcommand} and \txtcmd{RenewDocumentCommand} 
+% e.g., use |\renewcommand| and |\RenewDocumentCommand| 
 % -- and replace any '|@@|' with '|_ugentdocs|' (not single |@|'s!).
 % Colours can be adjusted using, e.g.:
 % {\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
@@ -360,9 +361,10 @@
 % \label{P:I}
 %
 % In the following sections, we will describe the usage of the classes
-% (Section~\ref{S:usage}) and show some example documents 
-% (Section~\ref{S:examples}). You can skip the usage description below if you
-% prefer and just copy-paste the examples and adjust them to your needs, 
+% (Section~\ref{S:usage}), show the style implementation (Section~\ref{S:style})
+% and show some example documents (Section~\ref{S:examples}). 
+% You can skip straight to the examples if you prefer and just copy-paste
+% a specific class example and start using and adjusting them to your needs, 
 % as most functionality is explained within.
 % The full package source code will \emph{not} be given here in the documentation.
 % For that, you can inspect the .dtx file where this documentation
@@ -641,7 +643,7 @@
 %
 % Since both the official fonts are sans-serif, we use the |unicode-math| package
 % with the Noto Sans Math font if available, and the TeX Gyre DejaVu Math
-% font otherwise. You can override these fonts by using \txtcmd{setmathfont\{<font>\}}.
+% font otherwise. You can override these fonts by using |\setmathfont{<font>}|.
 %
 % \iffalse
 %<*clo>
@@ -843,7 +845,7 @@
 % \DescribeOption[common]{faculty}\DescribeDefault{empty}
 %	Options: |lw|, |re|, |we|, |ge|, |ea|, |eb|, |di|, |pp|, |bw|, |fw|, |ps|\\
 %	Used as, e.g., |faculty=bw|, but also plain |bw| works. Sets the faculty selector
-%	(\txtcmd{@fselector}) to this value, which is used to determine the faculty
+%	(|\@fselector|) to this value, which is used to determine the faculty
 %	text (for both EN and NL) and colour.
 %	Also loads the faculty icon and its width, the faculty logo text format (newline behaviour),
 %	the faculty logo text width (for both EN and NL), and any additional text spacing
@@ -1050,20 +1052,20 @@
 %</clo>
 % \fi
 %
-% When the faculty is specified, the \txtcmd{@faculty} and \txtcmd{@facultyacronym}
-% tags are set. You can retrieve these similar to the \LaTeX{}-native \txtcmd{@title} tag by
-% wrapping it in \txtcmd{makeatletter} and \txtcmd{makeatother} (required due to the @ sign).
+% When the faculty is specified, the |\@faculty| and |\@facultyacronym|
+% tags are set. You can retrieve these similar to the \LaTeX{}-native |\@title| tag by
+% wrapping it in |\makeatletter| and |\makeatother| (required due to the @ sign).
 % For example:
 % \begin{itemize}
-%	\item \txtcmd{makeatletter}\txtcmd{@faculty}\txtcmd{makeatother}:
+%	\item |\makeatletter\@faculty\makeatother|:
 %		\makeatletter\@faculty\makeatother
-%	\item \txtcmd{makeatletter}\txtcmd{@facultyacronym}\txtcmd{makeatother}:
+%	\item |\makeatletter\@facultyacronym\makeatother|:
 %		\makeatletter\@facultyacronym\makeatother
 % \end{itemize}
 % \DescribeMacro[common]{\faculty}\marg{name}\margintag{tag}\\
-%	Overrides the faculty tag \txtcmd{@faculty} with the |name| entered.
+%	Overrides the faculty tag |\@faculty| with the |name| entered.
 %	Name only, no logos or colours! 
-%	To use for, e.g., faculty services like |Directie ICT| for letters or beamer slides.
+%	To use for, e.g., faculty services like ``Directie ICT'' for letters or beamer slides.
 %
 % \iffalse
 %<*clo>
@@ -1097,11 +1099,11 @@
 % \fi
 %
 % \DescribeMacro[common]{\department}\marg{name}\\
-%	Sets the department tag \txtcmd{@department} with the |name| entered.
+%	Sets the department tag |\@department| with the |name| entered.
 %	Currently unused.
 %
 % \DescribeMacro[common]{\unit}\marg{name}\margintag{tag}\\
-%	Sets the unit tag \txtcmd{@unit} with the |name| entered.
+%	Sets the unit tag |\@unit| with the |name| entered.
 %	Can be used to set ``Team ...'' or your research lab to the second line of the
 %	letter header or beamer title page.
 %
@@ -1140,7 +1142,7 @@
 %	The color can be set to, e.g., white to print on a dark background.\\
 %	Usage:
 %
-% \txtcmd{begin\{tikzpicture\}}\txtcmd{ficon\{1cm\}\{ugent@faculty\}\{0\}}\txtcmd{end\{tikzpicture\}}\\
+% |\begin{tikzpicture}\ficon{1cm}{ugent@faculty}{0}\end{tikzpicture}|\\
 % \begin{tikzpicture}
 %	\ficon{1cm}{ugent@faculty}{0}
 % \end{tikzpicture}
@@ -1301,7 +1303,7 @@
 %	The color can be set to, e.g., white to print on a dark background.\\
 %	Usage:
 %
-% \txtcmd{begin\{tikzpicture\}}\txtcmd{ugenticon\{1cm\}\{ugent@main\}\{0\}}\txtcmd{end\{tikzpicture\}}\\
+% |\begin{tikzpicture}\ugenticon{1cm}{ugent@main}{0}\end{tikzpicture}|\\
 % \begin{tikzpicture}
 %	\ugenticon{1cm}{ugent@main}{0}
 % \end{tikzpicture}
@@ -1581,8 +1583,8 @@
 %
 % \DescribeMacro[common]{\translatekey}\oarg{expand}\oarg{casing}\marg{key}\\
 %	Translates the |<key>| using the currently active language (babel), either the main
-%	language, overridden with \txtcmd{selectlanguage\{<languagename>\}} or
-%	temporarily set using the\\ \txtcmd{foreignlanguage\{<languagename>\}\{\ldots\}}
+%	language, overridden with |\selectlanguage{<languagename>}| or
+%	temporarily set using the\\ |\foreignlanguage{<languagename>}{...}|
 %	wrapper. A list of keys can be found in the dictionaries below.\\
 %	Optional arguments:\\
 %	|expand| - expands the |key|, for use with a key such as |org-\@fselector|\\
@@ -1626,7 +1628,7 @@
 %	|ugentdocs-<languagename>.dict| into the dictionary library.
 %	If you want to use this language as main document language, be sure to load
 %	the |babel| package again immediately after class load using\\
-%	\txtcmd{usepackage[main=<languagename>]\{babel\}}.
+%	|\usepackage[main=<languagename>]{babel}|.
 % 
 % \iffalse
 %<*clo>
@@ -1974,7 +1976,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsection{Name and sequence parsing}
 % \label{S:usage:nameseqparse}
 % Names are always input as "Surname, Firstname"
-% (BibTeX format) to, e.g, \txtcmd{author} commands, see the 
+% (BibTeX format) to, e.g, |\author| commands, see the 
 % ``people'' macros in Section~\ref{S:usage:macros:people}.
 % The |ugentdocs| classes have specialized mechanisms
 % to convert these to regular "Firstname Surname" or "Surname Firstname",
@@ -2072,7 +2074,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeMacro[common]{\printseq}\marg{sequence name}\marg{two-item-separator}\marg{separator}\marg{last-separator}\\
 %	When used, returns the items in |<sequence name>| in order with the separators.
 %	These separators can be anything, even newlines.\\
-%	For example, \txtcmd{printseq\{authors\}\{\textasciitilde{}\&\textasciitilde{}\}\{,\textasciitilde{}\}\{\textbackslash translatekey\{andlist\},\textasciitilde{}\}} returns:\\
+%	For example, |\printseq{authors}{~&~}{,~}{\translatekey{andlist},~}| returns:\\
 %	Single item: |Name1|\\
 %	Two-item list:  |Name1| \& |Name2|\\
 %	Multi-item list: |Name1|, |Name2|, and |Name3|
@@ -2404,36 +2406,35 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \begin{center}\small
 %   \begin{tabular}{lp{8cm}}
 %       \toprule
-%		|adjustbox|			& Trimming and clipping of images				\\
-%		|babel|				& Translations of keywords and logos			\\
-%		|background|		& Copyright watermarks for courses and reports	\\
-%		|beamerposter|		& Custom slide dimensions for beamer			\\
-%		|color|				& Colour management								\\
-%		|crop|				& Camera-ready version of PhD dissertations		\\
-%		|datetime2|			& Enhanced date parsing with language support	\\
-%		|environ|			& Custom environments for beamer template		\\
-%		|eso-pic|			& \textcolor{red}{replacement in progress}		\\
-%		|etoolbox|			& Toolbox for class definitions	internally		\\
-%		|expl3|				& Use of \LaTeX{}3 code internally				\\
-%		|fancyhdr|			& Headers and footers							\\
-%		|fontspec|			& Fonts											\\
-%		|geometry|			& Page geometry and margins						\\
-%		|graphbox|			& Improved placement of graphics				\\
-%		|graphicx|			& Enhanced support for graphics					\\
-%		|GS1|				& ISBN barcode for PhDs and courses				\\
-%		|hyphenat|			& Hyphenation control							\\
-%		|iftex|				& Checking compiler type						\\
-%		|setspace|			& Set line spacing								\\
-%		|shellesc|			& Shell command execution, used in 
-%							  \txtcmd{runwordcount}							\\
-%		|soul|				& Underline spanning multiple lines				\\
-%		|tabularx|			& Auto-expandable paragraph columns				\\
-%		|thumbs|			& Thumb indexes for PhDs and courses			\\
-%		|tikz|				& logos, cover pages, etc.						\\
-%		|titlesec|			& Chapter title formatting						\\
-%		|ulem|				& Line-breaking underline						\\
-%		|unicode-math|		& Sans-serif math								\\
-%		|zref-totpages|		& Page count 									\\
+%		|adjustbox|			& Trimming and clipping of images					\\
+%		|babel|				& Translations of keywords and logos				\\
+%		|background|		& Copyright watermarks for courses and reports		\\
+%		|beamerposter|		& Custom slide dimensions for beamer				\\
+%		|color|				& Colour management									\\
+%		|crop|				& Camera-ready version of PhD dissertations			\\
+%		|datetime2|			& Enhanced date parsing with language support		\\
+%		|environ|			& Custom environments for beamer template			\\
+%		|eso-pic|			& \textcolor{red}{replacement in progress}			\\
+%		|etoolbox|			& Toolbox for class definitions	internally			\\
+%		|expl3|				& Use of \LaTeX{}3 code internally					\\
+%		|fancyhdr|			& Headers and footers								\\
+%		|fontspec|			& Fonts												\\
+%		|geometry|			& Page geometry and margins							\\
+%		|graphbox|			& Improved placement of graphics					\\
+%		|graphicx|			& Enhanced support for graphics						\\
+%		|GS1|				& ISBN barcode for PhDs and courses					\\
+%		|hyphenat|			& Hyphenation control								\\
+%		|iftex|				& Checking compiler type							\\
+%		|setspace|			& Set line spacing									\\
+%		|shellesc|			& Shell command execution, used in |\runwordcount|	\\
+%		|soul|				& Underline spanning multiple lines					\\
+%		|tabularx|			& Auto-expandable paragraph columns					\\
+%		|thumbs|			& Thumb indexes for PhDs and courses				\\
+%		|tikz|				& logos, cover pages, etc.							\\
+%		|titlesec|			& Chapter title formatting							\\
+%		|ulem|				& Line-breaking underline							\\
+%		|unicode-math|		& Sans-serif math									\\
+%		|zref-totpages|		& Page count 										\\
 %		\bottomrule
 %   \end{tabular}
 % \end{center}
@@ -2479,7 +2480,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \begin{itemize}
 %   \item |babel|: sets the main document language from the |language| option.
-%			You can add more languages by calling \txtcmd{usepackage[<languages>]\{babel\}}
+%			You can add more languages by calling |\usepackage[<languages>]{babel}|
 %			again in your customization file, but make sure a dictionary is available for
 %           the |main| language (see Section \ref{S:usage:langtimeloc:dict}).
 %    \begin{macrocode}
@@ -2495,7 +2496,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|bama|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 %   \item |datetime2|: sets the date format based on the |localizedates| option.
-%			You can add more languages by calling \txtcmd{usepackage[<languages>]\{babel\}}
+%			You can add more languages by calling |\usepackage[<languages>]{babel}|
 %			again in your customization file, but make sure a dictionary is available for
 %           the |main| language (see Section \ref{S:usage:langtimeloc:dict}).
 %    \begin{macrocode}
@@ -2512,9 +2513,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   \item |background|: adds background watermark support for the courses and
 %			reports if |copyright| is |true|.
 %			Currently, only the course class uses this through\\
-%			\txtcmd{backgroundsetup\{contents=\{Copyright Ghent~University, All Rights Reserved\}\}},
+%			|\backgroundsetup{contents={Copyright Ghent~University, All Rights Reserved}}|,
 %			but you can set your own watermark if you want by calling\\
-%			\txtcmd{backgroundsetup\{contents=\{<yourwatermark>\}\}}
+%			|\backgroundsetup{contents={<yourwatermark>}}|
 %    \begin{macrocode}
 %<*crs|rp>
 \ExplSyntaxOn
@@ -2536,11 +2537,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd>
 %    \end{macrocode}
 %   \item |thumbs|: handles thumb indexes for courses and reports.
-%		You can customize them by calling \txtcmd{usepackage[<options>]\{thumbs\}}
+%		You can customize them by calling |\usepackage[<options>]{thumbs}|
 %		in your customization file. Be sure to apply the correct |ignorehoffset| and
 %		|ingnorevoffset| values if you use |cameraready=true| as class option.
 %		You can customize the thumb content (e.g., number) and colour by overwriting the 
-%		\txtcmd{@addthumb} command in your customization file.
+%		|\@addthumb| command in your customization file.
 %    \begin{macrocode}
 %<*phd|crs>
 \ExplSyntaxOn
@@ -2580,11 +2581,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Geometry}
 % \label{S:usage:packages:geometry}
 % The |geometry| package is used to set the paper size for the documents.
-% Based on the paper width and height, we define the \txtcmd{gridunit} length
+% Based on the paper width and height, we define the |\gridunit| length
 % from the official grid layout. It is calculated by dividing the long paper edge
 % by 7, and then again by 4. You can use this length in your own graphics, and
 % you \emph{can} tecnically override it in your customization file using
-% \txtcmd{setlength\textbackslash gridunit\{<length>\}},
+% |\setlength\gridunit{<length>}|,
 % although this is not recommended.
 %
 % \iffalse
@@ -2684,12 +2685,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %		\end{tikzpicture}
 %	\end{adjustbox}
 %}
-% \txtcmd{insettext\{An example title\}\{This is the content.\}}\\
+% |\insettext{An example title}{This is the content.}|\\
 % \insettext{An example title}{This is the content.}
-% \txtcmd{insettext\{\}\{This is the content without a title.\}}\\
+% |\insettext{}{This is the content without a title.}|\\
 % \insettext{}{This is the content without a title.}
-% \txtcmd{colorlet\{insetboxcolor\}\{ugent@accent\}}\\
-% \txtcmd{insettext\{An example title\}\{This is the content.\}}\\
+% |\colorlet{insetboxcolor}{ugent@accent}|\\
+% |\insettext{An example title}{This is the content.}|\\
 % \begingroup\colorlet{insetboxcolor}{ugent@accent}
 % \insettext{An example title}{This is the content.}
 % \endgroup
@@ -2723,7 +2724,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	Formats the |quote| and |citation| into a text box using |insettext|.
 %	By default, the colours are faculty-based (|insetboxcolor|).\\
 %	Example:\\ 
-%	\txtcmd{insetquote\{I feel quite hungry!\}\{Some dude from Bohemia named Henry\}}\\
+%	|\insetquote{I feel quite hungry!}{Some dude from Bohemia named Henry}|\\
 %
 % \makeatletter
 % \newlength{\quotetextwidth}
@@ -7370,7 +7371,7 @@ BELGIUM}
 %
 % The file can then be loaded in the preamble of your letter as follows:
 %
-% \txtcmd{input\{ugentletter.cfg\}}
+% |\input{ugentletter.cfg}|
 %
 % After loading this configuration file, you may override some
 % elements if this is appropriate.
