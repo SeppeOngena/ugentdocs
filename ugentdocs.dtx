@@ -234,9 +234,10 @@
 %		note further in this list on how to retrieve tags for use.
 %	\item If a macro sets a sequence -- e.g., the |\degree| macro sets the
 %		|degrees| and |degreecalls| sequences -- it is noted by a 
-%		'seq:degrees' and 'seq:degreecalls' text in the left margin.
+%		'|degrees_seq|' and '|degreecalls_seq|' text in the left margin.
+%		These are all global sequences, so their full \LaTeX{}3 name is
+%		e.g., |\g_@@_degrees_seq|.
 %		See Section~\ref{S:usage:nameseqparse} for more information.
-%		note further in this list on how to retrieve tags for use.
 %	\item The classes for which an option or macro is available are given
 %		between square brackets in the margin, e.g. [phd\|crs].
 %	\item Most options can be set as |option=value| in your
@@ -383,7 +384,6 @@
 % \subsubsection{Colours}
 % \label{S:usage:cffcl:colours}
 %
-% Colours, logos, faculty, and campus handling is shared between all classes.
 % The colours are defined in the |ugentcolors.sty| package, and are shown below:
 %
 % \bigskip
@@ -2924,8 +2924,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \DescribeMacro[crs|ex|bkc|phd|bama]{\degree}\marg{full degree}
 %	\margintag{mandatory}
-%	\margintag{seq:degrees}
-%	\margintag{seq:degreecalls}\\
+%	\margintag{degrees\_seq}
+%	\margintag{degreecalls\_seq}\\
 %	Sets the official degree name in full. You have to type it in the appropriate
 %	language yourself -- possibly mixed ``dutch (english)''.
 %	This must be the official title of your diploma.
@@ -3141,6 +3141,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	}
 }
 
+\tl_new:N \l_@@_embargodatetmp_tl
 \cs_new_protected:Nn \@@_embargostoredate:NN {
 	\tl_set:Nx \l_@@_embargodatetmp_tl {#2}
 	\exp_args:Nnx \regex_match:nnTF {^\d{4}-\d{2}-\d{2}$} {\l_@@_embargodatetmp_tl} %$
@@ -3213,20 +3214,46 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \subsubsection{People}
 % \label{S:usage:macros:people}
-% \DescribeMacro{\author} [course / bama / phd /
-% report ] mandatory\\ 
-% This macro sets the author of the document.
-% It also sets the |pdfauthor| tag of the hyperref package (if it is
-% loaded), so that 
-% the PDF-document meta-information is correct.
-% \DescribeMacro{\author} [exam] mandatory\\
-% The author of the exam (may be multiple authors, separated by
-% commas). On the title page, these will be labeled as 'Professor(s) -
-% Titularis(sen)'.
-% \begin{imacro}{\author}
-%   This macro allows to specify one or more authors with their
-%   affiliation. This can be done by invoking the macro as many times
-%   as needed.
+%
+% \DescribeMacro[crs|bama|phd|rp|bkc|le|ex]{\author}
+%	\marg{title}\marg{Surname, Firstname}\marg{affiliation}
+%	\margintag{mandatory}
+%	\margintag{authors\_seq}
+%	\margintag{authorswaff\_seq}
+%	\margintag{authorlist\_seq}
+%	\margintag{authorscalls\_seq}\\  
+% 	This macro adds an author to the document. 
+%	The author name should be in BibTeX format (i.e., ``Surname, Firstname'').
+%	Use multiple calls for multiple authors.\\
+%	The affiliation can have multiple formats, e.g.,
+%	start with a newline: '|\\|',
+%	start with '|, |' for regular inline,
+%	or even '|&|' for horizontal alignment in the |bama| \& |report| cover pages.
+%	The authors are used in 
+%	the |bama|, |report| (optional), and |phd| cover pages,
+%	the |bama| autograph / copyright page, 
+%	the |course| (optional) and |phd| colophon,
+%	the |phd| title page, and the |bookcover| spine.
+%
+%	The formatted author name (see Section~\ref{S:usage:nameseqparse}) is
+%	stored with the title in the |authors| sequence
+%	(e.g., ``prof. Firstname Surname'') and
+%	the full name and title with affiliation 
+%	(e.g., ``prof. Firstname Surname, Ghent University'')
+%	is stored in the |authorswaff| sequence.
+%	The |authorlist| sequence stores ``Surname, F.'' formatted names
+%	for printing of a citation-style list,
+%	and the plain call -- 
+%	e.g., |\author{prof.}{Surname, Firstname}{, Ghent University}|
+%	-- is stored in the |authorscalls| sequence for usage later in the 
+%	|\generatebookcover| macro.\\%
+%	These sequences can be used following the instructions
+%	in Section~\ref{S:usage:nameseqparse},
+%	The |pdfauthor| tag of the hyperref package (if it is loaded),
+%	is set using the |authorlist| 
+%	so that the PDF-document meta-information is correct.
+%
+%	Implementation:
 %    \begin{macrocode}
 %<*phd|crs|bama|bkc|ex|le|rp>
 \ExplSyntaxOn
@@ -3276,21 +3303,21 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOff
 %</phd|crs|bama|bkc|ex|le|rp>
 %    \end{macrocode}
-% \end{imacro}
-% \DescribeMacro{\lecturer} [course] mandatory\\
-% You can add one or more lecturers to the course notes (in
-% Dutch: titularis). If there are multiple persons, please, use the
-% macro multiple times. 
-% \DescribeMacro{\lecturer} [exam] mandatory\\
-% You can add one or more lecturers to the course notes (in
-% Dutch: titularis). If there are multiple persons, please, use the
-% macro multiple times. 
-% \begin{imacro}{\lecturer}
-%   This macro adds lecturers (Dutch: lesgevers) to the course
-%   notes.
-%   Use the macro multiple times for multiple lecturers. The order
-%   will be preserved.
-%    \begin{macrocode}
+%
+% \DescribeMacro[crs|rp|bkc|ex]{\lecturer}
+%	\marg{title}\marg{Surname, Firstname}\marg{affiliation}
+%	\margintag{mandatory}
+%	\margintag{lecturers\_seq}
+%	\margintag{lecturerswaff\_seq}
+%	\margintag{lecturerscalls\_seq}\\  
+% 	Usage similar to |\author|.
+%	The lecturers can be the same or independent
+%	from the authors of, e.g., a course text.
+%	The lecturers are used in 
+%	the |report| cover page (optional),
+%	the |course| and |exam| cover pages, and
+%	the |bookcover| spine (precedence over authors).
+% \iffalse
 %<*crs|ex|rp|bkc>
 \ExplSyntaxOn
 \seq_new:N \g_@@_lecturers_seq
@@ -3304,19 +3331,29 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \NewDocumentCommand{\lecturer}{mmm}{
 	\@@_addlecturer:nnn { #1 } { #2 } { #3 }
 }
-
 \ExplSyntaxOff
 %</crs|ex|rp|bkc>
-%    \end{macrocode}
-% \end{imacro}
-% \DescribeMacro{\supervisor} [bama / phd] mandatory\\
-% Specifies the person(s) that promote(s)/supervise(s) the dissertation.
-% Please, use the macro multiple times if needed.
-% \begin{imacro}{\supervisor}
-%   This macro allows to specify one or more supervisors with their
-%   affiliation. This can be done by invoking the macro as many times
-%   as needed.
-%    \begin{macrocode}
+% \fi
+%
+% \DescribeMacro[bama|phd|bkc]{\supervisor}
+%	\marg{title}\marg{Surname, Firstname}\marg{affiliation}
+%	\margintag{mandatory}
+%	\margintag{supervisors\_seq}
+%	\margintag{supervisorswaff\_seq}
+%	\margintag{supervisorscalls\_seq}
+%	\margintag{allsupervisors\_seq}
+%	\margintag{allsupervisorswaff\_seq}
+%	\margintag{allsupervisorstutors\_seq}\\
+%	Adds a person supervising the dissertation.
+%	Usage similar to |\author|.
+%	The supervisors are used in 
+%	the |bama|, |report| (optional), and |phd| cover pages, 
+%	and the |phd| examination committee page.
+%	The |allsupervisors| sequence additionally stores the
+%	co-supervisors and external supervisors (see below), and the
+%	|allsupervisorstutors| additionally includes |tutors| (see below).
+%	Both are used in the |bama| autograph / copyright page.
+% \iffalse
 %<*bama|phd|bkc>
 \ExplSyntaxOn
 \seq_new:N \g_@@_supervisors_seq
@@ -3337,8 +3374,37 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \NewDocumentCommand{\supervisor}{mmm}{
 	\@@_addsupervisor:nnn { #1 } { #2 } { #3 }
 }
+\ExplSyntaxOff
 %</bama|phd|bkc>
+% \fi
+%
+% \newpage
+% \DescribeMacro[bama]{\cosupervisor}
+%	\marg{title}\marg{Surname, Firstname}\marg{affiliation}
+%	\margintag{cosupervisors\_seq}
+%	\margintag{cosupervisorswaff\_seq}\\
+%	Adds a person co-supervising the Ba/Ma dissertation (optional).
+%	Used in the |bama| cover page and autograph / copyright page.
+%	See also |\supervisor|.
+%
+% \DescribeMacro[bama]{\extsupervisor}
+%	\marg{title}\marg{Surname, Firstname}\marg{affiliation}
+%	\margintag{extsupervisors\_seq}
+%	\margintag{extsupervisorswaff\_seq}\\
+%	Adds an external supervisor of the Ba/Ma dissertation (optional).
+%	Used in the |bama| cover page and autograph / copyright page.
+%	See also |\supervisor|.
+%
+% \DescribeMacro[bama]{\tutor}
+%	\marg{title}\marg{Surname, Firstname}\marg{affiliation}
+%	\margintag{tutors\_seq}
+%	\margintag{tutorswaff\_seq}\\
+%	Adds a tutor or mentor of the Ba/Ma dissertation (optional).
+%	Used in the |bama| cover page and autograph / copyright page.
+%	See also |\supervisor|.
+% \iffalse
 %<*bama>
+\ExplSyntaxOn
 \seq_new:N \g_@@_cosupervisors_seq
 \seq_new:N \g_@@_cosupervisorswaff_seq
 \cs_new:Nn \@@_addcosupervisor:nnn {
@@ -3378,18 +3444,19 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \NewDocumentCommand{\tutor}{mmm}{
 	\@@_addtutor:nnn { #1 } { #2 } { #3 }
 }
-%</bama>
-%<*bama|phd|bkc>
 \ExplSyntaxOff
-%</bama|phd|bkc>
-%    \end{macrocode}
-% \end{imacro}
+%</bama>
+% \fi
 %
-% \begin{imacro}{\jurymember}
-%   This macro allows for the registration of jury members and their
-%   affiliation. This can be done by invoking the macro as many times
-%   as needed.
-%    \begin{macrocode}
+% \DescribeMacro[phd]{\jurymember}
+%	\marg{title}\marg{Surname, Firstname}\marg{affiliation}
+%	\margintag{mandatory}
+%	\margintag{jurymemberswaff\_seq}\\
+%   Adds a jury member to your PhD dissertation.
+%	This excludes the jury chair (see below).
+%	Usage similar to |\author|.
+%	Used in the PhD examination committee page.
+% \iffalse
 %<*phd>
 \ExplSyntaxOn
 \seq_new:N \g_@@_jurymemberswaff_seq
@@ -3401,27 +3468,16 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</phd>
-%    \end{macrocode}
-% \end{imacro}
-% \DescribeMacro{\studentnr}
-% specifies the exam copy number. This will appear on every page of
-% the exam, easing the reassembly of pages that do not contain any
-% name. Moreover, it allows for blind correction as the student only
-% writes his name ot he front page.
-% \begin{imacro}{\studentnr}
-%   This macro will set the |\@studentnr| tag that will be used in the
-%   exam and bama class.
-%    \begin{macrocode}
-%<*ex|bama|rp>
-\newcommand*{\@studentnr}{}
-\newcommand*{\studentnr}[1]{\renewcommand*{\@studentnr}{#1}}
-%</ex|bama|rp>
-%    \end{macrocode}
-% \end{imacro}
-% \begin{imacro}{\jurychair}
-%   This macro sets the |\@jurychair| tag that later will be used on
-%   the examination committee page.
-%    \begin{macrocode}
+% \fi
+%
+% \DescribeMacro[phd]{\jurychair}
+%	\marg{title}\marg{Surname, Firstname}\marg{affiliation}
+%	\margintag{mandatory}
+%	\margintag{tag}\\
+%	Specifies the jury chair of your PhD dissertation.
+%	Used in the PhD examination committee page.
+%   Sets the |\@jurychairaff| tag in addition to the |\@jurychair| tag.
+% \iffalse
 %<*phd>
 \newcommand*{\@jurychair}{
 	\PackageError{ugentdocs}
@@ -3434,12 +3490,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand*{\jurychair}[3]{
 	\renewcommand*{\@jurychair}{#1~\@formatname{#2}}\renewcommand*{\@jurychairaff}{#3}}
 %</phd>
-%    \end{macrocode}
-% \end{imacro}
-% \begin{imacro}{\dean}
-%   This macro sets the |\@dean| tag that later will be used on
-%   the examination committee page.
-%    \begin{macrocode}
+% \fi
+%
+% \DescribeMacro[phd]{\dean}
+%	\marg{title}\marg{Surname, Firstname}
+%	\margintag{mandatory}
+%	\margintag{tag}\\
+%	Specifies the current dean of your faculty.
+%	Used in the PhD examination committee page.
+% \iffalse
 %<*phd>
 \newcommand*{\@dean}[2]{
 	\PackageError{ugentdocs}
@@ -3452,13 +3511,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\renewcommand*{\@dean}{#1~\@formatname{#2}}
 }
 %</phd>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \begin{imacro}{\rector}
-%   This macro sets the |\@rector| tag that later will be used on
-%   the examination committee page.
-%    \begin{macrocode}
+% \DescribeMacro[phd]{\rector}
+%	\marg{title}\marg{Surname, Firstname}
+%	\margintag{mandatory}
+%	\margintag{tag}\\
+%	Specifies the current rector of the university.
+%	Used in the PhD examination committee page.
+% \iffalse
 %<*phd>
 \newcommand*{\@rector}[2]{
 	\PackageError{ugentdocs}
@@ -3471,21 +3532,39 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\renewcommand*{\@rector}{#1~\@formatname{#2}}
 }
 %</phd>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \begin{imacro}{\coverdesigner}
-%   This macro sets the |\@coverdesigner| tag that later will be used on
-%   the colophon page.
-%    \begin{macrocode}
+% \DescribeMacro[phd]{\coverdesigner}
+%	\marg{Surname, Firstname}
+%	\margintag{tag}\\
+%	Credits the cover designer of your cover page image.
+%	Used in the PhD colophon page.
+% \iffalse
 %<*phd>
 \newcommand*{\@coverdesigner}{}
 \newcommand*{\coverdesigner}[1]{
 	\renewcommand*{\@coverdesigner}{\@formatname{#1}}
 }
 %</phd>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
+%
+% \DescribeMacro[bama|ex|rp]{\studentnr}
+%	\marg{student number}
+%	\margintag{tag}\\
+%	Specifies the student number.
+%	For exams, this is used in the header.
+%	For reports and Ba/Ma dissertations, this is used in the cover page if set.
+%	For multiple students for reports or bachelor's dissertations,
+%	it is best to specify the student numbers
+%	in the affiliation section of the |\author| macro,
+%	with '|&|' to align them (see also examples). 
+% \iffalse
+%<*ex|bama|rp>
+\newcommand*{\@studentnr}{}
+\newcommand*{\studentnr}[1]{\renewcommand*{\@studentnr}{#1}}
+%</ex|bama|rp>
+% \fi
+%
 %
 % \subsubsection{Contact}
 % \label{S:usage:macros:contact}
