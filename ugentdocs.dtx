@@ -3239,7 +3239,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % General add name with affiliation helper
 \cs_new:Nn \@@_addto_nameaffiliationseq:nnnn {
 	% args: seq, title, name, affiliation
-	\exp_args:Nc \seq_gput_right:Nn { g_@@_#1withaffiliation_seq } {%
+	\exp_args:Nc \seq_gput_right:Nn { g_@@_#1waff_seq } {%
 		\tl_if_blank:nF {#2} { #2~ }
 		\@formatname{#3}\strut#4\strut % User specifies sep themselves
 	}
@@ -3256,7 +3256,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
 % Declare author sequences
 \seq_new:N \g_@@_authors_seq
-\seq_new:N \g_@@_authorswithaffiliation_seq
+\seq_new:N \g_@@_authorswaff_seq
 \seq_new:N \g_@@_authorlist_seq
 \seq_new:N \g_@@_authorscalls_seq
 
@@ -3295,7 +3295,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOn
 \seq_new:N \g_@@_lecturers_seq
 \seq_new:N \g_@@_lecturerscalls_seq
-\seq_new:N \g_@@_lecturerswithaffiliation_seq
+\seq_new:N \g_@@_lecturerswaff_seq
 \cs_new:Nn \@@_addlecturer:nnn {
 	\@@_addto_nameseq:nnn 				{lecturers} {#1}{#2}
 	\@@_addto_nameaffiliationseq:nnnn 	{lecturers} {#1}{#2}{#3}
@@ -3320,11 +3320,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*bama|phd|bkc>
 \ExplSyntaxOn
 \seq_new:N \g_@@_supervisors_seq
-\seq_new:N \g_@@_supervisorcalls_seq
-\seq_new:N \g_@@_supervisorswithaffiliation_seq
+\seq_new:N \g_@@_supervisorscalls_seq
+\seq_new:N \g_@@_supervisorswaff_seq
 \seq_new:N \g_@@_allsupervisors_seq
 \seq_new:N \g_@@_allsupervisorstutors_seq
-\seq_new:N \g_@@_allsupervisorswithaffiliation_seq
+\seq_new:N \g_@@_allsupervisorswaff_seq
 \cs_new:Nn \@@_addsupervisor:nnn {
 	\@@_addto_nameseq:nnn 				{supervisors} {#1}{#2}
 	\@@_addto_nameaffiliationseq:nnnn 	{supervisors} {#1}{#2}{#3}
@@ -3340,7 +3340,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bama|phd|bkc>
 %<*bama>
 \seq_new:N \g_@@_cosupervisors_seq
-\seq_new:N \g_@@_cosupervisorswithaffiliation_seq
+\seq_new:N \g_@@_cosupervisorswaff_seq
 \cs_new:Nn \@@_addcosupervisor:nnn {
 	\@@_addto_nameseq:nnn 				{cosupervisors} {#1}{#2}
 	\@@_addto_nameaffiliationseq:nnnn 	{cosupervisors} {#1}{#2}{#3}
@@ -3354,7 +3354,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 
 \seq_new:N \g_@@_extsupervisors_seq
-\seq_new:N \g_@@_extsupervisorswithaffiliation_seq
+\seq_new:N \g_@@_extsupervisorswaff_seq
 \cs_new:Nn \@@_addextsupervisor:nnn {
 	\@@_addto_nameseq:nnn 				{extsupervisors} {#1}{#2}
 	\@@_addto_nameaffiliationseq:nnnn 	{extsupervisors} {#1}{#2}{#3}
@@ -3368,7 +3368,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 
 \seq_new:N \g_@@_tutors_seq
-\seq_new:N \g_@@_tutorswithaffiliation_seq
+\seq_new:N \g_@@_tutorswaff_seq
 \cs_new:Nn \@@_addtutor:nnn {
 	\@@_addto_nameseq:nnn 				{tutors} {#1}{#2}
 	\@@_addto_nameaffiliationseq:nnnn 	{tutors} {#1}{#2}{#3}
@@ -3392,7 +3392,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*phd>
 \ExplSyntaxOn
-\seq_new:N \g_@@_jurymemberswithaffiliation_seq
+\seq_new:N \g_@@_jurymemberswaff_seq
 \cs_new:Nn \@@_addjurymember:nnn {
 	\@@_addto_nameaffiliationseq:nnnn 	{jurymembers} {#1}{#2}{#3}
 }
@@ -4568,7 +4568,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\vskip 10em
 		}
 		
-		 \tl_set:Nx \l_@@_authortable_tl { \printseq{authorswithaffiliation}{\cr}{\cr}{\cr} }
+		 \tl_set:Nx \l_@@_authortable_tl { \printseq{authorswaff}{\cr}{\cr}{\cr} }
 		{\fontsize{15}{18}\selectfont
 			\leavevmode\vbox{\halign{##\hfil&\hskip1em##\hfil\cr
 			\l_@@_authortable_tl
@@ -4635,7 +4635,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\vskip 10em
 		}{
 			\vskip 5em
-			\tl_set:Nx \l_@@_authortable_tl { \printseq{authorswithaffiliation}{\cr}{\cr}{\cr} }
+			\tl_set:Nx \l_@@_authortable_tl { \printseq{authorswaff}{\cr}{\cr}{\cr} }
 			{\fontsize{12}{15}\selectfont
 				\leavevmode\vbox{\halign{##\hfil&\hskip1em##\hfil\cr
 				\l_@@_authortable_tl
@@ -5159,7 +5159,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\noindent\begin{minipage}[b]{\textwidth}
 		\textbf{Contact}\\
 		\smallskip
-		\printseq{authorswithaffiliation}{~|~}{~|~}{~|~}\\
+		\printseq{authorswaff}{~|~}{~|~}{~|~}\\
 		\@address
 		\str_if_eq:VnF \l_@@_language_tl {dutch} {
 			\\[\baselineskip]
@@ -5328,7 +5328,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		%
 		\textbf{\getseqcaption{supervisors}{}}\hfill\break
 		%
-		\printseq{supervisorswithaffiliation}{\\}{\\}{\\}\\[2ex]
+		\printseq{supervisorswaff}{\\}{\\}{\\}\\[2ex]
 		%
 		%
 		\textbf{\translatekey{jury}}\hfill\\[1ex]
@@ -5337,7 +5337,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\@jurychair{}\ifdefvoid{\@jurychairaff}{}{,~\@jurychairaff}\\[1ex]
 		%
 		\textit{\translatekey{jurymembers}}\hfill\break
-		{\printseq{jurymemberswithaffiliation}{\\}{\\}{\\}}\\[2ex]%
+		{\printseq{jurymemberswaff}{\\}{\\}{\\}}\\[2ex]%
 		%
 		%
 		\textbf{\translatekey{dean}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty}}\hfill\break
@@ -5603,9 +5603,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 		{ phd }    {
-			\tl_clear_new:N \l_@@_supervisorcalls_tl
-			\seq_map_inline:Nn \g_@@_supervisorcalls_seq
-			{ \tl_put_right:Nn \l_@@_supervisorcalls_tl { ##1 \iow_newline: } }
+			\tl_clear_new:N \l_@@_supervisorscalls_tl
+			\seq_map_inline:Nn \g_@@_supervisorscalls_seq
+			{ \tl_put_right:Nn \l_@@_supervisorscalls_tl { ##1 \iow_newline: } }
 			\bool_if:NTF \l_@@_cameraready_bool	{
 				\tl_set:Nn \l_@@_camerareadykeyval_tl { ,cameraready=true }
 			}{
@@ -5661,7 +5661,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		{ phd }    {
 			\tl_put_right:Nn \l_@@_covertemplate_tl {
 				\exp_not:N\doctype {dissertation-phd}	\iow_newline:		
-				\l_@@_supervisorcalls_tl						\iow_newline:
+				\l_@@_supervisorscalls_tl						\iow_newline:
 				\bool_if:NT \l_@@_embargo_bool {
 					\bool_if:NTF \l_@@_embargotemp_bool {
 						\exp_not:N\embargo[start=\l_@@_embargostartdate_tl, end=\l_@@_embargoenddate_tl] \iow_newline:
