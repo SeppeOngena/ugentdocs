@@ -5428,12 +5428,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\clearpage\thispagestyle{empty}
 	\null\vfill % Bottom-align
 	\noindent\begin{minipage}[b]{\textwidth}
+		\begingroup
+		\raggedright
 		{\Huge\bfseries\nohyphens\@title\par}%
 
 		\ifx\@subtitle\@empty\else
 		\vspace{.5\baselineskip}
 		{\Large\@subtitle\par}%
 		\fi
+		\endgroup
 
 		\vspace{5\baselineskip}%
 		{\Large\printseq{authors}{\\}{\\}{\\}\par}%
