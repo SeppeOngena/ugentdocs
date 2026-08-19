@@ -150,10 +150,10 @@
 % \section*{Introduction}
 %
 % This package implements the house style of Ghent University (version 2025)
-% for letters, course notes, master/bachelor/PhD dissertations, reports 
+% for letters, course notes, master/bachelor/PhD dissertations, reports
 % (meeting notes or course assignments), exams, and slides (beamer).
 % These class files allow you to make and keep most of your document needs
-% compliant to this version and future versions of the UGent house style. 
+% compliant to this version and future versions of the UGent house style.
 %
 % If you think (1) there's an error in compliancy with regards to the house
 % style, (2) there's a feature missing in the classes or beamer theme, or
@@ -170,7 +170,7 @@
 % writing course texts and PhD dissertations and provide a cover page compliant
 % to the UGent house style. They also typeset the data pages automatically
 % (e.g., examination committee, title page, colophon) and style the rest of the document
-% appropriately. These two classes additionally enable the generation of 
+% appropriately. These two classes additionally enable the generation of
 % a full book cover (back/spine/front) with auto-generated ISBN barcode.
 %
 % The |bama| and |report| classes are also derived from the standard \LaTeX{}
@@ -195,11 +195,11 @@
 % \begin{center}
 %   \framebox[0.95\textwidth]{
 %    \begin{minipage}{0.92\textwidth}
-%      The documentation of the class files for PhD dissertations, 
+%      The documentation of the class files for PhD dissertations,
 %      MSc/BSc dissertations, letters, course texts, reports,
 %      and exams can be found in this document (Part~\ref{P:I}).
 %
-%      Template files for all of the classes can be found below in 
+%      Template files for all of the classes can be found below in
 %      Part~I Section~\ref{S:examples}.
 %
 %      The documentation for the beamer theme is embedded in the
@@ -210,7 +210,7 @@
 %   }
 % \end{center}
 %
-% A number of packages are required by |ugentdocs|. \watchout See Part~I 
+% A number of packages are required by |ugentdocs|. \watchout See Part~I
 % Section~\ref{S:usage:packages} for an overview. Make sure these packages are
 % available to your \LaTeX{} compiler. Most of these should be installed by
 % default in TeXLive distributions or can be made to auto-install for MikTeX.
@@ -233,7 +233,7 @@
 %		tag -- it is noted by a 'tag' text in the left margin. See the tag
 %		note further in this list on how to retrieve tags for use.
 %	\item If a macro sets a sequence -- e.g., the |\degree| macro sets the
-%		|degrees| and |degreecalls| sequences -- it is noted by a 
+%		|degrees| and |degreecalls| sequences -- it is noted by a
 %		'|degrees_seq|' and '|degreecalls_seq|' text in the left margin.
 %		These are all global sequences, so their full \LaTeX{}3 name is
 %		e.g., |\g_@@_degrees_seq|.
@@ -248,9 +248,9 @@
 %		and optional arguments are shown between square braces [], just as they
 %		are when you use them.
 %	\item In general, |\macros| are commands you can use in your main.tex
-%		document file. 
+%		document file.
 %	\item Some |\@macros| or |\@tags| are for internal usage, but
-%		they can be retrieved or executed by wrapping them in 
+%		they can be retrieved or executed by wrapping them in
 %		|\makeatletter| and |\makeatother| (required due to the @
 %		sign). Some of these are also meant to be sections of code you can
 %		customize (see ``A note on customization'' below). If so, their
@@ -258,11 +258,11 @@
 %		customization file.
 %	\item \LaTeX{3} variables are formatted as |\scope_@@_varname_vartype|,
 %		e.g., the local boolean variable |\l_@@_embargo_bool| (g is used instead
-%		for global). Control sequences are formatted as |\@@_csname| or 
-%		|\_@@_csname| (for private control sequences). If you want to use 
-%		L3 control sequences or variables in customized code, you need to 
+%		for global). Control sequences are formatted as |\@@_csname| or
+%		|\_@@_csname| (for private control sequences). If you want to use
+%		L3 control sequences or variables in customized code, you need to
 %		replace '|@@|' with '|_ugentdocs|'!
-% \end{itemize}   
+% \end{itemize}
 %
 % \section*{A note on fonts}
 %
@@ -274,7 +274,7 @@
 %    charismatic.''
 %    \watchout The Medium and SemiLight variants are needed for the logos,
 %    so they are an absolute requirement. If the Normal variant is installed,
-%    it is used by default for all class files. You can download it 
+%    it is used by default for all class files. You can download it
 %    \href{https://ugentbe.sharepoint.com/sites/intranet-communicatie/SitePages/en/corporate-design.aspx}
 %    {from the intranet}.
 % \item Secondary font: Arial. This is normally used for office templates
@@ -300,15 +300,15 @@
 %
 % \section*{A note on customization}
 % \label{S:customization}
-% We do not recommend altering the UGent house style too much, and we 
+% We do not recommend altering the UGent house style too much, and we
 % certainly do not recommend altering any of the class files directly.
-% You can customize the classes by overwriting any of the commands in 
+% You can customize the classes by overwriting any of the commands in
 % Part~\ref{P:I} in a .sty file. A recommended naming scheme is
 % |<classname>-customization.sty|, e.g. |ugentphd-customization.sty|.
 % You can then load this customization using
 % |\usepackage{ugentphd-customization}|.
-% Be sure to renew commands instead of redefining commands -- 
-% e.g., use |\renewcommand| and |\RenewDocumentCommand| 
+% Be sure to renew commands instead of redefining commands --
+% e.g., use |\renewcommand| and |\RenewDocumentCommand|
 % -- and replace any '|@@|' with '|_ugentdocs|' (not single |@|'s!).
 % Colours can be adjusted using, e.g.:
 % {\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
@@ -339,7 +339,7 @@
 %
 % \section*{Thanks}
 % This package is derived from the excellent |uantwerpendocs| package by
-% Walter Daems, Paul Levrie, and Lukas Leitner 
+% Walter Daems, Paul Levrie, and Lukas Leitner
 % (\href{https://ctan.org/pkg/uantwerpendocs}{available on CTAN}).
 % Version 4.12 was used as the starting point, and as such, many similarities
 % can be found between the two packages, although a lot of stuff has been
@@ -363,9 +363,9 @@
 %
 % In the following sections, we will describe the usage of the classes
 % (Section~\ref{S:usage}), show the style implementation (Section~\ref{S:style})
-% and show some example documents (Section~\ref{S:examples}). 
+% and show some example documents (Section~\ref{S:examples}).
 % You can skip straight to the examples if you prefer and just copy-paste
-% a specific class example and start using and adjusting them to your needs, 
+% a specific class example and start using and adjusting them to your needs,
 % as most functionality is explained within.
 % The full package source code will \emph{not} be given here in the documentation.
 % For that, you can inspect the .dtx file where this documentation
@@ -447,14 +447,14 @@
 	\definecolor{ugent@bw}		{cmyk}{0.74,0.00,0.29,0.00} % Bioscience Engineering
 	\definecolor{ugent@fw}		{cmyk}{0.16,0.83,0.00,0.00} % Pharmaceutical Sciences
 	\definecolor{ugent@ps}		{cmyk}{0.71,0.00,1.00,0.00} % Political and Social Sciences
-	
+
 }{
 	%% UGent
 	\definecolor{ugent@main}	{RGB}{30,100,200}	% UGent Blue
 	\definecolor{ugent@accent}	{RGB}{255,210,0}	% UGent Yellow
 	%% Faculties
 	\definecolor{ugent@lw}		{RGB}{241,164,43} 	% Arts and Philosophy
-	\definecolor{ugent@re}		{RGB}{220,78,40} 	% Law and Criminology 
+	\definecolor{ugent@re}		{RGB}{220,78,40} 	% Law and Criminology
 	\definecolor{ugent@we}		{RGB}{45,140,168} 	% Sciences
 	\definecolor{ugent@ge}		{RGB}{232,94,113} 	% Medicine and Health Sciences
 	\definecolor{ugent@ea}		{RGB}{139,190,232} 	% Engineering and Architecture
@@ -473,20 +473,20 @@
 %
 % \newpage
 % Some class options change colour handling:
-% 
+%
 % \DescribeOption[common]{neutralcolors}\DescribeDefault{false}
 %	Options: |true|, |false|\\
 %	When enabled (|neutralcolors=true| or plain |neutralcolors|), UGent colours override the faculty colour.
 %	If the faculty option is empty (see later), UGent colours will always be used.
-% 
+%
 % \DescribeOption[common]{colormodel}\DescribeDefault{rgb}
 %	Options: |rgb|, |cmyk|\\
 %	These set the colour model of faculty and UGent colours used.
-%	For digital display, rgb is preferable. 
+%	For digital display, rgb is preferable.
 %	Switching to cmyk is reserved for printing,
 %	although your printing service may prefer rgb to convert it themselves before printing.
 %	Best to ask with them.
-% 
+%
 % \iffalse
 %<*clo>
 \ExplSyntaxOn
@@ -608,7 +608,7 @@
 %
 % \subsubsection{Fonts}
 % \label{S:usage:cffcl:fonts}
-% UGent Panno Text and its Medium and SemiLight variants should always be 
+% UGent Panno Text and its Medium and SemiLight variants should always be
 % installed\watchout -- and the document compiled using \LuaLaTeX{} -- as they are used in
 % the logo's. For the document itself, it is recommended to use UGent Panno Text
 % as well, which is why it is set by default through the |\setsansfont{UGent Panno Text}[...]| block
@@ -639,7 +639,7 @@
 %     BoldItalicFont     = {Arial},
 %     BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 % ]
-% \end{verbatim}	
+% \end{verbatim}
 %
 % Since both the official fonts are sans-serif, we use the |unicode-math| package
 % with the Noto Sans Math font if available, and the TeX Gyre DejaVu Math
@@ -672,7 +672,7 @@
 					ItalicFeatures     = {FakeSlant=0.15},
 					BoldItalicFont     = {Arial},
 					BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-					]		
+					]
 				}{
 					\PackageWarning{ugentdocs}
 					{Neither UGent Panno Text nor Arial are installed, no font set!}
@@ -693,7 +693,7 @@
 		\setmathfont{Noto Sans Math}
 	}{
 		\setmathfont{TeX Gyre DejaVu Math}
-	}	
+	}
 	\renewcommand{\familydefault}{\sfdefault}
 	}
 \else
@@ -791,7 +791,7 @@
 %
 % \subsubsection{Faculty}
 % \label{S:usage:cffcl:faculty}
-% 
+%
 % Faculties determine colour, logos, in some cases specific cover types (such as
 % BW for PhDs), and the faculty name used throughout the documents. The UGent
 % faculties are:
@@ -863,9 +863,9 @@
 		\renewcommand*\@fselector{bw}
 		\tl_set:Nx \l_@@_fselector_tl { \@fselector }
 		\renewcommand*\@ficonpath{
-			\path[nonzero~rule,line~width=0.1pt] (10.63, 13.2).. controls (9.21, 13.2) and (8.06, 12.05) .. (8.06, 10.63).. controls (8.06, 9.21) and (9.21, 8.06) .. (10.63, 8.06).. controls (12.05, 8.06) and (13.2, 9.21) .. (13.2, 10.63).. controls (13.2, 12.05) and (12.05, 13.2) .. (10.63, 13.2) -- cycle(11.95, 10.63).. controls (11.95, 9.9) and (11.36, 9.31) .. (10.63, 9.31).. controls (9.9, 9.31) and (9.3, 9.9) .. (9.3, 10.63).. controls (9.3, 11.36) and (9.9, 11.96) .. (10.63, 11.96).. controls (11.36, 11.96) and (11.95, 11.36) .. (11.95, 10.63);			
+			\path[nonzero~rule,line~width=0.1pt] (10.63, 13.2).. controls (9.21, 13.2) and (8.06, 12.05) .. (8.06, 10.63).. controls (8.06, 9.21) and (9.21, 8.06) .. (10.63, 8.06).. controls (12.05, 8.06) and (13.2, 9.21) .. (13.2, 10.63).. controls (13.2, 12.05) and (12.05, 13.2) .. (10.63, 13.2) -- cycle(11.95, 10.63).. controls (11.95, 9.9) and (11.36, 9.31) .. (10.63, 9.31).. controls (9.9, 9.31) and (9.3, 9.9) .. (9.3, 10.63).. controls (9.3, 11.36) and (9.9, 11.96) .. (10.63, 11.96).. controls (11.36, 11.96) and (11.95, 11.36) .. (11.95, 10.63);
 			\path[nonzero~rule,line~width=0.1pt] (16.01, 20.1).. controls (14.59, 20.1) and (13.44, 18.95) .. (13.44, 17.53).. controls (13.44, 16.11) and (14.59, 14.96) .. (16.01, 14.96).. controls (17.43, 14.96) and (18.58, 16.11) .. (18.58, 17.53).. controls (18.58, 18.95) and (17.43, 20.1) .. (16.01, 20.1) -- cycle(17.34, 17.53).. controls (17.34, 16.8) and (16.74, 16.2) .. (16.01, 16.2).. controls (15.28, 16.2) and (14.69, 16.8) .. (14.69, 17.53).. controls (14.69, 18.26) and (15.28, 18.85) .. (16.01, 18.85).. controls (16.74, 18.85) and (17.34, 18.26) .. (17.34, 17.53);
-			\path[nonzero~rule,line~width=0.1pt] (10.63, 20.01).. controls (10.92, 20.01) and (11.2, 19.99) .. (11.49, 19.97) -- (11.6, 21.21).. controls (11.28, 21.24) and (10.96, 21.26) .. (10.63, 21.26).. controls (4.76, 21.26) and (-0.0, 16.5) .. (-0.0, 10.63).. controls (-0.0, 4.76) and (4.76, 0.0) .. (10.63, 0.0).. controls (16.5, 0.0) and (21.26, 4.76) .. (21.26, 10.63).. controls (21.26, 11.86) and (21.04, 13.04) .. (20.66, 14.14) -- (19.48, 13.72).. controls (19.82, 12.75) and (20.01, 11.72) .. (20.01, 10.63).. controls (20.01, 5.45) and (15.81, 1.25) .. (10.63, 1.25).. controls (5.45, 1.25) and (1.25, 5.45) .. (1.25, 10.63).. controls (1.25, 15.81) and (5.45, 20.01) .. (10.63, 20.01);  	
+			\path[nonzero~rule,line~width=0.1pt] (10.63, 20.01).. controls (10.92, 20.01) and (11.2, 19.99) .. (11.49, 19.97) -- (11.6, 21.21).. controls (11.28, 21.24) and (10.96, 21.26) .. (10.63, 21.26).. controls (4.76, 21.26) and (-0.0, 16.5) .. (-0.0, 10.63).. controls (-0.0, 4.76) and (4.76, 0.0) .. (10.63, 0.0).. controls (16.5, 0.0) and (21.26, 4.76) .. (21.26, 10.63).. controls (21.26, 11.86) and (21.04, 13.04) .. (20.66, 14.14) -- (19.48, 13.72).. controls (19.82, 12.75) and (20.01, 11.72) .. (20.01, 10.63).. controls (20.01, 5.45) and (15.81, 1.25) .. (10.63, 1.25).. controls (5.45, 1.25) and (1.25, 5.45) .. (1.25, 10.63).. controls (1.25, 15.81) and (5.45, 20.01) .. (10.63, 20.01);
 			\path[nonzero~rule,line~width=0.1pt] (10.63, 17.52).. controls (10.84, 17.52) and (11.05, 17.51) .. (11.26, 17.49) -- (11.37, 18.73).. controls (11.13, 18.75) and (10.88, 18.77) .. (10.63, 18.77).. controls (6.14, 18.77) and (2.49, 15.12) .. (2.49, 10.63).. controls (2.49, 6.14) and (6.14, 2.49) .. (10.63, 2.49).. controls (15.12, 2.49) and (18.77, 6.14) .. (18.77, 10.63).. controls (18.77, 11.57) and (18.6, 12.47) .. (18.3, 13.31) -- (17.13, 12.9).. controls (17.38, 12.19) and (17.52, 11.43) .. (17.52, 10.63).. controls (17.52, 6.83) and (14.43, 3.74) .. (10.63, 3.74).. controls (6.83, 3.74) and (3.74, 6.83) .. (3.74, 10.63).. controls (3.74, 14.43) and (6.83, 17.52) .. (10.63, 17.52);
 		}
 		\RenewDocumentCommand{\@flogotext}{}{
@@ -941,7 +941,7 @@
 			\path[nonzero~rule,line~width=0.1pt] (4.36, 20.38) -- (8.97, 15.77) -- (9.86, 16.65) -- (5.25, 21.26) -- (4.36, 20.38);
 			\path[nonzero~rule,line~width=0.1pt] (8.09, 13.12) -- (8.98, 12.24) -- (11.62, 14.89) -- (10.74, 15.77) -- (8.09, 13.12);
 			\path[nonzero~rule,line~width=0.1pt] (9.63, 8.1) -- (15.87, 8.1) -- (15.87, 9.34) -- (9.63, 9.34) -- (9.63, 8.1);
-			\path[nonzero~rule,line~width=0.1pt] (2.53, 0.0) -- (13.12, 0.0) -- (11.87, 1.25) -- (3.78, 1.25) -- (2.53, 0.0);	
+			\path[nonzero~rule,line~width=0.1pt] (2.53, 0.0) -- (13.12, 0.0) -- (11.87, 1.25) -- (3.78, 1.25) -- (2.53, 0.0);
 		}
 		\setlength\@ficonw{0.56cm}
 		\RenewDocumentCommand{\@flogotext}{}{
@@ -1040,7 +1040,7 @@
 			\path[nonzero~rule,line~width=0.1pt] (11.22, 5.61) -- (11.22, 10.01) -- (9.98, 10.01) -- (9.98, 5.61).. controls (9.98, 3.2) and (8.02, 1.25) .. (5.61, 1.25).. controls (3.2, 1.25) and (1.25, 3.2) .. (1.25, 5.61) -- (1.25, 10.01) -- (0.0, 10.01) -- (0.0, 5.61).. controls (0.0, 2.51) and (2.51, -0.0) .. (5.61, -0.0).. controls (8.71, -0.0) and (11.22, 2.51) .. (11.22, 5.61);
 			\path[nonzero~rule,line~width=0.1pt] (11.22, 15.65) -- (11.22, 11.25) -- (9.98, 11.25) -- (9.98, 15.65).. controls (9.98, 18.06) and (8.02, 20.01) .. (5.61, 20.01).. controls (3.2, 20.01) and (1.25, 18.06) .. (1.25, 15.65) -- (1.25, 11.25) -- (0.0, 11.25) -- (0.0, 15.65).. controls (0.0, 18.75) and (2.51, 21.26) .. (5.61, 21.26).. controls (8.71, 21.26) and (11.22, 18.75) .. (11.22, 15.65);
 			\path[nonzero~rule,line~width=0.1pt] (6.24, 15.65) -- (6.24, 11.25) -- (4.99, 11.25) -- (4.99, 15.65).. controls (4.99, 15.99) and (5.27, 16.27) .. (5.61, 16.27).. controls (5.96, 16.27) and (6.24, 15.99) .. (6.24, 15.65);
-			\path[nonzero~rule,line~width=0.1pt] (8.73, 15.65) -- (8.73, 11.25) -- (7.48, 11.25) -- (7.48, 15.65).. controls (7.48, 16.68) and (6.65, 17.52) .. (5.61, 17.52).. controls (4.58, 17.52) and (3.74, 16.68) .. (3.74, 15.65) -- (3.74, 11.25) -- (2.49, 11.25) -- (2.49, 15.65).. controls (2.49, 17.37) and (3.89, 18.77) .. (5.61, 18.77).. controls (7.33, 18.77) and (8.73, 17.37) .. (8.73, 15.65);  	
+			\path[nonzero~rule,line~width=0.1pt] (8.73, 15.65) -- (8.73, 11.25) -- (7.48, 11.25) -- (7.48, 15.65).. controls (7.48, 16.68) and (6.65, 17.52) .. (5.61, 17.52).. controls (4.58, 17.52) and (3.74, 16.68) .. (3.74, 15.65) -- (3.74, 11.25) -- (2.49, 11.25) -- (2.49, 15.65).. controls (2.49, 17.37) and (3.89, 18.77) .. (5.61, 18.77).. controls (7.33, 18.77) and (8.73, 17.37) .. (8.73, 15.65);
 		}
 		\setlength\@ficonw{0.396cm}
 		\setlength\@ftextwen{6\@logounit}
@@ -1064,7 +1064,7 @@
 % \end{itemize}
 % \DescribeMacro[common]{\faculty}\marg{name}\margintag{tag}\\
 %	Overrides the faculty tag |\@faculty| with the |name| entered.
-%	Name only, no logos or colours! 
+%	Name only, no logos or colours!
 %	To use for, e.g., faculty services like ``Directie ICT'' for letters or beamer slides.
 %
 % \iffalse
@@ -1231,7 +1231,7 @@
 \newlength{\@ftextw}
 \ExplSyntaxOn
 \newcommand{\@setfaclogotext}{
-	\exp_args:Nx \str_case:nnF { \languagename } {	
+	\exp_args:Nx \str_case:nnF { \languagename } {
 		{ dutch }{ \setlength{\@ftextw}{\@ftextwnl} }
 	}		 { \setlength{\@ftextw}{\@ftextwen}	}
 }
@@ -1241,7 +1241,7 @@
 	\@setfaclogotext
 	\pgfmathsetmacro{\@flogoscale}{#1/3/\@logounit}
 	\pgfmathsetmacro{\@flogoxshift}{-#3*(3*\@logounit+\@ftextw)*\@flogoscale}
-	
+
 	\begin{scope}[	y=1pt, x=1pt, inner~sep=0pt, outer~sep=0pt,
 		shift={(\@flogoxshift, 0.0cm)},yscale=\@flogoscale,xscale=\@flogoscale,
 		every~node/.append~style={scale=\@flogoscale, color=#2} ]
@@ -1249,16 +1249,16 @@
 		\begin{scope}[shift={(\@logounit,\@logounit)},every~path/.append~style={fill=#2}]
 			\@ficonpath
 		\end{scope}
-		
+
 		\path (0,0) rectangle (3*\@logounit+\@ftextw,3*\@logounit);
-		
+
 		\node[	anchor=south~west, align=left,
 		text~width=\@ftextw+\@ftextmarginextra,
 		font = \logotextface\fontsize{13.6pt}{12.4pt}\selectfont]
 		at (\@logounit+\@ficonw+\@flogospace,\@logounit)
 		{\spaceskip=0.0825cm%
 			\nohyphens{\@flogotext}};
-		
+
 		\node[	anchor=south~west, align=left,
 		text~width=\@ftextw,
 		font=\logosubtextface\fontsize{7.45pt}{8pt}\selectfont]
@@ -1361,7 +1361,7 @@
 %	\end{verbatim}
 % 	\begin{tikzpicture}[show background rectangle]
 %			\ugentlogo{4cm}{ugent@main}{0}
-% 	\end{tikzpicture}	
+% 	\end{tikzpicture}
 %	\hspace{0.5cm}
 % 	\foreignlanguage{dutch}{
 % 	\begin{tikzpicture}[show background rectangle]
@@ -1457,7 +1457,7 @@
 \newcommand*{\ugentlogo}[3]{% height, colour, align (0=left,1=right,0.5=center)
 	\@setugentlogotext
 	\pgfmathsetmacro{\@logoscale}{#1/4/\@logounit}%
-	\pgfmathsetmacro{\@logoxshift}{-#3*(\@ugenttextw+2*\@logounit)*\@logoscale}	
+	\pgfmathsetmacro{\@logoxshift}{-#3*(\@ugenttextw+2*\@logounit)*\@logoscale}
 	\begin{scope}[y=1pt, x=1pt,
 		shift={(\@logoxshift, 0.0cm)},
 		yscale=\@logoscale,xscale=\@logoscale, every node/.append style={scale=\@logoscale, color=#2}, inner sep=0pt, outer sep=0pt]
@@ -1475,9 +1475,9 @@
 %
 % \newpage
 % \subsection{Language, time, and location}
-% \label{S:usage:langtimeloc}
+% \label{S:usage:langdateloc}
 % \subsubsection{Language}
-% \label{S:usage:langtimeloc:dict}
+% \label{S:usage:langdateloc:dict}
 % The |ugentdocs| documents can be written in either english or dutch:
 %
 % \DescribeOption[common]{language}\DescribeDefault{english}
@@ -1495,11 +1495,11 @@
 	language .tl_set:N = \l_@@_language_tl ,
 	dutch    .code:n   = { \tl_set:Nn \l_@@_language_tl {dutch} } ,
 	english  .code:n   = { \tl_set:Nn \l_@@_language_tl {english} } ,
-} 
+}
 \ExplSyntaxOff
 %</clo>
 % \fi
-% 
+%
 % To support multi-language documents and automatically setting all template
 % text -- e.g., copyright page, faculty name, or other specific terms set by
 % the class -- a dictionary system was implemented.
@@ -1589,7 +1589,7 @@
 %	Optional arguments:\\
 %	|expand| - expands the |key|, for use with a key such as |org-\@fselector|\\
 %	|uppercase| or |lowercase| - changes key result casing.
-% 
+%
 % \iffalse
 %<*clo>
 % Dictionaries: translate keys
@@ -1612,7 +1612,7 @@
 	}
 	\bool_if:NTF \l_@@_expand_bool {
 		\_@@_translate:xx {\l_@@_case_tl} {#2}
-	}{ 
+	}{
 		\_@@_translate:xn {\l_@@_case_tl} {#2}
 	}
 }
@@ -1629,7 +1629,7 @@
 %	If you want to use this language as main document language, be sure to load
 %	the |babel| package again immediately after class load using\\
 %	|\usepackage[main=<languagename>]{babel}|.
-% 
+%
 % \iffalse
 %<*clo>
 \ExplSyntaxOn
@@ -1703,7 +1703,7 @@ projreport       = Project report
 
 submittedto      = Submitted to
 bmfulfil         = in partial Fulfilment of the Requirements for the Degree of
-phdfulfil        = in Fulfilment of the Requirements for the Degree of 
+phdfulfil        = in Fulfilment of the Requirements for the Degree of
 badegree         = Bachelor
 madegree         = Master
 phddegree        = Doctor
@@ -1786,7 +1786,7 @@ org-deugent = de Universiteit Gent
 ghent       = Gent
 domain      = ugent.be
 faculty     = Faculteit
-facultyof   = 
+facultyof   =
 org-bw      = Bio-ingenieurswetenschappen
 org-lw      = Letteren en Wĳsbegeerte
 org-re      = Recht en Criminologie
@@ -1894,7 +1894,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \newpage
 % \subsubsection{Time and location}
-% \label{S:usage:langtimeloc:timeloc}
+% \label{S:usage:langdateloc:dateloc}
 %
 % Per \LaTeX{} default, the |\@date| tag is set to |\today|.
 % The output format of dates is set by:
@@ -1976,11 +1976,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsection{Name and sequence parsing}
 % \label{S:usage:nameseqparse}
 % Names are always input as "Surname, Firstname"
-% (BibTeX format) to, e.g, |\author| commands, see the 
+% (BibTeX format) to, e.g, |\author| commands, see the
 % ``people'' macros in Section~\ref{S:usage:macros:people}.
 % The |ugentdocs| classes have specialized mechanisms
 % to convert these to regular "Firstname Surname" or "Surname Firstname",
-% and extracting initials, first names, and surnames. 
+% and extracting initials, first names, and surnames.
 %
 % \iffalse
 %<*clo>
@@ -2296,7 +2296,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % Class loading operates as follows. The standard options such as |11pt|,
 % |oneside|, or |openright| are passed to the relevant base classes. For courses,
-% BSc/MSc and PhD dissertations, and reports, this is the |book| class. 
+% BSc/MSc and PhD dissertations, and reports, this is the |book| class.
 % The |ugentletter| class expands |letter|, while exams are based on |article|.
 % \iffalse
 %<*crs|bama|phd|rp>
@@ -2341,7 +2341,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \setlength\@bleedspace{0mm}
   \setlength\@markerlength{0mm}
 }
-  
+
 % Set cover dimensions based on cover type
 \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 	{ phd }    {
@@ -2396,7 +2396,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \setcounter{secnumdepth}{3}
 %</crs|bama|phd|rp|le|ex>
 % \fi
-% 
+%
 %
 % \newpage
 % \subsection{Packages}
@@ -2440,7 +2440,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{center}
 %
 % Make sure \watchout these packages are available to your \LaTeX{} compiler.
-% Most of these should be installed by default in TeXLive distributions 
+% Most of these should be installed by default in TeXLive distributions
 % or can be made to auto-install for MikTeX.
 %
 % \iffalse
@@ -2448,7 +2448,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \RequirePackage{etoolbox}
 \IfFileExists{shellesc.sty}{
 	\RequirePackage{shellesc}}{}
-\RequirePackage{hyphenat}    
+\RequirePackage{hyphenat}
 \RequirePackage{graphicx}
 \RequirePackage{tabularx}
 \RequirePackage{graphbox}
@@ -2482,7 +2482,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   \item |babel|: sets the main document language from the |language| option.
 %			You can add more languages by calling |\usepackage[<languages>]{babel}|
 %			again in your customization file, but make sure a dictionary is available for
-%           the |main| language (see Section \ref{S:usage:langtimeloc:dict}).
+%           the |main| language (see Section \ref{S:usage:langdateloc:dict}).
 %    \begin{macrocode}
 %<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \ExplSyntaxOn
@@ -2498,7 +2498,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   \item |datetime2|: sets the date format based on the |localizedates| option.
 %			You can add more languages by calling |\usepackage[<languages>]{babel}|
 %			again in your customization file, but make sure a dictionary is available for
-%           the |main| language (see Section \ref{S:usage:langtimeloc:dict}).
+%           the |main| language (see Section \ref{S:usage:langdateloc:dict}).
 %    \begin{macrocode}
 %<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \ExplSyntaxOn
@@ -2540,7 +2540,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %		You can customize them by calling |\usepackage[<options>]{thumbs}|
 %		in your customization file. Be sure to apply the correct |ignorehoffset| and
 %		|ingnorevoffset| values if you use |cameraready=true| as class option.
-%		You can customize the thumb content (e.g., number) and colour by overwriting the 
+%		You can customize the thumb content (e.g., number) and colour by overwriting the
 %		|\@addthumb| command in your customization file.
 %    \begin{macrocode}
 %<*phd|crs>
@@ -2559,14 +2559,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	txtcentered=true,
 	topthumbmargin=3in
 	]{thumbs}
-	
+
 	\newcommand*{\@addthumb}{%
 		\addthumb{\chaptername~\thechapter}% Full chapter name
 			{\Large\bfseries\thechapter}% Chapter name in thumb (\thechapter = 1, 2, ...)
 			{white}% Chapter name color
 			{gray!50}% Thumb color
 	}
-	
+
 	\AddToHook{cmd/@makechapterhead/after}{%
 		\@addthumb % Add thumb for every numbered chapter
 	}
@@ -2631,7 +2631,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 %
 % For the |bookcover| class, the dimensions are dependent on the cover type (phd or course):
-%    \begin{macrocode} 
+%    \begin{macrocode}
 %<*bkc>
 \ExplSyntaxOn
 \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
@@ -2645,7 +2645,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	}
 }{
 	\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
-}	
+}
 \@setgridunit
 \ExplSyntaxOff
 %</bkc>
@@ -2660,7 +2660,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \subsubsection{Inset text and quotes}
 % \label{S:usage:macros:inset}
-% 
+%
 % \DescribeMacro[bama|phd|crs|rp]{\insettext}\marg{title}\marg{content}\\
 %	Formats the |title| and |content| into a text box. By default, the colours are\\
 %	faculty-based (|insetboxcolor|).\\
@@ -2723,7 +2723,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeMacro[bama|phd|crs|rp]{\insetquote}\marg{quote}\marg{citation}\\
 %	Formats the |quote| and |citation| into a text box using |insettext|.
 %	By default, the colours are faculty-based (|insetboxcolor|).\\
-%	Example:\\ 
+%	Example:\\
 %	|\insetquote{I feel quite hungry!}{Some dude from Bohemia named Henry}|\\
 %
 % \makeatletter
@@ -2796,7 +2796,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Document data}
 % \label{S::usage:macros:data}
 % \DescribeMacro[crs|bama|phd|rp|bkc|bmr|ex]{\title}
-%	\oarg{short title}\marg{title}\margintag{mandatory}\margintag{tag}\\  
+%	\oarg{short title}\marg{title}\margintag{mandatory}\margintag{tag}\\
 %	This macro sets the title of the document.
 %	It is \LaTeX{}-native, but is extended here with an optional short title
 %	argument that additionally sets the |\@shorttitle| tag.
@@ -2828,7 +2828,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 %</phd>
 % \fi
-% 
+%
 % \DescribeMacro[crs|bama|phd|rp|bkc]{\subtitle}
 %	\oarg{short subtitle}\marg{subtitle}\margintag{tag}\\
 %	This macro sets the subtitle of the document through the |\@subtitle| and
@@ -2838,7 +2838,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	multiple documents as parts of the full course text (e.g., Course Notes,
 %	Theoretical Exercises, Practical Exercises).
 %	This macro also sets the |subject| tag of the hyperref package  (if
-%	it is loaded), 
+%	it is loaded),
 %	so that the PDF-document meta-information is correct.
 % \iffalse
 %<*crs|phd|rp|bama|bkc>
@@ -2880,7 +2880,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \DescribeMacro[phd|crs|bkc]{\coverimage}\marg{image path}\margintag{tag}\\
 %	Sets the filename of the front cover image
-%	for courses and PhD dissertations. 
+%	for courses and PhD dissertations.
 %	The cover image is automatically fitted and cropped to the cover,
 %	but it is best to set an approximately correctly sized image.
 %	If the image is not defined for a course text,
@@ -2932,7 +2932,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	For bachelor and master programmes in Dutch, it must
 %	be the Dutch title. For programmes in English it may be the English
 %	title. For PhD degrees, language constraints are less strict.\\
-%	Consult the Flemish Higher Education Register 
+%	Consult the Flemish Higher Education Register
 %	(\href{https://www.highereducation.be}{in english} or
 %	\href{https://www.hogeronderwijsregister.be}{in dutch})
 %	for correct bachelor and master degree titles.
@@ -2943,7 +2943,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*crs|ex|bkc|phd|bama>
 \ExplSyntaxOn
 \seq_new:N \g_@@_degrees_seq
-\seq_new:N \g_@@_degreecalls_seq 
+\seq_new:N \g_@@_degreecalls_seq
 
 \cs_new:Nn \@@_adddegree:n {
 	\seq_gput_right:Nn \g_@@_degrees_seq { #1 }
@@ -3037,7 +3037,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeMacro[phd]{\grants}\marg{grant text}
 %	\margintag{tag}\\
 %   Specifies any grants that supported the PhD research.
-%	Used to print a message in the PhD colophon page: 
+%	Used to print a message in the PhD colophon page:
 %	``This research was supported by |<grant text>|''
 % \iffalse
 %<*phd>
@@ -3060,7 +3060,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeMacro[crs|phd|bkc]{\isbn}\marg{ISBN}\margintag{tag}\\
-%   Specify your International Standard Book Number 
+%   Specify your International Standard Book Number
 %	(if you requested one in time).
 %	The ISBN will be used to generate the barcode on the back cover
 %	automatically.
@@ -3076,23 +3076,23 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	Generates the correct embargo message in your PhD colophon or
 %	Ba/Ma dissertation copyright signing page.
 %	Adds the word 'CONFIDENTIAL' (localized) to your cover and title pages.\\
-%	If no optional dates are given, 
+%	If no optional dates are given,
 %	the document is considered under full embargo.
-%	If the dates are given as ISO format, 
-%	they interact with the |localizedates| option 
-%	(see Section~\ref{S:usage:langtimeloc:timeloc}).
+%	If the dates are given as ISO format,
+%	they interact with the |localizedates| option
+%	(see Section~\ref{S:usage:langdateloc:dateloc}).
 %	Otherwise, they are simply passed on.
 %	The document is then considered to be under temporary embargo, and
 %	the dates replace the |__START__| and |__END__| placeholders of the
 %	|embargotempbama| or |embargotempphd| dictionary keys
-%	(see Section~\ref{S:usage:langtimeloc:dict}).
+%	(see Section~\ref{S:usage:langdateloc:dict}).
 %	This message is then printed using the |\@embargotempwithdates| macro,
 %	which interacts with the current document language.
-%	
+%
 %	Additional information for customization:
 %	The |\l_@@_embargo_bool| tracks if there is an embargo (either temp or full).
 %	The |\_@@_embargotemp_bool| additionally tracks if the embargo type
-%	is temporary. 
+%	is temporary.
 %	The dates entered in the |\embargo| command are stored in the
 %	|\l_@@_embargostartdate_tl| and |\l_@@_embargoenddate_tl| token lists.
 %	The converted or localized dates are stored in the
@@ -3113,10 +3113,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \tl_new:N \l_@@_embargostartdate_tl
 \tl_new:N \l_@@_embargoenddate_tl
 
-\msg_new:nnn { ugentdocs } 
+\msg_new:nnn { ugentdocs }
 { embargo-start-without-end }
 { An~embargo~start~date~was~given,~but~no~end~date}
-\msg_new:nnn { ugentdocs } 
+\msg_new:nnn { ugentdocs }
 { embargo-end-without-start }
 { An~embargo~end~date~was~given,~but~no~start~date}
 
@@ -3189,7 +3189,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeMacro[crs|rp|bama|phd]{\copyrightnotices}\marg{notice content}\margintag{tag}\\
-%	Used to override the default |\@copyrightnotices| content 
+%	Used to override the default |\@copyrightnotices| content
 %	(see Section~\ref{S:style:copyright}).
 %	Can be used to load a signed copyright page for the |bama| class
 %	using the |pdfpages| package and:
@@ -3227,36 +3227,36 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	\margintag{authors\_seq}
 %	\margintag{authorswaff\_seq}
 %	\margintag{authorlist\_seq}
-%	\margintag{authorscalls\_seq}\\  
-% 	This macro adds an author to the document. 
+%	\margintag{authorscalls\_seq}\\
+% 	This macro adds an author to the document.
 %	The author name should be in BibTeX format (i.e., ``Surname, Firstname'').
 %	Use multiple calls for multiple authors.\\
 %	The affiliation can have multiple formats, e.g.,
 %	start with a newline: '|\\|',
 %	start with '|, |' for regular inline,
 %	or even '|&|' for horizontal alignment in the |bama| \& |report| cover pages.
-%	The authors are used in 
+%	The authors are used in
 %	the |bama|, |report| (optional), and |phd| cover pages,
-%	the |bama| autograph / copyright page, 
+%	the |bama| autograph / copyright page,
 %	the |course| (optional) and |phd| colophon,
 %	the |phd| title page, and the |bookcover| spine.
 %
 %	The formatted author name (see Section~\ref{S:usage:nameseqparse}) is
 %	stored with the title in the |authors| sequence
 %	(e.g., ``prof. Firstname Surname'') and
-%	the full name and title with affiliation 
+%	the full name and title with affiliation
 %	(e.g., ``prof. Firstname Surname, Ghent University'')
 %	is stored in the |authorswaff| sequence.
 %	The |authorlist| sequence stores ``Surname, F.'' formatted names
 %	for printing of a citation-style list,
-%	and the plain call -- 
+%	and the plain call --
 %	e.g., |\author{prof.}{Surname, Firstname}{, Ghent University}|
-%	-- is stored in the |authorscalls| sequence for usage later in the 
+%	-- is stored in the |authorscalls| sequence for usage later in the
 %	|\generatebookcover| macro.\\%
 %	These sequences can be used following the instructions
 %	in Section~\ref{S:usage:nameseqparse},
 %	The |pdfauthor| tag of the hyperref package (if it is loaded),
-%	is set using the |authorlist| 
+%	is set using the |authorlist|
 %	so that the PDF-document meta-information is correct.
 %
 % \iffalse
@@ -3297,8 +3297,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\@@_addto_nameseq:nnn 				{authors} {#1}{#2}
 	\@@_addto_nameaffiliationseq:nnnn 	{authors} {#1}{#2}{#3}
 	\@@_addto_callseq:nnnn 				{authors} {#1}{#2}{#3}
-	\seq_gput_right:Nn \g_@@_authorlist_seq { 
-		\@surname{#2},~\@firstnameinitial{#2} 
+	\seq_gput_right:Nn \g_@@_authorlist_seq {
+		\@surname{#2},~\@firstnameinitial{#2}
 	}
 }
 
@@ -3314,11 +3314,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	\margintag{mandatory}
 %	\margintag{lecturers\_seq}
 %	\margintag{lecturerswaff\_seq}
-%	\margintag{lecturerscalls\_seq}\\  
+%	\margintag{lecturerscalls\_seq}\\
 % 	Usage similar to |\author|.
 %	The lecturers can be the same or independent
 %	from the authors of, e.g., a course text.
-%	The lecturers are used in 
+%	The lecturers are used in
 %	the |report| cover page (optional),
 %	the |course| and |exam| cover pages, and
 %	the |bookcover| spine (precedence over authors).
@@ -3351,8 +3351,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	\margintag{allsupervisorstutors\_seq}\\
 %	Adds a person supervising the dissertation.
 %	Usage similar to |\author|.
-%	The supervisors are used in 
-%	the |bama|, |report| (optional), and |phd| cover pages, 
+%	The supervisors are used in
+%	the |bama|, |report| (optional), and |phd| cover pages,
 %	and the |phd| examination committee page.
 %	The |allsupervisors| sequence additionally stores the
 %	co-supervisors and external supervisors (see below), and the
@@ -3371,7 +3371,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\@@_addto_nameseq:nnn 				{supervisors} {#1}{#2}
 	\@@_addto_nameaffiliationseq:nnnn 	{supervisors} {#1}{#2}{#3}
 	\@@_addto_callseq:nnnn 				{supervisors} {#1}{#2}{#3}
-	
+
 	\@@_addto_nameseq:nnn 				{allsupervisors} 		{#1}{#2}
 	\@@_addto_nameseq:nnn 				{allsupervisorstutors} 	{#1}{#2}
 	\@@_addto_nameaffiliationseq:nnnn 	{allsupervisors} 		{#1}{#2}{#3}
@@ -3429,7 +3429,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \cs_new:Nn \@@_addextsupervisor:nnn {
 	\@@_addto_nameseq:nnn 				{extsupervisors} {#1}{#2}
 	\@@_addto_nameaffiliationseq:nnnn 	{extsupervisors} {#1}{#2}{#3}
-	
+
 	\@@_addto_nameseq:nnn 				{allsupervisors} 		{#1}{#2}
 	\@@_addto_nameseq:nnn 				{allsupervisorstutors} 	{#1}{#2}
 	\@@_addto_nameaffiliationseq:nnnn 	{allsupervisors} 		{#1}{#2}{#3}
@@ -3443,7 +3443,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \cs_new:Nn \@@_addtutor:nnn {
 	\@@_addto_nameseq:nnn 				{tutors} {#1}{#2}
 	\@@_addto_nameaffiliationseq:nnnn 	{tutors} {#1}{#2}{#3}
-	
+
 	\@@_addto_nameseq:nnn 				{allsupervisorstutors} 	{#1}{#2}
 }
 \NewDocumentCommand{\tutor}{mmm}{
@@ -3488,7 +3488,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\PackageError{ugentdocs}
 	{Please, define a chair of the jury using the
 		'\protect\jurychair{}' command in the preamble of your
-		document.} 
+		document.}
 	{See the ugentdocs manual}
 }
 \newcommand*{\@jurychairaff}{}
@@ -3509,7 +3509,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\PackageError{ugentdocs}
 	{Please, define a dean of the faculty using the
 		'\protect\dean{}{}' command in the preamble of your
-		document.} 
+		document.}
 	{See the ugentdocs manual}
 }
 \newcommand*{\dean}[2]{
@@ -3530,7 +3530,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\PackageError{ugentdocs}
 	{Please, define a rector of Ghent University using the
 		'\protect\rector{}{}' command in the preamble of your
-		document.} 
+		document.}
 	{See the ugentdocs manual}
 }
 \newcommand*{\rector}[2]{
@@ -3562,7 +3562,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	For multiple students for reports or bachelor's dissertations,
 %	it is best to specify the student numbers
 %	in the affiliation section of the |\author| macro,
-%	with '|&|' to align them (see also examples). 
+%	with '|&|' to align them (see also examples).
 % \iffalse
 %<*ex|bama|rp>
 \newcommand*{\@studentnr}{}
@@ -3714,7 +3714,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \label{dm-course}
 % Code (first argument) and name (second argument) of the curriculum
 % course this coursematerial or exam belongs to. The code should be of
-% the form:\\ 
+% the form:\\
 % |TNNNFFFAAA|,
 % with:
 % \begin{center}
@@ -3737,7 +3737,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % mathematics course of the Faculty of Applied Engineering.
 % \begin{imacro}{\course}
 %   Four the |course| class, this macro sets one or more
-%   courses. 
+%   courses.
 %   and |\@course| tags that later will be used on the title
 %   page.
 %    \begin{macrocode}
@@ -3771,7 +3771,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs>
 %    \end{macrocode}
 % \end{imacro}
-% 
+%
 % \begin{imacro}{\publisher}
 %   This macro sets the |\@publisher| tag that later will be used on
 %   the title page.
@@ -3782,7 +3782,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs>
 %    \end{macrocode}
 % \end{imacro}
-% 
+%
 % \DescribeMacro{\publishercode} [course] mandatory\\
 % This macro sets the publisher code of the document.
 % It is printed on the front page. This is code that the publisher
@@ -3801,7 +3801,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %
 %
-% 
+%
 % \subsubsection{Exam macros}
 % \label{S:usage:macros:exam}
 %
@@ -3960,7 +3960,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \begin{imacro}{\question}
 %   Add a small box with the weight of the question on the current line
 %   (right aligned).
-%   
+%
 %    \begin{macrocode}
 %<*ex>
 \newcounter{question}
@@ -3973,17 +3973,17 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
-% 
+%
 % \begin{imacro}{\questionweight}
 %   Add a small box with the weight of the question on the current line
 %   (right aligned).
-%   
+%
 %    \begin{macrocode}
 %<*ex>
 \newcommand*{\questionweight}[1]{%
 	\hspace{\fill}
 	\begin{tabular}{|c|}
-		\hline 
+		\hline
 		\small \translatekey{weight}: #1\\
 		\hline
 	\end{tabular}\\
@@ -3991,7 +3991,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
-% 
+%
 % \begin{imacro}{\engdut}
 %   typesets the question in two columns, the left column taking the
 %   English variant of the question and the right column taking the
@@ -3999,7 +3999,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*ex>
 \newcommand{\engdut}[2]{%
-	\begin{tabular}{ccc}% 
+	\begin{tabular}{ccc}%
 		\selectlanguage{english}%
 		\begin{minipage}[t]{0.45\textwidth}%
 			#1
@@ -4008,27 +4008,27 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\selectlanguage{dutch}%
 		\begin{minipage}[t]{0.45\textwidth}%
 			#2
-		\end{minipage}% 
+		\end{minipage}%
 	\end{tabular}
 	\selectlanguage{english}%
 }
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
-% 
-% 
+%
+%
 % \begin{imacro}{\setmcsymbol}
 %   sets the symbol to be used as multiple choice mark (by default a
 %   square).
 %    \begin{macrocode}
 %<*ex>
-\newcommand*\@mcsymbol{}%\square} 
+\newcommand*\@mcsymbol{}%\square}
 % TODO this needs to be fixed
 \newcommand*\setmcsymbol[1]{\renewcommand\@mcsymbol{#1}}
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
-% 
+%
 % \begin{imacro}{\mc}
 %   typesets a multiple choice answer candidate (monolingual, i.e. in a
 %   single column).
@@ -4046,13 +4046,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
-% 
-% 
+%
+%
 % \begin{imacro}{\engdutmc}
 %   typesets a multiple choice answer candidate in two columns, the left
 %   column taking the English variant of the question and the right
 %   column taking the Dutch variant.
-%   
+%
 %    \begin{macrocode}
 %<*ex>
 \newcommand{\engdutmc}[2]{%
@@ -4074,14 +4074,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
-% 
+%
 % \begin{imacro}{\insertsolutionspagepartial}
 %   fills the remainder of the page with 'fill-out' squares.
 %   as observing/controlling the current line position in \LaTeX{} is
 %   not easiy, one has to provide the number of centimeters below the
 %   bottom of the page, one wants to start the fill-out squares.
-%   
-%   
+%
+%
 %    \begin{macrocode}
 %<*ex>
 \newcommand\insertsolutionspagepartial[1]{
@@ -4093,7 +4093,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			% \draw[densely dotted, step=0.5cm,black!20] (0.999,0.990) grid (20,1.5);
 			\draw[densely dotted, step=0.5cm,black!20] (0.999,1.499) grid (2,2.5);
 			\draw[densely dotted, step=0.5cm,black!20] (18.999,1.499) grid (20,2.5);
-			
+
 			\draw[densely dotted, step=0.5cm,black!20] (0.999,2.499) grid (20,27);
 			\draw[densely dotted, step=0.5cm,black!20] (0.999,27) grid (16,28);
 			\draw[densely dotted, step=0.5cm,black!20] (19.499,27) grid (20,28);
@@ -4109,13 +4109,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
-% 
+%
 % \begin{imacro}{\insertsolutionspage}
 %   inserts a full solutions page, i.e. flushes the current page and
 %   inserts a full page with 'fill-out' squares.
 %   The argument allows for specifying a watermark text (e.g. 'Scrap
-%   paper'). 
-%   
+%   paper').
+%
 %    \begin{macrocode}
 %<*ex>
 \newcommand\insertsolutionspage[1]{
@@ -4126,7 +4126,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\clip (0,0) rectangle (21,29.5);
 			\draw[densely dotted, step=0.5cm,black!20] (0.999,1.499) grid (2,2.5);
 			\draw[densely dotted, step=0.5cm,black!20] (18.999,1.499) grid (20,2.5);
-			
+
 			\draw[densely dotted, step=0.5cm,black!20] (0.999,2.499) grid (20,28);
 			\draw[densely dotted, step=0.5cm,black!20] (0.999,28) grid (16,28.5);
 			\draw[densely dotted, step=0.5cm,black!20] (19.499,28) grid (20,28.5);
@@ -4142,11 +4142,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
-% 
+%
 %
 % \subsubsection{Letter macros}
 % \label{S:usage:macros:letter}
-% 
+%
 % \DescribeMacro{\sender} [letter] mandatory\\
 % Description of the person writing the letter.
 % \begin{itemize}
@@ -4188,7 +4188,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{imacro}
 %
 % \DescribeMacro{\to} [letter] mandatory\\
-% Name of the addressee. Newlines are allowed. 
+% Name of the addressee. Newlines are allowed.
 % Preferably name and role are split over two lines.
 % \begin{imacro}{\to}
 %   This macro sets the |\@to| tag that will be used in the letter's
@@ -4286,7 +4286,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \begin{imacro}{\signature}
 %   This macro sets the |\@signature| tag that will be used to finish
 %   the letter. By default this corresponds to a decent amount of
-%   vertical white space 
+%   vertical white space
 %    \begin{macrocode}
 %<*le>
 \newcommand*{\@signature}{\vspace*{8ex}}
@@ -4352,12 +4352,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \rhead[]{}
   \lfoot[]{}
   \cfoot[\small\thepage]{\small\thepage}
-  \rfoot[]{} 
+  \rfoot[]{}
 }
 %</crs>
 %    \end{macrocode}
-% 
-% The header and footer of the |bama| and |report| classes 
+%
+% The header and footer of the |bama| and |report| classes
 % (Code adapted from Joris Meys' LaTeX at UGent)
 % are defined to be:
 %    \begin{macrocode}
@@ -4386,7 +4386,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   	\renewcommand{\footrulewidth}{0pt}
   }
   \fi
-  
+
   % for the frontmatter
   \if@twoside
   \fancypagestyle{frontmatter}{
@@ -4402,10 +4402,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   	\fancyfoot[RO]{\thepage}
   }
   \fi
-  
+
   % for the mainmatter
   \renewcommand{\chaptermark}[1]{\markboth{\thechapter. \ #1}{}}
-  
+
   \if@twoside
   \fancypagestyle{mainmatter}{
   	\fancyhf{}
@@ -4444,7 +4444,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \rhead[]{\small\thepage}
   \lfoot[]{}
   \cfoot[]{}
-  \rfoot[]{} 
+  \rfoot[]{}
 \fi
 \fancypagestyle{plain}{%
   \lhead[]{}
@@ -4452,13 +4452,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \rhead[]{}
   \lfoot[]{}
   \cfoot[\small\thepage]{\small\thepage}
-  \rfoot[]{} 
+  \rfoot[]{}
 }
 %</phd>
 %    \end{macrocode}
 %
 % The header and footer of the |letter| class are
-% defined to be: 
+% defined to be:
 %    \begin{macrocode}
 %<*le>
 \lhead[]{}
@@ -4588,7 +4588,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \titlespacing*{\section}{0pt}{6pt}{0pt}
 %</bama|rp>
 %    \end{macrocode}
-% 
+%
 % \subsection{Plain coverpage}
 %
 % The cover pages tikzpictures for the |bama| and |report| classes are generated
@@ -4631,19 +4631,19 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			{\fontsize{25}{30}\selectfont\color{covertitlecolor}\bfseries
 				\MakeUppercase{\uline{\@title}}}
 		\end{spacing}
-		
+
 		\vskip 1em
-		
+
 		{\fontsize{15}{18}\selectfont\color{covertitlecolor}
 			\MakeUppercase{\@subtitle}}
-		
+
 		\vskip 1em
-		
+
 		\begingroup\color{coverdatacolor}
 		\ifx\@wordcount\@empty\else
 		\translatekey{wordcount}:~\@wordcount
 		\fi
-		
+
 		\bool_if:NTF \l_@@_embargo_bool {
 			\vskip 5em
 			{\fontsize{15}{18}\selectfont\translatekey[uppercase]{confidential}}
@@ -4651,38 +4651,38 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		}{
 			\vskip 10em
 		}
-		
+
 		 \tl_set:Nx \l_@@_authortable_tl { \printseq{authorswaff}{\cr}{\cr}{\cr} }
 		{\fontsize{15}{18}\selectfont
 			\leavevmode\vbox{\halign{##\hfil&\hskip1em##\hfil\cr
 			\l_@@_authortable_tl
 			\cr}}
 		}
-		
+
 		\ifx\@studentnr\@empty\else
 		\translatekey{studentnr}:~\@studentnr
 		\fi
-		
+
 		\vskip 1em
-		
+
 		{\fontsize{12}{15}\selectfont
 			\getseqcaption{supervisors}{:~\printseq{supervisors}{~\&~}{,~}{\translatekey{andlist}~}\\}}
-		
+
 		{\fontsize{12}{15}\selectfont
 				\getseqcaption{cosupervisors}{:~\printseq{cosupervisors}{~\&~}{,~}{\translatekey{andlist}~}\\}}
-		
+
 		{\fontsize{12}{15}\selectfont
 				\getseqcaption{extsupervisors}{:~\printseq{extsupervisors}{~\&~}{,~}{\translatekey{andlist}~}\\}}
-		
+
 		\ifseqempty{tutors}{}{
 			\vskip 1em
 			{\fontsize{12}{15}\selectfont
 				\getseqcaption{tutors}{}:~\printseq{tutors}{~\&~}{,~}{\translatekey{andlist}~}}
 		}
-		
+
 		\vskip 1em
 		{\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{bmfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}
-		
+
 		\vskip 1em
 		\translatekey{acyear}:~\@academicyear
 		\endgroup
@@ -4698,23 +4698,23 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			{\fontsize{25}{30}\selectfont\color{covertitlecolor}\bfseries
 				\MakeUppercase{\uline{\@title}}}
 		\end{spacing}
-		
+
 		\vskip 1em
-		
+
 		{\fontsize{15}{18}\selectfont\color{covertitlecolor}
 			\MakeUppercase{\@subtitle}}
-				
+
 		\vskip 2em
-		
+
 		\begingroup\color{coverdatacolor}
 		\ifx\@extra\@empty\else
 		{\fontsize{12}{15}\selectfont\@extra}
 		\fi
-		
+
 		\ifx\@wordcount\@empty\else
 		\translatekey{wordcount}:~\@wordcount
 		\fi
-		
+
 		\ifseqempty{authors}{
 			\vskip 10em
 		}{
@@ -4730,18 +4730,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\fi
 			\vskip 5em
 		}
-		
+
 		\ifseqempty{lecturers}{}{
 			{\fontsize{12}{15}\selectfont
 				\getseqcaption{lecturers}{}:~\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}}
 			\vskip 2 em
 		}
-		
+
 		\ifx\@address\@empty\else
 		{\fontsize{12}{15}\selectfont\@address}
 		\vskip 2 em
 		\fi
-		
+
 		\ifx\@academicyear\@empty\else
 		{\fontsize{12}{15}\selectfont\translatekey{acyear}:~\@academicyear}
 		\fi
@@ -4770,34 +4770,34 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand{\@frontcover}{
 	\begin{tikzpicture}[inner~sep=0pt, outer~sep=0pt]
 	\clip (0,0) rectangle (\paperwidth,\paperheight);
-	
+
 	\begin{scope}[shift={(0,\paperheight-3*\gridunit)}]
 	\faclogo{3*\gridunit}{ugent@\@fselector}{0}
 	\end{scope}
-	
+
 	\bool_if:NT \l_@@_coverbg_bool {
 		\fill[coverbgcolor] (\gridunit,4*\gridunit) rectangle (\paperwidth,\paperheight-\@HTS);
 		\begingroup
 		\colorlet{hypercolor}{covertitlecolor}
 	}
-	
+
 	\@coverbody
-	
+
 	\begin{scope}[shift={(0,0)}]
 		\ugentlogo{4*\gridunit}{ugent@main}{0}
 	\end{scope}
-	
+
 	\ifx\@frontcoverlogos\@empty\else
 		\node[anchor=south~east, inner~sep=0pt,
 			text~width=\paperwidth-(2+\@ugenttextw/\@logounit)*\gridunit, minimum~height=2*\gridunit,
 			align=right] at (\paperwidth-\gridunit,\gridunit)
 			{\@frontcoverlogos};
 	\fi
-	
+
 	\bool_if:NT \l_@@_coverbg_bool {
 		\endgroup
 	}
-	
+
 	\end{tikzpicture}
 }
 \ExplSyntaxOff
@@ -4843,21 +4843,21 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\setlength\@HBS{4\gridunit}
 	\setlength\@HTS{0mm}
 	\setlength\@BT{\@B}
-	\setlength\@MS{0mm}	
+	\setlength\@MS{0mm}
 	\setlength\@MTLR{2\gridunit}
 	\setlength\@MTTB{\gridunit}
-	\setlength\@WD{0mm} 
+	\setlength\@WD{0mm}
 	\setlength\@HD{0mm}
 }{ % UGent cover
 	\setlength\@HBS{4\gridunit}
 	\tl_if_empty:NTF \l_@@_fselector_tl {
-		\setlength\@HTS{0mm}		
+		\setlength\@HTS{0mm}
 		\setlength\@BT{\@B}
 	}{
 		\setlength\@HTS{3\gridunit}
 		\setlength\@BT{0mm}
 	}
-	\setlength\@MS{\gridunit}	
+	\setlength\@MS{\gridunit}
 	\setlength\@MTLR{\gridunit}
 	\setlength\@MTTB{\gridunit}
 	\setlength\@WD{12\gridunit}
@@ -4901,7 +4901,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*bkc|phd>
 \ExplSyntaxOn
 \newcommand\@coverbodyphd{
-	% Title, subtitle, author	
+	% Title, subtitle, author
 	\bool_if:NTF \l_@@_bwbookcover_bool {
 	\node[anchor=south~east, text~width=\@PW-2*\@MTLR, align=right, text=covertitlecolor]
 	at (\@PW-\@MTLR, 2*\@HBS)
@@ -4914,7 +4914,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	at (\@MS+\@MTLR, 0.5*\@PH+0.5*\@HBS-0.5*\@HTS+0.5*\@HD)
 	{{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
 		\ifx\@subtitle\@empty\else\vspace{5pt}\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par}\fi};
-	
+
 	\node[anchor=north~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
 	at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB)
 	{{\fontsize{20}{24}\selectfont\bfseries\printseq{authors}{\\}{\\}{\\}}%
@@ -4923,20 +4923,20 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\printseq{supervisors}{\\}{\\}{\\}}%
 		\\[15pt]
 		{\fontsize{11}{15}\selectfont\translatekey{acyear}~\@academicyear}};
-	
+
 	\node[anchor=south~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
 	at (\@MS+\@MTLR, \@HBS+\@MTTB)
 	{\fontsize{11}{15}\selectfont\nohyphens{\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}};
-	
+
 	\ifx\@frontcoverlogos\@empty\else
 	\node[anchor=south~east, inner~sep=0pt,
 	text~width=\@PW-(2+\@ugenttextw/\@logounit)*\gridunit, minimum~height=2*\gridunit,
 	align=right] at (\@PW-\gridunit,\gridunit)
 	{\@frontcoverlogos};
 	\fi
-	
+
 	}
-	
+
 	\bool_if:NT \l_@@_embargo_bool {
 	\@printconfidentialcover
 	}
@@ -4949,7 +4949,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\newlength\@parboxwidth
 	\pgfmathsetlength{\@parboxheight}{\@HD-2*\@MTTB}
 	\pgfmathsetlength{\@parboxwidth}{\@WD-2*\@MTLR}
-	
+
 	\node[anchor=north west, inner sep=0pt, text=coverdatacolor] at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB) {
 		\parbox[t][\@parboxheight][t]{\@parboxwidth}{
 			\raggedright
@@ -4969,12 +4969,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			%
 			\vskip 2 em
 			%
-			{\fontsize{15}{20}\selectfont 
+			{\fontsize{15}{20}\selectfont
 				\printseq{degrees}{\\}{\\}{\\}\\
 				\translatekey{acyear}~\@academicyear}%
 		}
 	};
-	
+
 	\ifx\@frontcoverlogos\@empty\else
 	\node[anchor=south east, inner sep=0pt,
 	text width=\@PW-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
@@ -5003,7 +5003,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOn
 \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 	{ phd } {	}
-	{ course } { 
+	{ course } {
 		\setlength\@WD{10\gridunit}
 	}
 }{
@@ -5036,7 +5036,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOff
 %</phd|bkc|crs>
 %    \end{macrocode}
-% 
+%
 % Now let's move on to the covers themselves.
 % \begin{imacro}{\@frontcover}
 %	Defines the front cover layout
@@ -5046,7 +5046,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand{\@frontcover}{%
 	\begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt]
 	\useasboundingbox (0,0) rectangle (\@PW,\@PH);
-	
+
 	% Image zone
 	{\ifx\@coverimage\@empty%
 		\fill[coverbgcolor] (\@MS,\@HBS) rectangle (\@PW+\@B,\@PH-\@HTS+\@BT);%
@@ -5063,17 +5063,17 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		};%
 		\end{scope}
 	\fi};
-	
+
 	\fill[coverareacolor] (\@MS,\@HBS) rectangle (\@MS+\@WD,\@HBS+\@HD);
 
 	\@coverbody
-	
+
 	% UGent logo
 	\pgfmathsetmacro{\@ugentlogoxoffset}{max(\@MS-\gridunit,0)}
 	\begin{scope}[shift={(\@ugentlogoxoffset pt,0mm)}]
 		\ugentlogo{\@HBS}{ugent@main}{0}
 	\end{scope}
-	
+
 	% Faculty logo
 	\bool_if:NTF \l_@@_bwbookcover_bool {
 	\begin{scope}[shift={(\@PW,0)}]
@@ -5084,7 +5084,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\faclogo{3\gridunit}{ugent@\@fselector}{0}
 	\end{scope}
 	}
-	
+
 	\end{tikzpicture}
 }
 \ExplSyntaxOff
@@ -5099,8 +5099,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand\@backcover{%
 	\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
 	\useasboundingbox (0,0) rectangle (\@PW,\@PH);
-	
-	% White bottom strip for ISBN and publisher logo	
+
+	% White bottom strip for ISBN and publisher logo
 	\pgfmathsetmacro{\@isbnscale}{0.6}
 	\pgfmathsetmacro{\@grpH}{\@isbnscale*25mm+15pt}% total group height: box+spacing+text
 	\begin{scope}[shift={(10mm, 0.5*\@HBS - 0.5*\@grpH)}]
@@ -5110,8 +5110,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\edef\@isbnexpanded{ISBN \@isbn}
 	%\fill[coverareacolor] (0,0) rectangle (34.2mm, \@isbnscale*25mm);
 	\node[anchor=south] at (0.5*34.2mm,0)
-	{\edef\@@isbnbarcodecall{\noexpand\EANBarcode[scale=\@isbnscale]{ISBN\space\@isbn}}
-		\@@isbnbarcodecall};
+	{\edef\@@_isbnbarcodecall{\noexpand\EANBarcode[scale=\@isbnscale]{ISBN\space\@isbn}}
+		\@@_isbnbarcodecall};
 	\fi
 	\node[anchor=south, font=\usefont{OT1}{ocrb}{m}{n}\fontsize{5}{5}\selectfont, text=black, inner sep=0pt]
 	at (0.5*34.2mm, \@isbnscale*25mm+ 10pt)
@@ -5119,14 +5119,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\else {ISBN:  \@isbn}\fi
 	};
 	\end{scope}
-	
+
 	\pgfmathsetmacro{\@backcoverlogosxoffset}{min(\@PW-\@MS,\@PW-10mm)}
 	\begin{scope}[inner sep=0pt, shift = {(\@backcoverlogosxoffset pt, 0.5*\@HBS)}]
 	\node[anchor=east, inner sep=0pt]
 	at (0, 0)
 	{\@backcoverlogos};
 	\end{scope}
-	
+
 	% Full background
 	\fill[coverbgcolor] (0-\@B,\@HBS) rectangle (\@PW-\@MS,\@PH-\@HTS+\@BT);
 	\end{tikzpicture}
@@ -5239,7 +5239,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\@location,~\@date
 	\newline\newline
 	\@@_autographpage:
-	
+
 	\vspace*{\stretch{1}}
 	\clearpage
 }
@@ -5285,7 +5285,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			{\translatekey{arrphd}}%
 		}
 		\\[\baselineskip]
-		{\textbf{\translatekey{pleaserefer}:}\\  		
+		{\textbf{\translatekey{pleaserefer}:}\\
 			\printseq{authorlist}{~\&~}{,~}{\translatekey{andlist}~}~(\the\year).~
 			{\renewcommand{\\}[1][]{~}\@title{}\ifx\@subtitle\@empty\else{}:~\@subtitle\fi}.~\@doctype{}.~Ghent~University,~Belgium.}%
 		\ifx\@isbn\@empty\else
@@ -5317,14 +5317,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\vskip 1em
 			\getseqcaption{authors}{}:~\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
 		}
-		
+
 		\translatekey{typeset}~\textrm{\LaTeX{}}~\translatekey[lowercase]{and}~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
 		\@extranotices
-		
+
 		\vskip 1em
 		\@publisher\\
 		\@publishercode
-		
+
 		\vskip 1em
 		\copyright{}~\the\year~\translatekey{org-ugent},
 		\translatekey[lowercase]{arr}.
@@ -5339,7 +5339,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\setlength\parindent{0em}
 		\translatekey{typeset}~\textrm{\LaTeX{}}~\translatekey[lowercase]{and}~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
 		\@extranotices
-		
+
 		\copyright{}~\the\year~\translatekey{org-ugent},
 		\translatekey[lowercase]{arr}.
 	}
@@ -5347,7 +5347,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</rp>
 %    \end{macrocode}
 %
-% The title page is generated using the |\maketitle| command. As the 
+% The title page is generated using the |\maketitle| command. As the
 % book class from which we inherit already defines this command, we
 % need to renew it.
 %
@@ -5409,10 +5409,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\endgroup
 	\setcounter{page}{0}%
 	}
-	
+
 	% Page 1: blank
 	\clearpage\thispagestyle{empty}\null
-	
+
 	% Page 2: committee
 	\clearpage\thispagestyle{empty}
 	\null\vfill % flush to bottom
@@ -5438,21 +5438,21 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\textbf{\translatekey{rector}~\translatekey[lowercase]{of}~\translatekey{org-deugent}}\hfill\break
 		\@rector
 	\end{minipage}%
-	
+
 	% Page 3: title
 	\clearpage\thispagestyle{empty}
 	\null\vfill % Bottom-align
 	\noindent\begin{minipage}[b]{\textwidth}
 		{\Huge\bfseries\nohyphens\@title\par}%
-		
+
 		\ifx\@subtitle\@empty\else
 		\vspace{.5\baselineskip}
-		{\Large\@subtitle\par}%  	
+		{\Large\@subtitle\par}%
 		\fi
-		
+
 		\vspace{5\baselineskip}%
 		{\Large\printseq{authors}{\\}{\\}{\\}\par}%
-		
+
 		\bool_if:NTF \l_@@_embargo_bool {
 			\vspace{5\baselineskip}
 			{\large\translatekey[uppercase]{confidential}\par}
@@ -5460,13 +5460,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		}{
 			\vspace{10\baselineskip}%
 		}
-		
+
 		{\small \@doctype{}~\translatekey[lowercase]{submittedto}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}\par}%
-		
+
 		\vspace{.3\baselineskip}%
 		{\small\translatekey{org-ugent},~\@location,~\@date}%
 	\end{minipage}%
-	
+
 	% Page 4: copyright page (verso, bottom-left)
 	\clearpage\thispagestyle{empty}\null\vfill
 	\@copyrightnotices
@@ -5489,7 +5489,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \end{imacro}
 %
 % \begin{imacro}{\makefinalpage}
-%   Below, one can find the code for the final page: 
+%   Below, one can find the code for the final page:
 %    \begin{macrocode}
 %<*bama|phd|crs|rp>
 \ExplSyntaxOn
@@ -5526,7 +5526,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %
 % \subsection{Bookcover class}
-%  First we calculate the spine width, set some dimensions, 
+%  First we calculate the spine width, set some dimensions,
 %  and check if we can print on the spine:
 %    \begin{macrocode}
 %<*bkc>
@@ -5601,7 +5601,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 %</bkc>
 %    \end{macrocode}
-% 
+%
 % \begin{imacro}{\makebookcover}
 %   This macro creates a book cover for the bookcover class. This is already
 %   defined in the |bookcover| package, so we need to renew it.
@@ -5639,7 +5639,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bkc>
 %    \end{macrocode}
 % \end{imacro}
-% 
+%
 %
 % \begin{imacro}{\generatebookcover}
 %	This macro generates a cover.tex file from your current document.
@@ -5671,28 +5671,28 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	}{
 		\fp_set:Nn \l_@@_pagecount_fp  { \ztotpages - 2}
 	}
-	
+
 	\dim_new:N \l_@@_spinewidth_dim
 	\dim_set:Nn \l_@@_spinewidth_dim {\fp_to_decimal:n {\l_@@_pagecount_fp/2*\l_@@_paperweight_fp/1e6*\l_@@_paperbulk_fp*1e3} mm}
-	
+
 	\tl_set:Nx \l_@@_title_tl       	{ \exp_not:n{\@title} }
 	\tl_set:Nx \l_@@_subtitle_tl    	{ \exp_not:n{\@subtitle} }
 	\tl_set:Nx \l_@@_isbn_tl			{ \exp_not:n{\@isbn} }
 	\tl_set:Nx \l_@@_coverimage_tl 		{ \exp_not:n{\@coverimage} }
 	\tl_set:Nx \l_@@_backcoverlogos_tl	{ \exp_not:n{\@backcoverlogos} }
 	\tl_set:Nx \l_@@_frontcoverlogos_tl	{ \exp_not:n{\@frontcoverlogos} }
-	
+
 	\tl_set:Nx \l_@@_year_tl 			{ \exp_not:n{\the\year} }
 	\tl_set:Nx \l_@@_academicyear_tl	{ \exp_not:n{\@academicyear} }
-	
+
 	\tl_clear_new:N \l_@@_authorscalls_tl
 	\seq_map_inline:Nn \g_@@_authorscalls_seq
 	{ \tl_put_right:Nn \l_@@_authorscalls_tl { ##1 \iow_newline: } }
-	
+
 	\tl_clear_new:N \l_@@_degreecalls_tl
 	\seq_map_inline:Nn \g_@@_degreecalls_seq
 	{ \tl_put_right:Nn \l_@@_degreecalls_tl { ##1 \iow_newline: } }
-	
+
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 		{ phd }    {
 			\tl_clear_new:N \l_@@_supervisorscalls_tl
@@ -5715,7 +5715,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	}{
 		\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
 	}
-	
+
 	\tl_set:Nn \l_@@_covertemplate_tl {
 		\exp_not:N\documentclass[\l_@@_fselector_tl, spinewidth=\fp_to_decimal:n{round(\dim_ratio:nn{\l_@@_spinewidth_dim}{1mm},1)}mm
 		\l_@@_camerareadykeyval_tl
@@ -5735,7 +5735,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\exp_not:N\backcoverlogos	{\l_@@_backcoverlogos_tl}	\iow_newline:
 		\exp_not:N\frontcoverlogos	{\l_@@_frontcoverlogos_tl}	\iow_newline:							
 	}
-	
+
 	\bool_if:NTF \l_@@_bwbookcover_bool {
 	\tl_put_right:Nn \l_@@_covertemplate_tl {
 		\iow_newline:
@@ -5748,11 +5748,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\exp_not:N\academicyear	{\l_@@_academicyear_tl}	\iow_newline:
 	}
 	}
-	
+
 	\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
 		{ phd }    {
 			\tl_put_right:Nn \l_@@_covertemplate_tl {
-				\exp_not:N\doctype {dissertation-phd}	\iow_newline:		
+				\exp_not:N\doctype {dissertation-phd}	\iow_newline:
 				\l_@@_supervisorscalls_tl						\iow_newline:
 				\bool_if:NT \l_@@_embargo_bool {
 					\bool_if:NTF \l_@@_embargotemp_bool {
@@ -5760,8 +5760,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 					}{
 						\exp_not:N\embargo \iow_newline:
 					}
-				}	
-			}	
+				}
+			}
 		}
 		{ course }     {
 			\tl_put_right:Nn \l_@@_covertemplate_tl {
@@ -5771,14 +5771,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	}{
 		\msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
 	}
-	
+
 	\tl_put_right:Nn \l_@@_covertemplate_tl {
 		\iow_newline:
 		\exp_not:N\begin{document}					\iow_newline:
 			\exp_not:N\makebookcover				\iow_newline:
 		\exp_not:N\end{document}
 	}
-	
+
 	\iow_new:N \g_@@_coverfile_iow
 	\iow_open:Nn \g_@@_coverfile_iow { \jobname-cover.tex }
 	\iow_now:Nx \g_@@_coverfile_iow { \l_@@_covertemplate_tl }
@@ -5796,7 +5796,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \begin{imacro}{\maketitle}
 % The top of the letter is generated using the |\maketitle|
-% command. 
+% command.
 %
 %    \begin{macrocode}
 %<*le>
@@ -5818,19 +5818,19 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\small{\nohyphens{\bfseries\textcolor{ugent@main}{\@faculty[uppercase]}}}\\*
 			\textcolor{ugent@main}{\MakeUppercase{\@unit}}
 		};
-	
+
 		\ifnum\value{page}>1
 		\path (2\gridunit,-3\gridunit)
 		node[anchor=north~west] { \@letterheader };
 		\fi
 		\end{tikzpicture}
 	}
-	
+
 	\AddToHookNext{shipout/foreground}{%
 		\begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt,overlay]
 		\clip (0,0) rectangle(\paperwidth,-\paperheight);
 		%
-		
+
 		\bool_if:NT \l_@@_foldline_bool {
 			\draw (1cm,-98mm) -- (1.5cm,-98mm);
 		}
@@ -5842,7 +5842,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\ifx\@toorganization\@empty\else\@toorganization\\*\fi%
 			\@toaddress
 		};
-		
+
 		\path (\@PW-\gridunit,-3\gridunit)
 		node[anchor=north~east,text~width=61.5mm,align=left] {
 				\textcolor{ugent@main}{\textbf{\@sender}}
@@ -5854,10 +5854,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 			\vskip 1.75ex
 			\@address\\[1.75ex]
 			\@ifpackageloaded{hyperref}{
-				\href{https://www.ugent.be}{www.ugent.be}		
+				\href{https://www.ugent.be}{www.ugent.be}
 			}{
 				www.ugent.be
-			}		
+			}
 		};
 		\end{tikzpicture}
 	}
@@ -5918,7 +5918,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \begin{imacro}{\maketitle}
 % The title page of the exam class is generated using the |\maketitle|
-% command. 
+% command.
 %
 %    \begin{macrocode}
 %<*ex>
@@ -5930,10 +5930,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
         \clip (0,0) rectangle(\paperwidth,\paperheight);
         \fill[lightgray]
         (2.125,{\paperheight-7cm}) rectangle (\paperwidth,6);
-        
+
         \node
         [anchor=west,text width={\paperwidth-5cm},align=left]
-        at (2.125,{\paperheight-3cm}) 
+        at (2.125,{\paperheight-3cm})
         {%
           \fontsize{18}{22}\selectfont%
           \textsf{\textbf{\printseq{courses}{\\}{\\}{\\}}}
@@ -5942,7 +5942,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
         };
         \node
         [anchor=west,text width={\paperwidth-5cm},align=left]
-        at (2.125,{\paperheight-4cm}) 
+        at (2.125,{\paperheight-4cm})
         {%
           \fontsize{12}{18}\selectfont%
           \textsf{\printseq{coursecodes}{\\}{\\}{\\}}
@@ -5950,7 +5950,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
         \node
         [anchor=west,text width={\paperwidth-5cm},align=left,font=\large]
-        at (2.125,{\paperheight-5cm}) 
+        at (2.125,{\paperheight-5cm})
         {%
           \fontsize{12}{18}\selectfont%
           \textsf{\translatekey{series} \@examgroupnumber{} \hfill \@examdate{}}
@@ -5961,7 +5961,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
           \fontsize{14}{19}\selectfont%
           \textsf{\translatekey{exam}}
         };
-        
+
         \node[anchor=south west,align=left,inner sep=0pt] at (3,19)
         {%
           \fontsize{12}{18}\selectfont%
@@ -5976,7 +5976,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
           \fontsize{12}{18}\selectfont%
           \textsf{\translatekey{firstname}}
         };
-        
+
         \foreach \nn in {0,1,...,23} {
           \draw[fill=white] (3,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
         }
@@ -5989,7 +5989,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
         \foreach \nn in {0,1,...,7} {
           \draw[fill=white] (16,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
         }
-        
+
         \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
         at (3,14)
         {%
@@ -6005,20 +6005,20 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
             \translatekey{examend}  & : & \@tend
           \end{tabular}}
         };
-        
+
         \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
         at (3,8)
         {%
           \fontsize{12}{21}\selectfont%
           \textsf{\getseqcaption{rooms}{}: \printseq{rooms}{~\&~}{,~}{\translatekey{andlist}~}}
         };
-        
+
         %\node
         %[anchor=base west,ugent@main,
         %text width={\paperwidth-5cm},align=left,font=\LARGE]
         %at (2.125,{\paperheight-6.5cm})
         %{\textsf{\textbf{\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}}};
-        
+
         \fill[gray] (2.125,6)
         -- (\paperwidth,6)
         -- (\paperwidth,2.625)
@@ -6039,7 +6039,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
         at (2.55,3.7)
         {\textsf{\printseq{degrees}{\\}{\\}{\\}}\\
           \textsf{\textbf{\@faculty{}}}}; % TODO should handle empty
-        
+
         \begin{scope}[shift={(2.125,1.313)}]
         	\ugentlogo{4.75cm}{ugent@main}{0.0}
         \end{scope}
@@ -6057,8 +6057,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
-% 
-% 
+%
+%
 %
 % \subsection{Cross-references}
 %    \begin{macrocode}
@@ -6106,8 +6106,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    automatically
 % \end{itemize}
 %
-% In many of the classes, you need to specify a faculty option. The
-% available faculty options are listed in a table on page \pageref{S:usage:classopt}.
+% In many of the classes, you need to specify a faculty option. The available
+% faculty options are listed in a table on page \pageref{S:usage:classopt}.
 %
 % \subsection{\texttt{ugentcourse}}
 %
@@ -6224,7 +6224,7 @@ This document has been \textrm{\TeX}-ed on a GNU/Linux workstation.
 %% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
 %% a caliper (paper thickness) of 0.1 mm:
 %% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
-%% If you're using a different paper type, override the spine width 
+%% If you're using a different paper type, override the spine width
 %% in the \jobname-cover.tex file using the formula above.
 \generatebookcover
 
@@ -6658,7 +6658,7 @@ e^{-j\pi} + 1 = 0
 \end{document}
 %</bama-example2>
 % \end{Verbatim}
-% 
+%
 %
 % \subsection{\texttt{ugentphd}}
 %
@@ -6786,7 +6786,7 @@ T: +32 9 264 51 19
 %% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
 %% a caliper (paper thickness) of 0.1 mm:
 %% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
-%% If you're using a different paper type, override the spine width 
+%% If you're using a different paper type, override the spine width
 %% in the \jobname-cover.tex file using the formula above.
 \generatebookcover
 
@@ -6988,7 +6988,7 @@ T: +32 9 264 51 19
 %% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
 %% a caliper (paper thickness) of 0.1 mm:
 %% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
-%% If you're using a different paper type, override the spine width 
+%% If you're using a different paper type, override the spine width
 %% in the \jobname-cover.tex file using the formula above.
 \generatebookcover
 
@@ -7429,7 +7429,7 @@ USA}
 I'd like to congratulate you and the other professors of your
 university on the very instructive video lectures
 provided by your University. They are valued very
-highly. 
+highly.
 
 You inspired many a professor at our university to provide more
 technical content beyond classical paper courses.
@@ -7609,12 +7609,12 @@ elektronica-ICT}
 \extrainfo[firstpage]{
 Belangrijke informatie:\\\par
 Het volledige Onderwijs- en Examenregelement (OER) is van toepassing
-op dit examen. 
+op dit examen.
 Toch wil ik vooraf nog een aantal regels duidelijk stellen:
 \begin{enumerate}
 \item Mogen op je tafeltje aanwezig zijn:
 (1) schrijfgerief, los d.w.z. \emph{niet} in een pennenzak (geen
-papier; er zit examenpapier bij de opgaven), 
+papier; er zit examenpapier bij de opgaven),
 (2) je rekenmachine (zonder alfanumerieke data en zonder
 geheugenkaarten),
 (3) het formularium.
@@ -7705,8 +7705,8 @@ Gault-Millau.
 \insertsolutionspage{Kladpapier}
 }
 \end{document}
-%</ex-example1>
-% \end{Verbatim}
+%</ex1>
+% \fi
 %
 % \paragraph{Two columns}
 %
@@ -7715,41 +7715,14 @@ Gault-Millau.
 % 100\% compliant to the very restrictive Flemish language
 % legislation.
 %
-% \begin{Verbatim}
-%<*ex-example2>
-\documentclass[bw,a4paper,10pt]{ugentexam}
-
-%% ti           specifies the department, change to the letter combination of
-%%              your department
-%% a4paper      specifies the paper format
-%% 10pt         students have good eyes, they still can read 10pt fonts
-%% dutch        (or english) sets the document main language. Determines logo
-%%              and copyright etc. language. Can be overridden locally for the text
-%%              using \selectlanguage or \foreignlanguage (see babel package)
-
-%% You may want to use common fonts such as arial (still within house style)
-%%\setsansfont{Arial}[
-%%BoldFont           = {Arial},
-%%BoldFeatures       = {FakeBold=2.5},
-%%ItalicFont         = {Arial},
-%%ItalicFeatures     = {FakeSlant=0.15},
-%%BoldItalicFont     = {Arial},
-%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-%%]
-
+% \VerbatimInput[firstline=46]{example-ugentexam-2.tex}
+% \iffalse
+%<*ex2>
 %% this package eases numbering of subquestions
 \usepackage{enumitem}
 
 %% some data about your course and the authors/lecturers
 \course{1876FTIDUM}{5-Bistrology}
-\lecturer{}{Daems, Walter}{}
-\lecturer{}{Levrie, Paul}{}
-
-%% specify the degree of the program the course fits in
-\degree{Bachelor of Science in de industri\"ele wetenschappen - elektronica-ICT}
-
-%% specify the academic year
-\academicyear{2017-2018}
 
 %% specify the particular examination form
 \exampart{Written Exam}
@@ -7967,8 +7940,8 @@ Gault-Millau.
 \insertsolutionspage{Scrap/Klad}
 }
 \end{document}
-%</ex-example2>
-% \end{Verbatim}
+%</ex2>
+% \fi
 %
 % \StopEventually{\clearpage\PrintChanges\clearpage\PrintIndex}
 %
@@ -8042,9 +8015,9 @@ Gault-Millau.
 
   The \texttt{ugent} beamer theme is distributed by CTAN. It
   should be installed with your \TeX{} distribution by default.
-  
+
   You can load the package in your preamble as:
-  
+
   \begin{codesnippet}
     \command{documentclass}[aspectratio=1610]\{beamer\}\\
     \command{usetheme}[theme-options-go-here]\{ugent\}\\
@@ -8098,7 +8071,7 @@ Gault-Millau.
     standard UAntwerpen colors
   \end{description}
   \medskip
-  
+
   The defaults of the theme are:
   \begin{itemize}
   \item no faculty option  ($\Rightarrow$ standard UAntwerpen logos)
@@ -8110,7 +8083,7 @@ Gault-Millau.
 \begin{frame}[t]
   {A note on the compiler you are using}
   {Fonts galore}
-  
+
   Depending on the type of compiler you use, a different font scheme
   is loaded:
   \begin{description}
@@ -8151,12 +8124,13 @@ Gault-Millau.
     \ind\command{maketitle}\\
     \eframe
   \end{codesnippet}
-  
+
   with no option, or one of: \texttt{normal}, \texttt{negative},
   \texttt{negativefill}.
 \end{frame}
 
 \section{Regular slides}
+\sectionframe
 
 \subsection{Bare}
 \begin{frame}[negative]
@@ -8183,7 +8157,7 @@ Gault-Millau.
     \eframe
   \end{codesnippet}
   \bigskip
-  
+
   \heading{Don't need them?}\\
   If you need a slide without titles: just don't specify them!
 
@@ -8200,16 +8174,16 @@ Gault-Millau.
   \item[normal]
     the ordinary white background slide
   \item[negativefill]
-    a reverse video slide on a background (in main color) without white
-    margins 
+    a reverse video slide on a background (in maincolor) without white
+    margins
   \item[negative]
-    a reverse video slide on a bakcground (in main color) with white
-    margins 
+    a reverse video slide on a bakcground (in maincolor) with white
+    margins
   \item[graphicfill]
     a graphic canvas without white margins (graphic can be photo,
-    graph, \ldots) 
+    graph, \ldots)
   \item[graphic] a graphic canvas with white margins (graphic can be
-    anything) 
+    anything)
   \end{description}
   They are specified as options to the frame environment (or its
   derivatives).
@@ -8362,7 +8336,7 @@ Gault-Millau.
       \bottomrule
     \end{tabular}
   \end{center}
-  
+
 \end{frame}
 
 \begin{l3qframe}[rqgraphic]
@@ -8550,7 +8524,7 @@ Gault-Millau.
     tikz node that is used to position the material.
   \end{itemize}
   \medskip
-  
+
   E.g., the next slide was created using:\\[1ex]
   \begin{codesnippet}[0.8\textwidth]
     \bframe[][graphic,t]\\
@@ -8558,7 +8532,7 @@ Gault-Millau.
     \eframe
   \end{codesnippet}
   \medskip
-  
+
   You will have to run \LaTeX{} twice in order for the position to be correct!
 \end{frame}
 
@@ -8575,7 +8549,7 @@ Gault-Millau.
   To this end you can use the following command\\[1ex]
   \qquad\command{darken[s]\{<material>\}}\\[1ex]
   with $s$ a value between 0 and 1 to specify the level of darkening.
-  
+
   E.g., the next slide was created using:
   \begin{codesnippet}[0.9\textwidth]
     \bframe[][graphicfill=\{\command{darken}%
@@ -8608,7 +8582,7 @@ Gault-Millau.
   you put on the side. If you like the \command{ugentcallout}
   command of the previous slide, you can give it an optional argument
   to set the fill opacity of the backdrop behind the text.
-  
+
   E.g., the next slide was created using:
   \begin{codesnippet}[0.9\textwidth]
     \bframe[][graphic,t]\\
@@ -8620,7 +8594,7 @@ Gault-Millau.
     \eframe
   \end{codesnippet}
   \medskip
-  
+
   The \command{ugentcallout} command has te following syntax:\\[1ex]
   \qquad\command{ugentcallout[options]\{width\}\{height\}\{contents\}}
   \medskip
@@ -8681,7 +8655,7 @@ Gault-Millau.
   The default of the uantwerpen beamer template is set to \texttt{square} to be
   similar to our logo.
   \medskip
-  
+
   \begin{columns}
     \column[T]{0.3\textwidth}
     \alert{default}
@@ -8697,7 +8671,7 @@ Gault-Millau.
     \listdemo
   \end{columns}~\\
   \bigskip
-  
+
   \begin{columns}
     \column[T]{0.3\textwidth}
     \alert{ball}
@@ -8768,9 +8742,9 @@ Gault-Millau.
 % \end{Verbatim}
 %
 % \section{Implementation}
-% 
 % \subsubsection{Main beamer theme}
-% 
+%
+%
 %    \begin{macrocode}
 %<*bmr>
 \AtBeginDocument{
@@ -8822,8 +8796,8 @@ Gault-Millau.
 <all>
 %</bmr>
 %    \end{macrocode}
-% 
 % \subsubsection{Beamer color theme}
+%
 %    \begin{macrocode}
 %<*bmrcolor>
 \mode<presentation>
@@ -8895,9 +8869,9 @@ Gault-Millau.
 <all>
 %</bmrcolor>
 %    \end{macrocode}
-% 
 % \subsubsection{Beamer font theme}
-% 
+%
+%
 %    \begin{macrocode}
 %<*bmrfont>
 \usetikzlibrary{calc}
@@ -9153,7 +9127,7 @@ Gault-Millau.
 }
 
 \define@key{beamerframe}{negative}[true]{
-  \gdef\maybeinverse{inverse }%
+  \gdef\maybeinverse{inverse}%
   \usebeamercolor[fg]{\maybeinverse normal text}%
   \setbeamertemplate{title page}[negative]
   \setbeamertemplate{section page}[negative]%
