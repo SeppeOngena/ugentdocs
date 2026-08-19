@@ -1997,7 +1997,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 { The~name~'#1'~is~not~formatted~as~'Surname,~Firstname'. }
 { Names~must~be~given~as~'Surname,~Firstname'~(BibTeX~style,~separated~by~a~comma). }
 
-\cs_new_protected:Npn \@@parsename:n #1
+\cs_new_protected:Npn \@@_parsename:n #1
 {
 	\tl_set:Nx \l_@@_nameinput_tl { #1 }
 	\seq_set_split:NnV \l_@@_name_seq { , } \l_@@_nameinput_tl
@@ -2013,7 +2013,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	}
 }
 
-\cs_new_protected:Npn \@@buildformattedname:
+\cs_new_protected:Npn \@@_buildformattedname:
 {
 	\str_if_eq:VnTF \l_@@_nameformat_tl {surnamefirst} {
 		\tl_set:Nn \l_@@_formattedname_tl { \l_@@_surname_tl }
@@ -2028,21 +2028,21 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 
 \NewDocumentCommand \@surname { m }
-{ \@@parsename:n {#1} \l_@@_surname_tl }
+{ \@@_parsename:n {#1} \l_@@_surname_tl }
 
 \NewDocumentCommand \@firstname { m }
-{ \@@parsename:n {#1} \l_@@_firstname_tl }
+{ \@@_parsename:n {#1} \l_@@_firstname_tl }
 
 \NewDocumentCommand \@firstnameinitial { m }
 {
-	\@@parsename:n {#1}
+	\@@_parsename:n {#1}
 	\tl_if_empty:NF \l_@@_firstname_tl { \tl_head:N \l_@@_firstname_tl . }
 }
 
 \NewDocumentCommand \@formatname { m }
 {
-	\@@parsename:n {#1}
-	\@@buildformattedname:
+	\@@_parsename:n {#1}
+	\@@_buildformattedname:
 	\l_@@_formattedname_tl
 }
 \ExplSyntaxOff
