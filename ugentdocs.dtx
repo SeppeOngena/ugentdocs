@@ -3541,18 +3541,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd>
 % \fi
 %
-% \DescribeMacro[phd]{\coverdesigner}
+% \DescribeMacro[phd|crs]{\coverdesigner}
 %	\marg{Surname, Firstname}
 %	\margintag{tag}\\
 %	Credits the cover designer of your cover page image.
 %	Used in the PhD colophon page.
 % \iffalse
-%<*phd>
+%<*phd|crs>
 \newcommand*{\@coverdesigner}{}
 \newcommand*{\coverdesigner}[1]{
 	\renewcommand*{\@coverdesigner}{\@formatname{#1}}
 }
-%</phd>
+%</phd|crs>
 % \fi
 %
 % \DescribeMacro[bama|ex|rp]{\studentnr}
