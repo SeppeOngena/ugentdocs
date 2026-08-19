@@ -3839,23 +3839,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
-% \DescribeMacro{\examdate}
-% specifies the date of the exam. We recommend the YYYY-MM-DD format,
-% but you are free to chose your own coding scheme for dates. We
-% advize against using UNIX epoch time, to avoid problems in the first
-% semester exams in 2038.
-%
-% \begin{imacro}{\examdate}
-%   This macro will set the |\@examdate| tag that will be used on
-%   the exam title page.
-%    \begin{macrocode}
-%<*ex>
-\newcommand*{\@examdate}{TBD}
-\newcommand*{\examdate}[1]{\renewcommand*{\@examdate}{#1}}
-%</ex>
-%    \end{macrocode}
-% \end{imacro}
-%
 % \DescribeMacro{\examlength}
 % specifies the length of the exam in a unit of time, e.g. '4h'
 % \begin{imacro}{\examlength}
@@ -5955,7 +5938,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
         at (2.125,{\paperheight-5cm})
         {%
           \fontsize{12}{18}\selectfont%
-          \textsf{\translatekey{series} \@examgroupnumber{} \hfill \@examdate{}}
+          \textsf{\translatekey{series} \@examgroupnumber{} \hfill \@date{}}
         };
 
         \node[anchor=south west,align=left,inner sep=0pt] at (3,21)
