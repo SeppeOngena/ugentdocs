@@ -6481,11 +6481,11 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% \doi{10.1000/182}
 
 %</phd1|phd2>
-%<*phd1|phd2|crs>
+%<*phd1|phd2|crs1>
 %% Specify your ISBN
 \isbn{978-92-95055-12-4}
 
-%</phd1|phd2|crs>
+%</phd1|phd2|crs1>
 %
 %
 % Embargo and copyright ........................................................
@@ -6528,22 +6528,22 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %<*rp1|rp2>
 %% You can specify additional copyright notices on the copyright page
 \extranotices{%
-	The graphics in this document have been typeset using \textrm{TikZ}.\\
-	This document has been \textrm{\TeX}-ed on a GNU/Linux workstation.
+	De figuren in dit document zijn opgemaakt met \textrm{TikZ}.\\
+	Dit document werd ge-\textrm{\TeX}-ed op een GNU/Linux desktop.
 }
 
 %</rp1|rp2>
 %<*crs1>
 %% You can specify additional copyright notices on the copyright page
+\makeatletter
 \extranotices{%
-	The graphics in this document have been typeset using \textrm{TikZ}.\\
-	This document has been \textrm{\TeX}-ed on a GNU/Linux workstation.\\
-	\makeatletter
+	De figuren in dit document zijn opgemaakt met \textrm{TikZ}.\\
+	Dit document werd ge-\textrm{\TeX}-ed op een GNU/Linux desktop.
 		\ifx\@empty\@coverdesigner\else
-			The cover was designed by \@coverdesigner.
+			\\Omslagontwerp: \@coverdesigner.
 		\fi
-	\makeatother
 }
+\makeatother
 
 %</crs1>
 %
@@ -6731,7 +6731,9 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% Academia Press may provide you with a code, that you can provide on
 %% your PDF copy (if you distribute any to your students.
 %% This can also just be your ISBN code:
-\publishercode{\makeatletter\@isbn\makeatother}
+\makeatletter
+\publishercode{ISBN \@isbn}
+\makeatother
 
 %</crs1>
 %
@@ -7605,6 +7607,7 @@ e^{-j\pi} + 1 = 0
 %
 % \begin{Verbatim}
 %<*le-cfg>
+%% Configuration file for ugentletter class
 
 %% You can put your font setup in the configuration file
 \setsansfont{Arial}[
