@@ -1918,10 +1918,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</clo>
 % \fi
 %
-% \DescribeMacro[common]{\date}\marg{new date}\DescribeDefault{\today}\margintag{tag}\\
+% \DescribeMacro[common]{\date}\marg{new date}\DescribeDefault{|\today|}\margintag{tag}\\
 %	Sets the document date.
 %	If the date is input as ISO format, it is localized
 %	based on the |localizedates| option. If not, the date is printed verbatim.
+%	Used in the |bama| copyright / autograph page, the |phd| title page, and
+%	the |letter| header.
 % \iffalse
 %<*clo>
 \ExplSyntaxOn
