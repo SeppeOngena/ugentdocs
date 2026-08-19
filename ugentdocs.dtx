@@ -5677,12 +5677,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\dim_new:N \l_@@_spinewidth_dim
 	\dim_set:Nn \l_@@_spinewidth_dim {\fp_to_decimal:n {\l_@@_pagecount_fp/2*\l_@@_paperweight_fp/1e6*\l_@@_paperbulk_fp*1e3} mm}
 
-	\tl_set:Nx \l_@@_title_tl       	{ \exp_not:n{\@title} }
-	\tl_set:Nx \l_@@_subtitle_tl    	{ \exp_not:n{\@subtitle} }
-	\tl_set:Nx \l_@@_isbn_tl			{ \exp_not:n{\@isbn} }
-	\tl_set:Nx \l_@@_coverimage_tl 		{ \exp_not:n{\@coverimage} }
-	\tl_set:Nx \l_@@_backcoverlogos_tl	{ \exp_not:n{\@backcoverlogos} }
-	\tl_set:Nx \l_@@_frontcoverlogos_tl	{ \exp_not:n{\@frontcoverlogos} }
+	\tl_set:Nx \l_@@_title_tl       	{ \exp_not:o{\@title} }
+	\tl_set:Nx \l_@@_subtitle_tl    	{ \exp_not:o{\@subtitle} }
+	\tl_set:Nx \l_@@_isbn_tl			{ \exp_not:o{\@isbn} }
+	\tl_set:Nx \l_@@_coverimage_tl 		{ \exp_not:o{\@coverimage} }
+	\tl_set:Nx \l_@@_backcoverlogos_tl	{ \exp_not:o{\@backcoverlogos} }
+	\tl_set:Nx \l_@@_frontcoverlogos_tl	{ \exp_not:o{\@frontcoverlogos} }
 
 	\tl_set:Nx \l_@@_year_tl 			{ \exp_not:n{\the\year} }
 	\tl_set:Nx \l_@@_academicyear_tl	{ \exp_not:n{\@academicyear} }
@@ -5729,13 +5729,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\c_percent_str~Page~count~is~\fp_to_decimal:n{round(\l_@@_pagecount_fp,0)}~pages.~Adjust~spinewidth~if~necessary~using:\iow_newline:
 		\c_percent_str~spinewidth~=~page~count~/~2~*~grammage~*~bulk~=~page~count~/~2~*~caliper\iow_newline:
 		\iow_newline:
-		\exp_not:N\title			{\l_@@_title_tl}			\iow_newline:
-		\exp_not:N\subtitle			{\l_@@_subtitle_tl}			\iow_newline:
-		\l_@@_authorscalls_tl								    \iow_newline:
-		\exp_not:N\isbn				{\l_@@_isbn_tl}				\iow_newline:
-		\exp_not:N\coverimage		{\l_@@_coverimage_tl}	\iow_newline:
-		\exp_not:N\backcoverlogos	{\l_@@_backcoverlogos_tl}	\iow_newline:
-		\exp_not:N\frontcoverlogos	{\l_@@_frontcoverlogos_tl}	\iow_newline:							
+		\exp_not:N\title			{\exp_not:V\l_@@_title_tl}			\iow_newline:
+		\exp_not:N\subtitle			{\exp_not:V\l_@@_subtitle_tl}		\iow_newline:
+		\l_@@_authorscalls_tl										    \iow_newline:
+		\exp_not:N\isbn				{\exp_not:V\l_@@_isbn_tl}			\iow_newline:
+		\exp_not:N\coverimage		{\exp_not:V\l_@@_coverimage_tl}		\iow_newline:
+		\exp_not:N\backcoverlogos	{\exp_not:V\l_@@_backcoverlogos_tl}	\iow_newline:
+		\exp_not:N\frontcoverlogos	{\exp_not:V\l_@@_frontcoverlogos_tl}	\iow_newline:
 	}
 
 	\bool_if:NTF \l_@@_bwbookcover_bool {
