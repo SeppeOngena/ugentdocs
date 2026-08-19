@@ -4871,16 +4871,24 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*phd|bkc|crs>
 \ExplSyntaxOn
+%\newlength\@confmidpos
+
 \newcommand{\@printconfidentialcover}{
 	\bool_if:NTF \l_@@_bwbookcover_bool {
-	\@setugentlogotext
-	\@setfaclogotext
-	\node[anchor=center,font=\fontsize{15}{18}\selectfont,ugent@main] at (0.5*\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5*\gridunit,1.5*\gridunit) {\textbf{\translatekey[uppercase]{confidential}}};
-	% pos = (\@PW-\@ftextw/\@logounit*\gridunit-3*\gridunit-\@ugenttextw/\@logounit*\gridunit-2*\gridunit)/2+\@ugenttextw/\@logounit*\gridunit+2*\gridunit
-	%     = 0.5*\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5\gridunit
+		%\@setugentlogotext
+		%\@setfaclogotext
+		%\pgfmathsetlength{\@confmidpos}{0.5*\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5*\gridunit}
+		% pos = (\@PW-\@ftextw/\@logounit*\gridunit-3*\gridunit-\@ugenttextw/\@logounit*\gridunit-2*\gridunit)/2+\@ugenttextw/\@logounit*\gridunit+2*\gridunit
+		%     = 0.5*\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5\gridunit
+		% \node[anchor=center,font=\fontsize{15}{18}\selectfont,ugent@main] at (\@confmidpos,1.5*\gridunit)
+		%	{\textbf{\translatekey[uppercase]{confidential}}};
+
+		\node[anchor=north~east,font=\fontsize{15}{18}\selectfont,covertitlecolor] at (\@PW-\gridunit,\@PH-\gridunit)
+			{\textbf{\translatekey[uppercase]{confidential}}};
+
 	}{
-	\node[anchor=south~east,font=\fontsize{15}{18}\selectfont,ugent@main] at (\@PW-\@MTLR,\@MTLR) 
-	{\textbf{\translatekey[uppercase]{confidential}}};
+		\node[anchor=north~east,font=\fontsize{15}{18}\selectfont,ugent@main] at (\@PW-\gridunit,\@PH-\gridunit)
+			{\textbf{\translatekey[uppercase]{confidential}}};
 	}
 }
 \ExplSyntaxOff
