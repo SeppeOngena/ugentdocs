@@ -3725,11 +3725,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*crs|ex>
 \ExplSyntaxOn
-\seq_new:N \g_@@_courseswithcodes_seq
+\seq_new:N \g_@@_courseswcodes_seq
 \seq_new:N \g_@@_courses_seq
 \seq_new:N \g_@@_coursecodes_seq
 \cs_new:Nn \@@_addcourse:nn {
-	\seq_gput_right:Nn \g_@@_courseswithcodes_seq { \texttt{#1}~#2\strut }
+	\seq_gput_right:Nn \g_@@_courseswcodes_seq { \texttt{#1}~#2\strut }
 	\seq_gput_right:Nn \g_@@_courses_seq 			{ #2\strut }
 	\seq_gput_right:Nn \g_@@_coursecodes_seq { \texttt{#1}\strut }
 }
@@ -5277,7 +5277,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	{
 		\setlength\parindent{0em}
 		\translatekey{version}~\@courseversion\\
-		\printseq{courseswithcodes}{\\}{\\}{\\}
+		\printseq{courseswcodes}{\\}{\\}{\\}
 		\ifseqempty{authors}{}{
 			\vskip 1em
 			\getseqcaption{authors}{}:~\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
