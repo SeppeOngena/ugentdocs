@@ -3635,16 +3635,24 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \DescribeMacro[le|rp]{\phone}\marg{phone number}
 %	\margintag{phones\_seq}\\
+%	\def\Phone {{\wasyfamily\char7}}
 %	Add phone numbers.
 %	Used in the |letter| header and |report| cover page (optional).
+%	The |wasysym| |\phone| macro is redefined to |\Phone|: \Phone
 % \iffalse
+%<*bkc|le|rp|ex|crs|phd|bama>
+% wasysym fix
+\IfPackageLoadedTF{wasysym}{
+	\def\Phone {{\wasyfamily\char7}}
+}{}
+%</bkc|le|rp|ex|crs|phd|bama>
 %<*le|rp>
 \ExplSyntaxOn
 \seq_new:N \g_@@_phones_seq
 \cs_new:Nn \@@_addphone:n {
 	\seq_gput_right:Nn \g_@@_phones_seq {#1\strut}
 }
-\NewDocumentCommand{\phone}{m}{
+\RenewDocumentCommand{\phone}{m}{ % Already def'ed in wasysym
 	\@@_addphone:n { #1 }
 }
 \ExplSyntaxOff
