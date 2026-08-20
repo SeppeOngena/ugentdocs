@@ -3616,16 +3616,25 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*le|rp>
 \ExplSyntaxOn
-\seq_new:N \g_@@_emailaddresses_seq
-\cs_new:Nn \@@_addemailaddress:nn {
+\seq_new:N \g_@@_emails_seq
+\tl_new:N \l_@@_domain_tl
+\cs_new:Nn \@@_addemail:nn {
+	\tl_set:Nn \l_@@_domain_tl {#1}
+	\tl_if_empty:NT \l_@@_domain_tl {
+		\tl_set:Nx \l_@@_lookup_key_tl { \languagename {}: domain }
+		\prop_if_in:NVTF \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl
+		{ \tl_set:Nx \l_@@_domain_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl } }
+		{ \tl_set:Nx \l_@@_domain_tl { \prop_item:Nn \g_@@_dict_keyvals_prop {english:domain} } }
+	}
 	\@ifpackageloaded{hyperref}{
-		\seq_gput_right:Nn \g_@@_emailaddresses_seq {\href{mailto:#1@#2}{#1@#2}\strut}
+		\seq_gput_right:Nx \g_@@_emails_seq
+		{ \exp_not:N \href{mailto:#2@\l_@@_domain_tl}{#2@\l_@@_domain_tl} \exp_not:N \strut }
 	}{
-		\seq_gput_right:Nn \g_@@_emailaddresses_seq {#1@#2\strut}
+		\seq_gput_right:Nx \g_@@_emails_seq { #2@\l_@@_domain_tl \exp_not:N \strut }
 	}
 }
-\NewDocumentCommand{\email}{mm}{
-	\@@_addemailaddress:nn { #1 } { #2 }
+\NewDocumentCommand{\email}{O{} m}{
+	\@@_addemail:nn { #1 } { #2 }
 }
 \ExplSyntaxOff
 %</le|rp>
@@ -5835,7 +5844,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		node[anchor=north~east,text~width=61.5mm,align=left] {
 				\textcolor{ugent@main}{\textbf{\@sender}}
 			\ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
-			\ifseqempty{emailaddresses}	{}{E~\printseq{emailaddresses}	{\\\phantom{E~}}{\\\phantom{E~}}{\\\phantom{E~}}\\}
+			\ifseqempty{emails}	{}{E~\printseq{emails}	{\\\phantom{E~}}{\\\phantom{E~}}{\\\phantom{E~}}\\}
 			\ifseqempty{phonenumbers}	{}{T~\printseq{phonenumbers}	{\\\phantom{T~}}{\\\phantom{T~}}{\\\phantom{T~}}\\}
 			\ifseqempty{faxnumbers}		{}{F~\printseq{faxnumbers}		{\\\phantom{F~}}{\\\phantom{F~}}{\\\phantom{F~}}\\}
 			\ifseqempty{mobilenumbers}	{}{M~\printseq{mobilenumbers}	{\\\phantom{M~}}{\\\phantom{M~}}{\\\phantom{M~}}\\}
@@ -6669,7 +6678,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 	<Department or Office \ldots>\\
 	<Research group \ldots>
 	\vskip 1em
-	\ifseqempty{emailaddresses}{}{E~\printseq{emailaddresses} {\\\phantom{E~}}{\\\phantom{E~}}{\\\phantom{E~}}\\}
+	\ifseqempty{emails}{}{E~\printseq{emails} {\\\phantom{E~}}{\\\phantom{E~}}{\\\phantom{E~}}\\}
 	\ifseqempty{phonenumbers} {}{T~\printseq{phonenumbers} {\\\phantom{T~}}{\\\phantom{T~}}{\\\phantom{T~}}\\}
 	\ifseqempty{mobilenumbers}{}{M~\printseq{mobilenumbers} {\\\phantom{M~}}{\\\phantom{M~}}{\\\phantom{M~}}\\}
 	\vskip 1em
@@ -6694,14 +6703,14 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %
 %<*rp2>
 %% Set email, phone, and mobile (multiple of each possible).
-\email{firstname.name}{ugent.be}
+\email{firstname.name}
 \phone{+32 9 000 00 00}
 \mobile{+32 400 00 00 00}
 
 %</rp2>
 %<*le1>
 %% Set email, phone, and mobile (multiple of each possible).
-\email{seppe.ongena}{ugent.be}
+\email{seppe.ongena}
 \phone{+32 9 000 00 00}
 \mobile{+32 400 000 000}
 
@@ -7629,7 +7638,7 @@ Frieda Saysstraat 1\\
 9052 Ghent\\
 BELGIUM
 }
-\email{seppe.ongena}{ugent.be}
+\email{seppe.ongena}
 \phone{+32 9 000 00 00}
 \mobile{+32 400 000 000}
 \returnaddress{UGent-CAPTURE -- Frieda Saeysstraat 1, 9052 Ghent, BELGIUM}
