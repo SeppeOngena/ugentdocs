@@ -3690,39 +3690,16 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \subsubsection{Course macros}
 % \label{S:usage:macros:course}
-% \DescribeMacro{\course} [exam] mandatory\\
-% see description of |\course| macro on page~\pageref{dm-course}.
-% \DescribeMacro{\course} [course] mandatory\\
-% \label{dm-course}
-% Code (first argument) and name (second argument) of the curriculum
-% course this coursematerial or exam belongs to. The code should be of
-% the form:\\
-% |TNNNFFFAAA|,
-% with:
-% \begin{center}
-%   \begin{tabular}{cp{10cm}}
-%     \toprule
-%       Code & Explanation \\
-%     \midrule
-%       |T|    & a number indicating the type of programme \\
-%              & (1 for Bachelor courses, 2 for Master courses , 5 for
-%                specific courses of preparatory programmes) \\
-%       |NNN|  & a number assigned by the Faculty's administration\\
-%       |FFF|  & the acronym of your Faculty, e.g., FTI\\
-%       |AAA|  & an alphanumeric code assigned by the Faculty's
-%                administration \\
-%     \bottomrule
-%   \end{tabular}
-% \end{center}
 %
-% An example of such a code: 1001FTIWIS, for the first-semester
-% mathematics course of the Faculty of Applied Engineering.
-% \begin{imacro}{\course}
-%   Four the |course| class, this macro sets one or more
-%   courses.
-%   and |\@course| tags that later will be used on the title
-%   page.
-%    \begin{macrocode}
+% \DescribeMacro[ex|crs]{\course}\marg{course code}\marg{course name}
+%	\margintag{mandatory}
+%	\margintag{courses\_seq}
+%	\margintag{courseswcodes\_seq}
+%	\margintag{courscodes\_seq}\\
+% 	Code  and name of the curriculum course this course material
+%	or exam belongs to. Not sure if there's a clear structure for course codes,
+%	but you can find them on the ``studiefiche'' of the course.
+% \iffalse
 %<*crs|ex>
 \ExplSyntaxOn
 \seq_new:N \g_@@_courseswcodes_seq
@@ -3738,50 +3715,41 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</crs|ex>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\courseversion} [course] (optional)\\
-% This macro indicates which version of the course this is.
-% \begin{imacro}{\courseversion}
-%   This macro sets the |\@courseversion| tag that later will be used
-%   on the title page and in the header/footer.
-%    \begin{macrocode}
+% \DescribeMacro[crs]{\courseversion}\marg{version number}
+%	\margintag{tag}\\
+% 	Sets the current course version, to keep track of changes over time.
+%   Used on the colophon / copyright page and in the header/footer.
+% \iffalse
 %<*crs>
 \newcommand*{\@courseversion}{}
 \newcommand*{\courseversion}[1]{\renewcommand*{\@courseversion}{#1}}
 %</crs>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \begin{imacro}{\publisher}
-%   This macro sets the |\@publisher| tag that later will be used on
-%   the title page.
-%    \begin{macrocode}
+% \DescribeMacro[crs]{\publisher}\marg{publisher information}
+%	\margintag{tag}\\
+%	Sets the publisher information. Can be multiline to include an address.
+% \iffalse
 %<*crs>
 \newcommand{\@publisher}{}
 \newcommand*{\publisher}[1]{\renewcommand*{\@publisher}{#1}}
 %</crs>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\publishercode} [course] mandatory\\
-% This macro sets the publisher code of the document.
-% It is printed on the front page. This is code that the publisher
-% uses for its internal administration. It may be a proprietary code,
-% or an ISBN number.
-% \begin{imacro}{\publishercode}
-%   This macro sets the |\@publishercode| tag that later will be used on
-%   the title page.
-%    \begin{macrocode}
+% \DescribeMacro[crs]{\publishercode}\marg{publisher code}
+%	\margintag{tag}\\
+%	This macro sets the publisher code of the document.
+%	It is printed on the course colophon / copyright page.
+%	This is code that the publisheruses for its internal administration.
+%	It may be a proprietary code, or an ISBN number.
+% \iffalse
 %<*crs>
 \newcommand*{\@publishercode}{}
 \newcommand*{\publishercode}[1]{\renewcommand*{\@publishercode}{#1}}
 %</crs>
-%    \end{macrocode}
-% \end{imacro}
-%
-%
+% \fi
 %
 %
 % \subsubsection{Exam macros}
@@ -6689,12 +6657,11 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %
 %<*crs1>
 %% Course-specific preamble ----------------------------------------------------
-% TODO verify correctness after course macro updates
 %% Specify the course(s) this document apply to:
 %% - first  argument is the course number
 %% - second argument is the course name
-\course{2023FTIZZZ}{5-Zoekmachines in een zaagperspectief}
-\course{2045FTIIII}{6-Zaagmachines in \'e\'en zuchtperspectief}
+\course{I009160}{Veldbiologie: Soortherkenning en Habitatbeoordeling}
+\course{I009000}{Veldwerkmethoden voor Hydrologische Systemen}
 
 %% Better keep track of the different versions of your course
 %% (and the corresponding publication year)
@@ -6724,12 +6691,12 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %
 %<*ex1>
 %% Course information
-\course{1876FTIDUM}{5-Bistrologie}
+\course{I009160}{Veldbiologie: Soortherkenning en Habitatbeoordeling}
 
 %</ex1>
 %<*ex2>
 %% Course information
-\course{1876FTIDUM}{5-Bistrology}
+\course{I009000}{Fieldwork Methods in Environmental and Hydrological Systems}
 
 %</ex2>
 %
