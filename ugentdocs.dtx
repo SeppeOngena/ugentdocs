@@ -3575,13 +3575,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \subsubsection{Contact}
 % \label{S:usage:macros:contact}
-% \DescribeMacro{\address} [letter] mandatory\\
-% Address of the sending unit (or faculty). This can be different from
-% the return address. Newlines are allowed and encouraged.
-% \begin{imacro}{\address}
-%   This macro will set the |\@address| tag that will be used in
-%   the letter's heading text (in the area of the envelope's window).
-%    \begin{macrocode}
+%
+% \DescribeMacro[phd|le|rp]{\address}\marg{adress lines}
+%	\margintag{mandatory}\margintag{tag}\\
+%	Address of the author(s) of the |letter|, |report|, or |phd|.
+%	Newlines are allowed and encouraged.
+%	Used in the letter's header, the report cover page (optional),
+%	and the PhD colophon page.
+% \iffalse
 %<*phd|le>
 \newcommand*{\@address}{
 	\PackageError{ugentdocs}
@@ -3590,30 +3591,19 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	{See the ugentdocs manual}
 }
 %</phd|le>
-%<*rp>
-\newcommand*{\@address}{}
-%</rp>
+%<rp>		\newcommand*{\@address}{}
+%<phd|rp>	\newcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
+%<le>		\renewcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
+% \fi
 %
-%<phd|rp>\newcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
-%<le>\renewcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
-%    \end{macrocode}
-% \end{imacro}
-% \DescribeMacro{\email} [letter] (optional)\\
-% E-mail address of the sending person, or the administrative person
-% tracking the letter. This must definitely be someone that can answer
-% questions related to this letter.
-% \begin{itemize}
-% \item first argument: user name
-% \item second argument: domain name
-% \end{itemize}
-% You can specify multiple email addresses by using the command
-% multiple times.
-% \begin{imacro}{\email}
-%   This macro allows for the registration of contact email addresses
-%   for a letter. This can be done by invoking the macro as many times
-%   as needed.
-%
-%    \begin{macrocode}
+% \DescribeMacro[le|rp]{\email}\oarg{domain}\marg{local-part}
+%	\margintag{emails\_seq}\\
+%	E-mail address of the sending person, or the administrative person
+%	tracking the letter or report.
+%	Used in the |letter| header and |report| cover page (optional).
+%	You can specify multiple email addresses by using the command
+%	multiple times.
+% \iffalse
 %<*le|rp>
 \ExplSyntaxOn
 \seq_new:N \g_@@_emails_seq
@@ -3638,20 +3628,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</le|rp>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
 %
-% \DescribeMacro{\phone} [letter] (optional)\\
-% Phone number of the sending person. See also |\email|.
-% You can specify multiple phone numbers by using the command
-% multiple times.
-% \begin{imacro}{\phone}
-%   This macro allows for the registration of contact phone numbers
-%   for a letter. This can be done by invoking the macro as many times
-%   as needed.
-%
-%    \begin{macrocode}
+% \DescribeMacro[le|rp]{\phone}\marg{phone number}
+%	\margintag{phones\_seq}\\
+%	Add phone numbers.
+%	Used in the |letter| header and |report| cover page (optional).
+% \iffalse
 %<*le|rp>
 \ExplSyntaxOn
 \seq_new:N \g_@@_phones_seq
@@ -3663,21 +3647,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</le|rp>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
 %
-% \DescribeMacro{\fax} [letter] (optional)\\
-% Probably facsimile is not used anymore, but anyway: fax number of
-% the sending person. See also |\email|.
-% You can specify multiple fax addresses by using the command
-% multiple times.
-% \begin{imacro}{\fax}
-%   This macro allows for the registration of contact fax numbers
-%   for a letter. This can be done by invoking the macro as many times
-%   as needed.
-%
-%    \begin{macrocode}
+% \DescribeMacro[le]{\fax}\marg{fax number}
+%	\margintag{faxes\_seq}\\
+%	Add fax numbers.
+%	Used in the |letter| header.
+% \iffalse
 %<*le>
 \ExplSyntaxOn
 \seq_new:N \g_@@_faxes_seq
@@ -3689,20 +3666,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</le>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
 %
-% \DescribeMacro{\mobile} [letter] (optional)\\
-% Mobile phone number of the sending person. See also |\email|.
-% You can specify multiple mobile phone numbers by using the command
-% multiple times.
-% \begin{imacro}{\mobile}
-%   This macro allows for the registration of contact mobile numbers
-%   for a letter. This can be done by invoking the macro as many times
-%   as needed.
-%
-%    \begin{macrocode}
+% \DescribeMacro[le|rp]{\mobile}\marg{mobile number}
+%	\margintag{mobiles\_seq}\\
+%	Add mobile numbers.
+%	Used in the |letter| header and report cover page (optional).
+% \iffalse
 %<*le|rp>
 \ExplSyntaxOn
 \seq_new:N \g_@@_mobiles_seq
@@ -3714,8 +3685,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</le|rp>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
+%
 %
 % \subsubsection{Course macros}
 % \label{S:usage:macros:course}
@@ -6654,7 +6625,6 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %<*phd1|phd2|rp2|le1>
 %% Contact ----------------------------------------------------------------------
 %</phd1|phd2|rp2|le1>
-% TODO check if all needed examples are present after finishing macro section
 %<*phd1>
 %% Set author's address
 \address{K.L. Ledeganckstraat 35, 9000 Gent, Belgi\"e\\
