@@ -3934,19 +3934,16 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   Dutch variant.
 %    \begin{macrocode}
 %<*ex>
-\newcommand{\engdut}[2]{%
-	\begin{tabular}{ccc}%
-		\selectlanguage{english}%
-		\begin{minipage}[t]{0.45\textwidth}%
-			#1
-		\end{minipage}%
+\NewDocumentCommand{\bilingual}{O{english} O{dutch} +m +m}{%
+	\begin{tabular}{ccc}
+		\begin{minipage}[t]{0.45\textwidth}
+			\foreignlanguage{#1}{#3}
+		\end{minipage}
 		&~~~&
-		\selectlanguage{dutch}%
-		\begin{minipage}[t]{0.45\textwidth}%
-			#2
-		\end{minipage}%
-	\end{tabular}
-	\selectlanguage{english}%
+		\begin{minipage}[t]{0.45\textwidth}
+			\foreignlanguage{#2}{#4}
+		\end{minipage}
+	\end{tabular}%
 }
 %</ex>
 %    \end{macrocode}
@@ -6787,23 +6784,22 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% 'firstpage' puts in on the first page, if omitted the extra info is
 %% printed on the back of the first page
 \extrainfo{
-	%% The engdut command allows you to specify a left column in english
+	%% The bilingual command allows you to specify a left column in english
 	%% and right column in dutch
-	%% use multiple engdut-environments to keep the page flow synchronized
-	\engdut{
+	%% use multiple bilingual-environments to keep the page flow synchronized
+	\bilingual{
 		Important information:\\\par
 		The Education and Examination Regulations (EER) hold for this
 		examination in full.
 		However, before starting, I'd like to set some rules straight:
-	}
-	{
+	}{
 		Belangrijke informatie:\\\par
 		Het volledige Onderwijs- en Examenregelement (OER) is van toepassing
 		op dit examen.
 		Toch wil ik vooraf nog een aantal regels duidelijk stellen:
 	}
 
-	\engdut{
+	\bilingual{
 		\begin{itemize}
 			\item \emph{Can be used:} (1) writing gear (\emph{not} in a pencil
 			case); you don't need paper; there's plenty of paper in your exam
@@ -6811,8 +6807,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 			(2) your calculator (without alphanumerical data and without memory
 			cards); (3) the formula collection.
 		\end{itemize}
-	}
-	{
+	}{
 		\begin{itemize}
 			\item Mogen op je tafeltje aanwezig zijn:
 			(1) schrijfgerief, los d.w.z. \emph{niet} in een pennenzak (geen
@@ -6823,7 +6818,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 		\end{itemize}
 	}
 
-	\engdut{
+	\bilingual{
 		\begin{itemize}
 			\item \emph{May not be used:} all equipment with memory or
 			communications facilities, like cell phones, smart phones, smart
@@ -6831,8 +6826,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 			Your bag must be put in the front of the room. Put your coat on the
 			hallstand or next to your bag.
 		\end{itemize}
-	}
-	{
+	}{
 		\begin{itemize}
 			\item Volledig \emph{verboden te gebruiken}: alle apparatuur met
 			geheugen- of communicatiefunctionaliteit zoals GSM, smartphone,
@@ -6842,14 +6836,13 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 		\end{itemize}
 	}
 
-	\engdut{
+	\bilingual{
 		\begin{itemize}
 			\item Write your name on the title page. Don't write your name on
 			the subsequent pages. Your copy has a unique number to identify it
 			as yours.
 		\end{itemize}
-	}
-	{
+	}{
 		\begin{itemize}
 			\item Schrijf je naam op het titelblad van de opgave in het daartoe
 			voorziene vak. Op de andere bladen schrijf je je naam
@@ -6858,14 +6851,13 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 		\end{itemize}
 	}
 
-	\engdut{
+	\bilingual{
 		\begin{itemize}
 			\item Take your time to \emph{answer all questions in writing}. The
 			point weights are listed above every question. Be complete in your
 			answer, but stick to the point. Take into account the available time.
 		\end{itemize}
-	}
-	{
+	}{
 		\begin{itemize}
 			\item Neem je tijd om \emph{alle vragen schriftelijk te
 				beantwoorden}. Het puntengewicht van een vraag is bovenaan de vraag
@@ -6874,14 +6866,13 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 		\end{itemize}
 	}
 
-	\engdut{
+	\bilingual{
 		\begin{itemize}
 			\item Hand in \emph{all} papers to the staff member on duty, at the
 			end of the examination.
 		\end{itemize}
 		Success!
-	}
-	{
+	}{
 		\begin{itemize}
 			\item Op het einde van het examen geef je \emph{alle} bladen weer af
 			aan de aanwezige docent.
@@ -7627,8 +7618,6 @@ Geef de eerste vijf laureaten van de VLATOP-bistro
 competitie.
 
 %% a second question
-\question{[BECHAMEL]}
-\questionweight{7}
 \question[weight=7]{[BECHAMEL]}
 
 Welk van de onderstaande ingredi\"enten hoort niet thuis in
@@ -7700,10 +7689,9 @@ Gault-Millau.
 \question[weight=3]{[VLATOP-BISTRO]}
 
 %% typeset the question in two columns
-\engdut{
+\bilingual{
 Write down the first five laureates of the VALTOP-bistro competition.
-}
-{
+}{
 Geef de eerste vijf laureaten van de VLATOP-bistro
 competitie.
 }
@@ -7711,11 +7699,10 @@ competitie.
 %% a second question
 \question[weight=7]{[BECHAMEL]}
 
-\engdut{
+\bilingual{
 Which of the ingredients below does not belong in a b\'echamel
 sauce:
-}
-{
+}{
 Welk van de onderstaande ingredi\"enten hoort niet thuis in
 een b\'echamel saus:
 }
@@ -7740,7 +7727,7 @@ een b\'echamel saus:
 %% a third questoin
 \question[weight=10]{[BISTROCULTURE-1]}
 
-\engdut{
+\bilingual{
 %% the option of the enumerate environment is thanks to the enumitem package
 \begin{enumerate}[label=\alph*)]
 \item Discuss the evolution of the Northern European bistro culture during
@@ -7748,8 +7735,7 @@ the latest fifty years.
 \item Relate this to the rise of organized reviews
 like the ones of Michelin and Gault-Millau.
 \end{enumerate}
-}
-{
+}{
 \begin{enumerate}[label=\alph*)]
 \item Bespreek de evolutie van de Noord-Europese bistrocultuur
 gedurende de laatste vijftig jaar.
