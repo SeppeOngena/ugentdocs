@@ -3794,8 +3794,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   the exam title page.
 %    \begin{macrocode}
 %<*ex>
-\newcommand*{\@examlength}{TBD}
-\newcommand*{\examlength}[1]{\renewcommand*{\@examlength}{#1}}
+\newcommand*{\@examduration}{TBD}
+\newcommand*{\examduration}[1]{\renewcommand*{\@examduration}{#1}}
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
@@ -3808,8 +3808,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   the exam title page.
 %    \begin{macrocode}
 %<*ex>
-\newcommand*{\@tstart}{TBD}
-\newcommand*{\tstart}[1]{\renewcommand*{\@tstart}{#1}}
+\newcommand*{\@examstart}{TBD}
+\newcommand*{\examstart}[1]{\renewcommand*{\@examstart}{#1}}
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
@@ -3822,8 +3822,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   the exam title page.
 %    \begin{macrocode}
 %<*ex>
-\newcommand*{\@tend}{TBD}
-\newcommand*{\tend}[1]{\renewcommand*{\@tend}{#1}}
+\newcommand*{\@examend}{TBD}
+\newcommand*{\examend}[1]{\renewcommand*{\@examend}{#1}}
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
@@ -5932,15 +5932,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
         at (3,14)
         {%
           \fontsize{12}{21}\selectfont%
-          \textsf{\translatekey{examduration}: \@examlength}
+          \textsf{\translatekey{examduration}: \@examduration}
         };
         \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
         at (3,11)
         {%
           \fontsize{12}{15}\selectfont%
           \textsf{\begin{tabular}{@{}l@{}ll}%
-            \translatekey{examstart}& : & \@tstart\\
-            \translatekey{examend}  & : & \@tend
+            \translatekey{examstart}& : & \@examstart\\
+            \translatekey{examend}  & : & \@examend
           \end{tabular}}
         };
 
@@ -6724,9 +6724,9 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 \examseries{1 (eerste examenkans-inhaal)}
 
 %% Specify important time-related info about the exam
-\examlength{4h}
-\tstart{08h30}
-\tend{12h30}
+\examduration{4h}
+\examstart{08h30}
+\examend{12h30}
 
 %% Same for the room(s)
 \room{G.U.025}
