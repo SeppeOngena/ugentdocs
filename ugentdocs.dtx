@@ -3654,12 +3654,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*le|rp>
 \ExplSyntaxOn
-\seq_new:N \g_@@_phonenumbers_seq
-\cs_new:Nn \@@_addphonenumber:n {
-	\seq_gput_right:Nn \g_@@_phonenumbers_seq {#1\strut}
+\seq_new:N \g_@@_phones_seq
+\cs_new:Nn \@@_addphone:n {
+	\seq_gput_right:Nn \g_@@_phones_seq {#1\strut}
 }
 \NewDocumentCommand{\phone}{m}{
-	\@@_addphonenumber:n { #1 }
+	\@@_addphone:n { #1 }
 }
 \ExplSyntaxOff
 %</le|rp>
@@ -3680,12 +3680,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*le>
 \ExplSyntaxOn
-\seq_new:N \g_@@_faxnumbers_seq
-\cs_new:Nn \@@_addfaxnumber:n {
-	\seq_gput_right:Nn \g_@@_faxnumbers_seq {#1\strut}
+\seq_new:N \g_@@_faxes_seq
+\cs_new:Nn \@@_addfax:n {
+	\seq_gput_right:Nn \g_@@_faxes_seq {#1\strut}
 }
 \NewDocumentCommand{\fax}{m}{
-	\@@_addfaxnumber:n { #1 }
+	\@@_addfax:n { #1 }
 }
 \ExplSyntaxOff
 %</le>
@@ -3705,12 +3705,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*le|rp>
 \ExplSyntaxOn
-\seq_new:N \g_@@_mobilenumbers_seq
-\cs_new:Nn \@@_addmobilenumber:n {
-	\seq_gput_right:Nn \g_@@_mobilenumbers_seq {#1\strut}
+\seq_new:N \g_@@_mobiles_seq
+\cs_new:Nn \@@_addmobile:n {
+	\seq_gput_right:Nn \g_@@_mobiles_seq {#1\strut}
 }
 \NewDocumentCommand{\mobile}{m}{
-	\@@_addmobilenumber:n { #1 }
+	\@@_addmobile:n { #1 }
 }
 \ExplSyntaxOff
 %</le|rp>
@@ -5845,9 +5845,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 				\textcolor{ugent@main}{\textbf{\@sender}}
 			\ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
 			\ifseqempty{emails}	{}{E~\printseq{emails}	{\\\phantom{E~}}{\\\phantom{E~}}{\\\phantom{E~}}\\}
-			\ifseqempty{phonenumbers}	{}{T~\printseq{phonenumbers}	{\\\phantom{T~}}{\\\phantom{T~}}{\\\phantom{T~}}\\}
-			\ifseqempty{faxnumbers}		{}{F~\printseq{faxnumbers}		{\\\phantom{F~}}{\\\phantom{F~}}{\\\phantom{F~}}\\}
-			\ifseqempty{mobilenumbers}	{}{M~\printseq{mobilenumbers}	{\\\phantom{M~}}{\\\phantom{M~}}{\\\phantom{M~}}\\}
+			\ifseqempty{phones}	{}{T~\printseq{phones}	{\\\phantom{T~}}{\\\phantom{T~}}{\\\phantom{T~}}\\}
+			\ifseqempty{faxes}	{}{F~\printseq{faxes}	{\\\phantom{F~}}{\\\phantom{F~}}{\\\phantom{F~}}\\}
+			\ifseqempty{mobiles}{}{M~\printseq{mobiles}	{\\\phantom{M~}}{\\\phantom{M~}}{\\\phantom{M~}}\\}
 			\vskip 1.75ex
 			\@address\\[1.75ex]
 			\@ifpackageloaded{hyperref}{
@@ -6679,8 +6679,8 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 	<Research group \ldots>
 	\vskip 1em
 	\ifseqempty{emails}{}{E~\printseq{emails} {\\\phantom{E~}}{\\\phantom{E~}}{\\\phantom{E~}}\\}
-	\ifseqempty{phonenumbers} {}{T~\printseq{phonenumbers} {\\\phantom{T~}}{\\\phantom{T~}}{\\\phantom{T~}}\\}
-	\ifseqempty{mobilenumbers}{}{M~\printseq{mobilenumbers} {\\\phantom{M~}}{\\\phantom{M~}}{\\\phantom{M~}}\\}
+	\ifseqempty{phones}{}{T~\printseq{phones} {\\\phantom{T~}}{\\\phantom{T~}}{\\\phantom{T~}}\\}
+	\ifseqempty{mobiles}{}{M~\printseq{mobiles} {\\\phantom{M~}}{\\\phantom{M~}}{\\\phantom{M~}}\\}
 	\vskip 1em
 	<Campus \ldots, building \ldots>\\
 	<Street 123 c >, <0000 City>
