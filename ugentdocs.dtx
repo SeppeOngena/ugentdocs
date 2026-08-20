@@ -3979,34 +3979,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 % \end{imacro}
 %
-%
-% \begin{imacro}{\engdutmc}
-%   typesets a multiple choice answer candidate in two columns, the left
-%   column taking the English variant of the question and the right
-%   column taking the Dutch variant.
-%
-%    \begin{macrocode}
-%<*ex>
-\newcommand{\engdutmc}[2]{%
-	\hfill\break\begin{tabular}{cccc}
-		$\@mcsymbol$
-		&
-		\selectlanguage{english}%
-		\begin{minipage}[t]{0.42\textwidth}%
-			#1
-		\end{minipage}%
-		&---&
-		\selectlanguage{dutch}%
-		\begin{minipage}[t]{0.42\textwidth}%
-			#2
-		\end{minipage}%
-	\end{tabular}
-	\selectlanguage{english}%
-}
-%</ex>
-%    \end{macrocode}
-% \end{imacro}
-%
 % \begin{imacro}{\insertsolutionspagepartial}
 %   fills the remainder of the page with 'fill-out' squares.
 %   as observing/controlling the current line position in \LaTeX{} is
@@ -7707,12 +7679,12 @@ Welk van de onderstaande ingredi\"enten hoort niet thuis in
 een b\'echamel saus:
 }
 
-%% this is how you specify multipel choice answering options in two languages
-\engdutmc{Milk}{Melk}
-\engdutmc{Butter}{Boter}
-\engdutmc{Flower}{Bloem}
-\engdutmc{Eggs}{Eieren}
-\engdutmc{Sugar}{Suiker}
+%% this is how you specify multiple choice answering options in two languages
+\mc{\bilingual{Milk}{Melk}}
+\mc{\bilingual{Butter}{Boter}}
+\mc{\bilingual{Flower}{Bloem}}
+\mc{\bilingual{Eggs}{Eieren}}
+\mc{\bilingual{Sugar}{Suiker}}
 
 %% you can insert some pages for the studen to write his/her answers
 %% on.
