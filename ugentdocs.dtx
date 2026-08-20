@@ -4298,14 +4298,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \lhead[\small\thepage]{\slshape\small\rightmark}
 \chead[]{}
 \rhead[\slshape\small\leftmark]{\small\thepage}
-\lfoot[\small\translatekey{org-ugent}\ifx\@fselector\@empty\else -- \@facultyacronym\fi]{\small\translatekey{version}\@courseversion}
+\lfoot[\small\translatekey{org-ugent}\ifx\@fselector\@empty\else -- \@facultyacronym\fi]{\ifx\@courseversion\@empty\else\small\translatekey{version}~\@courseversion\fi}
 \cfoot[]{}
 \rfoot[]{\small\@title{}\ifdefvoid{\@shortsubtitle}{}{ --- \@shortsubtitle}}
 \else
 \lhead[]{\small\leftmark}
 \chead[]{}
 \rhead[]{\small\thepage}
-\lfoot[]{\small\translatekey{version}\@courseversion}
+\lfoot[]{\ifx\@courseversion\@empty\else\small\translatekey{version}~\@courseversion\fi}
 \cfoot[]{\small\translatekey{org-ugent}\ifx\@fselector\@empty\else -- \@facultyacronym\fi}
 \rfoot[]{\small\@title{}}
 \fi
@@ -5276,7 +5276,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\vspace*{\stretch{1}}
 	{
 		\setlength\parindent{0em}
-		\translatekey{version}~\@courseversion\\
+		\ifx\@courseversion\@empty\else\small\translatekey{version}~\@courseversion\\\fi
 		\printseq{courseswcodes}{\\}{\\}{\\}
 		\ifseqempty{authors}{}{
 			\vskip 1em
