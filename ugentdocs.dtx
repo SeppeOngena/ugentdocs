@@ -3955,8 +3955,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   square).
 %    \begin{macrocode}
 %<*ex>
-\newcommand*\@mcsymbol{\Square}
-\newcommand*\setmcsymbol[1]{\renewcommand\@mcsymbol{#1}}
+\newcommand*\@mcsymb{\Square}
+\newcommand*\mcsymb[1]{\renewcommand\@mcsymb{#1}}
 %</ex>
 %    \end{macrocode}
 % \end{imacro}
@@ -3968,7 +3968,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*ex>
 \newcommand\mc[1]{%
 	\hfill\break\qquad\begin{tabular}{cc}
-		$\@mcsymbol$
+		$\@mcsymb$
 		&
 		\begin{minipage}[t]{0.9\textwidth}%
 			#1
@@ -6708,12 +6708,12 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %
 %<*ex1>
 %% Set whatever multiple choice symbol you fancy
-\setmcsymbol{\bigcirc}
+\mcsymb{\bigcirc}
 
 %</ex1>
 %<*ex2>
 %% Set whatever multiple choice symbol you fancy
-%%\setmcsymbol{\bigcirc}
+%%\mcsymb{\bigcirc}
 
 %</ex2>
 %
