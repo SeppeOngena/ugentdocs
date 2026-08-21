@@ -9393,30 +9393,10 @@ een b\'echamel saus:
 
 %\setbeamertemplate{description item}[align left]
 
-\newif\if@noround
-\@noroundfalse
-
-\newcommand*\ugentleftshape[3][]{
-  \newcommand\mycradius{0.05*(\getlength{\paperheight}-1.6)}%
-  \coordinate (bl) at #2;
-  \coordinate (tr) at #3;
-  \if@noround
-  \path[#1] (bl) rectangle (tr);
-  \else
-  \path[#1] (bl|-tr) -- (tr) -- (bl-|tr) -- ($(bl)+({\mycradius},0)$)
-  arc(-90:-180:{\mycradius}) -- cycle;
-  \fi
-}
-\newcommand*\ugentrightshape[3][]{
-  \newcommand\mycradius{0.05*(\getlength{\paperheight}-1.6)}%
-  \coordinate (bl) at #2;
-  \coordinate (tr) at #3;
-  \if@noround
-  \path[#1] (bl) rectangle (tr);
-  \else
-  \path[#1] (bl|-tr) -- (tr) -- ($(bl-|tr)+(0,{\mycradius})$)
-  arc(0:-90:{\mycradius}) -- (bl) -- cycle;
-  \fi
+\newcommand*\ugentshape[3][]{
+	\coordinate (bl) at #2;
+	\coordinate (tr) at #3;
+	\path[#1] (bl) rectangle (tr);
 }
 
 \newcommand*\darken[2][0.5]{%
@@ -9428,7 +9408,7 @@ een b\'echamel saus:
 
 \newcommand\ugentcallout[4][]{
   \begin{tikzpicture}
-    \ugentleftshape[fill=black,fill opacity=0.0,text opacity=1,text=white,#1]
+    \ugentshape[fill=black,fill opacity=0.0,text opacity=1,text=white,#1]
                         {({-#2/2},-{#3/2})}{({#2/2},{#3/2})}
     \node[align=left,anchor=center] at (0,0) { \callout\\ #4 };
   \end{tikzpicture}
@@ -9480,10 +9460,6 @@ een b\'echamel saus:
 \newif\if@bhtext
 \@bhtextfalse
 \gdef\maybeinverse{}
-
-\define@key{beamerframe}{noround}[true]{
-  \expandafter\csname @noround#1\endcsname
-}
 
 \define@key{beamerframe}{normal}[true]{
   \setbeamertemplate{title page}[main]
@@ -9724,7 +9700,7 @@ een b\'echamel saus:
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}
-      \ugentleftshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
+      \ugentshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
       \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
     \end{scope}
   \end{tikzpicture}
@@ -9742,7 +9718,7 @@ een b\'echamel saus:
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}
-      \ugentleftshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
+      \ugentshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
       \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy)
       {#1};
     \end{scope}
@@ -9759,9 +9735,9 @@ een b\'echamel saus:
   \pgfmathsetmacro\dx{0.5*\@PW-1.2}%
   \pgfmathsetmacro\dy{\@PH-1.6}%
   \begin{tikzpicture}
-      \ugentrightshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
     \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}[shift={(0.5*\@PW,0)}]
+      \ugentshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
       \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
     \end{scope}
   \end{tikzpicture}
@@ -9777,9 +9753,9 @@ een b\'echamel saus:
   \pgfmathsetmacro\dx{0.25*\@PW-1.2}%
   \pgfmathsetmacro\dy{\@PH-1.6}%
   \begin{tikzpicture}
-      \ugentrightshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
     \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}[shift={(0.75*\@PW,0)}]
+      \ugentshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
       \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
     \end{scope}
   \end{tikzpicture}
@@ -9795,9 +9771,9 @@ een b\'echamel saus:
   \pgfmathsetmacro\dx{\@PW-1.6}%
   \pgfmathsetmacro\dy{0.5*\@PH-0.8}%
   \begin{tikzpicture}
-      \ugentleftshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
     \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}[shift={(0,0.5*\@PH)}]
+      \ugentshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
       \node[align=center] at  (0.8+0.5*\dx,0.5*\dy) {#1};
     \end{scope}
   \end{tikzpicture}
@@ -9815,8 +9791,8 @@ een b\'echamel saus:
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}[shift={(0,0.8)}]
-    \ugentleftshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
-    \node[align=center] at  (0.8+0.5*\dx,0.5*\dy) {#1};
+      \ugentshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
+      \node[align=center] at  (0.8+0.5*\dx,0.5*\dy) {#1};
     \end{scope}
   \end{tikzpicture}
   \@tempswatrue
