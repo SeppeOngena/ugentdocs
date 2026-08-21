@@ -7756,14 +7756,14 @@ Gault-Millau.
 \documentclass{beamer}
 \usetheme[bw]{ugent}
 
-% The packages below are for demonstration purpose only.
-% They are not required for the template to work
-\usepackage{metalogo}
+%% The packages below are for demonstration purpose only.
+%% They are not required for the template to work
+\usepackage{metalogo}  % For \XeLaTeX / \LuaLaTeX commands
 \usepackage{kantlipsum}
 \usepackage{pgfplots}
 \usepackage{booktabs}
 
-% some stuff to typeset code
+%% some stuff to typeset code
 \newcommand*\command[1]{{\tt \textbackslash #1}}
 \NewEnviron{codesnippet}[1][0.8\textwidth]{
   \scriptsize
@@ -8379,9 +8379,9 @@ Gault-Millau.
   \end{codesnippet}
 \end{frame}
 
-\begin{frame}%[graphicfill={\darken[0.25]%
-    %{\includegraphics[scale=0.1,min width=\paperwidth,min height=\paperheight]%
-    %  {Images/uantwerpen-09.jpg}}},t]
+\begin{frame}[graphicfill={\darken[0.25]%
+  {\includegraphics[scale=0.1,min width=\paperwidth,min height=\paperheight]
+  {example-image-a}}},t]
   \place [anchor=north east] at (0.95,0.5) {
     \ugentcallout{3}{2.5}{
       \bfseries You cannot be serious!\\[1ex]
@@ -8556,8 +8556,8 @@ Gault-Millau.
 % \end{Verbatim}
 %
 % \section{Implementation}
-% \subsubsection{Main beamer theme}
 %
+% \subsection{Main beamer theme}
 %
 %    \begin{macrocode}
 %<*bmr>
@@ -8925,14 +8925,14 @@ Gault-Millau.
 
 \define@key{beamerframe}{graphicfill}
 	[{\includegraphics[scale=0.1,min
-  	width=\paperwidth,min height=\paperheight]{Images/logo_UniversityPress_blue}}]{%UA1
+  	width=\paperwidth,min height=\paperheight]{example-image-a}}]{%UA1
   \gdef\maybeinverse{inverse }%
   \usebeamercolor[fg]{\maybeinverse normal text}%
   \setbeamertemplate{background canvas}[graphicfill]{#1}
 }
 
 \define@key{beamerframe}{graphic}[{\includegraphics[scale=0.1,min
-  width=\textwidth,min height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA2
+  width=\textwidth,min height=\textheight]{example-image-a}}]{%UA2
   \gdef\maybeinverse{inverse }%
   \usebeamercolor[fg]{\maybeinverse normal text}%
   \setbeamertemplate{background canvas}[graphic]{#1}
@@ -8940,7 +8940,7 @@ Gault-Millau.
 
 \define@key{beamerframe}{lhgraphic}
   [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA3
+    height=\textheight]{example-image-a}}]{%UA3
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[lhgraphic]{#1}
   \@rhtexttrue
@@ -8948,7 +8948,7 @@ Gault-Millau.
 
 \define@key{beamerframe}{lqgraphic}
   [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA4   
+    height=\textheight]{example-image-a}}]{%UA4
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[lqgraphic]{#1}
   \@rqtexttrue
@@ -8956,7 +8956,7 @@ Gault-Millau.
 
 \define@key{beamerframe}{rhgraphic}
   [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA5
+    height=\textheight]{example-image-a}}]{%UA5
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[rhgraphic]{#1}
   \@lhtexttrue
@@ -8964,7 +8964,7 @@ Gault-Millau.
 
 \define@key{beamerframe}{rqgraphic}
   [{\includegraphics[scale=0.5,min width=0.5\paperwidth,min
-    height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA5
+    height=\textheight]{example-image-a}}]{%UA5
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[rqgraphic]{#1}
   \@lqtexttrue
@@ -8972,7 +8972,7 @@ Gault-Millau.
 
 \define@key{beamerframe}{thgraphic}
   [{\includegraphics[scale=0.5,min width=\paperwidth,min
-    height=0.5\textheight]{Images/logo_UniversityPress_blue}}]{%UA6 
+    height=0.5\textheight]{example-image-a}}]{%UA6
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[thgraphic]{#1}
   \@bhtexttrue
@@ -8980,11 +8980,15 @@ Gault-Millau.
 
 \define@key{beamerframe}{bhgraphic}
   [{\includegraphics[scale=0.5,min width=\paperwidth,min
-    height=0.5\textheight]{Images/logo_UniversityPress_blue}}]{%UA7
+    height=0.5\textheight]{example-image-a}}]{%UA7
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[bhgraphic]{#1}
 }
 
+% The following does not work as \end{frame} is never executed by
+% beamer!
+% \AtEndEnvironment{frame}{\gdef\maybeinverse{}}
+% So, we use:
 \BeforeBeginEnvironment{frame}{%
   \gdef\maybeinverse{}%
   \setbeamertemplate{title page}[main]%
@@ -8994,9 +8998,7 @@ Gault-Millau.
   \usebeamercolor[fg]{normal text}%
 }
 
-% The following does not work as \end{frame} is never executed by
-% beamer!
-% \AtEndEnvironment{frame}{\gdef\maybeinverse{}}
+
 
 \NewEnviron{rhframe}[3][]{%
   \begin{frame}[#1]{#2}{#3}
