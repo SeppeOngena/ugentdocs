@@ -8337,14 +8337,14 @@ een b\'echamel saus:
 \documentclass{beamer}
 \usetheme[bw]{ugent}
 
-% The packages below are for demonstration purpose only.
-% They are not required for the template to work
-\usepackage{metalogo}
+%% The packages below are for demonstration purpose only.
+%% They are not required for the template to work
+\usepackage{metalogo}  % For \XeLaTeX / \LuaLaTeX commands
 \usepackage{kantlipsum}
 \usepackage{pgfplots}
 \usepackage{booktabs}
 
-% some stuff to typeset code
+%% some stuff to typeset code
 \newcommand*\command[1]{{\tt \textbackslash #1}}
 \NewEnviron{codesnippet}[1][0.8\textwidth]{
   \scriptsize
@@ -8959,9 +8959,9 @@ een b\'echamel saus:
   \end{codesnippet}
 \end{frame}
 
-\begin{frame}%[graphicfill={\darken[0.25]%
-    %{\includegraphics[scale=0.1,min width=\paperwidth,min height=\paperheight]%
-    %  {Images/uantwerpen-09.jpg}}},t]
+\begin{frame}[graphicfill={\darken[0.25]%
+  {\includegraphics[scale=0.1,min width=\paperwidth,min height=\paperheight]
+  {example-image-a}}},t]
   \place [anchor=north east] at (0.95,0.5) {
     \ugentcallout{3}{2.5}{
       \bfseries You cannot be serious!\\[1ex]
@@ -9136,8 +9136,8 @@ een b\'echamel saus:
 % \end{Verbatim}
 %
 % \section{Implementation}
-% \subsubsection{Main beamer theme}
 %
+% \subsection{Main beamer theme}
 %
 %    \begin{macrocode}
 %<*bmr>
@@ -9565,6 +9565,10 @@ een b\'echamel saus:
   \setbeamertemplate{background canvas}[bhgraphic]{#1}
 }
 
+% The following does not work as \end{frame} is never executed by
+% beamer!
+% \AtEndEnvironment{frame}{\gdef\maybeinverse{}}
+% So, we use:
 \BeforeBeginEnvironment{frame}{%
   \gdef\maybeinverse{}%
   \setbeamertemplate{title page}[main]%
@@ -9574,9 +9578,7 @@ een b\'echamel saus:
   \usebeamercolor[fg]{normal text}%
 }
 
-% The following does not work as \end{frame} is never executed by
-% beamer!
-% \AtEndEnvironment{frame}{\gdef\maybeinverse{}}
+
 
 \NewEnviron{rhframe}[3][]{%
   \begin{frame}[#1]{#2}{#3}
