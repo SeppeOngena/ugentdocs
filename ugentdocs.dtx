@@ -8530,9 +8530,9 @@ Gault-Millau.
     \ind\command{renewcommand*}\command{logoneg\{your-negative-logo-filename-here\}}\\
     \ind\command{renewcommand*}\command{logomonowhite\{your-mono-logo-filename-here\}}\\
     \ind\command{renewcommand*}\command{iconfile\{your-icon-filename-here\}}\\
-    \ind\command{setbeamercolor\{frametitle\}\{fg=your-favorite-color\}}\\
-    \ind\command{setbeamercolor\{title in title page\}\{fg=another-favorite-color\}}\\
-    \ind\command{setbeamercolor\{normal text\}\{fg=another-solid-color\}}\\
+    \ind\command{colorlet\{maincolor\}\{your-favorite-color\}}\\
+    \ind\command{colorlet\{sidecolor\}\{your-secondfavorite-color\}}\\
+    \ind\command{colorlet\{basecolor\}\{some-solid-color\}}\\
     \}
   \end{codesnippet}~\\[1ex]
 \end{frame}
@@ -8607,25 +8607,25 @@ Gault-Millau.
 %% define main color
 \setbeamercolor{palette primary}{fg=ugent@main}
 \setbeamercolor{palette secondary}{fg=ugent@accent}
-\setbeamercolor{palette tertiary}{fg=ugent@accent}
-\setbeamercolor{palette quaternary}{fg=ugent@main}
+\setbeamercolor{palette tertiary}{fg=ugent@faculty}
+%\setbeamercolor{palette quaternary}{fg=ugent@main}
 
-\setbeamercolor{normal text}{fg=ugent@faculty}
+\setbeamercolor{normal text}{fg=black}
 \setbeamercolor{inverse normal text}{fg=white!95!ugent@main}
-\setbeamercolor{alerted text}{fg=ugent@main}
-\setbeamercolor{example text}{}
+\setbeamercolor{alerted text}{fg=ugent@accent}
+\setbeamercolor{example text}{fg=ugent@faculty}
 
-\setbeamercolor{heading}{fg=ugent@faculty}
-\setbeamercolor{subheading}{fg=ugent@faculty}
+\setbeamercolor{heading}{fg=ugent@main}
+\setbeamercolor{subheading}{fg=white!25!ugent@main}
 \setbeamercolor{inverse heading}{fg=white}
 \setbeamercolor{inverse subheading}{fg=white!75!ugent@main}
 
-\setbeamercolor{block body}{bg=black!4}
-\setbeamercolor{block title}{bg=black!8,fg=ugent@main}
-\setbeamercolor{block body example}{bg=black!4}
-\setbeamercolor{block title example}{bg=black!8}
-\setbeamercolor{block body alerted}{bg=black!4}
-\setbeamercolor{block title alerted}{bg=black!8}
+\setbeamercolor{block body}{bg=ugent@main!10}
+\setbeamercolor{block title}{fg=white,bg=ugent@main}
+\setbeamercolor{block body example}{bg=ugent@faculty!10}
+\setbeamercolor{block title example}{fg=white,bg=ugent@faculty}
+\setbeamercolor{block body alerted}{bg=ugent@accent!10}
+\setbeamercolor{block title alerted}{fg=white,bg=ugent@accent}
 
 \setbeamercolor{itemize item}{parent=normal text}
 \setbeamercolor{enumerate item}{parent=normal text}
@@ -8635,36 +8635,36 @@ Gault-Millau.
 \setbeamercolor{enumerate subsubitem}{parent=normal text}
 
 \setbeamercolor{frametitle}{fg=ugent@main}
-\setbeamercolor{framesubtitle}{fg=ugent@faculty}
+\setbeamercolor{framesubtitle}{fg=ugent@main}
 \setbeamercolor{inverse frametitle}{fg=white}
 \setbeamercolor{inverse framesubtitle}{fg=white!80!ugent@main}
 
 \setbeamercolor{title in title page}{fg=ugent@main}
 \setbeamercolor{subtitle in title page}{fg=ugent@accent}
-\setbeamercolor{author in title page}{fg=ugent@main}
+\setbeamercolor{author in title page}{fg=ugent@faculty}
 \setbeamercolor{date in title page}{fg=ugent@accent}
 \setbeamercolor{inverse title in title page}{fg=white}
-\setbeamercolor{inverse subtitle in title page}{fg=white!75!ugent@main}
+\setbeamercolor{inverse subtitle in title page}{fg=white!75!ugent@faculty}
 \setbeamercolor{inverse author in title page}{fg=white}
-\setbeamercolor{inverse date in title page}{fg=white!75!ugent@main}
+\setbeamercolor{inverse date in title page}{fg=white!75!ugent@faculty}
 
-\setbeamercolor{pageno in head/foot}{fg=ugent@faculty}
-\setbeamercolor{inverse pageno in head/foot}{fg=white}
+\setbeamercolor{pageno in head/foot}{fg=ugent@main}
+\setbeamercolor{inverse pageno in head/foot}{fg=ugent@main}
 
-\setbeamercolor{section in toc}{fg=ugent@faculty}
-\setbeamercolor{subsection in toc}{fg=ugent@faculty}
-\setbeamercolor{section number projected}{fg=white,bg=ugent@faculty}
-\setbeamercolor{subsection number projected}{fg=white,bg=ugent@faculty}
+\setbeamercolor{section in toc}{fg=black}
+\setbeamercolor{subsection in toc}{fg=black}
+\setbeamercolor{section number projected}{fg=white,bg=ugent@main}
+\setbeamercolor{subsection number projected}{fg=white,bg=ugent@main}
 
-\setbeamercolor{section title}{fg=ugent@main}
-\setbeamercolor{section name}{fg=ugent@main}
+\setbeamercolor{section title}{fg=ugent@faculty}
+\setbeamercolor{section name}{fg=ugent@faculty}
 \setbeamercolor{inverse section title}{fg=white}
 \setbeamercolor{inverse section name}{fg=white}
 
 \setbeamercolor{subsection title}{fg=ugent@accent}
 \setbeamercolor{subsection name}{fg=ugent@accent}
-\setbeamercolor{inverse subsection title}{fg=white!75!ugent@main}
-\setbeamercolor{inverse subsection name}{fg=white!75!ugent@main}
+\setbeamercolor{inverse subsection title}{fg=white!75!ugent@faculty}
+\setbeamercolor{inverse subsection name}{fg=white!75!ugent@faculty}
 \mode
 <all>
 %</bmrcolor>
@@ -8843,7 +8843,7 @@ Gault-Millau.
 
 \newcommand\callout[1][scale=0.70711]{
   \begin{tikzpicture}[#1]
-    \fill[ugent@main] (0.4,0) -- (0.5,0) -- (0.75,-0.15) -- (0.75,0) --
+    \fill[ugent@faculty] (0.4,0) -- (0.5,0) -- (0.75,-0.15) -- (0.75,0) --
     (0.9,0) arc(-90:0:0.1) -- (1,0.65) arc(0:90:0.1) -- (0.1,0.75) arc
     (90:180:0.1) -- (0,0.1) arc(-180:-90:0.1) -- cycle;
     \foreach \x in {0.35,0.7} {
@@ -9252,8 +9252,8 @@ Gault-Millau.
     %{\includegraphics[height=.9\@logounit]{\logopos}};
     \node[
     text width=0.98\textwidth,
-    text=ugent@faculty,
     align=center] at (0.5*\textwidth,0.5*\ph) {
+    text=ugent@main,
       \begin{beamercolorbox}[wd=\textwidth,center]{title in title page}
         \LARGE\bfseries\inserttitle\\[1ex]
         \usebeamercolor[fg]{subtitle in title page}
@@ -9262,16 +9262,16 @@ Gault-Millau.
     };
     \node[
     text width=0.98\textwidth,
-    color=ugent@faculty,
     align=center] at (0.5*\textwidth,0.25*\ph) {
+    color=ugent@main,
       \begin{beamercolorbox}[wd=\textwidth,center]{author in title page}
         \large\bfseries\insertauthor
       \end{beamercolorbox}
     };
     \node[
     text width=0.98\textwidth,
-    color=ugent@faculty,
     align=center] at (0.5*\textwidth,0.15*\ph) {
+    color=ugent@main,
       \begin{beamercolorbox}[wd=\textwidth,center]{date in title page}
         \normalsize\bfseries\insertdate
       \end{beamercolorbox}
@@ -9353,8 +9353,8 @@ Gault-Millau.
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
     \node[
     text width=0.98\textwidth,
-    text=ugent@faculty,
     align=center] at (0.5*\textwidth,0.55*\ph) {
+    text=ugent@main,
       \begin{beamercolorbox}[wd=\textwidth,center]{section title}
         \Large\bfseries\insertsectionnumber.~\insertsection
       \end{beamercolorbox}
@@ -9368,16 +9368,16 @@ Gault-Millau.
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
     \node[
     text width=0.98\textwidth,
-    text=ugent@faculty,
     align=center] at (0.5*\textwidth,0.55*\ph) {
+    text=ugent@main,
       \begin{beamercolorbox}[wd=\textwidth,center]{section title}
         \Large\bfseries\insertsectionnumber.~\insertsection
       \end{beamercolorbox}
     };
     \node[
     text width=0.98\textwidth,
-    text=ugent@faculty,
     align=center] at (0.5*\textwidth,0.45*\ph) {
+    text=ugent@main,
       \begin{beamercolorbox}[wd=\textwidth,center]{subsection title}
         \large\bfseries\insertsubsection
       \end{beamercolorbox}
