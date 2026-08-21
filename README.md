@@ -194,7 +194,7 @@ The goal is also to transfer this repository to UGent one when complete, so it b
 
 Copyright
 --
-This work is derived from `uantwerpendocs` v4.12 by Walter Daems. See the NOTICE.md or the class files copyright notices for further information.
+This work is derived from `uantwerpendocs` v4.12 by Walter Daems. See the [NOTICE.md](NOTICE.md) or the class files copyright notices for further information.
 (C) 2013-2026 by Walter Daems
 (C) 2017 by Joris Meys
 (C) 2026 by Seppe Ongena
