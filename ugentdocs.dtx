@@ -3922,7 +3922,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %	Specifying only one optional argument overrides english.
 %	Fully supported by the |babel| package, so logos, translatekeys, etc.
 %	are automatically translated if the dictionary is present for that language
-%	(see Section~\ref{S:usage:langtimeloc:dict}).
+%	(see Section~\ref{S:usage:langdateloc:dict}).
 % \iffalse
 %<*ex>
 \NewDocumentCommand{\bilingual}{O{english} O{dutch} +m +m}{%
@@ -3950,7 +3950,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeMacro{\mc}\marg{choice option}\\
-%   Typesets a multiple choice answer option.
+%   Typesets a multiple choice answer option.\\
 %	For bilingual, use |\mc{\bilingual{english option}{dutch option}}|.
 % \iffalse
 %<*ex>
@@ -4034,179 +4034,150 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Letter macros}
 % \label{S:usage:macros:letter}
 %
-% \DescribeMacro{\sender} [letter] mandatory\\
-% Description of the person writing the letter.
-% \begin{itemize}
-% \item first argument: name of the person writing the letter
-% \item second argument: title / role of the person
-% \end{itemize}
-% Newlines are not allowed in the arguments.
-% \begin{imacro}{\sender}
-% This macro sets the |\@sender| and |\@senderrole| tags that will be
-% used in the letter's heading text.
-%    \begin{macrocode}
+% \DescribeMacro[le]{\sender}\marg{title and name}\marg{role}
+%	\margintag{mandatory}\margintag{tag}\\
+% 	Sets the person writing the letter.
+%	Does not use the |nameformat| option.
+%	Additionally sets the |\@senderrole| tag to |<role>| (can be left empty).
+%	Used in the letter's header and closing.
+% \iffalse
 %<*le>
 \newcommand*{\@sender}{< Specify sender using
 	\textbackslash{}sender\{name\}\{role\} >}
 \newcommand*{\@senderrole}{~}
 \newcommand*{\sender}[2]{\renewcommand*{\@sender}{#1}\renewcommand*{\@senderrole}{#2}}
 %</le>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\returnaddress} [letter] mandatory\\
-% This is a short return address (listed in small font on top of the
-% destination address (such that it is visible in a windowed envelope
-% (European format)). It should fit on a single line. Typically we list
-% an acronym for the unit, a room number, a campus name and address.
-% The goal is to get the undelivered letter back to the person that
-% can take action accordingly.
-% \begin{imacro}{\returnaddress}
-%   This macro sets the |\@returnaddress| tag that will be used in the letter's
-%   heading text (in the area of the envelope's window).
-%    \begin{macrocode}
+% \DescribeMacro[le]{\returnaddress}\marg{return address information}
+%	\margintag{mandatory}\margintag{tag}\\
+%	This is a short return address,
+%	listed in small font on top of the  destination address,
+%	visible in a windowed envelope (European format)
+%	It should fit on a single line.
+%	The goal is to get the undelivered letter back to
+%	the person that can take action accordingly.
+% \iffalse
 %<*le>
 \newcommand*{\@returnaddress}
 {<specify return-address using \textbackslash\{single-line-return-address\}>}
 \renewcommand*{\returnaddress}[1]
 {\renewcommand*{\@returnaddress}{#1}}
 %</le>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\to} [letter] mandatory\\
-% Name of the addressee. Newlines are allowed.
-% Preferably name and role are split over two lines.
-% \begin{imacro}{\to}
-%   This macro sets the |\@to| tag that will be used in the letter's
-%   heading text (in the area of the envelope's window).
-%    \begin{macrocode}
+% \DescribeMacro[le]{\to}\marg{addressee name}
+%	\margintag{mandatory}\margintag{tag}\\
+%	Specifies the name of the addressee.
+%	Used in the envelope window
+%	(5 lines estate, including |\returnaddress| and the other 'to' macros).
+% \iffalse
 %<*le>
-\newcommand*{\@to}{<Specify addressee using \textbackslash{}to\{name\}>}
+\newcommand*{\@to}{}
 \renewcommand*{\to}[1]{\renewcommand*{\@to}{#1}}
 %</le>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\toorganization} [letter] (optional)\\
-% Name of the organization that employs the addressee.
-% \begin{imacro}{\toorganization}
-%   This macro sets the |\@toorganization| tag that will be used in
-%   the letter's heading text (in the area of the envelope's window).
-%    \begin{macrocode}
+% \DescribeMacro[le]{\toorganization}\marg{organization name}
+%	\margintag{tag}\\
+%	Sets the name of the organization that employs the addressee.
+%	Used in the envelope window
+%	(5 lines estate, including |\returnaddress| and the other 'to' macros).
+% \iffalse
 %<*le>
 \newcommand*{\@toorganization}{}
 \newcommand*{\toorganization}[1]{\renewcommand*{\@toorganization}{#1}}
 %</le>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\toaddress} [letter] (optional)\\
-% Address of the addressee. Newlines are allowed. The address should
-% fit on max. 3 lines.
-% \begin{imacro}{\toaddress}
-	%   This macro sets the |\@toaddress| tag that will be used in
-%   the letter's heading text (in the area of the envelope's window).
-%    \begin{macrocode}
+% \DescribeMacro[le]{\toaddress}\marg{multiline address}
+%	\margintag{mandatory}\margintag{tag}\\
+%	Address of the addressee. Newlines are allowed.
+%	Used in the envelope window
+%	(5 lines estate, including |\returnaddress| and the other 'to' macros).
+% \iffalse
 %<*le>
-\newcommand*{\@toaddress}{}
+\newcommand*{\@toaddress}{
+	<Specify address using \textbackslash{}toaddress\{address\}>}
 \newcommand*{\toaddress}[1]{\renewcommand*{\@toaddress}{#1}}
 %</le>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\subject} [letter] mandatory \\
-% Short descriptive subject that describes the contents of the
-% letter.
-% \begin{imacro}{\subject}
-%   This macro sets the |\@subject| tag that will be used in
-%   the letter's heading text.
-%    \begin{macrocode}
+% \DescribeMacro[le]{\subject}\marg{subject title}
+%	\margintag{mandatory}\margintag{tag}\\
+% 	Short descriptive title that describes the contents of the letter.
+% \iffalse
 %<*le>
 \newcommand*{\@subject}{-}
 \newcommand*{\subject}[1]{\renewcommand*{\@subject}{#1}}
 %</le>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \begin{imacro}{\reference}
-%   This macro sets the |\@reference| tag that will be used in
-%   the letter's heading text.
-%    \begin{macrocode}
+% \DescribeMacro[le]{\reference}\marg{reference number}
+%	\margintag{mandatory}\margintag{tag}\\
+%   Sets the reference number to be used in the letter's heading text.
+% \iffalse
 %<*le>
 \newcommand*{\@reference}{-}
 \newcommand*{\reference}[1]{\renewcommand*{\@reference}{#1}}
 %</le>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\opening}  [letter] mandatory \\
-% Opening address of the letter. E.g. 'Dear X,'.
-% \begin{imacro}{\opening}
-%   This macro is much a do about nothing, but I prefer to do it this
-%   way for historic reasons.
-%    \begin{macrocode}
+% \DescribeMacro[le]{\opening}\marg{Dear prof. X,}
+%	\margintag{mandatory}\\
+%	Opening address of the letter.
+% \iffalse
 %<*le>
 \renewcommand*{\opening}[1]{#1}
 %</le>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\closing}  [letter] mandatory \\
-% Closing clause of the letter. E.g. 'Best regards,'.
-% \begin{imacro}{\closing}
-%   This macro sets the |\@closing| tag that will be used to finish
-%   the letter.
-%    \begin{macrocode}
+% \DescribeMacro[le]{\closing}\marg{Kind regards,}
+%	\margintag{mandatory}\margintag{tag}\\
+%	Closing clause of the letter.
+% \iffalse
 %<*le>
 \newcommand*{\@closing}{<specify a closing formula using
 	\textbackslash{}closing\{\}>}
 \renewcommand*{\closing}[1]{\renewcommand*{\@closing}{#1}}
 %</le>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\signature}  [letter] (optional) \\
-% Add a signature (in between the closing statement of the
-% letter and the sender's name. This might be a text message or a
-% picture of your signature.
-% \begin{imacro}{\signature}
-%   This macro sets the |\@signature| tag that will be used to finish
-%   the letter. By default this corresponds to a decent amount of
-%   vertical white space
-%    \begin{macrocode}
+% \DescribeMacro[le]{\signature}\marg{signature content}
+%	\margintag{tag}\\
+% 	Add a signature inbetween the closing statement of the
+% 	letter and the sender's name.
+%	This can be a text message, an image using |\includegraphics|,
+%	or overridden to empty (|\signature{}|).
+%	By default, it leaves some vertical space for manual signing.
+% \iffalse
 %<*le>
 \newcommand*{\@signature}{\vspace*{8ex}}
 \renewcommand*{\signature}[1]{\renewcommand*{\@signature}{#1}}
 %</le>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\carboncopy} [letter] (optional)\\
-% List of persons receiving a copy of this letter. Format at will.
-% \begin{imacro}{\carboncopy}
-%   This macro will set the |\@carboncopy| tag that will be used in
-%   the trailer of the letter.
-%    \begin{macrocode}
+% \DescribeMacro[le]{\carboncopy}\marg{CC content}
+%	\margintag{tag}\\
+%	List of persons receiving a copy of this letter. Format at will.
+%	Used in the trailer of the letter.
+% \iffalse
 %<*le>
 \newcommand*{\@carboncopy}{}
 \newcommand*{\carboncopy}[1]{\renewcommand*{\@carboncopy}{#1}}
 %</le>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\enclosed} [letter] (optional)\\
-% List of enclosed documents. Format at will.
-% \begin{imacro}{\enclosed}
-%   This macro will set the |\@enclosed| tag that will be used in
-%   the trailer of the letter.
-%    \begin{macrocode}
+% \DescribeMacro[le]{\enclosed}\marg{enclosed items description}
+%	\margintag{tag}\\
+%	List of enclosed documents. Format at will.
+%	Used in the trailer of the letter.
+% \iffalse
 %<*le>
 \newcommand*{\@enclosed}{}
 \newcommand*{\enclosed}[1]{\renewcommand*{\@enclosed}{#1}}
 %</le>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
 %
 % \section{Style}
@@ -6841,7 +6812,6 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %
 %<*le1>
 %% Letter-specific preamble ----------------------------------------------------
-% TODO verify correctness after letter macro updates
 
 %% Provide info on who sends the letter, you can put this in a
 %% configuration file, see the documentation of the letter class!
