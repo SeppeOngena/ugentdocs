@@ -8367,17 +8367,7 @@ een b\'echamel saus:
 
 \begin{document}
 
-\begin{frame}[negativefill]
-  \maketitle
-\end{frame}
-
-\begin{frame}
-  \maketitle
-\end{frame}
-
-\begin{frame}[negative]
-  \maketitle
-\end{frame}
+\titleframe
 
 \begin{frame}
   {What's on the menu?}
@@ -8387,9 +8377,7 @@ een b\'echamel saus:
 \end{frame}
 
 \section{Loading the theme and theme options}
-\begin{frame}[negative]
-  \sectionpage
-\end{frame}
+\sectionframe
 
 \begin{frame}
   {Using our beamer theme}
@@ -8482,9 +8470,7 @@ een b\'echamel saus:
 \end{frame}
 
 \section{Title slides}
-\begin{frame}[negative]
-  \sectionpage
-\end{frame}
+\sectionframe
 
 \begin{frame}[t]
   {Title slides}
@@ -8513,13 +8499,7 @@ een b\'echamel saus:
 \section{Regular slides}
 
 \subsection{Bare}
-\begin{frame}[negative]
-  \sectionpage
-\end{frame}
-
-\begin{frame}[negative]
-  \subsectionpage
-\end{frame}
+\subsectionframe
 
 \begin{frame}[t]
   {Frame titles}
@@ -8699,9 +8679,7 @@ een b\'echamel saus:
 \end{frame}
 
 \subsection{With graphic eye candy}
-\begin{frame}[negative]
-  \subsectionpage
-\end{frame}
+\subsectionframe
 
 \begin{frame}[t]
   {Basic idea}
@@ -8867,14 +8845,10 @@ een b\'echamel saus:
 %%\end{thframe}
 
 \section{Intermission slides}
-\begin{frame}[negative]
-  \sectionpage
-\end{frame}
+\sectionframe
 
 \subsection{Standard section slides}
-\begin{frame}[negative]
-  \subsectionpage
-\end{frame}
+\subsectionframe
 
 \begin{frame}[t]
   {Basic idea}
@@ -8899,9 +8873,7 @@ een b\'echamel saus:
 \end{frame}
 
 \subsection{Custom intermission slides}
-\begin{frame}[negative]
-  \subsectionpage
-\end{frame}
+\subsectionframe
 
 \begin{frame}[t]
   {Basic idea}
@@ -9006,10 +8978,7 @@ een b\'echamel saus:
 \end{frame}
 
 \section{Demo of some inner theme parts}
-\begin{frame}[negative]
-  \sectionpage
-\end{frame}
-
+\sectionframe
 
 \begin{frame}[t]
   {Headings}
@@ -9103,11 +9072,9 @@ een b\'echamel saus:
   \end{alertblock}
   \vfill
 \end{frame}
-\section{Advanced material}
 
-\begin{frame}[negative]
-  \sectionpage
-\end{frame}
+\section{Advanced material}
+\sectionframe
 
 \begin{frame}[t]
   {Customizing the template}
@@ -9184,6 +9151,24 @@ een b\'echamel saus:
 \useoutertheme{ugent}
 
 \setbeamertemplate{navigation symbols}{}
+
+\NewDocumentCommand{\titleframe}{O{}}{
+	\begin{frame}[title={#1}]
+		\maketitle
+	\end{frame}
+}
+
+\NewDocumentCommand{\sectionframe}{O{}}{
+	\begin{frame}[section={#1}]
+		\sectionpage
+	\end{frame}
+}
+
+\NewDocumentCommand{\subsectionframe}{O{}}{
+	\begin{frame}[subsection={#1}]
+		\subsectionpage
+	\end{frame}
+}
 
 \mode
 <all>
