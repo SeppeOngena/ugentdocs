@@ -192,19 +192,10 @@ There are already five (or more?) existing templates, why add another one? This 
  
 The goal is also to transfer this repository to UGent one when complete, so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 
 
-Relation to other packages
+Copyright
 --
-This work will try to integrate and expand on as many of the existing fragmented templates into a common framework based on Walter Daem's excellent `uantwerpendocs v4.12` package (available on [CTAN](https://ctan.org/pkg/uantwerpendocs), so that package was already present by default in my installation!). If the integration status says complete, it means the current package has the same (or more!) functionality than the listed package. 
-
-Templates to integrate (that I know of):
-| Integrated? | How? | Project      | Maintainer | Status          | Document types |
-|:-----------:|:-------------|:-------------|:-----------| :---------------|:---------------|
-| ✅ | Starting point, basis of framework    | [uantwerpendocs](https://ctan.org/pkg/uantwerpendocs)               | Walter Daems   | Active                 | `report`, `coursetext`, `phdthesis`, `bamathesis`, `letter`, `exam`, `beamer` |
-| ✅ | Served as reference for functionality | [ugent2016](https://github.com/niknetniko/ugent2016)                | Niko Strijbol  | Left UGent             | `article`, `book`, `report`, `course`, `notes` |
-| ✅ | Served as reference for functionality | [ugent-doc](https://github.com/driesbenoit/ugent-doc)               | Dries Benoit   | Stale/Complete?        | `article`, `report` (only coverpage) |
-| ⬜ | Served as reference for functionality | [ugent-beamer](https://github.com/driesbenoit/ugent-beamer)         | Dries Benoit   | Complete               | `beamer` |
-| ✅ | Served as reference for functionality | [ugent-letter](https://github.com/driesbenoit/ugent-letter)         | Dries Benoit   | Complete               | `letter` |
-| ✅ | Cover page and headers code           | [Latex at UGent](https://github.ugent.be/LatexInfo) (internal only) | Joris Meys     | Incomplete, but active | `ba/ma thesis` (only BW faculty templates, separate classes for NL and EN)|
-
----
+This work is derived from `uantwerpendocs` v4.12 by Walter Daems. See the NOTICE.md or the class files copyright notices for further information.
+(C) 2013-2026 by Walter Daems
+(C) 2017 by Joris Meys
+(C) 2026 by Seppe Ongena
 
