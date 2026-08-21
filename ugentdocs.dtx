@@ -8077,30 +8077,44 @@ Gault-Millau.
 
 \begin{frame}[t]
   {Logo demo}
-  The logo's can be used as follows (but you should not need them):
 
+  The logo's can be used as follows within a tikzpicture (arguments: height, color, alignment):
   \begin{itemize}
-  \item \command{includegraphics[width=3cm]\{\command{logopos}\}}\\
-    \begin{center}
-      %\begin{tikzpicture}
-        %\draw[fill,white] (0,0) rectangle node
-        %{\includegraphics[width=3cm]{\logopos}} (4,1.25);
-      %\end{tikzpicture}
-    \end{center}
-  \item \command{includegraphics[width=3cm]\{\command{logoneg}\}}\\
-    \begin{center}
-      %\begin{tikzpicture}
-      %  \draw[fill] (0,0) rectangle node
-      %  {\includegraphics[width=3cm]{\logoneg}} (4,1.25);
-      %\end{tikzpicture}
-    \end{center}
-  \item \command{includegraphics[width=3cm]\{\command{logomonowhite}\}}\\
-    \begin{center}
-      %\begin{tikzpicture}
-      %  \draw[fill] (0,0) rectangle node
-      %  {\includegraphics[width=3cm]{\logomonowhite}} (4,1.25);
-      %\end{tikzpicture}
-    \end{center}
+  \item \command{ugentlogo\{1.5cm\}\{ugent@main\}\{0\}} and \command{faclogo\{1.125cm\}\{ugent@faculty\}\{0\}}\\
+  \begin{center}
+    \begin{tikzpicture}
+      \draw[fill,white] (0,0) rectangle (1.875,1.5);
+      \ugentlogo{1.5cm}{ugent@main}{0}
+    \end{tikzpicture}
+    \begin{tikzpicture}
+      \draw[fill,white] (0,0) rectangle (3.375,1.125);
+      \faclogo{1.125cm}{ugent@faculty}{0}
+    \end{tikzpicture}
+  \end{center}
+  \item \command{ugentlogo\{1.5cm\}\{white\}\{0\}} and \command{faclogo\{1.125cm\}\{white\}\{0\}}\\
+  \begin{center}
+    \begin{tikzpicture}
+      \draw[fill] (0,0) rectangle (0,0) rectangle (1.875,1.5);
+      \ugentlogo{1.5cm}{white}{0}
+    \end{tikzpicture}
+    \begin{tikzpicture}
+      \draw[fill] (0,0) rectangle (3.375,1.125);
+      \faclogo{1.125cm}{white}{0}
+    \end{tikzpicture}
+  \end{center}
+  \item \command{ugentlogo\{1.5cm\}\{ugent@main\}\{0\}} and \command{faclogo\{1.125cm\}\{ugent@faculty\}\{0\}} within \command{foreignlanguage\{dutch\}\{\ldots\}}\\
+  \begin{center}
+    \foreignlanguage{dutch}{
+      \begin{tikzpicture}
+        \draw[fill,white] (0,0) rectangle (1.875,1.5);
+        \ugentlogo{1.5cm}{ugent@main}{0}
+      \end{tikzpicture}
+      \begin{tikzpicture}
+        \draw[fill,white] (0,0) rectangle (4.125,1.125);
+        \faclogo{1.125cm}{ugent@faculty}{0}
+      \end{tikzpicture}
+    }
+  \end{center}
   \end{itemize}
 \end{frame}
 
