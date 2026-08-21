@@ -7998,7 +7998,7 @@ Gault-Millau.
   \end{itemize}
 \end{frame}
 
-\begin{frame}[negativefill]
+\begin{frame}[shaded]
   {A negativefill slide}
   {with a subtle subtitle}
   \kant[1]
@@ -8259,32 +8259,32 @@ Gault-Millau.
   \end{itemize}
 \end{rhframe}
 
-\begin{bhframe}[thgraphic,t]
-  {Some Random Title}{Please, adapt!}
-  \small
-  The slide has been typeset as:
-  \begin{codesnippet}[\textwidth]
-    \bframe[bh][thgraphic=\{<load photo here>\}]\\
-    \ind\{Title\}\\
-    \ind\{Subtitle\}\\
-    \ind frame contents\\
-    \eframe[bh]
-  \end{codesnippet}
-\end{bhframe}
+%%\begin{bhframe}[thgraphic,t]
+%%  {Some Random Title}{Please, adapt!}
+%%  \small
+%%  The slide has been typeset as:
+%%  \begin{codesnippet}[\textwidth]
+%%    \bframe[bh][thgraphic=\{<load photo here>\}]\\
+%%    \ind\{Title\}\\
+%%    \ind\{Subtitle\}\\
+%%    \ind frame contents\\
+%%    \eframe[bh]
+%%  \end{codesnippet}
+%%\end{bhframe}
 
-\begin{thframe}[bhgraphic,t]
-  {Some Random Title}
-  {Please, adapt!}
-  \small
-  The slide has been typeset as:
-  \begin{codesnippet}[\textwidth]
-    \bframe[th][bhgraphic=\{<load photo here>\}]\\
-    \ind\{Title\}\\
-    \ind\{Subtitle\}\\
-    \ind frame contents\\
-    \eframe[th]
-  \end{codesnippet}
-\end{thframe}
+%%\begin{thframe}[bhgraphic,t]
+%%  {Some Random Title}
+%%  {Please, adapt!}
+%%  \small
+%%  The slide has been typeset as:
+%%  \begin{codesnippet}[\textwidth]
+%%    \bframe[th][bhgraphic=\{<load photo here>\}]\\
+%%    \ind\{Title\}\\
+%%    \ind\{Subtitle\}\\
+%%    \ind frame contents\\
+%%    \eframe[th]
+%%  \end{codesnippet}
+%%\end{thframe}
 
 \section{Intermission slides}
 \begin{frame}[negative]
@@ -8562,7 +8562,7 @@ Gault-Millau.
 %    \begin{macrocode}
 %<*bmr>
 \AtBeginDocument{
-  \def\appropriatelogo{\@ugentlogo{2.5cm}{ugent@main}{0.0}}
+  \def\appropriatelogo{\ugentlogo{\@HBS}{ugent@main}{0}}
   \def\appropriateslidenumber{%
     \usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
@@ -8869,15 +8869,15 @@ Gault-Millau.
 %<*bmrouter>
 \mode<presentation>
 
-\newif\if@rhtext
+\newif\if@rhtext % TODO convert to L3
 \@rhtextfalse
-\newif\if@lhtext
+\newif\if@lhtext % TODO convert to L3
 \@lhtextfalse
-\newif\if@rqtext
+\newif\if@rqtext % TODO convert to L3
 \@rqtextfalse
-\newif\if@lqtext
+\newif\if@lqtext % TODO convert to L3
 \@lqtextfalse
-\newif\if@bhtext
+\newif\if@bhtext % TODO convert to L3
 \@bhtextfalse
 \gdef\maybeinverse{}
 
@@ -8902,13 +8902,13 @@ Gault-Millau.
 
 \mode<beamer|second>
 
-\define@key{beamerframe}{negativefill}[true]{
-  \gdef\maybeinverse{inverse }%
+\define@key{beamerframe}{shaded}[true]{
+  \gdef\maybeinverse{}%
   \usebeamercolor[fg]{\maybeinverse normal text}%
-  \setbeamertemplate{title page}[negativefill]
-  \setbeamertemplate{section page}[negative]%
-  \setbeamertemplate{subsection page}[negative]%
-  \setbeamertemplate{background canvas}[negativefill]%
+  \setbeamertemplate{title page}[main]
+  \setbeamertemplate{section page}[main]%
+  \setbeamertemplate{subsection page}[main]%
+  \setbeamertemplate{background canvas}[shaded]%
 }
 
 \define@key{beamerframe}{negative}[true]{
@@ -8922,6 +8922,27 @@ Gault-Millau.
 
 \mode
 <all>
+
+\define@key{beamerframe}{title}[{}]{%
+  \gdef\maybeinverse{inverse}%
+  \usebeamercolor[fg]{\maybeinverse normal text}%
+  \setbeamertemplate{title page}[main]%
+  \setbeamertemplate{background canvas}[title]{#1}%
+}
+
+\define@key{beamerframe}{section}[{}]{%
+  \gdef\maybeinverse{inverse}%
+  \usebeamercolor[fg]{\maybeinverse normal text}%
+  \setbeamertemplate{subsection page}[main]%
+  \setbeamertemplate{background canvas}[section]{#1}%
+}
+
+\define@key{beamerframe}{subsection}[{}]{%
+  \gdef\maybeinverse{inverse}%
+  \usebeamercolor[fg]{\maybeinverse normal text}%
+  \setbeamertemplate{section page}[main]%
+  \setbeamertemplate{background canvas}[section]{#1}%
+}
 
 \define@key{beamerframe}{graphicfill}
 	[{\includegraphics[scale=0.1,min
@@ -9070,22 +9091,51 @@ Gault-Millau.
   \@nameuse{ps@ugent}
 }
 
-\defbeamertemplate*{background canvas}{negativefill}[1]
+\defbeamertemplate*{background canvas}{title}[1]
 {%
-  \gdef\appropriatelogo{}%\logomonowhite}%
+  \gdef\appropriatelogo{\ugentlogo{\@HBS}{ugent@main}{0}}%
+  \gdef\appropriateslidenumber{}%
+  \begin{tikzpicture}
+    \clip (0,0) rectangle (\@PW,\@PH);
+    \begin{scope}[shift={(0,\@PH-\@HTS)}]
+      \faclogo{\@HTS}{ugent@faculty}{0}
+    \end{scope}
+    \def\@titlebgimg{#1}%
+    \ifx\@titlebgimg\@empty
+      \ugentshape[fill=ugent@main]{(\gridunit,\@HBS)}{(\@PW,\@PH-\@HTS)}
+    \else
+      \begin{scope}
+        \ugentshape[clip]{(\gridunit,\@HBS)}{(\@PW,\@PH-\@HTS)}
+        \node[align=center] at (0.5*(\gridunit+\@PW),0.5*(\@HBS+\@PH-\@HTS)) {#1};
+      \end{scope}
+    \fi
+  \end{tikzpicture}
+}
+
+\defbeamertemplate*{background canvas}{section}[1]
+{%
+  \gdef\appropriatelogo{\ugentlogo{\@HBS}{ugent@main}{0}}%
+  \gdef\appropriateslidenumber{}%
+  \begin{tikzpicture}
+    \clip (0,0) rectangle (\@PW,\@PH);
+    \ugentshape[fill=ugent@main]{(\gridunit,\@HBS)}{(\@PW,\@PH)}
+  \end{tikzpicture}
+}
+
+\defbeamertemplate*{background canvas}{negative}[1]
+{%
+  \gdef\appropriatelogo{\ugentlogo{\@HBS}{white}{0}}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \color{ugent@main}\vrule width\paperwidth height\paperheight
 }
 
-\defbeamertemplate*{background canvas}{negative}[1]
+\defbeamertemplate*{background canvas}{shaded}[1]
 {%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \ugentleftshape[fill=ugent@main]{(0.8,0.8)}{(\pw-0.8,\ph-0.8)}
-  \end{tikzpicture}
+  \gdef\appropriatelogo{\ugentlogo{\@HBS}{ugent@main}{0}}%
+  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
+    \insertframenumber/\inserttotalframenumber}%
+  \color{ugent@main!10}\vrule width\paperwidth height\paperheight
 }
 
 \defbeamertemplate*{background canvas}{graphicfill}[1]
@@ -9266,74 +9316,6 @@ Gault-Millau.
   \end{tikzpicture}
 }
 
-\defbeamertemplate*{title page}{negative}[1][]
-{
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    \node[
-    text width=0.98\textwidth,
-    align=center] at (0.5*\textwidth,0.5*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse title in title page}
-        \LARGE\bfseries\inserttitle\\[1ex]
-        \usebeamercolor[fg]{\maybeinverse subtitle in title page}
-        \color{fg}\large\bfseries\insertsubtitle
-      \end{beamercolorbox}
-    };
-    \node[
-    text width=0.98\textwidth,
-    align=center,] at (0.5*\textwidth,0.25*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse author in title page}
-        \large\bfseries\insertauthor
-      \end{beamercolorbox}
-    };
-    \node[
-    text width=0.98\textwidth,
-    color=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.15*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse date in title page}
-        \normalsize\bfseries\insertdate
-      \end{beamercolorbox}
-    };
-  \end{tikzpicture}
-}
-
-\defbeamertemplate*{title page}{negativefill}[1][]
-{
-  \thispagestyle{ugent@titlepage}
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    %\node[anchor=center] at  (0.5*\textwidth,0.75*\ph)
-    %{\includegraphics[height=.9\@logounit]{\logomonowhite}};
-    \node[
-    draw,rectangle,
-    text width=0.98\textwidth,
-    color=ugent@main,
-    align=center] at (0.5*\textwidth,0.5*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse title in title page}
-        \LARGE\bfseries\inserttitle\\[1ex]
-        \usebeamercolor[fg]{inverse subtitle in title page}
-        \color{fg}\large\bfseries\insertsubtitle
-      \end{beamercolorbox}
-    };
-    \node[
-    text width=0.98\textwidth,
-    color=ugent@main,
-    align=center] at (0.5*\textwidth,0.25*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse author in title page}
-        \large\bfseries\insertauthor
-      \end{beamercolorbox}
-    };
-    \node[
-    text width=0.98\textwidth,
-    color=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.15*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse date in title page}
-        \normalsize\bfseries\insertdate
-      \end{beamercolorbox}
-    };
-  \end{tikzpicture}
-}
-
 \defbeamertemplate*{section page}{main}[1][]
 {%
   \begin{tikzpicture}
@@ -9366,44 +9348,6 @@ Gault-Millau.
     text=ugent@main,
     align=center] at (0.5*\textwidth,0.45*\@PH) {
       \begin{beamercolorbox}[wd=\textwidth,center]{subsection title}
-        \large\bfseries\insertsubsection
-      \end{beamercolorbox}
-    };
-  \end{tikzpicture}
-}
-
-\defbeamertemplate*{section page}{negative}[1][]
-{
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.55*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse section title}
-        \Large\bfseries\insertsectionnumber.~\insertsection
-      \end{beamercolorbox}
-    };
-  \end{tikzpicture}
-}
-
-\defbeamertemplate*{subsection page}{negative}[1][]
-{
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.55*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse section title}
-        \Large\bfseries\insertsectionnumber.~\insertsection
-      \end{beamercolorbox}
-    };
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.45*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse subsection title}
         \large\bfseries\insertsubsection
       \end{beamercolorbox}
     };
