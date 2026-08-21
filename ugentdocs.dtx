@@ -2085,8 +2085,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \iffalse
 %<*clo>
 \ExplSyntaxOn
-\NewDocumentCommand{\printseq}{mmmm}{
+\cs_new:Npn \@@_printseq:nnnn #1#2#3#4 {
 	\exp_args:Nc \seq_use:Nnnn { g_@@_#1_seq } { #2 } { #3 } { #4 }
+}
+\NewDocumentCommand{\printseq}{mmmm}{
+	\@@_printseq:nnnn {#1}{#2}{#3}{#4}
 }
 \ExplSyntaxOff
 %</clo>
@@ -3302,8 +3305,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\@@_addto_nameseq:nnn 				{authors} {#1}{#2}
 	\@@_addto_nameaffiliationseq:nnnn 	{authors} {#1}{#2}{#3}
 	\@@_addto_callseq:nnnn 				{authors} {#1}{#2}{#3}
-	\seq_gput_right:Nn \g_@@_authorlist_seq {
-		\@surname{#2},~\@firstnameinitial{#2}
+
+	\@@_parsename:n {#2}
+	\seq_gput_right:Nx \g_@@_authorlist_seq {
+		\exp_not:V \l_@@_surname_tl ,~\tl_head:N \l_@@_firstname_tl .
 	}
 }
 
@@ -4209,6 +4214,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % It additionally sets the |pdftitle|, |pdfsubject|, and |pdfauthor| metadata:
 %    \begin{macrocode}
 %<*crs|bama|phd|rp>
+\ExplSyntaxOn
 \AtBeginDocument{
 	\@ifpackageloaded{hyperref}{
 		\pretocmd{\tableofcontents}{\begingroup\hypersetup{linkcolor=toccolor}}{}{}
@@ -4217,7 +4223,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		\def\\{ }%
 		\protected@xdef\@pdftitle{\@title}%
 		\protected@xdef\@pdfsubtitle{\@subtitle}%
-		\protected@xdef\@pdfauthor{\printseq{authorlist}{~\&~}{,~}{\translatekey{andlist}~}}%
+
+		\tl_new:N \g_@@_pdfandlist_tl
+		\setbox0=\hbox{
+			\_@@_translate:nn {} {andlist}
+			\tl_gset_eq:NN \g_@@_pdfandlist_tl \l_@@_value_cased_tl
+		}
+		\protected@xdef\@pdfauthor{\@@_printseq:nnnn{authorlist}{~\&~}{,~}{\exp_not:V\g_@@_pdfandlist_tl{}~}}%
 		\endgroup
 		\hypersetup{
 			breaklinks=true,
@@ -4234,6 +4246,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 		}
 	}{}
 }
+\ExplSyntaxOff
 %</crs|bama|phd|rp>
 %    \end{macrocode}
 %
