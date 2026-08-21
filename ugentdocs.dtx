@@ -9152,7 +9152,7 @@ een b\'echamel saus:
 
 \mode<presentation>
 
-\usepackage[orientation=landscape,size=custom,width=\@PWnum,height=\@PHnum,scale=1]{beamerposter}
+\RequirePackage[orientation=landscape,size=custom,width=\@PWnum,height=\@PHnum,scale=1]{beamerposter}
 \RequirePackage{tikz}
 \RequirePackage{graphicx}
 \RequirePackage{graphbox}
@@ -9456,10 +9456,6 @@ een b\'echamel saus:
 %<*bmrouter>
 \mode<presentation>
 
-\newcommand*\getlength[1]{\strip@pt#1/28.45274}
-\newcommand*\pw{\getlength{\paperwidth}}%
-\newcommand*\ph{\getlength{\paperheight}}%
-
 \newif\if@rhtext
 \@rhtextfalse
 \newif\if@lhtext
@@ -9686,8 +9682,8 @@ een b\'echamel saus:
   \gdef\appropriatelogo{}%\logoneg}%
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \node[align=center] at  (0.5*\pw,0.5*\ph) {#1};
+    \clip (0,0) rectangle (\@PW,\@PH);
+    \node[align=center] at  (0.5*\@PW,0.5*\@PH) {#1};
   \end{tikzpicture}%
 }
 
@@ -9696,10 +9692,10 @@ een b\'echamel saus:
   \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
+    \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}
-      \ugentleftshape[clip]{(0.8,0.8)}{(\pw-0.8,\ph-0.8)}
-      \node[align=center] at  (0.5*\pw,0.5*\ph) {#1};
+      \ugentshape[clip]{(0.8,0.8)}{(\@PW-0.8,\@PH-0.8)}
+      \node[align=center] at  (0.5*\@PW,0.5*\@PH) {#1};
     \end{scope}
   \end{tikzpicture}%
 }
@@ -9710,10 +9706,10 @@ een b\'echamel saus:
   \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{0.5*\pw-1.2}%
-  \pgfmathsetmacro\dy{\ph-1.6}%
+  \pgfmathsetmacro\dx{0.5*\@PW-1.2}%
+  \pgfmathsetmacro\dy{\@PH-1.6}%
   \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
+    \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}
       \ugentleftshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
       \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
@@ -9728,10 +9724,10 @@ een b\'echamel saus:
   \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{0.25*\pw-1.2}%
-  \pgfmathsetmacro\dy{\ph-1.6}%
+  \pgfmathsetmacro\dx{0.25*\@PW-1.2}%
+  \pgfmathsetmacro\dy{\@PH-1.6}%
   \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
+    \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}
       \ugentleftshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
       \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy)
@@ -9747,12 +9743,12 @@ een b\'echamel saus:
   \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{0.5*\pw-1.2}%
-  \pgfmathsetmacro\dy{\ph-1.6}%
+  \pgfmathsetmacro\dx{0.5*\@PW-1.2}%
+  \pgfmathsetmacro\dy{\@PH-1.6}%
   \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \begin{scope}[shift={(0.5*\pw,0)}]
       \ugentrightshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
+    \clip (0,0) rectangle (\@PW,\@PH);
+    \begin{scope}[shift={(0.5*\@PW,0)}]
       \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
     \end{scope}
   \end{tikzpicture}
@@ -9765,12 +9761,12 @@ een b\'echamel saus:
   \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{0.25*\pw-1.2}%
-  \pgfmathsetmacro\dy{\ph-1.6}%
+  \pgfmathsetmacro\dx{0.25*\@PW-1.2}%
+  \pgfmathsetmacro\dy{\@PH-1.6}%
   \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \begin{scope}[shift={(0.75*\pw,0)}]
       \ugentrightshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
+    \clip (0,0) rectangle (\@PW,\@PH);
+    \begin{scope}[shift={(0.75*\@PW,0)}]
       \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
     \end{scope}
   \end{tikzpicture}
@@ -9783,12 +9779,12 @@ een b\'echamel saus:
   \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{\pw-1.6}%
-  \pgfmathsetmacro\dy{0.5*\ph-0.8}%
+  \pgfmathsetmacro\dx{\@PW-1.6}%
+  \pgfmathsetmacro\dy{0.5*\@PH-0.8}%
   \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \begin{scope}[shift={(0,0.5*\ph)}]
       \ugentleftshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
+    \clip (0,0) rectangle (\@PW,\@PH);
+    \begin{scope}[shift={(0,0.5*\@PH)}]
       \node[align=center] at  (0.8+0.5*\dx,0.5*\dy) {#1};
     \end{scope}
   \end{tikzpicture}
@@ -9801,10 +9797,10 @@ een b\'echamel saus:
   \gdef\appropriatelogo{}%\logopos}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{\pw-1.6}%
-  \pgfmathsetmacro\dy{0.5*\ph-0.8}%
+  \pgfmathsetmacro\dx{\@PW-1.6}%
+  \pgfmathsetmacro\dy{0.5*\@PH-0.8}%
   \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
+    \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}[shift={(0,0.8)}]
     \ugentleftshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
     \node[align=center] at  (0.8+0.5*\dx,0.5*\dy) {#1};
@@ -9828,12 +9824,12 @@ een b\'echamel saus:
   \thispagestyle{ugent@titlepage}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    %\node[anchor=center] at  (0.5*\textwidth,0.75*\ph)
+    %\node[anchor=center] at  (0.5*\textwidth,0.75*\@PH)
     %{\includegraphics[height=.9\@logounit]{\logopos}};
     \node[
     text width=0.98\textwidth,
-    align=center] at (0.5*\textwidth,0.5*\ph) {
     text=ugent@main,
+    align=center] at (0.5*\textwidth,0.5*\@PH) {
       \begin{beamercolorbox}[wd=\textwidth,center]{title in title page}
         \LARGE\bfseries\inserttitle\\[1ex]
         \usebeamercolor[fg]{subtitle in title page}
@@ -9842,16 +9838,16 @@ een b\'echamel saus:
     };
     \node[
     text width=0.98\textwidth,
-    align=center] at (0.5*\textwidth,0.25*\ph) {
     color=ugent@main,
+    align=center] at (0.5*\textwidth,0.25*\@PH) {
       \begin{beamercolorbox}[wd=\textwidth,center]{author in title page}
         \large\bfseries\insertauthor
       \end{beamercolorbox}
     };
     \node[
     text width=0.98\textwidth,
-    align=center] at (0.5*\textwidth,0.15*\ph) {
     color=ugent@main,
+    align=center] at (0.5*\textwidth,0.15*\@PH) {
       \begin{beamercolorbox}[wd=\textwidth,center]{date in title page}
         \normalsize\bfseries\insertdate
       \end{beamercolorbox}
@@ -9933,8 +9929,8 @@ een b\'echamel saus:
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
     \node[
     text width=0.98\textwidth,
-    align=center] at (0.5*\textwidth,0.55*\ph) {
     text=ugent@main,
+    align=center] at (0.5*\textwidth,0.55*\@PH) {
       \begin{beamercolorbox}[wd=\textwidth,center]{section title}
         \Large\bfseries\insertsectionnumber.~\insertsection
       \end{beamercolorbox}
@@ -9948,16 +9944,16 @@ een b\'echamel saus:
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
     \node[
     text width=0.98\textwidth,
-    align=center] at (0.5*\textwidth,0.55*\ph) {
     text=ugent@main,
+    align=center] at (0.5*\textwidth,0.55*\@PH) {
       \begin{beamercolorbox}[wd=\textwidth,center]{section title}
         \Large\bfseries\insertsectionnumber.~\insertsection
       \end{beamercolorbox}
     };
     \node[
     text width=0.98\textwidth,
-    align=center] at (0.5*\textwidth,0.45*\ph) {
     text=ugent@main,
+    align=center] at (0.5*\textwidth,0.45*\@PH) {
       \begin{beamercolorbox}[wd=\textwidth,center]{subsection title}
         \large\bfseries\insertsubsection
       \end{beamercolorbox}
