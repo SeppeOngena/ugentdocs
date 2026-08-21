@@ -7755,7 +7755,7 @@ Gault-Millau.
 
 \title{This is your \texttt{\textbackslash{}title{}}}
 \subtitle[my short title]{This is your \texttt{\textbackslash{}subtitle{}}}
-\date[my short date]{This is your \texttt{\textbackslash{}date{}}}
+\date{This is your \texttt{\textbackslash{}date{}}}
 \author[my short author]{This is your \texttt{\textbackslash{}author{}}}
 
 \begin{document}
@@ -7904,7 +7904,6 @@ Gault-Millau.
 \end{frame}
 
 \section{Regular slides}
-\sectionframe
 
 \subsection{Bare}
 \begin{frame}[negative]
@@ -8546,7 +8545,7 @@ Gault-Millau.
 
 \mode<presentation>
 
-\usepackage[orientation=landscape,size=custom,width=\@PWnum,height=\@PHnum,scale=1]{beamerposter} 
+\usepackage[orientation=landscape,size=custom,width=\@PWnum,height=\@PHnum,scale=1]{beamerposter}
 \RequirePackage{tikz}
 \RequirePackage{graphicx}
 \RequirePackage{graphbox}
@@ -8914,14 +8913,14 @@ Gault-Millau.
 
 \define@key{beamerframe}{graphicfill}
 	[{\includegraphics[scale=0.1,min
-  	width=\paperwidth,min height=\paperheight]{Images/logo_UniversityPress_blue}}]{%UA1
+  	width=\paperwidth,min height=\paperheight]{example-image-a}}]{%UA1
   \gdef\maybeinverse{inverse }%
   \usebeamercolor[fg]{\maybeinverse normal text}%
   \setbeamertemplate{background canvas}[graphicfill]{#1}
 }
 
 \define@key{beamerframe}{graphic}[{\includegraphics[scale=0.1,min
-  width=\textwidth,min height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA2
+  width=\textwidth,min height=\textheight]{example-image-a}}]{%UA2
   \gdef\maybeinverse{inverse }%
   \usebeamercolor[fg]{\maybeinverse normal text}%
   \setbeamertemplate{background canvas}[graphic]{#1}
@@ -8929,7 +8928,7 @@ Gault-Millau.
 
 \define@key{beamerframe}{lhgraphic}
   [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA3
+    height=\textheight]{example-image-a}}]{%UA3
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[lhgraphic]{#1}
   \@rhtexttrue
@@ -8937,7 +8936,7 @@ Gault-Millau.
 
 \define@key{beamerframe}{lqgraphic}
   [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA4   
+    height=\textheight]{example-image-a}}]{%UA4
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[lqgraphic]{#1}
   \@rqtexttrue
@@ -8945,7 +8944,7 @@ Gault-Millau.
 
 \define@key{beamerframe}{rhgraphic}
   [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA5
+    height=\textheight]{example-image-a}}]{%UA5
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[rhgraphic]{#1}
   \@lhtexttrue
@@ -8953,7 +8952,7 @@ Gault-Millau.
 
 \define@key{beamerframe}{rqgraphic}
   [{\includegraphics[scale=0.5,min width=0.5\paperwidth,min
-    height=\textheight]{Images/logo_UniversityPress_blue}}]{%UA5
+    height=\textheight]{example-image-a}}]{%UA5
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[rqgraphic]{#1}
   \@lqtexttrue
@@ -8961,7 +8960,7 @@ Gault-Millau.
 
 \define@key{beamerframe}{thgraphic}
   [{\includegraphics[scale=0.5,min width=\paperwidth,min
-    height=0.5\textheight]{Images/logo_UniversityPress_blue}}]{%UA6 
+    height=0.5\textheight]{example-image-a}}]{%UA6
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[thgraphic]{#1}
   \@bhtexttrue
@@ -8969,7 +8968,7 @@ Gault-Millau.
 
 \define@key{beamerframe}{bhgraphic}
   [{\includegraphics[scale=0.5,min width=\paperwidth,min
-    height=0.5\textheight]{Images/logo_UniversityPress_blue}}]{%UA7
+    height=0.5\textheight]{example-image-a}}]{%UA7
   \gdef\maybeinverse{}%
   \setbeamertemplate{background canvas}[bhgraphic]{#1}
 }
@@ -9406,7 +9405,7 @@ Gault-Millau.
   \leavevmode%
   \hbox{\begin{beamercolorbox}
       [wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,left,leftskip=.8cm
-      plus1fill]{author in head/foot}% 
+      plus1fill]{author in head/foot}%
       %\includegraphics[height=0.35\@logounit]{\appropriatelogo}
       \hskip0pt plus 1filll ~
   \end{beamercolorbox}%
