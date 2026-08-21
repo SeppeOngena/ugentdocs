@@ -12,7 +12,9 @@ The major changes include, but are not limited to:
 - Integration of UGent-specific cover, chapter, and header/footer code.
 - UGent-specific class functionality.
 - Extensive changes to documentation and examples.
+  
 Code was included with permission from Joris Meys' LaTeX at UGent (see below, LaTeXInfo internal UGent repository).
+
 The detailed development history can be found in CHANGELOG.md or in the GitHub repository.
 
 Relation to other packages
