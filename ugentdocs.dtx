@@ -71,6 +71,7 @@
 \usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{metalogo}
+\usepackage{wasysym}
 \usepackage{tikz}
 \usetikzlibrary{positioning,calc,fit,backgrounds}
 \usepackage{dtxdescribe}
@@ -3765,91 +3766,73 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Exam macros}
 % \label{S:usage:macros:exam}
 %
-% \DescribeMacro{\exampart} [exam] mandatory\\
-% Description of the part of the course the exam covers.
-% Often the evaluation of a course consists of multiple evaluation
-% elements (e.g. a written exam, a portfolio defense and lab
-% reports). Using this macro you can indicate the part this exam
-% covers. E.g. it could be 'Written Exam' (to distinguish from the
-% other parts 'portfolio defense' and 'lab reports').
-% \begin{imacro}{\exampart}
-%   This macro will set the |\@examgropunumber| tag that will be used on
-%   the exam title page.
-%    \begin{macrocode}
+% \DescribeMacro[ex]{\exampart}\marg{exam part}
+%	\margintag{tag}\\
+% 	Describes which part of the course the exam covers.
+%	The evaluation of a course often consists of multiple elements
+%	(e.g. a written exam, an oral exam, or lab reports).
+%	Used in the exam cover page.
+% \iffalse
 %<*ex>
 \newcommand*{\@exampart}{}
 \newcommand*{\exampart}[1]{\renewcommand*{\@exampart}{#1}}
 %</ex>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\examgroupnumber} [exam]\\
-% mentions the group number (may be empty)
-%
-% \begin{imacro}{\examgroupnumber}
-%   This macro will set the |\@examgroupnumber| tag that will be used on
-%   the exam title page.
-%    \begin{macrocode}
+% \DescribeMacro[ex]{\examseries}\marg{number or name of the exam series}
+%	\margintag{tag}\\
+% 	Set the exam series number or name,
+%	e.g., ``1 (eerste examenkans-inhaal)''.
+%	Used in the exam cover page and footers.
+% \iffalse
 %<*ex>
 \newcommand*{\@examseries}{}
 \newcommand*{\examseries}[1]{\renewcommand*{\@examseries}{#1}}
 %</ex>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\examlength}
-% specifies the length of the exam in a unit of time, e.g. '4h'
-% \begin{imacro}{\examlength}
-%   This macro will set the |\@examlength| tag that will be used on
-%   the exam title page.
-%    \begin{macrocode}
+% \DescribeMacro[ex]{\examduration}\marg{HHh}
+%	\margintag{tag}\\
+% 	Specifies the total length of the exam in a unit of time, e.g., '4h'.
+%	Used on the exam cover page.
+% \iffalse
 %<*ex>
 \newcommand*{\@examduration}{TBD}
 \newcommand*{\examduration}[1]{\renewcommand*{\@examduration}{#1}}
 %</ex>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\tstart}
-% specifies the start time of the exam, preferrable in the format
-% 'HHhMM', e.g. '08h30'.
-% \begin{imacro}{\tstart}
-%   This macro will set the |\@tstart| tag that will be used on
-%   the exam title page.
-%    \begin{macrocode}
+% \DescribeMacro[ex]{\examstart}\marg{HHhMM}
+%	\margintag{tag}\\
+%	Specifies the start time of the exam,
+%	preferrable in the format 'HHhMM', e.g., '08h30'.
+%	Used on the exam cover page.
+% \iffalse
 %<*ex>
 \newcommand*{\@examstart}{TBD}
 \newcommand*{\examstart}[1]{\renewcommand*{\@examstart}{#1}}
 %</ex>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\tend}
-% specifies the end time of the exam in a format identical to the one
-% chosen for |\tstart|.
-% \begin{imacro}{\tend}
-%   This macro will set the |\@tend| tag that will be used on
-%   the exam title page.
-%    \begin{macrocode}
+% \DescribeMacro[ex]{\examend}\marg{HHhMM}
+%	\margintag{tag}\\
+%	Specifies the end time of the exam,
+%	preferrable in the format 'HHhMM', e.g., '12h30'.
+%	Used on the exam cover page.
+% \iffalse
 %<*ex>
 \newcommand*{\@examend}{TBD}
 \newcommand*{\examend}[1]{\renewcommand*{\@examend}{#1}}
 %</ex>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\room}
-% specifies the rooms in which the exam will take place. This is
-% useless info for the student, but may be of convenience for you as
-% author or supervisor of the exam. Use UAntwerpen standard room
-% designators, e.g. 'G.U.025' for room number 025, on the
-% Groenenborgercampus in the U-building.
-% If your exam is taken in multiple rooms, just specify multiple
-% |\room{}| commands.
-% \begin{imacro}{\room}
-%   This macro will set the |\@rooms| tag that will be used on
-%   the exam title page.
-%    \begin{macrocode}
+% \DescribeMacro[ex]{\room}\marg{room number}
+%	\margintag{rooms\_seq}\\
+%	Specifies the rooms in which the exam will take place.
+%	This is useless info for the student,
+%	but may be of convenience for you as author or supervisor of the exam.
+%	Used in the cover page of the exam.
+% \iffalse
 %<*ex>
 \ExplSyntaxOn
 \seq_new:N \g_@@_rooms_seq
@@ -3861,28 +3844,21 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</ex>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \DescribeMacro{\extrainfo}
-% specifies the extra information that appears on the back of the
-% title page, regarding the materials that can be used during the
-% examination and cautioning the students not to commit fraude.
-% You can specify an optional first argument 'firstpage', such that
-% your extra info starts on the first page, below the title block. In
-% that case the extra info will also not be terminated with a
-% clearpage (as we assume you want to conserve space).
-% \begin{imacro}{\extrainfo}
-%   This macro will set the |\@extrainfo| tag that will be used on
-%   the back of the exam title page.
-%   When as (optional) first argument 'firstpage' is given, the extra
-%   info will start on the first page below the title block. In that
-%   case, we assume that conservation of space is your concern, so the
-%   extra info will also not be terminated with a 'clearpage'.
-%   If no optional first argument is given (or the default
-%   'separatepage' is given), the extra info will start on a new page
-%   an will be terminated by a clearpage.
-%    \begin{macrocode}
+% \DescribeMacro[ex]{\extrainfo}
+%	\oarg{separatepage $\vert$ firstpage}\marg{extra information text}
+%	\margintag{tag}\\
+%	Specifies the extra information to describe
+%	the materials that can be used during the examination
+%	and cautioning the students not to commit fraud.
+%	When the optional argument is |separatepage| (default),
+%	the extra info appears on the back of the cover page.
+%	For the |firstpage| optional argument,
+%	the extra info starts on the first page, below the title block.
+%	In that case the extra info will also not be terminated with a
+%	clearpage (as we assume you want to conserve space).
+% \iffalse
 %<*ex>
 \ExplSyntaxOn
 \newcommand{\@extrainfo}{}
@@ -3898,13 +3874,17 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</ex>
-%    \end{macrocode}
-% \end{imacro}
-% \begin{imacro}{\question}
-%   Add a small box with the weight of the question on the current line
-%   (right aligned).
+% \fi
 %
-%    \begin{macrocode}
+% \DescribeMacro{\question}
+%	\oarg{weight}\marg{question}\\
+%	Adds a question to the exam, with automatic number counting.
+%	The |<question>| can be a short question (single line), empty,
+%	or a 'tag' or code used to reference to the question, e.g., |[EULER-1]|.
+%	You can write a longer question on the line following the macro.
+%	Using the optional argument (e.g., |weight=3|), adds a small box with
+%	the weight of the question on the current line (right aligned).
+% \iffalse
 %<*ex>
 \ExplSyntaxOn
 \newcounter{question}
@@ -3932,15 +3912,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</ex>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-%
-% \begin{imacro}{\engdut}
-%   typesets the question in two columns, the left column taking the
-%   English variant of the question and the right column taking the
-%   Dutch variant.
-%    \begin{macrocode}
+% \DescribeMacro{\bilingual}
+%	\oarg{language 1}\oarg{language 2}
+%	\marg{text 1}\marg{text 2}\\
+%   Typesets content (|<text 1>| and |<text 2>|) in two languages side-by-side.
+%	By default, |<language 1>| is |english| and |<language 2>| is |dutch|.
+%	Specifying only one optional argument overrides english.
+%	Fully supported by the |babel| package, so logos, translatekeys, etc.
+%	are automatically translated if the dictionary is present for that language
+%	(see Section~\ref{S:usage:langtimeloc:dict}).
+% \iffalse
 %<*ex>
 \NewDocumentCommand{\bilingual}{O{english} O{dutch} +m +m}{%
 	\begin{tabular}{ccc}
@@ -3954,25 +3937,22 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\end{tabular}%
 }
 %</ex>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-%
-% \begin{imacro}{\setmcsymbol}
-%   sets the symbol to be used as multiple choice mark (by default a
-%   square).
-%    \begin{macrocode}
+% \DescribeMacro{\mcsymb}\marg{new symbol}
+%	\DescribeDefault{\textbackslash Square: \Square}\\
+%   Sets the symbol to be used as multiple choice mark.
+% \iffalse
 %<*ex>
 \newcommand*\@mcsymb{\Square}
 \newcommand*\mcsymb[1]{\renewcommand\@mcsymb{#1}}
 %</ex>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \begin{imacro}{\mc}
-%   typesets a multiple choice answer candidate (monolingual, i.e. in a
-%   single column).
-%    \begin{macrocode}
+% \DescribeMacro{\mc}\marg{choice option}\\
+%   Typesets a multiple choice answer option.
+%	For bilingual, use |\mc{\bilingual{english option}{dutch option}}|.
+% \iffalse
 %<*ex>
 \newcommand\mc[1]{%
 	\hfill\break\qquad\begin{tabular}{cc}
@@ -3984,17 +3964,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\end{tabular}
 }
 %</ex>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \begin{imacro}{\insertsolutionspagepartial}
-%   fills the remainder of the page with 'fill-out' squares.
-%   as observing/controlling the current line position in \LaTeX{} is
-%   not easiy, one has to provide the number of centimeters below the
-%   bottom of the page, one wants to start the fill-out squares.
-%
-%
-%    \begin{macrocode}
+% \DescribeMacro{\insertsolutionspagepartial}
+%	\marg{height from bottom of page in cm}\\
+%   Fills the remainder of the page with 'fill-out' squares.
+%   As observing/controlling the current line position in \LaTeX{} is not easy,
+%	you have to provide the number of centimeters from the
+%   bottom of the page that you want to fill out.
+% \iffalse
 %<*ex>
 \newcommand\insertsolutionspagepartial[1]{
 ~\relax
@@ -4019,16 +3997,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	\relax
 }
 %</ex>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
-% \begin{imacro}{\insertsolutionspage}
-%   inserts a full solutions page, i.e. flushes the current page and
+% \DescribeMacro{\insertsolutionspage}\marg{watermark text}
+%   Inserts a full solutions page, i.e. flushes the current page and
 %   inserts a full page with 'fill-out' squares.
 %   The argument allows for specifying a watermark text (e.g. 'Scrap
 %   paper').
-%
-%    \begin{macrocode}
+% \iffalse
 %<*ex>
 \newcommand\insertsolutionspage[1]{
 \clearpage
@@ -4052,8 +4028,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 	~\relax
 }
 %</ex>
-%    \end{macrocode}
-% \end{imacro}
+% \fi
 %
 %
 % \subsubsection{Letter macros}
@@ -6671,7 +6646,6 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %
 %<*ex1|ex2>
 %% Exam-specific preamble ----------------------------------------------------
-% TODO verify correctness after exam macro updates
 %</ex1|ex2>
 %
 %<*ex1>
@@ -6708,8 +6682,8 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 \examend{12h30}
 
 %% Same for the room(s)
-\room{G.U.025}
-\room{G.U.026}
+\room{LES A2.1}
+\room{LES A2.2}
 
 %</ex1|ex2>
 %
