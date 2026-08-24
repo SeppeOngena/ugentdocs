@@ -1103,8 +1103,8 @@
 %	Sets the department tag |\@department| with the |name| entered.
 %	Currently unused.
 %
-% \DescribeMacro[common]{\unit}\marg{name}\margintag{tag}\\
-%	Sets the unit tag |\@unit| with the |name| entered.
+% \DescribeMacro[common]{\team}\marg{name}\margintag{tag}\\
+%	Sets the unit tag |\@team| with the |name| entered.
 %	Can be used to set ``Team ...'' or your research lab to the second line of the
 %	letter header or beamer title page.
 %
@@ -1122,9 +1122,9 @@
 		}
 	}%
 }
-\newcommand*{\@unit}{}
-\newcommand*{\unit}[1]{
-		\RenewDocumentCommand{\@unit}{O{}}{
+\newcommand*{\@team}{}
+\newcommand*{\team}[1]{
+		\RenewDocumentCommand{\@team}{O{}}{
 		\str_case:nnF {##1}{
 			{uppercase}{\text_uppercase:n{#1}}
 			{lowercase}{\text_lowercase:n{#1}}
@@ -6195,7 +6195,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %<*le1>
 %% Override faculty name (if needed for e.g. UGent university services, GUGC, etc.)
 %% \faculty{Directie ICT}
-\unit{TRASLAB}
+\team{TRASLAB}
 
 %</le1>
 %
@@ -7532,7 +7532,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% As you probably will always be the sender of your letters,
 %% put this info in the configuration file too.
 \sender{ir.~Seppe Ongena}{PhD Student}
-\unit{TRASLAB}
+\team{TRASLAB}
 \address{
 CAPTURE building\\
 Frieda Saysstraat 1\\
