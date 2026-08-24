@@ -1542,6 +1542,7 @@
 \cs_new_nopar:Nn \@@_flush_value: {
 	\bool_if:NT \l_@@_keyval_flushpending_bool {
 		\tl_trim_spaces:N \l_@@_value_tl
+		\regex_replace_all:nnN {\x7E} {\c{nobreakspace}} \l_@@_value_tl
 		\tl_set:Nx \l_@@_dictkey_tl { \l_@@_dictlang_tl {} :\l_@@_key_tl }
 		\prop_gput:NVx \g_@@_dict_keyvals_prop \l_@@_dictkey_tl { \l_@@_value_tl }
 		\bool_set_false:N \l_@@_keyval_flushpending_bool
