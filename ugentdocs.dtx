@@ -4478,6 +4478,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \fi
 
   % for the frontmatter
+  \apptocmd{\frontmatter}{\pagestyle{frontmatter}}{}{}
   \if@twoside
   \fancypagestyle{frontmatter}{
     \fancyhf{}
@@ -4495,6 +4496,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
   % for the mainmatter
   \renewcommand{\chaptermark}[1]{\markboth{\thechapter. \ #1}{}}
+  \apptocmd{\mainmatter}{\pagestyle{mainmatter}}{}{}
 
   \if@twoside
   \fancypagestyle{mainmatter}{
