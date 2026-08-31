@@ -4659,6 +4659,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 { #1 } %before code
 { } %after code
 
+\newcommand{\@ugentappendixtitleformat}{ % Adds "appendix" to title
+  \titleformat{\chapter}
+  [display] % shape
+  {\fontsize{18}{22}\selectfont\coltitle} % format
+  {\MakeUppercase{\chaptertitlename\ \thechapter}} % the label
+  {-2ex} %separator space
+  {\fontsize{24}{32}\selectfont\bfseries\raggedright\MakeUppercase{\uline{#1}}} %before code
+  { } %aft%after code
+}
+
+\apptocmd{\appendix}{\@ugentappendixtitleformat}{}{}
+
 
 % Change the spacing above the chapter. This is left - above - below
 \titlespacing*{\chapter}{0pt}{-3em}{12pt}
