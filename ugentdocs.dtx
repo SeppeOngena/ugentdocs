@@ -4374,7 +4374,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % If this package is loaded for the |crs|, |bama|, |phd|, or |report| classes,
 % the style sets the TOC colour to |toccolor|
 % and any other link colour to |hypercolor|
-% (see Section~\ref{S:usage:cffcl:colour}).
+% (see Section~\ref{S:usage:cffcl:colours}).
 % It additionally sets the |pdftitle|, |pdfsubject|, and |pdfauthor| metadata:
 %    \begin{macrocode}
 %<*crs|bama|phd|rp>
@@ -4393,7 +4393,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
       \_@@_translate:nn {} {andlist}
       \tl_gset_eq:NN \g_@@_pdfandlist_tl \l_@@_value_cased_tl
     }
-    \protected@xdef\@pdfauthor{\@@_printseq:nnnn{authorlist}{~\&~}{,~}{\exp_not:V\g_@@_pdfandlist_tl{}~}}%
+    \protected@xdef\@pdfauthor{%
+      \@@_printseq:nnnn{authorlist}{~\&~}{,~}{\exp_not:V\g_@@_pdfandlist_tl{}~}
+    }%
     \endgroup
     \hypersetup{
       breaklinks=true,
@@ -4416,31 +4418,70 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %
 % \subsection{Headers and Footers}
-% The |fancyhdr| package is used to make a decent header and footer.
-% The header and footer of the |course| class are defined to be:
+% \label{S:style:headerfooter}
+% The |fancyhdr| package is used to make the headers and footers.
+% Using this, we can set left/center/right (L/C/R) areas of the headers and footers.
+%
+% For the |course| class, we define separate headers and footers
+% for two-sided and one-sided documents.
+% For two-sided even pages, we put the page number in the left header,
+% the chapter title in the right header, and ``Ghent University'' (translated)
+% with the faculty acronym (e.g., FBW) in the left footer.
+% For two-sided odd pages, we put the page number in the right header,
+% the section title in the left header, the course version in the left footer,
+% and the title of the course and short subtitle in the right footer.
+% For one-sided courses, we put the chapter title in the left header,
+% the page number in the right header, the course version in the left footer,
+% ``Ghent University'' (translated) and the faculty abbreviation in the center footer,
+% and the course title in the right footer.
+% For both document types, we set the header height to 13.7pt,
+% and the footer and header rule or line thickness to 1 pt.
+% Page numbering is in arabic for all pages.
+% For a plain page style, i.e., the title page of a chapter or section,
+% we only print the page number in the center of the footer.
+%
+% The choices above results in the following code:
+%
 %    \begin{macrocode}
 %<*crs>
 \fancyhf{}
 \if@twoside
   \fancyhead[LE]{\small\thepage}
   \fancyhead[RE]{\small\leftmark}
+  \fancyfoot[LE]{
+    \small\translatekey{org-ugent}
+    \ifx\@fselector\@empty\else -- \@facultyacronym\fi
+  }
+
   \fancyhead[LO]{\small\rightmark}
   \fancyhead[RO]{\small\thepage}
-
-  \fancyfoot[LE]{\small\translatekey{org-ugent}\ifx\@fselector\@empty\else -- \@facultyacronym\fi}
-  \fancyfoot[LO]{\ifx\@courseversion\@empty\else\small\translatekey{version}~\@courseversion\fi}
-  \fancyfoot[RO]{\small\@title{}\ifdefvoid{\@shortsubtitle}{}{ --- \@shortsubtitle}}
+  \fancyfoot[LO]{
+    \ifx\@courseversion\@empty\else
+      \small\translatekey{version}~\@courseversion
+    \fi
+  }
+  \fancyfoot[RO]{
+    \small\@title{}
+    \ifdefvoid{\@shortsubtitle}{}{ --- \@shortsubtitle}
+  }
 \else
-  \fancyhead[LO]{\small\leftmark}
-  \fancyhead[RO]{\small\thepage}
-  \fancyfoot[LO]{\ifx\@courseversion\@empty\else\small\translatekey{version}~\@courseversion\fi}
-  \fancyfoot[CO]{\small\translatekey{org-ugent}\ifx\@fselector\@empty\else -- \@facultyacronym\fi}
-  \fancyfoot[RO]{\small\@title{}}
+  \fancyhead[L]{\small\leftmark}
+  \fancyhead[R]{\small\thepage}
+  \fancyfoot[L]{
+    \ifx\@courseversion\@empty\else
+      \small\translatekey{version}~\@courseversion
+    \fi
+  }
+  \fancyfoot[C]{
+    \small\translatekey{org-ugent}
+    \ifx\@fselector\@empty\else -- \@facultyacronym\fi
+  }
+  \fancyfoot[R]{\small\@title{}}
 \fi
 \fancypagestyle{plain}{%
+  \fancyhf{}
   \renewcommand*{\headrulewidth}{0pt}
   \renewcommand*{\footrulewidth}{0pt}
-  \fancyhf{}
   \fancyfoot[C]{\small\thepage}
 }
 \setlength{\headheight}{13.7pt}
@@ -4450,77 +4491,123 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs>
 %    \end{macrocode}
 %
-% The header and footer of the |bama| and |report| classes
-% (Code adapted from Joris Meys' LaTeX at UGent)
-% are defined to be:
+%
+% For the |bama| and |report| classes, the frontmatter -- e.g., copyright page,
+% summary, abbreviations list, or AI use disclaimer -- uses a different style.
+% For the frontmatter of a two-sided document,
+% the even pages show the page number in the left header,
+% and the odd pages show it in the left footer.
+% The frontmatter of a one-sided document simply shows the page number
+% in the right footer.
+% No header line is drawn for the frontmatter.
+% For the mainmatter, the chapter marks are formatted as, e.g.,
+% ``1. Chapter title''.
+% These are shown on the left header of odd pages for two-sided documents,
+% and the left header of all pages for one-sided documents.
+% Additionally, the page number is shown alternating on the outer corner of
+% the footer (left for even, right for odd) of two-sided documents, and
+% always in the right footer of one-sided documents.
+% For one-sided documents, a small UGent logo is additionally shown
+% in the left footer.
+% For plain page styles such as chapter or section titles, the same
+% style is kept as for the mainmatter, albeit without the header.
+% Finally, the global header height is set to 21pt,
+% and the footer skip to 1.5 cm.
+%
+% The choices above results in the following code
+% (adapted from Joris Meys' LaTeX at UGent):
+%
 %    \begin{macrocode}
 %<*bama|rp>
-\AtBeginDocument{
-  \setlength{\headheight}{21pt}
-  \setlength{\footskip}{1.5cm}
-  % for the title pages
-  \if@twoside
-  \fancypagestyle{plain}{
-    \fancyhf{}
-    \fancyfoot[RO]{\thepage}
-    \fancyfoot[LE]{\thepage}
-    \renewcommand{\headrulewidth}{0pt}
-    \renewcommand{\footrulewidth}{0pt}
-  }
-  \else
-  \fancypagestyle{plain}{
-    \fancyhf{}
-    \fancyfoot[RO]{\thepage}
-    \fancyfoot[LO]{\raisebox{-0.3\height}{\begin{tikzpicture}\ugentlogo{1.8cm}{ugent@main}{0.5}\end{tikzpicture}}}
-    \renewcommand{\headrulewidth}{0pt}
-    \renewcommand{\footrulewidth}{0pt}
-  }
-  \fi
-
-  % for the frontmatter
-  \apptocmd{\frontmatter}{\pagestyle{frontmatter}}{}{}
-  \if@twoside
-  \fancypagestyle{frontmatter}{
-    \fancyhf{}
-    \renewcommand{\headrulewidth}{0pt}
-    \fancyfoot[RO]{\thepage}
-    \fancyfoot[LE]{\thepage}
-  }
-  \else
-  \fancypagestyle{frontmatter}{
-    \fancyhf{}
-    \renewcommand{\headrulewidth}{0pt}
-    \fancyfoot[RO]{\thepage}
-  }
-  \fi
-
-  % for the mainmatter
-  \renewcommand{\chaptermark}[1]{\markboth{\thechapter. \ #1}{}}
-  \apptocmd{\mainmatter}{\pagestyle{mainmatter}}{}{}
-
-  \if@twoside
-  \fancypagestyle{mainmatter}{
-    \fancyhf{}
-    \fancyhead[LO]{ \leftmark}
-    % \fancyhead[RE]{ \rightmark}
-    \fancyfoot[RO]{\thepage}
-    \fancyfoot[LE]{\thepage}
-    \renewcommand{\headrulewidth}{0.15pt}
-  }
-  \else
-  \fancypagestyle{mainmatter}{
-    \fancyhf{}
-    \fancyhead[LO]{ \leftmark}
-    \fancyfoot[RO]{\thepage}
-    \fancyfoot[LO]{\raisebox{-0.3\height}{\begin{tikzpicture}\ugentlogo{1.8cm}{ugent@main}{0.5}\end{tikzpicture}}}
-    \renewcommand{\headrulewidth}{0.15pt}
-  }
-  \fi
+% Frontmatter
+\apptocmd{\frontmatter}{\pagestyle{frontmatter}}{}{}
+  % Auto set when calling frontmatter
+\if@twoside
+\fancypagestyle{frontmatter}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyfoot[RO]{\thepage}
+  \fancyfoot[LE]{\thepage}
 }
+\else
+\fancypagestyle{frontmatter}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyfoot[R]{\thepage}
+}
+\fi
+
+% Mainmatter
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter. \ #1}{}}
+  % Set chapter mark to e.g. 1. Chapter title
+\apptocmd{\mainmatter}{\pagestyle{mainmatter}}{}{}
+  % Auto set when calling mainmatter
+
+\if@twoside
+\fancypagestyle{mainmatter}{
+  \fancyhf{}
+  \fancyhead[LO]{ \leftmark}
+  % \fancyhead[RE]{ \rightmark}
+  \fancyfoot[RO]{\thepage}
+  \fancyfoot[LE]{\thepage}
+  \renewcommand{\headrulewidth}{0.15pt}
+}
+\else
+\fancypagestyle{mainmatter}{
+  \fancyhf{}
+  \fancyhead[L]{ \leftmark}
+  \fancyfoot[R]{\thepage}
+  \fancyfoot[L]{
+    \raisebox{-0.3\height}{
+      \begin{tikzpicture}
+        \ugentlogo{1.8cm}{ugent@main}{0.5}
+      \end{tikzpicture}
+    }
+  }
+  \renewcommand{\headrulewidth}{0.15pt}
+}
+\fi
+
+% for the title pages
+\if@twoside
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[RO]{\thepage}
+  \fancyfoot[LE]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+\else
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[R]{\thepage}
+  \fancyfoot[L]{
+    \raisebox{-0.3\height}{
+      \begin{tikzpicture}
+        \ugentlogo{1.8cm}{ugent@main}{0.5}
+      \end{tikzpicture}
+    }
+  }
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+\fi
+
+\setlength{\headheight}{21pt}
+\setlength{\footskip}{1.5cm}
 %</bama|rp>
 %    \end{macrocode}
 %
-% The header and foter of the |phd| is defined to be:
+% The |phd| class uses simpler headers and footers.
+% For regular pages, only headers are used.
+% For two-sided documents, the page numbers are shown on the outer header corners.
+% The chapter is shown in the right header on even pages,
+% and the section is shown in the left header on odd pages.
+% For one-sided documents, this becomes the chapter mark in the left header
+% and the page number in the right header.
+% For plain pages, the page number is shown in the center of the footer.
+% The header height is set to 13.7pt, and the header and footer line widths to 0pt.
+% The description above results in the following code:
 %    \begin{macrocode}
 %<*phd>
 \if@twoside
@@ -4531,8 +4618,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \fancyhead[RO]{\small\thepage}
 \else
   \fancyhf{}
-  \fancyhead[LO]{\small\leftmark}
-  \fancyhead[RO]{\small\thepage}
+  \fancyhead[L]{\small\leftmark}
+  \fancyhead[R]{\small\thepage}
 
 \fi
 \fancypagestyle{plain}{%
@@ -4545,8 +4632,44 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd>
 %    \end{macrocode}
 %
-% The header and footer of the |letter| class are
-% defined to be:
+% The footer of the |exam| class is simply the page number and
+% total page count in the center.
+% The right header displays ``EXAMINER VERSION'' for the |examiner=true| option,
+% and the student number for |examiner=false| (default).
+% Additionally, a watermark is drawn for the examiner version.
+% This results in the following code:
+%    \begin{macrocode}
+%<*ex>
+\fancyhf{}
+\fancyfoot[C]{\small\thepage/\ztotpages}
+\ExplSyntaxOn
+\bool_if:NTF \l_@@_examiner_bool {
+  \fancyhead[R]{\small EXAMINER~VERSION}
+  \AddToHook{shipout/background}{
+    \put(0,-\@PH){%
+    \put(60,40){\rotatebox{60}{\textcolor{watermarkcolor}{
+          \fontsize{105}{130}\selectfont Examiner~Version}}}}}
+}{
+  \fancyhead[R]{\small Student~nr.~\@studentnr}
+}
+\ExplSyntaxOff
+
+\setlength{\headheight}{13.7pt}
+\renewcommand*{\headrulewidth}{0pt}
+%</ex>
+%    \end{macrocode}
+%
+% For the |letter| class, we don't use the fancyhdr package.
+% Instead, we define a custom header using TikZ:
+%
+% \DescribeObject[custom]{\@letterheader}
+%   This consists of 3 parts, the date on the left,
+%    the page number and total pages in the middle,
+%   and the reference number on the right.
+%   The labels above the date, page number, and reference are shown in
+%   \textcolor{ugent@main}{UGent Blue}. Doing this in a TikZ picture allows us to
+%   position the header differently between the first and later pages.
+%   Implementation:
 %    \begin{macrocode}
 %<*le>
 \fancyhf{}
@@ -4564,30 +4687,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</le>
 %    \end{macrocode}
 %
-% The header and footer of the |exam| class are defined to
-% be:
-%    \begin{macrocode}
-%<*ex>
-\fancyhf{}
-\fancyfoot[C]{\small\thepage/\ztotpages}
-\ExplSyntaxOn
-\bool_if:NTF \l_@@_examiner_bool {
-  \fancyhead[R]{\small EXAMINER~VERSION}
-  \AddToShipoutPicture{% TODO change to \AddToHook{shipout/foreground}{
-    \put(60,40){\rotatebox{60}{\textcolor{watermarkcolor}{
-          \fontsize{105}{130}\selectfont Examiner~Version}}}}
-}{
-  \fancyhead[R]{\small Student~nr.~\@studentnr}
-}
-\ExplSyntaxOff
-
-\setlength{\headheight}{13.7pt}
-\renewcommand*{\headrulewidth}{0pt}
-%</ex>
-%    \end{macrocode}
 %
-%
-%
+% \newpage
 % \subsection{Fancy chapter headers for the \texttt{phd} and \texttt{course} classes}
 %
 %    \begin{macrocode}
@@ -4662,10 +4763,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand{\@ugentappendixtitleformat}{ % Adds "appendix" to title
   \titleformat{\chapter}
   [display] % shape
-  {\fontsize{18}{22}\selectfont\coltitle} % format
+  {\fontsize{18}{22}\selectfont\color{titlecolor}} % format
   {\MakeUppercase{\chaptertitlename\ \thechapter}} % the label
   {-2ex} %separator space
-  {\fontsize{24}{32}\selectfont\bfseries\raggedright\MakeUppercase{\uline{#1}}} %before code
+  {\fontsize{24}{32}\selectfont\bfseries\raggedright\MakeUppercase{\uline{##1}}} %before code
   { } %aft%after code
 }
 
