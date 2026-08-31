@@ -4548,6 +4548,17 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*le>
 \fancyhf{}
+\newcommand{\@letterheader}{
+  \begin{tikzpicture}[anchor=north west,align=left,outer sep=0,inner sep=0]
+    \path
+    (0,0) node { \small\strut\textcolor{ugent@main}{\translatekey[uppercase]{date}} }
+    (4cm,0) node { \small\strut\textcolor{ugent@main}{\translatekey[uppercase]{page}} }
+    (8cm,0) node { \small\strut\textcolor{ugent@main}{\translatekey[uppercase]{ourref}} }
+    (0,-2.5ex) node { \strut \@date }
+    (4cm,-2.5ex) node { \strut \thepage/\ztotpages }
+    (8cm,-2.5ex) node { \strut \@reference };
+  \end{tikzpicture}
+}
 %</le>
 %    \end{macrocode}
 %
@@ -5936,17 +5947,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 
-\newcommand{\@letterheader}{
-  \begin{tikzpicture}[anchor=north west,align=left,outer sep=0,inner sep=0]
-  \path
-  (0,0) node { \small\strut\textcolor{ugent@main}{\translatekey[uppercase]{date}} }
-  (4cm,0) node { \small\strut\textcolor{ugent@main}{\translatekey[uppercase]{page}} }
-  (8cm,0) node { \small\strut\textcolor{ugent@main}{\translatekey[uppercase]{ourref}} }
-  (0,-2.5ex) node { \strut \@date }
-  (4cm,-2.5ex) node { \strut \thepage/\ztotpages }
-  (8cm,-2.5ex) node { \strut \@reference };
-  \end{tikzpicture}
-}
 %</le>
 %    \end{macrocode}
 % \end{imacro}
