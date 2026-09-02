@@ -2501,6 +2501,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %     |tabularx|        & Auto-expandable paragraph columns                 \\
 %     |thumbs|          & Thumb indexes for PhDs and courses                \\
 %     |tikz|            & logos, cover pages, etc.                          \\
+%     |tikzpagenodes|   & Positioning relative to page                      \\
 %     |titlesec|        & Chapter title formatting                          \\
 %     |ulem|            & Line-breaking underline                           \\
 %     |unicode-math|    & Sans-serif math                                   \\
@@ -2527,6 +2528,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \RequirePackage[export]{adjustbox}
 \RequirePackage{color}
 \RequirePackage{tikz}
+\RequirePackage{tikzpagenodes}
 \usetikzlibrary{positioning,calc,fit,backgrounds}
 \RequirePackage{eso-pic}
 \RequirePackage{zref-totpages}
@@ -2617,6 +2619,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*phd|crs>
 \ExplSyntaxOn
+\newcommand{\@addthumb}{}
 \bool_if:NT \l_@@_thumbs_bool {
   \IfPackageLoadedTF{crop}{% Thumbs should be loaded after crop!
     \PassOptionsToPackage{ignorehoffset=false,ignorevoffset=false}{thumbs}% crop
@@ -2632,20 +2635,38 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     topthumbmargin=3in
   ]{thumbs}
 
-  \newcommand*{\@addthumb}{%
+  \renewcommand*{\@addthumb}{%
     \addthumb{\chaptername~\thechapter}% Full chapter name
       {\Large\bfseries\thechapter}% Chapter name in thumb (\thechapter = 1, 2, ...)
       {white}% Chapter name color
       {gray!50}% Thumb color
   }
-
-  \AddToHook{cmd/@makechapterhead/after}{%
-    \@addthumb % Add thumb for every numbered chapter
-  }
 }
 \ExplSyntaxOff
 %</phd|crs>
 %    \end{macrocode}
+% \iffalse
+%<*phd|crs>
+\ExplSyntaxOn
+\bool_if:NT \l_@@_thumbs_bool {
+  % Thumb fix not moving down when calling from titlesec
+  % At begin document to allow customization to alter addthumb
+  \AtBeginDocument{
+    \apptocmd{\@addthumb}{
+    \xdef\@thumbposysave{\the\th@mbposy}%
+    \xdef\@thumbposyAsave{\the\th@mbposyA}%
+    \aftergroup\@fixthumbposy
+    }{}{}
+  }
+  % Helper
+  \newcommand*{\@fixthumbposy}{%
+    \global\th@mbposy=\@thumbposysave\relax
+    \global\th@mbposyA=\@thumbposyAsave\relax
+  }
+}
+\ExplSyntaxOff
+%</phd|crs>
+% \fi
 % \end{itemize}
 %
 %
@@ -4689,96 +4710,281 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %
 % \newpage
-% \subsection{Fancy chapter headers for the \texttt{phd} and \texttt{course} classes}
+% \subsection{Chapter and section titles}
+% \label{S:style:title}
 %
 %    \begin{macrocode}
-%<*phd|crs>
-\def\@makechapterhead#1{%
-  \vspace*{1ex}%
-  \begin{flushright}
-    \makebox[0pt][l]{\color{titlecolor}\rule[-0.4em]{10cm}{1.8em}}\textcolor{white}
-    {\LARGE\textbf{~\chaptername~}}
-    \raisebox{-24pt}{
-      \begin{tikzpicture}
-        \foreach \theta in {0,5,...,355} {
-          \node[color=white] at (\theta:0.025)
-          {\fontsize{72}{12}\selectfont\textbf{\thechapter}};
+%<*phd|crs|bama|rp>
+\RequirePackage[explicit]{titlesec}
+\ExplSyntaxOn
+\tl_new:N \l_@@_chaptitlestyle
+\newcommand{\@appendixtitlestyle}{}
+
+\newcommand{\@chaptertitlestyle}{
+  \exp_args:Nx \str_case:nnF { \l_@@_chaptitlestyle } {
+    { plain } {
+      \titleformat{\chapter}
+      [block] % shape
+      {\fontsize{16}{19} \selectfont \color{titlecolor} \bfseries } % format
+      {\thechapter. \ } % the label
+      { 0ex } %separator space
+      {\MakeUppercase{\uline{##1}} } %before code
+      [\@addthumb] %after code
+
+      \titleformat{name=\chapter,numberless}
+      [block] % shape
+      {\fontsize{16}{19} \selectfont \color{titlecolor} \bfseries } % format
+      {} % the label
+      {0ex}%separator space
+      {\uline{\MakeUppercase{##1}}} %before code
+
+      % Change the spacing above the chapter. This is left - above - below
+      \titlespacing*{\chapter}{0pt}{-3em}{12pt}
+
+      \renewcommand{\@appendixtitlestyle}{ % Adds "appendix" to title
+        \titleformat{\chapter}
+        [display] % shape
+        {\fontsize{18}{22}\selectfont\color{titlecolor}} % format
+        {\MakeUppercase{\chaptertitlename\ \thechapter}} % the label
+        {-2ex} %separator space
+        {\fontsize{24}{32}\selectfont\bfseries\raggedright\MakeUppercase{\uline{####1}}} %before code
+        [\@addthumb] %after code
+      }
+    }
+    { fancy } {
+      \titleformat{\chapter}
+        [display] % shape
+        {}{}{0pt} % format, label, sep (unused: box+number are drawn manually)
+        {%
+          \begin{tikzpicture}[remember~picture, overlay]
+          % Rule
+          \draw[titlecolor, line~width=1pt]
+          ([xshift=-\the\hoffset, yshift=-8\gridunit]current~page~text~area.west |- current~page.north)
+          -- ([yshift=-8\gridunit]current~page~text~area.east |- current~page.north);
+
+          % Chapter title
+          \node[titlecolor, font=\huge\bfseries, anchor=south~east, align=right,
+          text~width=\textwidth] (chaptitle) at
+          ([xshift=-\the\hoffset,yshift=-8\gridunit+10pt]current~page~text~area.east |- current~page.north) {##1};
+
+          % Number coloured box
+          \node[fill=titlecolor, minimum~height=3\gridunit, minimum~width=4\gridunit+\the\hoffset,
+          inner~sep=0pt, anchor=south~east] (numbox) at
+          ([xshift=\the\hoffset,yshift=10pt]current~page.east |- chaptitle.north) {};
+
+          % Chapter number
+          \node[white, font=\fontsize{70}{70}\selectfont\bfseries,
+          anchor=center] at ([xshift=1.5\gridunit]numbox.west |- numbox.center) {\thechapter};
+
+          % Chapter name
+          \node[white, font=\bfseries\normalsize, rotate=90, anchor=center,
+          inner~sep=2pt] at ([xshift=3.5\gridunit]numbox.west |- numbox.center) {\chaptername};
+
+          \end{tikzpicture}%
+          \vspace*{5\p@}%
         }
-        \node[color=titlecolor!50] at (0,0)
-        {\fontsize{72}{12}\selectfont\textbf{\thechapter}};
-      \end{tikzpicture}
-    }\hspace*{-8pt}
-    \par\nobreak
-    \interlinepenalty\@M
-    \huge\textbf{\textcolor{titlecolor}{\rule[-0.5ex]{0em}{2.6ex}~#1}}
-    \par\nobreak
-  \end{flushright}
-  \rule{\textwidth}{1pt}
-  \vspace{5\p@}\par\nobreak
+        [\@addthumb] %after code
+
+      \titleformat{name=\chapter,numberless}
+      [block]
+      {}{}{0pt}
+      {%
+        \begin{tikzpicture}[remember~picture, overlay]
+        % Chapter title
+        \node[titlecolor, font=\huge\bfseries, anchor=south~east, align=right,
+        text~width=\textwidth] at
+        ([xshift=-\the\hoffset,yshift=-5\gridunit+10pt]current~page~text~area.east |- current~page.north) {##1};
+
+        % Rule
+        \draw[titlecolor, line~width=1pt]
+        ([xshift=-\the\hoffset,yshift=-5\gridunit]current~page~text~area.west |- current~page.north) --
+        ([xshift=-\the\hoffset,yshift=-5\gridunit]current~page~text~area.east |- current~page.north);
+        \end{tikzpicture}%
+        \vspace*{5\p@}%
+      }
+
+      % No thumb on chapter page
+      \bool_if:NT \l_@@_thumbs_bool {
+        \apptocmd{\@addthumb}{\stopthumb}{}{}
+        \AddToHook{shipout/foreground}{\continuethumb}
+      }
+
+    }
+    { fancycompact} {
+      \titleformat{\chapter}
+      [display] % shape
+      {}{}{0pt} % format, label, sep (unused: box+number are drawn manually)
+      {%
+        \edef\@numboxhbleed{\the\hoffset}\edef\@numboxvbleed{\the\voffset}%
+        \begin{tikzpicture}[remember~picture, overlay]
+        % Number coloured box
+        \node[fill=titlecolor, minimum~height=3\gridunit, minimum~width=4\gridunit+\the\hoffset,
+        inner~sep=0pt, anchor=north~east] (numbox) at
+        ([xshift=\the\hoffset,yshift=-3\gridunit]current~page.north~east) {};
+
+        % Chapter number
+        \node[white, font=\fontsize{70}{70}\selectfont\bfseries,
+        anchor=center] at ([xshift=1.5\gridunit]numbox.west |- numbox.center) {\thechapter};
+
+        % Chapter name
+        \node[white, font=\bfseries\normalsize, rotate=90, anchor=center,
+        inner~sep=2pt] at ([xshift=3.5\gridunit]numbox.west |- numbox.center) {\chaptername};
+
+        % Chapter title
+        \node[titlecolor, font=\huge\bfseries, anchor=south~east, align=right,
+        text~width=0.85\textwidth] at ([xshift=-10pt,yshift=10pt]numbox.west |- numbox.south) {##1};
+
+        % Rule
+        \draw[titlecolor, line~width=1pt]
+        ([xshift=-\the\hoffset]current~page~text~area.west |- numbox.south) -- (numbox.south~east);
+        \end{tikzpicture}%
+        \vspace*{5\p@}%
+      }
+      [\@addthumb] %after code
+
+      \titleformat{name=\chapter,numberless}
+      [block]
+      {}{}{0pt}
+      {%
+        \begin{tikzpicture}[remember~picture, overlay]
+        % Chapter title
+        \node[titlecolor, font=\huge\bfseries, anchor=south~east, align=right,
+        text~width=0.85\textwidth] at
+        ([xshift=-10pt-\the\hoffset,yshift=-6\gridunit+10pt]current~page~text~area.east |- current~page.north) {##1};
+
+        % Rule
+        \draw[titlecolor, line~width=1pt]
+        ([xshift=-\the\hoffset,yshift=-6\gridunit]current~page~text~area.west |- current~page.north) --
+        ([xshift=-\the\hoffset,yshift=-6\gridunit]current~page~text~area.east |- current~page.north);
+        \end{tikzpicture}%
+        \vspace*{5\p@}%
+      }
+
+      % No thumb on chapter page
+      \bool_if:NT \l_@@_thumbs_bool {
+        \apptocmd{\@addthumb}{\stopthumb}{}{}
+        \AddToHook{shipout/foreground}{\continuethumb}
+      }
+    }
+    { uantwerpen } {
+      \def\@makechapterhead##1{%
+        \vspace*{1ex}%
+        \begin{flushright}
+          \makebox[0pt][l]{\color{titlecolor}\rule[-0.4em]{10cm}{1.8em}}\textcolor{white}
+          {\LARGE\textbf{~\chaptername~}}
+          \raisebox{-24pt}{
+            \@UAChapNum
+          }\hspace*{-8pt}
+          \par\nobreak
+          \interlinepenalty\@M
+          \huge\textbf{\textcolor{titlecolor}{\rule[-0.5ex]{0em}{2.6ex}~##1}}
+          \par\nobreak
+        \end{flushright}
+        \rule{\textwidth}{1pt}
+        \vspace{5\p@}%
+        \@addthumb % Add thumb for every numbered chapter
+        \par\nobreak
+      }
+      \def\@schapter##1{%
+        \@makeschapterhead{##1}%
+        \@afterheading
+      }
+      \def\@makeschapterhead##1{%
+        \vspace*{1ex}%
+        \begin{flushright}
+          \LARGE\textbf{\textcolor{titlecolor}{\rule[-0.5ex]{0em}{2.6ex}~##1}}
+        \end{flushright}
+        \rule{\textwidth}{1pt}
+        \vspace{5\p@}\par
+      }
+    }
+    { legacyplain }{
+      \newcommand*{\chapDecoShape}[3]{%
+        % args: label text, text col, font style
+        \begin{tikzpicture}[baseline=(o), overlay]
+        \node[draw, text~width=3cm, align=right, anchor=base~east,
+        ##2, fill=titlecolor] (n) at (-10pt, 0) {{##3\textbf{##1}}};
+        \node[inner~sep=0, outer~sep=0] (o) at (0,0) {};
+        \end{tikzpicture}%
+      }
+
+      \titleformat{\chapter}[block]
+      {\Large\bfseries}{}{20pt}{%
+        \makebox[0pt][r]{\chapDecoShape{\thechapter}{white}{\fontsize{16}{18}\selectfont}}%
+        ##1%
+      }[\@addthumb]
+
+      \titleformat{name = \chapter, numberless}[block]
+      {\Large\bfseries}{}{0pt}{%
+        \makebox[0pt][r]{\chapDecoShape{0}{ugent@main}{\large}}%
+        ##1%
+      }
+      \titlespacing*{\section}{0pt}{-20pt}{10pt}
+    }
+  }{
+    \PackageError{ugentdocs}
+    { The~chapter~styling~specified~is~not~implemented }
+    { See~the~ugentdocs~manual. }
   }
-\def\@schapter#1{%
-  \@makeschapterhead{#1}%
-  \@afterheading
 }
-\def\@makeschapterhead#1{%
-  \vspace*{1ex}%
-  \begin{flushright}
-    \LARGE\textbf{\textcolor{titlecolor}{\rule[-0.5ex]{0em}{2.6ex}~#1}}
-  \end{flushright}
-  \rule{\textwidth}{1pt}
-  \vspace{5\p@}\par
-}
-% overwrite appendix
+
 \def\appendix{
   \cleardoublepage
   \setcounter{chapter}{0}
   \renewcommand*{\thechapter}{\Alph{chapter}}
   \renewcommand*\chaptername\appendixname
 }
-%</phd|crs>
-%    \end{macrocode}
-%
-% \subsection{Chapter headers for the \texttt{bama} and \texttt{report} classes}
-% Code adapted from Joris Meys' LaTeX at UGent.
-%    \begin{macrocode}
-%<*bama|rp>
-\RequirePackage[raggedright, explicit]{titlesec}
 
-\titleformat{\chapter}
-[block] % shape
-{\fontsize{16}{19} \selectfont \color{titlecolor} \bfseries } % format
-{\thechapter. \ } % the label
-{ 0ex } %separator space
-{\MakeUppercase{\uline{#1}} } %before code
-{ } %after code
+\newcommand{\@sectiontitlestyle}{
+  \titleformat{\section}
+  [block] % shape
+  {\fontsize{14}{17} \selectfont \bfseries } % format
+  {\thesection \ } % the label
+  { 0ex } %separator space
+  { ##1 } %before code
+  { } %after code
 
-\titleformat{\section}
-[block] % shape
-{\fontsize{14}{17} \selectfont \bfseries } % format
-{\thesection \ } % the label
-{ 0ex } %separator space
-{ #1 } %before code
-{ } %after code
-
-\newcommand{\@ugentappendixtitleformat}{ % Adds "appendix" to title
-  \titleformat{\chapter}
-  [display] % shape
-  {\fontsize{18}{22}\selectfont\color{titlecolor}} % format
-  {\MakeUppercase{\chaptertitlename\ \thechapter}} % the label
-  {-2ex} %separator space
-  {\fontsize{24}{32}\selectfont\bfseries\raggedright\MakeUppercase{\uline{##1}}} %before code
-  { } %aft%after code
+  % Change the spacing above the chapter. This is left - above - below
+  \titlespacing*{\section}{0pt}{6pt}{0pt}
 }
 
-\apptocmd{\appendix}{\@ugentappendixtitleformat}{}{}
-
-
-% Change the spacing above the chapter. This is left - above - below
-\titlespacing*{\chapter}{0pt}{-3em}{12pt}
-
-\titlespacing*{\section}{0pt}{6pt}{0pt}
-%</bama|rp>
+\AtBeginDocument{
+  \@chaptertitlestyle
+  \@sectiontitlestyle
+  \apptocmd{\appendix}{\@appendixtitlestyle}{}{}
+}
+\ExplSyntaxOff
+\newcommand*{\@UAChapNum}{%
+  \begin{tikzpicture}
+  \foreach \theta in {0,5,...,355} {
+    \node[color=white] at (\theta:0.025)
+    {\fontsize{72}{12}\selectfont\textbf{\thechapter}};
+  }
+  \node[color=titlecolor!50] at (0,0)
+  {\fontsize{72}{12}\selectfont\textbf{\thechapter}};
+  \end{tikzpicture}%
+}
+%</phd|crs|bama|rp>
 %    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*bama|rp>
+\ExplSyntaxOn
+\tl_set:Nn \l_@@_chaptitlestyle {plain}
+\ExplSyntaxOff
+%</bama|rp>
+%<*phd|crs>
+\ExplSyntaxOn
+\tl_set:Nn \l_@@_chaptitlestyle {fancy}
+\ExplSyntaxOff
+%</phd|crs>
+%<*crs>
+\ExplSyntaxOn
+\tl_set:Nn \l_@@_chaptitlestyle {fancycompact}
+\ExplSyntaxOff
+%</crs>
+%    \end{macrocode}
+%
 %
 % \subsection{Plain coverpage}
 %
