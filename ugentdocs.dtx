@@ -333,9 +333,13 @@
 % |<classname>-customization.sty|, e.g. |ugentphd-customization.sty|.
 % You can then load this customization using
 % |\usepackage{ugentphd-customization}|.
+% The customization file can also be used to adjust fonts, add
+% your own packages, or your own commands or macros in one file separate
+% from your main document.
 % Be sure to renew commands instead of redefining commands --
 % e.g., use |\renewcommand| and |\RenewDocumentCommand|
 % -- and replace any '|@@|' with '|_ugentdocs|' (not single |@|'s!).
+%
 % Colours can be adjusted using, e.g.:
 % {\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
 % \begin{verbatim}
@@ -349,6 +353,23 @@
 % \colorlet{titlecolor}{<customcolor>}
 % \end{verbatim}
 % }
+%
+% \section*{A note on references}
+% \label{S:refernces}
+% We recommend the use of the more modern |biblatex| package with the |biber| backend
+% as opposed to |bibtex| and the |natbib| package.
+% It can be loaded using, e.g.,
+% |\usepackage[backend=biber,| |style=authoryear]{biblatex}|.
+% Add a bibliography file using |\addbibresource{<filename>.bib}|,
+% obtained from a reference manager such as Zotero or JabRef.
+% For the most simple use, cite using |\autocite{key}| for
+% parentheses or numbered citations,
+% and |\textcite{key}| for in-text citations.
+% Display your bibliography section using |\printbibliography|.
+% Biblatex has a lot more advanced features, such as a per-chapter reference list,
+% but for this we refer to the
+% \href{https://ctan.org/pkg/biblatex}{biblatex package documentation}.
+%
 %
 % \section*{\LaTeX3}
 % The |ugentdocs| package relies for a large part of its codebase on
@@ -648,7 +669,7 @@
 % UGent Panno Text by adding the |\setsansfont{Arial}[...]| block below to the
 % beginning of your document. UGent uses Arial as default for Word and
 % PowerPoint templates as these are distributed outside Ghent University.
-% This is not applicable for \LaTeX however, as pdf's are always generated.
+% This is not applicable for \LaTeX{} however, as pdf's are always generated.
 % Thus, UGent Panno Text is the default everywhere.
 %
 % \begin{verbatim}
@@ -1228,7 +1249,7 @@
 % \begin{verbatim}
 % \foreignlanguage{dutch}{
 %   \begin{tikzpicture}
-%     \facclogo{3cm}{ugent@faculty}{0}
+%     \faclogo{3cm}{ugent@faculty}{0}
 %   \end{tikzpicture}
 % }
 % \end{verbatim}
@@ -1981,7 +2002,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \DescribeMacro[common]{\date}
 %   \marg{new date}
-%   \DescribeDefault{|\today|}
+%   \DescribeDefault{\textbackslash today}
 %   \margintag{tag}\\
 %   Sets the document date.
 %   If the date is input as ISO format, it is localized
