@@ -1,8 +1,18 @@
-# The `ugentdocs` $\LaTeX$ package
-An **unofficial** package providing the UGent house style for $\LaTeX$ documents.
+<h1 align="center">The ugentdocs $\LaTeX$ package</h1>
+<h3 align="center">An unofficial package providing the UGent house style for $\LaTeX$ documents</h3>
+
+
+<p align="center">
+<a href="https://github.com/SeppeOngena/ugentdocs"><img alt="LPPL-1.3c License" src="https://img.shields.io/github/license/SeppeOngena/ugentdocs.svg"/></a>
+<a href="https://github.com/SeppeOngena/ugentdocs/releases"><img alt="Current Release" src="https://img.shields.io/github/release/SeppeOngena/ugentdocs.svg?include_prereleases"/></a>
+<a href="https://github.com/SeppeOngena/ugentdocs/releases"><img alt="Download Count" src="https://img.shields.io/github/downloads/SeppeOngena/ugentdocs/total"/></a>
+<a href="https://github.com/SeppeOngena/ugentdocs/commits"><img alt="Commits since Latest Release" src="https://img.shields.io/github/commits-since/SeppeOngena/ugentdocs/latest?include_prereleases"/></a>
+
+    
+
+</p>
 
 ---
-This is a WIP README which will be updated closer to a `ugentdocs v1.0` release, see https://github.com/SeppeOngena/ugentdocs/issues/21
 
 Overview
 --
@@ -18,6 +28,9 @@ This package provides the following classes (implementation status shown):
 - ⬜ `ugentexam`: Exams
 - ✅ `ugentletter`: Letters
 - 🚧 `beamerthemeugent`: Presentation slides
+
+The goal is also to transfer this repository to UGent one when complete, so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 
+
 
 Installation
 --
@@ -39,6 +52,7 @@ To use it currently:
     ├── MyBibliography.bib
     ├── ugentbama.cls or ugentphd.cls or ....             <--
     ├── ugentcommon.clo                                   <--
+    ├── ugentcolor.sty                                    <--
     ├── ugentdocs-english.dict                            <--
     └── ugentdocs-dutch.dict                              <--
 ```
@@ -180,17 +194,6 @@ For a complete list of features, you will be able to check the documentation (wh
     </td>
 </table>
 </details>
-
-Why another template?
---
-There are already five (or more?) existing templates, why add another one? This might remind you of the xkcd comic on [competing standards](https://xkcd.com/927/). There are no official templates provided, and current options are fragmented and developed by different people (some already left UGent). When I started my master's thesis, no official templates were present (or I couldn't find them easily), which has been a pet peeve ever since. Now I'm finishing my PhD, I stumble into the same issue. I found several issues with existing templates/classes:
-- None of them use a single-source .dtx file. Some have common .sty files, which is good to avoid having to maintain duplicate code for e.g. logos or other common stuff, but some have separate classes entirely for e.g. different languages. While I think .dtx files have a drawback in that you're editing one long file and it's easy to get lost, it's also a major advantage that you have documentation and code essentially interwoven.
-- Most of them seem incomplete. Often, only a titlepage is generated or title style set, but no generation of copyright pages, dissertation covers, data pages for dissertations, etc. The ugent-beamer and ugent-letter seem the most complete in this regard.
-- They're not providing all possible templates. While this is not necessarily an issue, it does create chaos, e.g. on the [house style page](https://styleguide.ugent.be/templates/digital.html#latex). Users need to do a treasure hunt almost to find what they need.
-- They're not distributed on CTAN. The `uantwerpendocs` package was already in my TexLive distribution, which meant I could just start using it without messing with class files or copying them in each document directory. This is planned for this package
-- One counterargument towards my own package would be that it is very complex (we're currently sitting at 8500 lines of code) compared to other packages or classes. I plan to provide overrides where necessary (e.g. if you want to change copyright page contents), so users don't have to dig into that complexity
- 
-The goal is also to transfer this repository to UGent one when complete, so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 
 
 Copyright
 --
