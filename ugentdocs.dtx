@@ -5184,7 +5184,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 %
 % Next, we make the front cover.
-% \begin{imacro}{\@frontcover}
+% \DescribeObject[custom]{\@frontcover}
 % Defines the front cover layout
 %    \begin{macrocode}
 %<*bama|rp>
@@ -5225,16 +5225,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOff
 %</bama|rp>
 %    \end{macrocode}
-% \end{imacro}
 %
-% \begin{imacro}{\@backcover}
+% \DescribeObject[custom]{\@backcover}
 % Defines the back cover layout
 %    \begin{macrocode}
 %<*bama|rp>
 \newcommand{\@backcover}{}
 %</bama|rp>
 %    \end{macrocode}
-% \end{imacro}
 %
 %
 % \subsection{Fancy coverpage}
@@ -5460,7 +5458,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 %
 % Now let's move on to the covers themselves.
-% \begin{imacro}{\@frontcover}
+% \DescribeObject[custom]{\@frontcover}
 % Defines the front cover layout
 %    \begin{macrocode}
 %<*phd|bkc|crs>
@@ -5512,9 +5510,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOff
 %</phd|bkc|crs>
 %    \end{macrocode}
-% \end{imacro}
 %
-% \begin{imacro}{\@backcover}
+% \DescribeObject[custom]{\@backcover}
 % Defines the back cover layout
 %    \begin{macrocode}
 %<*phd|bkc|crs>
@@ -5555,7 +5552,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 %</phd|bkc|crs>
 %    \end{macrocode}
-% \end{imacro}
 %
 %
 % \subsection{Title, data, and final pages}
@@ -5773,7 +5769,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % book class from which we inherit already defines this command, we
 % need to renew it.
 %
-% \begin{imacro}{\maketitle}
+% \DescribeObject[custom]{\maketitle}
 %    \begin{macrocode}
 %<*bama|phd|rp|crs>
 \ExplSyntaxOn
@@ -5910,9 +5906,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOff
 %</bama|phd|rp|crs>
 %    \end{macrocode}
-% \end{imacro}
 %
-% \begin{imacro}{\makefinalpage}
+% \DescribeObject[custom]{\makefinalpage}
 %   Below, one can find the code for the final page:
 %    \begin{macrocode}
 %<*bama|phd|crs|rp>
@@ -5946,7 +5941,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOff
 %</bama|phd|crs|rp>
 %    \end{macrocode}
-% \end{imacro}
 %
 %
 % \subsection{Bookcover class}
@@ -6026,7 +6020,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bkc>
 %    \end{macrocode}
 %
-% \begin{imacro}{\makebookcover}
+% \DescribeObject[custom]{\makebookcover}
 %   This macro creates a book cover for the bookcover class. This is already
 %   defined in the |bookcover| package, so we need to renew it.
 %    \begin{macrocode}
@@ -6062,10 +6056,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOff
 %</bkc>
 %    \end{macrocode}
-% \end{imacro}
 %
 %
-% \begin{imacro}{\generatebookcover}
+% \DescribeObject[custom]{\generatebookcover}
 % This macro generates a cover.tex file from your current document.
 %    \begin{macrocode}
 %<*phd|crs>
@@ -6211,14 +6204,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOff
 %</phd|crs>
 %    \end{macrocode}
-% \end{imacro}
 %
 %
 % \subsection{Title page for the letter class}
 %
 % \subsubsection{Title Page}
 %
-% \begin{imacro}{\maketitle}
+% \DescribeObject[custom]{\maketitle}
 % The top of the letter is generated using the |\maketitle|
 % command.
 %
@@ -6294,7 +6286,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
 %</le>
 %    \end{macrocode}
-% \end{imacro}
 %
 % \DescribeMacro{\closeletter} [le] (optiontal)\\
 % Close the letter (with the closing greetings and underwriting) such
@@ -6329,7 +6320,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \subsection{Title page for the exam class}
 %
-% \begin{imacro}{\maketitle}
+% \DescribeObject[custom]{\maketitle}
 % The title page of the exam class is generated using the |\maketitle|
 % command.
 %
