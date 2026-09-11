@@ -2642,9 +2642,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %     You can customize the thumb content (e.g., number) and colour by overwriting the
 %     |\@addthumb| command in your customization file.
 %    \begin{macrocode}
+%<bama|rp|phd|crs>\newcommand{\@addthumb}{}
 %<*phd|crs>
 \ExplSyntaxOn
-\newcommand{\@addthumb}{}
 \bool_if:NT \l_@@_thumbs_bool {
   \IfPackageLoadedTF{crop}{% Thumbs should be loaded after crop!
     \PassOptionsToPackage{ignorehoffset=false,ignorevoffset=false}{thumbs}% crop
