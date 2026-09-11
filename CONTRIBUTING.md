@@ -1,0 +1,22 @@
+Guidelines for contribution:
+--
+
+- If you want to start work on a very big change, discuss it first
+- Use [conventional commit](https://www.conventionalcommits.org) messages
+- Use pull requests to contribute code. Pull requests should:
+  - Contain a finished, single feature or change
+  - Be up-to-date with the main branch
+  - Allow the package to be built successfully
+- Style:
+  - Use two spaces for tabs
+  - Use `\@macro` form for internal or customization usage
+  - Use `\macro` form for commands that can be called in main.tex files by users
+  - Remove trailing spaces
+  - Add empty lines where needed, space out your code for readability.
+  - Use K&R bracing style (although I'm not super consistent myself)
+  - Limit line length to 80 characters (ideally), max 100
+- Use LaTeX3 as much as possible and correctly, e.g.:
+  - Use a \bool_new instead of \newif.
+  - Declare your variables before you use them
+  - Use `\scope_@@_varname_vartype`, where `scope` is `l` for local and `g` for global.
+  - Use  `\@@_csname` or `\_@@_csname` (for private control sequences). 
