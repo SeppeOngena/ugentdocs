@@ -6689,12 +6689,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*crs1|bama1|phd2|rp1|ex1>
 %% You may want to use common fonts such as arial (still within house style)
 %%\setsansfont{Arial}[
-%%BoldFont           = {Arial},
-%%BoldFeatures       = {FakeBold=2.5},
-%%ItalicFont         = {Arial},
-%%ItalicFeatures     = {FakeSlant=0.15},
-%%BoldItalicFont     = {Arial},
-%%BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+%%  BoldFont           = {Arial},
+%%  BoldFeatures       = {FakeBold=2.5},
+%%  ItalicFont         = {Arial},
+%%  ItalicFeatures     = {FakeSlant=0.15},
+%%  BoldItalicFont     = {Arial},
+%%  BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%]
 
 %</crs1|bama1|phd2|rp1|ex1>
@@ -6703,12 +6703,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*bama2|phd1|rp2|le1|ex2>
 %% You may want to use common fonts such as arial (still within house style)
 \setsansfont{Arial}[
-BoldFont           = {Arial},
-BoldFeatures       = {FakeBold=2.5},
-ItalicFont         = {Arial},
-ItalicFeatures     = {FakeSlant=0.15},
-BoldItalicFont     = {Arial},
-BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+  BoldFont           = {Arial},
+  BoldFeatures       = {FakeBold=2.5},
+  ItalicFont         = {Arial},
+  ItalicFeatures     = {FakeSlant=0.15},
+  BoldItalicFont     = {Arial},
+  BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 ]
 
 %</bama2|phd1|rp2|le1|ex2>
@@ -6845,9 +6845,9 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% You can specify company logos. Height should be (at most) 2\gridunit
 %% (or about 2.12cm), multiple logos should be spaced 1 \gridunit
 \frontcoverlogos{
-    \includegraphics[height=2\gridunit]{example-image-a}
-    \hspace{\gridunit}
-    \includegraphics[height=2\gridunit]{example-image-b}
+  \includegraphics[height=2\gridunit]{example-image-a}
+  \hspace{\gridunit}
+  \includegraphics[height=2\gridunit]{example-image-b}
 }
 
 %</bama1|rp1|phd1>
@@ -7034,7 +7034,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %<*crs1|rp1|ex1|ex2>
 %% Mention who lectures the course
 \lecturer{prof. dr.}{Gretarsson, Elma}{, Ghent University, Belgium}
-\lecturer{prof. dr.}{Van Haezelbeke, Guido}{, Ghent University, Belgium}
+\lecturer{prof. dr.}{Blum, Stephen}{, Ghent University, Belgium}
 
 %</crs1|rp1|ex1|ex2>
 %
@@ -7401,19 +7401,16 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %</le1>
 %
 %
-% ==============================================================================
-% \fi
-%
-% \subsection{\texttt{ugentcourse}}
-% \VerbatimInput[firstline=46]{example-ugentcourse.tex}
-%
-% \iffalse
-%<*crs1>
+%<*bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2>
+%% Document --------------------------------------------------------------------
 \begin{document}
 
-%% creates the title page, remove if you don't want any
+%% Create the cover and title pages
 \maketitle
 
+%</bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2>
+%
+%<*crs1|phd1|phd2>
 %% Creates a bookcover file \jobname-cover.tex
 %% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
 %% a caliper (paper thickness) of 0.1 mm:
@@ -7422,15 +7419,54 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %% in the \jobname-cover.tex file using the formula above.
 \generatebookcover
 
-%% causes the first pages to be roman numbered
+%</crs1|phd1|phd2>
+%
+%<*bama1|bama2|phd1|phd2|rp1|rp2|crs1>
+%% Causes the first pages to be roman numbered
 \frontmatter
 
-%% sets the table of contents (automatically for you)
+%</bama1|bama2|phd1|phd2|rp1|rp2|crs1>
+%
+%<*rp2>
+%% Report data page
+\textcolor{titlecolor}{\uppercase{%
+    Date}}\\
+\today
+
+\textcolor{titlecolor}{\uppercase{%
+    Location}}\\
+\makeatletter
+\@location
+\makeatother
+
+\textcolor{titlecolor}{\uppercase{%
+    Attendees}}\\
+    < names separated by commas>
+
+    \textcolor{titlecolor}{\uppercase{%
+        Excused}}\\
+    < names separated by commas>
+
+    \textcolor{titlecolor}{\uppercase{%
+        Chair}}\\
+    < chair>
+
+    \textcolor{titlecolor}{\uppercase{%
+        Minute taker}}\\
+    < minute taker>
+
+%</rp2>
+%
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2>
+%% Sets the table of contents (automatically for you)
 \tableofcontents
 
-%% changes the numbering system to arabic and restart from 1
+%% Changes the numbering system to arabic and restart from 1
 \mainmatter
 
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2>
+%
+%<*crs1>
 %% a non-numbered chapter
 \chapter*{Inleiding}
 %% some automatically generated bogus text: remove in your copy
@@ -7443,7 +7479,7 @@ BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 \section{Het gebeuren}
 \kant[2]
 \begin{equation}
-e^{-j\pi} + 1 = 0
+  e^{-j\pi} + 1 = 0
 \end{equation}
 
 \kant[3]
@@ -7474,32 +7510,9 @@ e^{-j\pi} + 1 = 0
 
 %% typeset the final page with some graphic material on it
 \makefinalpage
-
-\end{document}
 %</crs1>
-% \fi
 %
-%
-% \subsection{\texttt{ugentbama}}
-% \VerbatimInput[firstline=46]{example-ugentbama-1.tex}
-% \VerbatimInput[firstline=46]{example-ugentbama-2.tex}
-%
-% \iffalse
 %<*bama1>
-\begin{document}
-
-%% creates the title page, remove if you don't want any
-\maketitle
-
-%% causes the first pages to be roman numbered
-\frontmatter
-
-%% sets the table of contents (automatically for you)
-\tableofcontents
-
-%% changes the numbering system to arabic and restart from 1
-\mainmatter
-
 %% Use this template if you need to provide a twocolumn summary at the
 %% start of your document. Remove it if you don't need it.
 \pagestyle{empty}
@@ -7507,24 +7520,24 @@ e^{-j\pi} + 1 = 0
 \chapter*{Samenvatting}
 \makeatletter
 \begin{multicols}{2}
-[
-\begin{center}
-\textbf{
-\Large\@title~\\[1ex]
-\large \@subtitle\\[0.5ex]}
-\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
-\end{center}
-]
+  [
+  \begin{center}
+    \textbf{
+      \Large\@title~\\[1ex]
+      \large \@subtitle\\[0.5ex]}
+    \printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
+  \end{center}
+  ]
 
-\kant[11]
+  \kant[11]
 
-\kant[12]
+  \kant[12]
 
-\kant [13]
+  \kant [13]
 
-\kant [14]
+  \kant [14]
 
-\kant [15]
+  \kant [15]
 
 \end{multicols}
 \makeatother
@@ -7543,19 +7556,19 @@ e^{-j\pi} + 1 = 0
 \chapter{Onderzoeksvraag}
 
 \insetquote{As any dedicated reader can clearly see, the Ideal of
-practical reason is a representation of
-as far as I know, the things themselves, a vast overexaggeration.}
+  practical reason is a representation of
+  as far as I know, the things themselves, a vast overexaggeration.}
 
 %% a first numbered section
 \section{Het gebeuren}
 \kant[2]
 
 \begin{equation}
-e^{-j\pi} + 1 = 0
+  e^{-j\pi} + 1 = 0
 \end{equation}
 
 \foreach \i in {3,4,...,10} {
-\kant[\i]
+  \kant[\i]
 
 }
 
@@ -7573,24 +7586,8 @@ e^{-j\pi} + 1 = 0
 
 \chapter{Symbolen}
 \chapter{Referentielijst}
-
-\end{document}
 %</bama1>
 %<*bama2>
-\begin{document}
-
-%% creates the title page, remove if you don't want any
-\maketitle
-
-%% causes the first pages to be roman numbered
-\frontmatter
-
-%% sets the table of contents (automatically for you)
-\tableofcontents
-
-%% changes the numbering system to arabic and restart from 1
-\mainmatter
-
 %% Use this template if you need to provide a twocolumn summary at the
 %% start of your document. Remove it if you don't need it.
 \pagestyle{empty}
@@ -7598,24 +7595,24 @@ e^{-j\pi} + 1 = 0
 \chapter*{Samenvatting}
 \makeatletter
 \begin{multicols}{2}
-[
-\begin{center}
-\textbf{
-\Large\@title~\\[1ex]
-\large \@subtitle\\[0.5ex]}
-\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
-\end{center}
-]
+  [
+  \begin{center}
+    \textbf{
+      \Large\@title~\\[1ex]
+      \large \@subtitle\\[0.5ex]}
+    \printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
+  \end{center}
+  ]
 
-\kant[11]
+  \kant[11]
 
-\kant[12]
+  \kant[12]
 
-\kant [13]
+  \kant [13]
 
-\kant [14]
+  \kant [14]
 
-\kant [15]
+  \kant [15]
 
 \end{multicols}
 \makeatother
@@ -7634,19 +7631,19 @@ e^{-j\pi} + 1 = 0
 \chapter{Onderzoeksvraag}
 
 \insetquote{As any dedicated reader can clearly see, the Ideal of
-practical reason is a representation of
-as far as I know, the things themselves, a vast overexaggeration.}
+  practical reason is a representation of
+  as far as I know, the things themselves, a vast overexaggeration.}
 
 %% a first numbered section
 \section{Het gebeuren}
 \kant[2]
 
 \begin{equation}
-e^{-j\pi} + 1 = 0
+  e^{-j\pi} + 1 = 0
 \end{equation}
 
 \foreach \i in {3,4,...,10} {
-\kant[\i]
+  \kant[\i]
 
 }
 
@@ -7664,42 +7661,9 @@ e^{-j\pi} + 1 = 0
 
 \chapter{Symbolen}
 \chapter{Referentielijst}
-
-\end{document}
 %</bama2>
-% \fi
 %
-%
-% \subsection{\texttt{ugentphd}}
-%
-% \paragraph{Dutch}
-% \VerbatimInput[firstline=46]{example-ugentphd-1}
-% \iffalse
 %<*phd1>
-\begin{document}
-%%\raggedright %% For non-justified text
-%%\raggedbottom %% For non-filled / non-flush pages
-
-%% creates the title pages, remove if you don't want any
-\maketitle
-
-%% Creates a bookcover file \jobname-cover.tex
-%% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
-%% a caliper (paper thickness) of 0.1 mm:
-%% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
-%% If you're using a different paper type, override the spine width
-%% in the \jobname-cover.tex file using the formula above.
-\generatebookcover
-
-%% causes the first pages to be roman numbered
-\frontmatter
-
-%% sets the table of contents (automatically for you)
-\tableofcontents
-
-%% changes the numbering system to arabic and restart from 1
-\mainmatter
-
 %% a first unnumbered chapter
 \chapter*{Inleiding}
 
@@ -7715,7 +7679,7 @@ e^{-j\pi} + 1 = 0
 \kant[2]
 
 \begin{equation}
-e^{-j\pi} + 1 = 0
+  e^{-j\pi} + 1 = 0
 \end{equation}
 
 \kant[3-17]
@@ -7732,11 +7696,11 @@ e^{-j\pi} + 1 = 0
 %%\kant[20-21]
 
 %%\foreach \i in {A,B,C,D} {
-%%  \chapter{Dummy hoofdstuk \i}
-%%  \foreach \j in {1,...,50} {
-%%    \kant[22-24]
-%%  }
-%%}
+  %%  \chapter{Dummy hoofdstuk \i}
+  %%  \foreach \j in {1,...,50} {
+    %%    \kant[22-24]
+    %%  }
+  %%}
 
 %%\chapter{Eigen realisatie}
 
@@ -7756,39 +7720,8 @@ e^{-j\pi} + 1 = 0
 
 %% typeset the final page with some graphic material on it
 \makefinalpage
-
-\end{document}
 %</phd1>
-% \fi
-%
-% \paragraph{English}
-% \VerbatimInput[firstline=46]{example-ugentphd-2}
-% \iffalse
 %<*phd2>
-\begin{document}
-\raggedright %% For non-justified text
-\raggedbottom %% For non-filled / non-flush pages
-
-%% creates the title page, remove if you don't want any
-\maketitle
-
-%% Creates a bookcover file \jobname-cover.tex
-%% It currently assumes a 80 g/m² paper with a bulk of 1.25 cm³/g, resulting in
-%% a caliper (paper thickness) of 0.1 mm:
-%% Spine width = page count / 2 * grammage * bulk = page count / 2 * caliper
-%% If you're using a different paper type, override the spine width
-%% in the \jobname-cover.tex file using the formula above.
-\generatebookcover
-
-%% causes the first pages to be roman numbered
-\frontmatter
-
-%% sets the table of contents (automatically for you)
-\tableofcontents
-
-%% changes the numbering system to arabic and restart from 1
-\mainmatter
-
 %% a first unnumbered chapter
 \chapter*{Introduction}
 
@@ -7803,7 +7736,7 @@ e^{-j\pi} + 1 = 0
 \kant[2]
 
 \begin{equation}
-e^{-j\pi} + 1 = 0
+  e^{-j\pi} + 1 = 0
 \end{equation}
 
 \kant[3-17]
@@ -7821,11 +7754,11 @@ e^{-j\pi} + 1 = 0
 %%\kant[22-24]
 
 %%\foreach \i in {A,B,C,D,E} {
-%%\chapter{Dummy chapter \i}
-%%\foreach \j in {1,...,50} {
-%%\kant[22-24]
-%%}
-%%}
+  %%\chapter{Dummy chapter \i}
+  %%\foreach \j in {1,...,50} {
+    %%\kant[22-24]
+    %%}
+  %%}
 
 %%\chapter{Conclusion}
 %%\kant[25]
@@ -7841,30 +7774,9 @@ e^{-j\pi} + 1 = 0
 
 %% typeset the final page with some graphic material on it
 \makefinalpage
-
-\end{document}
 %</phd2>
-% \fi
 %
-% \subsection{\texttt{ugentreport}}
-% \VerbatimInput[firstline=46]{example-ugentreport-1.tex}
-% \VerbatimInput[firstline=46]{example-ugentbama-2.tex}
-% \iffalse
 %<*rp1>
-\begin{document}
-
-%% creates the title page, remove if you don't want any
-\maketitle
-
-%% causes the first pages to be roman numbered
-\frontmatter
-
-%% sets the table of contents (automatically for you)
-\tableofcontents
-
-%% changes the numbering system to arabic and restart from 1
-\mainmatter
-
 %% a first unnumbered chapter
 \chapter*{Samenvatting}
 %% some dummy text, remove in your copy
@@ -7878,7 +7790,7 @@ e^{-j\pi} + 1 = 0
 \kant[2]
 
 \begin{equation}
-e^{-j\pi} + 1 = 0
+  e^{-j\pi} + 1 = 0
 \end{equation}
 
 \kant[3-17]
@@ -7903,52 +7815,8 @@ e^{-j\pi} + 1 = 0
 
 %% typeset the final page
 \makefinalpage
-
-\end{document}
 %</rp1>
 %<*rp2>
-\begin{document}
-
-%% creates the title page, remove if you don't want any
-\maketitle
-
-%% causes the first pages to be roman numbered
-\frontmatter
-
-%% report data page
-\textcolor{titlecolor}{\uppercase{%
-Date}}\\
-\today
-
-\textcolor{titlecolor}{\uppercase{%
-Location}}\\
-\makeatletter
-\@location
-\makeatother
-
-\textcolor{titlecolor}{\uppercase{%
-Attendees}}\\
-< names separated by commas>
-
-\textcolor{titlecolor}{\uppercase{%
-Excused}}\\
-< names separated by commas>
-
-\textcolor{titlecolor}{\uppercase{%
-Chair}}\\
-< chair>
-
-\textcolor{titlecolor}{\uppercase{%
-Minute taker}}\\
-< minute taker>
-
-
-%% sets the table of contents (automatically for you)
-\tableofcontents
-
-%% changes the numbering system to arabic and restart from 1
-\mainmatter
-
 %% a first unnumbered chapter
 \chapter*{Inleiding}
 %% some dummy text, remove in your copy
@@ -7962,7 +7830,7 @@ Minute taker}}\\
 \kant[2]
 
 \begin{equation}
-e^{-j\pi} + 1 = 0
+  e^{-j\pi} + 1 = 0
 \end{equation}
 
 \kant[3-17]
@@ -7986,22 +7854,9 @@ e^{-j\pi} + 1 = 0
 
 %% typeset the final page
 \makefinalpage
-
-\end{document}
 %</rp2>
-% \fi
 %
-%
-% \subsection{\texttt{ugentletter}}
-%
-% \paragraph{Plain example}
-% \VerbatimInput[firstline=46]{example-ugentletter.tex}
-% \iffalse
 %<*le1>
-\begin{document}
-%% This puts all logo's / address / subject where it needs to be
-\maketitle
-
 %% Be polite when starting a letter, and address your audience
 \opening{Dear prof. Sandy Claws,}
 
@@ -8023,82 +7878,14 @@ e^{-j\pi} + 1 = 0
 
 %% Specify what extras can be found in the envelope if needed
 \enclosed{
-\begin{enumerate}
-\item list of research equipment I would like to receive this December (5pp)
-\item a technical drawing of an airborne horse-drawn carriage (1pp)
-\end{enumerate}
+  \begin{enumerate}
+    \item list of research equipment I would like to receive this December (5pp)
+    \item a technical drawing of an airborne horse-drawn carriage (1pp)
+  \end{enumerate}
 }
-\closeletter
-\end{document}
 %</le1>
-% \fi
-% \paragraph{Example with configuration file}~\\
 %
-% Probably, one has to write many letters. The sender details will be
-% most certainly valid for many an occasion. Therefore, you might want
-% to consider putting this default setup in a configuration file,
-% e.g. \texttt{ugentletter.cfg}:
-%
-% \begin{Verbatim}
-%<*le-cfg>
-%% Configuration file for ugentletter class
-
-%% You can put your font setup in the configuration file
-\setsansfont{Arial}[
-BoldFont           = {Arial},
-BoldFeatures       = {FakeBold=2.5},
-ItalicFont         = {Arial},
-ItalicFeatures     = {FakeSlant=0.15},
-BoldItalicFont     = {Arial},
-BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-]
-
-%% As you probably will always be the sender of your letters,
-%% put this info in the configuration file too.
-\sender{ir.~Seppe Ongena}{PhD Student}
-\team{TRASLAB}
-\address{
-CAPTURE building\\
-Frieda Saysstraat 1\\
-9052 Ghent\\
-BELGIUM
-}
-\email{seppe.ongena}
-\phone{+32 9 000 00 00}
-\mobile{+32 400 000 000}
-\returnaddress{UGent-CAPTURE -- Frieda Saeysstraat 1, 9052 Ghent, BELGIUM}
-%</le-cfg>
-% \end{Verbatim}
-%
-% The file can then be loaded in the preamble of your letter as follows:
-%
-% |\input{ugentletter.cfg}|
-%
-% After loading this configuration file, you may override some
-% elements if this is appropriate.
-%
-% You may also consider using multiple configuration files in case you
-% have multiple roles in the university. Just make sure they are on your
-% \LaTeX\ search path (most often this search path can be set with an
-% environment variable \texttt{TEXINPUTS}).
-%
-% \subsection{\texttt{ugentexam}}
-%
-% Below you can find two examples:
-% \begin{itemize}
-% \item A single column layout (single language) exam
-% \item A double column layout (English-Dutch) exam
-% \end{itemize}
-%
-% \paragraph{Single column}
-% \VerbatimInput[firstline=46]{UNFINISHED-example-ugentexam-1.tex}
-% \iffalse
 %<*ex1>
-\begin{document}
-
-%% set the title page of the exam
-\maketitle
-
 %% a first question (with an identifier that can help you remember wich
 %% question it is out of your huge database)
 \question[weight=3]{[VLATOP-BISTRO]}
@@ -8133,11 +7920,11 @@ een b\'echamel saus:
 
 %% the option of the enumerate environment is thanks to the enumitem package
 \begin{enumerate}[label=\alph*)]
-\item Bespreek de evolutie van de Noord-Europese bistrocultuur
-gedurende de laatste vijftig jaar.
-\item Breng dit in relatie tot de
-opkomst van de georganiseerde recensies zoals die van Michelin en
-Gault-Millau.
+  \item Bespreek de evolutie van de Noord-Europese bistrocultuur
+  gedurende de laatste vijftig jaar.
+  \item Breng dit in relatie tot de
+  opkomst van de georganiseerde recensies zoals die van Michelin en
+  Gault-Millau.
 \end{enumerate}
 
 %% you can insert some pages for the studen to write his/her answers
@@ -8147,53 +7934,36 @@ Gault-Millau.
 
 %% b. full pages: 3 in this case
 \foreach \i in {1,2,3} {
-\insertsolutionspage{}
+  \insertsolutionspage{}
 }
 
 %% c. special 'scrap' pages with a watermark on them: two in this case
 \foreach \i in {1,2} {
-\insertsolutionspage{Kladpapier}
+  \insertsolutionspage{Kladpapier}
 }
-\end{document}
 %</ex1>
-% \fi
-%
-% \paragraph{Two columns}
-%
-% This might be of use to professors that teach courses in English in
-% a Dutch program, you then can make a bilingual exam. This makes you
-% 100\% compliant to the very restrictive Flemish language
-% legislation.
-%
-% \VerbatimInput[firstline=46]{UNFINISHED-example-ugentexam-2.tex}
-% \iffalse
 %<*ex2>
-\begin{document}
-
-%% set the title page of the exam
-\maketitle
-
 %% a first question (with an identifier that can help you remember wich
 %% question it is out of your huge database)
 \question[weight=3]{[VLATOP-BISTRO]}
 
 %% typeset the question in two columns
 \bilingual{
-Write down the first five laureates of the VALTOP-bistro competition.
+  Write down the first five laureates of the VALTOP-bistro competition.
 }{
-Geef de eerste vijf laureaten van de VLATOP-bistro
-competitie.
+  Geef de eerste vijf laureaten van de VLATOP-bistro
+  competitie.
 }
 
 %% a second question
 \question[weight=7]{[BECHAMEL]}
 
 \bilingual{
-Which of the ingredients below does not belong in a b\'echamel
-sauce:
+  Which of the ingredients below does not belong in a b\'echamel
+  sauce:
 }{
-Welk van de onderstaande ingredi\"enten hoort niet thuis in
-een b\'echamel saus:
+  Welk van de onderstaande ingredi\"enten hoort niet thuis in
+  een b\'echamel saus:
 }
 
 %% this is how you specify multiple choice answering options in two languages
@@ -8217,21 +7987,21 @@ een b\'echamel saus:
 \question[weight=10]{[BISTROCULTURE-1]}
 
 \bilingual{
-%% the option of the enumerate environment is thanks to the enumitem package
-\begin{enumerate}[label=\alph*)]
-\item Discuss the evolution of the Northern European bistro culture during
-the latest fifty years.
-\item Relate this to the rise of organized reviews
-like the ones of Michelin and Gault-Millau.
-\end{enumerate}
+  %% the option of the enumerate environment is thanks to the enumitem package
+  \begin{enumerate}[label=\alph*)]
+    \item Discuss the evolution of the Northern European bistro culture during
+    the latest fifty years.
+    \item Relate this to the rise of organized reviews
+    like the ones of Michelin and Gault-Millau.
+  \end{enumerate}
 }{
-\begin{enumerate}[label=\alph*)]
-\item Bespreek de evolutie van de Noord-Europese bistrocultuur
-gedurende de laatste vijftig jaar.
-\item Breng dit in relatie tot de
-opkomst van de georganiseerde recensies zoals die van Michelin en
-Gault-Millau.
-\end{enumerate}
+  \begin{enumerate}[label=\alph*)]
+    \item Bespreek de evolutie van de Noord-Europese bistrocultuur
+    gedurende de laatste vijftig jaar.
+    \item Breng dit in relatie tot de
+    opkomst van de georganiseerde recensies zoals die van Michelin en
+    Gault-Millau.
+  \end{enumerate}
 }
 
 %% you can insert some pages for the studen to write his/her answers
@@ -8241,18 +8011,91 @@ Gault-Millau.
 
 %% b. full pages: 3 in this case
 \foreach \i in {1,2,3} {
-\insertsolutionspage{}
+  \insertsolutionspage{}
 }
 
 %% c. special 'scrap' pages with a watermark on them: two in this case
 \foreach \i in {1,2} {
-\insertsolutionspage{Scrap/Klad}
+  \insertsolutionspage{Scrap/Klad}
 }
-\end{document}
 %</ex2>
+%
+%<*bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2>
+\end{document}
+%</bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2>
+% ==============================================================================
 % \fi
 %
+% \subsection{\texttt{ugentcourse}}
+% \VerbatimInput[firstline=46]{example-ugentcourse.tex}
+%
+% \subsection{\texttt{ugentbama}}
+% \VerbatimInput[firstline=46]{example-ugentbama-1.tex}
+% \VerbatimInput[firstline=46]{example-ugentbama-2.tex}
+%
+% \subsection{\texttt{ugentphd}}
+% \paragraph{Dutch}
+% \VerbatimInput[firstline=46]{example-ugentphd-1}
+% \paragraph{English}
+% \VerbatimInput[firstline=46]{example-ugentphd-2}
+%
+% \subsection{\texttt{ugentreport}}
+% \VerbatimInput[firstline=46]{example-ugentreport-1.tex}
+% \VerbatimInput[firstline=46]{example-ugentbama-2.tex}
+%
+%
+% \subsection{\texttt{ugentletter}}
+% \paragraph{Plain example}
+% \VerbatimInput[firstline=46]{example-ugentletter.tex}
+%
+% \paragraph{Example with configuration file}~\\
+% If you have to write many letters, you can avoid having to input
+% the sender information by using a configuration file, e.g.,
+% \texttt{ugentletter.cfg},
+% which can then be loaded in the preamble of your letter using
+% |\input{ugentletter.cfg}|:
+%
+% \begin{Verbatim}
+%<*le-cfg>
+%% Configuration file for ugentletter class
+
+%% Font setup
+\setsansfont{Arial}[
+  BoldFont           = {Arial},
+  BoldFeatures       = {FakeBold=2.5},
+  ItalicFont         = {Arial},
+  ItalicFeatures     = {FakeSlant=0.15},
+  BoldItalicFont     = {Arial},
+  BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
+]
+
+%% Sender information
+\sender{ir.~Seppe Ongena}{PhD Student}
+\team{TRASLAB}
+\address{
+  CAPTURE building\\
+  Frieda Saysstraat 1\\
+  9052 Ghent\\
+  BELGIUM
+}
+\email{seppe.ongena}
+\phone{+32 9 000 00 00}
+\mobile{+32 400 000 000}
+\returnaddress{UGent-CAPTURE -- Frieda Saeysstraat 1, 9052 Ghent, BELGIUM}
+%</le-cfg>
+% \end{Verbatim}
+%
+%
+% \subsection{\texttt{ugentexam}}
+% \paragraph{Single column (single language)}
+% \VerbatimInput[firstline=46]{UNFINISHED-example-ugentexam-1.tex}
+% \paragraph{Double column (bilingual EN-NL)}
+% \VerbatimInput[firstline=46]{UNFINISHED-example-ugentexam-2.tex}
+%
+%
 % \StopEventually{\clearpage\PrintChanges\clearpage\PrintIndex}
+%
+%
 %
 % \clearpage
 % \part{The beamer theme}
