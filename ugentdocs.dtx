@@ -64,6 +64,7 @@
 \usepackage{geometry}
 \usepackage[dutch,main=english]{babel}
 \usepackage{makeidx}
+\makeindex
 \usepackage{alltt}
 \usepackage{adjustbox}
 \usepackage{fontspec}
@@ -74,18 +75,6 @@
 \usepackage{wasysym}
 \usepackage{tikz}
 \usetikzlibrary{positioning,calc,fit,backgrounds}
-\usepackage{dtxdescribe}
-% Patch category not printing
-\makeatletter
-\ExplSyntaxOn
-\keys_define:nn {doc}
-{
-  unknown .code:n = {
-    \tl_set:Nx \DTXD@category { \l_keys_key_str }
-  },
-}
-\ExplSyntaxOff
-\makeatother
 \usepackage{hyphenat}
 \usepackage{fancyvrb}
 \usepackage{fvextra}
@@ -99,13 +88,16 @@
 \makeatother
 \usepackage{ugentcolor}
 %
-\IfFileExists{tocbibind.sty}{\usepackage{tocbibind}}{}
-\IfFileExists{hyperref.sty}{\usepackage[bookmarksopen]{hyperref}}{}
+\IfFileExists{idxlayout.sty}{\usepackage[totoc]{idxlayout}}{}
+\IfFileExists{hyperref.sty}{\usepackage[bookmarksopen,hyperindex=false]{hyperref}}{}
+\IfFileExists{hypdoc.sty}{\usepackage{hypdoc}}{}
+\usepackage{dtxdescribe}
 %
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
 %
+% Fix for copying code line numbers
 \usepackage{accsupp}
 \renewcommand\theCodelineNo{%
   \BeginAccSupp{method=plain,ActualText={}}%
@@ -113,14 +105,47 @@
   \EndAccSupp{}%
 }
 %
+% Patch dtxdescribe category not printing
+\makeatletter
 \ExplSyntaxOn
-\str_new:N \l__myverbatim_arg_str
-\NewDocumentEnvironment { imacro } { v } {
-  \str_set:Nn \l__myverbatim_arg_str { #1 }
-  \str_replace_all:Nnn \l__myverbatim_arg_str {\\} {\textbackslash{}}
-  \hspace*{-2ex}\textbf{\str_use:N \l__myverbatim_arg_str}\\
-}{ }
+\keys_define:nn {doc}
+{
+  unknown .code:n = {
+    \tl_set:Nx \DTXD@category { \l_keys_key_str }
+  },
+}
 \ExplSyntaxOff
+\makeatother
+%
+% Patch dtxdescribe multi-category
+\makeatletter
+\renewcommand*{\DTXD@maybecategorylevel}[1]{%
+  \ifdefvoid{\DTXD@categorylevelname}%
+  {}%
+  {%
+    \begingroup
+    \edef\DTXD@categorylist{\DTXD@categorylevelname}%
+    \StrSubstitute{\DTXD@categorylist}{-}{,}[\DTXD@categorylist]%
+    \@for\DTXD@onecategory:=\DTXD@categorylist\do{%
+      \index{%
+        \DTXD@onecategory
+        \noexpand\actualchar%
+        \string\verb% %
+        \noexpand\quotechar%
+        *%
+        \noexpand\verbatimchar%
+        [\DTXD@onecategory]:%
+        \noexpand\verbatimchar%
+        \noexpand\levelchar%
+        \noexpand\DTXD@printobjectname{\DTXD@gtempa@nobackslash}{\@gtempa}%
+        \ifblank{#1}{}{\string\DTXDbreak (#1)}%
+        \noexpand\doc@handleencap{usage}%
+      }%
+    }%
+    \endgroup
+  }%
+}
+\makeatother
 %
 \begin{document}
   \DocInput{ugentdocs.dtx}
@@ -128,7 +153,7 @@
 %</driver>
 % \fi
 %
-% \DoNotIndex{\newcommand,\newenvironment,\begin,\bfseries,\draw,\clip,\else,\fi,\if,\fill,\filldraw,\ifx,\textwidth,\node,\\,\@empty,\@tempdima,\@tempdimb,\@tempswatrue,\{,\},\ ,\bf,\BODY,\break,\Alph,\and,\define@key,\color,\dx,\dy,\g,\gdef,\hbox,\tiny,\scriptsize,\footnotesize,\small,\normalsize,\large,\Large,\LARGE,\huge,\Huge,\l,\LaTeX,\let,\p@,\relax,\renewcommand,\Requirepackage,\textbf,\textsf,\texttt,\textbackslash,\vspace,\hspace,\hfill,\hskip,\vskip,\hline,\vrule,\typeout,\usebox,\end,\paperheight,\paperwidth,\par,\NewDocumentCommand,\seq}
+% \DoNotIndex{\newcommand,\newenvironment,\begin,\bfseries,\draw,\clip,\else,\fi,\if,\fill,\filldraw,\ifx,\textwidth,\node,\\,\@empty,\@tempdima,\@tempdimb,\@tempswatrue,\{,\},\ ,\bf,\BODY,\break,\Alph,\and,\define@key,\color,\dx,\dy,\g,\gdef,\hbox,\tiny,\scriptsize,\footnotesize,\small,\normalsize,\large,\Large,\LARGE,\huge,\Huge,\l,\LaTeX,\let,\p@,\relax,\renewcommand,\Requirepackage,\textbf,\textsf,\texttt,\textbackslash,\vspace,\hspace,\hfill,\hskip,\vskip,\hline,\vrule,\typeout,\usebox,\end,\paperheight,\paperwidth,\par,\NewDocumentCommand,\seq,\&,\@@,\@afterheading,\@ifnextchar,\@ifpackageloaded,\@makechapterhead,\@makeschapterhead,\@schapter,\@place,\@pdfauthor,\@pdfsubtitle,\@pdftitle,\_,\@thanks,\addthumb,\AddToHook,\AddToHookNext,\AddToShipoutPicture,\adjustbox,\advance,\appendix,\appendixname,\apptocmd,\AtBeginDocument,\AtEndDocument,\AtEndEnvironment,\backgroundsetup,\baselineskip,\baselinestretch,\BeforeBeginEnvironment,\begingroup,\bookcovercomponent,\bool,\c,\ccname,\centering,\chapter,\chaptermark,\chaptername,\chaptertitlename,\clearpage,\cleardoublepage,\colorlet,\continuethumb,\coordinate,\cr,\cs,\csname,\DeclareRobustCommand,\def,\defbeamertemplate,\dim,\dimexpr,\documentclass,\EANBarcode,\edef,\endcsname,\endgroup,\exp,\expandafter,\ExplSyntaxOff,\ExplSyntaxOn,\fancyfoot,\fancyhead,\fancyhf,\fancypagestyle,\file,\fontsize,\footrulewidth,\footskip,\foreach,\fp,\frontmatter,\,,\getlength,\global,\halign,\headheight,\heading,\headrulewidth,\height,\hfil,\hoffset,\href,\hypersetup,\hyphenpenalty,\if@twoside,\ifblank,\ifdefempty,\ifdefvoid,\ifdim,\ifnum,\IfPackageLoadedTF,\includegraphics,\insertauthor,\insertdate,\insertframenumber,\insertframesubtitle,\insertframetitle,\insertsection,\insertsectionnumber,\insertsubsection,\insertsubtitle,\inserttitle,\inserttotalframenumber,\interlinepenalty,\iow,\it,\itshape,\jobname,\leavevmode,\leftmark,\linewidth,\mainmatter,\makeatletter,\makeatother,\makebox,\MakeUppercase,\markboth,\mode,\msg,\newbookcovercomponenttype,\newdimen,\NewEnviron,\newif,\newlength,\newline,\nn,\nobreak,\noexpand,\nohyphens,\noindent,\null,\PackageError,\pagenumbering,\pagestyle,\parbox,\parindent,\parskip,\PassOptionsToPackage,\path,\pgfgetlastxy,\pgfmathsetlength,\pgfmathsetmacro,\phantom,\place,\pretocmd,\protected@xdef,\put,\raggedleft,\raggedright,\raisebox,\RequirePackage,\rfoot,\rightmark,\rmfamily,\rotatebox,\rule,\section,\selectfont,\selectlanguage,\setbeamercolor,\setbeamerfont,\setbeamersize,\setbeamertemplate,\setbox,\setcounter,\setlength,\settowidth,\ShellEscape,\smallskip,\space,\stopthumb,\str,\stretch,\strip@pt,\strut,\subheading,\tableofcontents,\tabularnewline,\textcolor,\textcopyright,\textheight,\textit,\textrm,\thanks,\the,\thechapter,\thepage,\thesection,\theta,\thispagestyle,\titleformat,\titlespacing,\tl,\uline,\useasboundingbox,\usebeamercolor,\usebeamerfont,\usecolortheme,\usefont,\usefonttheme,\useinnertheme,\useoutertheme,\usepackage,\usetikzlibrary,\value,\vbox,\vfill,\voffset,\vphantom,\xdef,\ztotpages}
 %
 % \setlength{\parindent}{0em}
 % \addtolength{\parskip}{0.5\baselineskip}
@@ -2226,7 +2251,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|bkc|crs|rp|le|ex|bama>
 % \fi
 %
-% \DescribeOption[phd|bkc]{cameraready}
+% \DescribeOption[phd-bkc]{cameraready}
 %   \DescribeDefault{false}
 %   Options: |true|, |false|\\
 %   Forces the PhD format to be printed on A4 with bleed space,
@@ -2244,7 +2269,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|bkc>
 % \fi
 %
-% \DescribeOption[phd|crs]{bare}
+% \DescribeOption[phd-crs]{bare}
 %   \DescribeDefault{false}
 %   Options: |true|, |false|\\
 %   Removes the front and back cover, such that you can give
@@ -2260,7 +2285,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|crs>
 % \fi
 %
-% \DescribeOption[phd|crs]{thumbs}
+% \DescribeOption[phd-crs]{thumbs}
 %   \DescribeDefault{true}
 %   Options: |true|, |false|\\
 %   Adds chapter thumb indexes to your document.
@@ -2277,7 +2302,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|crs>
 % \fi
 %
-% \DescribeOption[crs|rp]{copyright}
+% \DescribeOption[crs-rp]{copyright}
 %   \DescribeDefault{false}
 %   Options: |true|, |false|\\
 %   Forces printing a watermark on every page. For the
@@ -2313,7 +2338,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 % \fi
 %
-% \DescribeOption[bama|rp]{coverbg}
+% \DescribeOption[bama-rp]{coverbg}
 %   \DescribeDefault{false}
 %   Options: |true|, |false|\\
 %   Sets a cover background with the relevant UGent or faculty color,
@@ -2754,7 +2779,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Inset text and quotes}
 % \label{S:usage:macros:inset}
 %
-% \DescribeMacro[bama|phd|crs|rp]{\insettext}
+% \DescribeMacro[bama-phd-crs-rp]{\insettext}
 %   \marg{title}
 %   \marg{content}\\
 %   Formats the |title| and |content| into a text box. By default, the colours are\\
@@ -2815,7 +2840,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bama|phd|crs|rp>
 %    \end{macrocode}
 %
-% \DescribeMacro[bama|phd|crs|rp]{\insetquote}
+% \DescribeMacro[bama-phd-crs-rp]{\insetquote}
 %   \marg{quote}
 %   \marg{citation}\\
 %   Formats the |quote| and |citation| into a text box using |insettext|.
@@ -2892,7 +2917,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \newpage
 % \subsubsection{Document data}
 % \label{S::usage:macros:data}
-% \DescribeMacro[crs|bama|phd|rp|bkc|bmr|ex]{\title}
+% \DescribeMacro[crs-bama-phd-rp-bkc-bmr-ex]{\title}
 %   \oarg{short title}
 %   \marg{title}
 %   \margintag{mandatory}
@@ -2932,7 +2957,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd>
 % \fi
 %
-% \DescribeMacro[crs|bama|phd|rp|bkc]{\subtitle}
+% \DescribeMacro[crs-bama-phd-rp-bkc]{\subtitle}
 %   \oarg{short subtitle}
 %   \marg{subtitle}
 %   \margintag{tag}\\
@@ -2960,7 +2985,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|phd|rp|bama|bkc>
 % \fi
 %
-% \DescribeMacro[phd|bkc]{\subtitel}
+% \DescribeMacro[phd-bkc]{\subtitel}
 %   \marg{dutch subtitle}
 %   \margintag{tag}\\
 %   This macro sets the dutch subtitle that will later be used in the PhD
@@ -2987,7 +3012,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</rp>
 % \fi
 %
-% \DescribeMacro[phd|crs|bkc]{\coverimage}
+% \DescribeMacro[phd-crs-bkc]{\coverimage}
 %   \marg{image path}
 %   \margintag{tag}\\
 %   Sets the filename of the front cover image
@@ -3003,7 +3028,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|phd|bkc>
 % \fi
 %
-% \DescribeMacro[bama|rp|phd|crs|bkc]{\frontcoverlogos}
+% \DescribeMacro[bama-rp-phd-crs-bkc]{\frontcoverlogos}
 %   \marg{graphics}
 %   \margintag{tag}\\
 %   Sets the logos in the bottom right corner of the cover page of most classes,
@@ -3024,7 +3049,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bama|rp|crs|phd|bkc>
 % \fi
 %
-% \DescribeMacro[phd|crs|bkc]{\backcoverlogos}
+% \DescribeMacro[phd-crs-bkc]{\backcoverlogos}
 %   \marg{graphics}
 %   \margintag{tag}\\
 %   Sets the logos in the bottom right corner of the back cover page
@@ -3037,7 +3062,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bkc|phd|crs>
 % \fi
 %
-% \DescribeMacro[crs|ex|bkc|phd|bama]{\degree}
+% \DescribeMacro[crs-ex-bkc-phd-bama]{\degree}
 %   \marg{full degree}
 %   \margintag{mandatory}
 %   \margintag{degrees\_seq}
@@ -3076,7 +3101,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|ex|bkc|phd|bama>
 % \fi
 %
-% \DescribeMacro[bkc|phd|bama|rp]{\doctype}
+% \DescribeMacro[bkc-phd-bama-rp]{\doctype}
 %   \marg{document type}
 %   \margintag{mandatory}
 %   \margintag{tag}\\
@@ -3100,7 +3125,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<phd>\doctype{dissertation-phd}
 % \fi
 %
-% \DescribeMacro[bama|phd|rp]{\wordcount}
+% \DescribeMacro[bama-phd-rp]{\wordcount}
 %   \marg{word count}
 %   \margintag{tag}\\
 %   Sets the word count of your document for printing on the cover page of the
@@ -3117,7 +3142,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bama|phd|rp>
 % \fi
 %
-% \DescribeMacro[bama|phd|rp]{\runwordcount}
+% \DescribeMacro[bama-phd-rp]{\runwordcount}
 %   Runs |texcount| using |shell-escape| (see code below), which
 %   automatically counts the words and sets the |\@wordcount| tag.
 %   Command arguments that expand to more text (e.g., a |\translatekey| call)
@@ -3180,7 +3205,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd>
 % \fi
 %
-% \DescribeMacro[crs|phd|bkc]{\isbn}
+% \DescribeMacro[crs-phd-bkc]{\isbn}
 %   \marg{ISBN}
 %   \margintag{tag}\\
 %   Specify your International Standard Book Number
@@ -3195,7 +3220,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|bkc|crs>
 % \fi
 %
-% \DescribeMacro[bama|phd|bkc]{\embargo}
+% \DescribeMacro[bama-phd-bkc]{\embargo}
 %   \oarg{start = YYYY-MM-DD, end = YYYY-MM-DD}\\
 %   Generates the correct embargo message in your PhD colophon or
 %   Ba/Ma dissertation copyright signing page.
@@ -3313,7 +3338,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|bkc|bama>
 % \fi
 %
-% \DescribeMacro[crs|rp|bama|phd]{\copyrightnotices}
+% \DescribeMacro[crs-rp-bama-phd]{\copyrightnotices}
 %   \marg{notice content}
 %   \margintag{tag}\\
 %   Used to override the default |\@copyrightnotices| content
@@ -3328,7 +3353,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|rp|bama|phd>
 % \fi
 %
-% \DescribeMacro[crs|rp]{\extranotices}
+% \DescribeMacro[crs-rp]{\extranotices}
 %   \marg{extra copyright notices}
 %   \margintag{tag}\\
 %   Adds additional copyright notices to the default course and report
@@ -3350,7 +3375,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{People}
 % \label{S:usage:macros:people}
 %
-% \DescribeMacro[crs|bama|phd|rp|bkc|le|ex]{\author}
+% \DescribeMacro[crs-bama-phd-rp-bkc-le-ex]{\author}
 %   \marg{title}
 %   \marg{Surname, Firstname}
 %   \marg{affiliation}
@@ -3442,7 +3467,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|crs|bama|bkc|ex|le|rp>
 % \fi
 %
-% \DescribeMacro[crs|rp|bkc|ex]{\lecturer}
+% \DescribeMacro[crs-rp-bkc-ex]{\lecturer}
 %   \marg{title}
 %   \marg{Surname, Firstname}
 %   \marg{affiliation}
@@ -3475,7 +3500,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|ex|rp|bkc>
 % \fi
 %
-% \DescribeMacro[bama|phd|bkc]{\supervisor}
+% \DescribeMacro[bama-phd-bkc]{\supervisor}
 %   \marg{title}
 %   \marg{Surname, Firstname}
 %   \marg{affiliation}
@@ -3688,7 +3713,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd>
 % \fi
 %
-% \DescribeMacro[phd|crs]{\coverdesigner}
+% \DescribeMacro[phd-crs]{\coverdesigner}
 %   \marg{Surname, Firstname}
 %   \margintag{tag}\\
 %   Credits the cover designer of your cover page image.
@@ -3702,7 +3727,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|crs>
 % \fi
 %
-% \DescribeMacro[bama|ex|rp]{\studentnr}
+% \DescribeMacro[bama-ex-rp]{\studentnr}
 %   \marg{student number}
 %   \margintag{tag}\\
 %   Specifies the student number.
@@ -3723,7 +3748,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Contact}
 % \label{S:usage:macros:contact}
 %
-% \DescribeMacro[phd|le|rp]{\address}
+% \DescribeMacro[phd-le-rp]{\address}
 %   \marg{adress lines}
 %   \margintag{mandatory}
 %   \margintag{tag}\\
@@ -3745,7 +3770,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<le>\renewcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
 % \fi
 %
-% \DescribeMacro[le|rp]{\email}
+% \DescribeMacro[le-rp]{\email}
 %   \oarg{domain}
 %   \marg{local-part}
 %   \margintag{emails\_seq}\\
@@ -3782,7 +3807,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 %
-% \DescribeMacro[le|rp]{\phone}
+% \DescribeMacro[le-rp]{\phone}
 %   \marg{phone number}
 %   \margintag{phones\_seq}\\
 %   \def\Phone {{\wasyfamily\char7}}
@@ -3830,7 +3855,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 %
-% \DescribeMacro[le|rp]{\mobile}
+% \DescribeMacro[le-rp]{\mobile}
 %   \marg{mobile number}
 %   \margintag{mobiles\_seq}\\
 %   Add mobile numbers.
@@ -3853,7 +3878,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Course macros}
 % \label{S:usage:macros:course}
 %
-% \DescribeMacro[ex|crs]{\course}
+% \DescribeMacro[ex-crs]{\course}
 %   \marg{course code}
 %   \marg{course name}
 %   \margintag{mandatory}
@@ -4039,7 +4064,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 % \fi
 %
-% \DescribeMacro{\question}
+% \DescribeMacro[ex]{\question}
 %   \oarg{weight}\marg{question}\\
 %   Adds a question to the exam, with automatic number counting.
 %   The |<question>| can be a short question (single line), empty,
@@ -4077,7 +4102,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 % \fi
 %
-% \DescribeMacro{\bilingual}
+% \DescribeMacro[ex]{\bilingual}
 %   \oarg{language 1}
 %   \oarg{language 2}
 %   \marg{text 1}
@@ -4104,7 +4129,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 % \fi
 %
-% \DescribeMacro{\mcsymb}
+% \DescribeMacro[ex]{\mcsymb}
 %   \marg{new symbol}
 %   \DescribeDefault{\textbackslash Square: \Square}\\
 %   Sets the symbol to be used as multiple choice mark.
@@ -4115,7 +4140,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 % \fi
 %
-% \DescribeMacro{\mc}
+% \DescribeMacro[ex]{\mc}
 %   \marg{choice option}\\
 %   Typesets a multiple choice answer option.\\
 %   For bilingual, use |\mc{\bilingual{english option}{dutch option}}|.
@@ -4133,7 +4158,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 % \fi
 %
-% \DescribeMacro{\insertsolutionspagepartial}
+% \DescribeMacro[ex]{\insertsolutionspagepartial}
 %   \marg{height from bottom of page in cm}\\
 %   Fills the remainder of the page with 'fill-out' squares.
 %   As observing/controlling the current line position in \LaTeX{} is not easy,
@@ -4166,7 +4191,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 % \fi
 %
-% \DescribeMacro{\insertsolutionspage}
+% \DescribeMacro[ex]{\insertsolutionspage}
 %   \marg{watermark text}\\
 %   Inserts a full solutions page, i.e. flushes the current page and
 %   inserts a full page with 'fill-out' squares.
