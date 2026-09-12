@@ -6661,22 +6661,35 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
 %</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1>
 %
-%
-%<*bama1|bama2|bama2|phd1|phd2|rp1|rp2>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 %% This package allows to generate a PDF with clickable links
-\usepackage[backref,hyperindex=true,pagebackref=true]{hyperref}
+\usepackage[hyperindex=true]{hyperref}
 %% You must load the hyperref package yourself, to allow putting it
 %% in the correct order with the other packages you load!
 
-%</bama1|bama2|bama2|phd1|phd2|rp1|rp2>
-%
-%
-%<*bama1|bama2>
-%% Use this package if you need to provide a twocolumn summary at the
-%% start of your document.
+%% Use this package if you want text spanning multiple columns in a table,
+%% e.g., in a twocolumn summary at the start of your document.
 \usepackage{multicol}
 
-%</bama1|bama2>
+%% Use this package if you want multi-row tables
+\usepackage{multirow}
+
+%% Use this package if you want prettier tables
+\usepackage{booktabs}
+
+%% Use biblatex for references
+\usepackage[backend=biber, style=authoryear]{biblatex}
+\addbibresource{biblatex-examples.bib} %% Change this to your own bibliography
+
+%% Use this package if you want uniform and clean quantities and units
+%% following SI conventions.
+\usepackage{siunitx}
+\sisetup{mode = text}
+
+%% Use this package if you want to easily typeset chemical equations.
+\usepackage{mhchem}
+
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 %
 %
 %<*ex1|ex2>
@@ -7110,7 +7123,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %% Set full contact info in address
 \address{
   <Faculty \ldots>\\
-  <Department or Office \ldots>\\
+  <Department or Office \ldots>\\\sisetup{
+    reset-text-family = false,
+    reset-text-series = false,
+    reset-text-shape  = false,
+  }
   <Research group \ldots>
   \vskip 1em
   \ifseqempty{emails}{}{E~\printseq{emails} {\\\phantom{E~}}{\\\phantom{E~}}{\\\phantom{E~}}\\}
@@ -7423,10 +7440,29 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs1|phd1|phd2>
 %
 %<*bama1|bama2|phd1|phd2|rp1|rp2|crs1>
+%% Frontmatter -----------------------------------------------------------------
 %% Causes the first pages to be roman numbered
 \frontmatter
 
 %</bama1|bama2|phd1|phd2|rp1|rp2|crs1>
+%
+%<*bama2|phd1>
+\chapter*{Dankwoord}
+\kant[1]
+
+%</bama2|phd1>
+%
+%<*bama1|phd2>
+\chapter*{Acknowledgements}
+\kant[1]
+
+%</bama1|phd2>
+%
+%<*crs1>
+\chapter*{Voorwoord}
+\kant[1]
+
+%</crs1>
 %
 %<*rp2>
 %% Report data page
@@ -7532,402 +7568,101 @@ Indicate and describe the use case if one or multiple GAI tools have been used:
 
 %</bama1>
 %
-% Mainmatter -------------------------------------------------------------------
 %<*crs1|bama1|bama2|phd1|phd2|rp1|rp2>
+%% Mainmatter -------------------------------------------------------------------
 %% Changes the numbering system to arabic and restart from 1
 \mainmatter
 
 %</crs1|bama1|bama2|phd1|phd2|rp1|rp2>
 %
-%<*crs1>
-%% a non-numbered chapter
-\chapter*{Inleiding}
-%% some automatically generated bogus text: remove in your copy
-\kant[1]
+%<*bama1|bama2|rp1|phd1>
+\chapter*{Samenvatting}
+\makeatletter
+\begin{multicols}{2}
+  [
+  \begin{center}
+    \textbf{
+      \Large\@title~\\[1ex]
+      \large \@subtitle\\[0.5ex]}
+    \printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
+  \end{center}
+  ]
 
-%% a first numbered chapter
-\chapter{Onzin voor dummies}
+  \kant[2]
 
-%% a first numbered section
-\section{Het gebeuren}
-\kant[2]
-\begin{equation}
-  e^{-j\pi} + 1 = 0
-\end{equation}
+  \kant[3]
 
-\kant[3]
-\section{En waartoe het geleid heeft}
+  \kant[4]
 
-\kant[4]
+\end{multicols}
+\makeatother
 
-\subsection{Herhaling}
+%</bama1|bama2|rp1|phd1>
+%
+%<*bama1|rp2|phd2>
+\chapter*{Summary}
+\makeatletter
+\begin{multicols}{2}
+  [
+  \begin{center}
+    \textbf{
+      \Large\@title~\\[1ex]
+      \large \@subtitle\\[0.5ex]}
+    \printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
+  \end{center}
+  ]
+
+  \kant[2]
+
+  \kant[3]
+
+  \kant[4]
+
+\end{multicols}
+\makeatother
+
+%</bama1|rp2|phd2>
+%
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+\chapter*{<An unnumbered chapter>}
 \kant[5]
 
-\subsection{Begint vervelend te worden}
+\chapter{<Second chapter>}
 \kant[6]
 
-\clearpage
+\section{<A section>}
+\kant[7]
 
-\subsection{Begint echt vervelend te worden}
-\kant[7-10]
+\subsection{<A subsection>}
+\kant[8]
 
-\chapter{Besluit}
-
-%% changes the chapter numbering to letters and uses 'Appendix' or
-%% 'Bijlage' (in dutch) as chapter name.
-\appendix
-
-\chapter{Symbolen}
-\chapter{Romeinse sprekers}
-\chapter{Referentielijst}
-
-%% typeset the final page with some graphic material on it
-\makefinalpage
-%</crs1>
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 %
-%<*bama1>
-%% Use this template if you need to provide a twocolumn summary at the
-%% start of your document. Remove it if you don't need it.
-\pagestyle{empty}
-\thispagestyle{empty}
-\chapter*{Samenvatting}
-\makeatletter
-\begin{multicols}{2}
-  [
-  \begin{center}
-    \textbf{
-      \Large\@title~\\[1ex]
-      \large \@subtitle\\[0.5ex]}
-    \printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
-  \end{center}
-  ]
-
-  \kant[11]
-
-  \kant[12]
-
-  \kant [13]
-
-  \kant [14]
-
-  \kant [15]
-
-\end{multicols}
-\makeatother
-\pagestyle{fancy}
-
-%% a first numbered chapter
-\chapter{Inleiding}
-
-%% some fancy typeset text (see the PDF yourself)
-\insettext{Example title}{Bene vixit qui bene latuit!}
-
-%% some dummy text: remove in your copy
-\kant[1]
-
-%% a second numbered chapter
-\chapter{Onderzoeksvraag}
-
-\insetquote{As any dedicated reader can clearly see, the Ideal of
-  practical reason is a representation of
-  as far as I know, the things themselves, a vast overexaggeration.}
-
-%% a first numbered section
-\section{Het gebeuren}
-\kant[2]
-
-\begin{equation}
-  e^{-j\pi} + 1 = 0
-\end{equation}
-
-\foreach \i in {3,4,...,10} {
-  \kant[\i]
-
-}
-
-\chapter{Literatuurstudie}
-
-\chapter{Theoretische achtergrond}
-
-\chapter{Eigen realisatie}
-
-\chapter{Besluit}
-
-%% changes the chapter numbering to letters and uses 'Appendix' or
-%% 'Bijlage' (in dutch) as chapter name.
-\appendix
-
-\chapter{Symbolen}
-\chapter{Referentielijst}
-%</bama1>
-%<*bama2>
-%% Use this template if you need to provide a twocolumn summary at the
-%% start of your document. Remove it if you don't need it.
-\pagestyle{empty}
-\thispagestyle{empty}
-\chapter*{Samenvatting}
-\makeatletter
-\begin{multicols}{2}
-  [
-  \begin{center}
-    \textbf{
-      \Large\@title~\\[1ex]
-      \large \@subtitle\\[0.5ex]}
-    \printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
-  \end{center}
-  ]
-
-  \kant[11]
-
-  \kant[12]
-
-  \kant [13]
-
-  \kant [14]
-
-  \kant [15]
-
-\end{multicols}
-\makeatother
-\pagestyle{fancy}
-
-%% a first numbered chapter
-\chapter{Inleiding}
-
-%% some fancy typeset text (see the PDF yourself)
-\insettext{Example title}{Bene vixit qui bene latuit!}
-
-%% some dummy text: remove in your copy
-\kant[1]
-
-%% a second numbered chapter
-\chapter{Onderzoeksvraag}
-
-\insetquote{As any dedicated reader can clearly see, the Ideal of
-  practical reason is a representation of
-  as far as I know, the things themselves, a vast overexaggeration.}
-
-%% a first numbered section
-\section{Het gebeuren}
-\kant[2]
-
-\begin{equation}
-  e^{-j\pi} + 1 = 0
-\end{equation}
-
-\foreach \i in {3,4,...,10} {
-  \kant[\i]
-
-}
-
-\chapter{Literatuurstudie}
-
-\chapter{Theoretische achtergrond}
-
-\chapter{Eigen realisatie}
-
-\chapter{Besluit}
-
-%% changes the chapter numbering to letters and uses 'Appendix' or
-%% 'Bijlage' (in dutch) as chapter name.
-\appendix
-
-\chapter{Symbolen}
-\chapter{Referentielijst}
-%</bama2>
-%
-%<*phd1>
-%% a first unnumbered chapter
-\chapter*{Inleiding}
-
-%% some dummy text, remove in your copy
-\kant[1]
-
-%% a first numbered chapter
-\chapter{Onderzoeksvraag}
-
-%% a first numbered section
-\section{Het gegeven}
-
-\kant[2]
-
-\begin{equation}
-  e^{-j\pi} + 1 = 0
-\end{equation}
-
-\kant[3-17]
-
+%<*phd1|phd2>
 %% This has been temporarily commented out to increase build speed
 %% Remove comment if you want to see spine text in the auto-generated cover
 %%---------------------------------
-%%\chapter{Literatuurstudie}
-
-%%\kant[18-19]
-
-%%\chapter{Theoretische achtergrond}
-
-%%\kant[20-21]
-
-%%\foreach \i in {A,B,C,D} {
-  %%  \chapter{Dummy hoofdstuk \i}
-  %%  \foreach \j in {1,...,50} {
-    %%    \kant[22-24]
-    %%  }
-  %%}
-
-%%\chapter{Eigen realisatie}
-
-%%\chapter{Besluit}
-
-%%\kant[25]
-%%---------------------------------
-
-%% change the chapter numbering to letters and uses 'Appendix' or
-%% 'Bijlage' (in dutch) as chapter name.
-\appendix
-
-\chapter{Symbolen}
-
-\chapter{Publicaties}
-%% Put your bibliography here using BibTeX
-
-%% typeset the final page with some graphic material on it
-\makefinalpage
-%</phd1>
-%<*phd2>
-%% a first unnumbered chapter
-\chapter*{Introduction}
-
-%% some dummy text, remove in your copy
-\kant[1]
-
-%% a first numbered chapter
-\chapter{Research question}
-
-%% a first numbered section
-\section{The datum}
-\kant[2]
-
-\begin{equation}
-  e^{-j\pi} + 1 = 0
-\end{equation}
-
-\kant[3-17]
-
-%% This has been temporarily commented out to increase build speed
-%% Remove comment if you want to see spine text in the auto-generated cover
-%%---------------------------------
-%%\chapter{Literature review}
-%%\kant[18-19]
-
-%%\chapter{Theoretical background}
-%%\kant[20-21]
-
-%%\chapter{Technical results}
-%%\kant[22-24]
-
 %%\foreach \i in {A,B,C,D,E} {
   %%\chapter{Dummy chapter \i}
   %%\foreach \j in {1,...,50} {
     %%\kant[22-24]
     %%}
   %%}
-
-%%\chapter{Conclusion}
-%%\kant[25]
 %%---------------------------------
-
-%% change the chapter numbering to letters and uses 'Appendix' or
-%% 'Bijlage' (in dutch) as chapter name.
-\appendix
-
-\chapter{Symbols}
-
-%% Put your bibliography here using BibTeX
-
-%% typeset the final page with some graphic material on it
-\makefinalpage
-%</phd2>
+%</phd1|phd2>
 %
-%<*rp1>
-%% a first unnumbered chapter
-\chapter*{Samenvatting}
-%% some dummy text, remove in your copy
-\kant[1]
-
-%% a first numbered chapter
-\chapter{Procesbeschrijving}
-
-%% a first numbered section
-\section{Overzicht waterzuivering}
-\kant[2]
-
-\begin{equation}
-  e^{-j\pi} + 1 = 0
-\end{equation}
-
-\kant[3-17]
-
-\chapter{Berekeningen}
-\kant[18-19]
-
-\chapter{Discussie}
-\kant[20-21]
-
-\chapter{Conclusies}
-\kant[22-24]
-
-
-%% change the chapter numbering to letters and uses 'Appendix' or
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%% Appendix -------------------------------------------------------------------
+%% Changes the chapter numbering to letters and uses 'Appendix' or
 %% 'Bijlage' (in dutch) as chapter name.
 \appendix
 
-\chapter{Meetreeksen waterzuivering}
+\chapter{<First appendix>}
+\chapter{<Second appendix>}
 
-\chapter{Extra info}
-
-%% typeset the final page
+%% Typeset the final page (back cover)
 \makefinalpage
-%</rp1>
-%<*rp2>
-%% a first unnumbered chapter
-\chapter*{Inleiding}
-%% some dummy text, remove in your copy
-\kant[1]
-
-%% a first numbered chapter
-\chapter{Summary}
-
-%% a first numbered section
-\section{First chapter}
-\kant[2]
-
-\begin{equation}
-  e^{-j\pi} + 1 = 0
-\end{equation}
-
-\kant[3-17]
-
-\chapter{Second chapter}
-\kant[18-19]
-
-\chapter{Third chapter}
-\kant[20-21]
-
-\chapter{Fourth chapter}
-\kant[22-24]
-
-%% change the chapter numbering to letters and uses 'Appendix' or
-%% 'Bijlage' (in dutch) as chapter name.
-\appendix
-
-\chapter{First Appendix}
-
-\chapter{Second Appendix}
-
-%% typeset the final page
-\makefinalpage
-%</rp2>
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 %
 %<*le1>
 %% Be polite when starting a letter, and address your audience
