@@ -6238,7 +6238,16 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOn
 \newcommand\@coverbodyphd{
   % Title, subtitle, author
-  \bool_if:NFT \l_@@_bwphdcover_bool {
+  \bool_if:NTF \l_@@_bwphdcover_bool {
+    \node[anchor=south~east, text~width=\@PW-2*\@MTLR, align=right, text=covertitlecolor]
+    at (\@PW-\@MTLR, \@HT) {
+      {\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
+      \ifx\@subtitle\@empty\else\vspace{4pt}\hyphenpenalty=100000%
+      {\fontsize{20}{28}\selectfont\bfseries\@subtitle\par}%
+      \fi%
+      \vspace{30pt}\hyphenpenalty=100000%
+      {\fontsize{20}{24}\selectfont\printseq{authors}{\\}{\\}{\\}}};
+  }{
     \node[anchor=west, text~width=\@PW-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
     at (\@MS+\@MTLR, \@HT) {
       {\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
@@ -6265,15 +6274,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
         \fi{}%
         ~\translatekey{org-deugent},%
         ~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}};
-  }{
-    \node[anchor=south~east, text~width=\@PW-2*\@MTLR, align=right, text=covertitlecolor]
-    at (\@PW-\@MTLR, \@HT) {
-      {\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
-      \ifx\@subtitle\@empty\else\vspace{4pt}\hyphenpenalty=100000%
-        {\fontsize{20}{28}\selectfont\bfseries\@subtitle\par}%
-      \fi%
-    \vspace{30pt}\hyphenpenalty=100000%
-    {\fontsize{20}{24}\selectfont\printseq{authors}{\\}{\\}{\\}}};
   }
 
   \bool_if:NT \l_@@_embargo_bool {
