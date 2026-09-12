@@ -2906,14 +2906,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   |\insetquote{I feel quite hungry!}{Some dude from Bohemia named Henry}|\\
 %
 % \makeatletter
-% \newlength{\quotetextwidth}
-% \newlength{\quoteinnerxsep}
-% \setlength{\quoteinnerxsep}{10mm}
+% \newlength{\@quotetextwidth}
+% \newlength{\@quoteinnerxsep}
+% \setlength{\@quoteinnerxsep}{10mm}
 %
-% \newcommand{\insetquotepicture}[2]{
+% \newcommand{\@insetquotepicture}[2]{
 % \begin{tikzpicture}[baseline]
-% \node[align=#1, text width=\quotetextwidth,
-% inner xsep=\quoteinnerxsep, inner ysep=6mm] (qtext) {#2};
+% \node[align=#1, text width=\@quotetextwidth,
+% inner xsep=\@quoteinnerxsep, inner ysep=6mm] (qtext) {#2};
 % \node[font=\Huge, anchor=north west] at (qtext.north west) {``};
 % \node[font=\Huge, anchor=south east] at (qtext.south east) {''};
 % \end{tikzpicture}
@@ -2921,13 +2921,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \newcommand{\insetquote}[2]{
 % \insettext{}{%
-%   \settowidth{\quotetextwidth}{#1}%
-%   \ifdim\quotetextwidth>\dimexpr\linewidth-6mm-2\quoteinnerxsep\relax
-%   \setlength{\quotetextwidth}{\dimexpr\linewidth-6mm-2\quoteinnerxsep\relax}%
-%   \insetquotepicture{justify}{#1}\par
+%   \settowidth{\@quotetextwidth}{#1}%
+%   \ifdim\@quotetextwidth>\dimexpr\linewidth-6mm-2\@quoteinnerxsep\relax
+%   \setlength{\@quotetextwidth}{\dimexpr\linewidth-6mm-2\@quoteinnerxsep\relax}%
+%   \@insetquotepicture{justify}{#1}\par
 %   \else
 %   \begin{center}
-%     \insetquotepicture{center}{#1}\par
+%     \@insetquotepicture{center}{#1}\par
 %   \end{center}
 %   \fi
 %   \ifblank{#2}{}{\raggedleft #2\par}%
@@ -2940,14 +2940,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % Implementation:
 %    \begin{macrocode}
 %<*bama|phd|crs|rp>
-\newlength{\quotetextwidth}
-\newlength{\quoteinnerxsep}
-\setlength{\quoteinnerxsep}{10mm}
+\newlength{\@quotetextwidth}
+\newlength{\@quoteinnerxsep}
+\setlength{\@quoteinnerxsep}{10mm}
 
-\newcommand{\insetquotepicture}[2]{
+\newcommand{\@insetquotepicture}[2]{
   \begin{tikzpicture}[baseline]
-    \node[align=#1, text width=\quotetextwidth,
-    inner xsep=\quoteinnerxsep, inner ysep=6mm] (qtext) {#2};
+    \node[align=#1, text width=\@quotetextwidth,
+    inner xsep=\@quoteinnerxsep, inner ysep=6mm] (qtext) {#2};
     \node[font=\Huge, anchor=north west] at (qtext.north west) {``};
     \node[font=\Huge, anchor=south east] at (qtext.south east) {''};
   \end{tikzpicture}
@@ -2955,13 +2955,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
 \newcommand{\insetquote}[2]{
   \insettext{}{%
-    \settowidth{\quotetextwidth}{#1}%
-    \ifdim\quotetextwidth>\dimexpr\linewidth-6mm-2\quoteinnerxsep\relax
-    \setlength{\quotetextwidth}{\dimexpr\linewidth-6mm-2\quoteinnerxsep\relax}%
-    \insetquotepicture{justify}{#1}\par
+    \settowidth{\@quotetextwidth}{#1}%
+    \ifdim\@quotetextwidth>\dimexpr\linewidth-6mm-2\@quoteinnerxsep\relax
+    \setlength{\@quotetextwidth}{\dimexpr\linewidth-6mm-2\@quoteinnerxsep\relax}%
+    \@insetquotepicture{justify}{#1}\par
     \else
     \begin{center}
-      \insetquotepicture{center}{#1}\par
+      \@insetquotepicture{center}{#1}\par
     \end{center}
     \fi
     \ifblank{#2}{}{\raggedleft #2\par}%
@@ -4449,6 +4449,649 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</le>
 % \fi
 %
+% \DescribeMacro[le]{\closeletter}
+%   Close the letter (with the closing greetings and underwriting)
+%   such that the letter can be continued if desired with attachments.
+%   This macro generates a |\clearpage|.
+%   If not used, it is automatically invoked at the end of the letter.
+% \iffalse
+%<*le>
+\ExplSyntaxOn
+\bool_new:N \l_@@_letterclosed_bool
+\newcommand\closeletter{
+  \bool_if:NF \l_@@_letterclosed_bool {
+    \@closing\\
+    \@signature~\\
+    \@sender
+    \ifx\@senderrole\@empty\\[8ex]\else\\*\@senderrole\\[8ex]\fi
+    \setlength{\parskip}{0em}
+    \ifx\@carboncopy\@empty\else\MakeUppercase{\ccname}:~\@carboncopy\\[4ex]\fi
+    \ifx\@enclosed\@empty\else\translatekey{appendix}:~\@enclosed\fi
+    \bool_set_true:N \l_@@_letterclosed_bool
+    \clearpage
+  }
+}
+\AtEndDocument{
+  \closeletter
+}
+\ExplSyntaxOff
+%</le>
+% \fi
+%
+%
+% \newpage
+% \subsection{Making titles and covers}
+% \label{S:usage:macros:make}
+% The title page is generated using the |\maketitle| command. As the
+% book class from which we inherit already defines this command, we
+% need to renew it.
+%
+% \DescribeObject[custom]{\maketitle}
+%    \begin{macrocode}
+%<*bama|phd|rp|crs>
+\ExplSyntaxOn
+\renewcommand\maketitle{%
+\pagestyle{empty}
+%</bama|phd|rp|crs>
+%<*phd|crs>
+\bool_if:NT \l_@@_thumbs_bool {
+  \stopthumb
+}
+%</phd|crs>
+%<*phd>
+\bool_if:NF \l_@@_bare_bool {
+  \begingroup
+  \pagenumbering{gobble}
+%</phd>
+%<*bama|phd|rp|crs>
+\begin{titlepage}
+  \setlength\parskip{0pt}%
+  \setlength\parindent{0pt}%
+  %
+  \AddToHookNext{shipout/foreground}{%
+    \begin{tikzpicture}[remember~picture,overlay]
+    \node[anchor=south~west, inner~sep=0pt]
+    at (current~page.south~west) {%
+      \@frontcover
+    };
+    \end{tikzpicture}%
+  }%
+  \null
+\end{titlepage}%
+%</bama|phd|rp|crs>
+%<bama>\null\par
+%<*bama|rp>
+% Only 1 page: Copyrightnotices
+\ifx\@copyrightnotices\@empty\else
+\noindent\@copyrightnotices
+\fi
+%</bama|rp>
+%<*crs>
+~\par\relax
+% Only 1 page: Copyrightnotices
+\clearpage
+\bool_if:NT \l_@@_copyright_bool {
+  \backgroundsetup{contents={Copyright~Ghent~University,~All~Rights~Reserved}}
+}
+\null\vfill
+\ifx\@copyrightnotices\@empty\else
+\@copyrightnotices
+\clearpage
+\fi
+%</crs>
+%<*phd>
+  \endgroup
+  \setcounter{page}{0}%
+}
+
+% Page 1: blank
+\clearpage\thispagestyle{empty}\null
+
+% Page 2: committee
+\clearpage\thispagestyle{empty}
+\null\vfill % flush to bottom
+\noindent\begin{minipage}[b]{\textwidth}
+%
+\textbf{\getseqcaption{supervisors}{}}\hfill\break
+%
+\printseq{supervisorswaff}{\\}{\\}{\\}\\[2ex]
+%
+%
+\textbf{\translatekey{jury}}\hfill\\[1ex]
+%
+\textit{\translatekey{jurychair}}\hfill\break
+\@jurychair{}\ifdefvoid{\@jurychairaff}{}{\@jurychairaff}\\[1ex]
+%
+\textit{\translatekey{jurymembers}}\hfill\break
+{\printseq{jurymemberswaff}{\\}{\\}{\\}}\\[2ex]%
+%
+%
+\textbf{\translatekey{dean}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty}}\hfill\break
+\@dean\\[2ex]
+%
+\textbf{\translatekey{rector}~\translatekey[lowercase]{of}~\translatekey{org-deugent}}\hfill\break
+\@rector
+\end{minipage}%
+
+% Page 3: title
+\clearpage\thispagestyle{empty}
+\null\vfill % Bottom-align
+\noindent\begin{minipage}[b]{\textwidth}
+  \begingroup
+  \raggedright
+  {\Huge\bfseries\nohyphens\@title\par}%
+
+  \ifx\@subtitle\@empty\else
+  \vspace{.5\baselineskip}
+  {\Large\@subtitle\par}%
+  \fi
+  \endgroup
+
+  \vspace{5\baselineskip}%
+  {\Large\printseq{authors}{\\}{\\}{\\}\par}%
+
+  \bool_if:NTF \l_@@_embargo_bool {
+    \vspace{5\baselineskip}
+    {\large\translatekey[uppercase]{confidential}\par}
+    \vspace{5\baselineskip}
+  }{
+    \vspace{10\baselineskip}%
+  }
+
+  {\small \@doctype{}~\translatekey[lowercase]{submittedto}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}\par}%
+
+  \vspace{.3\baselineskip}%
+  {\small\translatekey{org-ugent},~\@location,~\@date}%
+\end{minipage}%
+
+% Page 4: copyright page (verso, bottom-left)
+\clearpage\thispagestyle{empty}\null\vfill
+\@copyrightnotices
+%</phd>
+%<*bama|phd|rp|crs>
+  \setcounter{footnote}{0}%
+  \global\let\thanks\relax
+  \global\let\maketitle\relax
+  \global\let\@thanks\@empty
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\and\relax
+  \pagestyle{fancy}
+  \thispagestyle{empty}
+}
+\ExplSyntaxOff
+%</bama|phd|rp|crs>
+%    \end{macrocode}
+%
+% \DescribeObject[custom]{\makefinalpage}
+%   Below, one can find the code for the final page:
+%    \begin{macrocode}
+%<*bama|phd|crs|rp>
+\ExplSyntaxOn
+\newcommand\makefinalpage{
+%</bama|phd|crs|rp>
+%<bama>\@backcover{}
+%<*phd|crs>
+\bool_if:NF \l_@@_bare_bool {
+  \cleardoublepage
+  \bool_if:NT \l_@@_thumbs_bool {
+    \stopthumb
+  }
+  \thispagestyle{empty}
+  \null% intentionally blank page
+  \clearpage
+  \thispagestyle{empty}
+  \AddToHookNext{shipout/foreground}{%
+    \begin{tikzpicture}[remember~picture,overlay]
+    \node[anchor=south~west, inner~sep=0pt]
+    at (current~page.south~west) {%
+      \@backcover
+    };
+    \end{tikzpicture}%
+  }%
+  \null
+}
+%</phd|crs>
+%<*bama|phd|crs|rp>
+}
+\ExplSyntaxOff
+%</bama|phd|crs|rp>
+%    \end{macrocode}
+%
+%
+% \DescribeObject[custom]{\maketitle}
+% The top of the letter is generated using the |\maketitle|
+% command.
+%
+%    \begin{macrocode}
+%<*le>
+\ExplSyntaxOn
+\newcommand\maketitle{%
+  \pagestyle{empty}
+  \thispagestyle{empty}
+  \AddToHook{shipout/foreground}{%
+    \begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt,overlay]
+    \clip (0,0) rectangle(\paperwidth,-\paperheight);
+    \begin{scope}[shift={(\gridunit,-\@PH)}]
+    \ugentlogo{4\gridunit}{ugent@main}{0.0}
+    \end{scope}
+    \begin{scope}[shift={(\gridunit,-3\gridunit)}]
+    \faclogo{3\gridunit}{ugent@\@fselector}{0}
+    \end{scope}
+    \path (\@PW-\gridunit,-\gridunit)
+    node[anchor=north~east,text~width=61.5mm,align=left] {
+      \small{\nohyphens{\bfseries\textcolor{ugent@main}{\@faculty[uppercase]}}}\\*
+      \textcolor{ugent@main}{\MakeUppercase{\@faculty}}
+    };
+
+    \ifnum\value{page}>1
+    \path (2\gridunit,-3\gridunit)
+    node[anchor=north~west] { \@letterheader };
+    \fi
+    \end{tikzpicture}
+  }
+
+  \AddToHookNext{shipout/foreground}{%
+    \begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt,overlay]
+    \clip (0,0) rectangle(\paperwidth,-\paperheight);
+    %
+
+    \bool_if:NT \l_@@_foldline_bool {
+      \draw (1cm,-98mm) -- (1.5cm,-98mm);
+    }
+    %
+    \path (2\gridunit,-44mm)
+    node[anchor=north~west,text~width=80mm,align=left] {
+      \scriptsize\textcolor{gray}{\uline{\@returnaddress}}\\*
+      \normalsize\@to\\*
+      \ifx\@toorganization\@empty\else\@toorganization\\*\fi%
+      \@toaddress
+    };
+
+    \path (\@PW-\gridunit,-3\gridunit)
+    node[anchor=north~east,text~width=61.5mm,align=left] {
+      \textcolor{ugent@main}{\textbf{\@sender}}
+      \ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
+      \ifseqempty{emails} {}{E~\printseq{emails}  {\\\phantom{E~}}{\\\phantom{E~}}{\\\phantom{E~}}\\}
+      \ifseqempty{phones} {}{T~\printseq{phones}  {\\\phantom{T~}}{\\\phantom{T~}}{\\\phantom{T~}}\\}
+      \ifseqempty{faxes}  {}{F~\printseq{faxes} {\\\phantom{F~}}{\\\phantom{F~}}{\\\phantom{F~}}\\}
+      \ifseqempty{mobiles}{}{M~\printseq{mobiles} {\\\phantom{M~}}{\\\phantom{M~}}{\\\phantom{M~}}\\}
+      \vskip 1.75ex
+      \@address\\[1.75ex]
+      \@ifpackageloaded{hyperref}{
+        \href{https://www.ugent.be}{www.ugent.be}
+      }{
+        www.ugent.be
+      }
+    };
+    \end{tikzpicture}
+  }
+  \null
+  \vspace{4\gridunit}
+  \@letterheader\\[\gridunit]
+  {\bfseries\@subject}
+}
+\ExplSyntaxOff
+
+%</le>
+%    \end{macrocode}
+%
+% \DescribeObject[custom]{\maketitle}
+% The title page of the exam class is generated using the |\maketitle|
+% command.
+%
+%    \begin{macrocode}
+%<*ex>
+\renewcommand\maketitle{%
+  \pagestyle{fancy}
+  \AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{%
+    \put(0,0){%
+      \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
+      \clip (0,0) rectangle(\paperwidth,\paperheight);
+      \fill[lightgray]
+      (2.125,{\paperheight-7cm}) rectangle (\paperwidth,6);
+
+      \node
+      [anchor=west,text width={\paperwidth-5cm},align=left]
+      at (2.125,{\paperheight-3cm})
+      {%
+        \fontsize{18}{22}\selectfont%
+        \textsf{\textbf{\printseq{courses}{\\}{\\}{\\}}}\par
+        \ifx\@exampart\@empty
+        \else \textsf{\textbf{\@exampart}}\fi
+      };
+      \node
+      [anchor=west,text width={\paperwidth-5cm},align=left]
+      at (2.125,{\paperheight-4cm})
+      {%
+        \fontsize{12}{18}\selectfont%
+        \textsf{\printseq{coursecodes}{\\}{\\}{\\}}
+      };
+
+      \node
+      [anchor=west,text width={\paperwidth-5cm},align=left,font=\large]
+      at (2.125,{\paperheight-5cm})
+      {%
+        \fontsize{12}{18}\selectfont%
+        \textsf{
+          \ifx\@examseries\@empty{}~\else\translatekey{series}~\@examseries{}\fi
+          \hfill \@date{}}
+      };
+
+      \node[anchor=south west,align=left,inner sep=0pt] at (3,21)
+      {%
+        \fontsize{14}{19}\selectfont%
+        \textsf{\translatekey{exam}}
+      };
+
+      \node[anchor=south west,align=left,inner sep=0pt] at (3,19)
+      {%
+        \fontsize{12}{18}\selectfont%
+        \textsf{\translatekey{lastname}}
+      };
+      \foreach \nn in {0,1,...,33} {
+        \draw[fill=white] (3,18) ++({0.5*\nn},0) rectangle +(0.5,0.8);
+      }
+
+      \node[anchor=south west,align=left,inner sep=0pt] at (3,17)
+      {%
+        \fontsize{12}{18}\selectfont%
+        \textsf{\translatekey{firstname}}
+      };
+
+      \foreach \nn in {0,1,...,23} {
+        \draw[fill=white] (3,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
+      }
+
+      \node[anchor=south west,align=left,inner sep=0pt] at (16,17)
+      {%
+        \fontsize{12}{18}\selectfont%
+        \textsf{\translatekey{studentnr}}
+      };
+      \foreach \nn in {0,1,...,7} {
+        \draw[fill=white] (16,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
+      }
+
+      \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
+      at (3,14)
+      {%
+        \fontsize{12}{21}\selectfont%
+        \textsf{\translatekey{examduration}: \@examduration}
+      };
+      \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
+      at (3,11)
+      {%
+        \fontsize{12}{15}\selectfont%
+        \textsf{\begin{tabular}{@{}l@{}ll}%
+          \translatekey{examstart}& : & \@examstart\\
+          \translatekey{examend}  & : & \@examend
+          \end{tabular}}
+      };
+
+      \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
+      at (3,8)
+      {%
+        \fontsize{12}{21}\selectfont%
+        \textsf{\getseqcaption{rooms}{: \printseq{rooms}{~\&~}{,~}{\translatekey{andlist}~}}}
+      };
+
+      %\node
+      %[anchor=base west,ugent@main,
+      %text width={\paperwidth-5cm},align=left,font=\LARGE]
+      %at (2.125,{\paperheight-6.5cm})
+      %{\textsf{\textbf{\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}}};
+
+      \fill[gray] (2.125,6)
+      -- (\paperwidth,6)
+      -- (\paperwidth,2.625)
+      -- (2.55,2.625)
+      arc (-90:-180:0.425)
+      -- cycle;
+
+      \node[white,anchor=west,align=left,font=\large]
+      (SN) at (2.55,4.9)
+      {
+        \begin{tabular}{@{}l@{~\,}p{14.5cm}}
+        \textsf{\getseqcaption{lecturers}{}}
+        & \textsf{\textbf{\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}}}
+        \end{tabular}
+      };
+
+      \node[white,anchor=west,text width=17.5cm,align=left,font=\small]
+      at (2.55,3.7)
+      {\textsf{\printseq{degrees}{\\}{\\}{\\}}\\
+        \textsf{\textbf{\@faculty{}}}}; % TODO should handle empty
+
+      \begin{scope}[shift={(2.125,1.313)}]
+      \ugentlogo{4.75cm}{ugent@main}{0.0}
+      \end{scope}
+      \end{tikzpicture}
+    }
+  }
+  ~\par\relax
+  \clearpage
+  \lfoot[\small \@shorttitle]{\small \@shorttitle}
+  \rfoot[\small
+  \ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi~---
+  ~\@academicyear]
+  {\small
+    \ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi
+    ~---~\@academicyear}
+  \renewcommand*{\footrulewidth}{1pt}
+  \@extrainfo{}
+}
+%</ex>
+%    \end{macrocode}
+%
+% \DescribeObject[custom]{\makebookcover}
+%   This macro creates a book cover for the bookcover class. This is already
+%   defined in the |bookcover| package, so we need to renew it.
+%  First we calculate the spine width, set some dimensions,
+%  and check if we can print on the spine:
+%    \begin{macrocode}
+%<*bkc>
+\ExplSyntaxOn
+\bool_new:N \l_@@_printonspine_bool
+\msg_new:nnnn { bookcover } { spine-too-small }
+{ The~spine~width~(#1mm)~is~too~small. }
+{ It~must~be~at~least~10mm~to~typeset~any~spine~text. }
+\msg_new:nnnn { bookcover } { spine-big-enough }
+{ The~spine~width~(#1mm)~is~big~enough. }
+{ It~must-be~at~least~10mm~to~typeset~the~spine~text. }
+\AtBeginDocument{
+  \fp_compare:nNnTF { \spinewidth } < { 10.0mm } {
+    \msg_warning:nnx { bookcover } { spine-too-small } { \fp_to_decimal:n{\spinewidth/1mm} }
+    \bool_set_false:N \l_@@_printonspine_bool
+  }{
+    \msg_info:nnx { bookcover } { spine-big-enough } { \fp_to_decimal:n{\spinewidth/1mm} }
+    \bool_set_true:N \l_@@_printonspine_bool
+  }
+}
+\ExplSyntaxOff
+%</bkc>
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*bkc>
+\ExplSyntaxOn
+\renewcommand\makebookcover{
+  \begin{bookcover}
+    \bookcovercomponent{normal}{front}{\@frontcover}
+    \makeatletter
+    \bookcovercomponent{color}{bg~spine}{spinecolor}
+    \bool_if:NT \l_@@_printonspine_bool {
+      \bookcovercomponent{logo}{spine}{spinetextcolor}
+      \bookcovercomponent{title}{spine}{\@title}
+      \bookcovercomponent{authoryear}{spine}{
+        \exp_args:Nx \str_case:nn { \l_@@_covertype_tl } {
+          { phd }    {
+            \printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
+          }
+          { course }  {
+            \ifseqempty{lecturers}{
+              \printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
+            }{
+              \printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}
+            }
+          }
+        }
+      }
+    }
+    \makeatother
+    \bookcovercomponent {normal}{back}{\@backcover}
+  \end{bookcover}
+}
+\ExplSyntaxOff
+%</bkc>
+%    \end{macrocode}
+%
+% \DescribeObject[custom]{\generatebookcover}
+% This macro generates a cover.tex file from your current document.
+%    \begin{macrocode}
+%<*phd|crs>
+\ExplSyntaxOn
+\fp_new:N \l_@@_paperweight_fp
+\fp_new:N \l_@@_paperbulk_fp
+\fp_new:N \l_@@_pagecount_fp
+
+\tl_new:N \l_@@_title_tl
+\tl_new:N \l_@@_subtitle_tl
+\tl_new:N \l_@@_isbn_tl
+\tl_new:N \l_@@_coverimage_tl
+\tl_new:N \l_@@_backcoverlogos_tl
+\tl_new:N \l_@@_frontcoverlogos_tl
+\tl_new:N \l_@@_academicyear_tl
+
+\tl_new:N \l_@@_year_tl
+\tl_new:N \l_@@_camerareadykeyval_tl
+\tl_new:N \l_@@_covertypekeyval_tl
+\tl_new:N \l_@@_covertemplate_tl
+
+\newcommand\generatebookcover{
+  \fp_set:Nn \l_@@_paperweight_fp { 80 } % g/m2
+  \fp_set:Nn \l_@@_paperbulk_fp   { 1.25 } % cm3/g
+  \bool_if:NTF \l_@@_bare_bool {
+    \fp_set:Nn \l_@@_pagecount_fp  { \ztotpages }
+  }{
+    \fp_set:Nn \l_@@_pagecount_fp  { \ztotpages - 2}
+  }
+
+  \dim_new:N \l_@@_spinewidth_dim
+  \dim_set:Nn \l_@@_spinewidth_dim {\fp_to_decimal:n {\l_@@_pagecount_fp/2*\l_@@_paperweight_fp/1e6*\l_@@_paperbulk_fp*1e3} mm}
+
+  \tl_set:Nx \l_@@_title_tl           { \exp_not:o{\@title} }
+  \tl_set:Nx \l_@@_subtitle_tl        { \exp_not:o{\@subtitle} }
+  \tl_set:Nx \l_@@_isbn_tl            { \exp_not:o{\@isbn} }
+  \tl_set:Nx \l_@@_coverimage_tl      { \exp_not:o{\@coverimage} }
+  \tl_set:Nx \l_@@_backcoverlogos_tl  { \exp_not:o{\@backcoverlogos} }
+  \tl_set:Nx \l_@@_frontcoverlogos_tl { \exp_not:o{\@frontcoverlogos} }
+
+  \tl_set:Nx \l_@@_year_tl            { \exp_not:n{\the\year} }
+  \tl_set:Nx \l_@@_academicyear_tl    { \exp_not:n{\@academicyear} }
+
+  \tl_clear_new:N \l_@@_authorscalls_tl
+  \seq_map_inline:Nn \g_@@_authorscalls_seq
+  { \tl_put_right:Nn \l_@@_authorscalls_tl { ##1 \iow_newline: } }
+
+  \tl_clear_new:N \l_@@_degreecalls_tl
+  \seq_map_inline:Nn \g_@@_degreecalls_seq
+  { \tl_put_right:Nn \l_@@_degreecalls_tl { ##1 \iow_newline: } }
+
+  \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
+    { phd }    {
+      \tl_clear_new:N \l_@@_supervisorscalls_tl
+      \seq_map_inline:Nn \g_@@_supervisorscalls_seq
+      { \tl_put_right:Nn \l_@@_supervisorscalls_tl { ##1 \iow_newline: } }
+      \bool_if:NTF \l_@@_cameraready_bool {
+        \tl_set:Nn \l_@@_camerareadykeyval_tl { ,cameraready=true }
+      }{
+        \tl_set:Nn \l_@@_camerareadykeyval_tl { ,cameraready=false }
+      }
+      \tl_set:Nn \l_@@_covertypekeyval_tl { ,phd }
+    }
+    { course }     {
+      \tl_clear_new:N \l_@@_lecturerscalls_tl
+      \seq_map_inline:Nn \g_@@_lecturerscalls_seq
+      { \tl_put_right:Nn \l_@@_lecturerscalls_tl { ##1 \iow_newline: } }
+      \tl_set:Nx \l_@@_camerareadykeyval_tl { }
+      \tl_set:Nn \l_@@_covertypekeyval_tl { ,course }
+    }
+  }{
+    \msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
+  }
+
+  \tl_set:Nn \l_@@_covertemplate_tl {
+    \exp_not:N\documentclass[\l_@@_fselector_tl, spinewidth=\fp_to_decimal:n{round(\dim_ratio:nn{\l_@@_spinewidth_dim}{1mm},1)}mm
+    \l_@@_camerareadykeyval_tl
+    ,\l_@@_colormodel_tl
+    ,\l_@@_language_tl
+    ,\l_@@_nameformat_tl
+    \l_@@_covertypekeyval_tl]{ugentbookcover} \iow_newline:
+    \c_percent_str~Currently,~a~for~80~g/m2~paper~with~a~bulk~of~1.25~cm3/g~is~assumed~(0.1~mm~caliper~or~thickness).       \iow_newline:
+    \c_percent_str~Page~count~is~\fp_to_decimal:n{round(\l_@@_pagecount_fp,0)}~pages.~Adjust~spinewidth~if~necessary~using: \iow_newline:
+    \c_percent_str~spinewidth~=~page~count~/~2~*~grammage~*~bulk~=~page~count~/~2~*~caliper                                 \iow_newline:
+    \iow_newline:
+    \exp_not:N\title            {\exp_not:V\l_@@_title_tl}            \iow_newline:
+    \exp_not:N\subtitle         {\exp_not:V\l_@@_subtitle_tl}         \iow_newline:
+    \l_@@_authorscalls_tl                                             \iow_newline:
+    \exp_not:N\isbn             {\exp_not:V\l_@@_isbn_tl}             \iow_newline:
+    \exp_not:N\coverimage       {\exp_not:V\l_@@_coverimage_tl}       \iow_newline:
+    \exp_not:N\backcoverlogos   {\exp_not:V\l_@@_backcoverlogos_tl}   \iow_newline:
+    \exp_not:N\frontcoverlogos  {\exp_not:V\l_@@_frontcoverlogos_tl}  \iow_newline:
+  }
+
+  \bool_if:NTF \l_@@_bwbookcover_bool {
+    \tl_put_right:Nn \l_@@_covertemplate_tl {
+      \iow_newline:
+      \exp_not:N\year=\l_@@_year_tl \iow_newline:
+    }
+  }{
+    \tl_put_right:Nn \l_@@_covertemplate_tl {
+      \iow_newline:
+      \l_@@_degreecalls_tl \iow_newline:
+      \exp_not:N\academicyear {\l_@@_academicyear_tl} \iow_newline:
+    }
+  }
+
+  \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
+    { phd }    {
+      \tl_put_right:Nn \l_@@_covertemplate_tl {
+        \exp_not:N\doctype {dissertation-phd} \iow_newline:
+        \l_@@_supervisorscalls_tl             \iow_newline:
+        \bool_if:NT \l_@@_embargo_bool {
+          \bool_if:NTF \l_@@_embargotemp_bool {
+            \exp_not:N\embargo[start=\l_@@_embargostartdate_tl, end=\l_@@_embargoenddate_tl] \iow_newline:
+          }{
+            \exp_not:N\embargo \iow_newline:
+          }
+        }
+      }
+    }
+    { course }     {
+      \tl_put_right:Nn \l_@@_covertemplate_tl {
+        \l_@@_lecturerscalls_tl             \iow_newline:
+      }
+    }
+  }{
+    \msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
+  }
+
+  \tl_put_right:Nn \l_@@_covertemplate_tl {
+    \iow_newline:
+    \exp_not:N\begin{document}          \iow_newline:
+      \exp_not:N\makebookcover          \iow_newline:
+      \exp_not:N\end{document}
+  }
+
+  \iow_new:N    \g_@@_coverfile_iow
+  \iow_open:Nn  \g_@@_coverfile_iow { \jobname-cover.tex }
+  \iow_now:Nx   \g_@@_coverfile_iow { \l_@@_covertemplate_tl }
+  \iow_close:N  \g_@@_coverfile_iow
+}
+\ExplSyntaxOff
+%</phd|crs>
+%    \end{macrocode}
+%
 %
 % \newpage
 % \section{Style}
@@ -5189,7 +5832,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 %
-% \subsection{Plain coverpage}
+% \subsection{Covers}
+% \subsubsection{Plain covers}
 %
 % The cover pages tikzpictures for the |bama| and |report| classes are generated
 % using the |\@frontcover| and |\@backcover| commands.
@@ -5414,7 +6058,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 %
 %
-% \subsection{Fancy coverpage}
+% \subsubsection{Fancy covers}
 %
 % The cover pages tikzpictures for the |phd| and |course| classes are generated
 % using the |\@frontcover| and |\@backcover| commands.
@@ -5733,7 +6377,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 %
 %
-% \subsection{Title, data, and final pages}
+% \subsection{Copyright notices}
 %
 %    \begin{macrocode}
 %<*bama>
@@ -5944,210 +6588,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</rp>
 %    \end{macrocode}
 %
-% The title page is generated using the |\maketitle| command. As the
-% book class from which we inherit already defines this command, we
-% need to renew it.
 %
-% \DescribeObject[custom]{\maketitle}
-%    \begin{macrocode}
-%<*bama|phd|rp|crs>
-\ExplSyntaxOn
-\renewcommand\maketitle{%
-  \pagestyle{empty}
-%</bama|phd|rp|crs>
-%<*phd|crs>
-\bool_if:NT \l_@@_thumbs_bool {
-  \stopthumb
-}
-%</phd|crs>
-%<*phd>
-  \bool_if:NF \l_@@_bare_bool {
-  \begingroup
-  \pagenumbering{gobble}
-%</phd>
-%<*bama|phd|rp|crs>
-  \begin{titlepage}
-    \setlength\parskip{0pt}%
-    \setlength\parindent{0pt}%
-    %
-    \AddToHookNext{shipout/foreground}{%
-      \begin{tikzpicture}[remember~picture,overlay]
-      \node[anchor=south~west, inner~sep=0pt]
-      at (current~page.south~west) {%
-        \@frontcover
-      };
-      \end{tikzpicture}%
-    }%
-    \null
-  \end{titlepage}%
-%</bama|phd|rp|crs>
-%<bama>\null\par
-%<*bama|rp>
-  % Only 1 page: Copyrightnotices
-  \ifx\@copyrightnotices\@empty\else
-    \noindent\@copyrightnotices
-  \fi
-%</bama|rp>
-%<*crs>
-  ~\par\relax
-    % Only 1 page: Copyrightnotices
-    \clearpage
-    \bool_if:NT \l_@@_copyright_bool {
-      \backgroundsetup{contents={Copyright~Ghent~University,~All~Rights~Reserved}}
-    }
-    \null\vfill
-    \ifx\@copyrightnotices\@empty\else
-      \@copyrightnotices
-      \clearpage
-    \fi
-%</crs>
-%<*phd>
-  \endgroup
-  \setcounter{page}{0}%
-  }
-
-  % Page 1: blank
-  \clearpage\thispagestyle{empty}\null
-
-  % Page 2: committee
-  \clearpage\thispagestyle{empty}
-  \null\vfill % flush to bottom
-  \noindent\begin{minipage}[b]{\textwidth}
-    %
-    \textbf{\getseqcaption{supervisors}{}}\hfill\break
-    %
-    \printseq{supervisorswaff}{\\}{\\}{\\}\\[2ex]
-    %
-    %
-    \textbf{\translatekey{jury}}\hfill\\[1ex]
-    %
-    \textit{\translatekey{jurychair}}\hfill\break
-    \@jurychair{}\ifdefvoid{\@jurychairaff}{}{\@jurychairaff}\\[1ex]
-    %
-    \textit{\translatekey{jurymembers}}\hfill\break
-    {\printseq{jurymemberswaff}{\\}{\\}{\\}}\\[2ex]%
-    %
-    %
-    \textbf{\translatekey{dean}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty}}\hfill\break
-    \@dean\\[2ex]
-    %
-    \textbf{\translatekey{rector}~\translatekey[lowercase]{of}~\translatekey{org-deugent}}\hfill\break
-    \@rector
-  \end{minipage}%
-
-  % Page 3: title
-  \clearpage\thispagestyle{empty}
-  \null\vfill % Bottom-align
-  \noindent\begin{minipage}[b]{\textwidth}
-    \begingroup
-    \raggedright
-    {\Huge\bfseries\nohyphens\@title\par}%
-
-    \ifx\@subtitle\@empty\else
-    \vspace{.5\baselineskip}
-    {\Large\@subtitle\par}%
-    \fi
-    \endgroup
-
-    \vspace{5\baselineskip}%
-    {\Large\printseq{authors}{\\}{\\}{\\}\par}%
-
-    \bool_if:NTF \l_@@_embargo_bool {
-      \vspace{5\baselineskip}
-      {\large\translatekey[uppercase]{confidential}\par}
-      \vspace{5\baselineskip}
-    }{
-      \vspace{10\baselineskip}%
-    }
-
-    {\small \@doctype{}~\translatekey[lowercase]{submittedto}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}\par}%
-
-    \vspace{.3\baselineskip}%
-    {\small\translatekey{org-ugent},~\@location,~\@date}%
-  \end{minipage}%
-
-  % Page 4: copyright page (verso, bottom-left)
-  \clearpage\thispagestyle{empty}\null\vfill
-  \@copyrightnotices
-%</phd>
-%<*bama|phd|rp|crs>
-  \setcounter{footnote}{0}%
-  \global\let\thanks\relax
-  \global\let\maketitle\relax
-  \global\let\@thanks\@empty
-  \global\let\title\relax
-  \global\let\author\relax
-  \global\let\date\relax
-  \global\let\and\relax
-  \pagestyle{fancy}
-  \thispagestyle{empty}
-}
-\ExplSyntaxOff
-%</bama|phd|rp|crs>
-%    \end{macrocode}
-%
-% \DescribeObject[custom]{\makefinalpage}
-%   Below, one can find the code for the final page:
-%    \begin{macrocode}
-%<*bama|phd|crs|rp>
-\ExplSyntaxOn
-\newcommand\makefinalpage{
-%</bama|phd|crs|rp>
-%<bama>\@backcover{}
-%<*phd|crs>
-\bool_if:NF \l_@@_bare_bool {
-  \cleardoublepage
-  \bool_if:NT \l_@@_thumbs_bool {
-    \stopthumb
-  }
-  \thispagestyle{empty}
-  \null% intentionally blank page
-  \clearpage
-  \thispagestyle{empty}
-  \AddToHookNext{shipout/foreground}{%
-    \begin{tikzpicture}[remember~picture,overlay]
-    \node[anchor=south~west, inner~sep=0pt]
-    at (current~page.south~west) {%
-      \@backcover
-    };
-    \end{tikzpicture}%
-  }%
-  \null
-}
-%</phd|crs>
-%<*bama|phd|crs|rp>
-}
-\ExplSyntaxOff
-%</bama|phd|crs|rp>
-%    \end{macrocode}
-%
-%
-% \subsection{Bookcover class}
-%  First we calculate the spine width, set some dimensions,
-%  and check if we can print on the spine:
-%    \begin{macrocode}
-%<*bkc>
-\newif\if@printonspine % TODO convert to L3
-
-\ExplSyntaxOn
-\msg_new:nnnn { bookcover } { spine-too-small }
-{ The~spine~width~(#1mm)~is~too~small. }
-{ It~must~be~at~least~10mm~to~typeset~any~spine~text. }
-\msg_new:nnnn { bookcover } { spine-big-enough }
-{ The~spine~width~(#1mm)~is~big~enough. }
-{ It~must-be~at~least~10mm~to~typeset~the~spine~text. }
-\AtBeginDocument{
-  \fp_compare:nNnTF { \spinewidth } < { 10.0mm } {
-    \msg_warning:nnx { bookcover } { spine-too-small } { \fp_to_decimal:n{\spinewidth/1mm} }
-    \@printonspinefalse
-  }{
-    \msg_info:nnx { bookcover } { spine-big-enough } { \fp_to_decimal:n{\spinewidth/1mm} }
-    \@printonspinetrue
-  }
-}
-\ExplSyntaxOff
-%</bkc>
-%    \end{macrocode}
+% \subsection{Bookcover components}
 %
 % We also need a few new book cover components for the spine:
 %    \begin{macrocode}
@@ -6197,458 +6639,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \vfill
 }
 %</bkc>
-%    \end{macrocode}
+%    \end{macrocode}%
 %
-% \DescribeObject[custom]{\makebookcover}
-%   This macro creates a book cover for the bookcover class. This is already
-%   defined in the |bookcover| package, so we need to renew it.
-%    \begin{macrocode}
-%<*bkc>
-\ExplSyntaxOn
-\renewcommand\makebookcover{
-  \begin{bookcover}
-    \bookcovercomponent{normal}{front}{\@frontcover}
-    \makeatletter
-    \bookcovercomponent{color}{bg~spine}{spinecolor}
-    \if@printonspine
-    \bookcovercomponent{logo}{spine}{spinetextcolor}
-    \bookcovercomponent{title}{spine}{\@title}
-    \bookcovercomponent{authoryear}{spine}{
-      \exp_args:Nx \str_case:nn { \l_@@_covertype_tl } {
-        { phd }    {
-          \printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
-        }
-        { course }  {
-          \ifseqempty{lecturers}{
-          \printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
-          }{
-          \printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}
-          }
-        }
-      }
-    }
-    \fi
-    \makeatother
-    \bookcovercomponent {normal}{back}{\@backcover}
-  \end{bookcover}
-}
-\ExplSyntaxOff
-%</bkc>
-%    \end{macrocode}
-%
-%
-% \DescribeObject[custom]{\generatebookcover}
-% This macro generates a cover.tex file from your current document.
-%    \begin{macrocode}
-%<*phd|crs>
-\ExplSyntaxOn
-\fp_new:N \l_@@_paperweight_fp
-\fp_new:N \l_@@_paperbulk_fp
-\fp_new:N \l_@@_pagecount_fp
-
-\tl_new:N \l_@@_title_tl
-\tl_new:N \l_@@_subtitle_tl
-\tl_new:N \l_@@_isbn_tl
-\tl_new:N \l_@@_coverimage_tl
-\tl_new:N \l_@@_backcoverlogos_tl
-\tl_new:N \l_@@_frontcoverlogos_tl
-\tl_new:N \l_@@_academicyear_tl
-
-\tl_new:N \l_@@_year_tl
-\tl_new:N \l_@@_camerareadykeyval_tl
-\tl_new:N \l_@@_covertypekeyval_tl
-\tl_new:N \l_@@_covertemplate_tl
-
-\newcommand\generatebookcover{
-  \fp_set:Nn \l_@@_paperweight_fp { 80 } % g/m2
-  \fp_set:Nn \l_@@_paperbulk_fp   { 1.25 } % cm3/g
-  \bool_if:NTF \l_@@_bare_bool {
-    \fp_set:Nn \l_@@_pagecount_fp  { \ztotpages }
-  }{
-    \fp_set:Nn \l_@@_pagecount_fp  { \ztotpages - 2}
-  }
-
-  \dim_new:N \l_@@_spinewidth_dim
-  \dim_set:Nn \l_@@_spinewidth_dim {\fp_to_decimal:n {\l_@@_pagecount_fp/2*\l_@@_paperweight_fp/1e6*\l_@@_paperbulk_fp*1e3} mm}
-
-  \tl_set:Nx \l_@@_title_tl           { \exp_not:o{\@title} }
-  \tl_set:Nx \l_@@_subtitle_tl        { \exp_not:o{\@subtitle} }
-  \tl_set:Nx \l_@@_isbn_tl            { \exp_not:o{\@isbn} }
-  \tl_set:Nx \l_@@_coverimage_tl      { \exp_not:o{\@coverimage} }
-  \tl_set:Nx \l_@@_backcoverlogos_tl  { \exp_not:o{\@backcoverlogos} }
-  \tl_set:Nx \l_@@_frontcoverlogos_tl { \exp_not:o{\@frontcoverlogos} }
-
-  \tl_set:Nx \l_@@_year_tl            { \exp_not:n{\the\year} }
-  \tl_set:Nx \l_@@_academicyear_tl    { \exp_not:n{\@academicyear} }
-
-  \tl_clear_new:N \l_@@_authorscalls_tl
-  \seq_map_inline:Nn \g_@@_authorscalls_seq
-  { \tl_put_right:Nn \l_@@_authorscalls_tl { ##1 \iow_newline: } }
-
-  \tl_clear_new:N \l_@@_degreecalls_tl
-  \seq_map_inline:Nn \g_@@_degreecalls_seq
-  { \tl_put_right:Nn \l_@@_degreecalls_tl { ##1 \iow_newline: } }
-
-  \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-    { phd }    {
-      \tl_clear_new:N \l_@@_supervisorscalls_tl
-      \seq_map_inline:Nn \g_@@_supervisorscalls_seq
-      { \tl_put_right:Nn \l_@@_supervisorscalls_tl { ##1 \iow_newline: } }
-      \bool_if:NTF \l_@@_cameraready_bool {
-        \tl_set:Nn \l_@@_camerareadykeyval_tl { ,cameraready=true }
-      }{
-        \tl_set:Nn \l_@@_camerareadykeyval_tl { ,cameraready=false }
-      }
-      \tl_set:Nn \l_@@_covertypekeyval_tl { ,phd }
-    }
-    { course }     {
-      \tl_clear_new:N \l_@@_lecturerscalls_tl
-      \seq_map_inline:Nn \g_@@_lecturerscalls_seq
-      { \tl_put_right:Nn \l_@@_lecturerscalls_tl { ##1 \iow_newline: } }
-      \tl_set:Nx \l_@@_camerareadykeyval_tl { }
-      \tl_set:Nn \l_@@_covertypekeyval_tl { ,course }
-    }
-  }{
-    \msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
-  }
-
-  \tl_set:Nn \l_@@_covertemplate_tl {
-    \exp_not:N\documentclass[\l_@@_fselector_tl, spinewidth=\fp_to_decimal:n{round(\dim_ratio:nn{\l_@@_spinewidth_dim}{1mm},1)}mm
-    \l_@@_camerareadykeyval_tl
-    ,\l_@@_colormodel_tl
-    ,\l_@@_language_tl
-    ,\l_@@_nameformat_tl
-    \l_@@_covertypekeyval_tl]{ugentbookcover} \iow_newline:
-    \c_percent_str~Currently,~a~for~80~g/m2~paper~with~a~bulk~of~1.25~cm3/g~is~assumed~(0.1~mm~caliper~or~thickness).       \iow_newline:
-    \c_percent_str~Page~count~is~\fp_to_decimal:n{round(\l_@@_pagecount_fp,0)}~pages.~Adjust~spinewidth~if~necessary~using: \iow_newline:
-    \c_percent_str~spinewidth~=~page~count~/~2~*~grammage~*~bulk~=~page~count~/~2~*~caliper                                 \iow_newline:
-    \iow_newline:
-    \exp_not:N\title            {\exp_not:V\l_@@_title_tl}            \iow_newline:
-    \exp_not:N\subtitle         {\exp_not:V\l_@@_subtitle_tl}         \iow_newline:
-    \l_@@_authorscalls_tl                                             \iow_newline:
-    \exp_not:N\isbn             {\exp_not:V\l_@@_isbn_tl}             \iow_newline:
-    \exp_not:N\coverimage       {\exp_not:V\l_@@_coverimage_tl}       \iow_newline:
-    \exp_not:N\backcoverlogos   {\exp_not:V\l_@@_backcoverlogos_tl}   \iow_newline:
-    \exp_not:N\frontcoverlogos  {\exp_not:V\l_@@_frontcoverlogos_tl}  \iow_newline:
-  }
-
-  \bool_if:NTF \l_@@_bwbookcover_bool {
-  \tl_put_right:Nn \l_@@_covertemplate_tl {
-    \iow_newline:
-    \exp_not:N\year=\l_@@_year_tl \iow_newline:
-  }
-  }{
-  \tl_put_right:Nn \l_@@_covertemplate_tl {
-    \iow_newline:
-    \l_@@_degreecalls_tl \iow_newline:
-    \exp_not:N\academicyear {\l_@@_academicyear_tl} \iow_newline:
-  }
-  }
-
-  \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-    { phd }    {
-      \tl_put_right:Nn \l_@@_covertemplate_tl {
-        \exp_not:N\doctype {dissertation-phd} \iow_newline:
-        \l_@@_supervisorscalls_tl             \iow_newline:
-        \bool_if:NT \l_@@_embargo_bool {
-          \bool_if:NTF \l_@@_embargotemp_bool {
-            \exp_not:N\embargo[start=\l_@@_embargostartdate_tl, end=\l_@@_embargoenddate_tl] \iow_newline:
-          }{
-            \exp_not:N\embargo \iow_newline:
-          }
-        }
-      }
-    }
-    { course }     {
-      \tl_put_right:Nn \l_@@_covertemplate_tl {
-        \l_@@_lecturerscalls_tl             \iow_newline:
-      }
-    }
-  }{
-    \msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
-  }
-
-  \tl_put_right:Nn \l_@@_covertemplate_tl {
-    \iow_newline:
-    \exp_not:N\begin{document}          \iow_newline:
-      \exp_not:N\makebookcover          \iow_newline:
-    \exp_not:N\end{document}
-  }
-
-  \iow_new:N    \g_@@_coverfile_iow
-  \iow_open:Nn  \g_@@_coverfile_iow { \jobname-cover.tex }
-  \iow_now:Nx   \g_@@_coverfile_iow { \l_@@_covertemplate_tl }
-  \iow_close:N  \g_@@_coverfile_iow
-}
-\ExplSyntaxOff
-%</phd|crs>
-%    \end{macrocode}
-%
-%
-% \subsection{Title page for the letter class}
-%
-% \subsubsection{Title Page}
-%
-% \DescribeObject[custom]{\maketitle}
-% The top of the letter is generated using the |\maketitle|
-% command.
-%
-%    \begin{macrocode}
-%<*le>
-\ExplSyntaxOn
-\newcommand\maketitle{%
-  \pagestyle{empty}
-  \thispagestyle{empty}
-  \AddToHook{shipout/foreground}{%
-    \begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt,overlay]
-    \clip (0,0) rectangle(\paperwidth,-\paperheight);
-    \begin{scope}[shift={(\gridunit,-\@PH)}]
-    \ugentlogo{4\gridunit}{ugent@main}{0.0}
-    \end{scope}
-    \begin{scope}[shift={(\gridunit,-3\gridunit)}]
-    \faclogo{3\gridunit}{ugent@\@fselector}{0}
-    \end{scope}
-    \path (\@PW-\gridunit,-\gridunit)
-    node[anchor=north~east,text~width=61.5mm,align=left] {
-      \small{\nohyphens{\bfseries\textcolor{ugent@main}{\@faculty[uppercase]}}}\\*
-      \textcolor{ugent@main}{\MakeUppercase{\@faculty}}
-    };
-
-    \ifnum\value{page}>1
-    \path (2\gridunit,-3\gridunit)
-    node[anchor=north~west] { \@letterheader };
-    \fi
-    \end{tikzpicture}
-  }
-
-  \AddToHookNext{shipout/foreground}{%
-    \begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt,overlay]
-    \clip (0,0) rectangle(\paperwidth,-\paperheight);
-    %
-
-    \bool_if:NT \l_@@_foldline_bool {
-      \draw (1cm,-98mm) -- (1.5cm,-98mm);
-    }
-    %
-    \path (2\gridunit,-44mm)
-    node[anchor=north~west,text~width=80mm,align=left] {
-      \scriptsize\textcolor{gray}{\uline{\@returnaddress}}\\*
-      \normalsize\@to\\*
-      \ifx\@toorganization\@empty\else\@toorganization\\*\fi%
-      \@toaddress
-    };
-
-    \path (\@PW-\gridunit,-3\gridunit)
-    node[anchor=north~east,text~width=61.5mm,align=left] {
-        \textcolor{ugent@main}{\textbf{\@sender}}
-      \ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
-      \ifseqempty{emails} {}{E~\printseq{emails}  {\\\phantom{E~}}{\\\phantom{E~}}{\\\phantom{E~}}\\}
-      \ifseqempty{phones} {}{T~\printseq{phones}  {\\\phantom{T~}}{\\\phantom{T~}}{\\\phantom{T~}}\\}
-      \ifseqempty{faxes}  {}{F~\printseq{faxes} {\\\phantom{F~}}{\\\phantom{F~}}{\\\phantom{F~}}\\}
-      \ifseqempty{mobiles}{}{M~\printseq{mobiles} {\\\phantom{M~}}{\\\phantom{M~}}{\\\phantom{M~}}\\}
-      \vskip 1.75ex
-      \@address\\[1.75ex]
-      \@ifpackageloaded{hyperref}{
-        \href{https://www.ugent.be}{www.ugent.be}
-      }{
-        www.ugent.be
-      }
-    };
-    \end{tikzpicture}
-  }
-  \null
-  \vspace{4\gridunit}
-  \@letterheader\\[\gridunit]
-  {\bfseries\@subject}
-}
-\ExplSyntaxOff
-
-%</le>
-%    \end{macrocode}
-%
-% \DescribeMacro{\closeletter} [le] (optiontal)\\
-% Close the letter (with the closing greetings and underwriting) such
-% that the letter can be continued if desired with attachments. This
-% macro generates a |\textbackslash{}clearpage|. The default is not to use this macro.
-% It is automatically invoked at the end of the letter if you did not do
-% so.
-%
-% The trailer of the page is automatically generated at the end of the document:
-%    \begin{macrocode}
-%<*le>
-\newif\ifletterclosed % TODO convert to L3
-\letterclosedfalse
-\newcommand\closeletter{
-  \ifletterclosed
-  \else
-    \@closing\\\@signature~\\
-    \@sender
-    \ifx\@senderrole\@empty\\[8ex]\else\\*\@senderrole\\[8ex]\fi
-    \setlength{\parskip}{0em}
-    \ifx\@carboncopy\@empty\else \MakeUppercase{\ccname}: \@carboncopy\\[4ex]\fi
-    \ifx\@enclosed\@empty\else \translatekey{appendix}: \@enclosed\fi
-    \letterclosedtrue
-    \clearpage
-  \fi
-}
-\AtEndDocument{
-  \closeletter
-}
-%</le>
-%    \end{macrocode}
-%
-% \subsection{Title page for the exam class}
-%
-% \DescribeObject[custom]{\maketitle}
-% The title page of the exam class is generated using the |\maketitle|
-% command.
-%
-%    \begin{macrocode}
-%<*ex>
-\renewcommand\maketitle{%
-  \pagestyle{fancy}
-  \AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{%
-    \put(0,0){%
-      \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-        \clip (0,0) rectangle(\paperwidth,\paperheight);
-        \fill[lightgray]
-        (2.125,{\paperheight-7cm}) rectangle (\paperwidth,6);
-
-        \node
-        [anchor=west,text width={\paperwidth-5cm},align=left]
-        at (2.125,{\paperheight-3cm})
-        {%
-          \fontsize{18}{22}\selectfont%
-          \textsf{\textbf{\printseq{courses}{\\}{\\}{\\}}}\par
-          \ifx\@exampart\@empty
-          \else \textsf{\textbf{\@exampart}}\fi
-        };
-        \node
-        [anchor=west,text width={\paperwidth-5cm},align=left]
-        at (2.125,{\paperheight-4cm})
-        {%
-          \fontsize{12}{18}\selectfont%
-          \textsf{\printseq{coursecodes}{\\}{\\}{\\}}
-        };
-
-        \node
-        [anchor=west,text width={\paperwidth-5cm},align=left,font=\large]
-        at (2.125,{\paperheight-5cm})
-        {%
-          \fontsize{12}{18}\selectfont%
-          \textsf{
-          \ifx\@examseries\@empty{}~\else\translatekey{series}~\@examseries{}\fi
-          \hfill \@date{}}
-        };
-
-        \node[anchor=south west,align=left,inner sep=0pt] at (3,21)
-        {%
-          \fontsize{14}{19}\selectfont%
-          \textsf{\translatekey{exam}}
-        };
-
-        \node[anchor=south west,align=left,inner sep=0pt] at (3,19)
-        {%
-          \fontsize{12}{18}\selectfont%
-          \textsf{\translatekey{lastname}}
-        };
-        \foreach \nn in {0,1,...,33} {
-          \draw[fill=white] (3,18) ++({0.5*\nn},0) rectangle +(0.5,0.8);
-        }
-
-        \node[anchor=south west,align=left,inner sep=0pt] at (3,17)
-        {%
-          \fontsize{12}{18}\selectfont%
-          \textsf{\translatekey{firstname}}
-        };
-
-        \foreach \nn in {0,1,...,23} {
-          \draw[fill=white] (3,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
-        }
-
-        \node[anchor=south west,align=left,inner sep=0pt] at (16,17)
-        {%
-          \fontsize{12}{18}\selectfont%
-          \textsf{\translatekey{studentnr}}
-        };
-        \foreach \nn in {0,1,...,7} {
-          \draw[fill=white] (16,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
-        }
-
-        \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
-        at (3,14)
-        {%
-          \fontsize{12}{21}\selectfont%
-          \textsf{\translatekey{examduration}: \@examduration}
-        };
-        \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
-        at (3,11)
-        {%
-          \fontsize{12}{15}\selectfont%
-          \textsf{\begin{tabular}{@{}l@{}ll}%
-            \translatekey{examstart}& : & \@examstart\\
-            \translatekey{examend}  & : & \@examend
-          \end{tabular}}
-        };
-
-        \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
-        at (3,8)
-        {%
-          \fontsize{12}{21}\selectfont%
-          \textsf{\getseqcaption{rooms}{: \printseq{rooms}{~\&~}{,~}{\translatekey{andlist}~}}}
-        };
-
-        %\node
-        %[anchor=base west,ugent@main,
-        %text width={\paperwidth-5cm},align=left,font=\LARGE]
-        %at (2.125,{\paperheight-6.5cm})
-        %{\textsf{\textbf{\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}}};
-
-        \fill[gray] (2.125,6)
-        -- (\paperwidth,6)
-        -- (\paperwidth,2.625)
-        -- (2.55,2.625)
-        arc (-90:-180:0.425)
-        -- cycle;
-
-        \node[white,anchor=west,align=left,font=\large]
-        (SN) at (2.55,4.9)
-        {
-          \begin{tabular}{@{}l@{~\,}p{14.5cm}}
-            \textsf{\getseqcaption{lecturers}{}}
-            & \textsf{\textbf{\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}}}
-          \end{tabular}
-        };
-
-        \node[white,anchor=west,text width=17.5cm,align=left,font=\small]
-        at (2.55,3.7)
-        {\textsf{\printseq{degrees}{\\}{\\}{\\}}\\
-          \textsf{\textbf{\@faculty{}}}}; % TODO should handle empty
-
-        \begin{scope}[shift={(2.125,1.313)}]
-          \ugentlogo{4.75cm}{ugent@main}{0.0}
-        \end{scope}
-      \end{tikzpicture}
-    }
-  }
-  ~\par\relax
-  \clearpage
-  \lfoot[\small \@shorttitle]{\small \@shorttitle}
-  \rfoot[\small
-  \ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi~---
-    ~\@academicyear]
-  {\small
-    \ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi
-  ~---~\@academicyear}
-  \renewcommand*{\footrulewidth}{1pt}
-  \@extrainfo{}
-}
-%</ex>
-%    \end{macrocode}
-%
-%
-%
-
 %
 % \clearpage
 % \newgeometry{left=3cm,right=2cm,top=2cm,bottom=2.5cm}
