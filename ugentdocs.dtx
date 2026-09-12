@@ -7627,6 +7627,102 @@ Indicate and describe the use case if one or multiple GAI tools have been used:
 \chapter*{<An unnumbered chapter>}
 \kant[5]
 
+\chapter{\textrm{\LaTeX} 101}
+\label{C:Tutorial}
+
+\insettext{Tutorial}{
+  In this small example chapter (Chapter \ref{C:Tutorial}),
+  we will show some of the functionality you will need most often.
+  Online guides such as \href{https://www.overleaf.com/learn/latex/}{those from Overleaf}
+  are more complete and useful, or a simple internet search, Stack Overflow or
+  -- increasingly -- LLMs can be used to find answers to
+  ``How do I do this in \textrm{\LaTeX}?''\\
+}
+
+Still, some basics may be helpful. Adding a new paragraph is as simple as pressing enter twice:
+
+No need for multiple \verb!\\!, \verb!\newline!s, or \verb!\par!.
+You can adjust the indentation and spacing of the paragraph using\\
+\verb!\setlength{\parindent}{0pt}! and \verb!\setlength{\parskip}{0.75\baselineskip}!.
+
+Citations are input using BibLaTeX, e.g.,\\
+\verb!\textcite{sigfridsson}!: \textcite{sigfridsson}\\
+\verb!\autocite{aristotle:physics}!: \autocite{aristotle:physics}.\\
+The bibliography is printed at the end of this chapter using \verb!\printbibliography!.
+
+Figures such as Figure \ref{F:FigExample} are added as follows:
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width = 0.5\textwidth]{example-image-a} %% Your figure path
+  \caption[<short figure caption>]{<This is the long caption of your figure.>}
+  \label{F:FigExample}
+\end{figure}
+
+Tables such as Table \ref{T:TabExample} are added as follows:
+
+\begin{table}[h]
+\caption[<short table caption>]{<This is the long caption of your table.>}
+\label{T:TabExample}
+\centering
+  \begin{tabular}{lcc}
+    \toprule
+    \multirow{2}{*}{Variable} & \multicolumn{2}{c}{Value}\\
+    \cline{2-3}
+    & Number\textsuperscript{a} & Unit \\
+    \midrule
+    One & 1.01 & \unit{\gram\per\metre} \\
+    Two & 52.4 & \unit{\milli\gram\per\cubic\metre\per\hour} \\
+    \bottomrule
+    \multicolumn{3}{l}{\textsuperscript{a}This is a footnote over multiple columns}
+  \end{tabular}
+\end{table}
+
+You can use inline math such as \verb!$X_{sludge}$! ($X_{sludge}$)
+or have equations with a label, such as Equation \ref{E:EqExample}:
+
+\begin{equation}
+  e^{-j\pi} + 1 = 0
+  \label{E:EqExample}
+\end{equation}
+
+Or multiple, aligned equations without label or number:
+
+\begin{align}
+ f(t) & ={\mathcal {L}}^{-1}\{F(s)\}(t)\nonumber \\
+      & ={\frac {1}{2\pi i}}\lim _{T\to \infty }\int _{\gamma -iT}^{\gamma +iT}e^{st}F(s)\,ds \nonumber
+\end{align}
+
+You can use different lists, such as description, itemize, or enumerate:
+
+\begin{description}
+  \item[Term 1] A first description
+  \item[Term 2] A second description
+\end{description}
+
+\begin{itemize}
+  \item[\Box] A first item with custom bullet
+  \item[\CheckedBox] A second item with custom bullet
+\end{itemize}
+
+\begin{enumerate}
+  \item A first numbered item
+  \item A second numbered item
+\end{enumerate}
+
+You can use the \verb!siunitx! package for units and quantities, e.g.,\\
+\verb!\qty{1.2e5}{\metre}!: \qty{1.2e5}{\metre}\\
+\verb!\unit{\cubic\metre\per\second}!: \unit{\cubic\metre\per\second}.
+
+Chemical equations can be easily typeset using \verb!mhchem!, e.g.,\\
+\verb!\ce{H2O + e- -> 1/2H2 + OH-}!: \ce{H2O + e- -> 1/2H2 + OH-}
+
+For all else, we trust you can find what you need with a bit of decent searching.
+
+\insetquote{Good luck!}{The ugentdocs devs}
+
+\printbibliography
+
 \chapter{<Second chapter>}
 \kant[6]
 
