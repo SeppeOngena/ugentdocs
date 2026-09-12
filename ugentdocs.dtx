@@ -2973,7 +2973,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % \newpage
 % \subsubsection{Document data}
-% \label{S::usage:macros:data}
+% \label{S:usage:macros:data}
 % \DescribeMacro[crs-bama-phd-rp-bkc-bmr-ex]{\title}
 %   \oarg{short title}
 %   \marg{title}
@@ -6411,8 +6411,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsection{Copyright notices}
 % \label{S:style:copyright}
 %
+% This section defines the copyright notices of
+% the |bama|, |phd|, |course|, and |report| classes.
+% These can be overridden using the |\copyrightnotices| macro
+% (see Section \ref{S:usage:macros:data}).
 %
-%    \begin{macrocode}
+% For the |bama| class, the autograph fields code is not shown here,
+% since it is too complex to customize.
+% \iffalse
 %<*bama>
 \ExplSyntaxOn
 \cs_new:Nn \@@_sigblock:nn {
@@ -6482,30 +6488,23 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     \@@_siggroup:Nn \g_@@_allsupervisorstutors_seq { } % Sub-name key not implemented
   }
 }
-
-\newcommand{\@bamadisclaimer}{
-  {\translatekey{the-de}~\getseqcaption[lowercase]{authors}{}~\translatekey[lowercase]{and}~\getseqcaption[lowercase]{allsupervisors}{}}
-  \bool_if:NTF \l_@@_embargo_bool {
-    \bool_if:NTF \l_@@_embargotemp_bool {
-      {~\@embargotempwithdates}
-    }{
-      {~\translatekey{embargofullbama}}
-    }
-  }{
-    {~\translatekey{arrbama}}
-  }
-}
-
+\ExplSyntaxOff
+%</bama>
+% \fi
+% The copyright notices of the |bama| class include
+% the |\@bamadisclaimer| in both english and dutch for an english dissertation,
+% a line with the location and date, and the autograph page:
+%    \begin{macrocode}
+%<*bama>
+\ExplSyntaxOn
 \renewcommand{\@copyrightnotices}{%
   \clearpage
   \str_if_eq:VnTF \l_@@_language_tl {dutch} {
     \@bamadisclaimer
   }{
-    \begingroup
-    \selectlanguage{dutch}
+    \foreignlanguage{dutch}{
     \@bamadisclaimer
-    \endgroup
-    \selectlanguage{english}
+    }
     \newline\newline
     \@bamadisclaimer
   }
@@ -6517,8 +6516,32 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \vspace*{\stretch{1}}
   \clearpage
 }
+\newcommand{\@bamadisclaimer}{
+  {\translatekey{the-de}~\getseqcaption[lowercase]{authors}{}
+    ~\translatekey[lowercase]{and}~\getseqcaption[lowercase]{allsupervisors}{}}
+  \bool_if:NTF \l_@@_embargo_bool {
+    \bool_if:NTF \l_@@_embargotemp_bool {
+      {~\@embargotempwithdates}
+    }{
+      {~\translatekey{embargofullbama}}
+    }
+  }{
+    {~\translatekey{arrbama}}
+  }
+}
 \ExplSyntaxOff
 %</bama>
+%    \end{macrocode}
+%
+% For a |phd|, it contains the colophon page, which consists of
+% the author contact information,
+% the title of the dissertation in dutch (for english dissertations),
+% the cover image designer,
+% the scientific integrity clause,
+% any applicable grants,
+% the confidentiality or copyright notice itself,
+% and the citation format, ISBN, and DOI (where applicable):
+%    \begin{macrocode}
 %<*phd>
 \ExplSyntaxOn
 \renewcommand{\@copyrightnotices}{%
@@ -6561,7 +6584,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     \\[\baselineskip]
     {\textbf{\translatekey{pleaserefer}:}\\
       \printseq{authorlist}{~\&~}{,~}{\translatekey{andlist}~}~(\the\year).~
-      {\renewcommand{\\}[1][]{~}\@title{}\ifx\@subtitle\@empty\else{}:~\@subtitle\fi}.~\@doctype{}.~Ghent~University,~Belgium.}%
+      {\renewcommand{\\}[1][]{~}\@title{}\ifx\@subtitle\@empty\else{}:~\@subtitle\fi}.
+      ~\@doctype{}.~Ghent~University,~Belgium.}%
     \ifx\@isbn\@empty\else
     \\[\baselineskip]{\small ISBN~\@isbn}%
     \fi
@@ -6579,6 +6603,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</phd>
+%    \end{macrocode}
+%
+% For courses, the copyright page consists of
+% the course version, the course codes,
+% the authors,
+% a ``typeset using \LaTeX{} and the |ugentdocs| package'' notice,
+% user-defined |\@extranotices| (see Section \ref{S:usage:macros:data}),
+% the publisher information and code, and a general copyright notice:
+%    \begin{macrocode}
 %<*crs>
 \renewcommand{\@copyrightnotices}{
   \null\par
@@ -6592,7 +6625,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
       \getseqcaption{authors}{}:~\printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
     }
 
-    \translatekey{typeset}~\textrm{\LaTeX{}}~\translatekey[lowercase]{and}~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
+    \translatekey{typeset}~\textrm{\LaTeX{}}~\translatekey[lowercase]{and}
+    ~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
     \@extranotices
 
     \vskip 1em
@@ -6605,13 +6639,21 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   }
 }
 %</crs>
+%    \end{macrocode}
+%
+% For a |report|, the copyright simply contains
+% the ``typeset using \LaTeX{} and the |ugentdocs| package'' notice,
+% user-defined |\@extranotices| (see Section \ref{S:usage:macros:data}),
+% and a general copyright notice:
+%    \begin{macrocode}
 %<*rp>
 \renewcommand{\@copyrightnotices}{
   \null\par
   \vspace*{\stretch{1}}
   {
     \setlength\parindent{0em}
-    \translatekey{typeset}~\textrm{\LaTeX{}}~\translatekey[lowercase]{and}~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
+    \translatekey{typeset}~\textrm{\LaTeX{}}~\translatekey[lowercase]{and}
+    ~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
     \@extranotices
 
     \copyright{}~\the\year~\translatekey{org-ugent},
