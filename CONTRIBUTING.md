@@ -7,6 +7,10 @@ Guidelines for contribution:
   - Contain a finished, single feature or change
   - Be up-to-date with the main branch
   - Allow the package to be built successfully
+- Use of LLMs for code generation or debugging is permitted, HOWEVER:
+  - You should know how your code works in detail, not the grand gist of it
+  - Code should be of high quality (less is more) and follow the style below
+  - Pull requests with AI-generated descriptions will be rejected
 - Style:
   - Use two spaces for tabs
   - Use `\@macro` form for internal or customization usage
