@@ -200,6 +200,6 @@ Copyright
 This work is derived from `uantwerpendocs` v4.12 by Walter Daems. See the [NOTICE.md](NOTICE.md) or the class files copyright notices for further information.
 
 :copyright: 2013-2026 by Walter Daems  
-:copyright: 2017 by Joris Meys  
+:copyright: 2017-2026 by Joris Meys  
 :copyright: 2026 by Seppe Ongena
 

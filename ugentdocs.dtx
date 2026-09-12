@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 %
 % Copyright (C) 2013-2026 by Walter Daems <walter.daems@uantwerpen.be>
-% Copyright (C) 2017 by Joris Meys <joris.meys@ugent.be>
+% Copyright (C) 2017-2026 by Joris Meys <joris.meys@ugent.be>
 % Copyright (C) 2026 by Seppe Ongena <seppe.ongena@ugent.be>
 %
 % This work is derived from uantwerpendocs v4.12 by Walter Daems,
@@ -10,7 +10,7 @@
 %
 %   https://ctan.org/tex-archive/macros/latex/contrib/uantwerpendocs
 %
-% Cover page text, header, and chapter code from Joris Meys' LaTeX at UGent
+% Code for the styling and GAI disclaimer from Joris Meys' LaTeX at UGent
 % was adapted with permission and used for the bama and report classes.
 % In addition to renaming classes and updating everything to UGent style,
 % changes include, but are not limited to: rework of dictionary handling,
@@ -163,7 +163,7 @@
 %   The |ugentdocs| classes
 %   \thanks{Thanks to Walter Daems for the original \texttt{uantwerpendocs}
 %     package and Joris Meys for the \texttt{bama} and \texttt{report}
-%     titles style, cover text, and header/footer code}
+%     titles style, cover text, header/footer, and GAI disclaimer code}
 % }
 % \author{Seppe Ongena (|seppe.ongena@ugent.be|)}
 % \date{release \ugentdocsdate{} --- \ugentdocsversion{}}
@@ -395,7 +395,8 @@
 % \href{\githubmain}{GitHub repository}.
 % Special thanks to Joris Meys for his previous work on the LaTeX at UGent
 % faculty of Bioscience Engineering templates, of which the cover text,
-% chapter title, and header/footer code has been adapted and integrated.
+% chapter title, header/footer, and GAI disclaimer code has been adapted
+% and integrated.
 %
 %
 % \newpage
@@ -7461,6 +7462,78 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %% Sets the table of contents (automatically for you)
 \tableofcontents
 
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2>
+%
+% Code adapted from Joris Meys' LaTeX at UGent
+%<*bama2>
+%% AI use disclaimer
+\newpage
+\begin{itemize}
+  \item[\Box] Geen gebruik van GAI tools
+  \item[\CheckedBox] Één of meerdere GAI tools gebruikt
+\end{itemize}
+
+Duid aan en omschrijf in geval van gebruik van één of meerdere GAI-tools hoe je deze hebt gebruikt:
+
+\begin{tabular}{|p{0.02\linewidth}|p{0.26\linewidth}|p{0.4\linewidth}|p{0.22\linewidth}|}
+  \hline
+  & GAI-tool gebruikt als & Omschrijving & Gebruikte tool(s) \\
+  \hline
+  \CheckedBox & Ideeënverstrekker &
+  Bijvoorbeeld: brainstorm met de tool over een bepaald thema, bereid een discussie voor door argumenten te laten genereren, enz. & (...) \\ \hline
+  \Box        & Zoekmachine &
+  Bijvoorbeeld : extra literatuur zoeken over een bepaald onderwerp, enz. & (...) \\ \hline
+  \Box        & Schrijfassistent &
+  Bijvoorbeeld: Spelings- en tipvauten laten verbeteren, een tekst formeler laten schrijven, genereren van tekst enz. & (...) \\ \hline
+  \Box        & Ontwerper &
+  Bijvoorbeeld: maak een nieuwe, unieke afbeelding, laat je tekst herschrijven in een meer academische stijl, enz. & (...) \\ \hline
+  \Box        & Oefentool &
+  Bijvoorbeeld: gebruik de tool als een buddy en vraag extra uitleg bij specifieke leerstof, vraag om extra oefeningen te maken, enz. & (...)\\ \hline
+  \Box        & Data-analyse &
+  Bijvoorbeeld: berekenen van statistieken, scatterplot genereren enz. & ( ...) \\ \hline
+  \Box        & Efficiëntie bevorderen &
+  Bijvoorbeeld: samenvatten van bestaande teksten, bronnenlijst in BibTeX-stijl zetten, LaTeX tabellen genereren, enz. & (...) \\ \hline
+  \Box        & Op een andere manier &
+  Bijvoorbeeld: programmeercode genereren, tabellen en grafieken genereren van online data, enz. & (...) \\ \hline
+\end{tabular}
+
+%</bama2>
+%<*bama1>
+%% AI use disclaimer
+\newpage
+\begin{itemize}
+  \item[\Box] No use of GAI tools
+  \item[\CheckedBox] One or multiple GAI tools used
+\end{itemize}
+
+Indicate and describe the use case if one or multiple GAI tools have been used:
+
+\begin{tabular}{|p{0.02\linewidth}|p{0.26\linewidth}|p{0.4\linewidth}|p{0.22\linewidth}|}
+  \hline
+  & GAI-tool used as & Description & Used tool(s) \\
+  \hline
+  \CheckedBox & Ideation &
+  For example: brainstorm with the tool on a specific subject, preparation of a discussion by generation arguments, etc. & (...) \\ \hline
+  \Box        & Search engine &
+  For example: searching for additional literature on a specific subject, etc. & (...) \\ \hline
+  \Box        & Writing assistant &
+  For example: correction of speling and tiping mistakes, rewrite a text in a formal style, generating text, etc. & (...) \\ \hline
+  \Box        & Designer &
+  For example: creating new, unique images, rewriting your text in a more academic style, etc. & (...) \\ \hline
+  \Box        & Exercise tool &
+  For example: using the tool as a buddy, requesting additional explanation on a specific subject, requesting additional exercises to complete, etc. & (...)\\ \hline
+  \Box        & Data analysis &
+  For example: calculating statistics, generating scatter plots, etc. & ( ...) \\ \hline
+  \Box        & Improving efficiency &
+  For example: summarize existing text, adjust reference list to BibTeX-style, generate LaTeX tables, etc. & (...) \\ \hline
+  \Box        & Other &
+  For example: generate program code, generate tables and graphs from online data, etc. & (...) \\ \hline
+\end{tabular}
+
+%</bama1>
+%
+% Mainmatter -------------------------------------------------------------------
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2>
 %% Changes the numbering system to arabic and restart from 1
 \mainmatter
 
