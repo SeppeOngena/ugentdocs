@@ -72,9 +72,12 @@
 \usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{metalogo}
+\usepackage{ulem}
+\renewcommand{\ULthickness}{1pt}
 \usepackage{wasysym}
 \usepackage{tikz}
 \usetikzlibrary{positioning,calc,fit,backgrounds}
+\usepackage{tikzpagenodes}
 \usepackage{hyphenat}
 \usepackage{fancyvrb}
 \usepackage{fvextra}
@@ -2736,6 +2739,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand*{\@setgridunit}{\pgfmathsetlength{\gridunit}{max(\@PW,\@PH)/7/4}}
 %</crs|bama|phd|rp|le|ex|bkc|bmr>
 % \fi
+% \newlength{\gridunit}
+% \pgfmathsetlength{\gridunit}{297mm/7/4}
 %
 % The paper size and margins are then set based on the official Office templates:
 %    \begin{macrocode}
@@ -4789,16 +4794,149 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \newpage
 % \subsection{Chapter and section titles}
 % \label{S:style:title}
+% A total of 5 chapter styles are available:
+% |plain|, |fancy|, |fancycompact|, |uantwerpen|, and |legacyplain|.
+% The style is set through the |\l_@@_chaptitlestyle_tl| variable,
+% which can be overridden in a customization file.
+%
+% \iffalse
+%<*crs|bama|rp|phd>
+\ExplSyntaxOn
+\tl_new:N \l_@@_chaptitlestyle_tl
+\ExplSyntaxOff
+%</crs|bama|rp|phd>
+% \fi
+%
+% \setsansfont{UGent Panno Text}[
+%       BoldFont            = {UGent Panno Text},
+%       BoldFeatures        = {FakeBold=2.5},
+%       ItalicFont          = {UGent Panno Text},
+%       ItalicFeatures      = {FakeSlant=0.15},
+%       BoldItalicFont      = {UGent Panno Text},
+%       BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
+% ]
+%
+% The |plain| style (default for |report| and |bama|):
+% \iffalse
+%<*bama|rp>
+\ExplSyntaxOn
+\tl_set:Nn \l_@@_chaptitlestyle_tl {plain}
+\ExplSyntaxOff
+%</bama|rp>
+% \fi
+%
+% {\fontsize{16}{19}\selectfont \color{titlecolor} \bfseries \textsf{\uline{1. AN EXAMPLE TITLE}}}
+%
+% The |fancy| style (default for |phd|):
+% \iffalse
+%<*phd>
+\ExplSyntaxOn
+\tl_set:Nn \l_@@_chaptitlestyle_tl {fancy}
+\ExplSyntaxOff
+%</phd>
+% \fi
+%
+% \begin{tikzpicture}[remember picture, overlay]
+% \node[fill=titlecolor, minimum height=3\gridunit, minimum width=4\gridunit+\the\hoffset,
+% inner sep=0pt, anchor=north east] (numbox) at
+% ([xshift=\the\hoffset,yshift=-5\gridunit]current page.north east) {};
+%
+% \node[white, font=\fontsize{70}{70}\selectfont\bfseries,
+% anchor=center] at ([xshift=1.5\gridunit]numbox.west |- numbox.center) {\textsf{1}};
+%
+% \node[white, font=\bfseries\normalsize, rotate=90, anchor=center,
+% inner sep=2pt] at ([xshift=3.5\gridunit]numbox.west |- numbox.center) {\textsf{Chapter}};
+%
+% \end{tikzpicture}%
+% \vspace*{20pt}
+% \begin{flushright}
+%   \color{titlecolor}\huge\bfseries \textsf{An example title}%
+% \end{flushright}%
+% \vspace*{-10pt}%
+% {\color{titlecolor}\rule{\textwidth}{1pt}}
+%
+% The |fancycompact| style (default for |course|):
+% \iffalse
+%<*crs>
+\ExplSyntaxOn
+\tl_set:Nn \l_@@_chaptitlestyle_tl {fancycompact}
+\ExplSyntaxOff
+%</crs>
+% \fi
+%
+%\begin{tikzpicture}[remember picture, overlay]
+% \node[fill=titlecolor, minimum height=3\gridunit, minimum width=4\gridunit+\the\hoffset,
+% inner sep=0pt, anchor=north east] (numbox) at
+% ([xshift=\the\hoffset,yshift=-12\gridunit]current page.north east) {};
+%
+% \node[white, font=\fontsize{70}{70}\selectfont\bfseries,
+% anchor=center] at ([xshift=1.5\gridunit]numbox.west |- numbox.center) {\textsf{1}};
+%
+% \node[white, font=\bfseries\normalsize, rotate=90, anchor=center,
+% inner sep=2pt] at ([xshift=3.5\gridunit]numbox.west |- numbox.center) {\textsf{Chapter}};
+%
+% \node[titlecolor, font=\huge\bfseries, anchor=south east, align=right,
+% text width=0.85\textwidth] at ([xshift=-10pt,yshift=10pt]numbox.west |- numbox.south) {\textsf{An example title}};
+%
+% \draw[titlecolor, line width=1pt]
+% ([xshift=-\the\hoffset]current page text area.west |- numbox.south) -- (numbox.south east);
+% \end{tikzpicture}%
+% \vspace*{80pt}
+%
+% The |uantwerpen| style (legacy from |uantwerpendocs|):
+%
+% \begin{flushright}
+%   \makebox[0pt][l]{\color{titlecolor}\rule[-0.4em]{10cm}{1.8em}}\textcolor{white}
+%   {\LARGE\textbf{~\textsf{Chapter}~}}
+%   \raisebox{-24pt}{
+%     \begin{tikzpicture}
+%       \foreach \theta in {0,5,...,355} {
+%       \node[color=white] at (\theta:0.025)
+%         {\fontsize{72}{12}\selectfont\textbf{\textsf{1}}};
+%         }
+%       \node[color=titlecolor!50] at (0,0)
+%         {\fontsize{72}{12}\selectfont\textbf{\textsf{1}}};
+%     \end{tikzpicture}%
+%   }\hspace*{-8pt}
+%   \par\nobreak
+%   \huge\textbf{\textcolor{titlecolor}{\rule[-0.5ex]{0em}{2.6ex}~\textsf{An example title}}}
+%   \par\nobreak
+% \end{flushright}
+% \rule{\textwidth}{1pt}
+%
+% The |legacyplain| style (legacy from my old templates):
+%
+% \makebox[0pt][r]{
+%    \begin{tikzpicture}[baseline=(o), overlay]
+%    \node[draw, text width=5cm, align=right, anchor=base east,
+%    white, fill=titlecolor] (n) at (-10pt, 0) {{\fontsize{16}{18}\selectfont\textbf{\textsf{1}}}};
+%    \node[inner sep=0, outer sep=0] (o) at (0,0) {};
+%    \end{tikzpicture}%
+%  }
+%  {\Large\bfseries\textsf{An example title}}%
+%
+% \newpage
+% The styles set the |\@titlestylechapter| and |\@titlestyleappendix|
+% customization points:
+%
+% \DescribeObject[custom]{\@titlestylechapter}
+%   Style of the chapter titles.
+%   Automatically set at the beginning of the document.
+%
+% \DescribeObject[custom]{\@titlestyleappendix}
+%   Style of the appendix chapter titles.
+%   Automatically set after calling |\appendix|.
+%
+% Implementation:
 %
 %    \begin{macrocode}
 %<*phd|crs|bama|rp>
 \RequirePackage[explicit]{titlesec}
 \ExplSyntaxOn
-\tl_new:N \l_@@_chaptitlestyle
-\newcommand{\@appendixtitlestyle}{}
+\newcommand{\@titlestyleappendix}{}
 
-\newcommand{\@chaptertitlestyle}{
-  \exp_args:Nx \str_case:nnF { \l_@@_chaptitlestyle } {
+\newcommand{\@titlestylechapter}{
+  \exp_args:Nx \str_case:nnF { \l_@@_chaptitlestyle_tl } {
     { plain } {
       \titleformat{\chapter}
       [block] % shape
@@ -4818,13 +4956,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
       % Change the spacing above the chapter. This is left - above - below
       \titlespacing*{\chapter}{0pt}{-3em}{12pt}
 
-      \renewcommand{\@appendixtitlestyle}{ % Adds "appendix" to title
+      \renewcommand{\@titlestyleappendix}{ % Adds "appendix" to title
         \titleformat{\chapter}
         [display] % shape
         {\fontsize{18}{22}\selectfont\color{titlecolor}} % format
         {\MakeUppercase{\chaptertitlename\ \thechapter}} % the label
         {-2ex} %separator space
-        {\fontsize{24}{32}\selectfont\bfseries\raggedright\MakeUppercase{\uline{####1}}} %before code
+        {\fontsize{24}{32}\selectfont\bfseries\raggedright\MakeUppercase{%
+            \uline{####1}}} %before code
         [\@addthumb] %after code
       }
     }
@@ -4835,30 +4974,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
         {%
           \begin{tikzpicture}[remember~picture, overlay]
           % Number coloured box
-          \node[fill=titlecolor, minimum~height=3\gridunit, minimum~width=4\gridunit+\the\hoffset,
-          inner~sep=0pt, anchor=north~east] (numbox) at
-          ([xshift=\the\hoffset,yshift=-3\gridunit]current~page.north~east) {};
+          \node[fill=titlecolor, minimum~height=3\gridunit, minimum~width=
+          4\gridunit+\the\hoffset, inner~sep=0pt, anchor=north~east]
+          (numbox)
+          at ([xshift=\the\hoffset,yshift=-3\gridunit]current~page.north~east) {};
 
           % Chapter number
-          \node[white, font=\fontsize{70}{70}\selectfont\bfseries,
-          anchor=center] at ([xshift=1.5\gridunit]numbox.west |- numbox.center) {\thechapter};
+          \node[white, font=\fontsize{70}{70}\selectfont\bfseries, anchor=center]
+          at ([xshift=1.5\gridunit]numbox.west |- numbox.center) {\thechapter};
 
           % Chapter name
-          \node[white, font=\bfseries\normalsize, rotate=90, anchor=center,
-          inner~sep=2pt] at ([xshift=3.5\gridunit]numbox.west |- numbox.center) {\chaptername};
-
-          % Chapter title
-          %\node[titlecolor, font=\huge\bfseries, anchor=north~east, align=right,
-          %text~width=0.85\textwidth] (chaptitle) at
-          %([xshift=-\the\hoffset,yshift=-20pt]current~page~text~area.east |- numbox.south) {##1};
-
-          % Rule
-          %\draw[titlecolor, line~width=1pt]
-          %([xshift=-\the\hoffset, yshift=-10pt]current~page~text~area.west |- chaptitle.south)
-          %-- ([yshift=-10pt]current~page~text~area.east |- chaptitle.south);
-
-          %\path let \p1 = (current~page~text~area.north), \p2 = (chaptitle.south) in
-          %\pgfextra{\xdef\@HCT{\the\dimexpr\y1-\y2+10pt+20pt\relax}};
+          \node[white, font=\bfseries\normalsize, rotate=90, anchor=center, inner~sep=2pt]
+          at ([xshift=3.5\gridunit]numbox.west |- numbox.center) {\chaptername};
 
           \end{tikzpicture}%
           \vspace*{20pt}
@@ -4867,8 +4994,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
           \end{flushright}%
           \vspace*{-10pt}%
           {\color{titlecolor}\rule{\textwidth}{1pt}}
-
-          %\vspace*{\@HCT}%
         }
         [\@addthumb] %after code
 
@@ -4897,28 +5022,31 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
       [display] % shape
       {}{}{0pt} % format, label, sep (unused: box+number are drawn manually)
       {%
-        \edef\@numboxhbleed{\the\hoffset}\edef\@numboxvbleed{\the\voffset}%
         \begin{tikzpicture}[remember~picture, overlay]
         % Number coloured box
-        \node[fill=titlecolor, minimum~height=3\gridunit, minimum~width=4\gridunit+\the\hoffset,
-        inner~sep=0pt, anchor=north~east] (numbox) at
-        ([xshift=\the\hoffset,yshift=-3\gridunit]current~page.north~east) {};
+        \node[fill=titlecolor, minimum~height=3\gridunit, minimum~width=
+        4\gridunit+\the\hoffset, inner~sep=0pt, anchor=north~east]
+        (numbox)
+        at ([xshift=\the\hoffset,yshift=-3\gridunit]current~page.north~east) {};
 
         % Chapter number
-        \node[white, font=\fontsize{70}{70}\selectfont\bfseries,
-        anchor=center] at ([xshift=1.5\gridunit]numbox.west |- numbox.center) {\thechapter};
+        \node[white, font=\fontsize{70}{70}\selectfont\bfseries, anchor=center]
+         at ([xshift=1.5\gridunit]numbox.west |- numbox.center) {\thechapter};
 
         % Chapter name
-        \node[white, font=\bfseries\normalsize, rotate=90, anchor=center,
-        inner~sep=2pt] at ([xshift=3.5\gridunit]numbox.west |- numbox.center) {\chaptername};
+        \node[white, font=\bfseries\normalsize, rotate=90,
+        anchor=center,inner~sep=2pt]
+        at ([xshift=3.5\gridunit]numbox.west |- numbox.center) {\chaptername};
 
         % Chapter title
-        \node[titlecolor, font=\huge\bfseries, anchor=south~east, align=right,
-        text~width=0.85\textwidth] at ([xshift=-10pt,yshift=10pt]numbox.west |- numbox.south) {##1};
+        \node[titlecolor, font=\huge\bfseries,
+        anchor=south~east, align=right, text~width=0.85\textwidth]
+        at ([xshift=-10pt,yshift=10pt]numbox.west |- numbox.south) {##1};
 
         % Rule
         \draw[titlecolor, line~width=1pt]
-        ([xshift=-\the\hoffset]current~page~text~area.west |- numbox.south) -- (numbox.south~east);
+        ([xshift=-\the\hoffset]current~page~text~area.west |- numbox.south)
+          -- (numbox.south~east);
         \end{tikzpicture}%
         \vspace*{40pt}
       }
@@ -5012,24 +5140,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \renewcommand*\chaptername\appendixname
 }
 
-\newcommand{\@sectiontitlestyle}{
-  \titleformat{\section}
-  [block] % shape
-  {\fontsize{14}{17} \selectfont \bfseries } % format
-  {\thesection \ } % the label
-  { 0ex } %separator space
-  { ##1 } %before code
-  { } %after code
-
-  % Change the spacing above the chapter. This is left - above - below
-  \titlespacing*{\section}{0pt}{6pt}{0pt}
-}
-
-\AtBeginDocument{
-  \@chaptertitlestyle
-  \@sectiontitlestyle
-  \apptocmd{\appendix}{\@appendixtitlestyle}{}{}
-}
 \ExplSyntaxOff
 \newcommand*{\@UAChapNum}{%
   \begin{tikzpicture}
@@ -5044,23 +5154,39 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|crs|bama|rp>
 %    \end{macrocode}
 %
+% The section style is the same for all documents:
+% \DescribeObject[custom]{\@titlestylesection}
+%   Plain bold and black section titles.
+%   Automatically set at the beginning of the document.
+%
+%   Implementation:
+%
 %    \begin{macrocode}
-%<*bama|rp>
-\ExplSyntaxOn
-\tl_set:Nn \l_@@_chaptitlestyle {plain}
-\ExplSyntaxOff
-%</bama|rp>
-%<*phd>
-\ExplSyntaxOn
-\tl_set:Nn \l_@@_chaptitlestyle {fancy}
-\ExplSyntaxOff
-%</phd>
-%<*crs>
-\ExplSyntaxOn
-\tl_set:Nn \l_@@_chaptitlestyle {fancycompact}
-\ExplSyntaxOff
-%</crs>
+%<*phd|crs|bama|rp>
+\newcommand{\@titlestylesection}{
+  \titleformat{\section}
+  [block] % shape
+  {\fontsize{14}{17} \selectfont \bfseries } % format
+  {\thesection \ } % the label
+  { 0ex } %separator space
+  { ##1 } %before code
+  { } %after code
+
+  % Change the spacing above the chapter. This is left - above - below
+  \titlespacing*{\section}{0pt}{6pt}{0pt}
+}
+%</phd|crs|bama|rp>
 %    \end{macrocode}
+%
+% \iffalse
+%<*phd|crs|bama|rp>
+\AtBeginDocument{
+  \@titlestylechapter
+  \@titlestylesection
+  \apptocmd{\appendix}{\@titlestyleappendix}{}{}
+}
+%</phd|crs|bama|rp>
+% \fi
 %
 %
 % \subsection{Plain coverpage}
