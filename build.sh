@@ -115,6 +115,9 @@ if [ "$TEST" = false ]; then
       [ -f "$f" ] || continue
       [ -n "${built[$f]:-}" ] && continue
       lualatex -interaction=nonstopmode -halt-on-error "$f"
+      if [ -f "${f%.tex}.bcf" ]; then
+        biber "${f%.tex}"
+      fi
       lualatex -interaction=nonstopmode -halt-on-error "$f"
       built["$f"]=1
       found_new=true
