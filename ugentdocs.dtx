@@ -756,7 +756,7 @@
 \fi
 
 % Small caps for fontspec fonts
-\renewcommand\textsc[1]{\textschelper#1 \relax\relax}
+\newcommand\fakesc[1]{\textschelper#1 \relax\relax}
 \def\textschelper#1 #2\relax{%
   \textschelphelp#1\relax\relax%
   \if\relax#2\relax\else\ \textschelper#2\relax\fi%
