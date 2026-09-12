@@ -4912,6 +4912,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   defined in the |bookcover| package, so we need to renew it.
 %   If the spine width is too small, the spine text will not be printed.
 %   Uses the |\@frontcover| and |\@backcover| (see Section \ref{S:style:covers}).
+%   For courses, the lecturers are preferred on the spine over the authors.
 % \iffalse
 %<*bkc>
 \ExplSyntaxOn
@@ -5859,6 +5860,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 %
+% \newpage
 % \subsection{Covers}
 % \label{S:style:covers}
 % \subsubsection{Plain covers}
@@ -6405,8 +6407,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 %
 %
+% \newpage
 % \subsection{Copyright notices}
 % \label{S:style:copyright}
+%
+%
 %    \begin{macrocode}
 %<*bama>
 \ExplSyntaxOn
@@ -6617,9 +6622,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \end{macrocode}
 %
 %
+% \newpage
 % \subsection{Bookcover components}
 %
-% We also need a few new book cover components for the spine:
+% A few custom bookcover components are defined here for the spine, being
+% the title, the authoryear, and the UGent logo.
 %    \begin{macrocode}
 %<*bkc>
 \newbookcovercomponenttype{title}{
@@ -6667,7 +6674,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \vfill
 }
 %</bkc>
-%    \end{macrocode}%
+%    \end{macrocode}
 %
 %
 % \clearpage
