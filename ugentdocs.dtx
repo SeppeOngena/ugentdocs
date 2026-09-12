@@ -623,7 +623,7 @@
   }
 }
 \str_if_eq:VnT \l_@@_covertype_tl {phd} {
-  \bool_if:NTF \l_@@_bwbookcover_bool { % BW cover
+  \bool_if:NTF \l_@@_bwphdcover_bool { % BW cover
     \colorlet{covertitlecolor}    {white}
     \colorlet{coverdatacolor}     {white}
     \colorlet{coverbgcolor}       {lightgray}
@@ -2264,7 +2264,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*clo>
 \ExplSyntaxOn
 % Class options: declare some variables used commonly
-\bool_new:N \l_@@_bwbookcover_bool
+\bool_new:N \l_@@_bwphdcover_bool
 \bool_new:N \l_@@_coverbg_bool
 \tl_new:N \l_@@_covertype_tl
 \msg_new:nnn { ugentdocs } { cover~type~not~implemented }
@@ -2497,7 +2497,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOn
 \exp_args:Nx \str_if_eq:eeT { \l_@@_fselector_tl } { bw } {
   \exp_args:Nx \str_if_eq:eeT { \l_@@_covertype_tl } { phd } {
-    \bool_set_true:N \l_@@_bwbookcover_bool
+    \bool_set_true:N \l_@@_bwphdcover_bool
   }
 }
 \ExplSyntaxOff
@@ -4482,6 +4482,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \newpage
 % \subsection{Making titles and covers}
 % \label{S:usage:macros:make}
+% This section contains the macros needed to display your front
+% cover and your title, colophon, \ldots pages.
+% It also contains their implementation. If you do not wish to customize that,
+% you do not have to look into the code.
+%
 % \DescribeMacro[bama-phd-rp-crs-ex-le]{\maketitle}
 %   A native \LaTeX{} macro, overridden to support the generation of
 %   cover pages, title pages, colophon pages, etc.
@@ -5068,7 +5073,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     \exp_not:N\frontcoverlogos  {\exp_not:V\l_@@_frontcoverlogos_tl}  \iow_newline:
   }
 
-  \bool_if:NTF \l_@@_bwbookcover_bool {
+  \bool_if:NTF \l_@@_bwphdcover_bool {
     \tl_put_right:Nn \l_@@_covertemplate_tl {
       \iow_newline:
       \exp_not:N\year=\l_@@_year_tl \iow_newline:
@@ -5127,7 +5132,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % This section contains the actual style of the |ugentdocs| classes.
 % If you don't need to customize the style (which we do not recommend anyways),
-% you can probably skip this whole section.
+% you can best skip this whole section as it's very code-heavy.
 % While the same from \LaTeX{}'s point of view,
 % we refer to the commands in this section not as macros but
 % as ``customization points'' or |custom| in short,
@@ -5863,43 +5868,167 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \newpage
 % \subsection{Covers}
 % \label{S:style:covers}
-% \subsubsection{Plain covers}
+% The covers consist of layout dimensions based on the official grid layout,
+% the cover body content,
+% and the cover layout for plain and fancy covers.
+% We will go over those in the sections below.
 %
-% The cover pages tikzpictures for the |bama| and |report| classes are generated
-% using the |\@frontcover| and |\@backcover| commands.
-% These are used in the |\maketitle| and |\makefinalpage| commands.
 %
-% First, we need to define the grid layout and colours:
+% \subsubsection{Cover dimensions}
+% A few common dimensions are defined:
+%    \begin{macrocode}
+%<*phd|bkc|crs|bama|rp>
+\ExplSyntaxOn
+\newlength{\@B}     % Bleed outside crop / cameraready
+\newlength{\@HBS}   % Height bottom strip
+\newlength{\@HTS}   % Height top strip
+\newlength{\@MS}    % Margin Spine (front/back cover)
+\newlength{\@MTLR}  % Margin Text Left Right
+\newlength{\@MTTB}  % Margin Text Top Bottom
+\newlength{\@HT}    % Height Title
+\newlength{\@WD}    % Width Data area
+\newlength{\@HD}    % Height Data area
+\newlength{\@BT}    % Bleed Top
+\newlength{\@WI}    % Width Image
+\newlength{\@HI}    % Height Image
+\newlength{\@WFI}   % Width Faculty Icon
+\ExplSyntaxOff
+%</phd|bkc|crs|bama|rp>
+%    \end{macrocode}
+%
+% A scheme is given here as to what these dimensions represent
+% based on the |\gridunit|:\\
+%   \adjustbox{width=0.5\textwidth}{
+%   \begin{tikzpicture}
+%     \draw[dotted, fill=lightgray] (0, 32) grid (24, 0);
+%     \draw[<->] (1, 0) -- (2, 0); \node at (1.5, 0.5) {gridunit};
+%     \draw[fill=white] (2, 30) rectangle (22, 2);
+%     \draw[fill=ugent@main, fill opacity=0.1] (3, 6) rectangle (22.5, 27);
+%
+%     \draw[loosely dashed, fill=white, fill opacity=0.3] (4, 15) rectangle (21, 24);
+%     \node[scale=3] at (11, 19.5) {Text area (title)};
+%
+%     \draw[fill=ugent@main] (3, 6) rectangle (13, 14);
+%
+%     \draw[loosely dashed, fill=white, fill opacity=0.3] (4, 7) rectangle (12, 13);
+%     \node[scale=2] at (8, 12) {Text area (in data area)};
+%
+%     \draw[<->] (18, 2) -- (18, 19.5);       \node at (17.5,19.5) {HT};
+%     \draw[<->] (20.5, 27) -- (20.5, 27.75); \node at (21, 27.37) {BT};
+%     \draw[<->] (20.5, 27) -- (20.5, 27.75); \node at (21, 27.37) {BT};
+%     \draw[<->] (4, 27) -- (4, 30);          \node at (4.5, 28) {HTS};
+%     \draw[<->] (4, 2) -- (4, 6);            \node at (4.5, 4) {HBS};
+%     \draw[<->] (2, 21) -- (3, 21);          \node at (2.5, 21.5) {MS};
+%     \draw[<->] (22, 26) -- (22.5, 26);      \node at (22.25, 26.5) {B};
+%     \draw[<->] (4, 19) -- (3, 19);          \node at (3.5, 19.5) {MTLR};
+%     \draw[<->] (21, 19) -- (22, 19);        \node at (21.5, 19.5) {MTLR};
+%     \draw[<->] (4, 12) -- (3, 12);          \node at (3.5, 12.5) {MTLR};
+%     \draw[<->] (13, 12) -- (12, 12);        \node at (12.5, 12.5) {MTLR};
+%     \draw[<->] (2, 30) -- (22, 30);         \node at (2.5, 15) {PW};
+%     \draw[<->] (2, 2) -- (2, 30);           \node at (12, 29.5) {PH};
+%     \draw[<->] (10, 14) -- (10, 6);         \node at (9.5, 8.5) {HD};
+%     \draw[<->] (13, 10) -- (3, 10);         \node at (4.5, 10.5) {WD};
+%     \draw[<->] (7, 7) -- (7, 6);            \node at (6.5, 6.5) {MTTB};
+%     \draw[<->] (7, 14) -- (7, 13);          \node at (6.5, 13.5) {MTTB};
+%     \node[scale=1.5] at (12, 31.5) {A4 width};
+%     \node[scale=1.5, rotate=-90] at (0.5, 15) {A4 height};
+%   \end{tikzpicture}
+%   }
+%
+% Next, we set the lengths based on the Office templates:
+%    \begin{macrocode}
+%<*phd|bkc|crs|bama|rp>
+\ExplSyntaxOn
+\setlength\@B{3mm}
+\bool_if:NTF \l_@@_bwphdcover_bool {
+  % BW phd cover
+  \setlength\@HBS{4\gridunit}
+  \setlength\@HTS{0mm}
+  \setlength\@BT{\@B}
+  \setlength\@MS{0mm}
+  \setlength\@MTLR{2\gridunit}
+  \setlength\@MTTB{\gridunit}
+  \setlength\@WD{0mm}
+  \setlength\@HD{0mm}
+  \setlength\@HT{2\@HBS}
+}{
+  % UGent cover
+  \setlength\@HBS{4\gridunit}
+  \tl_if_empty:NTF \l_@@_fselector_tl {
+    \setlength\@HTS{0mm}
+    \setlength\@BT{\@B}
+  }{
+    \setlength\@HTS{3\gridunit}
+    \setlength\@BT{0mm}
+  }
+  \setlength\@MS{\gridunit}
+  \setlength\@MTLR{\gridunit}
+  \setlength\@MTTB{\gridunit}
+  \setlength\@WD{12\gridunit}
+  \setlength\@HD{10\gridunit}
+  \pgfmathsetlength{\@HT}{0.5*\@PH+0.5*\@HBS-0.5*\@HTS+0.5*\@HD}
+}
+\ExplSyntaxOff
+%</phd|bkc|crs|bama|rp>
+%    \end{macrocode}
+%
+% For the |bama| and |report|,
+% the title position and text margin differ slightly:
 %    \begin{macrocode}
 %<*bama|rp>
-\newlength{\@TP}\setlength\@TP{26.52cm} % Title Position
-\newlength{\@ML}                        % Margin left (for text)
-\newlength{\@HTS}                       % Height top strip
-%
-\ifx\@fselector\@empty
-  \setlength\@HTS{0mm}
-\else
-  \setlength\@HTS{3\gridunit}
-\fi
 \ExplSyntaxOn
+\setlength\@HT{0.9\@PH}
+
 \bool_if:NTF \l_@@_coverbg_bool {
-  \setlength\@ML{2\gridunit}
+  \setlength\@MTLR{2\gridunit}
 }{
-  \setlength\@ML{\gridunit}
+  \setlength\@MTLR{\gridunit}
 }
 \ExplSyntaxOff
 %</bama|rp>
 %    \end{macrocode}
 %
-% The cover body text differs between |bama| and |report| classes,
-% so we set it here. Code adapted from Joris Meys' LaTeX at UGent.
+% And the |course| data area width is slightly narrower:
+%    \begin{macrocode}
+%<*phd|bkc|crs>
+\ExplSyntaxOn
+\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
+  { phd } { }
+  { course } {
+    \setlength\@WD{10\gridunit}
+  }
+}{
+  \msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
+}
+\ExplSyntaxOff
+%</phd|bkc|crs>
+%    \end{macrocode}
+%
+%
+% \subsubsection{Cover bodies}
+% The cover body text itself differs between all classes,
+% so we set it here. For the |bama| and |report| classes,
+% the code was adapted from Joris Meys' LaTeX at UGent.
+%
+% \DescribeObject[custom]{\@coverbodybama}
+%   The |bama| cover body consists of
+%   the title, subtitle (if present),
+%   word count (if given), confidentiality (if applicable),
+%   author name(s), student nr. (one, if given),
+%   (co/external) supervisors and tutor (if given),
+%   the ``Submitted to\ldots'' text, and
+%   the academic year:
 %    \begin{macrocode}
 %<*bama|rp>
 \ExplSyntaxOn
 \tl_new:N \l_@@_authortable_tl
+\ExplSyntaxOff
+%</bama|rp>
+%<*bama>
+\ExplSyntaxOn
 \newcommand{\@coverbodybama}{
-  \node[anchor=north~west, inner~sep=0pt, text~width=\paperwidth-\@ML-\gridunit,
-  minimum~height=22.05cm, align=left] at (\@ML,\@TP)
+  \node[anchor=north~west, inner~sep=0pt, text~width=\@PW-\@MTLR-\gridunit,
+  minimum~height=22.05cm, align=left] at (\@MTLR,\@HT)
   {%
     \raggedright
     \begin{spacing}{2.5}
@@ -5927,11 +6056,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
       \vskip 10em
     }
 
-     \tl_set:Nx \l_@@_authortable_tl { \printseq{authorswaff}{\cr}{\cr}{\cr} }
+    \tl_set:Nx \l_@@_authortable_tl { \printseq{authorswaff}{\cr}{\cr}{\cr} }
     {\fontsize{15}{18}\selectfont
       \leavevmode\vbox{\halign{##\hfil&\hskip1em##\hfil\cr
-      \l_@@_authortable_tl
-      \cr}}
+          \l_@@_authortable_tl
+          \cr}}
     }
 
     \ifx\@studentnr\@empty\else
@@ -5941,32 +6070,60 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     \vskip 1em
 
     {\fontsize{12}{15}\selectfont
-      \getseqcaption{supervisors}{:~\printseq{supervisors}{~\&~}{,~}{\translatekey{andlist}~}\\}}
+      \getseqcaption{supervisors}{
+        :~\printseq{supervisors}{~\&~}{,~}{\translatekey{andlist}~}\\}
+    }
 
     {\fontsize{12}{15}\selectfont
-        \getseqcaption{cosupervisors}{:~\printseq{cosupervisors}{~\&~}{,~}{\translatekey{andlist}~}\\}}
+      \getseqcaption{cosupervisors}{
+        :~\printseq{cosupervisors}{~\&~}{,~}{\translatekey{andlist}~}\\}
+    }
 
     {\fontsize{12}{15}\selectfont
-        \getseqcaption{extsupervisors}{:~\printseq{extsupervisors}{~\&~}{,~}{\translatekey{andlist}~}\\}}
+      \getseqcaption{extsupervisors}{
+        :~\printseq{extsupervisors}{~\&~}{,~}{\translatekey{andlist}~}\\}
+    }
 
     \ifseqempty{tutors}{}{
       \vskip 1em
       {\fontsize{12}{15}\selectfont
-        \getseqcaption{tutors}{}:~\printseq{tutors}{~\&~}{,~}{\translatekey{andlist}~}}
+        \getseqcaption{tutors}{}
+        :~\printseq{tutors}{~\&~}{,~}{\translatekey{andlist}~}
+      }
     }
 
     \vskip 1em
-    {\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{bmfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}
+    {\@doctype{}~\translatekey[lowercase]{submittedto}%
+      \ifx\@fselector\@empty\else{}%
+        ~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}%
+      \fi{}%
+      ~\translatekey{org-deugent},~\translatekey{bmfulfil}%
+      ~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}
 
     \vskip 1em
     \translatekey{acyear}:~\@academicyear
     \endgroup
   };
 }
-
+\ExplSyntaxOff
+%</bama>
+%<rp>\newcommand{\@coverbodybama}{}
+%    \end{macrocode}
+%
+% \DescribeObject[custom]{\@coverbodyreport}
+%   The |report| cover body consists of
+%   the title, subtitle, and extra title (if present),
+%   word count (if given),
+%   author name(s), student nr. (one, if given),
+%   lecturers (if given),
+%   address (if given),
+%   and the academic year (if given):
+%    \begin{macrocode}
+%<*rp>
+\ExplSyntaxOn
 \newcommand{\@coverbodyreport}{
-  \node[anchor=north~west, inner~sep=0pt, text~width=\paperwidth-\@ML-\gridunit,
-  minimum~height=22.05cm, align=left] at (\@ML,\@TP)
+  \node[anchor=north~west, inner~sep=0pt, text~width=\paperwidth-\@MTLR-\gridunit,
+  minimum~height=22.05cm, align=left] at (\@MTLR,\@HT)
   {%
     \raggedright
     \begin{spacing}{2.5}
@@ -5997,8 +6154,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
       \tl_set:Nx \l_@@_authortable_tl { \printseq{authorswaff}{\cr}{\cr}{\cr} }
       {\fontsize{12}{15}\selectfont
         \leavevmode\vbox{\halign{##\hfil&\hskip1em##\hfil\cr
-        \l_@@_authortable_tl
-        \cr}}
+            \l_@@_authortable_tl
+            \cr}}
       }
       \ifx\@studentnr\@empty\else
       \translatekey{studentnr}:~\@studentnr
@@ -6023,199 +6180,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     \endgroup
   };
 }
-
-\newcommand*\@coverbody{
-  \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-    { bama } { \@coverbodybama }
-    { report } { \@coverbodyreport }
-  }{
-    \msg_error:nnx { ugentdocs } { cover~type~not~implemented } {\l_@@_covertype_tl }
-  }
-}
 \ExplSyntaxOff
-%</bama|rp>
+%</rp>
+%<bama>\newcommand{\@coverbodyreport}{}
 %    \end{macrocode}
 %
-% Next, we make the front cover.
-% \DescribeObject[custom]{\@frontcover}
-% Defines the front cover layout
+% \DescribeObject[custom]{\@coverbodycourse}
+%   The |course| cover body consists of
+%   the title, subtitle (if present),
+%   lecturers (if given),
+%   degrees (if given),
+%   and the academic year:
 %    \begin{macrocode}
-%<*bama|rp>
-\ExplSyntaxOn
-\newcommand{\@frontcover}{
-  \begin{tikzpicture}[inner~sep=0pt, outer~sep=0pt]
-  \clip (0,0) rectangle (\paperwidth,\paperheight);
-
-  \begin{scope}[shift={(0,\paperheight-3*\gridunit)}]
-  \faclogo{3*\gridunit}{ugent@\@fselector}{0}
-  \end{scope}
-
-  \bool_if:NT \l_@@_coverbg_bool {
-    \fill[coverbgcolor] (\gridunit,4*\gridunit) rectangle (\paperwidth,\paperheight-\@HTS);
-    \begingroup
-    \colorlet{hypercolor}{covertitlecolor}
-  }
-
-  \@coverbody
-
-  \begin{scope}[shift={(0,0)}]
-    \ugentlogo{4*\gridunit}{ugent@main}{0}
-  \end{scope}
-
-  \ifx\@frontcoverlogos\@empty\else
-    \node[anchor=south~east, inner~sep=0pt,
-      text~width=\paperwidth-(2+\@ugenttextw/\@logounit)*\gridunit, minimum~height=2*\gridunit,
-      align=right] at (\paperwidth-\gridunit,\gridunit)
-      {\@frontcoverlogos};
-  \fi
-
-  \bool_if:NT \l_@@_coverbg_bool {
-    \endgroup
-  }
-
-  \end{tikzpicture}
-}
-\ExplSyntaxOff
-%</bama|rp>
-%    \end{macrocode}
-%
-% \DescribeObject[custom]{\@backcover}
-% Defines the back cover layout
-%    \begin{macrocode}
-%<*bama|rp>
-\newcommand{\@backcover}{}
-%</bama|rp>
-%    \end{macrocode}
-%
-%
-% \subsubsection{Fancy covers}
-%
-% The cover pages tikzpictures for the |phd| and |course| classes are generated
-% using the |\@frontcover| and |\@backcover| commands.
-% These are used in the |\maketitle| and |\makefinalpage| commands.
-% For this fancier style, a coverimage is included.
-%
-% Next, we set lengths and colours:
-%    \begin{macrocode}
-%<*phd|bkc|crs>
-\ExplSyntaxOn
-\newlength{\@B}\setlength\@B{3mm}   % Bleed
-\newlength{\@HBS}   % Height bottom strip
-\newlength{\@HTS}   % Top white strip height
-\newlength{\@MS}    % Spine margin (front/back cover)
-\newlength{\@MTLR}  % Text LR margin
-\newlength{\@MTTB}  % Text TB margin
-\newlength{\@WD}  % Datawidth
-\newlength{\@HD}  % Dataheight
-\newlength{\@BT}  % Top bleed
-\newlength{\@WI}  % Image width
-\newlength{\@HI}  % Image height
-\newlength{\@WFI} % Faculty icon width
-
-\bool_if:NTF \l_@@_bwbookcover_bool { % BW cover
-  \setlength\@HBS{4\gridunit}
-  \setlength\@HTS{0mm}
-  \setlength\@BT{\@B}
-  \setlength\@MS{0mm}
-  \setlength\@MTLR{2\gridunit}
-  \setlength\@MTTB{\gridunit}
-  \setlength\@WD{0mm}
-  \setlength\@HD{0mm}
-}{ % UGent cover
-  \setlength\@HBS{4\gridunit}
-  \tl_if_empty:NTF \l_@@_fselector_tl {
-    \setlength\@HTS{0mm}
-    \setlength\@BT{\@B}
-  }{
-    \setlength\@HTS{3\gridunit}
-    \setlength\@BT{0mm}
-  }
-  \setlength\@MS{\gridunit}
-  \setlength\@MTLR{\gridunit}
-  \setlength\@MTTB{\gridunit}
-  \setlength\@WD{12\gridunit}
-  \setlength\@HD{10\gridunit}
-}
-\ExplSyntaxOff
-%</phd|bkc|crs>
-%    \end{macrocode}
-%
-% For confidential covers, we add a command to print the notice:
-%    \begin{macrocode}
-%<*phd|bkc|crs>
-\ExplSyntaxOn
-%\newlength\@confmidpos
-
-\newcommand{\@printconfidentialcover}{
-  \bool_if:NTF \l_@@_bwbookcover_bool {
-    %\@setugentlogotext
-    %\@setfaclogotext
-    %\pgfmathsetlength{\@confmidpos}{0.5*\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5*\gridunit}
-    % pos = (\@PW-\@ftextw/\@logounit*\gridunit-3*\gridunit-\@ugenttextw/\@logounit*\gridunit-2*\gridunit)/2+\@ugenttextw/\@logounit*\gridunit+2*\gridunit
-    %     = 0.5*\@PW-0.5*\@ftextw/\@logounit*\gridunit+0.5*\@ugenttextw/\@logounit*\gridunit-0.5\gridunit
-    % \node[anchor=center,font=\fontsize{15}{18}\selectfont,ugent@main] at (\@confmidpos,1.5*\gridunit)
-    % {\textbf{\translatekey[uppercase]{confidential}}};
-
-    \node[anchor=north~east,font=\fontsize{15}{18}\selectfont,covertitlecolor] at (\@PW-\gridunit,\@PH-\gridunit)
-      {\textbf{\translatekey[uppercase]{confidential}}};
-
-  }{
-    \node[anchor=north~east,font=\fontsize{15}{18}\selectfont,ugent@main] at (\@PW-\gridunit,\@PH-\gridunit)
-      {\textbf{\translatekey[uppercase]{confidential}}};
-  }
-}
-\ExplSyntaxOff
-%</phd|bkc|crs>
-%    \end{macrocode}
-%
-% The cover body text differs between the |phd| and |course| classes,
-% so let's set it here:
-%    \begin{macrocode}
-%<*bkc|phd>
-\ExplSyntaxOn
-\newcommand\@coverbodyphd{
-  % Title, subtitle, author
-  \bool_if:NTF \l_@@_bwbookcover_bool {
-  \node[anchor=south~east, text~width=\@PW-2*\@MTLR, align=right, text=covertitlecolor]
-  at (\@PW-\@MTLR, 2*\@HBS)
-  {{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
-    \ifx\@subtitle\@empty\else\vspace{4pt}%
-    \hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par}\fi%
-    \vspace{30pt}\hyphenpenalty=100000{\fontsize{20}{24}\selectfont\printseq{authors}{\\}{\\}{\\}}};
-  }{
-  \node[anchor=west, text~width=\@PW-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
-  at (\@MS+\@MTLR, 0.5*\@PH+0.5*\@HBS-0.5*\@HTS+0.5*\@HD)
-  {{\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
-    \ifx\@subtitle\@empty\else\vspace{5pt}\hyphenpenalty=100000{\fontsize{20}{28}\selectfont\bfseries\@subtitle\par}\fi};
-
-  \node[anchor=north~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
-  at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB)
-  {{\fontsize{20}{24}\selectfont\bfseries\printseq{authors}{\\}{\\}{\\}}%
-    \\[15pt]
-    {\fontsize{14}{17}\selectfont\getseqcaption{supervisors}{}:\newline
-    \printseq{supervisors}{\\}{\\}{\\}}%
-    \\[15pt]
-    {\fontsize{11}{15}\selectfont\translatekey{acyear}~\@academicyear}};
-
-  \node[anchor=south~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
-  at (\@MS+\@MTLR, \@HBS+\@MTTB)
-  {\fontsize{11}{15}\selectfont\nohyphens{\@doctype{}~\translatekey[lowercase]{submittedto}\ifx\@fselector\@empty\else{}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}\fi{}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}};
-
-  \ifx\@frontcoverlogos\@empty\else
-  \node[anchor=south~east, inner~sep=0pt,
-  text~width=\@PW-(2+\@ugenttextw/\@logounit)*\gridunit, minimum~height=2*\gridunit,
-  align=right] at (\@PW-\gridunit,\gridunit)
-  {\@frontcoverlogos};
-  \fi
-
-  }
-
-  \bool_if:NT \l_@@_embargo_bool {
-  \@printconfidentialcover
-  }
-}
-\ExplSyntaxOff
-%</bkc|phd>
 %<*bkc|crs>
 \newcommand\@coverbodycourse{
   \newlength\@parboxheight
@@ -6223,17 +6199,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \pgfmathsetlength{\@parboxheight}{\@HD-2*\@MTTB}
   \pgfmathsetlength{\@parboxwidth}{\@WD-2*\@MTLR}
 
-  \node[anchor=north west, inner sep=0pt, text=coverdatacolor] at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB) {
+  \node[anchor=north west, inner sep=0pt, text=coverdatacolor]
+  at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB) {
     \parbox[t][\@parboxheight][t]{\@parboxwidth}{
       \raggedright
       {\fontsize{35}{42}\selectfont\bfseries
         \MakeUppercase{\uline{\@title}}\par}
       %
       \ifx\@subtitle\@empty\else
-      \vspace{5pt}
-      \hyphenpenalty=100000
-      {\fontsize{30}{36}\selectfont\bfseries
-        \@subtitle}
+        \vspace{5pt}
+        \hyphenpenalty=100000
+        {\fontsize{30}{36}\selectfont\bfseries
+          \@subtitle}
       \fi
       \par
       \vfill
@@ -6247,47 +6224,234 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
         \translatekey{acyear}~\@academicyear}%
     }
   };
-
-  \ifx\@frontcoverlogos\@empty\else
-  \node[anchor=south east, inner sep=0pt,
-  text width=\@PW-(2+\@ugenttextw/\@logounit)*\gridunit, minimum height=2*\gridunit,
-  align=right] at (\@PW-\gridunit,\gridunit)
-  {\@frontcoverlogos};
-  \fi
 }
 %</bkc|crs>
+%
+% \DescribeObject[custom]{\@coverbodyphd}
+%   The |phd| cover body consists of
+%   the title, subtitle (if present),
+%   author(s), supervisors, academic year,
+%   and the ``Submitted to\ldots'' text.
+%   A FBW variant of the PhD cover exists with only
+%   the title, subtitle, and author(s) listed:
+%<*bkc|phd>
+\ExplSyntaxOn
+\newcommand\@coverbodyphd{
+  % Title, subtitle, author
+  \bool_if:NFT \l_@@_bwphdcover_bool {
+    \node[anchor=west, text~width=\@PW-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
+    at (\@MS+\@MTLR, \@HT) {
+      {\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
+      \ifx\@subtitle\@empty\else\vspace{5pt}\hyphenpenalty=100000%
+        {\fontsize{20}{28}\selectfont\bfseries\@subtitle\par}
+      \fi
+    };
+
+    \node[anchor=north~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
+    at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB) {
+      {\fontsize{20}{24}\selectfont\bfseries\printseq{authors}{\\}{\\}{\\}}%
+      \\[15pt]
+      {\fontsize{14}{17}\selectfont\getseqcaption{supervisors}{}:\newline
+        \printseq{supervisors}{\\}{\\}{\\}}%
+      \\[15pt]
+      {\fontsize{11}{15}\selectfont\translatekey{acyear}~\@academicyear}};
+
+    \node[anchor=south~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
+    at (\@MS+\@MTLR, \@HBS+\@MTTB){%
+      \fontsize{11}{15}\selectfont\nohyphens{%
+        \@doctype{}~\translatekey[lowercase]{submittedto}%
+        \ifx\@fselector\@empty\else{}%
+          ~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}%
+        \fi{}%
+        ~\translatekey{org-deugent},%
+        ~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}};
+  }{
+    \node[anchor=south~east, text~width=\@PW-2*\@MTLR, align=right, text=covertitlecolor]
+    at (\@PW-\@MTLR, \@HT) {
+      {\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
+      \ifx\@subtitle\@empty\else\vspace{4pt}\hyphenpenalty=100000%
+        {\fontsize{20}{28}\selectfont\bfseries\@subtitle\par}%
+      \fi%
+    \vspace{30pt}\hyphenpenalty=100000%
+    {\fontsize{20}{24}\selectfont\printseq{authors}{\\}{\\}{\\}}};
+  }
+
+  \bool_if:NT \l_@@_embargo_bool {
+    \@printconfidentialcover
+  }
+}
+\ExplSyntaxOff
+%</bkc|phd>
+%    \end{macrocode}
+
+% \DescribeObject[custom]{\@printconfidentialcover}
+%   Prints the confidentiality word for PhD covers.
+%   This appears in the top right of the front cover:
+%    \begin{macrocode}
 %<*phd|bkc|crs>
+\ExplSyntaxOn
+\newcommand{\@printconfidentialcover}{
+  \bool_if:NTF \l_@@_bwphdcover_bool {
+    \node[anchor=north~east,font=\fontsize{15}{18}\selectfont,covertitlecolor]
+    at (\@PW-\gridunit,\@PH-\gridunit)
+    {\textbf{\translatekey[uppercase]{confidential}}};
+
+  }{
+    \node[anchor=north~east,font=\fontsize{15}{18}\selectfont,ugent@main]
+    at (\@PW-\gridunit,\@PH-\gridunit)
+    {\textbf{\translatekey[uppercase]{confidential}}};
+  }
+}
+\ExplSyntaxOff
+%</phd|bkc|crs>
+%    \end{macrocode}
+%
+% \DescribeObject[custom]{\@coverbody}
+%   Finally, the appropriate cover body is selected:
+%    \begin{macrocode}
+%<*phd|bkc|crs|bama|rp>
 \ExplSyntaxOn
 \newcommand*\@coverbody{
   \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-    { phd } { \@coverbodyphd }
+    { phd }    { \@coverbodyphd }
     { course } { \@coverbodycourse }
+    { bama }   { \@coverbodybama }
+    { report } { \@coverbodyreport }
   }{
     \msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
   }
 }
 \ExplSyntaxOff
-%</phd|bkc|crs>
+%</phd|bkc|crs|bama|rp>
 %    \end{macrocode}
 %
-% The couloring is different for the |course| class:
+%
+% \subsubsection{Front and back covers}
+% Finally, we can work on the visual layout of the covers.
+% These are used in the |\maketitle| and |\makefinalpage| commands.
+%
+% \DescribeObject[custom]{\@frontcover}
+%   The front cover of the document.
+%
+% For |bama| and |report|, this consists of
+% the logo placements,
+% an optional background colour area,
+% the |\@coverbody|,
+% and frontcoverlogos:
+%    \begin{macrocode}
+%<*bama|rp>
+\ExplSyntaxOn
+\newcommand{\@frontcover}{
+  \begin{tikzpicture}[inner~sep=0pt, outer~sep=0pt]
+  \clip (0,0) rectangle (\@PW,\@PH);
+
+  % Faculty logo
+  \begin{scope}[shift={(0,\@PH-3*\gridunit)}]
+    \faclogo{3*\gridunit}{ugent@\@fselector}{0}
+  \end{scope}
+
+  % Coloured background
+  \bool_if:NT \l_@@_coverbg_bool {
+    \fill[coverbgcolor] (\gridunit,4*\gridunit) rectangle (\@PW,\@PH-\@HTS);
+    \begingroup
+    \colorlet{hypercolor}{covertitlecolor}
+  }
+
+  % Cover body
+  \@coverbody
+
+  % UGent logo
+  \begin{scope}[shift={(0,0)}]
+    \ugentlogo{4*\gridunit}{ugent@main}{0}
+  \end{scope}
+
+  % Front cover logos
+  \ifx\@frontcoverlogos\@empty\else
+    \node[anchor=south~east, inner~sep=0pt,
+      text~width=\paperwidth-(2+\@ugenttextw/\@logounit)*\gridunit,
+      minimum~height=2*\gridunit, align=right]
+    at (\paperwidth-\gridunit,\gridunit)
+      {\@frontcoverlogos};
+  \fi
+
+  \bool_if:NT \l_@@_coverbg_bool {
+    \endgroup
+  }
+  \end{tikzpicture}
+}
+\ExplSyntaxOff
+%</bama|rp>
+%    \end{macrocode}
+%
+% For the |phd| and |course|, the layout is similar,
+% but a faintly coloured area is always included,
+% and a coloured data area is present:
 %    \begin{macrocode}
 %<*phd|bkc|crs>
 \ExplSyntaxOn
-\exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
-  { phd } { }
-  { course } {
-    \setlength\@WD{10\gridunit}
+\newcommand{\@frontcover}{%
+  \begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt]
+  \useasboundingbox (0,0) rectangle (\@PW,\@PH);
+
+  % Faculty logo
+  \bool_if:NTF \l_@@_bwphdcover_bool {
+    \begin{scope}[shift={(\@PW,0)}]
+      \faclogo{3\gridunit}{ugent@\@fselector}{1}
+    \end{scope}
+  } {
+    \begin{scope}[shift={(\@MS-\gridunit,\@PH-\@HTS)}]
+      \faclogo{3\gridunit}{ugent@\@fselector}{0}
+    \end{scope}
   }
-}{
-  \msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
+
+  % Image zone
+  {\ifx\@coverimage\@empty%
+    \fill[coverbgcolor] (\@MS,\@HBS) rectangle (\@PW+\@B,\@PH-\@HTS+\@BT);%
+    \@coverblankimage
+  \else%
+    \begin{scope}%
+      \pgfmathsetlength{\@WI}{\@PW+\@B-\@MS}
+      \pgfmathsetlength{\@HI}{\@PH-\@HBS-\@HTS+\@BT}
+      \clip (\@MS,\@HBS) rectangle (\@PW+\@B,\@PH-\@HTS+\@BT);
+      \node[anchor=south~west, inner~sep=0pt] at (\@MS, \@HBS)%
+      {\adjustbox{min~width=\@WI, min~height=\@HI, keepaspectratio}{%
+        \includegraphics[width=\@WI]{\@coverimage}%
+      }%
+    };%
+    \end{scope}
+  \fi};
+
+  % Front cover data area
+  \fill[coverareacolor] (\@MS,\@HBS) rectangle (\@MS+\@WD,\@HBS+\@HD);
+
+  % Cover body
+  \@coverbody
+
+  % UGent logo
+  \pgfmathsetmacro{\@ugentlogoxoffset}{max(\@MS-\gridunit,0)}
+  \begin{scope}[shift={(\@ugentlogoxoffset pt,0mm)}]
+    \ugentlogo{\@HBS}{ugent@main}{0}
+  \end{scope}
+
+  % Front cover logos
+  \ifx\@frontcoverlogos\@empty\else
+    \node[anchor=south~east, inner~sep=0pt,
+      text~width=\@PW-(2+\@ugenttextw/\@logounit)*\gridunit,
+      minimum~height=2*\gridunit, align=right]
+    at (\@PW-\gridunit,\gridunit)
+      {\@frontcoverlogos};
+  \fi
+
+  \end{tikzpicture}
 }
 \ExplSyntaxOff
 %</phd|bkc|crs>
 %    \end{macrocode}
 %
-% The empty cover image style is different between the |phd| and |course| classes,
-% For |phds|, it's just blank. For |courses|, it's the faculty icon.
+% \DescribeObject[custom]{\@coverblankimage}
+% When no cover image is provided for the |course| or |phd| classes,
+% |\@coverblankimage| is executed.
+% For |phds|, it's just blank. For |courses|, it's the faculty icon:
 %    \begin{macrocode}
 %<*phd|bkc|crs>
 \ExplSyntaxOn
@@ -6310,93 +6474,56 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd|bkc|crs>
 %    \end{macrocode}
 %
-% Now let's move on to the covers themselves.
-% \DescribeObject[custom]{\@frontcover}
-% Defines the front cover layout
+% \DescribeObject[custom]{\@backcover}
+% The back cover of the documents.
+%
+% The |bama| and |report| classes don't use one:
 %    \begin{macrocode}
-%<*phd|bkc|crs>
-\ExplSyntaxOn
-\newcommand{\@frontcover}{%
-  \begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt]
-  \useasboundingbox (0,0) rectangle (\@PW,\@PH);
-
-  % Image zone
-  {\ifx\@coverimage\@empty%
-    \fill[coverbgcolor] (\@MS,\@HBS) rectangle (\@PW+\@B,\@PH-\@HTS+\@BT);%
-    \@coverblankimage
-  \else%
-    \begin{scope}%
-    \pgfmathsetlength{\@WI}{\@PW+\@B-\@MS}
-    \pgfmathsetlength{\@HI}{\@PH-\@HBS-\@HTS+\@BT}
-    \clip (\@MS,\@HBS) rectangle (\@PW+\@B,\@PH-\@HTS+\@BT);
-    \node[anchor=south~west, inner~sep=0pt] at (\@MS, \@HBS)%
-    {\adjustbox{min~width=\@WI, min~height=\@HI, keepaspectratio}{%
-        \includegraphics[width=\@WI]{\@coverimage}%
-      }%
-    };%
-    \end{scope}
-  \fi};
-
-  \fill[coverareacolor] (\@MS,\@HBS) rectangle (\@MS+\@WD,\@HBS+\@HD);
-
-  \@coverbody
-
-  % UGent logo
-  \pgfmathsetmacro{\@ugentlogoxoffset}{max(\@MS-\gridunit,0)}
-  \begin{scope}[shift={(\@ugentlogoxoffset pt,0mm)}]
-    \ugentlogo{\@HBS}{ugent@main}{0}
-  \end{scope}
-
-  % Faculty logo
-  \bool_if:NTF \l_@@_bwbookcover_bool {
-  \begin{scope}[shift={(\@PW,0)}]
-    \faclogo{3\gridunit}{ugent@\@fselector}{1}
-  \end{scope}
-  } {
-  \begin{scope}[shift={(\@MS-\gridunit,\@PH-\@HTS)}]
-    \faclogo{3\gridunit}{ugent@\@fselector}{0}
-  \end{scope}
-  }
-
-  \end{tikzpicture}
-}
-\ExplSyntaxOff
-%</phd|bkc|crs>
+%<*bama|rp>
+\newcommand{\@backcover}{}
+%</bama|rp>
 %    \end{macrocode}
 %
-% \DescribeObject[custom]{\@backcover}
-% Defines the back cover layout
+% The |course| and |phd| classes share the same cover,
+% which includes an auto-generated ISBN barcode,
+% and optional backcoverlogos:
 %    \begin{macrocode}
 %<*phd|bkc|crs>
 \newcommand\@backcover{%
   \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
   \useasboundingbox (0,0) rectangle (\@PW,\@PH);
 
-  % White bottom strip for ISBN and publisher logo
+  % ISBN barcode
   \pgfmathsetmacro{\@isbnscale}{0.6}
   \pgfmathsetmacro{\@grpH}{\@isbnscale*25mm+15pt}% total group height: box+spacing+text
   \begin{scope}[shift={(10mm, 0.5*\@HBS - 0.5*\@grpH)}]
-  \ifx\@isbn\@empty% ISBN text and barcode placeholder
-  %\fill[coverareacolor] (0,0) rectangle (34.2mm, \@isbnscale*25mm);
-  \else
-  \edef\@isbnexpanded{ISBN \@isbn}
-  %\fill[coverareacolor] (0,0) rectangle (34.2mm, \@isbnscale*25mm);
-  \node[anchor=south] at (0.5*34.2mm,0)
-  {\edef\@@_isbnbarcodecall{\noexpand\EANBarcode[scale=\@isbnscale]{ISBN\space\@isbn}}
-    \@@_isbnbarcodecall};
-  \fi
-  \node[anchor=south, font=\usefont{OT1}{ocrb}{m}{n}\fontsize{5}{5}\selectfont, text=black, inner sep=0pt]
-  at (0.5*34.2mm, \@isbnscale*25mm+ 10pt)
-  {\ifx\@isbn\@empty% {ISBN: XXX-X-XXX-XXXXX-X}
-    \else {ISBN:  \@isbn}\fi
-  };
+    \ifx\@isbn\@empty% ISBN text and barcode placeholder
+      %\fill[coverareacolor] (0,0) rectangle (34.2mm, \@isbnscale*25mm);
+    \else
+      \edef\@isbnexpanded{ISBN \@isbn}
+      %\fill[coverareacolor] (0,0) rectangle (34.2mm, \@isbnscale*25mm);
+      \node[anchor=south] at (0.5*34.2mm,0)
+      {\edef\@@_isbnbarcodecall{\noexpand\EANBarcode[scale=\@isbnscale]{%
+            ISBN\space\@isbn%
+        }}
+      \@@_isbnbarcodecall};
+    \fi
+
+    \node[anchor=south, font=\usefont{OT1}{ocrb}{m}{n}\fontsize{5}{5}\selectfont,
+      text=black, inner sep=0pt]
+    at (0.5*34.2mm, \@isbnscale*25mm+ 10pt) {
+      \ifx\@isbn\@empty% {ISBN: XXX-X-XXX-XXXXX-X}
+      \else {ISBN:  \@isbn}
+      \fi
+    };
   \end{scope}
 
+  % Back cover logos
   \pgfmathsetmacro{\@backcoverlogosxoffset}{min(\@PW-\@MS,\@PW-10mm)}
   \begin{scope}[inner sep=0pt, shift = {(\@backcoverlogosxoffset pt, 0.5*\@HBS)}]
-  \node[anchor=east, inner sep=0pt]
-  at (0, 0)
-  {\@backcoverlogos};
+    \node[anchor=east, inner sep=0pt]
+    at (0, 0)
+    {\@backcoverlogos};
   \end{scope}
 
   % Full background
@@ -6690,7 +6817,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOn
 \newbookcovercomponenttype{authoryear}{
   \vfill\centering
-  \bool_if:NTF \l_@@_bwbookcover_bool {
+  \bool_if:NTF \l_@@_bwphdcover_bool {
     \rotatebox[origin=c]{-90}{
       \fontsize{13}{0}\selectfont\color{spinetextcoloralt}\textbf{\vphantom{Ag}#1%
         \hspace{30pt}\the\year%
