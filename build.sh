@@ -119,6 +119,7 @@ if [ "$TEST" = false ]; then
         biber "${f%.tex}"
       fi
       lualatex -interaction=nonstopmode -halt-on-error "$f"
+      lualatex -interaction=nonstopmode -halt-on-error "$f"
       built["$f"]=1
       found_new=true
     done
