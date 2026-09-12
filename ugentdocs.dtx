@@ -4497,12 +4497,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \bool_if:NT \l_@@_thumbs_bool {
   \stopthumb
 }
-%</phd|crs>
-%<*phd>
 \bool_if:NF \l_@@_bare_bool {
   \begingroup
   \pagenumbering{gobble}
-%</phd>
+%</phd|crs>
 %<*bama|phd|rp|crs>
 \begin{titlepage}
   \setlength\parskip{0pt}%
@@ -4519,6 +4517,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \null
 \end{titlepage}%
 %</bama|phd|rp|crs>
+%<*phd|crs>
+  \endgroup
+\setcounter{page}{0}%
+}
+%</phd|crs>
 %<bama>\null\par
 %<*bama|rp>
 % Only 1 page: Copyrightnotices
@@ -4540,10 +4543,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \fi
 %</crs>
 %<*phd>
-  \endgroup
-  \setcounter{page}{0}%
-}
-
 % Page 1: blank
 \clearpage\thispagestyle{empty}\null
 
