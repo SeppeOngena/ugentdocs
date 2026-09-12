@@ -4482,26 +4482,33 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \newpage
 % \subsection{Making titles and covers}
 % \label{S:usage:macros:make}
-% The title page is generated using the |\maketitle| command. As the
-% book class from which we inherit already defines this command, we
-% need to renew it.
+% \DescribeMacro[bama-phd-rp-crs-ex-le]{\maketitle}
+%   A native \LaTeX{} macro, overridden to support the generation of
+%   cover pages, title pages, colophon pages, etc.
 %
-% \DescribeObject[custom]{\maketitle}
+% For the |bama|, |phd|, |course|, and |report| classes,
+% this generates the cover page using |\@frontcover|
+% (see Section \ref{S:style:covers}):
 %    \begin{macrocode}
 %<*bama|phd|rp|crs>
 \ExplSyntaxOn
 \renewcommand\maketitle{%
 \pagestyle{empty}
+%
+% Cover page
 %</bama|phd|rp|crs>
 %<*phd|crs>
+% Do not print thumbs on the first pages
 \bool_if:NT \l_@@_thumbs_bool {
   \stopthumb
 }
+% Do not count page number of the cover page
 \bool_if:NF \l_@@_bare_bool {
   \begingroup
   \pagenumbering{gobble}
 %</phd|crs>
 %<*bama|phd|rp|crs>
+% Insert front cover
 \begin{titlepage}
   \setlength\parskip{0pt}%
   \setlength\parindent{0pt}%
@@ -4523,15 +4530,21 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 %</phd|crs>
 %<bama>\null\par
+%    \end{macrocode}
+%
+% Then, the remainig front pages are added.
+% For the |bama|, |report|, and |course| classes,
+% this is just a copyright page using
+% |\@copyrightnotices| (See Section \ref{S:style:copyright}):
+%    \begin{macrocode}
 %<*bama|rp>
-% Only 1 page: Copyrightnotices
 \ifx\@copyrightnotices\@empty\else
 \noindent\@copyrightnotices
 \fi
 %</bama|rp>
+%
 %<*crs>
 ~\par\relax
-% Only 1 page: Copyrightnotices
 \clearpage
 \bool_if:NT \l_@@_copyright_bool {
   \backgroundsetup{contents={Copyright~Ghent~University,~All~Rights~Reserved}}
@@ -4542,6 +4555,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \clearpage
 \fi
 %</crs>
+%    \end{macrocode}
+%
+% For the |phd| class, this is a blank page,
+% the committee page, the title page, and the colophon page:
+%    \begin{macrocode}
 %<*phd>
 % Page 1: blank
 \clearpage\thispagestyle{empty}\null
@@ -4565,10 +4583,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 {\printseq{jurymemberswaff}{\\}{\\}{\\}}\\[2ex]%
 %
 %
-\textbf{\translatekey{dean}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty}}\hfill\break
+\textbf{\translatekey{dean}\tl_if_empty:NF \l_@@_fselector_tl {%
+    ~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty%
+  }}\hfill\break
 \@dean\\[2ex]
 %
-\textbf{\translatekey{rector}~\translatekey[lowercase]{of}~\translatekey{org-deugent}}\hfill\break
+\textbf{\translatekey{rector}~\translatekey[lowercase]{of}
+  ~\translatekey{org-deugent}}\hfill\break
 \@rector
 \end{minipage}%
 
@@ -4597,7 +4618,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     \vspace{10\baselineskip}%
   }
 
-  {\small \@doctype{}~\translatekey[lowercase]{submittedto}\tl_if_empty:NF \l_@@_fselector_tl {~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}}~\translatekey{org-deugent},~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}\par}%
+  {\small \@doctype{}~\translatekey[lowercase]{submittedto}%
+    \tl_if_empty:NF \l_@@_fselector_tl {%
+      ~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}}%
+      ~\translatekey{org-deugent},~\translatekey{phdfulfil}%
+      ~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}\par}%
 
   \vspace{.3\baselineskip}%
   {\small\translatekey{org-ugent},~\@location,~\@date}%
@@ -4607,7 +4632,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \clearpage\thispagestyle{empty}\null\vfill
 \@copyrightnotices
 %</phd>
+%
 %<*bama|phd|rp|crs>
+% Relax a bit
   \setcounter{footnote}{0}%
   \global\let\thanks\relax
   \global\let\maketitle\relax
@@ -4623,46 +4650,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bama|phd|rp|crs>
 %    \end{macrocode}
 %
-% \DescribeObject[custom]{\makefinalpage}
-%   Below, one can find the code for the final page:
-%    \begin{macrocode}
-%<*bama|phd|crs|rp>
-\ExplSyntaxOn
-\newcommand\makefinalpage{
-%</bama|phd|crs|rp>
-%<bama>\@backcover{}
-%<*phd|crs>
-\bool_if:NF \l_@@_bare_bool {
-  \cleardoublepage
-  \bool_if:NT \l_@@_thumbs_bool {
-    \stopthumb
-  }
-  \thispagestyle{empty}
-  \null% intentionally blank page
-  \clearpage
-  \thispagestyle{empty}
-  \AddToHookNext{shipout/foreground}{%
-    \begin{tikzpicture}[remember~picture,overlay]
-    \node[anchor=south~west, inner~sep=0pt]
-    at (current~page.south~west) {%
-      \@backcover
-    };
-    \end{tikzpicture}%
-  }%
-  \null
-}
-%</phd|crs>
-%<*bama|phd|crs|rp>
-}
-\ExplSyntaxOff
-%</bama|phd|crs|rp>
-%    \end{macrocode}
-%
-%
-% \DescribeObject[custom]{\maketitle}
-% The top of the letter is generated using the |\maketitle|
-% command.
-%
+% The |letter| class also uses |\maketitle| to typeset the header,
+% including the logos, the faculty and team header,
+% and the info ribbon (|\@letterheader|, see Section \ref{S:usage:macros:letter}).
+% It also typesets the first page, with the foldline, the from and to address,
+% and the sender information:
 %    \begin{macrocode}
 %<*le>
 \ExplSyntaxOn
@@ -4673,10 +4665,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     \begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt,overlay]
     \clip (0,0) rectangle(\paperwidth,-\paperheight);
     \begin{scope}[shift={(\gridunit,-\@PH)}]
-    \ugentlogo{4\gridunit}{ugent@main}{0.0}
+      \ugentlogo{4\gridunit}{ugent@main}{0.0}
     \end{scope}
     \begin{scope}[shift={(\gridunit,-3\gridunit)}]
-    \faclogo{3\gridunit}{ugent@\@fselector}{0}
+      \faclogo{3\gridunit}{ugent@\@fselector}{0}
     \end{scope}
     \path (\@PW-\gridunit,-\gridunit)
     node[anchor=north~east,text~width=61.5mm,align=left] {
@@ -4712,10 +4704,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     node[anchor=north~east,text~width=61.5mm,align=left] {
       \textcolor{ugent@main}{\textbf{\@sender}}
       \ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
-      \ifseqempty{emails} {}{E~\printseq{emails}  {\\\phantom{E~}}{\\\phantom{E~}}{\\\phantom{E~}}\\}
-      \ifseqempty{phones} {}{T~\printseq{phones}  {\\\phantom{T~}}{\\\phantom{T~}}{\\\phantom{T~}}\\}
-      \ifseqempty{faxes}  {}{F~\printseq{faxes} {\\\phantom{F~}}{\\\phantom{F~}}{\\\phantom{F~}}\\}
-      \ifseqempty{mobiles}{}{M~\printseq{mobiles} {\\\phantom{M~}}{\\\phantom{M~}}{\\\phantom{M~}}\\}
+      \ifseqempty{emails} {}{E~\printseq{emails}
+        {\\\phantom{E~}}{\\\phantom{E~}}{\\\phantom{E~}}\\}
+      \ifseqempty{phones} {}{T~\printseq{phones}
+        {\\\phantom{T~}}{\\\phantom{T~}}{\\\phantom{T~}}\\}
+      \ifseqempty{faxes}  {}{F~\printseq{faxes}
+        {\\\phantom{F~}}{\\\phantom{F~}}{\\\phantom{F~}}\\}
+      \ifseqempty{mobiles}{}{M~\printseq{mobiles}
+        {\\\phantom{M~}}{\\\phantom{M~}}{\\\phantom{M~}}\\}
       \vskip 1.75ex
       \@address\\[1.75ex]
       \@ifpackageloaded{hyperref}{
@@ -4732,14 +4728,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   {\bfseries\@subject}
 }
 \ExplSyntaxOff
-
 %</le>
 %    \end{macrocode}
 %
-% \DescribeObject[custom]{\maketitle}
-% The title page of the exam class is generated using the |\maketitle|
-% command.
-%
+% For the |exam|, the |\maketitle| macro simply sets the cover page:
 %    \begin{macrocode}
 %<*ex>
 \renewcommand\maketitle{%
@@ -4883,21 +4875,59 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 %    \end{macrocode}
 %
-% \DescribeObject[custom]{\makebookcover}
+% \DescribeMacro[phd-crs]{\makefinalpage}
+%   Inserts the final pages and cover
+%   using |\@backcover| (see Section \ref{S:style:covers}).
+%   An extra blank page is included (the back of the cover).
+% \iffalse
+%<*phd|crs>
+\ExplSyntaxOn
+\newcommand\makefinalpage{
+\bool_if:NF \l_@@_bare_bool {
+  \cleardoublepage
+  \bool_if:NT \l_@@_thumbs_bool {
+    \stopthumb
+  }
+  \thispagestyle{empty}
+  \null% intentionally blank page
+  \clearpage
+  \thispagestyle{empty}
+  \AddToHookNext{shipout/foreground}{%
+    \begin{tikzpicture}[remember~picture,overlay]
+    \node[anchor=south~west, inner~sep=0pt]
+    at (current~page.south~west) {%
+      \@backcover
+    };
+    \end{tikzpicture}%
+  }%
+  \null
+}
+}
+\ExplSyntaxOff
+%</phd|crs>
+% \fi
+%
+% \DescribeMacro[bkc]{\makebookcover}
 %   This macro creates a book cover for the bookcover class. This is already
 %   defined in the |bookcover| package, so we need to renew it.
-%  First we calculate the spine width, set some dimensions,
-%  and check if we can print on the spine:
-%    \begin{macrocode}
+%   If the spine width is too small, the spine text will not be printed.
+%   Uses the |\@frontcover| and |\@backcover| (see Section \ref{S:style:covers}).
+% \iffalse
 %<*bkc>
 \ExplSyntaxOn
-\bool_new:N \l_@@_printonspine_bool
 \msg_new:nnnn { bookcover } { spine-too-small }
 { The~spine~width~(#1mm)~is~too~small. }
 { It~must~be~at~least~10mm~to~typeset~any~spine~text. }
 \msg_new:nnnn { bookcover } { spine-big-enough }
 { The~spine~width~(#1mm)~is~big~enough. }
 { It~must-be~at~least~10mm~to~typeset~the~spine~text. }
+\ExplSyntaxOff
+%</bkc>
+% \fi
+%    \begin{macrocode}
+%<*bkc>
+\ExplSyntaxOn
+\bool_new:N \l_@@_printonspine_bool
 \AtBeginDocument{
   \fp_compare:nNnTF { \spinewidth } < { 10.0mm } {
     \msg_warning:nnx { bookcover } { spine-too-small } { \fp_to_decimal:n{\spinewidth/1mm} }
@@ -4907,12 +4937,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     \bool_set_true:N \l_@@_printonspine_bool
   }
 }
-\ExplSyntaxOff
-%</bkc>
-%    \end{macrocode}
-%    \begin{macrocode}
-%<*bkc>
-\ExplSyntaxOn
+
 \renewcommand\makebookcover{
   \begin{bookcover}
     \bookcovercomponent{normal}{front}{\@frontcover}
@@ -4944,9 +4969,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bkc>
 %    \end{macrocode}
 %
-% \DescribeObject[custom]{\generatebookcover}
-% This macro generates a cover.tex file from your current document.
-%    \begin{macrocode}
+% \DescribeMacro[phd-crs]{\generatebookcover}
+% This macro generates a |<filename>-cover.tex| file
+% from your current document for the creation of a
+% full book cover (back/spine/front).
+% It copies over all relevant information.
+% \iffalse
 %<*phd|crs>
 \ExplSyntaxOn
 \fp_new:N \l_@@_paperweight_fp
@@ -5089,7 +5117,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</phd|crs>
-%    \end{macrocode}
+% \fi
 %
 %
 % \newpage
@@ -5832,6 +5860,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %
 % \subsection{Covers}
+% \label{S:style:covers}
 % \subsubsection{Plain covers}
 %
 % The cover pages tikzpictures for the |bama| and |report| classes are generated
@@ -6377,7 +6406,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %
 % \subsection{Copyright notices}
-%
+% \label{S:style:copyright}
 %    \begin{macrocode}
 %<*bama>
 \ExplSyntaxOn
@@ -7856,11 +7885,11 @@ For all else, we trust you can find what you need with a bit of decent searching
 %% Remove comment if you want to see spine text in the auto-generated cover
 %%---------------------------------
 %%\foreach \i in {A,B,C,D,E} {
-  %%\chapter{Dummy chapter \i}
-  %%\foreach \j in {1,...,50} {
-    %%\kant[22-24]
-    %%}
-  %%}
+%%  \chapter{Dummy chapter \i}
+%%  \foreach \j in {1,...,50} {
+%%    \kant[22-24]
+%%  }
+%%}
 %%---------------------------------
 %</phd1|phd2>
 %
