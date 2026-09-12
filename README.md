@@ -40,7 +40,6 @@ To use it currently:
 - Copy the contents of the `ugentdocs` folder from the .zip into your document folder, and any example from the `examples` folder should you wish, e.g.:
 ```
 └── MyThesis/
-    ├── Images/                                           <--
     ├── Figures/
     │   ├── FIG00-GraphicalAbstract.pdf
     │   └── FIG01-IntroductionScheme.pdf
@@ -63,7 +62,8 @@ To use it currently:
 
 Features
 -- 
-For a complete list of features, you will be able to check the documentation (when it's finished). For now, you can glance at the preview images below and check the included example.tex files in the download .zip.
+For a complete list of features, you can check the documentation (`ugentdocs.pdf`).
+If you want a quick visual look at what the package provides, you can glance at the preview images below and check the included example.tex files in the download .zip.
 
 <details>
     
@@ -72,7 +72,7 @@ For a complete list of features, you will be able to check the documentation (wh
 ### 1. `ugentbama`
 - Implements bachelor's and master's dissertation. See the examples for all functionality and specific use.
 - Generates coverpage and copyright page with signature fields automatically based on your data input, e.g. `\author`, `\supervisor`, `\tutor`, `\title`, etc.
-- The copyright page sets a confidentiality notice automatically when you set `\embargotemp{startdate}{enddate}` or `\embargofull`
+- The copyright page sets a confidentiality notice automatically when you set `\embargo[startdate][enddate]` or just `\embargo`
 - You can change the copyright page to the signed one using `\copyrightnotices{\includepdf{copyright_signed.pdf}}`
 - Changes titles etc. to UGent-style
   
@@ -82,8 +82,8 @@ For a complete list of features, you will be able to check the documentation (wh
     <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-bama-2</th>
   </tr>
   <tr>
-    <td style="border: none; text-align: left;">Using options bw (faculty), coverbg, neutralcolors, and font is UGent Panno Text (default)</td>
-    <td style="border: none; text-align: left;">Using options bw (faculty), dutch, and font is overridden to Arial</td>
+    <td style="border: none; text-align: left;">Using options faculty=bw, coverbg, neutralcolors, and font is UGent Panno Text (default)</td>
+    <td style="border: none; text-align: left;">Using options faculty=bw, dutch, and font is overridden to Arial</td>
   </tr>
   <tr>
     <td style="border: none;"><img width="100%" alt="Master's title page" src="https://github.com/user-attachments/assets/31580a54-1e4c-4316-bff4-8746d44cd523" /></td>
@@ -97,7 +97,7 @@ For a complete list of features, you will be able to check the documentation (wh
 ### 2. `ugentphd` and `ugentbookcover` 
 - Implements PhD dissertation. See the examples for all functionality and specific use.
 - Generates a coverpage and automatically generates a `filename-cover.tex` file which includes the full cover (back/spine/front).
-- The data pages are automatically set based on your data input.
+- The data pages (title, examination committee, colophon) are automatically set based on your input.
 - A `bare` option that removes the cover from your dissertation for printing
 - A `cameraready` option that embeds your content and cover into a larger (for the content an A4) page for printing.
 <table border="0" style="width: 100%;">
@@ -106,8 +106,8 @@ For a complete list of features, you will be able to check the documentation (wh
     <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-phd-2</th>
   </tr>
   <tr>
-    <td style="border: none; text-align: left;">Using options we (faculty),surnamefirst, dutch, and font is overridden to Arial</td>
-    <td style="border: none; text-align: left;">Using options bw (faculty), cameraready, with a titlepageimage and isbn added, and font is UGent Panno Text</td>
+    <td style="border: none; text-align: left;">Using options faculty=we,surnamefirst, dutch, and font is overridden to Arial</td>
+    <td style="border: none; text-align: left;">Using options faculty=bw, cameraready, with a coverimage and ISBN added, and font is UGent Panno Text</td>
   </tr>
   <tr>
     <td style="border: none;"><img width="100%" alt="Dissertation 1 Full Cover" src="https://github.com/user-attachments/assets/2fd3cf99-5775-47c9-b09a-7e0350c65d9f" /></td>
@@ -129,10 +129,10 @@ For a complete list of features, you will be able to check the documentation (wh
 </table>
 
 ### 3. `ugentreport`
-- Can be used to typeset project, assignments, or meeting reports.
+- Can be used to typeset project, assignment, or meeting reports.
 - Depending on the data passed, the titlepage can be adjusted as needed (e.g. no `\author` but `\address` is used).
 - Chapter titles etc. are typeset the same as the `ugentthesis` class (see images below)
-- Other than that, the report class doesn't do much more.
+- Other than that, the report class doesn't do much.
 <table border="0" style="width: 100%;">
   <tr>
     <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-report-1</th>
@@ -140,7 +140,7 @@ For a complete list of features, you will be able to check the documentation (wh
   </tr>
   <tr>
     <td style="border: none; text-align: left;">Using no faculty options, and font is overridden to Arial</td>
-    <td style="border: none; text-align: left;">Using options bw (faculty),coverbg, dutch, and font is UGent Panno Text</td>
+    <td style="border: none; text-align: left;">Using options faculty=bw,coverbg, dutch, and font is UGent Panno Text</td>
   </tr>
   <tr>
     <td style="border: none;">
@@ -158,7 +158,7 @@ For a complete list of features, you will be able to check the documentation (wh
 ### 3. `ugentcourse`
 - Can be used to typeset course notes.
 - Generates a coverpage and automatically generates a `filename-cover.tex` file which includes the full cover (back/spine/front).
-- On the cover page, the faculty icon is shown in large if no titlepageimage is added.
+- On the cover page, the faculty icon is shown in large if no coverimage is added.
 - Chapter titles etc. are typeset the same as the `ugentdissertation` class
 - A copyright watermark can be added if needed.
 <table border="0" style="width: 50%;">
