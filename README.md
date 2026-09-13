@@ -16,20 +16,18 @@
 
 Overview
 --
->[!CAUTION]
-> The package is not currently guaranteed to be in a usable state, as this repository is still a WIP. See the [ugentdocs 1.0 project](https://github.com/users/SeppeOngena/projects/1) for up-to-date progress towards v1.0. See the [releases page](https://github.com/SeppeOngena/ugentdocs/releases) to try pre-releases.
 
-This package provides the following classes (implementation status shown):
-- ✅ `ugentbama`: Master/bachelor's dissertation
-- ✅ `ugentphd`: PhD dissertation
-- ✅ `ugentbookcover` class to create full covers (back/spine/front) for PhD dissertations and courses
-- ✅ `ugentreport`: Project reports, e.g. group assignments
-- ✅ `ugentcourse`: Course notes
-- ⬜ `ugentexam`: Exams
-- ✅ `ugentletter`: Letters
-- 🚧 `beamerthemeugent`: Presentation slides
+This package provides the following classes:
+- `ugentbama`: Master/bachelor's dissertation
+- `ugentphd`: PhD dissertation
+- `ugentbookcover` class to create full covers (back/spine/front) for PhD dissertations and courses
+- `ugentreport`: Project reports, e.g. group assignments
+- `ugentcourse`: Course notes
+- `ugentletter`: Letters
+- 🚧 `ugentexam`: Exams (WIP)
+- 🚧 `beamerthemeugent`: Presentation slides (WIP)
 
-The goal is also to transfer this repository to UGent one when complete, so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 
+The goal is also to transfer this repository to UGent one when complete (see the [ugentdocs 1.0 project](https://github.com/users/SeppeOngena/projects/1) for up-to-date progress towards v1.0), so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 
 
 
 Installation
