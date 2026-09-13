@@ -4589,12 +4589,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %
 \textbf{\translatekey{dean}\tl_if_empty:NF \l_@@_fselector_tl {%
-    ~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty%
+    {}~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty%
   }}\hfill\break
 \@dean\\[2ex]
 %
 \textbf{\translatekey{rector}~\translatekey[lowercase]{of}
-  ~\translatekey{org-deugent}}\hfill\break
+  {}~\translatekey{org-deugent}}\hfill\break
 \@rector
 \end{minipage}%
 
@@ -4625,9 +4625,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
   {\small \@doctype{}~\translatekey[lowercase]{submittedto}%
     \tl_if_empty:NF \l_@@_fselector_tl {%
-      ~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}}%
-      ~\translatekey{org-deugent},~\translatekey{phdfulfil}%
-      ~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}\par}%
+      {}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}}%
+      {}~\translatekey{org-deugent},~\translatekey{phdfulfil}%
+      {}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}\par}%
 
   \vspace{.3\baselineskip}%
   {\small\translatekey{org-ugent},~\@location,~\@date}%
@@ -4870,10 +4870,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \lfoot[\small \@shorttitle]{\small \@shorttitle}
   \rfoot[\small
   \ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi~---
-  ~\@academicyear]
+  {}~\@academicyear]
   {\small
     \ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi
-    ~---~\@academicyear}
+    {}~---~\@academicyear}
   \renewcommand*{\footrulewidth}{1pt}
   \@extrainfo{}
 }
@@ -6095,10 +6095,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     \vskip 1em
     {\@doctype{}~\translatekey[lowercase]{submittedto}%
       \ifx\@fselector\@empty\else{}%
-        ~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}%
+        {}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}%
       \fi{}%
-      ~\translatekey{org-deugent},~\translatekey{bmfulfil}%
-      ~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}
+      {}~\translatekey{org-deugent},~\translatekey{bmfulfil}%
+      {}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}
 
     \vskip 1em
     \translatekey{acyear}:~\@academicyear
@@ -6270,10 +6270,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
       \fontsize{11}{15}\selectfont\nohyphens{%
         \@doctype{}~\translatekey[lowercase]{submittedto}%
         \ifx\@fselector\@empty\else{}%
-          ~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}%
+          {}~\translatekey[lowercase]{the-de}~\@faculty{}~\translatekey[lowercase]{of}%
         \fi{}%
-        ~\translatekey{org-deugent},%
-        ~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}};
+        {}~\translatekey{org-deugent},%
+        {}~\translatekey{phdfulfil}~\printseq{degrees}{~\&~}{,~}{\translatekey{andlist}~}}};
   }
 
   \bool_if:NT \l_@@_embargo_bool {
@@ -6629,10 +6629,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \str_if_eq:VnTF \l_@@_language_tl {dutch} {
     \@bamadisclaimer
   }{
-    \foreignlanguage{dutch}{
+    \begingroup % Has to be with selectlanguage for the date translation
+    \selectlanguage{dutch}
     \@bamadisclaimer
-    }
+    \endgroup
+
     \newline\newline
+    \selectlanguage{english}
     \@bamadisclaimer
   }
   \newline\newline
@@ -6645,7 +6648,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \newcommand{\@bamadisclaimer}{
   {\translatekey{the-de}~\getseqcaption[lowercase]{authors}{}
-    ~\translatekey[lowercase]{and}~\getseqcaption[lowercase]{allsupervisors}{}}
+    {}~\translatekey[lowercase]{and}~\getseqcaption[lowercase]{allsupervisors}{}}
   \bool_if:NTF \l_@@_embargo_bool {
     \bool_if:NTF \l_@@_embargotemp_bool {
       {~\@embargotempwithdates}
@@ -6712,7 +6715,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     {\textbf{\translatekey{pleaserefer}:}\\
       \printseq{authorlist}{~\&~}{,~}{\translatekey{andlist}~}~(\the\year).~
       {\renewcommand{\\}[1][]{~}\@title{}\ifx\@subtitle\@empty\else{}:~\@subtitle\fi}.
-      ~\@doctype{}.~Ghent~University,~Belgium.}%
+      {}~\@doctype{}.~Ghent~University,~Belgium.}%
     \ifx\@isbn\@empty\else
     \\[\baselineskip]{\small ISBN~\@isbn}%
     \fi
@@ -6753,7 +6756,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     }
 
     \translatekey{typeset}~\textrm{\LaTeX{}}~\translatekey[lowercase]{and}
-    ~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
+    {}~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
     \@extranotices
 
     \vskip 1em
@@ -6780,7 +6783,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   {
     \setlength\parindent{0em}
     \translatekey{typeset}~\textrm{\LaTeX{}}~\translatekey[lowercase]{and}
-    ~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
+    {}~\translatekey[lowercase]{the-het}~\texttt{ugentdocs}~\translatekey[lowercase]{package}.\\
     \@extranotices
 
     \copyright{}~\the\year~\translatekey{org-ugent},
@@ -7987,7 +7990,7 @@ Tables such as Table \ref{T:TabExample} are added as follows:
 \caption[<short table caption>]{<This is the long caption of your table.>}
 \label{T:TabExample}
 \centering
-  \begin{tabular}{lcc}
+  \begin{tabular}{lrl}
     \toprule
     \multirow{2}{*}{Variable} & \multicolumn{2}{c}{Value}\\
     \cline{2-3}
@@ -7996,7 +7999,7 @@ Tables such as Table \ref{T:TabExample} are added as follows:
     One & 1.01 & \unit{\gram\per\metre} \\
     Two & 52.4 & \unit{\milli\gram\per\cubic\metre\per\hour} \\
     \bottomrule
-    \multicolumn{3}{l}{\textsuperscript{a}This is a footnote over multiple columns}
+    \multicolumn{3}{p{5cm}}{\textsuperscript{a}This is a footnote over multiple columns and rows}
   \end{tabular}
 \end{table}
 
