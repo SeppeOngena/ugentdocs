@@ -268,7 +268,7 @@
 %     e.g., |\g_@@_degrees_seq|.
 %     See Section~\ref{S:usage:nameseqparse} for more information.
 %   \item The classes for which an option or macro is available are given
-%     between square brackets in the margin, e.g. [phd\|crs].
+%     between square brackets in the margin, e.g. [phd-crs].
 %   \item Most options can be set as |option=value| in your
 %     |\documentclass[<options>]{<class>}| command, but also plain
 %     |value| works.
@@ -2075,8 +2075,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsection{Name and sequence parsing}
 % \label{S:usage:nameseqparse}
 % Names are always input as "Surname, Firstname"
-% (BibTeX format) to, e.g, |\author| commands, see the
-% ``people'' macros in Section~\ref{S:usage:macros:people}.
+% (BibTeX format) in, e.g, |\author| commands (see the
+% ``people'' macros in Section~\ref{S:usage:macros:people}).
 % The |ugentdocs| classes have specialized mechanisms
 % to convert these to regular "Firstname Surname" or "Surname Firstname",
 % and extracting initials, first names, and surnames.
@@ -2620,9 +2620,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|bama|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 %   \item |datetime2|: sets the date format based on the |localizedates| option.
-%     You can add more languages by calling |\usepackage[<languages>]{babel}|
-%     again in your customization file, but make sure a dictionary is available for
-%     the |main| language (see Section \ref{S:usage:langdateloc:dict}).
 %    \begin{macrocode}
 %<*crs|bama|phd|rp|le|ex|bkc|bmr>
 \ExplSyntaxOn
@@ -2635,7 +2632,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|bama|phd|rp|le|ex|bkc|bmr>
 %    \end{macrocode}
 %   \item |background|: adds background watermark support for the courses and
-%     reports if |copyright| is |true|.
+%     reports if the |copyright| option is |true|.
 %     Currently, only the course class uses this through\\
 %     |\backgroundsetup{contents={Copyright Ghent~University, All Rights Reserved}}|,
 %     but you can set your own watermark if you want by calling\\
