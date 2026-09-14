@@ -64,11 +64,13 @@ generate_changelog() {
 # 1. Argument parse and tmp folder setup
 
 TEST=false
+IMG=false
 VERSION="dev"
 
 for arg in "$@"; do
   case "$arg" in
     --test) TEST=true ;;
+    --images) IMG=true ;;
     *) VERSION="$arg" ;;
   esac
 done
@@ -167,6 +169,15 @@ mv "$TMP"/*.cfg "./build/${DIST}/examples/" 2>/dev/null || true
 # 3.3 Remove tmp dir
 rm -rf "$TMP"
 
+# 3.4
+if [ "$IMG" = true ]; then
+  mkdir -p "./build/${DIST}/examples/images"
+  for f in "./build/${DIST}/examples/"*.pdf; do
+      [ -f "$f" ] || continue
+      base="$(basename "$f" .pdf)"
+      pdftoppm -png -r 300 "$f" "./build/${DIST}/examples/images/${base}"
+  done
+fi
 
 # 4.0 Build zip for release attach
 cd ./build
