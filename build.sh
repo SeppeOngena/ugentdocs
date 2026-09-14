@@ -65,12 +65,15 @@ generate_changelog() {
 
 TEST=false
 IMG=false
+COMPILER="lualatex"
 VERSION="dev"
 
 for arg in "$@"; do
   case "$arg" in
     --test) TEST=true ;;
     --images) IMG=true ;;
+    --lualatex) COMPILER="lualatex";;
+    --xelatex) COMPILER="xelatex";;
     *) VERSION="$arg" ;;
   esac
 done
@@ -100,14 +103,14 @@ pushd "$TMP" >/dev/null
 # 2. Docstrip and build pdfs
 
 # 2.1 Docstrip the class files from the .dtx using the .ins
-lualatex -interaction=nonstopmode -halt-on-error ugentdocs.ins
+"$COMPILER" -interaction=nonstopmode -halt-on-error ugentdocs.ins
 
 if [ "$TEST" = false ]; then
   # 2.2 Build the documentation
-  lualatex -interaction=nonstopmode -halt-on-error "\def\ugentdocsversion{$VERSION}\input{ugentdocs.dtx}"
+  "$COMPILER" -interaction=nonstopmode -halt-on-error "\def\ugentdocsversion{$VERSION}\input{ugentdocs.dtx}"
   makeindex -s gind.ist ugentdocs.idx
-  lualatex -interaction=nonstopmode -halt-on-error "\def\ugentdocsversion{$VERSION}\input{ugentdocs.dtx}"
-  lualatex -interaction=nonstopmode -halt-on-error "\def\ugentdocsversion{$VERSION}\input{ugentdocs.dtx}"
+  "$COMPILER" -interaction=nonstopmode -halt-on-error "\def\ugentdocsversion{$VERSION}\input{ugentdocs.dtx}"
+  "$COMPILER" -interaction=nonstopmode -halt-on-error "\def\ugentdocsversion{$VERSION}\input{ugentdocs.dtx}"
 
   # 2.3 Build every example .tex file
   declare -A built
@@ -116,12 +119,12 @@ if [ "$TEST" = false ]; then
     for f in *.tex; do
       [ -f "$f" ] || continue
       [ -n "${built[$f]:-}" ] && continue
-      lualatex -interaction=nonstopmode -halt-on-error "$f"
+      "$COMPILER" -interaction=nonstopmode -halt-on-error "$f"
       if [ -f "${f%.tex}.bcf" ]; then
         biber "${f%.tex}"
       fi
-      lualatex -interaction=nonstopmode -halt-on-error "$f"
-      lualatex -interaction=nonstopmode -halt-on-error "$f"
+      "$COMPILER" -interaction=nonstopmode -halt-on-error "$f"
+      "$COMPILER" -interaction=nonstopmode -halt-on-error "$f"
       built["$f"]=1
       found_new=true
     done
