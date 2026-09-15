@@ -9372,6 +9372,27 @@ een b\'echamel saus:
 \setlength\parskip{0.5\baselineskip}
 \setlength\parindent{0em}
 
+% Patch circle not working
+\begingroup
+\catcode`\@=11\relax
+\gdef\@AT{@}%
+\endgroup
+
+\@ifundefined{beamer\@AT\@AT tmpop\@AT itemize item\@AT circle}{}{%
+  \expandafter\let\csname beamer\@AT\@AT tmpop\@AT itemize item\@AT circle\endcsname\relax
+  \expandafter\let\csname beamer\@AT\@AT tmpop\@AT itemize subitem\@AT circle\endcsname\relax
+  \expandafter\let\csname beamer\@AT\@AT tmpop\@AT itemize subsubitem\@AT circle\endcsname\relax
+}
+
+\defbeamertemplate{itemize item}{circle}{%
+  \usebeamercolor[fg]{itemize item}\tikz[baseline=-0.5ex]\fill[fg] (0,0) circle (0.4ex);%
+}
+\defbeamertemplate{itemize subitem}{circle}{%
+  \usebeamercolor[fg]{itemize subitem}\tikz[baseline=-0.5ex]\fill[fg] (0,0) circle (0.32ex);%
+}
+\defbeamertemplate{itemize subsubitem}{circle}{%
+  \usebeamercolor[fg]{itemize subsubitem}\tikz[baseline=-0.5ex]\fill[fg] (0,0) circle (0.28ex);%
+}
 
 % Use square for TOC and dash for itemize
 \setbeamertemplate{sections/subsections in toc}[square]
