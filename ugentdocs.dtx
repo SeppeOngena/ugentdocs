@@ -9014,15 +9014,15 @@ een b\'echamel saus:
   {Itemize / enumerations}
   {Different styles}
   Usage:\\
-  Set them (in your preamble) using: \command{setbeamertemplate\{itemize items\}[triangle]}\\
-  The default of the uantwerpen beamer template is set to \texttt{square} to be
-  similar to our logo.
+  Set them (in your preamble) using: \command{setbeamertemplate\{itemize items\}[circle]}\\
+  The default of the ugent beamer template is set to \command{textendash} following the Office
+  templates.
   \medskip
 
   \begin{columns}
     \column[T]{0.3\textwidth}
-    \alert{default}
-    \setbeamertemplate{itemize items}[default]
+    \alert{\command{textendash} (default)}
+    \setbeamertemplate{itemize items}{\textendash}
     \listdemo
     \column[T]{0.3\textwidth}
     \alert{triangle}
@@ -9372,10 +9372,10 @@ een b\'echamel saus:
 \setlength\parskip{0.5\baselineskip}
 \setlength\parindent{0em}
 
-% use square (can also be circle or ball
-\setbeamertemplate{sections/subsections in toc}[square]
-\setbeamertemplate{itemize items}[circle]
 
+% Use square for TOC and dash for itemize
+\setbeamertemplate{sections/subsections in toc}[square]
+\setbeamertemplate{itemize items}{\textendash}
 %\setbeamertemplate{description item}[align left]
 
 \newcommand*\ugentshape[3][]{
