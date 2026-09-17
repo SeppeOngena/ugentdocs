@@ -9661,7 +9661,7 @@ een b\'echamel saus:
 \define@key{beamerframe}{fill}[true]{\bool_set_true:N \l_@@_graphfill_bool}
 
 \define@key{beamerframe}{graphic}
-[{\includegraphics[scale=0.1,min~width=\pagewidth,min~height=\pageheight]{example-image-a}}]{%
+[{\includegraphics[scale=0.1,min~width=\paperwidth,min~height=\paperheight]{example-image-a}}]{%
   \bool_set_true:N \l_@@_graphgiven_bool
   \tl_set:Nn \l_@@_graphcontent_tl {#1}%
 }
@@ -9821,7 +9821,7 @@ een b\'echamel saus:
 
 \defbeamertemplate*{background canvas}{normal}
 {%
-  \gdef\appropriatelogo{}%
+  \gdef\appropriatelogo{\ugentlogo{\@HBS}{ugent@main}{0}}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \IfGraphGiven{
@@ -9925,7 +9925,10 @@ een b\'echamel saus:
   \hbox{\begin{beamercolorbox}
       [wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,left,leftskip=.8cm
       plus1fill]{author in head/foot}%
-      %\includegraphics[height=0.35\@logounit]{\appropriatelogo}
+      \begin{tikzpicture}
+      [overlay,remember picture, shift={(current page.south west)}]
+      \appropriatelogo
+      \end{tikzpicture}
       \hskip0pt plus 1filll ~
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,
