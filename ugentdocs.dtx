@@ -8404,8 +8404,8 @@ een b\'echamel saus:
   \end{itemize}
 \end{frame}
 
-\begin{l3qframe}[t,rqgraphic={
-    \begin{minipage}{0.35\textwidth}
+\begin{graphicframe}[t,graphicpos=r,graphicproportion=0.25,graphic={
+    \begin{minipage}{0.22\textwidth}
       \footnotesize
       \begin{center}
         \begin{tabular}{c}
@@ -8447,7 +8447,7 @@ een b\'echamel saus:
   \item \texttt{rgb}
   \end{itemize}
 
-\end{l3qframe}
+\end{graphicframe}
 
 \begin{frame}[t]
   {A note on the compiler you are using}
@@ -8711,7 +8711,7 @@ een b\'echamel saus:
 
 \end{frame}
 
-\begin{l3qframe}[rqgraphic]
+\begin{graphicframe}[graphic,graphicpos=r,graphicproportion=0.25]
   {Some Random Title}
   {Please, adapt!}
 
@@ -8736,9 +8736,9 @@ een b\'echamel saus:
   \item Note: you can avoid rounding the corner using the
     frame option \texttt{noround} (may be useful when not using a photo)
   \end{itemize}
-\end{l3qframe}
+\end{graphicframe}
 
-\begin{r3qframe}[lqgraphic,t]
+\begin{graphicframe}[graphic,graphicpos=l,graphicproportion=0.25,t]
   {Some Random Title}
   {Please, adapt!}
 
@@ -8763,9 +8763,9 @@ een b\'echamel saus:
   \item Note: you can avoid rounding the corner using the
     frame option \texttt{noround} (may be useful when not using a photo)
   \end{itemize}
-\end{r3qframe}
+\end{graphicframe}
 
-\begin{lhframe}[rhgraphic]
+\begin{graphicframe}[graphic,graphicpos=r]
   {Some Random Title}
 
   \small
@@ -8789,9 +8789,9 @@ een b\'echamel saus:
     is loaded.
   \item Note: avoid rounding the corner using \texttt{noround}
   \end{itemize}
-\end{lhframe}
+\end{graphicframe}
 
-\begin{rhframe}[lhgraphic,t]
+\begin{graphicframe}[graphic,graphicpos=l,t]
   {Some Random Title}
 
   \small
@@ -8815,34 +8815,34 @@ een b\'echamel saus:
     is loaded.
   \item Note: avoid rounding the corner using \texttt{noround}
   \end{itemize}
-\end{rhframe}
+\end{graphicframe}
 
-%%\begin{bhframe}[thgraphic,t]
-%%  {Some Random Title}{Please, adapt!}
-%%  \small
-%%  The slide has been typeset as:
-%%  \begin{codesnippet}[\textwidth]
-%%    \bframe[bh][thgraphic=\{<load photo here>\}]\\
-%%    \ind\{Title\}\\
-%%    \ind\{Subtitle\}\\
-%%    \ind frame contents\\
-%%    \eframe[bh]
-%%  \end{codesnippet}
-%%\end{bhframe}
+\begin{graphicframe}[graphic,graphicpos=t,t]
+  {Some Random Title}{Please, adapt!}
+  \small
+  The slide has been typeset as:\\
+  \begin{codesnippet}[\textwidth]
+    \bframe[bh][thgraphic=\{<load photo here>\}]\\
+    \ind\{Title\}\\
+    \ind\{Subtitle\}\\
+    \ind frame contents\\
+    \eframe[bh]
+  \end{codesnippet}
+\end{graphicframe}
 
-%%\begin{thframe}[bhgraphic,t]
-%%  {Some Random Title}
-%%  {Please, adapt!}
-%%  \small
-%%  The slide has been typeset as:
-%%  \begin{codesnippet}[\textwidth]
-%%    \bframe[th][bhgraphic=\{<load photo here>\}]\\
-%%    \ind\{Title\}\\
-%%    \ind\{Subtitle\}\\
-%%    \ind frame contents\\
-%%    \eframe[th]
-%%  \end{codesnippet}
-%%\end{thframe}
+\begin{graphicframe}[graphic,graphicpos=b,t]
+  {Some Random Title}
+  {Please, adapt!}
+  \small
+  The slide has been typeset as:\\
+  \begin{codesnippet}[\textwidth]
+    \bframe[th][bhgraphic=\{<load photo here>\}]\\
+    \ind\{Title\}\\
+    \ind\{Subtitle\}\\
+    \ind frame contents\\
+    \eframe[th]
+  \end{codesnippet}
+\end{graphicframe}
 
 \section{Intermission slides}
 \sectionframe
@@ -8902,9 +8902,9 @@ een b\'echamel saus:
   You will have to run \LaTeX{} twice in order for the position to be correct!
 \end{frame}
 
-\begin{frame}[graphic,t]
+\begin{graphicframe}[t]{}{}
  % \place at (0.5,0.5) {\uantwerpenicon[scale=0.8]}
-\end{frame}
+\end{graphicframe}
 
 \begin{frame}[t]
   {Shading photographs}
@@ -8931,15 +8931,15 @@ een b\'echamel saus:
   \end{codesnippet}
 \end{frame}
 
-\begin{frame}[graphicfill={\darken[0.25]%
+\begin{graphicframe}[fill,graphic={\darken[0.25]%
   {\includegraphics[scale=0.1,min width=\paperwidth,min height=\paperheight]
-  {example-image-a}}},t]
+  {example-image-a}}},t]{}{}
   \place [anchor=north east] at (0.95,0.5) {
     \ugentcallout{3}{2.5}{
       \bfseries You cannot be serious!\\[1ex]
       John McEnroe}
   }
-\end{frame}
+\end{graphicframe}
 
 \begin{frame}[t]
   {Shading photographs locally}
@@ -8969,13 +8969,13 @@ een b\'echamel saus:
   callout to be correct!
 \end{frame}
 
-\begin{frame}[graphic,t]
+\begin{graphicframe}[graphic,t]{}{}
   \place [anchor=north west] at (0.1,0.9) {
     \ugentcallout[fill opacity=0.5]{4.5}{2.5}{
       \bfseries I'll be back!\\[1ex]
       Arnold Schwarzenegger}
   }
-\end{frame}
+\end{graphicframe}
 
 \section{Demo of some inner theme parts}
 \sectionframe
@@ -9444,7 +9444,6 @@ een b\'echamel saus:
 % Use square for TOC and dash for itemize
 \setbeamertemplate{sections/subsections in toc}[square]
 \setbeamertemplate{itemize items}{\textendash}
-%\setbeamertemplate{description item}[align left]
 
 \newcommand*\ugentshape[3][]{
 	\coordinate (bl) at #2;
@@ -9498,16 +9497,84 @@ een b\'echamel saus:
 %<*bmrouter>
 \mode<presentation>
 
-\newif\if@rhtext % TODO convert to L3
-\@rhtextfalse
-\newif\if@lhtext % TODO convert to L3
-\@lhtextfalse
-\newif\if@rqtext % TODO convert to L3
-\@rqtextfalse
-\newif\if@lqtext % TODO convert to L3
-\@lqtextfalse
-\newif\if@bhtext % TODO convert to L3
-\@bhtextfalse
+\ExplSyntaxOn
+\dim_new:N \l_@@_graphdim_dim
+\tl_new:N \l_@@_graphpos_tl \tl_set:Nn \l_@@_graphpos_tl {}
+\fp_new:N \l_@@_graphprop_fp \fp_set:Nn \l_@@_graphprop_fp {0.5}
+\bool_new:N \l_@@_graphgiven_bool
+\bool_new:N \l_@@_graphfill_bool
+\tl_new:N \l_@@_graphcontent_tl
+\fp_new:N \l_@@_bodyfrac_fp
+
+\cs_new_protected:Npn \@IfGraphSplit #1#2 {
+  \bool_if:NTF \l_@@_graphfill_bool {
+    #2
+  }{
+    \tl_if_empty:NTF \l_@@_graphpos_tl {#2}{#1}
+  }
+}
+
+\cs_new_protected:Npn \@ComputeGraphDims {
+  \bool_if:NTF \l_@@_graphfill_bool {
+    \pgfmathsetmacro\@shx{0}
+    \pgfmathsetmacro\@shy{0}
+    \pgfmathsetmacro\@dx{\@PW/1cm}
+    \pgfmathsetmacro\@dy{\@PH/1cm}
+  }{
+    \pgfmathsetmacro\@shx{\beamer@leftmargin/1cm}
+    \pgfmathsetmacro\@shy{(\paperheight-\textheight)/2/1cm}
+    \pgfmathsetmacro\@dx{\textwidth/1cm}
+    \pgfmathsetmacro\@dy{\textheight/1cm}
+  }
+  \@IfGraphSplit{
+    \pgfmathsetmacro\@oy{0.8}
+    \pgfmathsetmacro\@prop{\fp_to_decimal:N\l_@@_graphprop_fp}
+    \str_case:VnF \l_@@_graphpos_tl {
+      { l } {
+        \pgfmathsetmacro\@dx{\@prop*(\@PW-\beamer@leftmargin-\beamer@rightmargin)/1cm}
+        \pgfmathsetmacro\@shx{\beamer@leftmargin/1cm}
+        \pgfmathsetmacro\@dy{\@PH/1cm-2*\@oy}
+        \pgfmathsetmacro\@shy{\@oy}
+      }
+      { r } {
+        \pgfmathsetmacro\@dx{\@prop*(\@PW-\beamer@leftmargin-\beamer@rightmargin)/1cm}
+        \pgfmathsetmacro\@shx{\@PW/1cm-\beamer@rightmargin/1cm-\@dx}
+        \pgfmathsetmacro\@dy{\@PH/1cm-2*\@oy}
+        \pgfmathsetmacro\@shy{\@oy}
+      }
+      { t } {
+        \pgfmathsetmacro\@dx{(\@PW-\beamer@leftmargin-\beamer@rightmargin)/1cm}
+        \pgfmathsetmacro\@shx{\beamer@leftmargin/1cm}
+        \pgfmathsetmacro\@dy{\@prop*(\@PH/1cm-2*\@oy)}
+        \pgfmathsetmacro\@shy{\@PH/1cm-\@oy-\@dy}
+      }
+      { b } {
+        \pgfmathsetmacro\@dx{(\@PW-\beamer@leftmargin-\beamer@rightmargin)/1cm}
+        \pgfmathsetmacro\@shx{\beamer@leftmargin/1cm}
+        \pgfmathsetmacro\@dy{\@prop*(\@PH/1cm-2*\@oy)}
+        \pgfmathsetmacro\@shy{\@oy}
+      }
+    }{ \msg_error:nnn { ugentdocs } { unknown~graphpos } { \l_@@_graphpos_tl } }
+  }{}
+}
+
+\cs_new_protected:Npn \IfGraphGiven #1#2 {
+  \bool_if:NTF \l_@@_graphgiven_bool {#1}{#2}
+}
+
+\cs_new_protected:Npn \@SetInverse {
+  \@IfGraphSplit {
+    \gdef\maybeinverse{}\usebeamercolor[fg]{normal text}
+  }{
+    \gdef\maybeinverse{inverse }\usebeamercolor[fg]{inverse normal text}
+  }
+}
+
+\cs_new:Npn \@GraphContent {
+  \l_@@_graphcontent_tl
+}
+\ExplSyntaxOff
+
 \gdef\maybeinverse{}
 
 \define@key{beamerframe}{normal}[true]{
@@ -9541,7 +9608,7 @@ een b\'echamel saus:
 }
 
 \define@key{beamerframe}{negative}[true]{
-  \gdef\maybeinverse{inverse}%
+  \gdef\maybeinverse{inverse }%
   \usebeamercolor[fg]{\maybeinverse normal text}%
   \setbeamertemplate{title page}[negative]
   \setbeamertemplate{section page}[negative]%
@@ -9553,158 +9620,100 @@ een b\'echamel saus:
 <all>
 
 \define@key{beamerframe}{title}[{}]{%
-  \gdef\maybeinverse{inverse}%
+  \gdef\maybeinverse{inverse }%
   \usebeamercolor[fg]{\maybeinverse normal text}%
   \setbeamertemplate{title page}[main]%
   \setbeamertemplate{background canvas}[title]{#1}%
 }
 
 \define@key{beamerframe}{section}[{}]{%
-  \gdef\maybeinverse{inverse}%
+  \gdef\maybeinverse{inverse }%
   \usebeamercolor[fg]{\maybeinverse normal text}%
   \setbeamertemplate{subsection page}[main]%
   \setbeamertemplate{background canvas}[section]{#1}%
 }
 
 \define@key{beamerframe}{subsection}[{}]{%
-  \gdef\maybeinverse{inverse}%
+  \gdef\maybeinverse{inverse }%
   \usebeamercolor[fg]{\maybeinverse normal text}%
   \setbeamertemplate{section page}[main]%
   \setbeamertemplate{background canvas}[section]{#1}%
 }
 
-\define@key{beamerframe}{graphicfill}
-  [{\includegraphics[scale=0.1,min
-    width=\paperwidth,min height=\paperheight]{example-image-a}}]{%UA1
-  \gdef\maybeinverse{inverse }%
-  \usebeamercolor[fg]{\maybeinverse normal text}%
-  \setbeamertemplate{background canvas}[graphicfill]{#1}
-}
-
-\define@key{beamerframe}{graphic}[{\includegraphics[scale=0.1,min
-  width=\textwidth,min height=\textheight]{example-image-a}}]{%UA2
-  \gdef\maybeinverse{inverse }%
-  \usebeamercolor[fg]{\maybeinverse normal text}%
-  \setbeamertemplate{background canvas}[graphic]{#1}
-}
-
-\define@key{beamerframe}{lhgraphic}
-  [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{example-image-a}}]{%UA3
-  \gdef\maybeinverse{}%
-  \setbeamertemplate{background canvas}[lhgraphic]{#1}
-  \@rhtexttrue
-}
-
-\define@key{beamerframe}{lqgraphic}
-  [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{example-image-a}}]{%UA4
-  \gdef\maybeinverse{}%
-  \setbeamertemplate{background canvas}[lqgraphic]{#1}
-  \@rqtexttrue
-}
-
-\define@key{beamerframe}{rhgraphic}
-  [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{example-image-a}}]{%UA5
-  \gdef\maybeinverse{}%
-  \setbeamertemplate{background canvas}[rhgraphic]{#1}
-  \@lhtexttrue
-}
-
-\define@key{beamerframe}{rqgraphic}
-  [{\includegraphics[scale=0.5,min width=0.5\paperwidth,min
-    height=\textheight]{example-image-a}}]{%UA5
-  \gdef\maybeinverse{}%
-  \setbeamertemplate{background canvas}[rqgraphic]{#1}
-  \@lqtexttrue
-}
-
-\define@key{beamerframe}{thgraphic}
-  [{\includegraphics[scale=0.5,min width=\paperwidth,min
-    height=0.5\textheight]{example-image-a}}]{%UA6
-  \gdef\maybeinverse{}%
-  \setbeamertemplate{background canvas}[thgraphic]{#1}
-  \@bhtexttrue
-}
-
-\define@key{beamerframe}{bhgraphic}
-  [{\includegraphics[scale=0.5,min width=\paperwidth,min
-    height=0.5\textheight]{example-image-a}}]{%UA7
-  \gdef\maybeinverse{}%
-  \setbeamertemplate{background canvas}[bhgraphic]{#1}
-}
-
-% The following does not work as \end{frame} is never executed by
-% beamer!
-% \AtEndEnvironment{frame}{\gdef\maybeinverse{}}
-% So, we use:
+% Reset state at the beginning of a new frame:
+\ExplSyntaxOn
 \BeforeBeginEnvironment{frame}{%
   \gdef\maybeinverse{}%
-  \setbeamertemplate{title page}[main]%
-  \setbeamertemplate{section page}[main]%
-  \setbeamertemplate{subsection page}[main]%
-  \setbeamertemplate{background canvas}[normal]%
-  \usebeamercolor[fg]{normal text}%
+  \tl_set:Nn \l_@@_graphpos_tl {}%
+  \fp_set:Nn \l_@@_graphprop_fp {0.5}%
+  \bool_set_false:N \l_@@_graphgiven_bool
+  \bool_set_false:N \l_@@_graphfill_bool
+  \tl_clear:N \l_@@_graphcontent_tl
+  \setbeamertemplate{title~page}[main]%
+  \setbeamertemplate{section~page}[main]%
+  \setbeamertemplate{subsection~page}[main]%
+  \setbeamertemplate{background~canvas}[normal]%
+  \usebeamercolor[fg]{normal~text}%
 }
 
+\define@key{beamerframe}{graphicpos}{\tl_set:Nn \l_@@_graphpos_tl {#1}}
+\define@key{beamerframe}{graphicproportion}{\fp_set:Nn \l_@@_graphprop_fp {#1}}
+\define@key{beamerframe}{fill}[true]{\bool_set_true:N \l_@@_graphfill_bool}
 
+\define@key{beamerframe}{graphic}
+[{\includegraphics[scale=0.1,min~width=\pagewidth,min~height=\pageheight]{example-image-a}}]{%
+  \bool_set_true:N \l_@@_graphgiven_bool
+  \tl_set:Nn \l_@@_graphcontent_tl {#1}%
+}
 
-\NewEnviron{rhframe}[3][]{%
+\NewEnviron{graphicframe}[3][]{%
   \begin{frame}[#1]{#2}{#3}
-    \begin{minipage}[t]{0.525\textwidth}
-      ~
-    \end{minipage}
-    \begin{minipage}[t]{0.465\textwidth}
+    \@IfGraphSplit {
+      \str_case:VnF \l_@@_graphpos_tl {
+        { l } {
+          \fp_set:Nn \l_@@_bodyfrac_fp
+          { 1 - \l_@@_graphprop_fp - \gridunit/\textwidth }
+          \begin{minipage}[t]{\fp_to_decimal:N\l_@@_graphprop_fp\textwidth}
+            \hspace{0pt}
+          \end{minipage}%
+          \hspace{\gridunit}%
+          \begin{minipage}[t]{\fp_to_decimal:N\l_@@_bodyfrac_fp\textwidth}
+            \BODY
+          \end{minipage}%
+        }
+        { r } {
+          \fp_set:Nn \l_@@_bodyfrac_fp
+          { 1 - \l_@@_graphprop_fp - \gridunit/\textwidth }
+          \begin{minipage}[t]{\fp_to_decimal:N\l_@@_bodyfrac_fp\textwidth}
+            \BODY
+          \end{minipage}%
+          \hspace{\gridunit}%
+          \begin{minipage}[t]{\fp_to_decimal:N\l_@@_graphprop_fp\textwidth}
+            \hspace{0pt}
+          \end{minipage}%
+        }
+        { t } {
+          \fp_set:Nn \l_@@_bodyfrac_fp
+          { 1 - \l_@@_graphprop_fp - \gridunit/\textheight }
+          \begin{minipage}[t][\fp_to_decimal:N\l_@@_bodyfrac_fp\textheight][t]{\textwidth}
+            \BODY
+          \end{minipage}%
+        }
+        { b } {
+          \fp_set:Nn \l_@@_bodyfrac_fp
+          { 1 - \l_@@_graphprop_fp - \gridunit/\textheight }
+          \begin{minipage}[t][\fp_to_decimal:N\l_@@_bodyfrac_fp\textheight][t]{\textwidth}
+            \BODY
+          \end{minipage}%
+        }
+      }
+      { \msg_error:nnn { ugentdocs } { unknown~graphpos } { \l_@@_graphpos_tl } }
+    }{
       \BODY
-    \end{minipage}
+    }
   \end{frame}
 }
-
-\NewEnviron{r3qframe}[3][]{%
-  \begin{frame}[#1]{#2}{#3}
-    \begin{minipage}[t]{0.23\textwidth}
-      ~
-    \end{minipage}
-    \begin{minipage}[t]{0.76\textwidth}
-      \BODY
-    \end{minipage}
-  \end{frame}
-}
-
-\NewEnviron{lhframe}[3][]{%
-  \begin{frame}[#1]{#2}{#3}
-    \begin{minipage}[t]{0.465\textwidth}
-      \BODY
-    \end{minipage}
-    \begin{minipage}[t]{0.525\textwidth}
-      ~
-    \end{minipage}
-  \end{frame}
-}
-
-\NewEnviron{l3qframe}[3][]{%
-  \begin{frame}[#1]{#2}{#3}
-    \begin{minipage}[t]{0.77\textwidth}
-      \BODY
-    \end{minipage}
-    \begin{minipage}[t]{0.22\textwidth}
-      ~
-    \end{minipage}
-  \end{frame}
-}
-
-\NewEnviron{bhframe}[3][]{%
-  \begin{frame}[#1]{#2}{#3}
-      \BODY
-  \end{frame}
-}
-
-\NewEnviron{thframe}[3][]{%
-  \begin{frame}[#1]{#2}{#3}
-      \BODY
-  \end{frame}
-}
+\ExplSyntaxOff
 
 %%%%%%%%%%%%
 % Order:
@@ -9767,145 +9776,68 @@ een b\'echamel saus:
   \color{ugent@main!10}\vrule width\paperwidth height\paperheight
 }
 
-\defbeamertemplate*{background canvas}{graphicfill}[1]
-{%
-  \gdef\appropriatelogo{}%\logoneg}%
-  \gdef\appropriateslidenumber{}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\@PW,\@PH);
-    \node[align=center] at  (0.5*\@PW,0.5*\@PH) {#1};
-  \end{tikzpicture}%
+\ExplSyntaxOn
+\dim_new:N \l_@@_tempdima_dim
+\dim_new:N \l_@@_tempdimb_dim
+\dim_new:N \l_@@_vskip_dim
+\bool_new:N \l_@@_dovskip_bool
+\cs_new_protected:Npn \@SetFrameTitleDims {
+  \bool_set_false:N \l_@@_dovskip_bool
+  \@IfGraphSplit {
+    \str_case:VnF \l_@@_graphpos_tl {
+      { l } {
+        \dim_set:Nn \l_@@_graphdim_dim { \fp_to_decimal:N \l_@@_graphprop_fp \textwidth }
+        \dim_set:Nn \l_@@_tempdima_dim { \l_@@_graphdim_dim + \gridunit }
+        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth - \l_@@_tempdima_dim }
+      }
+      { r } {
+        \dim_set:Nn \l_@@_graphdim_dim { \fp_to_decimal:N \l_@@_graphprop_fp \textwidth }
+        \dim_set:Nn \l_@@_tempdima_dim { 0em }
+        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth - \l_@@_graphdim_dim - \gridunit }
+      }
+      { t } {
+        \dim_set:Nn \l_@@_tempdima_dim { 0em }
+        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
+        \bool_set_true:N \l_@@_dovskip_bool
+        \dim_set:Nn \l_@@_vskip_dim { \fp_to_decimal:N \l_@@_graphprop_fp \textheight + \gridunit }
+      }
+      { b } {
+        \dim_set:Nn \l_@@_tempdima_dim { 0em }
+        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
+      }
+    }{
+      \dim_set:Nn \l_@@_tempdima_dim { 0em }
+      \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
+    }
+  }{
+    \dim_set:Nn \l_@@_tempdima_dim { 0em }
+    \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
+  }
+  \bool_if:NT \l_@@_dovskip_bool { \vskip \l_@@_vskip_dim }
+  \@tempdima=\l_@@_tempdima_dim
+  \@tempdimb=\l_@@_tempdimb_dim
 }
-
-\defbeamertemplate*{background canvas}{graphic}[1]
-{%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\@PW,\@PH);
-    \begin{scope}
-      \ugentshape[clip]{(0.8,0.8)}{(\@PW-0.8,\@PH-0.8)}
-      \node[align=center] at  (0.5*\@PW,0.5*\@PH) {#1};
-    \end{scope}
-  \end{tikzpicture}%
-}
-
-\defbeamertemplate*{background canvas}{lhgraphic}[1]
-{%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{0.5*\@PW-1.2}%
-  \pgfmathsetmacro\dy{\@PH-1.6}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\@PW,\@PH);
-    \begin{scope}
-      \ugentshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
-      \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
-    \end{scope}
-  \end{tikzpicture}
-  \@tempswatrue
-}
-
-\defbeamertemplate*{background canvas}{lqgraphic}[1]
-{%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{0.25*\@PW-1.2}%
-  \pgfmathsetmacro\dy{\@PH-1.6}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\@PW,\@PH);
-    \begin{scope}
-      \ugentshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
-      \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy)
-      {#1};
-    \end{scope}
-  \end{tikzpicture}
-  \@tempswatrue
-}
-
-\defbeamertemplate*{background canvas}{rhgraphic}[1]
-{%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{0.5*\@PW-1.2}%
-  \pgfmathsetmacro\dy{\@PH-1.6}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\@PW,\@PH);
-    \begin{scope}[shift={(0.5*\@PW,0)}]
-      \ugentshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
-      \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
-    \end{scope}
-  \end{tikzpicture}
-  \@tempswatrue
-}
-
-\defbeamertemplate*{background canvas}{rqgraphic}[1]
-{%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{0.25*\@PW-1.2}%
-  \pgfmathsetmacro\dy{\@PH-1.6}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\@PW,\@PH);
-    \begin{scope}[shift={(0.75*\@PW,0)}]
-      \ugentshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
-      \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
-    \end{scope}
-  \end{tikzpicture}
-  \@tempswatrue
-}
-
-\defbeamertemplate*{background canvas}{thgraphic}[1]
-{%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{\@PW-1.6}%
-  \pgfmathsetmacro\dy{0.5*\@PH-0.8}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\@PW,\@PH);
-    \begin{scope}[shift={(0,0.5*\@PH)}]
-      \ugentshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
-      \node[align=center] at  (0.8+0.5*\dx,0.5*\dy) {#1};
-    \end{scope}
-  \end{tikzpicture}
-  \@tempswatrue
-}
-
-\defbeamertemplate*{background canvas}{bhgraphic}[1]
-{%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{\@PW-1.6}%
-  \pgfmathsetmacro\dy{0.5*\@PH-0.8}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\@PW,\@PH);
-    \begin{scope}[shift={(0,0.8)}]
-      \ugentshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
-      \node[align=center] at  (0.8+0.5*\dx,0.5*\dy) {#1};
-    \end{scope}
-  \end{tikzpicture}
-  \@tempswatrue
-}
-
+\ExplSyntaxOff
 
 \defbeamertemplate*{background canvas}{normal}
 {%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in
-      head/foot}\insertframenumber/\inserttotalframenumber}%
+  \gdef\appropriatelogo{}%
+  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
+    \insertframenumber/\inserttotalframenumber}%
+  \IfGraphGiven{
+    \@ComputeGraphDims
+    \begin{tikzpicture}[
+    overlay,
+    remember picture,
+    shift={(current page.south west)}
+    ]
+    \clip (0,0) rectangle (\@PW,\@PH);
+    \begin{scope}[shift={(\@shx,\@shy)}]
+    \ugentshape[clip]{(0,0)}{(\@dx,\@dy)}
+    \node[align=center] at (0.5*\@dx,0.5*\@dy) {\@GraphContent};
+    \end{scope}
+    \end{tikzpicture}%
+  }{}%
 }
 
 
@@ -10010,38 +9942,9 @@ een b\'echamel saus:
 
 \defbeamertemplate*{frametitle}{normal}
 {%
+  \IfGraphGiven{\@SetInverse}{}%
   \vskip0.75cm%
-  \if@rhtext%
-  \@tempdima=0.5\textwidth%
-  \@tempdimb=0.5\textwidth%
-  \advance\@tempdima by0.5\beamer@leftmargin%
-  \advance\@tempdimb by-0.5\beamer@leftmargin%
-  \else%
-  \if@rqtext%
-  \@tempdima=0.23\textwidth%
-  \@tempdimb=0.77\textwidth%
-  \else%
-  \if@lhtext%
-  \@tempdima=0em%
-  \@tempdimb=0.5\textwidth%
-  \advance\@tempdimb by-0.5\beamer@leftmargin%
-  \else%
-  \if@lqtext%
-  \@tempdima=0em%
-  \@tempdimb=0.77\textwidth%
-  \else%
-  \if@bhtext%
-  \@tempdima=0em%
-  \@tempdimb=\textwidth%
-  \vskip0.5\textheight%
-  \else%
-  \@tempdima=0em%
-  \@tempdimb=\textwidth%
-  \fi%
-  \fi%
-  \fi%
-  \fi%
-  \fi%
+  \@SetFrameTitleDims
   \hskip\@tempdima%
   \begin{beamercolorbox}[wd=\@tempdimb]{\maybeinverse frametitle}%
     \usebeamerfont{frametitle}\insertframetitle\\[0.5ex]%
@@ -10054,7 +9957,7 @@ een b\'echamel saus:
       \usebeamercolor[fg]{\maybeinverse framesubtitle}%
       \insertframesubtitle\strut\par}%
     \fi%
-    \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
+    \if@tempswa\else\vskip-.3cm\fi%
   \end{beamercolorbox}%
 }
 
