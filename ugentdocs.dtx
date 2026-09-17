@@ -9507,8 +9507,8 @@ een b\'echamel saus:
 \fp_new:N \l_@@_graphprop_fp \fp_set:Nn \l_@@_graphprop_fp {0.5}
 \bool_new:N \l_@@_graphgiven_bool
 \bool_new:N \l_@@_graphfill_bool
-\bool_new:N \l_@@_showlogo_bool
-\tl_new:N \l_@@_logocolour_tl
+\bool_new:N \g_@@_showlogo_bool
+\tl_new:N \g_@@_logocolour_tl
 \tl_new:N \l_@@_graphcontent_tl
 \fp_new:N \l_@@_bodyfrac_fp
 
@@ -9564,9 +9564,6 @@ een b\'echamel saus:
   }{}
 }
 
-\cs_new_protected:Npn \IfGraphGiven #1#2 {
-  \bool_if:NTF \l_@@_graphgiven_bool {#1}{#2}
-}
 
 \cs_new_protected:Npn \@SetInverse {
   \@IfGraphSplit {
@@ -9574,14 +9571,6 @@ een b\'echamel saus:
   }{
     \gdef\maybeinverse{inverse }\usebeamercolor[fg]{inverse normal text}
   }
-}
-
-\cs_new:Npn \@GraphContent {
-  \l_@@_graphcontent_tl
-}
-
-\cs_new_protected:Npn \@SetLogoColour #1 {
-  \tl_set:Nn \l_@@_logocolour_tl {#1}
 }
 \ExplSyntaxOff
 
@@ -9656,11 +9645,10 @@ een b\'echamel saus:
   \gdef\maybeinverse{}%
   \tl_set:Nn \l_@@_graphpos_tl {}%
   \fp_set:Nn \l_@@_graphprop_fp {0.5}%
-  \tl_set:Nn \l_@@_logocolour_tl {ugent@main}
+  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
   \bool_set_false:N \l_@@_graphgiven_bool
   \bool_set_false:N \l_@@_graphfill_bool
-  \bool_set_true:N \l_@@_showlogo_bool
-
+  \bool_gset_true:N \g_@@_showlogo_bool
   \tl_clear:N \l_@@_graphcontent_tl
   \setbeamertemplate{title~page}[main]%
   \setbeamertemplate{section~page}[main]%
@@ -9673,9 +9661,9 @@ een b\'echamel saus:
 \define@key{beamerframe}{graphicproportion}{\fp_set:Nn \l_@@_graphprop_fp {#1}}
 \define@key{beamerframe}{fill}[true]{\bool_set_true:N \l_@@_graphfill_bool}
 \define@key{beamerframe}{logo}[true]{\str_if_eq:nnTF {#1} {true} {
-    \bool_set_true:N \l_@@_showlogo_bool
+    \bool_gset_true:N \g_@@_showlogo_bool
   }{
-    \bool_set_false:N \l_@@_showlogo_bool
+    \bool_gset_false:N \g_@@_showlogo_bool
   }
 }
 
@@ -9748,9 +9736,10 @@ een b\'echamel saus:
   \@nameuse{ps@ugent}
 }
 
-\defbeamertemplate*{background canvas}{title}[1]
+\ExplSyntaxOn
+\defbeamertemplate*{background~canvas}{title}[1]
 {%
-  \@SetLogoColour{ugent@main}
+  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
@@ -9769,9 +9758,9 @@ een b\'echamel saus:
   \end{tikzpicture}
 }
 
-\defbeamertemplate*{background canvas}{section}[1]
+\defbeamertemplate*{background~canvas}{section}[1]
 {%
-  \@SetLogoColour{ugent@main}%
+  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
@@ -9779,23 +9768,22 @@ een b\'echamel saus:
   \end{tikzpicture}
 }
 
-\defbeamertemplate*{background canvas}{negative}[1]
+\defbeamertemplate*{background~canvas}{negative}[1]
 {%
-  \@SetLogoColour{white}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
+  \tl_gset:Nn \g_@@_logocolour_tl {white}
+  \gdef\appropriateslidenumber{\usebeamercolor{pageno~in~head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \color{ugent@main}\vrule width\paperwidth height\paperheight
 }
 
-\defbeamertemplate*{background canvas}{shaded}[1]
+\defbeamertemplate*{background~canvas}{shaded}[1]
 {%
-  \@SetLogoColour{ugent@main}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
+  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
+  \gdef\appropriateslidenumber{\usebeamercolor{pageno~in~head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \color{ugent@main!10}\vrule width\paperwidth height\paperheight
 }
 
-\ExplSyntaxOn
 \dim_new:N \l_@@_tempdima_dim
 \dim_new:N \l_@@_tempdimb_dim
 \dim_new:N \l_@@_vskip_dim
@@ -9836,25 +9824,26 @@ een b\'echamel saus:
   \@tempdima=\l_@@_tempdima_dim
   \@tempdimb=\l_@@_tempdimb_dim
 }
-\ExplSyntaxOff
 
-\defbeamertemplate*{background canvas}{normal}
+\defbeamertemplate*{background~canvas}{normal}
 {%
-  \@SetLogoColour{ugent@main}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
+  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}%
+  \gdef\appropriateslidenumber{\usebeamercolor{pageno~in~head/foot}%
     \insertframenumber/\inserttotalframenumber}%
-  \IfGraphGiven{
+  \bool_if:NTF \l_@@_graphgiven_bool {
     \@ComputeGraphDims
     \begin{tikzpicture}[
-    overlay, remember picture, shift={(current page.south west)}]
+    overlay, remember~picture, shift={(current~page.south~west)}]
     \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}[shift={(\@shx,\@shy)}]
     \ugentshape[clip]{(0,0)}{(\@dx,\@dy)}
-    \node[align=center] at (0.5*\@dx,0.5*\@dy) {\@GraphContent};
+    \node[align=center] at (0.5*\@dx,0.5*\@dy) {\l_@@_graphcontent_tl};
     \end{scope}
     \end{tikzpicture}%
   }{}%
 }
+
+\ExplSyntaxOff
 
 
 \defbeamertemplate*{title page}{main}[1][]
@@ -9945,8 +9934,8 @@ een b\'echamel saus:
       plus1fill]{author~in~head/foot}%
       \begin{tikzpicture}
       [overlay,remember~picture, shift={(current~page.south~west)}]
-      \bool_if:NT \l_@@_showlogo_bool {
-        \ugentlogo{\@HBS}{\tl_use:N \l_@@_logocolour_tl}{0}
+      \bool_if:NT \g_@@_showlogo_bool {
+        \ugentlogo{\@HBS}{\g_@@_logocolour_tl}{0}
       }
       \end{tikzpicture}
       \hskip0pt plus 1filll ~
@@ -9966,24 +9955,25 @@ een b\'echamel saus:
 
 \defbeamertemplate*{frametitle}{normal}
 {%
-  \IfGraphGiven{\@SetInverse}{}%
+  \bool_if:NTF \l_@@_graphgiven_bool {\@SetInverse}{}%
   \vskip0.75cm%
   \@SetFrameTitleDims
   \hskip\@tempdima%
-  \begin{beamercolorbox}[wd=\@tempdimb]{\maybeinverse frametitle}%
     \usebeamerfont{frametitle}\insertframetitle\\[0.5ex]%
+  \begin{beamercolorbox}[wd=\@tempdimb]{\maybeinverse~frametitle}%
     \ifx\insertframesubtitle\@empty%
     {\usebeamerfont{framesubtitle}%
-      \usebeamercolor[fg]{\maybeinverse framesubtitle}~\strut\par}%
+      \usebeamercolor[fg]{\maybeinverse~framesubtitle}~\strut\par}%
     \vskip-1ex%
     \else%
     {\usebeamerfont{framesubtitle}%
-      \usebeamercolor[fg]{\maybeinverse framesubtitle}%
+      \usebeamercolor[fg]{\maybeinverse~framesubtitle}%
       \insertframesubtitle\strut\par}%
     \fi%
     \if@tempswa\else\vskip-.3cm\fi%
   \end{beamercolorbox}%
 }
+\ExplSyntaxOff
 
 \DeclareRobustCommand\place{\@ifnextchar[{\@placeat}{\@placeat[align=left] }}
 
