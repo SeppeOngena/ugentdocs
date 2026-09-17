@@ -2271,9 +2271,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 { Cover~type~'#1'~is~not~implemented. }
 \ExplSyntaxOff
 %</clo>
-%<*phd|bkc|crs|rp|le|ex|bama>
+%<*phd|bkc|crs|rp|le|ex|bama|bmr>
 \ExplSyntaxOn
-%</phd|bkc|crs|rp|le|ex|bama>
+%</phd|bkc|crs|rp|le|ex|bama|bmr>
 % \fi
 %
 % \DescribeOption[phd-bkc]{cameraready}
@@ -2409,9 +2409,24 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<bama>\tl_set:Nn \l_@@_covertype_tl {bama}
 %<rp>\tl_set:Nn \l_@@_covertype_tl {report}
 %
-%<*phd|bkc|crs|rp|le|ex|bama>
+%
+% \DescribeOption[bmr]{secnums}
+%   \DescribeDefault{false}
+%   Options: |true|, |false|\\
+%   Enables section numbering in beamer presentations.
+% \iffalse
+%<*bmr>
+\bool_new:N \l_@@_secnums_bool
+\keys_define:nn { ugentdocs } {
+  secnums .bool_set:N = \l_@@_secnums_bool ,
+  secnums .default:n = true ,
+}
+%</bmr>
+%\fi
+%
+%<*phd|bkc|crs|rp|le|ex|bama|bmr>
 \ExplSyntaxOff
-%</phd|bkc|crs|rp|le|ex|bama>
+%</phd|bkc|crs|rp|le|ex|bama|bmr>
 % \fi
 %
 % Class loading operates as follows. The standard options such as |11pt|,
@@ -9159,6 +9174,25 @@ een b\'echamel saus:
 
 \setbeamertemplate{navigation symbols}{}
 
+\ExplSyntaxOn
+\bool_if:NF \l_@@_secnums_bool {
+  \setbeamertemplate{section~in~toc}{%
+    % Based on beamer source, slightly smaller squares
+    \leavevmode
+    \leftskip=1.75ex
+    \llap{%
+      \usebeamerfont*{section~number~projected}%
+      \usebeamercolor[bg]{section~number~projected}%
+      %\vrule width2.25ex height1.85ex depth.4ex%
+      \raisebox{0.24ex}{\vrule width1.35ex height1.11ex depth.24ex}%
+    }%
+    \kern1.25ex
+    \inserttocsection
+    \par
+  }
+}
+\ExplSyntaxOff
+
 \NewDocumentCommand{\titleframe}{O{}}{
 	\begin{frame}[title={#1}]
 		\maketitle
@@ -9878,44 +9912,59 @@ een b\'echamel saus:
   \end{tikzpicture}
 }
 
-\defbeamertemplate*{section page}{main}[1][]
+\ExplSyntaxOn
+\defbeamertemplate*{section~page}{main}[1][]
 {%
   \begin{tikzpicture}
-  [overlay,remember picture, shift={(current page.south west)}]
+  [overlay,remember~picture, shift={(current~page.south~west)}]
   \begin{scope}
   \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-2*\gridunit,\@PH-\gridunit)}
-  \node[anchor=south west,
-  text width=\@PW-3\gridunit,
+  \node[anchor=south~west,
+  text~width=\@PW-3\gridunit,
   text=white,
   align=left] at (2\gridunit,\@HBS+\gridunit) {
-    \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse section title}
-    \Huge\bfseries\MakeUppercase{\insertsectionnumber.~\insertsection}
+    \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~section~title}
+    \Huge\bfseries
+    \bool_if:NTF {\l_@@_secnums_bool}{
+      \MakeUppercase{\insertsectionnumber.~\insertsection}
+    }{
+      \MakeUppercase{\insertsection}
+    }
     \end{beamercolorbox}
   };
   \end{scope}
   \end{tikzpicture}
 }
 
-\defbeamertemplate*{subsection page}{main}[1][]
+\defbeamertemplate*{subsection~page}{main}[1][]
 {%
   \begin{tikzpicture}
-  [overlay,remember picture, shift={(current page.south west)}]
+  [overlay,remember~picture, shift={(current~page.south~west)}]
     \begin{scope}
     \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-2*\gridunit,\@PH-\gridunit)}
-    \node[anchor=south west,
-    text width=\@PW-3\gridunit,
+    \node[anchor=south~west,
+    text~width=\@PW-3\gridunit,
     text=white,
     align=left] at (2\gridunit,\@HBS+\gridunit) {
-      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse section title}
-        \Huge\bfseries\MakeUppercase{\insertsectionnumber.~\insertsection\\[0.75ex]}
-      \end{beamercolorbox}
-      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse subsection title}
-        \LARGE\bfseries\MakeUppercase{\insertsubsection}
+      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~section~title}
+        \Huge\bfseries
+          \bool_if:NTF {\l_@@_secnums_bool}{
+            \MakeUppercase{\insertsectionnumber.~\insertsection\\}
+            \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~subsection~title}
+            \LARGE\bfseries\MakeUppercase{\insertsubsection}
+            \end{beamercolorbox}
+          }{
+            \MakeUppercase{\insertsection\\}
+            \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~subsection~title}
+            \LARGE\bfseries\MakeUppercase{\insertsubsection}
+            \end{beamercolorbox}
+          }
       \end{beamercolorbox}
     };
     \end{scope}
   \end{tikzpicture}
 }
+\ExplSyntaxOff
 
 \defbeamertemplate*{footline}{empty}
 {
