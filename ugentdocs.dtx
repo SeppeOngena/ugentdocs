@@ -1161,7 +1161,7 @@
 % \DescribeMacro[common]{\department}
 %   \marg{name}\\
 %   Sets the department tag |\@department| with the |name| entered.
-%   Currently unused.
+%   Currently only used in the beamer title slide.
 %
 % \DescribeMacro[common]{\team}
 %   \marg{name}
@@ -1173,7 +1173,7 @@
 % \iffalse
 %<*clo>
 \ExplSyntaxOn
-\newcommand*{\@department}{}
+\NewDocumentCommand{\@department}{O{}}{}
 \newcommand*{\department}[1]{
   \RenewDocumentCommand{\@department}{O{}}{
     \str_case:nnF {##1}{
@@ -1184,7 +1184,7 @@
     }
   }%
 }
-\newcommand*{\@team}{}
+\NewDocumentCommand{\@team}{O{}}{}
 \newcommand*{\team}[1]{
     \RenewDocumentCommand{\@team}{O{}}{
     \str_case:nnF {##1}{
