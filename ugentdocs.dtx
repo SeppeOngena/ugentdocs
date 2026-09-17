@@ -9449,7 +9449,7 @@ een b\'echamel saus:
 \setbeamertemplate{sections/subsections in toc}[square]
 \setbeamertemplate{itemize items}{\textendash}
 
-\newcommand*\ugentshape[3][]{
+\newcommand*\@rect[3][]{
 	\coordinate (bl) at #2;
 	\coordinate (tr) at #3;
 	\path[#1] (bl) rectangle (tr);
@@ -9464,7 +9464,7 @@ een b\'echamel saus:
 
 \newcommand\ugentcallout[4][]{
   \begin{tikzpicture}
-    \ugentshape[fill=black,fill opacity=0.0,text opacity=1,text=white,#1]
+    \@rect[fill=black,fill opacity=0.0,text opacity=1,text=white,#1]
                         {({-#2/2},-{#3/2})}{({#2/2},{#3/2})}
     \node[align=left,anchor=center] at (0,0) { \callout\\ #4 };
   \end{tikzpicture}
@@ -9748,10 +9748,10 @@ een b\'echamel saus:
     \end{scope}
     \def\@titlebgimg{#1}%
     \ifx\@titlebgimg\@empty
-      \ugentshape[fill=ugent@main]{(\gridunit,\@HBS)}{(\@PW,\@PH-\@HTS)}
+      \@rect[fill=ugent@main]{(\gridunit,\@HBS)}{(\@PW,\@PH-\@HTS)}
     \else
       \begin{scope}
-        \ugentshape[clip]{(\gridunit,\@HBS)}{(\@PW,\@PH-\@HTS)}
+        \@rect[clip]{(\gridunit,\@HBS)}{(\@PW,\@PH-\@HTS)}
         \node[align=center] at (0.5*(\gridunit+\@PW),0.5*(\@HBS+\@PH-\@HTS)) {#1};
       \end{scope}
     \fi
@@ -9764,7 +9764,7 @@ een b\'echamel saus:
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
-    \ugentshape[fill=ugent@main]{(\gridunit,\@HBS)}{(\@PW,\@PH)}
+    \@rect[fill=ugent@main]{(\gridunit,\@HBS)}{(\@PW,\@PH)}
   \end{tikzpicture}
 }
 
@@ -9836,7 +9836,7 @@ een b\'echamel saus:
     overlay, remember~picture, shift={(current~page.south~west)}]
     \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}[shift={(\@shx,\@shy)}]
-    \ugentshape[clip]{(0,0)}{(\@dx,\@dy)}
+    \@rect[clip]{(0,0)}{(\@dx,\@dy)}
     \node[align=center] at (0.5*\@dx,0.5*\@dy) {\l_@@_graphcontent_tl};
     \end{scope}
     \end{tikzpicture}%
@@ -9947,7 +9947,6 @@ een b\'echamel saus:
   \end{beamercolorbox}}%
   \vskip0pt%
 }
-\ExplSyntaxOff
 
 \defbeamertemplate*{frametitle}{empty}
 {
