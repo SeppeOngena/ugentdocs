@@ -8902,8 +8902,12 @@ een b\'echamel saus:
   You will have to run \LaTeX{} twice in order for the position to be correct!
 \end{frame}
 
- % \place at (0.5,0.5) {\uantwerpenicon[scale=0.8]}
-\begin{graphicframe}[logo=false]{}{}
+\begin{graphicframe}[logo=false,plain]{}{}
+  \place at (0.5,0.5){
+    \begin{tikzpicture}
+      \ugentlogo{12\gridunit}{ugent@main}{0}
+    \end{tikzpicture}
+  }
 \end{graphicframe}
 
 \begin{frame}[t]
@@ -8969,8 +8973,8 @@ een b\'echamel saus:
   callout to be correct!
 \end{frame}
 
-  \place [anchor=north west] at (0.1,0.9) {
 \begin{graphicframe}[logo=false,graphic,t]{}{}
+  \place [anchor=north west] at (0.1,0.9) {
     \ugentcallout[fill opacity=0.5]{4.5}{2.5}{
       \bfseries I'll be back!\\[1ex]
       Arnold Schwarzenegger}
@@ -9981,23 +9985,13 @@ een b\'echamel saus:
   \end{beamercolorbox}%
 }
 
-\newdimen\xloleft
-\newdimen\yloleft
-\newdimen\xupright
-\newdimen\yupright
-\newdimen\xcurrent
-\newdimen\ycurrent
-\newcommand*\extractloleftugentdocs[1]{\path  (#1);\pgfgetlastxy{\xloleft}{\yloleft};}
-\newcommand*\extractuprightugentdocs[1]{\path (#1);\pgfgetlastxy{\xupright}{\yupright};}
-\newcommand*\extractcurrentugentdocs[1]{\path (#1);\pgfgetlastxy{\xcurrent}{\ycurrent};}
+\DeclareRobustCommand\place{\@ifnextchar[{\@placeat}{\@placeat[align=left] }}
 
-\DeclareRobustCommand\place{\@ifnextchar[{\@place}{\@place[align=left] }}
-\def\@place[#1] at (#2,#3)#4{
+\def\@placeat[#1] at (#2,#3)#4{
   \begin{tikzpicture}[overlay,remember picture]
-    \extractloleftugentdocs{$(current page.south west)$}
-    \extractuprightugentdocs{$(current page.north east)$}
-    \node[#1] at
-    ({\xloleft*(1-#2)+\xupright*#2},{\yloleft*(1-#3)+\yupright*#3}) {#4};
+  \coordinate (place@px) at ($(current page.south west)!#2!(current page.south west-|current page.north east)$);
+  \coordinate (place@py) at ($(current page.south west)!#3!(current page.south west|-current page.north east)$);
+  \node[#1] at (place@px |- place@py) {#4};
   \end{tikzpicture}
 }
 
