@@ -8369,7 +8369,7 @@ een b\'echamel saus:
 
 \titleframe
 
-\begin{frame}
+\begin{frame}[logo=false]
   {What's on the menu?}
   {Bon app\'etit!}
   ~\\
@@ -8605,7 +8605,7 @@ een b\'echamel saus:
 
 \end{frame}
 
-\begin{frame}[t]
+\begin{frame}[logo=false,t]
   {Colors}
   {What a wonderful world}
 
@@ -8711,7 +8711,7 @@ een b\'echamel saus:
 
 \end{frame}
 
-\begin{graphicframe}[graphic,graphicpos=r,graphicproportion=0.25]
+\begin{graphicframe}[logo=false,graphic,graphicpos=r,graphicproportion=0.25]
   {Some Random Title}
   {Please, adapt!}
 
@@ -8738,7 +8738,7 @@ een b\'echamel saus:
   \end{itemize}
 \end{graphicframe}
 
-\begin{graphicframe}[graphic,graphicpos=l,graphicproportion=0.25,t]
+\begin{graphicframe}[logo=false,graphic,graphicpos=l,graphicproportion=0.25,t]
   {Some Random Title}
   {Please, adapt!}
 
@@ -8765,7 +8765,7 @@ een b\'echamel saus:
   \end{itemize}
 \end{graphicframe}
 
-\begin{graphicframe}[graphic,graphicpos=r]
+\begin{graphicframe}[logo=false,graphic,graphicpos=r]
   {Some Random Title}
 
   \small
@@ -8791,7 +8791,7 @@ een b\'echamel saus:
   \end{itemize}
 \end{graphicframe}
 
-\begin{graphicframe}[graphic,graphicpos=l,t]
+\begin{graphicframe}[logo=false,graphic,graphicpos=l,t]
   {Some Random Title}
 
   \small
@@ -8817,7 +8817,7 @@ een b\'echamel saus:
   \end{itemize}
 \end{graphicframe}
 
-\begin{graphicframe}[graphic,graphicpos=t,t]
+\begin{graphicframe}[logo=false,graphic,graphicpos=t,t]
   {Some Random Title}{Please, adapt!}
   \small
   The slide has been typeset as:\\
@@ -8830,7 +8830,7 @@ een b\'echamel saus:
   \end{codesnippet}
 \end{graphicframe}
 
-\begin{graphicframe}[graphic,graphicpos=b,t]
+\begin{graphicframe}[logo=false,graphic,graphicpos=b,t]
   {Some Random Title}
   {Please, adapt!}
   \small
@@ -8875,7 +8875,7 @@ een b\'echamel saus:
 \subsection{Custom intermission slides}
 \subsectionframe
 
-\begin{frame}[t]
+\begin{frame}[logo=false,t]
   {Basic idea}
 
   If you are a fan of graphic material in slideware, you can use a
@@ -8902,8 +8902,8 @@ een b\'echamel saus:
   You will have to run \LaTeX{} twice in order for the position to be correct!
 \end{frame}
 
-\begin{graphicframe}[t]{}{}
  % \place at (0.5,0.5) {\uantwerpenicon[scale=0.8]}
+\begin{graphicframe}[logo=false]{}{}
 \end{graphicframe}
 
 \begin{frame}[t]
@@ -8931,7 +8931,7 @@ een b\'echamel saus:
   \end{codesnippet}
 \end{frame}
 
-\begin{graphicframe}[fill,graphic={\darken[0.25]%
+\begin{graphicframe}[logo=false,fill,graphic={\darken[0.25]%
   {\includegraphics[scale=0.1,min width=\paperwidth,min height=\paperheight]
   {example-image-a}}},t]{}{}
   \place [anchor=north east] at (0.95,0.5) {
@@ -8941,7 +8941,7 @@ een b\'echamel saus:
   }
 \end{graphicframe}
 
-\begin{frame}[t]
+\begin{frame}[logo=false,t]
   {Shading photographs locally}
 
   You can also choose to shade the local backdrop of the material
@@ -8969,8 +8969,8 @@ een b\'echamel saus:
   callout to be correct!
 \end{frame}
 
-\begin{graphicframe}[graphic,t]{}{}
   \place [anchor=north west] at (0.1,0.9) {
+\begin{graphicframe}[logo=false,graphic,t]{}{}
     \ugentcallout[fill opacity=0.5]{4.5}{2.5}{
       \bfseries I'll be back!\\[1ex]
       Arnold Schwarzenegger}
@@ -8980,7 +8980,7 @@ een b\'echamel saus:
 \section{Demo of some inner theme parts}
 \sectionframe
 
-\begin{frame}[t]
+\begin{frame}[logo=false,t]
   {Headings}
   {on two levels}
   You can set headings on two levels, by using
@@ -9503,6 +9503,8 @@ een b\'echamel saus:
 \fp_new:N \l_@@_graphprop_fp \fp_set:Nn \l_@@_graphprop_fp {0.5}
 \bool_new:N \l_@@_graphgiven_bool
 \bool_new:N \l_@@_graphfill_bool
+\bool_new:N \l_@@_showlogo_bool
+\tl_new:N \l_@@_logocolour_tl
 \tl_new:N \l_@@_graphcontent_tl
 \fp_new:N \l_@@_bodyfrac_fp
 
@@ -9572,6 +9574,10 @@ een b\'echamel saus:
 
 \cs_new:Npn \@GraphContent {
   \l_@@_graphcontent_tl
+}
+
+\cs_new_protected:Npn \@SetLogoColour #1 {
+  \tl_set:Nn \l_@@_logocolour_tl {#1}
 }
 \ExplSyntaxOff
 
@@ -9646,8 +9652,11 @@ een b\'echamel saus:
   \gdef\maybeinverse{}%
   \tl_set:Nn \l_@@_graphpos_tl {}%
   \fp_set:Nn \l_@@_graphprop_fp {0.5}%
+  \tl_set:Nn \l_@@_logocolour_tl {ugent@main}
   \bool_set_false:N \l_@@_graphgiven_bool
   \bool_set_false:N \l_@@_graphfill_bool
+  \bool_set_true:N \l_@@_showlogo_bool
+
   \tl_clear:N \l_@@_graphcontent_tl
   \setbeamertemplate{title~page}[main]%
   \setbeamertemplate{section~page}[main]%
@@ -9659,6 +9668,12 @@ een b\'echamel saus:
 \define@key{beamerframe}{graphicpos}{\tl_set:Nn \l_@@_graphpos_tl {#1}}
 \define@key{beamerframe}{graphicproportion}{\fp_set:Nn \l_@@_graphprop_fp {#1}}
 \define@key{beamerframe}{fill}[true]{\bool_set_true:N \l_@@_graphfill_bool}
+\define@key{beamerframe}{logo}[true]{\str_if_eq:nnTF {#1} {true} {
+    \bool_set_true:N \l_@@_showlogo_bool
+  }{
+    \bool_set_false:N \l_@@_showlogo_bool
+  }
+}
 
 \define@key{beamerframe}{graphic}
 [{\includegraphics[scale=0.1,min~width=\paperwidth,min~height=\paperheight]{example-image-a}}]{%
@@ -9731,7 +9746,7 @@ een b\'echamel saus:
 
 \defbeamertemplate*{background canvas}{title}[1]
 {%
-  \gdef\appropriatelogo{\ugentlogo{\@HBS}{ugent@main}{0}}%
+  \@SetLogoColour{ugent@main}
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
@@ -9752,7 +9767,7 @@ een b\'echamel saus:
 
 \defbeamertemplate*{background canvas}{section}[1]
 {%
-  \gdef\appropriatelogo{\ugentlogo{\@HBS}{ugent@main}{0}}%
+  \@SetLogoColour{ugent@main}%
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
@@ -9762,7 +9777,7 @@ een b\'echamel saus:
 
 \defbeamertemplate*{background canvas}{negative}[1]
 {%
-  \gdef\appropriatelogo{\ugentlogo{\@HBS}{white}{0}}%
+  \@SetLogoColour{white}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \color{ugent@main}\vrule width\paperwidth height\paperheight
@@ -9770,7 +9785,7 @@ een b\'echamel saus:
 
 \defbeamertemplate*{background canvas}{shaded}[1]
 {%
-  \gdef\appropriatelogo{\ugentlogo{\@HBS}{ugent@main}{0}}%
+  \@SetLogoColour{ugent@main}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \color{ugent@main!10}\vrule width\paperwidth height\paperheight
@@ -9821,16 +9836,13 @@ een b\'echamel saus:
 
 \defbeamertemplate*{background canvas}{normal}
 {%
-  \gdef\appropriatelogo{\ugentlogo{\@HBS}{ugent@main}{0}}%
+  \@SetLogoColour{ugent@main}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \IfGraphGiven{
     \@ComputeGraphDims
     \begin{tikzpicture}[
-    overlay,
-    remember picture,
-    shift={(current page.south west)}
-    ]
+    overlay, remember picture, shift={(current page.south west)}]
     \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}[shift={(\@shx,\@shy)}]
     \ugentshape[clip]{(0,0)}{(\@dx,\@dy)}
@@ -9919,25 +9931,30 @@ een b\'echamel saus:
 {
 }
 
+
+\ExplSyntaxOn
 \defbeamertemplate*{footline}{normal}
 {%
   \leavevmode%
   \hbox{\begin{beamercolorbox}
       [wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,left,leftskip=.8cm
-      plus1fill]{author in head/foot}%
+      plus1fill]{author~in~head/foot}%
       \begin{tikzpicture}
-      [overlay,remember picture, shift={(current page.south west)}]
-      \appropriatelogo
+      [overlay,remember~picture, shift={(current~page.south~west)}]
+      \bool_if:NT \l_@@_showlogo_bool {
+        \ugentlogo{\@HBS}{\tl_use:N \l_@@_logocolour_tl}{0}
+      }
       \end{tikzpicture}
       \hskip0pt plus 1filll ~
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,
-    right,rightskip=.8cm plus1fill]{\maybeinverse pageno in head/foot}%
-    \usebeamerfont{pageno in head/foot}~\hskip0pt plus 1filll
+    right,rightskip=.8cm plus1fill]{\maybeinverse~pageno~in~head/foot}%
+    \usebeamerfont{pageno~in~head/foot}~\hskip0pt plus 1filll
     \appropriateslidenumber
   \end{beamercolorbox}}%
   \vskip0pt%
 }
+\ExplSyntaxOff
 
 \defbeamertemplate*{frametitle}{empty}
 {
