@@ -9226,12 +9226,12 @@ een b\'echamel saus:
 
 \setbeamercolor{title in title page}{fg=ugent@main}
 \setbeamercolor{subtitle in title page}{fg=ugent@accent}
-\setbeamercolor{author in title page}{fg=ugent@faculty}
+\setbeamercolor{author in title page}{fg=ugent@accent}
 \setbeamercolor{date in title page}{fg=ugent@accent}
 \setbeamercolor{inverse title in title page}{fg=white}
-\setbeamercolor{inverse subtitle in title page}{fg=white!75!ugent@faculty}
-\setbeamercolor{inverse author in title page}{fg=white}
-\setbeamercolor{inverse date in title page}{fg=white!75!ugent@faculty}
+\setbeamercolor{inverse subtitle in title page}{fg=ugent@accent}
+\setbeamercolor{inverse author in title page}{fg=ugent@accent}
+\setbeamercolor{inverse date in title page}{fg=ugent@accent}
 
 \setbeamercolor{pageno in head/foot}{fg=ugent@main}
 \setbeamercolor{inverse pageno in head/foot}{fg=ugent@main}
@@ -9758,6 +9758,7 @@ een b\'echamel saus:
         \node[align=center] at (0.5*(\gridunit+\@PW),0.5*(\@HBS+\@PH-\@HTS)) {#1};
       \end{scope}
     \fi
+    \ugentlogo{\@HBS}{ugent@main}{0}
   \end{tikzpicture}
 }
 
@@ -9853,33 +9854,25 @@ een b\'echamel saus:
 {%
   \thispagestyle{ugent@titlepage}%
   \begin{tikzpicture}
+  [overlay,remember picture, shift={(current page.south west)}]
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    %\node[anchor=center] at  (0.5*\textwidth,0.75*\@PH)
-    %{\includegraphics[height=.9\@logounit]{\logopos}};
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@main,
-    align=center] at (0.5*\textwidth,0.5*\@PH) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{title in title page}
-        \LARGE\bfseries\inserttitle\\[1ex]
-        \usebeamercolor[fg]{subtitle in title page}
-        \color{fg}\large\bfseries\insertsubtitle
+    \node[anchor=north west,
+    text width=\@PW-3\gridunit,
+    text=white,
+    align=left] at (2\gridunit,\@PH-\@HTS-\gridunit) {
+      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse title in title page}
+      \footnotesize\textbf{\@department[uppercase]}\\\@team[uppercase]
       \end{beamercolorbox}
     };
-    \node[
-    text width=0.98\textwidth,
-    color=ugent@main,
-    align=center] at (0.5*\textwidth,0.25*\@PH) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{author in title page}
-        \large\bfseries\insertauthor
+    \node[anchor=south west,
+    text width=\@PW-3\gridunit,
+    text=white,
+    align=left] at (2\gridunit,\@HBS+\gridunit) {
+      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse title in title page}
+        \Huge\bfseries\MakeUppercase{\inserttitle\\[0.75ex]}
       \end{beamercolorbox}
-    };
-    \node[
-    text width=0.98\textwidth,
-    color=ugent@main,
-    align=center] at (0.5*\textwidth,0.15*\@PH) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{date in title page}
-        \normalsize\bfseries\insertdate
+      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse subtitle in title page}
+        \small\MakeUppercase{\insertsubtitle~\insertauthor~\insertdate}
       \end{beamercolorbox}
     };
   \end{tikzpicture}
@@ -9888,38 +9881,39 @@ een b\'echamel saus:
 \defbeamertemplate*{section page}{main}[1][]
 {%
   \begin{tikzpicture}
-    \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@main,
-    align=center] at (0.5*\textwidth,0.55*\@PH) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{section title}
-        \Large\bfseries\insertsectionnumber.~\insertsection
-      \end{beamercolorbox}
-    };
+  [overlay,remember picture, shift={(current page.south west)}]
+  \begin{scope}
+  \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-2*\gridunit,\@PH-\gridunit)}
+  \node[anchor=south west,
+  text width=\@PW-3\gridunit,
+  text=white,
+  align=left] at (2\gridunit,\@HBS+\gridunit) {
+    \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse section title}
+    \Huge\bfseries\MakeUppercase{\insertsectionnumber.~\insertsection}
+    \end{beamercolorbox}
+  };
+  \end{scope}
   \end{tikzpicture}
 }
 
 \defbeamertemplate*{subsection page}{main}[1][]
 {%
   \begin{tikzpicture}
-    \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@main,
-    align=center] at (0.5*\textwidth,0.55*\@PH) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{section title}
-        \Large\bfseries\insertsectionnumber.~\insertsection
+  [overlay,remember picture, shift={(current page.south west)}]
+    \begin{scope}
+    \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-2*\gridunit,\@PH-\gridunit)}
+    \node[anchor=south west,
+    text width=\@PW-3\gridunit,
+    text=white,
+    align=left] at (2\gridunit,\@HBS+\gridunit) {
+      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse section title}
+        \Huge\bfseries\MakeUppercase{\insertsectionnumber.~\insertsection\\[0.75ex]}
+      \end{beamercolorbox}
+      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse subsection title}
+        \LARGE\bfseries\MakeUppercase{\insertsubsection}
       \end{beamercolorbox}
     };
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@main,
-    align=center] at (0.5*\textwidth,0.45*\@PH) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{subsection title}
-        \large\bfseries\insertsubsection
-      \end{beamercolorbox}
-    };
+    \end{scope}
   \end{tikzpicture}
 }
 
@@ -9961,8 +9955,8 @@ een b\'echamel saus:
   \vskip0.75cm%
   \@SetFrameTitleDims
   \hskip\@tempdima%
-    \usebeamerfont{frametitle}\insertframetitle\\[0.5ex]%
   \begin{beamercolorbox}[wd=\@tempdimb]{\maybeinverse~frametitle}%
+    \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}\\[0.5ex]%
     \ifx\insertframesubtitle\@empty%
     {\usebeamerfont{framesubtitle}%
       \usebeamercolor[fg]{\maybeinverse~framesubtitle}~\strut\par}%
