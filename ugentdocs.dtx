@@ -8383,6 +8383,14 @@ een b\'echamel saus:
 \date{This is your \texttt{\textbackslash{}date{}}}
 \author[my short author]{This is your \texttt{\textbackslash{}author{}}}
 
+\titlelogos{%
+  \includegraphics[height=2\gridunit]{example-image-a}%
+  \hspace{\gridunit}%
+  \includegraphics[height=2\gridunit]{example-image-b}%
+  \hspace{\gridunit}%
+  \includegraphics[height=2\gridunit]{example-image-c}%
+}
+
 \begin{document}
 
 \titleframe
@@ -9522,6 +9530,9 @@ een b\'echamel saus:
   \end{tikzpicture}
 }
 
+\newcommand*{\@titlelogos}{}
+\newcommand*{\titlelogos}[1]{\renewcommand*{\@titlelogos}{#1}}
+
 \newcommand\heading[1]{\par{\usebeamercolor{\maybeinverse heading}\color{fg}{\small\bfseries #1~}}}
 \newcommand\subheading[1]{\par{
     \usebeamercolor{\maybeinverse
@@ -9883,6 +9894,7 @@ een b\'echamel saus:
 
 \ExplSyntaxOff
 
+\newlength{\@tmplen}
 
 \defbeamertemplate*{title page}{main}[1][]
 {%
@@ -9909,6 +9921,15 @@ een b\'echamel saus:
         \small\MakeUppercase{\insertsubtitle~\insertauthor~\insertdate}
       \end{beamercolorbox}
     };
+    \@setugentlogotext
+    \pgfmathsetlength{\@tmplen}{(2+\@ugenttextw/\@logounit)*\gridunit}
+    \ifx\@titlelogos\@empty\else
+      \node[anchor=south west, inner sep=0pt,
+        text width=\@PW-\@tmplen,
+        minimum height=2*\gridunit, align=left]
+      at (\@tmplen,\gridunit)
+        {\@titlelogos};
+    \fi
   \end{tikzpicture}
 }
 
