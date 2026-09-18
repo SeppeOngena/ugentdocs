@@ -9806,6 +9806,14 @@ een b\'echamel saus:
       \end{scope}
     \fi
     \ugentlogo{\@HBS}{ugent@main}{0}
+    \pgfmathsetlength{\@tmplen}{(2+\@ugenttextw/\@logounit)*\gridunit}
+    \ifx\@titlelogos\@empty\else
+    \node[anchor=south~west, inner~sep=0pt,
+    text~width=\@PW-\@tmplen,
+    minimum~height=2*\gridunit, align=left]
+    at (\@tmplen,\gridunit)
+    {\@titlelogos};
+    \fi
   \end{tikzpicture}
 }
 
@@ -9923,15 +9931,6 @@ een b\'echamel saus:
         \small\MakeUppercase{\insertsubtitle~\insertauthor~\insertdate}
       \end{beamercolorbox}
     };
-    \@setugentlogotext
-    \pgfmathsetlength{\@tmplen}{(2+\@ugenttextw/\@logounit)*\gridunit}
-    \ifx\@titlelogos\@empty\else
-      \node[anchor=south west, inner sep=0pt,
-        text width=\@PW-\@tmplen,
-        minimum height=2*\gridunit, align=left]
-      at (\@tmplen,\gridunit)
-        {\@titlelogos};
-    \fi
   \end{tikzpicture}
 }
 
