@@ -8383,6 +8383,12 @@ een b\'echamel saus:
 \subtitle[my short title]{This is your \texttt{\textbackslash{}subtitle{}}}
 \date{This is your \texttt{\textbackslash{}date{}}}
 \author[my short author]{This is your \texttt{\textbackslash{}author{}}}
+\authorrole{This is your \texttt{\textbackslash{}authorrole{}}}
+\department{Your department}
+\team{Your team}
+\phone{Your phone number}
+\email{Your email.address}
+\mobile{Your cell phone number}
 
 \titlelogos{%
   \includegraphics[height=2\gridunit]{example-image-a}%
@@ -9129,6 +9135,8 @@ een b\'echamel saus:
   \end{codesnippet}~\\[1ex]
 \end{frame}
 
+\closingframe
+
 \end{document}
 %</bmrug>
 % \end{Verbatim}
@@ -9219,6 +9227,12 @@ een b\'echamel saus:
 	\begin{frame}[subsection={#1}]
 		\subsectionpage
 	\end{frame}
+}
+
+\NewDocumentCommand{\closingframe}{}{
+  \begin{frame}[title]
+    \@closingpage
+  \end{frame}
 }
 
 \mode
@@ -9534,6 +9548,71 @@ een b\'echamel saus:
 
 \newcommand*{\@titlelogos}{}
 \newcommand*{\titlelogos}[1]{\renewcommand*{\@titlelogos}{#1}}
+
+\newcommand*{\@authorrole}{}
+\newcommand*{\authorrole}[1]{\renewcommand*{\@authorrole}{#1}}
+
+\NewDocumentCommand{\@printsocialitem}{mmm}{%
+  % FA icon command, label text, url
+  \raisebox{-0.25\gridunit}{%
+    \tikz[baseline]\node[fill=white,
+    minimum width=\gridunit, minimum height=\gridunit,
+    inner sep=0pt]{\color{ugent@main}\scalebox{0.75}{#1}};
+  }%
+  \hspace{0.25\gridunit}%
+  \@ifpackageloaded{hyperref}{%
+    \href{#3}{\uline{#2}}%
+  }{%
+    \uline{#2}%
+  }
+}
+
+\newcommand*{\@closingpage}{
+  \begin{tikzpicture}
+  [overlay,remember picture, shift={(current page.south west)}]
+  \clip (0,0) rectangle (\@PW,\@PH);
+  \node[anchor=north west,
+  text width=\@PW-3\gridunit,
+  text=white,
+  align=left] at (3\gridunit,\@PH-4\gridunit) {
+    \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse title in title page}
+      \small
+      \textbf{\insertauthor}\\[0.5ex]
+      \ifx\@authorrole\@empty\else
+      \@authorrole\\[0.5ex]
+      \fi
+      \vspace{\gridunit}
+      \@department[uppercase]~\@team[uppercase]\\[0.5ex]
+      \vspace{\gridunit}
+      \ifseqempty{emails}{}{\printseq{emails}{}{}{}\\[0.5ex]}
+      \ifseqempty{phones}{}{\printseq{phones}{}{}{}\\[0.5ex]}
+      \ifseqempty{mobiles}{}{\printseq{mobiles}{}{}{}\\[0.5ex]}
+    \end{beamercolorbox}
+  };
+  \node[anchor=south west,
+  text width=9\gridunit,
+  text=white,
+  align=left] at (\@PW-9\gridunit,\@HBS+\gridunit) {
+    \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse title in title page}
+      \small
+      \@printsocialitem{\faFacebook}{Universiteit Gent}{https://facebook.com/ugent/}\\[0.6ex]
+      \@printsocialitem{\faInstagram}{@ugent}{https://instagram.com/ugent/}\\[0.6ex]
+      \@printsocialitem{\faLinkedin}{Ghent University}{https://www.linkedin.com/school/ghent-university/}\\[0.6ex]
+      \@printsocialitem{\faYoutubePlay}{youtube.com/ugent}{http://www.youtube.com/user/UniversiteitGent}\\%
+      \vspace{\gridunit}
+      \textcolor{ugent@accent}{
+        \normalsize
+        \@ifpackageloaded{hyperref}{%
+          \href{https://www.ugent.be/}{www.ugent.be}%
+        }{%
+          www.ugent.be%
+        }
+      }
+    \end{beamercolorbox}
+  };
+  \end{tikzpicture}
+}
+\newcommand*{\closingpage}[1]{\renewcommand*{\@closingpage}{#1}}
 
 \newcommand\heading[1]{\par{\usebeamercolor{\maybeinverse heading}\color{fg}{\small\bfseries #1~}}}
 \newcommand\subheading[1]{\par{
