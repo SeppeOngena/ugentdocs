@@ -3853,7 +3853,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   You can specify multiple email addresses by using the command
 %   multiple times.
 % \iffalse
-%<*le|rp>
+%<*le|rp|bmr>
 \ExplSyntaxOn
 \seq_new:N \g_@@_emails_seq
 \tl_new:N \l_@@_domain_tl
@@ -3876,7 +3876,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \@@_addemail:nn { #1 } { #2 }
 }
 \ExplSyntaxOff
-%</le|rp>
+%</le|rp|bmr>
 % \fi
 %
 %
@@ -3894,7 +3894,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \def\Phone {{\wasyfamily\char7}}
 }{}
 %</bkc|le|rp|ex|crs|phd|bama>
-%<*le|rp>
+%<*le|rp|bmr>
 \ExplSyntaxOn
 \seq_new:N \g_@@_phones_seq
 \cs_new:Nn \@@_addphone:n {
@@ -3904,7 +3904,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \@@_addphone:n { #1 }
 }
 \ExplSyntaxOff
-%</le|rp>
+%</le|rp|bmr>
 % \fi
 %
 %
@@ -3934,7 +3934,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   Add mobile numbers.
 %   Used in the |letter| header and report cover page (optional).
 % \iffalse
-%<*le|rp>
+%<*le|rp|bmr>
 \ExplSyntaxOn
 \seq_new:N \g_@@_mobiles_seq
 \cs_new:Nn \@@_addmobile:n {
@@ -3944,7 +3944,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \@@_addmobile:n { #1 }
 }
 \ExplSyntaxOff
-%</le|rp>
+%</le|rp|bmr>
 % \fi
 %
 %
