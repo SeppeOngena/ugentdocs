@@ -8968,7 +8968,7 @@ een b\'echamel saus:
   \end{codesnippet}
 \end{frame}
 
-\begin{graphicframe}[logo=false,fill,graphic={\darken[0.25]%
+\begin{graphicframe}[logo=false,fill,graphic={\brightness[-0.25]%
   {\includegraphics[scale=0.1,min width=\paperwidth,min height=\paperheight]
   {example-image-a}}},t]{}{}
   \place [anchor=north east] at (0.95,0.5) {
@@ -9476,7 +9476,8 @@ een b\'echamel saus:
     \usebeamerfont*{block title}\insertblocktitle%
   \end{beamercolorbox}\noframebreak%
   {\parskip0pt\par}%
-  \ifbeamercolorempty[bg]{block title}{}{\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \ifbeamercolorempty[bg]{block title}{}
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
   \usebeamerfont{block body}%
   \begin{beamercolorbox}[colsep=\@blockcolsep,vmode,#1]{block body}%
     \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
@@ -9516,33 +9517,41 @@ een b\'echamel saus:
 	\path[#1] (bl) rectangle (tr);
 }
 
-\newcommand*\darken[2][0.5]{%
-  \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-    \node (a) {#2};
-    \fill[fill=black,opacity=#1] (a.south west) rectangle (a.north east);
+\DeclareRobustCommand\place{\@ifnextchar[{\@placeat}{\@placeat[align=left] }}
+\def\@placeat[#1] at (#2,#3)#4{
+  \begin{tikzpicture}[overlay,remember picture]
+  \coordinate (place@px)
+    at ($(current page.south west)!#2!(current page.south west-|current page.north east)$);
+  \coordinate (place@py)
+    at ($(current page.south west)!#3!(current page.south west|-current page.north east)$);
+  \node[#1] at (place@px |- place@py) {#4};
   \end{tikzpicture}
 }
 
-\newcommand\ugentcallout[4][]{
+\ExplSyntaxOn
+\fp_new:N \l_@@_fillalpha_fp
+\tl_new:N \l_@@_fillcol_tl
+\newcommand*\brightness[2][-0.5]{%
+  \fp_compare:nNnTF {#1} > {0} {
+    \tl_set:Nn \l_@@_fillcol_tl {white}
+    \fp_set:Nn \l_@@_fillalpha_fp {#1}
+  }{
+    \tl_set:Nn \l_@@_fillcol_tl {black}
+    \fp_set:Nn \l_@@_fillalpha_fp {-(#1)}
+  }
+  \begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt]
+    \node (a) {#2};
+    \fill[fill=\l_@@_fillcol_tl, opacity=\fp_to_decimal:N\l_@@_fillalpha_fp]
+      (a.south~west) rectangle (a.north~east);
+  \end{tikzpicture}
+}
+\ExplSyntaxOff
+
+\newcommand\textbox[4][]{
   \begin{tikzpicture}
     \@rect[fill=black,fill opacity=0.0,text opacity=1,text=white,#1]
-                        {({-#2/2},-{#3/2})}{({#2/2},{#3/2})}
-    \node[align=left,anchor=center] at (0,0) { \callout\\ #4 };
-  \end{tikzpicture}
-}
-
-\newcommand\callout[1][scale=0.70711]{
-  \begin{tikzpicture}[#1]
-    \fill[ugent@faculty] (0.4,0) -- (0.5,0) -- (0.75,-0.15) -- (0.75,0) --
-    (0.9,0) arc(-90:0:0.1) -- (1,0.65) arc(0:90:0.1) -- (0.1,0.75) arc
-    (90:180:0.1) -- (0,0.1) arc(-180:-90:0.1) -- cycle;
-    \foreach \x in {0.35,0.7} {
-      \begin{scope}[shift={(\x,0.425)},scale=0.25]
-        \fill[white] (0,0) circle[radius=0.5];
-        \fill[white] (0.5,0) arc(0:-90:1) --
-        (-0.5,-0.725) arc(-90:0:0.725) -- cycle;
-      \end{scope}
-    }
+      {({-#2/2},-{#3/2})}{({#2/2},{#3/2})}
+    \node[align=left,anchor=center] at (0,0) { #4 };
   \end{tikzpicture}
 }
 
@@ -9595,10 +9604,14 @@ een b\'echamel saus:
   align=left] at (\@PW-9\gridunit,\@HBS+\gridunit) {
     \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse title in title page}
       \small
-      \@printsocialitem{\faFacebook}{Universiteit Gent}{https://facebook.com/ugent/}\\[0.6ex]
-      \@printsocialitem{\faInstagram}{@ugent}{https://instagram.com/ugent/}\\[0.6ex]
-      \@printsocialitem{\faLinkedin}{Ghent University}{https://www.linkedin.com/school/ghent-university/}\\[0.6ex]
-      \@printsocialitem{\faYoutubePlay}{youtube.com/ugent}{http://www.youtube.com/user/UniversiteitGent}\\%
+      \@printsocialitem{\faFacebook}{Universiteit Gent}
+        {https://facebook.com/ugent/}\\[0.6ex]
+      \@printsocialitem{\faInstagram}{@ugent}
+        {https://instagram.com/ugent/}\\[0.6ex]
+      \@printsocialitem{\faLinkedin}{Ghent University}
+        {https://www.linkedin.com/school/ghent-university/}\\[0.6ex]
+      \@printsocialitem{\faYoutubePlay}{youtube.com/ugent}
+        {http://www.youtube.com/user/UniversiteitGent}\\%
       \vspace{\gridunit}
       \textcolor{ugent@accent}{
         \normalsize
@@ -9614,7 +9627,9 @@ een b\'echamel saus:
 }
 \newcommand*{\closingpage}[1]{\renewcommand*{\@closingpage}{#1}}
 
-\newcommand\heading[1]{\par{\usebeamercolor{\maybeinverse heading}\color{fg}{\small\bfseries #1~}}}
+\newcommand\heading[1]{\par{
+    \usebeamercolor{\maybeinverse
+      heading}\color{fg}{\small\bfseries #1~}}}
 \newcommand\subheading[1]{\par{
     \usebeamercolor{\maybeinverse
       subheading}\color{fg}{\footnotesize\it\bfseries #1~}}}
@@ -9631,16 +9646,20 @@ een b\'echamel saus:
 \mode<presentation>
 
 \ExplSyntaxOn
-\dim_new:N \l_@@_graphdim_dim
-\tl_new:N \l_@@_graphpos_tl \tl_set:Nn \l_@@_graphpos_tl {}
-\fp_new:N \l_@@_graphprop_fp \fp_set:Nn \l_@@_graphprop_fp {0.5}
+% Declare vars for graphic frames and title frames
+\dim_new:N  \l_@@_graphdim_dim
+\tl_new:N   \l_@@_graphpos_tl
+\fp_new:N   \l_@@_graphprop_fp
 \bool_new:N \l_@@_graphgiven_bool
 \bool_new:N \l_@@_graphfill_bool
 \bool_new:N \g_@@_showlogo_bool
-\tl_new:N \g_@@_logocolour_tl
-\tl_new:N \l_@@_graphcontent_tl
-\fp_new:N \l_@@_bodyfrac_fp
+\tl_new:N   \g_@@_logocolour_tl
+\tl_new:N   \l_@@_graphcontent_tl
+\fp_new:N   \l_@@_bodyfrac_fp
 
+\newlength{\@titletextwidth}
+
+% Helper CS for split graph frames
 \cs_new_protected:Npn \@IfGraphSplit #1#2 {
   \bool_if:NTF \l_@@_graphfill_bool {
     #2
@@ -9649,6 +9668,7 @@ een b\'echamel saus:
   }
 }
 
+% Helper CS to compute graphic dimensions and position
 \cs_new_protected:Npn \@ComputeGraphDims {
   \bool_if:NTF \l_@@_graphfill_bool {
     \pgfmathsetmacro\@shx{0}
@@ -9694,6 +9714,7 @@ een b\'echamel saus:
 }
 
 
+% Helper CS to set inverse or normal text for graphic frames
 \cs_new_protected:Npn \@SetInverse {
   \@IfGraphSplit {
     \gdef\maybeinverse{}\usebeamercolor[fg]{normal text}
@@ -10067,10 +10088,10 @@ een b\'echamel saus:
 }
 \ExplSyntaxOff
 
+
 \defbeamertemplate*{footline}{empty}
 {
 }
-
 
 \ExplSyntaxOn
 \defbeamertemplate*{footline}{normal}
@@ -10120,16 +10141,6 @@ een b\'echamel saus:
   \end{beamercolorbox}%
 }
 \ExplSyntaxOff
-
-\DeclareRobustCommand\place{\@ifnextchar[{\@placeat}{\@placeat[align=left] }}
-
-\def\@placeat[#1] at (#2,#3)#4{
-  \begin{tikzpicture}[overlay,remember picture]
-  \coordinate (place@px) at ($(current page.south west)!#2!(current page.south west-|current page.north east)$);
-  \coordinate (place@py) at ($(current page.south west)!#3!(current page.south west|-current page.north east)$);
-  \node[#1] at (place@px |- place@py) {#4};
-  \end{tikzpicture}
-}
 
 \mode
 <all>
