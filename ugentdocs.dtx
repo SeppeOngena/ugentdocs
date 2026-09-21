@@ -9230,6 +9230,10 @@ een b\'echamel saus:
 \useinnertheme{ugent}
 \useoutertheme{ugent}
 
+\setlength{\beamer@frametopskip}{0mm}
+\setlength{\beamer@framebottomskip}{0pt}
+\addtolength{\textheight}{-2\gridunit}
+
 % BEAMER PATCHES ---------------------------------------------------------------
 \begingroup
 \catcode`\@=11\relax
@@ -9670,13 +9674,13 @@ een b\'echamel saus:
     \pgfmathsetmacro\@dx{\@PW/1cm}
     \pgfmathsetmacro\@dy{\@PH/1cm}
   }{
-    \pgfmathsetmacro\@shx{\beamer@leftmargin/1cm}
-    \pgfmathsetmacro\@shy{(\paperheight-\textheight)/2/1cm}
-    \pgfmathsetmacro\@dx{\textwidth/1cm}
-    \pgfmathsetmacro\@dy{\textheight/1cm}
+    \pgfmathsetmacro\@shx{\gridunit/1cm}
+    \pgfmathsetmacro\@shy{4\gridunit/1cm}
+    \pgfmathsetmacro\@dx{(\@PW-\gridunit)/1cm}
+    \pgfmathsetmacro\@dy{(\@PH-4*\gridunit)/1cm}
   }
   \@IfGraphSplit{
-    \pgfmathsetmacro\@oy{0.8}
+    \pgfmathsetmacro\@oy{\gridunit/1cm}
     \pgfmathsetmacro\@prop{\fp_to_decimal:N\l_@@_graphprop_fp}
     \str_case:VnF \l_@@_graphpos_tl {
       { l } {
@@ -10195,7 +10199,7 @@ een b\'echamel saus:
 \defbeamertemplate*{frametitle}{normal}
 {%
   \bool_if:NTF \l_@@_graphgiven_bool {\@SetInverse}{}%
-  \vskip0.75cm%
+  \vskip\gridunit%
   \@SetFrameTitleDims
   \hskip\@tempdima%
   \begin{beamercolorbox}[wd=\@tempdimb]{\maybeinverse~frametitle}%
