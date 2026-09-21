@@ -8363,22 +8363,37 @@ een b\'echamel saus:
 \usepackage{pgfplots}
 \usepackage{booktabs}
 
-%% some stuff to typeset code
-\newcommand*\command[1]{{\tt \textbackslash #1}}
+%% Some stuff to typeset code, you can remove this if not needed
+\newcommand*\cmd[1]{{\ttfamily \textbackslash #1}}
 \NewEnviron{codesnippet}[1][0.8\textwidth]{
-  \scriptsize
-  \qquad\framebox[#1][l]{\texttt{
+  \scriptsize{
+  \qquad\framebox[#1][l]{
+  \texttt{
       \setlength\textwidth{#1}
       \begin{minipage}{0.9\textwidth}
         \BODY
       \end{minipage}
     }
   }
+  }
 }
 \newcommand*\ind[1][2ex]{\hspace*{#1}}
-\newcommand*\bframe[1][]{\command{begin}\{#1frame\}}
-\newcommand*\eframe[1][]{\command{end}\{#1frame\}}
+\newcommand*\bframe[1][]{\cmd{begin}\{#1frame\}}
+\newcommand*\eframe[1][]{\cmd{end}\{#1frame\}}
 
+\title{Beamer theme user guide}
+\author{Seppe Ongena}
+
+\begin{document}
+
+\begin{frame}[title]
+\maketitle
+\end{frame}
+
+%% ----------------------------------------------------------------------------
+%% PUT THIS BEFORE YOUR \begin{document}
+%% THIS WAS PUT HERE TO HAVE SEPARATE DATA FOR THE EXAMPLE TITLE SLIDES
+%% BUT A CORRECT ONE FOR THE BEAMER USER GUIDE
 \title{This is your \texttt{\textbackslash{}title{}}}
 \subtitle[my short title]{This is your \texttt{\textbackslash{}subtitle{}}}
 \date{This is your \texttt{\textbackslash{}date{}}}
@@ -8398,14 +8413,213 @@ een b\'echamel saus:
   \includegraphics[height=2\gridunit]{example-image-c}%
 }
 
-\begin{document}
+%% ----------------------------------------------------------------------------
+
+\begin{frame}[logo=false]
+  {In this guide}
+  \tableofcontents
+\end{frame}
+
+\section{Loading the theme and theme options}
+\begin{frame}[section]
+  \sectionpage
+\end{frame}
+
+\begin{frame}
+  {Using the beamer theme}
+
+  The \texttt{ugent} beamer theme is distributed by CTAN. It
+  should be installed with your \textrm{\TeX{}} distribution by default.
+
+  You can load the package in your preamble as:
+
+  \begin{codesnippet}
+    \cmd{documentclass}\{beamer\}\\
+    \cmd{usetheme}[<theme options>]\{ugent\}
+  \end{codesnippet}
+
+  \heading{Remarks}
+  \begin{itemize}
+  \item The theme's default aspect ratio is $16\times 9$, but you might be able to override it by
+    re-loading the \texttt{beamerposter} package with custom width and height, and
+    redefining \cmd{@PW} (page width), \cmd{@PH} (page height), and \cmd{gridunit}.
+    This is not officially suported.
+  \item Only \texttt{dutch} and \texttt{english} are officially supported through the \texttt{language} option.
+  \end{itemize}
+\end{frame}
+
+\begin{graphicframe}[t,graphicpos=r,graphicproportion=0.2,graphic={
+    \begin{minipage}{0.2\textwidth}
+      \footnotesize
+      \begin{center}
+        \begin{tabular}{c}
+          \toprule
+          \bfseries option\\
+          \midrule
+          \texttt{lw}  \\
+          \texttt{re}  \\
+          \texttt{we}  \\
+          \texttt{ge}  \\
+          \texttt{ea}  \\
+          \texttt{eb}  \\
+          \texttt{di}  \\
+          \texttt{pp}  \\
+          \texttt{bw}  \\
+          \texttt{fw}  \\
+          \texttt{ps}  \\
+          \bottomrule
+        \end{tabular}
+      \end{center}
+    \end{minipage}
+  }]
+  {Theme options}{}
+  The following theme options may come in handy --
+    see also the \texttt{ugentdocs} documentation:
+  \begin{description}
+  \item[\texttt{faculty}] to set your own faculty's colours and logos (can be empty)\\
+  \item[\texttt{campus}] to set the campus for the UGent logo. One of \texttt{ugent},
+    \texttt{gugc}, or \texttt{kortrijk}.
+  \item[\texttt{neutralcolors}] to disable your faculty colors and use the
+  standard UGent colors
+  \item[\texttt{colormodel}] to set the colour model. Select \texttt{rgb}
+    color encoding for projecting (default) or \texttt{cmyk} for printing.
+  \item[\texttt{secnums}] to enable (\texttt{true}) or disable (\texttt{false})
+    displaying of section numbers in the frames or TOC.
+  \end{description}
+
+\end{graphicframe}
+
+\begin{frame}[logo=false,t]
+{Colors}
+{What a wonderful world}
+
+\heading{Standard colors}\\
+  You can select the theme colors using:\\
+  \textcolor{ugent@main}{Main color}:
+    can be specified as \textrm{\LaTeX}-color \emph{ugent@main}\\
+  \textcolor{ugent@accent}{Accent color}:
+    can be specified as \textrm{\LaTeX}-color \emph{ugent@accent}\\
+  \textcolor{ugent@faculty}{Faculty color}:
+    can be specified as \textrm{\LaTeX}-color
+    \emph{ugent@faculty}
+
+\heading{Alert}\\
+  You can use \alert{\cmd{alert{}}} to grab the attention of the
+  user. It will typeset your content in \alert{yellow}.
+\end{frame}
+
+\begin{graphicframe}[t,graphicproportion=0.38,graphicpos=r,logo=false,
+graphic={
+  \begin{minipage}{0.38\textwidth}
+  \vspace{1.5cm}
+  \begin{tikzpicture}
+    \ugentlogo{2.8cm}{ugent@main}{0}
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \faclogo{2.1cm}{ugent@faculty}{0}
+  \end{tikzpicture}\\[0.5ex]
+  \begin{tikzpicture}
+    \draw[fill] (0,0) rectangle (0,0) rectangle (3.5,2.8);
+    \ugentlogo{2.8cm}{white}{0}
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \draw[fill] (0,0) rectangle (6.3,2.1);
+    \faclogo{2.1cm}{white}{0}
+  \end{tikzpicture}\\[0.5ex]
+  \foreignlanguage{dutch}{
+    \begin{tikzpicture}
+      \ugentlogo{2.8cm}{ugent@main}{0}
+    \end{tikzpicture}
+    \begin{tikzpicture}
+      \faclogo{2.1cm}{ugent@faculty}{0}
+    \end{tikzpicture}
+  }
+  \end{minipage}
+}]
+{Logo demo}
+
+The logo's can be used as follows within a tikzpicture\\ (arguments: height, colour, alignment):
+  \begin{itemize}
+  \item \cmd{ugentlogo\{2.8cm\}\{ugent@main\}\{0\}} and\\
+    \cmd{faclogo\{2.1cm\}\{ugent@faculty\}\{0\}}\\[2ex]
+  \item \cmd{ugentlogo\{2.8cm\}\{white\}\{0\}} and\\
+    \cmd{faclogo\{2.1cm\}\{white\}\{0\}}\\[2ex]
+  \item \cmd{ugentlogo\{2.8cm\}\{ugent@main\}\{0\}} and\\
+    \cmd{faclogo\{2.1cm\}\{ugent@faculty\}\{0\}}\\
+    within \cmd{foreignlanguage\{dutch\}\{\ldots\}}\\
+  \end{itemize}
+
+You can turn off the logo in the bottom left corner using the
+  \texttt{logo=false} frame option.
+\end{graphicframe}
+
+\begin{frame}[t]
+  {Compilers and fonts}
+
+  The logos require UGent Panno Text to be installed, and an OTF/TTF compatible compiler:
+  \begin{description}
+  \item[\textrm{\LaTeX} and \textrm{pdf\LaTeX}] --- Old compilers -
+   don't support OTF/TTF. \textbf{Don't use!}
+  \item[\textrm{\XeLaTeX} and \textrm{\LuaLaTeX}] --- more modern compilers -
+   either works\\
+  \item[\textrm{\LaTeX{}mk}] --- A compiler script, not a compiler. Use with flags \texttt{-pdfxe} or \texttt{-pdflua}.
+  \end{description}
+
+  The default font is UGent Panno Text, but this can be overridden to Arial using:
+  \begin{codesnippet}
+  \cmd{setsansfont\{Arial\}}[\\
+  \ind BoldFont           = \{Arial\},\\
+  \ind BoldFeatures       = \{FakeBold=2.5\},\\
+  \ind ItalicFont         = \{Arial\},\\
+  \ind ItalicFeatures     = \{FakeSlant=0.15\},\\
+  \ind BoldItalicFont     = \{Arial\},\\
+  \ind BoldItalicFeatures = \{FakeBold=2.5, FakeSlant=0.15\},\\
+  ]
+  \end{codesnippet}
+
+\end{frame}
+
+\section{Title, section, and closing slides}
+\subsection{Title slides}
+\begin{frame}[section]
+  \sectionpage
+\end{frame}
+
+\begin{frame}[t,logo=false]
+  {Title slides}
+  \heading{Contents}\\
+  \begin{itemize}
+  \item The contents of the title slide can be set in your preamble
+    using the \textrm{\LaTeX} commands:
+    \cmd{title\{\}}, \cmd{subtitle\{\}}, \cmd{author\{\}}, and \cmd{date\{\}}
+  \item Some UGent-specific content can be added,
+    such as \cmd{department\{\}}, \cmd{team\{\}}, and \cmd{titlelogos\{\}}
+  \end{itemize}
+
+  \heading{Code} --- The titleslide is easily typeset as:\\
+  \begin{codesnippet}
+    \bframe[][title=<background image>, <options>]\\
+    \ind\cmd{maketitle}\\
+    \eframe
+  \end{codesnippet}\\
+  The options are \texttt{graphicsproportion} (0--1, default 0.5) and
+    the \texttt{inversetext} (true/false).\\
+  The next slides use:
+  \begin{itemize}
+    \item Plain \texttt{title}, no image
+    \item An image: \texttt{title=}\cmd{includegraphics\{example-image-a\}}
+    \item A darkened image (see later) with \texttt{graphicsproportion=1}
+    \item A lightened image with \texttt{graphicsproportion=1}
+      and \texttt{inversetext=false}
+  \end{itemize}
+\end{frame}
 
 \begin{frame}[title]
-\maketitle
+  \maketitle
 \end{frame}
 
 \begin{frame}[title=
-  {\includegraphics[width=\paperwidth]{example-image-a}}]
+  {\includegraphics[width=0.6\paperwidth]{example-image-a}}]
   \maketitle
 \end{frame}
 
@@ -8422,136 +8636,62 @@ een b\'echamel saus:
   \maketitle
 \end{frame}
 
-\begin{frame}[logo=false]
-  {What's on the menu?}
-  {Bon app\'etit!}
-  ~\\
-  \tableofcontents
-\end{frame}
-
-\section{Loading the theme and theme options}
-\begin{frame}[section]
-  \sectionpage
-\end{frame}
-
-\begin{frame}
-  {Using our beamer theme}
-
-  The \texttt{ugent} beamer theme is distributed by CTAN. It
-  should be installed with your \TeX{} distribution by default.
-
-  You can load the package in your preamble as:
-
-  \begin{codesnippet}
-    \command{documentclass}[aspectratio=1610]\{beamer\}\\
-    \command{usetheme}[theme-options-go-here]\{ugent\}\\
-    \command{usepackage}[english]\{babel\}
-  \end{codesnippet}
-
-  \heading{Remarks}
-  \begin{itemize}
-  \item The theme behaves well for all supported beamer aspect
-    ratios.
-  \item $16\times 10$ is currently your best option to maximize your
-    slide size given a modern LCD-projector!
-  \item Only \texttt{dutch} and \texttt{english} are supported.
-    The correct logoware is selected using the babel language option!
-  \end{itemize}
-\end{frame}
-
-\begin{graphicframe}[t,graphicpos=r,graphicproportion=0.25,graphic={
-    \begin{minipage}{0.22\textwidth}
-      \footnotesize
-      \begin{center}
-        \begin{tabular}{c}
-          \toprule
-          \bfseries option\\
-          \midrule
-          \tt be  \\
-          \tt fbd \\
-          \tt ggw \\
-          \tt lw  \\
-          \tt ow  \\
-          \tt re  \\
-          \tt sw  \\
-          \tt ti  \\
-          \tt we  \\
-          \tt iob \\
-          \bottomrule
-        \end{tabular}
-      \end{center}
-    \end{minipage}
-  }]
-  {Theme options}{}
-  The following theme options may come in handy:
-  \begin{description}
-  \item[\tt X] to invoke your own faculty's colors and logos,
-    with X one of the options in the table on the right\\
-    (I assume you know your faculty abbreviation)
-  \item[\tt nofonts] disables font loading, so you can load your own fonts
-  \item[\tt rgb]  to select RGB color encoding (best for projecting, default)
-  \item[\tt cmyk] to select CMYK color encoding  (best for printing)
-  \item[\tt neutralcolors] to disable your faculty colors and use the
-    standard UAntwerpen colors
-  \end{description}
-  \medskip
-
-  The defaults of the theme are:
-  \begin{itemize}
-  \item no faculty option  ($\Rightarrow$ standard UAntwerpen logos)
-  \item \texttt{rgb}
-  \end{itemize}
-
-\end{graphicframe}
-
+\subsection{Section slides}
 \begin{frame}[t]
-  {A note on the compiler you are using}
-  {Fonts galore}
+{Section slides}
 
-  Depending on the type of compiler you use, a different font scheme
-  is loaded:
-  \begin{description}
-  \item[\LaTeX] --- ancient compiler - no support\\
-    Don't use!
-  \item[pdf\LaTeX] --- very old school compiler - no OTF/TTF support\\
-    Computer Modern Sans Serif is used as font
-  \item[\XeLaTeX] --- old school compiler - the first to have OTF/TTF
-    support\\
-    Calibri is used as font (with cmbright math fonts)
-  \item[\LuaLaTeX] --- current compiler - your best option\\
-    Calibri is used as font (with cmbright math fonts)
-  \end{description}
+The section slides work quite similar to the title slide,
+ although the \texttt{section} or \texttt{subsection} option is used instead of the \texttt{title} option,
+ and \cmd{sectionpage} and \cmd{subsectionpage} are used instead of \cmd{maketitle}.
+ The title slides support the same graphics options.
 
+Example:\\[1ex]
+\begin{codesnippet}[0.8\textwidth]
+  \bframe[][section]\\
+  \ind \cmd{sectionpage}\\
+  \eframe\\~\\
+  \bframe[][subsection]\\
+  \ind \cmd{subsectionpage}\\
+  \eframe
+\end{codesnippet}\\[1ex]
+(the subsection slide is how the next slide was generated)
 \end{frame}
 
-\section{Title slides}
-\begin{frame}[section]
-  \sectionpage
+\subsection{Closing slides}
+\begin{frame}[subsection]
+\subsectionpage
 \end{frame}
 
 \begin{frame}[t]
-  {Title slides}
-  \heading{Contents} ---
-  The contents of the title slide can be set in your preamble
-  using the classical \LaTeX{} commands:
-  \begin{itemize}
-  \item \command{title\{\}}
-  \item \command{subtitle}\{\}
-  \item \command{author\{\}}
-  \item \command{date\{\}}
-  \end{itemize}
-  We don't specify an institute, as the logos do so.
+{Closing slides}
 
-  \heading{Code} --- The titleslide is easily typeset as:\\
-  \begin{codesnippet}
-    \bframe[][option]\\
-    \ind\command{maketitle}\\
-    \eframe
-  \end{codesnippet}
+The closing slide at the end of a presentation is inserted using:\\
 
-  with no option, or one of: \texttt{normal}, \texttt{negative},
-  \texttt{negativefill}.
+\begin{codesnippet}[0.8\textwidth]
+\bframe[][title]\\
+\ind \cmd{closingpage}\\
+\eframe
+\end{codesnippet}\\[1ex]
+
+An example can be found in the next slide.
+
+You can customize the content
+  by renewing the \cmd{closingpage} macro, e.g.:\\
+\begin{codesnippet}[0.8\textwidth]
+  \cmd{renewcommand*}\{\cmd{closingpage}\}\{\\
+  \ind \cmd{begin}\{tikzpicture\}\\
+  \ind\ind \texttt{[}overlay,remember picture, shift=\{(current page.south west)\}\texttt{]}\\
+  \ind\ind \cmd{clip} (0,0) rectangle (\cmd{@PW},\cmd{@PH});\\
+  \ind\ind <CLOSING PAGE CONTENT>\\
+  \ind \cmd{end}\{tikzpicture\}\\
+  \}
+\end{codesnippet}\\[1ex]
 \end{frame}
+
+\begin{frame}[title]
+  \closingpage
+\end{frame}
+
 
 \section{Regular slides}
 
@@ -8563,9 +8703,9 @@ een b\'echamel saus:
 \begin{frame}[t]
   {Frame titles}
   {And subtitles}
-  \heading{How to specify them!}\\
-  Titles are specified using \command{frametitle\{\}} or
-  \command{framesubtitle\{\}} or even easier as first and second argument
+  \heading{How to specify them}\\
+  Titles are specified using \cmd{frametitle\{\}} or
+  \cmd{framesubtitle\{\}} or even easier as first and second argument
   to the \texttt{frame} environment (or their derived versions).
 
   \begin{codesnippet}
@@ -8578,40 +8718,31 @@ een b\'echamel saus:
   \bigskip
 
   \heading{Don't need them?}\\
-  If you need a slide without titles: just don't specify them!
-
-  \heading{Want to get rid of the footer as well?}\\
-  Specify the \texttt{plain} option to the frame.
-
+  If you need a slide without titles: just don't specify them
 \end{frame}
 
 \begin{frame}[t]
   {The canvas}
 
-  \heading{Flavors} --- The canvas of the slide has four flavors:
+  \heading{Flavours} --- The canvas of the slide has five flavours:
   \begin{description}
-  \item[normal]
+  \item[normal (default)]
     the ordinary white background slide
-  \item[negativefill]
-    a reverse video slide on a background (in maincolor) without white
-    margins
+  \item[plain]
+    a slide without footer or UGent logo
+  \item[shaded]
+    a slide on a light background (in \texttt{ugent@main!10})
   \item[negative]
-    a reverse video slide on a bakcground (in maincolor) with white
-    margins
-  \item[graphicfill]
-    a graphic canvas without white margins (graphic can be photo,
-    graph, \ldots)
-  \item[graphic] a graphic canvas with white margins (graphic can be
-    anything)
+    a reverse video slide on a background (in \texttt{ugent@main}) with white
+    text
+  \item[graphic] a graphic canvas (graphic can be anything)
   \end{description}
   They are specified as options to the frame environment (or its
   derivatives).
 
   \heading{Remarks}
   \begin{itemize}
-  \item You don't need to specify the normal canvas, it is the
-    default.
-  \item In handout mode the negative and negativefill canvas will be
+  \item In handout mode the shaded and negative canvas will be
     typeset as normal canvas (to allow for easy printing).
   \item The graphic option has many variants that we will discuss later.
   \end{itemize}
@@ -8619,27 +8750,14 @@ een b\'echamel saus:
 
 \begin{frame}[shaded]
   {A negativefill slide}
-  {with a subtle subtitle}
+  {with a subtitle}
   \kant[1]
 \end{frame}
 
 \begin{frame}[negative,t]
   {A negative slide}
   {with a subtle subtitle}
-  Don't do this! Don't use a title and subtitle, nor straight text
-  but put material on this slide that does not touch or cross the
-  edges of the background!\\
-  E.g., the graph on the bottom right
-  \place[anchor=south east] at (0.9,0.1) {
-    \begin{tikzpicture}[white]
-      \begin{axis}
-        [width=4cm,height=5cm,grid=both,font=\footnotesize]
-        \addplot[white] {x^2};
-      \end{axis}
-    \end{tikzpicture}
-  }
-  The best advice is not to reserve this canvas for title frames and
-  intermission slides.
+  \kant[2]
 \end{frame}
 
 \begin{frame}[t]
@@ -8664,80 +8782,7 @@ een b\'echamel saus:
 
 \end{frame}
 
-\begin{frame}[logo=false,t]
-  {Colors}
-  {What a wonderful world}
-
-  \heading{Standard colors}\\
-  You can select the theme colors using:\\
-  \textcolor{ugent@main}{Main color}:
-  can be specified as \LaTeX-color \emph{ugent@main}\\
-  \textcolor{ugent@accent}{Accent color}:
-  can be specified as \LaTeX-color \emph{ugent@accent}\\
-  \textcolor{ugent@faculty}{Faculty color}:
-  can be specified as \LaTeX-color
-  \emph{ugent@faculty}
-
-  \heading{Advice}\\
-  \begin{itemize}
-  \item Stick to the standard colors or use grayscale tints!
-  \item Only use color when functional (e.g. in graphs)
-  \end{itemize}
-
-  \heading{Alert}
-  You can use \alert{\command{alert{}}} to grab the attention of the
-  user. It will typeset your content in \alert{red}.
-
-  \heading{Not taking any advice?}\\
-  You can fiddle with the colors, but do so in smart way.
-  Use \command{setbeamercolor}. You can see how it is used in the
-  \texttt{beamercolorthemeugent.sty} file.
-\end{frame}
-
-\begin{frame}[t]
-  {Logo demo}
-
-  The logo's can be used as follows within a tikzpicture (arguments: height, color, alignment):
-  \begin{itemize}
-  \item \command{ugentlogo\{1.5cm\}\{ugent@main\}\{0\}} and \command{faclogo\{1.125cm\}\{ugent@faculty\}\{0\}}\\
-  \begin{center}
-    \begin{tikzpicture}
-      \draw[fill,white] (0,0) rectangle (1.875,1.5);
-      \ugentlogo{1.5cm}{ugent@main}{0}
-    \end{tikzpicture}
-    \begin{tikzpicture}
-      \draw[fill,white] (0,0) rectangle (3.375,1.125);
-      \faclogo{1.125cm}{ugent@faculty}{0}
-    \end{tikzpicture}
-  \end{center}
-  \item \command{ugentlogo\{1.5cm\}\{white\}\{0\}} and \command{faclogo\{1.125cm\}\{white\}\{0\}}\\
-  \begin{center}
-    \begin{tikzpicture}
-      \draw[fill] (0,0) rectangle (0,0) rectangle (1.875,1.5);
-      \ugentlogo{1.5cm}{white}{0}
-    \end{tikzpicture}
-    \begin{tikzpicture}
-      \draw[fill] (0,0) rectangle (3.375,1.125);
-      \faclogo{1.125cm}{white}{0}
-    \end{tikzpicture}
-  \end{center}
-  \item \command{ugentlogo\{1.5cm\}\{ugent@main\}\{0\}} and \command{faclogo\{1.125cm\}\{ugent@faculty\}\{0\}} within \command{foreignlanguage\{dutch\}\{\ldots\}}\\
-  \begin{center}
-    \foreignlanguage{dutch}{
-      \begin{tikzpicture}
-        \draw[fill,white] (0,0) rectangle (1.875,1.5);
-        \ugentlogo{1.5cm}{ugent@main}{0}
-      \end{tikzpicture}
-      \begin{tikzpicture}
-        \draw[fill,white] (0,0) rectangle (4.125,1.125);
-        \faclogo{1.125cm}{ugent@faculty}{0}
-      \end{tikzpicture}
-    }
-  \end{center}
-  \end{itemize}
-\end{frame}
-
-\subsection{With graphic eye candy}
+\subsection{The graphic frame}
 \begin{frame}[subsection]
   \subsectionpage
 \end{frame}
@@ -8747,304 +8792,258 @@ een b\'echamel saus:
 
   \heading{The idea} --- put support material (photo or graph) on the
   slide next to the frame content.
-  This is done by
+  This is done by specifying the \texttt{graphicframe} environment and choosing
+  the appropriate options:
   \begin{itemize}
-  \item specifying an appropriate canvas
-  \item using an appropriate frame derivative
+  \item \texttt{graphic=<your graphic content>}
+  \item \texttt{graphicpos=<t/l/r/b>}: the side of the slide your graphic is on.
+    If none is specified, the graphic fills the slide similar to a section slide.
+  \item \texttt{graphicproportion=<0-1>}: the proportion of the slide your graphic fills
+  \item \texttt{fill=<true/false>}: if the graphic should fill the whole slide, with no margins
   \end{itemize}
 
-  \heading{Good combinations}
-  \begin{center}\small
-    \begin{tabular}{ccc}
-      \toprule
-      \bfseries frame option & \bfseries graphic on frame
-      & \bfseries corresponding frame derivative\\
-      \midrule
-      lqgraphic & left quarter   & r3qframe \\
-      rqgraphic & right quarter & l3qframe \\
-      lhgraphic & left half      & rhframe \\
-      rhgraphic & right half    & lhframe \\
-      thgraphic & top half       & bhframe \\
-      bhgraphic & bottom half   & thframe\\
-      \bottomrule
-    \end{tabular}
-  \end{center}
+  Some examples are shown in the next seven slides. The next two slides are typeset as:
 
+  \begin{codesnippet}
+  \bframe[graphicframe][graphic,logo=false]\\
+  \ind \{\}\{\}\\
+  \eframe[graphicframe]\\
+  \\
+  \bframe[graphicframe][graphic,fill=true,logo=false]\\
+  \ind \{\}\{\}\\
+  \eframe[graphicframe]
+  \end{codesnippet}
 \end{frame}
 
-\begin{graphicframe}[logo=false,graphic,graphicpos=r,graphicproportion=0.25]
+\begin{graphicframe}[graphic,logo=false]
+  {}{}
+\end{graphicframe}
+
+\begin{graphicframe}[graphic,fill=true,logo=false]
+  {}{}
+\end{graphicframe}
+
+\begin{graphicframe}
+[graphic={\includegraphics[width=0.25\paperwidth, min height=\paperheight-2\gridunit]{example-image-a}},
+  graphicpos=r,graphicproportion=0.25,
+  logo=false]
   {Some Random Title}
   {Please, adapt!}
 
   \small
   The slide has been typeset as:\\
   \begin{codesnippet}[\textwidth]
-    \bframe[l3q][rqgraphic=\{<load photo here>\}]\\
+    \bframe[graphicframe]\\
+    \texttt{[graphic=\{<load photo here>\},\\
+    graphicpos=r,graphicproportion=0.25,\\
+    logo=false]\\}
     \ind\{Title\}\\
     \ind\{Subtitle\}\\
     \ind frame contents\\
-    \eframe[l3q]
+    \eframe[graphicframe]
   \end{codesnippet}
   \smallskip
 
   \subheading{Remarks}
   \begin{itemize}
   \item Load photo as:\\
-    \command{includegraphics[width=0.25\command{paperwidth}, min height=\command{textheight}]
-      \{image.jpg\}}
-  \item If \texttt{rqgraphic} is specified without argument, a standard photo
-    is loaded.
-  \item Note: you can avoid rounding the corner using the
-    frame option \texttt{noround} (may be useful when not using a photo)
+    \cmd{includegraphics[width=0.25\cmd{paperwidth}, min height=\cmd{paperheight}-2\cmd{gridunit}]
+      \{example-image-a\}}
+  \item If \texttt{graphic} is specified without argument, an example image is loaded.
   \end{itemize}
 \end{graphicframe}
 
-\begin{graphicframe}[logo=false,graphic,graphicpos=l,graphicproportion=0.25,t]
+\begin{graphicframe}
+[graphic={\includegraphics[width=0.5\paperwidth, min height=\paperheight-2\gridunit]{example-image-a}},
+graphicpos=r,logo=false]
   {Some Random Title}
-  {Please, adapt!}
 
   \small
   The slide has been typeset as:\\
   \begin{codesnippet}[\textwidth]
-    \bframe[r3q][lqgraphic=\{<load photo here>\}]\\
+    \bframe[graphicframe]\\
+    \texttt{[graphic=\{<load photo here>\},\\
+    graphicpos=r,\\
+    logo=false]\\}
     \ind\{Title\}\\
     \ind\{Subtitle\}\\
     \ind frame contents\\
-    \eframe[r3q]
+  \eframe[graphicframe]
   \end{codesnippet}
   \smallskip
 
   \subheading{Remarks}
   \begin{itemize}
   \item   Load photo as:\\
-    \command{includegraphics[width=0.25\command{paperwidth}, min height=\command{textheight}]
-      \{image.jpg\}}
-  \item If \texttt{rqgraphic} is specified without argument, a standard photo
-    is loaded.
-  \item Note: you can avoid rounding the corner using the
-    frame option \texttt{noround} (may be useful when not using a photo)
+    \cmd{includegraphics[min
+      width=0.5\cmd{paperwidth}, min height=\cmd{paperheight}-2\cmd{gridunit}]
+      \{example-image-a\}}
+  \item If \texttt{graphic} is specified without argument, an example image is loaded.
   \end{itemize}
 \end{graphicframe}
 
-\begin{graphicframe}[logo=false,graphic,graphicpos=r]
+\begin{graphicframe}
+[graphic={\includegraphics[width=0.5\paperwidth, min height=\paperheight-2\gridunit]{example-image-a}},
+graphicpos=l,logo=false]
   {Some Random Title}
 
   \small
   The slide has been typeset as:\\
   \begin{codesnippet}[\textwidth]
-    \bframe[lh][rhgraphic=\{<load photo here>\}]\\
+    \bframe[graphicframe]\\
+    \texttt{[graphic=\{<load photo here>\},\\
+    graphicpos=l,\\
+    logo=false]\\}
     \ind\{Title\}\\
     \ind\{Subtitle\}\\
     \ind frame contents\\
-    \eframe[lh]
-  \end{codesnippet}
+    \eframe[graphicframe]
+    \end{codesnippet}
   \smallskip
 
   \subheading{Remarks}
   \begin{itemize}
   \item   Load photo as:\\
-    \command{includegraphics[min
-      width=0.5\command{paperwidth}, min height=\command{textheight}]
-      \{image.jpg\}}
-  \item If \texttt{rqgraphic} is specified without argument, a standard photo
-    is loaded.
-  \item Note: avoid rounding the corner using \texttt{noround}
+    \cmd{includegraphics[min
+      width=0.5\cmd{paperwidth}, min height=\cmd{paperheight}-2\cmd{gridunit}]
+      \{example-image-a\}}
+    \item If \texttt{graphic} is specified without argument, an example image is loaded.
   \end{itemize}
 \end{graphicframe}
 
-\begin{graphicframe}[logo=false,graphic,graphicpos=l,t]
-  {Some Random Title}
-
-  \small
-  The slide has been typeset as:\\
-  \begin{codesnippet}[\textwidth]
-    \bframe[rh][lhgraphic=\{<load photo here>\}]\\
-    \ind\{Title\}\\
-    \ind\{Subtitle\}\\
-    \ind frame contents\\
-    \eframe[rh]
-  \end{codesnippet}
-  \smallskip
-
-  \subheading{Remarks}
-  \begin{itemize}
-  \item   Load photo as:\\
-    \command{includegraphics[min
-      width=0.5\command{paperwidth}, min height=\command{textheight}]
-      \{image.jpg\}}
-  \item If \texttt{rqgraphic} is specified without argument, a standard photo
-    is loaded.
-  \item Note: avoid rounding the corner using \texttt{noround}
-  \end{itemize}
-\end{graphicframe}
-
-\begin{graphicframe}[logo=false,graphic,graphicpos=t,t]
+\begin{graphicframe}
+[graphic={\includegraphics[width=\textwidth, min height=0.5\textheight]{example-image-a}},
+graphicpos=t,logo=false,b]
   {Some Random Title}{Please, adapt!}
   \small
   The slide has been typeset as:\\
   \begin{codesnippet}[\textwidth]
-    \bframe[bh][thgraphic=\{<load photo here>\}]\\
+    \bframe[graphicframe]\texttt{[graphic=\{<load photo here>\}, graphicpos=t, logo=false,b]\\}
     \ind\{Title\}\\
     \ind\{Subtitle\}\\
     \ind frame contents\\
-    \eframe[bh]
+    \eframe[graphicframe]
   \end{codesnippet}
 \end{graphicframe}
 
-\begin{graphicframe}[logo=false,graphic,graphicpos=b,t]
-  {Some Random Title}
-  {Please, adapt!}
+\begin{graphicframe}
+[graphic={\includegraphics[width=\textwidth, min height=0.5\textheight]{example-image-a}},
+graphicpos=b,logo=false,t]
+  {Some Random Title}{Please, adapt!}
   \small
   The slide has been typeset as:\\
   \begin{codesnippet}[\textwidth]
-    \bframe[th][bhgraphic=\{<load photo here>\}]\\
+    \bframe[graphicframe]\texttt{[graphic=\{<load photo here>\}, graphicpos=b, logo=false,t]\\}
     \ind\{Title\}\\
     \ind\{Subtitle\}\\
     \ind frame contents\\
-    \eframe[th]
+    \eframe[graphicframe]
   \end{codesnippet}
 \end{graphicframe}
 
-\section{Intermission slides}
-\begin{frame}[section]
-  \sectionpage
-\end{frame}
-
-\subsection{Standard section slides}
-\begin{frame}[subsection]
-  \subsectionpage
-\end{frame}
-
-\begin{frame}[t]
-  {Basic idea}
-
-  You can select any of the canvas templates: negative, negativefill,
-  graphic, graphicfill and normal, and combine it with:
-  \begin{description}
-  \item[\command{sectionpage}]
-  \item[\command{subsectionpage}]
-  \end{description}
-
-  Example:\\[1ex]
-  \begin{codesnippet}[0.8\textwidth]
-    \bframe[][negative]\\
-    \ind \command{sectionpage}\\
-    \eframe\\~\\
-    \bframe[][negative]\\
-    \ind \command{subsectionpage}\\
-    \eframe
-  \end{codesnippet}\\[1ex]
-  (this how the previous two slide were generated)
-\end{frame}
-
-\subsection{Custom intermission slides}
+\subsection{Place, brightness, and textbox}
 \begin{frame}[subsection]
   \subsectionpage
 \end{frame}
 
 \begin{frame}[logo=false,t]
-  {Basic idea}
+  {Place}
 
-  If you are a fan of graphic material in slideware, you can use a
-  \texttt{graphic} or \texttt{graphicfill} canvas in combination with
-  small snippets you put on the slide using\\[1ex]
-  \qquad\command{place[node options] at (x,y) \{<material>\}}\\[1ex]
+  You can place any graphic material on the slide using\\[1ex]
+  \qquad\cmd{place[node options] at (x,y) \{<graphic material>\}}\\[1ex]
   with
   \begin{itemize}
-  \item $(x,y)=(0,0)$ the bottom left of the slide and $(1,1)$ the top
-    right of the slide
+  \item $(x,y)$ the coordinates to insert the content, with the bottom left as origin $(0,0)$.
+    The coordinates can be relative (0--1) to the slide dimensions if unitless,
+    or absolute in cm, pt,\ldots
   \item \texttt{node options} any options you want to hand over to the
-    tikz node that is used to position the material.
+    tikz node that is used to position the material, e.g., \texttt{anchor = south east}.
   \end{itemize}
   \medskip
 
-  E.g., the next slide was created using:\\[1ex]
+  The next slide was created using:\\[1ex]
   \begin{codesnippet}[0.8\textwidth]
-    \bframe[][graphic,t]\\
-    \ind\command{place} at (0.5,0.5) \{\command{ugenticon[scale=0.8]}\}\\
+    \bframe[][plain,logo=false]\\
+    \ind\cmd{place} at (0.5,0.5) \{\\
+    \ind\ind\cmd{begin\{tikzpicture\}}\\
+    \ind\ind\cmd{ugentlogo\{12\cmd{gridunit}\}\{ugent@main\}\{0\}}\\
+    \ind\ind\cmd{end\{tikzpicture\}}\\
+    \ind\}\\
     \eframe
   \end{codesnippet}
-  \medskip
-
-  You will have to run \LaTeX{} twice in order for the position to be correct!
 \end{frame}
 
-\begin{graphicframe}[logo=false,plain]{}{}
+\begin{frame}[logo=false,plain]{}{}
   \place at (0.5,0.5){
     \begin{tikzpicture}
       \ugentlogo{12\gridunit}{ugent@main}{0}
     \end{tikzpicture}
   }
-\end{graphicframe}
-
-\begin{frame}[t]
-  {Shading photographs}
-
-  Often you need make a photograph a little bit more opaque in order
-  for the (white) text to readable.
-
-  To this end you can use the following command\\[1ex]
-  \qquad\command{darken[s]\{<material>\}}\\[1ex]
-  with $s$ a value between 0 and 1 to specify the level of darkening.
-
-  E.g., the next slide was created using:
-  \begin{codesnippet}[0.9\textwidth]
-    \bframe[][graphicfill=\{\command{darken}%
-    [0.25]\{\command{includegraphics}%
-    [scale=0.1,min width=\command{paperwidth},min height=\command{paperheight}]%
-    \{Images/uantwerpen-09.jpg\}\},t]\\
-    \command{place} [anchor=north east] at (0.95,0.5) \{\\
-    \ind\command{uantwerpencallout}\{3\}\{2.5\}\{\\
-    \ind\ind\command{bfseries} You cannot be serious!\textbackslash\textbackslash[1ex]\\
-    \ind\ind John McEnroe\}\\
-    \}\\
-    \eframe
-  \end{codesnippet}
 \end{frame}
 
-\begin{graphicframe}[logo=false,fill,graphic={\brightness[-0.25]%
-  {\includegraphics[scale=0.1,min width=\paperwidth,min height=\paperheight]
-  {example-image-a}}},t]{}{}
-  \place [anchor=north east] at (0.95,0.5) {
-    \textbox{3}{2.5}{
-      \bfseries You cannot be serious!\\[1ex]
-      John McEnroe}
-  }
+\begin{graphicframe}[graphicpos=r,graphicproportion=0.25,t,
+graphic={
+\brightness[-0.5]{\includegraphics[width=0.2\paperwidth]{example-image-a}}\\
+\brightness[0]{\includegraphics[width=0.2\paperwidth]{example-image-a}}\\
+\brightness[+0.5]{\includegraphics[width=0.2\paperwidth]{example-image-a}}
+}
+]
+  {Brightness}
+
+  You can lighten or darken a photograph using the following command\\[1ex]
+  \qquad\cmd{brightness[s]\{<graphic material>\}}\\[1ex]
+  with $s$ a value between -1 and 1 to specify the level of lightening ($>0$)
+  or darkening ($<0$).
+
+  To the right, you can see an image with brightness\\
+   $-0.5$ (top), $0$ (middle), and $+0.5$ (bottom).
 \end{graphicframe}
 
 \begin{frame}[logo=false,t]
-  {Shading photographs locally}
+  {Textbox}
 
-  You can also choose to shade the local backdrop of the material
-  you put on the side. If you like the \command{textbox}
-  command of the previous slide, you can give it an optional argument
-  to set the fill opacity of the backdrop behind the text.
+  You can insert a text box using:\\[1ex]
+  \qquad\cmd{textbox[options]\{width\}\{height\}\{contents\}}
 
-  E.g., the next slide was created using:
-  \begin{codesnippet}[0.9\textwidth]
-    \bframe[][graphic,t]\\
-    \ind\command{place} [anchor=north west] at (0.1,0.9) \{\\
-    \ind\ind\command{textbox}[fill opacity=0.5]\{4.5\}\{2.5\}\{\\
-    \ind\ind\ind\command{bfseries} I'll be back!\textbackslash\textbackslash[1ex]\\
-    \ind\ind\ind Arnold Schwarzenegger\}\\
-    \}
+  Where the supported options are
+  \begin{itemize}
+  \item \texttt{fill = <colour>}: textbox colour
+  \item \texttt{fill opacity = <0-1>}
+  \item \texttt{text = <colour>}: text colour
+  \item \texttt{text opacity = <0-1>}
+  \item \texttt{align= <left/right/center/justify>}: text alignment
+  \end{itemize}
+
+  Some examples can be found in the next slides. E.g., the next one is created using:\\[1ex]
+  \begin{codesnippet}[0.8\textwidth]
+    \bframe[][graphic,logo=false]\\
+    \ind\cmd{place[anchor = south east]} at (\cmd{paperwidth}-\cmd{gridunit},\cmd{gridunit}) \{\\
+    \ind\ind\cmd{textbox}\{16cm\}\{10cm\}\{Some example text\}\\
+    \ind\}\\
     \eframe
   \end{codesnippet}
-  \medskip
-
-  The \command{textbox} command has te following syntax:\\[1ex]
-  \qquad\command{textbox[options]\{width\}\{height\}\{contents\}}
-  \medskip
-
-  Remember to run \LaTeX{} twice in order for the position of the
-  callout to be correct!
 \end{frame}
 
-\begin{graphicframe}[logo=false,graphic,t]{}{}
-  \place [anchor=north west] at (0.1,0.9) {
-    \textbox[fill opacity=0.5]{4.5}{2.5}{
-      \bfseries I'll be back!\\[1ex]
-      Arnold Schwarzenegger}
+\begin{graphicframe}[graphic]{}{}
+  \place [anchor=south east] at (\paperwidth-\gridunit,\gridunit) {
+    \textbox{16cm}{10cm}{Some example text}
+  }
+\end{graphicframe}
+\begin{graphicframe}[logo=false,graphic]{}{}
+  \place [anchor=north west] at (\gridunit,\paperheight-\gridunit) {
+    \textbox[fill=white,text=ugent@main]{10cm}{6cm}{\textbf{All}}
+  }
+  \place [anchor=north east] at (\paperwidth-\gridunit,\paperheight-\gridunit) {
+    \textbox[fill=ugent@main!10!white,text=ugent@main]{10cm}{6cm}{\textbf{the}}
+  }
+  \place [anchor=center] at (0.5,0.5) {
+  \textbox[fill=ugent@main, fill opacity=0.2,text=ugent@main]{10cm}{6cm}{\textbf{colours}}
+  }
+  \place [anchor=south west] at (\gridunit,\gridunit) {
+    \textbox[fill=ugent@accent]{10cm}{6cm}{of}
+  }
+  \place [anchor=south east] at (\paperwidth-\gridunit,\gridunit) {
+  \textbox[fill=ugent@main]{10cm}{6cm}{UGent}
   }
 \end{graphicframe}
 
@@ -9058,8 +9057,8 @@ een b\'echamel saus:
   {on two levels}
   You can set headings on two levels, by using
   \begin{itemize}
-  \item\command{heading\{\}}
-  \item\command{subheading\{\}}
+  \item\cmd{heading\{\}}
+  \item\cmd{subheading\{\}}
   \end{itemize}
   \heading{Main subject}~\\
   blabla
@@ -9087,14 +9086,14 @@ een b\'echamel saus:
   {Itemize / enumerations}
   {Different styles}
   Usage:\\
-  Set them (in your preamble) using: \command{setbeamertemplate\{itemize items\}[circle]}\\
-  The default of the ugent beamer template is set to \command{textendash} following the Office
+  Set them (in your preamble) using: \cmd{setbeamertemplate\{itemize items\}[circle]}\\
+  The default of the \texttt{ugent} beamer template is set to \cmd{textendash} following the Office
   templates.
   \medskip
 
   \begin{columns}
     \column[T]{0.3\textwidth}
-    \alert{\command{textendash} (default)}
+    \alert{\cmd{textendash} (default)}
     \setbeamertemplate{itemize items}{\textendash}
     \listdemo
     \column[T]{0.3\textwidth}
@@ -9146,32 +9145,9 @@ een b\'echamel saus:
   \vfill
 \end{frame}
 
-\section{Advanced material}
-\begin{frame}[section]
-  \sectionpage
-\end{frame}
-
-\begin{frame}[t]
-  {Customizing the template}
-
-  If you want to override logos/colors to create a template for your
-  own research group or department:
-  renew the commands below. The redefinitions must be put just after
-  the \command{begin\{document\}} statement.\\
-  The construction below allows you to put the stuff in a style file
-  that you must load after (!) the \command{usetheme} command.\\[1ex]
-  \begin{codesnippet}[0.95\textwidth]
-    \command{AtBeginDocument\{}\\
-    \ind\command{renewcommand*}\command{logopos\{your-pos-logo-filename-here\}}\\
-    \ind\command{renewcommand*}\command{logoneg\{your-negative-logo-filename-here\}}\\
-    \ind\command{renewcommand*}\command{logomonowhite\{your-mono-logo-filename-here\}}\\
-    \ind\command{renewcommand*}\command{iconfile\{your-icon-filename-here\}}\\
-    \ind\command{colorlet\{maincolor\}\{your-favorite-color\}}\\
-    \ind\command{colorlet\{sidecolor\}\{your-secondfavorite-color\}}\\
-    \ind\command{colorlet\{basecolor\}\{some-solid-color\}}\\
-    \}
-  \end{codesnippet}~\\[1ex]
-\end{frame}
+\renewcommand{\closingpage}{
+That's all, folks!
+}
 
 \begin{frame}[title]
   \closingpage
@@ -9553,8 +9529,8 @@ een b\'echamel saus:
   fill          .initial:n = ugent@faculty,
   fill~opacity  .tl_set:N  = \l_@@_textbox_fillalpha_tl,
   fill~opacity  .initial:n = 1,
-  text~color    .tl_set:N  = \l_@@_textbox_textcolor_tl,
-  text~color    .initial:n = white,
+  text          .tl_set:N  = \l_@@_textbox_textcolor_tl,
+  text          .initial:n = white,
   text~opacity  .tl_set:N  = \l_@@_textbox_textalpha_tl,
   text~opacity  .initial:n = 1,
   align         .tl_set:N  = \l_@@_textbox_align_tl,
@@ -10125,7 +10101,7 @@ een b\'echamel saus:
   \begin{tikzpicture}
     [overlay,remember~picture, shift={(current~page.south~west)}]
     \begin{scope}
-      \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-2*\gridunit,\@PH-\gridunit)}
+      \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-\gridunit,\@PH-\gridunit)}
       \node[anchor=south~west,
         text~width=\@titletextwidth, text=white, align=left]
       at (2\gridunit,\@HBS+\gridunit) {
@@ -10148,7 +10124,7 @@ een b\'echamel saus:
   \begin{tikzpicture}
   [overlay,remember~picture, shift={(current~page.south~west)}]
     \begin{scope}
-      \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-2*\gridunit,\@PH-\gridunit)}
+      \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-\gridunit,\@PH-\gridunit)}
       \node[anchor=south~west,
         text~width=\@titletextwidth, text=white, align=left]
       at (2\gridunit,\@HBS+\gridunit) {
