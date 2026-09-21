@@ -8400,7 +8400,27 @@ een b\'echamel saus:
 
 \begin{document}
 
-\titleframe
+\begin{frame}[title]
+\maketitle
+\end{frame}
+
+\begin{frame}[title=
+  {\includegraphics[width=\paperwidth]{example-image-a}}]
+  \maketitle
+\end{frame}
+
+\begin{frame}[title=
+  {\brightness[-0.5]{\includegraphics[width=\paperwidth]{example-image-a}}},
+  graphicproportion=1]
+  \maketitle
+\end{frame}
+
+\begin{frame}[title=
+  {\brightness[0.75]{\includegraphics[width=\paperwidth]{example-image-a}}},
+  graphicproportion=1,
+  inversetext=false]
+  \maketitle
+\end{frame}
 
 \begin{frame}[logo=false]
   {What's on the menu?}
@@ -8410,7 +8430,9 @@ een b\'echamel saus:
 \end{frame}
 
 \section{Loading the theme and theme options}
-\sectionframe
+\begin{frame}[section]
+  \sectionpage
+\end{frame}
 
 \begin{frame}
   {Using our beamer theme}
@@ -8503,7 +8525,9 @@ een b\'echamel saus:
 \end{frame}
 
 \section{Title slides}
-\sectionframe
+\begin{frame}[section]
+  \sectionpage
+\end{frame}
 
 \begin{frame}[t]
   {Title slides}
@@ -8532,7 +8556,9 @@ een b\'echamel saus:
 \section{Regular slides}
 
 \subsection{Bare}
-\subsectionframe
+\begin{frame}[subsection]
+  \subsectionpage
+\end{frame}
 
 \begin{frame}[t]
   {Frame titles}
@@ -8712,7 +8738,9 @@ een b\'echamel saus:
 \end{frame}
 
 \subsection{With graphic eye candy}
-\subsectionframe
+\begin{frame}[subsection]
+  \subsectionpage
+\end{frame}
 
 \begin{frame}[t]
   {Basic idea}
@@ -8878,10 +8906,14 @@ een b\'echamel saus:
 \end{graphicframe}
 
 \section{Intermission slides}
-\sectionframe
+\begin{frame}[section]
+  \sectionpage
+\end{frame}
 
 \subsection{Standard section slides}
-\subsectionframe
+\begin{frame}[subsection]
+  \subsectionpage
+\end{frame}
 
 \begin{frame}[t]
   {Basic idea}
@@ -8906,7 +8938,9 @@ een b\'echamel saus:
 \end{frame}
 
 \subsection{Custom intermission slides}
-\subsectionframe
+\begin{frame}[subsection]
+  \subsectionpage
+\end{frame}
 
 \begin{frame}[logo=false,t]
   {Basic idea}
@@ -9015,7 +9049,9 @@ een b\'echamel saus:
 \end{graphicframe}
 
 \section{Demo of some inner theme parts}
-\sectionframe
+\begin{frame}[section]
+  \sectionpage
+\end{frame}
 
 \begin{frame}[logo=false,t]
   {Headings}
@@ -9111,7 +9147,9 @@ een b\'echamel saus:
 \end{frame}
 
 \section{Advanced material}
-\sectionframe
+\begin{frame}[section]
+  \sectionpage
+\end{frame}
 
 \begin{frame}[t]
   {Customizing the template}
@@ -9135,7 +9173,9 @@ een b\'echamel saus:
   \end{codesnippet}~\\[1ex]
 \end{frame}
 
-\closingframe
+\begin{frame}[title]
+  \closingpage
+\end{frame}
 
 \end{document}
 %</bmrug>
@@ -9462,30 +9502,6 @@ een b\'echamel saus:
 %<*bmrinner>
 \mode<presentation>
 
-\NewDocumentCommand{\titleframe}{O{}}{
-  \begin{frame}[title={#1}]
-    \maketitle
-  \end{frame}
-}
-
-\NewDocumentCommand{\sectionframe}{O{}}{
-  \begin{frame}[section={#1}]
-    \sectionpage
-  \end{frame}
-}
-
-\NewDocumentCommand{\subsectionframe}{O{}}{
-  \begin{frame}[subsection={#1}]
-    \subsectionpage
-  \end{frame}
-}
-
-\NewDocumentCommand{\closingframe}{}{
-  \begin{frame}[title]
-    \@closingpage
-  \end{frame}
-}
-
 \newcommand*\@rect[3][]{
 	\coordinate (bl) at #2;
 	\coordinate (tr) at #3;
@@ -9551,7 +9567,7 @@ een b\'echamel saus:
   }
 }
 
-\newcommand*{\@closingpage}{
+\newcommand*{\closingpage}{
   \begin{tikzpicture}
   [overlay,remember picture, shift={(current page.south west)}]
   \clip (0,0) rectangle (\@PW,\@PH);
@@ -9600,7 +9616,6 @@ een b\'echamel saus:
   };
   \end{tikzpicture}
 }
-\newcommand*{\closingpage}[1]{\renewcommand*{\@closingpage}{#1}}
 
 \newcommand\heading[1]{\par{
     \usebeamercolor{\maybeinverse
@@ -9637,6 +9652,7 @@ een b\'echamel saus:
 
 \newlength{\@titletextwidth}
 
+% HELPERS ---------------------------------------------------------------------
 % Helper CS for split graph frames
 \cs_new_protected:Npn \@IfGraphSplit #1#2 {
   \bool_if:NTF \l_@@_graphfill_bool {
@@ -9760,9 +9776,19 @@ een b\'echamel saus:
   \@tempdima=\l_@@_tempdima_dim
   \@tempdimb=\l_@@_tempdimb_dim
 }
-\ExplSyntaxOff
 
+% KEYS ------------------------------------------------------------------------
 \gdef\maybeinverse{}
+
+\define@key{beamerframe}{inversetext}[true]{%
+  \str_if_eq:nnTF {#1} {true} {%
+    \gdef\maybeinverse{inverse~}%
+  }{%
+    \gdef\maybeinverse{}%
+  }%
+  \usebeamercolor[fg]{\maybeinverse~normal~text}%
+}
+\ExplSyntaxOff
 
 \define@key{beamerframe}{normal}[true]{
   \setbeamertemplate{title page}[main]
@@ -9831,6 +9857,22 @@ een b\'echamel saus:
   \setbeamertemplate{background~canvas}[section]{#1}%
 }
 
+\define@key{beamerframe}{graphicpos}{\tl_set:Nn \l_@@_graphpos_tl {#1}}
+\define@key{beamerframe}{graphicproportion}{\fp_set:Nn \l_@@_graphprop_fp {#1}}
+\define@key{beamerframe}{fill}[true]{\bool_set_true:N \l_@@_graphfill_bool}
+\define@key{beamerframe}{logo}[true]{\str_if_eq:nnTF {#1} {true} {
+    \bool_gset_true:N \g_@@_showlogo_bool
+  }{
+    \bool_gset_false:N \g_@@_showlogo_bool
+  }
+}
+
+\define@key{beamerframe}{graphic}
+[{\includegraphics[scale=0.1,min~width=\paperwidth,min~height=\paperheight]{example-image-a}}]{%
+  \bool_set_true:N \l_@@_graphgiven_bool
+  \tl_set:Nn \l_@@_graphcontent_tl {#1}%
+}
+
 % Reset state at the beginning of a new frame:
 \BeforeBeginEnvironment{frame}{%
   \gdef\maybeinverse{}%
@@ -9849,22 +9891,7 @@ een b\'echamel saus:
   \usebeamercolor[fg]{normal~text}%
 }
 
-\define@key{beamerframe}{graphicpos}{\tl_set:Nn \l_@@_graphpos_tl {#1}}
-\define@key{beamerframe}{graphicproportion}{\fp_set:Nn \l_@@_graphprop_fp {#1}}
-\define@key{beamerframe}{fill}[true]{\bool_set_true:N \l_@@_graphfill_bool}
-\define@key{beamerframe}{logo}[true]{\str_if_eq:nnTF {#1} {true} {
-    \bool_gset_true:N \g_@@_showlogo_bool
-  }{
-    \bool_gset_false:N \g_@@_showlogo_bool
-  }
-}
-
-\define@key{beamerframe}{graphic}
-[{\includegraphics[scale=0.1,min~width=\paperwidth,min~height=\paperheight]{example-image-a}}]{%
-  \bool_set_true:N \l_@@_graphgiven_bool
-  \tl_set:Nn \l_@@_graphcontent_tl {#1}%
-}
-
+% GRAPHIC FRAME ---------------------------------------------------------------
 \NewEnviron{graphicframe}[3][]{%
   \begin{frame}[#1]{#2}{#3}
     \@IfGraphSplit {
@@ -9913,14 +9940,8 @@ een b\'echamel saus:
   \end{frame}
 }
 
-%%%%%%%%%%%%
-% Order:
-% 1. option is executed
-% 2. frametitle is typeset
-% 3. canvas is typeset
-% 4. frame is typeset
-%%%%%%%%%%%%
 
+% BACKGROUND CANVASES ---------------------------------------------------------
 \def\ps@ugent@titlepage{%
   \setbeamercolor{title~in~title~page}{parent=palette~primary}
   \setbeamertemplate{footline}[empty]
@@ -10034,6 +10055,7 @@ een b\'echamel saus:
   }{}%
 }
 
+% PAGES -----------------------------------------------------------------------
 \defbeamertemplate*{title~page}{main}[1][]
 {%
   \thispagestyle{ugent@titlepage}%
@@ -10114,6 +10136,7 @@ een b\'echamel saus:
   \end{tikzpicture}
 }
 
+% TOC, FOOTLINE, FRAME TITLE --------------------------------------------------
 % secnums option: no section numbers in TOC
 \bool_if:NF \l_@@_secnums_bool {
   \setbeamertemplate{section~in~toc}{%
