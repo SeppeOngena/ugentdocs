@@ -9006,7 +9006,7 @@ een b\'echamel saus:
   {\includegraphics[scale=0.1,min width=\paperwidth,min height=\paperheight]
   {example-image-a}}},t]{}{}
   \place [anchor=north east] at (0.95,0.5) {
-    \ugentcallout{3}{2.5}{
+    \textbox{3}{2.5}{
       \bfseries You cannot be serious!\\[1ex]
       John McEnroe}
   }
@@ -9016,7 +9016,7 @@ een b\'echamel saus:
   {Shading photographs locally}
 
   You can also choose to shade the local backdrop of the material
-  you put on the side. If you like the \command{ugentcallout}
+  you put on the side. If you like the \command{textbox}
   command of the previous slide, you can give it an optional argument
   to set the fill opacity of the backdrop behind the text.
 
@@ -9024,7 +9024,7 @@ een b\'echamel saus:
   \begin{codesnippet}[0.9\textwidth]
     \bframe[][graphic,t]\\
     \ind\command{place} [anchor=north west] at (0.1,0.9) \{\\
-    \ind\ind\command{ugentcallout}[fill opacity=0.5]\{4.5\}\{2.5\}\{\\
+    \ind\ind\command{textbox}[fill opacity=0.5]\{4.5\}\{2.5\}\{\\
     \ind\ind\ind\command{bfseries} I'll be back!\textbackslash\textbackslash[1ex]\\
     \ind\ind\ind Arnold Schwarzenegger\}\\
     \}
@@ -9032,8 +9032,8 @@ een b\'echamel saus:
   \end{codesnippet}
   \medskip
 
-  The \command{ugentcallout} command has te following syntax:\\[1ex]
-  \qquad\command{ugentcallout[options]\{width\}\{height\}\{contents\}}
+  The \command{textbox} command has te following syntax:\\[1ex]
+  \qquad\command{textbox[options]\{width\}\{height\}\{contents\}}
   \medskip
 
   Remember to run \LaTeX{} twice in order for the position of the
@@ -9042,7 +9042,7 @@ een b\'echamel saus:
 
 \begin{graphicframe}[logo=false,graphic,t]{}{}
   \place [anchor=north west] at (0.1,0.9) {
-    \ugentcallout[fill opacity=0.5]{4.5}{2.5}{
+    \textbox[fill opacity=0.5]{4.5}{2.5}{
       \bfseries I'll be back!\\[1ex]
       Arnold Schwarzenegger}
   }
@@ -9199,7 +9199,7 @@ een b\'echamel saus:
 
 \pgfmathsetmacro{\@PWnum}{\@PW/1cm}
 \pgfmathsetmacro{\@PHnum}{\@PH/1cm}
-\pgfmathsetlength{\gridunit}{max(\@PW,\@PH)/7/4/1.3} % Gridunit seems 1.3x smaller than its actual definition
+\pgfmathsetlength{\gridunit}{max(\@PW,\@PH)/7/4/1.3} % Gridunit seems 1.3x smaller than its actual official definition
 
 \newlength{\@HBS}\setlength\@HBS{4\gridunit}
 \newlength{\@HTS}
@@ -9519,7 +9519,7 @@ een b\'echamel saus:
     at ($(current page.south west)!#2!(current page.south west-|current page.north east)$);
   \coordinate (place@py)
     at ($(current page.south west)!#3!(current page.south west|-current page.north east)$);
-  \node[#1] at (place@px |- place@py) {#4};
+  \node[inner sep=0pt,#1] at (place@px |- place@py) {#4};
   \end{tikzpicture}
 }
 
@@ -9540,15 +9540,46 @@ een b\'echamel saus:
       (a.south~west) rectangle (a.north~east);
   \end{tikzpicture}
 }
-\ExplSyntaxOff
 
-\newcommand\textbox[4][]{
+
+\tl_new:N \l_@@_textbox_fillcolor_tl
+\tl_new:N \l_@@_textbox_fillalpha_tl
+\tl_new:N \l_@@_textbox_textcolor_tl
+\tl_new:N \l_@@_textbox_textalpha_tl
+\tl_new:N \l_@@_textbox_align_tl
+
+\keys_define:nn { ugentdocs/textbox } {
+  fill          .tl_set:N  = \l_@@_textbox_fillcolor_tl,
+  fill          .initial:n = ugent@faculty,
+  fill~opacity  .tl_set:N  = \l_@@_textbox_fillalpha_tl,
+  fill~opacity  .initial:n = 0,
+  text~color    .tl_set:N  = \l_@@_textbox_textcolor_tl,
+  text~color    .initial:n = white,
+  text~opacity  .tl_set:N  = \l_@@_textbox_textalpha_tl,
+  text~opacity  .initial:n = 1,
+  align         .tl_set:N  = \l_@@_textbox_align_tl,
+  align         .initial:n = left,
+}
+
+\NewDocumentCommand \textbox { O{} m m m } {
+  \keys_set:nn { ugentdocs/textbox } { #1 }
+  \dim_set:Nn \l_tmpa_dim{#2-2\gridunit} % width
+  \dim_set:Nn \l_tmpb_dim{#3-2\gridunit} % height
   \begin{tikzpicture}
-    \@rect[fill=black,fill opacity=0.0,text opacity=1,text=white,#1]
-      {({-#2/2},-{#3/2})}{({#2/2},{#3/2})}
-    \node[align=left,anchor=center] at (0,0) { #4 };
+  \node[align=left,
+    text~width=\l_tmpa_dim,
+    inner~sep=\gridunit,
+    text=\l_@@_textbox_textcolor_tl,
+    text~opacity=\l_@@_textbox_textalpha_tl] (body)
+    {\parbox[t][\l_tmpb_dim][t]{\l_tmpa_dim}{#4}};
+  \begin{scope}[on~background~layer]
+    \node[fill=\l_@@_textbox_fillcolor_tl,
+      fill~opacity=\l_@@_textbox_fillalpha_tl, fit=(body), inner~sep=0mm] {};
+  \end{scope}
   \end{tikzpicture}
 }
+
+\ExplSyntaxOff
 
 \newcommand*{\@titlelogos}{}
 \newcommand*{\titlelogos}[1]{\renewcommand*{\@titlelogos}{#1}}
