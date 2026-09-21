@@ -19,16 +19,16 @@ The detailed development history can be found in CHANGELOG.md or in the GitHub r
 
 Relation to other packages
 --
-This package will try to work off as many of the existing fragmented templates and build a common framework based on Walter Daem's excellent `uantwerpendocs v4.12` package (available on [CTAN](https://ctan.org/pkg/uantwerpendocs), so that package was already present by default in my installation!). If the "used" status below is true, it means the current package has the same (or more!) functionality than the listed package. 
+This package will try to supersede as many of the existing fragmented templates -- i.e., the current package has the same (or more!) functionality than the listed package -- and build a common framework based on Walter Daem's excellent `uantwerpendocs v4.12` package (available on [CTAN](https://ctan.org/pkg/uantwerpendocs), so that package was already present by default in my installation!).
 
-| Used? | How? | Project      | Maintainer | Status          | Document types |
+| Relation | Project      | Maintainer | Status          | Document types |
 |:-----------:|:-------------|:-------------|:-----------| :---------------|:---------------|
-| ✅ | Starting point, basis of framework           | [uantwerpendocs](https://ctan.org/pkg/uantwerpendocs)               | Walter Daems   | Active                 | `report`, `coursetext`, `phdthesis`, `bamathesis`, `letter`, `exam`, `beamer` |
-| ✅ | Served as reference for functionality        | [ugent2016](https://github.com/niknetniko/ugent2016)                | Niko Strijbol  | Left UGent             | `article`, `book`, `report`, `course`, `notes` |
-| ✅ | Served as reference for functionality        | [ugent-doc](https://github.com/driesbenoit/ugent-doc)               | Dries Benoit   | Stale/Complete?        | `article`, `report` (only coverpage) |
-| ⬜ | Served as reference for functionality        | [ugent-beamer](https://github.com/driesbenoit/ugent-beamer)         | Dries Benoit   | Complete               | `beamer` |
-| ✅ | Served as reference for functionality        | [ugent-letter](https://github.com/driesbenoit/ugent-letter)         | Dries Benoit   | Complete               | `letter` |
-| ✅ | Cover page, headers, and GAI disclaimer code | [Latex at UGent](https://github.ugent.be/LatexInfo) (internal only) | Joris Meys     | Incomplete, but active | `ba/ma thesis` (only BW faculty templates, separate classes for NL and EN)|
+| Starting point, basis of framework           | [uantwerpendocs](https://ctan.org/pkg/uantwerpendocs)               | Walter Daems   | Active                 | `report`, `coursetext`, `phdthesis`, `bamathesis`, `letter`, `exam`, `beamer` |
+| Served as reference for functionality        | [ugent2016](https://github.com/niknetniko/ugent2016)                | Niko Strijbol  | Left UGent             | `article`, `book`, `report`, `course`, `notes` |
+| Served as reference for functionality        | [ugent-doc](https://github.com/driesbenoit/ugent-doc)               | Dries Benoit   | Stale/Complete?        | `article`, `report` (only coverpage) |
+| Served as reference for functionality        | [ugent-beamer](https://github.com/driesbenoit/ugent-beamer)         | Dries Benoit   | Complete               | `beamer` |
+| Served as reference for functionality        | [ugent-letter](https://github.com/driesbenoit/ugent-letter)         | Dries Benoit   | Complete               | `letter` |
+| Cover page, headers, and GAI disclaimer code | [Latex at UGent](https://github.ugent.be/LatexInfo) (internal only) | Joris Meys     | Incomplete, but active | `ba/ma thesis` (only BW faculty templates, separate classes for NL and EN)|
 
 Why another template?
 --
