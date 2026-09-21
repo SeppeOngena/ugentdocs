@@ -22,7 +22,7 @@ Relation to other packages
 This package will try to supersede as many of the existing fragmented templates -- i.e., the current package has the same (or more!) functionality than the listed package -- and build a common framework based on Walter Daem's excellent `uantwerpendocs v4.12` package (available on [CTAN](https://ctan.org/pkg/uantwerpendocs), so that package was already present by default in my installation!).
 
 | Relation | Project      | Maintainer | Status          | Document types |
-|:-----------:|:-------------|:-------------|:-----------| :---------------|:---------------|
+|:-------------|:-------------|:-----------| :---------------|:---------------|
 | Starting point, basis of framework           | [uantwerpendocs](https://ctan.org/pkg/uantwerpendocs)               | Walter Daems   | Active                 | `report`, `coursetext`, `phdthesis`, `bamathesis`, `letter`, `exam`, `beamer` |
 | Served as reference for functionality        | [ugent2016](https://github.com/niknetniko/ugent2016)                | Niko Strijbol  | Left UGent             | `article`, `book`, `report`, `course`, `notes` |
 | Served as reference for functionality        | [ugent-doc](https://github.com/driesbenoit/ugent-doc)               | Dries Benoit   | Stale/Complete?        | `article`, `report` (only coverpage) |
