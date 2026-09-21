@@ -1161,7 +1161,7 @@
 % \DescribeMacro[common]{\department}
 %   \marg{name}\\
 %   Sets the department tag |\@department| with the |name| entered.
-%   Currently unused.
+%   Currently only used in the beamer title slide.
 %
 % \DescribeMacro[common]{\team}
 %   \marg{name}
@@ -1173,7 +1173,7 @@
 % \iffalse
 %<*clo>
 \ExplSyntaxOn
-\newcommand*{\@department}{}
+\NewDocumentCommand{\@department}{O{}}{}
 \newcommand*{\department}[1]{
   \RenewDocumentCommand{\@department}{O{}}{
     \str_case:nnF {##1}{
@@ -1184,7 +1184,7 @@
     }
   }%
 }
-\newcommand*{\@team}{}
+\NewDocumentCommand{\@team}{O{}}{}
 \newcommand*{\team}[1]{
     \RenewDocumentCommand{\@team}{O{}}{
     \str_case:nnF {##1}{
@@ -2271,9 +2271,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 { Cover~type~'#1'~is~not~implemented. }
 \ExplSyntaxOff
 %</clo>
-%<*phd|bkc|crs|rp|le|ex|bama>
+%<*phd|bkc|crs|rp|le|ex|bama|bmr>
 \ExplSyntaxOn
-%</phd|bkc|crs|rp|le|ex|bama>
+%</phd|bkc|crs|rp|le|ex|bama|bmr>
 % \fi
 %
 % \DescribeOption[phd-bkc]{cameraready}
@@ -2411,9 +2411,24 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<bama>\tl_set:Nn \l_@@_covertype_tl {bama}
 %<rp>\tl_set:Nn \l_@@_covertype_tl {report}
 %
-%<*phd|bkc|crs|rp|le|ex|bama>
+%
+% \DescribeOption[bmr]{secnums}
+%   \DescribeDefault{false}
+%   Options: |true|, |false|\\
+%   Enables section numbering in beamer presentations.
+% \iffalse
+%<*bmr>
+\bool_new:N \l_@@_secnums_bool
+\keys_define:nn { ugentdocs } {
+  secnums .bool_set:N = \l_@@_secnums_bool ,
+  secnums .default:n = true ,
+}
+%</bmr>
+%\fi
+%
+%<*phd|bkc|crs|rp|le|ex|bama|bmr>
 \ExplSyntaxOff
-%</phd|bkc|crs|rp|le|ex|bama>
+%</phd|bkc|crs|rp|le|ex|bama|bmr>
 % \fi
 %
 % Class loading operates as follows. The standard options such as |11pt|,
@@ -2540,6 +2555,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %     |etoolbox|        & Toolbox for class definitions internally          \\
 %     |expl3|           & Use of \LaTeX{}3 code internally                  \\
 %     |fancyhdr|        & Headers and footers                               \\
+%     |fontawesome|     & Beamer default closing page                       \\
 %     |fontspec|        & Fonts                                             \\
 %     |geometry|        & Page geometry and margins                         \\
 %     |graphbox|        & Improved placement of graphics                    \\
@@ -2990,9 +3006,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newcommand{\@shorttitle}{\@title}
 \RenewDocumentCommand{\title}{o m}{
   \gdef\@title{#2}
+  \@ifundefined{inserttitle}{}{\gdef\inserttitle{#2}}
   \IfNoValueTF{#1}
-  {\gdef\@shorttitle{#2}}
-  {\gdef\@shorttitle{#1}}
+  {\gdef\@shorttitle{#2}
+   \@ifundefined{shorttitle}{}{\gdef\shorttitle{#2}}}
+  {\gdef\@shorttitle{#1}
+   \@ifundefined{shorttitle}{}{\gdef\shorttitle{#1}}}
 }
 \ExplSyntaxOff
 %</crs|rp|bkc|phd|bmr|ex>
@@ -3836,7 +3855,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   You can specify multiple email addresses by using the command
 %   multiple times.
 % \iffalse
-%<*le|rp>
+%<*le|rp|bmr>
 \ExplSyntaxOn
 \seq_new:N \g_@@_emails_seq
 \tl_new:N \l_@@_domain_tl
@@ -3859,7 +3878,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \@@_addemail:nn { #1 } { #2 }
 }
 \ExplSyntaxOff
-%</le|rp>
+%</le|rp|bmr>
 % \fi
 %
 %
@@ -3877,7 +3896,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \def\Phone {{\wasyfamily\char7}}
 }{}
 %</bkc|le|rp|ex|crs|phd|bama>
-%<*le|rp>
+%<*le|rp|bmr>
 \ExplSyntaxOn
 \seq_new:N \g_@@_phones_seq
 \cs_new:Nn \@@_addphone:n {
@@ -3887,7 +3906,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \@@_addphone:n { #1 }
 }
 \ExplSyntaxOff
-%</le|rp>
+%</le|rp|bmr>
 % \fi
 %
 %
@@ -3917,7 +3936,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   Add mobile numbers.
 %   Used in the |letter| header and report cover page (optional).
 % \iffalse
-%<*le|rp>
+%<*le|rp|bmr>
 \ExplSyntaxOn
 \seq_new:N \g_@@_mobiles_seq
 \cs_new:Nn \@@_addmobile:n {
@@ -3927,7 +3946,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \@@_addmobile:n { #1 }
 }
 \ExplSyntaxOff
-%</le|rp>
+%</le|rp|bmr>
 % \fi
 %
 %
@@ -8334,203 +8353,363 @@ een b\'echamel saus:
 % \part{The beamer theme}
 % \label{P:II}
 % \setcounter{section}{0}
-% \section{User guide}
+% The user guide:
 %
 % \begin{Verbatim}
 %<*bmrug>
 \documentclass{beamer}
 \usetheme[bw]{ugent}
 
-% The packages below are for demonstration purpose only.
-% They are not required for the template to work
-\usepackage{metalogo}
+%% The packages below are for demonstration purpose only.
+%% They are not required for the template to work
+\usepackage{metalogo}  % For \XeLaTeX / \LuaLaTeX commands
 \usepackage{kantlipsum}
 \usepackage{pgfplots}
 \usepackage{booktabs}
 
-% some stuff to typeset code
-\newcommand*\command[1]{{\tt \textbackslash #1}}
+%% Some stuff to typeset code, you can remove this if not needed
+\newcommand*\cmd[1]{{\ttfamily \textbackslash #1}}
 \NewEnviron{codesnippet}[1][0.8\textwidth]{
-  \scriptsize
-  \qquad\framebox[#1][l]{\texttt{
+  \scriptsize{
+  \qquad\framebox[#1][l]{
+  \texttt{
       \setlength\textwidth{#1}
       \begin{minipage}{0.9\textwidth}
         \BODY
       \end{minipage}
     }
   }
+  }
 }
 \newcommand*\ind[1][2ex]{\hspace*{#1}}
-\newcommand*\bframe[1][]{\command{begin}\{#1frame\}}
-\newcommand*\eframe[1][]{\command{end}\{#1frame\}}
+\newcommand*\bframe[1][]{\cmd{begin}\{#1frame\}}
+\newcommand*\eframe[1][]{\cmd{end}\{#1frame\}}
 
+\title{Beamer theme user guide}
+\author{Seppe Ongena}
+
+\begin{document}
+
+\begin{frame}[title]
+\maketitle
+\end{frame}
+
+%% ----------------------------------------------------------------------------
+%% PUT THIS BEFORE YOUR \begin{document}
+%% THIS WAS PUT HERE TO HAVE SEPARATE DATA FOR THE EXAMPLE TITLE SLIDES
+%% BUT A CORRECT ONE FOR THE BEAMER USER GUIDE
 \title{This is your \texttt{\textbackslash{}title{}}}
 \subtitle[my short title]{This is your \texttt{\textbackslash{}subtitle{}}}
 \date{This is your \texttt{\textbackslash{}date{}}}
 \author[my short author]{This is your \texttt{\textbackslash{}author{}}}
+\authorrole{This is your \texttt{\textbackslash{}authorrole{}}}
+\department{Your department}
+\team{Your team}
+\phone{Your phone number}
+\email{Your email.address}
+\mobile{Your cell phone number}
 
-\begin{document}
+\titlelogos{%
+  \includegraphics[height=2\gridunit]{example-image-a}%
+  \hspace{\gridunit}%
+  \includegraphics[height=2\gridunit]{example-image-b}%
+  \hspace{\gridunit}%
+  \includegraphics[height=2\gridunit]{example-image-c}%
+}
 
-\begin{frame}[negativefill]
-  \maketitle
-\end{frame}
+%% ----------------------------------------------------------------------------
 
-\begin{frame}
-  \maketitle
-\end{frame}
-
-\begin{frame}[negative]
-  \maketitle
-\end{frame}
-
-\begin{frame}
-  {What's on the menu?}
-  {Bon app\'etit!}
-  ~\\
+\begin{frame}[logo=false]
+  {In this guide}
   \tableofcontents
 \end{frame}
 
 \section{Loading the theme and theme options}
-\begin{frame}[negative]
+\begin{frame}[section]
   \sectionpage
 \end{frame}
 
 \begin{frame}
-  {Using our beamer theme}
+  {Using the beamer theme}
 
   The \texttt{ugent} beamer theme is distributed by CTAN. It
-  should be installed with your \TeX{} distribution by default.
+  should be installed with your \textrm{\TeX{}} distribution by default.
 
   You can load the package in your preamble as:
 
   \begin{codesnippet}
-    \command{documentclass}[aspectratio=1610]\{beamer\}\\
-    \command{usetheme}[theme-options-go-here]\{ugent\}\\
-    \command{usepackage}[english]\{babel\}
+    \cmd{documentclass}\{beamer\}\\
+    \cmd{usetheme}[<theme options>]\{ugent\}
   \end{codesnippet}
 
   \heading{Remarks}
   \begin{itemize}
-  \item The theme behaves well for all supported beamer aspect
-    ratios.
-  \item $16\times 10$ is currently your best option to maximize your
-    slide size given a modern LCD-projector!
-  \item Only \texttt{dutch} and \texttt{english} are supported.
-    The correct logoware is selected using the babel language option!
+  \item The theme's default aspect ratio is $16\times 9$, but you might be able to override it by
+    re-loading the \texttt{beamerposter} package with custom width and height, and
+    redefining \cmd{@PW} (page width), \cmd{@PH} (page height), and \cmd{gridunit}.
+    This is not officially suported.
+  \item Only \texttt{dutch} and \texttt{english} are officially supported through the \texttt{language} option.
   \end{itemize}
 \end{frame}
 
-\begin{l3qframe}[t,rqgraphic={
-    \begin{minipage}{0.35\textwidth}
+\begin{graphicframe}[t,graphicpos=r,graphicproportion=0.2,graphic={
+    \begin{minipage}{0.2\textwidth}
       \footnotesize
       \begin{center}
         \begin{tabular}{c}
           \toprule
           \bfseries option\\
           \midrule
-          \tt be  \\
-          \tt fbd \\
-          \tt ggw \\
-          \tt lw  \\
-          \tt ow  \\
-          \tt re  \\
-          \tt sw  \\
-          \tt ti  \\
-          \tt we  \\
-          \tt iob \\
+          \texttt{lw}  \\
+          \texttt{re}  \\
+          \texttt{we}  \\
+          \texttt{ge}  \\
+          \texttt{ea}  \\
+          \texttt{eb}  \\
+          \texttt{di}  \\
+          \texttt{pp}  \\
+          \texttt{bw}  \\
+          \texttt{fw}  \\
+          \texttt{ps}  \\
           \bottomrule
         \end{tabular}
       \end{center}
     \end{minipage}
   }]
   {Theme options}{}
-  The following theme options may come in handy:
+  The following theme options may come in handy --
+    see also the \texttt{ugentdocs} documentation:
   \begin{description}
-  \item[\tt X] to invoke your own faculty's colors and logos,
-    with X one of the options in the table on the right\\
-    (I assume you know your faculty abbreviation)
-  \item[\tt nofonts] disables font loading, so you can load your own fonts
-  \item[\tt rgb]  to select RGB color encoding (best for projecting, default)
-  \item[\tt cmyk] to select CMYK color encoding  (best for printing)
-  \item[\tt neutralcolors] to disable your faculty colors and use the
-    standard UAntwerpen colors
+  \item[\texttt{faculty}] to set your own faculty's colours and logos (can be empty)\\
+  \item[\texttt{campus}] to set the campus for the UGent logo. One of \texttt{ugent},
+    \texttt{gugc}, or \texttt{kortrijk}.
+  \item[\texttt{neutralcolors}] to disable your faculty colors and use the
+  standard UGent colors
+  \item[\texttt{colormodel}] to set the colour model. Select \texttt{rgb}
+    color encoding for projecting (default) or \texttt{cmyk} for printing.
+  \item[\texttt{secnums}] to enable (\texttt{true}) or disable (\texttt{false})
+    displaying of section numbers in the frames or TOC.
   \end{description}
-  \medskip
 
-  The defaults of the theme are:
+\end{graphicframe}
+
+\begin{frame}[logo=false,t]
+{Colors}
+{What a wonderful world}
+
+\heading{Standard colors}\\
+  You can select the theme colors using:\\
+  \textcolor{ugent@main}{Main color}:
+    can be specified as \textrm{\LaTeX}-color \emph{ugent@main}\\
+  \textcolor{ugent@accent}{Accent color}:
+    can be specified as \textrm{\LaTeX}-color \emph{ugent@accent}\\
+  \textcolor{ugent@faculty}{Faculty color}:
+    can be specified as \textrm{\LaTeX}-color
+    \emph{ugent@faculty}
+
+\heading{Alert}\\
+  You can use \alert{\cmd{alert{}}} to grab the attention of the
+  user. It will typeset your content in \alert{yellow}.
+\end{frame}
+
+\begin{graphicframe}[t,graphicproportion=0.38,graphicpos=r,logo=false,
+graphic={
+  \begin{minipage}{0.38\textwidth}
+  \vspace{1.5cm}
+  \begin{tikzpicture}
+    \ugentlogo{2.8cm}{ugent@main}{0}
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \faclogo{2.1cm}{ugent@faculty}{0}
+  \end{tikzpicture}\\[0.5ex]
+  \begin{tikzpicture}
+    \draw[fill] (0,0) rectangle (0,0) rectangle (3.5,2.8);
+    \ugentlogo{2.8cm}{white}{0}
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \draw[fill] (0,0) rectangle (6.3,2.1);
+    \faclogo{2.1cm}{white}{0}
+  \end{tikzpicture}\\[0.5ex]
+  \foreignlanguage{dutch}{
+    \begin{tikzpicture}
+      \ugentlogo{2.8cm}{ugent@main}{0}
+    \end{tikzpicture}
+    \begin{tikzpicture}
+      \faclogo{2.1cm}{ugent@faculty}{0}
+    \end{tikzpicture}
+  }
+  \end{minipage}
+}]
+{Logo demo}
+
+The logo's can be used as follows within a tikzpicture\\ (arguments: height, colour, alignment):
   \begin{itemize}
-  \item no faculty option  ($\Rightarrow$ standard UAntwerpen logos)
-  \item \texttt{rgb}
+  \item \cmd{ugentlogo\{2.8cm\}\{ugent@main\}\{0\}} and\\
+    \cmd{faclogo\{2.1cm\}\{ugent@faculty\}\{0\}}\\[2ex]
+  \item \cmd{ugentlogo\{2.8cm\}\{white\}\{0\}} and\\
+    \cmd{faclogo\{2.1cm\}\{white\}\{0\}}\\[2ex]
+  \item \cmd{ugentlogo\{2.8cm\}\{ugent@main\}\{0\}} and\\
+    \cmd{faclogo\{2.1cm\}\{ugent@faculty\}\{0\}}\\
+    within \cmd{foreignlanguage\{dutch\}\{\ldots\}}\\
   \end{itemize}
 
-\end{l3qframe}
+You can turn off the logo in the bottom left corner using the
+  \texttt{logo=false} frame option.
+\end{graphicframe}
 
 \begin{frame}[t]
-  {A note on the compiler you are using}
-  {Fonts galore}
+  {Compilers and fonts}
 
-  Depending on the type of compiler you use, a different font scheme
-  is loaded:
+  The logos require UGent Panno Text to be installed, and an OTF/TTF compatible compiler:
   \begin{description}
-  \item[\LaTeX] --- ancient compiler - no support\\
-    Don't use!
-  \item[pdf\LaTeX] --- very old school compiler - no OTF/TTF support\\
-    Computer Modern Sans Serif is used as font
-  \item[\XeLaTeX] --- old school compiler - the first to have OTF/TTF
-    support\\
-    Calibri is used as font (with cmbright math fonts)
-  \item[\LuaLaTeX] --- current compiler - your best option\\
-    Calibri is used as font (with cmbright math fonts)
+  \item[\textrm{\LaTeX} and \textrm{pdf\LaTeX}] --- Old compilers -
+   don't support OTF/TTF. \textbf{Don't use!}
+  \item[\textrm{\XeLaTeX} and \textrm{\LuaLaTeX}] --- more modern compilers -
+   either works\\
+  \item[\textrm{\LaTeX{}mk}] --- A compiler script, not a compiler. Use with flags \texttt{-pdfxe} or \texttt{-pdflua}.
   \end{description}
+
+  The default font is UGent Panno Text, but this can be overridden to Arial using:
+  \begin{codesnippet}
+  \cmd{setsansfont\{Arial\}}[\\
+  \ind BoldFont           = \{Arial\},\\
+  \ind BoldFeatures       = \{FakeBold=2.5\},\\
+  \ind ItalicFont         = \{Arial\},\\
+  \ind ItalicFeatures     = \{FakeSlant=0.15\},\\
+  \ind BoldItalicFont     = \{Arial\},\\
+  \ind BoldItalicFeatures = \{FakeBold=2.5, FakeSlant=0.15\},\\
+  ]
+  \end{codesnippet}
 
 \end{frame}
 
-\section{Title slides}
-\begin{frame}[negative]
+\section{Title, section, and closing slides}
+\subsection{Title slides}
+\begin{frame}[section]
   \sectionpage
 \end{frame}
 
-\begin{frame}[t]
+\begin{frame}[t,logo=false]
   {Title slides}
-  \heading{Contents} ---
-  The contents of the title slide can be set in your preamble
-  using the classical \LaTeX{} commands:
+  \heading{Contents}\\
   \begin{itemize}
-  \item \command{title\{\}}
-  \item \command{subtitle}\{\}
-  \item \command{author\{\}}
-  \item \command{date\{\}}
+  \item The contents of the title slide can be set in your preamble
+    using the \textrm{\LaTeX} commands:
+    \cmd{title\{\}}, \cmd{subtitle\{\}}, \cmd{author\{\}}, and \cmd{date\{\}}
+  \item Some UGent-specific content can be added,
+    such as \cmd{department\{\}}, \cmd{team\{\}}, and \cmd{titlelogos\{\}}
   \end{itemize}
-  We don't specify an institute, as the logos do so.
 
   \heading{Code} --- The titleslide is easily typeset as:\\
   \begin{codesnippet}
-    \bframe[][option]\\
-    \ind\command{maketitle}\\
+    \bframe[][title=<background image>, <options>]\\
+    \ind\cmd{maketitle}\\
     \eframe
-  \end{codesnippet}
-
-  with no option, or one of: \texttt{normal}, \texttt{negative},
-  \texttt{negativefill}.
+  \end{codesnippet}\\
+  The options are \texttt{graphicsproportion} (0--1, default 0.5) and
+    the \texttt{inversetext} (true/false).\\
+  The next slides use:
+  \begin{itemize}
+    \item Plain \texttt{title}, no image
+    \item An image: \texttt{title=}\cmd{includegraphics\{example-image-a\}}
+    \item A darkened image (see later) with \texttt{graphicsproportion=1}
+    \item A lightened image with \texttt{graphicsproportion=1}
+      and \texttt{inversetext=false}
+  \end{itemize}
 \end{frame}
+
+\begin{frame}[title]
+  \maketitle
+\end{frame}
+
+\begin{frame}[title=
+  {\includegraphics[width=0.6\paperwidth]{example-image-a}}]
+  \maketitle
+\end{frame}
+
+\begin{frame}[title=
+  {\brightness[-0.5]{\includegraphics[width=\paperwidth]{example-image-a}}},
+  graphicproportion=1]
+  \maketitle
+\end{frame}
+
+\begin{frame}[title=
+  {\brightness[0.75]{\includegraphics[width=\paperwidth]{example-image-a}}},
+  graphicproportion=1,
+  inversetext=false]
+  \maketitle
+\end{frame}
+
+\subsection{Section slides}
+\begin{frame}[t]
+{Section slides}
+
+The section slides work quite similar to the title slide,
+ although the \texttt{section} or \texttt{subsection} option is used instead of the \texttt{title} option,
+ and \cmd{sectionpage} and \cmd{subsectionpage} are used instead of \cmd{maketitle}.
+ The title slides support the same graphics options.
+
+Example:\\[1ex]
+\begin{codesnippet}[0.8\textwidth]
+  \bframe[][section]\\
+  \ind \cmd{sectionpage}\\
+  \eframe\\~\\
+  \bframe[][subsection]\\
+  \ind \cmd{subsectionpage}\\
+  \eframe
+\end{codesnippet}\\[1ex]
+(the subsection slide is how the next slide was generated)
+\end{frame}
+
+\subsection{Closing slides}
+\begin{frame}[subsection]
+\subsectionpage
+\end{frame}
+
+\begin{frame}[t]
+{Closing slides}
+
+The closing slide at the end of a presentation is inserted using:\\
+
+\begin{codesnippet}[0.8\textwidth]
+\bframe[][title]\\
+\ind \cmd{closingpage}\\
+\eframe
+\end{codesnippet}\\[1ex]
+
+An example can be found in the next slide.
+
+You can customize the content
+  by renewing the \cmd{closingpage} macro, e.g.:\\
+\begin{codesnippet}[0.8\textwidth]
+  \cmd{renewcommand*}\{\cmd{closingpage}\}\{\\
+  \ind \cmd{begin}\{tikzpicture\}\\
+  \ind\ind \texttt{[}overlay,remember picture, shift=\{(current page.south west)\}\texttt{]}\\
+  \ind\ind \cmd{clip} (0,0) rectangle (\cmd{@PW},\cmd{@PH});\\
+  \ind\ind <CLOSING PAGE CONTENT>\\
+  \ind \cmd{end}\{tikzpicture\}\\
+  \}
+\end{codesnippet}\\[1ex]
+\end{frame}
+
+\begin{frame}[title]
+  \closingpage
+\end{frame}
+
 
 \section{Regular slides}
 
 \subsection{Bare}
-\begin{frame}[negative]
-  \sectionpage
-\end{frame}
-
-\begin{frame}[negative]
+\begin{frame}[subsection]
   \subsectionpage
 \end{frame}
 
 \begin{frame}[t]
   {Frame titles}
   {And subtitles}
-  \heading{How to specify them!}\\
-  Titles are specified using \command{frametitle\{\}} or
-  \command{framesubtitle\{\}} or even easier as first and second argument
+  \heading{How to specify them}\\
+  Titles are specified using \cmd{frametitle\{\}} or
+  \cmd{framesubtitle\{\}} or even easier as first and second argument
   to the \texttt{frame} environment (or their derived versions).
 
   \begin{codesnippet}
@@ -8543,68 +8722,46 @@ een b\'echamel saus:
   \bigskip
 
   \heading{Don't need them?}\\
-  If you need a slide without titles: just don't specify them!
-
-  \heading{Want to get rid of the footer as well?}\\
-  Specify the \texttt{plain} option to the frame.
-
+  If you need a slide without titles: just don't specify them
 \end{frame}
 
 \begin{frame}[t]
   {The canvas}
 
-  \heading{Flavors} --- The canvas of the slide has four flavors:
+  \heading{Flavours} --- The canvas of the slide has five flavours:
   \begin{description}
-  \item[normal]
+  \item[normal (default)]
     the ordinary white background slide
-  \item[negativefill]
-    a reverse video slide on a background (in maincolor) without white
-    margins
+  \item[plain]
+    a slide without footer or UGent logo
+  \item[shaded]
+    a slide on a light background (in \texttt{ugent@main!10})
   \item[negative]
-    a reverse video slide on a bakcground (in maincolor) with white
-    margins
-  \item[graphicfill]
-    a graphic canvas without white margins (graphic can be photo,
-    graph, \ldots)
-  \item[graphic] a graphic canvas with white margins (graphic can be
-    anything)
+    a reverse video slide on a background (in \texttt{ugent@main}) with white
+    text
+  \item[graphic] a graphic canvas (graphic can be anything)
   \end{description}
   They are specified as options to the frame environment (or its
   derivatives).
 
   \heading{Remarks}
   \begin{itemize}
-  \item You don't need to specify the normal canvas, it is the
-    default.
-  \item In handout mode the negative and negativefill canvas will be
+  \item In handout mode the shaded and negative canvas will be
     typeset as normal canvas (to allow for easy printing).
   \item The graphic option has many variants that we will discuss later.
   \end{itemize}
 \end{frame}
 
-\begin{frame}[negativefill]
+\begin{frame}[shaded]
   {A negativefill slide}
-  {with a subtle subtitle}
+  {with a subtitle}
   \kant[1]
 \end{frame}
 
 \begin{frame}[negative,t]
   {A negative slide}
   {with a subtle subtitle}
-  Don't do this! Don't use a title and subtitle, nor straight text
-  but put material on this slide that does not touch or cross the
-  edges of the background!\\
-  E.g., the graph on the bottom right
-  \place[anchor=south east] at (0.9,0.1) {
-    \begin{tikzpicture}[white]
-      \begin{axis}
-        [width=4cm,height=5cm,grid=both,font=\footnotesize]
-        \addplot[white] {x^2};
-      \end{axis}
-    \end{tikzpicture}
-  }
-  The best advice is not to reserve this canvas for title frames and
-  intermission slides.
+  \kant[2]
 \end{frame}
 
 \begin{frame}[t]
@@ -8629,67 +8786,8 @@ een b\'echamel saus:
 
 \end{frame}
 
-\begin{frame}[t]
-  {Colors}
-  {What a wonderful world}
-
-  \heading{Standard colors}\\
-  You can select the theme colors using:\\
-  \textcolor{ugent@main}{Main color}:
-  can be specified as \LaTeX-color \emph{ugent@main}\\
-  \textcolor{ugent@accent}{Accent color}:
-  can be specified as \LaTeX-color \emph{ugent@accent}\\
-  \textcolor{ugent@faculty}{Faculty color}:
-  can be specified as \LaTeX-color
-  \emph{ugent@faculty}
-
-  \heading{Advice}\\
-  \begin{itemize}
-  \item Stick to the standard colors or use grayscale tints!
-  \item Only use color when functional (e.g. in graphs)
-  \end{itemize}
-
-  \heading{Alert}
-  You can use \alert{\command{alert{}}} to grab the attention of the
-  user. It will typeset your content in \alert{red}.
-
-  \heading{Not taking any advice?}\\
-  You can fiddle with the colors, but do so in smart way.
-  Use \command{setbeamercolor}. You can see how it is used in the
-  \texttt{beamercolorthemeugent.sty} file.
-\end{frame}
-
-\begin{frame}[t]
-  {Logo demo}
-  The logo's can be used as follows (but you should not need them):
-
-  \begin{itemize}
-  \item \command{includegraphics[width=3cm]\{\command{logopos}\}}\\
-    \begin{center}
-      %\begin{tikzpicture}
-        %\draw[fill,white] (0,0) rectangle node
-        %{\includegraphics[width=3cm]{\logopos}} (4,1.25);
-      %\end{tikzpicture}
-    \end{center}
-  \item \command{includegraphics[width=3cm]\{\command{logoneg}\}}\\
-    \begin{center}
-      %\begin{tikzpicture}
-      %  \draw[fill] (0,0) rectangle node
-      %  {\includegraphics[width=3cm]{\logoneg}} (4,1.25);
-      %\end{tikzpicture}
-    \end{center}
-  \item \command{includegraphics[width=3cm]\{\command{logomonowhite}\}}\\
-    \begin{center}
-      %\begin{tikzpicture}
-      %  \draw[fill] (0,0) rectangle node
-      %  {\includegraphics[width=3cm]{\logomonowhite}} (4,1.25);
-      %\end{tikzpicture}
-    \end{center}
-  \end{itemize}
-\end{frame}
-
-\subsection{With graphic eye candy}
-\begin{frame}[negative]
+\subsection{The graphic frame}
+\begin{frame}[subsection]
   \subsectionpage
 \end{frame}
 
@@ -8698,316 +8796,273 @@ een b\'echamel saus:
 
   \heading{The idea} --- put support material (photo or graph) on the
   slide next to the frame content.
-  This is done by
+  This is done by specifying the \texttt{graphicframe} environment and choosing
+  the appropriate options:
   \begin{itemize}
-  \item specifying an appropriate canvas
-  \item using an appropriate frame derivative
+  \item \texttt{graphic=<your graphic content>}
+  \item \texttt{graphicpos=<t/l/r/b>}: the side of the slide your graphic is on.
+    If none is specified, the graphic fills the slide similar to a section slide.
+  \item \texttt{graphicproportion=<0-1>}: the proportion of the slide your graphic fills
+  \item \texttt{fill=<true/false>}: if the graphic should fill the whole slide, with no margins
   \end{itemize}
 
-  \heading{Good combinations}
-  \begin{center}\small
-    \begin{tabular}{ccc}
-      \toprule
-      \bfseries frame option & \bfseries graphic on frame
-      & \bfseries corresponding frame derivative\\
-      \midrule
-      lqgraphic & left quarter   & r3qframe \\
-      rqgraphic & right quarter & l3qframe \\
-      lhgraphic & left half      & rhframe \\
-      rhgraphic & right half    & lhframe \\
-      thgraphic & top half       & bhframe \\
-      bhgraphic & bottom half   & thframe\\
-      \bottomrule
-    \end{tabular}
-  \end{center}
+  Some examples are shown in the next seven slides. The next two slides are typeset as:
 
+  \begin{codesnippet}
+  \bframe[graphicframe][graphic,logo=false]\\
+  \ind \{\}\{\}\\
+  \eframe[graphicframe]\\
+  \\
+  \bframe[graphicframe][graphic,fill=true,logo=false]\\
+  \ind \{\}\{\}\\
+  \eframe[graphicframe]
+  \end{codesnippet}
 \end{frame}
 
-\begin{l3qframe}[rqgraphic]
+\begin{graphicframe}[graphic,logo=false]
+  {}{}
+\end{graphicframe}
+
+\begin{graphicframe}[graphic,fill=true,logo=false]
+  {}{}
+\end{graphicframe}
+
+\begin{graphicframe}
+[graphic={\includegraphics[width=0.25\paperwidth, min height=\paperheight-2\gridunit]{example-image-a}},
+  graphicpos=r,graphicproportion=0.25,
+  logo=false]
   {Some Random Title}
   {Please, adapt!}
 
   \small
   The slide has been typeset as:\\
   \begin{codesnippet}[\textwidth]
-    \bframe[l3q][rqgraphic=\{<load photo here>\}]\\
+    \bframe[graphicframe]\\
+    \texttt{[graphic=\{<load photo here>\},\\
+    graphicpos=r,graphicproportion=0.25,\\
+    logo=false]\\}
     \ind\{Title\}\\
     \ind\{Subtitle\}\\
     \ind frame contents\\
-    \eframe[l3q]
+    \eframe[graphicframe]
   \end{codesnippet}
   \smallskip
 
   \subheading{Remarks}
   \begin{itemize}
   \item Load photo as:\\
-    \command{includegraphics[width=0.25\command{paperwidth}, min height=\command{textheight}]
-      \{image.jpg\}}
-  \item If \texttt{rqgraphic} is specified without argument, a standard photo
-    is loaded.
-  \item Note: you can avoid rounding the corner using the
-    frame option \texttt{noround} (may be useful when not using a photo)
+    \cmd{includegraphics[width=0.25\cmd{paperwidth}, min height=\cmd{paperheight}-2\cmd{gridunit}]
+      \{example-image-a\}}
+  \item If \texttt{graphic} is specified without argument, an example image is loaded.
   \end{itemize}
-\end{l3qframe}
+\end{graphicframe}
 
-\begin{r3qframe}[lqgraphic,t]
+\begin{graphicframe}
+[graphic={\includegraphics[width=0.5\paperwidth, min height=\paperheight-2\gridunit]{example-image-a}},
+graphicpos=r,logo=false]
   {Some Random Title}
-  {Please, adapt!}
 
   \small
   The slide has been typeset as:\\
   \begin{codesnippet}[\textwidth]
-    \bframe[r3q][lqgraphic=\{<load photo here>\}]\\
+    \bframe[graphicframe]\\
+    \texttt{[graphic=\{<load photo here>\},\\
+    graphicpos=r,\\
+    logo=false]\\}
     \ind\{Title\}\\
     \ind\{Subtitle\}\\
     \ind frame contents\\
-    \eframe[r3q]
+  \eframe[graphicframe]
   \end{codesnippet}
   \smallskip
 
   \subheading{Remarks}
   \begin{itemize}
   \item   Load photo as:\\
-    \command{includegraphics[width=0.25\command{paperwidth}, min height=\command{textheight}]
-      \{image.jpg\}}
-  \item If \texttt{rqgraphic} is specified without argument, a standard photo
-    is loaded.
-  \item Note: you can avoid rounding the corner using the
-    frame option \texttt{noround} (may be useful when not using a photo)
+    \cmd{includegraphics[min
+      width=0.5\cmd{paperwidth}, min height=\cmd{paperheight}-2\cmd{gridunit}]
+      \{example-image-a\}}
+  \item If \texttt{graphic} is specified without argument, an example image is loaded.
   \end{itemize}
-\end{r3qframe}
+\end{graphicframe}
 
-\begin{lhframe}[rhgraphic]
+\begin{graphicframe}
+[graphic={\includegraphics[width=0.5\paperwidth, min height=\paperheight-2\gridunit]{example-image-a}},
+graphicpos=l,logo=false]
   {Some Random Title}
 
   \small
   The slide has been typeset as:\\
   \begin{codesnippet}[\textwidth]
-    \bframe[lh][rhgraphic=\{<load photo here>\}]\\
+    \bframe[graphicframe]\\
+    \texttt{[graphic=\{<load photo here>\},\\
+    graphicpos=l,\\
+    logo=false]\\}
     \ind\{Title\}\\
     \ind\{Subtitle\}\\
     \ind frame contents\\
-    \eframe[lh]
-  \end{codesnippet}
+    \eframe[graphicframe]
+    \end{codesnippet}
   \smallskip
 
   \subheading{Remarks}
   \begin{itemize}
   \item   Load photo as:\\
-    \command{includegraphics[min
-      width=0.5\command{paperwidth}, min height=\command{textheight}]
-      \{image.jpg\}}
-  \item If \texttt{rqgraphic} is specified without argument, a standard photo
-    is loaded.
-  \item Note: avoid rounding the corner using \texttt{noround}
+    \cmd{includegraphics[min
+      width=0.5\cmd{paperwidth}, min height=\cmd{paperheight}-2\cmd{gridunit}]
+      \{example-image-a\}}
+    \item If \texttt{graphic} is specified without argument, an example image is loaded.
   \end{itemize}
-\end{lhframe}
+\end{graphicframe}
 
-\begin{rhframe}[lhgraphic,t]
-  {Some Random Title}
-
-  \small
-  The slide has been typeset as:\\
-  \begin{codesnippet}[\textwidth]
-    \bframe[rh][lhgraphic=\{<load photo here>\}]\\
-    \ind\{Title\}\\
-    \ind\{Subtitle\}\\
-    \ind frame contents\\
-    \eframe[rh]
-  \end{codesnippet}
-  \smallskip
-
-  \subheading{Remarks}
-  \begin{itemize}
-  \item   Load photo as:\\
-    \command{includegraphics[min
-      width=0.5\command{paperwidth}, min height=\command{textheight}]
-      \{image.jpg\}}
-  \item If \texttt{rqgraphic} is specified without argument, a standard photo
-    is loaded.
-  \item Note: avoid rounding the corner using \texttt{noround}
-  \end{itemize}
-\end{rhframe}
-
-\begin{bhframe}[thgraphic,t]
+\begin{graphicframe}
+[graphic={\includegraphics[width=\textwidth, min height=0.5\textheight]{example-image-a}},
+graphicpos=t,logo=false,b]
   {Some Random Title}{Please, adapt!}
   \small
-  The slide has been typeset as:
+  The slide has been typeset as:\\
   \begin{codesnippet}[\textwidth]
-    \bframe[bh][thgraphic=\{<load photo here>\}]\\
+    \bframe[graphicframe]\texttt{[graphic=\{<load photo here>\}, graphicpos=t, logo=false,b]\\}
     \ind\{Title\}\\
     \ind\{Subtitle\}\\
     \ind frame contents\\
-    \eframe[bh]
+    \eframe[graphicframe]
   \end{codesnippet}
-\end{bhframe}
+\end{graphicframe}
 
-\begin{thframe}[bhgraphic,t]
-  {Some Random Title}
-  {Please, adapt!}
+\begin{graphicframe}
+[graphic={\includegraphics[width=\textwidth, min height=0.5\textheight]{example-image-a}},
+graphicpos=b,logo=false,t]
+  {Some Random Title}{Please, adapt!}
   \small
-  The slide has been typeset as:
+  The slide has been typeset as:\\
   \begin{codesnippet}[\textwidth]
-    \bframe[th][bhgraphic=\{<load photo here>\}]\\
+    \bframe[graphicframe]\texttt{[graphic=\{<load photo here>\}, graphicpos=b, logo=false,t]\\}
     \ind\{Title\}\\
     \ind\{Subtitle\}\\
     \ind frame contents\\
-    \eframe[th]
+    \eframe[graphicframe]
   \end{codesnippet}
-\end{thframe}
+\end{graphicframe}
 
-\section{Intermission slides}
-\begin{frame}[negative]
-  \sectionpage
-\end{frame}
-
-\subsection{Standard section slides}
-\begin{frame}[negative]
+\subsection{Place, brightness, and textbox}
+\begin{frame}[subsection]
   \subsectionpage
 \end{frame}
 
-\begin{frame}[t]
-  {Basic idea}
+\begin{frame}[logo=false,t]
+  {Place}
 
-  You can select any of the canvas templates: negative, negativefill,
-  graphic, graphicfill and normal, and combine it with:
-  \begin{description}
-  \item[\command{sectionpage}]
-  \item[\command{subsectionpage}]
-  \end{description}
-
-  Example:\\[1ex]
-  \begin{codesnippet}[0.8\textwidth]
-    \bframe[][negative]\\
-    \ind \command{sectionpage}\\
-    \eframe\\~\\
-    \bframe[][negative]\\
-    \ind \command{subsectionpage}\\
-    \eframe
-  \end{codesnippet}\\[1ex]
-  (this how the previous two slide were generated)
-\end{frame}
-
-\subsection{Custom intermission slides}
-\begin{frame}[negative]
-  \subsectionpage
-\end{frame}
-
-\begin{frame}[t]
-  {Basic idea}
-
-  If you are a fan of graphic material in slideware, you can use a
-  \texttt{graphic} or \texttt{graphicfill} canvas in combination with
-  small snippets you put on the slide using\\[1ex]
-  \qquad\command{place[node options] at (x,y) \{<material>\}}\\[1ex]
+  You can place any graphic material on the slide using\\[1ex]
+  \qquad\cmd{place[node options] at (x,y) \{<graphic material>\}}\\[1ex]
   with
   \begin{itemize}
-  \item $(x,y)=(0,0)$ the bottom left of the slide and $(1,1)$ the top
-    right of the slide
+  \item $(x,y)$ the coordinates to insert the content, with the bottom left as origin $(0,0)$.
+    The coordinates can be relative (0--1) to the slide dimensions if unitless,
+    or absolute in cm, pt,\ldots
   \item \texttt{node options} any options you want to hand over to the
-    tikz node that is used to position the material.
+    tikz node that is used to position the material, e.g., \texttt{anchor = south east}.
   \end{itemize}
   \medskip
 
-  E.g., the next slide was created using:\\[1ex]
+  The next slide was created using:\\[1ex]
   \begin{codesnippet}[0.8\textwidth]
-    \bframe[][graphic,t]\\
-    \ind\command{place} at (0.5,0.5) \{\command{ugenticon[scale=0.8]}\}\\
-    \eframe
-  \end{codesnippet}
-  \medskip
-
-  You will have to run \LaTeX{} twice in order for the position to be correct!
-\end{frame}
-
-\begin{frame}[graphic,t]
- % \place at (0.5,0.5) {\uantwerpenicon[scale=0.8]}
-\end{frame}
-
-\begin{frame}[t]
-  {Shading photographs}
-
-  Often you need make a photograph a little bit more opaque in order
-  for the (white) text to readable.
-
-  To this end you can use the following command\\[1ex]
-  \qquad\command{darken[s]\{<material>\}}\\[1ex]
-  with $s$ a value between 0 and 1 to specify the level of darkening.
-
-  E.g., the next slide was created using:
-  \begin{codesnippet}[0.9\textwidth]
-    \bframe[][graphicfill=\{\command{darken}%
-    [0.25]\{\command{includegraphics}%
-    [scale=0.1,min width=\command{paperwidth},min height=\command{paperheight}]%
-    \{Images/uantwerpen-09.jpg\}\},t]\\
-    \command{place} [anchor=north east] at (0.95,0.5) \{\\
-    \ind\command{uantwerpencallout}\{3\}\{2.5\}\{\\
-    \ind\ind\command{bfseries} You cannot be serious!\textbackslash\textbackslash[1ex]\\
-    \ind\ind John McEnroe\}\\
-    \}\\
+    \bframe[][plain,logo=false]\\
+    \ind\cmd{place} at (0.5,0.5) \{\\
+    \ind\ind\cmd{begin\{tikzpicture\}}\\
+    \ind\ind\cmd{ugentlogo\{12\cmd{gridunit}\}\{ugent@main\}\{0\}}\\
+    \ind\ind\cmd{end\{tikzpicture\}}\\
+    \ind\}\\
     \eframe
   \end{codesnippet}
 \end{frame}
 
-\begin{frame}%[graphicfill={\darken[0.25]%
-    %{\includegraphics[scale=0.1,min width=\paperwidth,min height=\paperheight]%
-    %  {Images/uantwerpen-09.jpg}}},t]
-  \place [anchor=north east] at (0.95,0.5) {
-    \ugentcallout{3}{2.5}{
-      \bfseries You cannot be serious!\\[1ex]
-      John McEnroe}
+\begin{frame}[logo=false,plain]{}{}
+  \place at (0.5,0.5){
+    \begin{tikzpicture}
+      \ugentlogo{12\gridunit}{ugent@main}{0}
+    \end{tikzpicture}
   }
 \end{frame}
 
-\begin{frame}[t]
-  {Shading photographs locally}
+\begin{graphicframe}[graphicpos=r,graphicproportion=0.25,t,
+graphic={
+\brightness[-0.5]{\includegraphics[width=0.2\paperwidth]{example-image-a}}\\
+\brightness[0]{\includegraphics[width=0.2\paperwidth]{example-image-a}}\\
+\brightness[+0.5]{\includegraphics[width=0.2\paperwidth]{example-image-a}}
+}
+]
+  {Brightness}
 
-  You can also choose to shade the local backdrop of the material
-  you put on the side. If you like the \command{ugentcallout}
-  command of the previous slide, you can give it an optional argument
-  to set the fill opacity of the backdrop behind the text.
+  You can lighten or darken a photograph using the following command\\[1ex]
+  \qquad\cmd{brightness[s]\{<graphic material>\}}\\[1ex]
+  with $s$ a value between -1 and 1 to specify the level of lightening ($>0$)
+  or darkening ($<0$).
 
-  E.g., the next slide was created using:
-  \begin{codesnippet}[0.9\textwidth]
-    \bframe[][graphic,t]\\
-    \ind\command{place} [anchor=north west] at (0.1,0.9) \{\\
-    \ind\ind\command{ugentcallout}[fill opacity=0.5]\{4.5\}\{2.5\}\{\\
-    \ind\ind\ind\command{bfseries} I'll be back!\textbackslash\textbackslash[1ex]\\
-    \ind\ind\ind Arnold Schwarzenegger\}\\
-    \}
+  To the right, you can see an image with brightness\\
+   $-0.5$ (top), $0$ (middle), and $+0.5$ (bottom).
+\end{graphicframe}
+
+\begin{frame}[logo=false,t]
+  {Textbox}
+
+  You can insert a text box using:\\[1ex]
+  \qquad\cmd{textbox[options]\{width\}\{height\}\{contents\}}
+
+  Where the supported options are
+  \begin{itemize}
+  \item \texttt{fill = <colour>}: textbox colour
+  \item \texttt{fill opacity = <0-1>}
+  \item \texttt{text = <colour>}: text colour
+  \item \texttt{text opacity = <0-1>}
+  \item \texttt{align= <left/right/center/justify>}: text alignment
+  \end{itemize}
+
+  Some examples can be found in the next slides. E.g., the next one is created using:\\[1ex]
+  \begin{codesnippet}[0.8\textwidth]
+    \bframe[][graphic,logo=false]\\
+    \ind\cmd{place[anchor = south east]} at (\cmd{paperwidth}-\cmd{gridunit},\cmd{gridunit}) \{\\
+    \ind\ind\cmd{textbox}\{16cm\}\{10cm\}\{Some example text\}\\
+    \ind\}\\
     \eframe
   \end{codesnippet}
-  \medskip
-
-  The \command{ugentcallout} command has te following syntax:\\[1ex]
-  \qquad\command{ugentcallout[options]\{width\}\{height\}\{contents\}}
-  \medskip
-
-  Remember to run \LaTeX{} twice in order for the position of the
-  callout to be correct!
 \end{frame}
 
-\begin{frame}[graphic,t]
-  \place [anchor=north west] at (0.1,0.9) {
-    \ugentcallout[fill opacity=0.5]{4.5}{2.5}{
-      \bfseries I'll be back!\\[1ex]
-      Arnold Schwarzenegger}
+\begin{graphicframe}[graphic]{}{}
+  \place [anchor=south east] at (\paperwidth-\gridunit,\gridunit) {
+    \textbox{16cm}{10cm}{Some example text}
   }
-\end{frame}
+\end{graphicframe}
+\begin{graphicframe}[logo=false,graphic]{}{}
+  \place [anchor=north west] at (\gridunit,\paperheight-\gridunit) {
+    \textbox[fill=white,text=ugent@main]{10cm}{6cm}{\textbf{All}}
+  }
+  \place [anchor=north east] at (\paperwidth-\gridunit,\paperheight-\gridunit) {
+    \textbox[fill=ugent@main!10!white,text=ugent@main]{10cm}{6cm}{\textbf{the}}
+  }
+  \place [anchor=center] at (0.5,0.5) {
+  \textbox[fill=ugent@main, fill opacity=0.2,text=ugent@main]{10cm}{6cm}{\textbf{colours}}
+  }
+  \place [anchor=south west] at (\gridunit,\gridunit) {
+    \textbox[fill=ugent@accent]{10cm}{6cm}{of}
+  }
+  \place [anchor=south east] at (\paperwidth-\gridunit,\gridunit) {
+  \textbox[fill=ugent@main]{10cm}{6cm}{UGent}
+  }
+\end{graphicframe}
 
 \section{Demo of some inner theme parts}
-\begin{frame}[negative]
+\begin{frame}[section]
   \sectionpage
 \end{frame}
 
-
-\begin{frame}[t]
+\begin{frame}[logo=false,t]
   {Headings}
   {on two levels}
   You can set headings on two levels, by using
   \begin{itemize}
-  \item\command{heading\{\}}
-  \item\command{subheading\{\}}
+  \item\cmd{heading\{\}}
+  \item\cmd{subheading\{\}}
   \end{itemize}
   \heading{Main subject}~\\
   blabla
@@ -9035,15 +9090,15 @@ een b\'echamel saus:
   {Itemize / enumerations}
   {Different styles}
   Usage:\\
-  Set them (in your preamble) using: \command{setbeamertemplate\{itemize items\}[triangle]}\\
-  The default of the uantwerpen beamer template is set to \texttt{square} to be
-  similar to our logo.
+  Set them (in your preamble) using: \cmd{setbeamertemplate\{itemize items\}[circle]}\\
+  The default of the \texttt{ugent} beamer template is set to \cmd{textendash} following the Office
+  templates.
   \medskip
 
   \begin{columns}
     \column[T]{0.3\textwidth}
-    \alert{default}
-    \setbeamertemplate{itemize items}[default]
+    \alert{\cmd{textendash} (default)}
+    \setbeamertemplate{itemize items}{\textendash}
     \listdemo
     \column[T]{0.3\textwidth}
     \alert{triangle}
@@ -9093,46 +9148,25 @@ een b\'echamel saus:
   \end{alertblock}
   \vfill
 \end{frame}
-\section{Advanced material}
 
-\begin{frame}[negative]
-  \sectionpage
-\end{frame}
+\renewcommand{\closingpage}{
+That's all, folks!
+}
 
-\begin{frame}[t]
-  {Customizing the template}
-
-  If you want to override logos/colors to create a template for your
-  own research group or department:
-  renew the commands below. The redefinitions must be put just after
-  the \command{begin\{document\}} statement.\\
-  The construction below allows you to put the stuff in a style file
-  that you must load after (!) the \command{usetheme} command.\\[1ex]
-  \begin{codesnippet}[0.95\textwidth]
-    \command{AtBeginDocument\{}\\
-    \ind\command{renewcommand*}\command{logopos\{your-pos-logo-filename-here\}}\\
-    \ind\command{renewcommand*}\command{logoneg\{your-negative-logo-filename-here\}}\\
-    \ind\command{renewcommand*}\command{logomonowhite\{your-mono-logo-filename-here\}}\\
-    \ind\command{renewcommand*}\command{iconfile\{your-icon-filename-here\}}\\
-    \ind\command{setbeamercolor\{frametitle\}\{fg=your-favorite-color\}}\\
-    \ind\command{setbeamercolor\{title in title page\}\{fg=another-favorite-color\}}\\
-    \ind\command{setbeamercolor\{normal text\}\{fg=another-solid-color\}}\\
-    \}
-  \end{codesnippet}~\\[1ex]
+\begin{frame}[title]
+  \closingpage
 \end{frame}
 
 \end{document}
 %</bmrug>
 % \end{Verbatim}
 %
-% \section{Implementation}
-% \subsubsection{Main beamer theme}
 %
 %
-%    \begin{macrocode}
+% \iffalse
 %<*bmr>
 \AtBeginDocument{
-  \def\appropriatelogo{\@ugentlogo{2.5cm}{ugent@main}{0.0}}
+  \def\appropriatelogo{\ugentlogo{\@HBS}{ugent@main}{0}}
   \def\appropriateslidenumber{%
     \usebeamercolor{pageno in head/foot}%
     \insertframenumber/\inserttotalframenumber}%
@@ -9143,25 +9177,26 @@ een b\'echamel saus:
 
 \pgfmathsetmacro{\@PWnum}{\@PW/1cm}
 \pgfmathsetmacro{\@PHnum}{\@PH/1cm}
-\pgfmathsetlength{\gridunit}{max(\@PW,\@PH)/7/4/1.3} % Gridunit seems 1.3x smaller than its actual definition
+\pgfmathsetlength{\gridunit}{max(\@PW,\@PH)/7/4/1.3} % Gridunit seems 1.3x smaller than its actual official definition
 
 \newlength{\@HBS}\setlength\@HBS{4\gridunit}
 \newlength{\@HTS}
 
 \ifx\@fselector\@empty
-  \setlength\@HTS{0}
+  \setlength\@HTS{0mm}
 \else
   \setlength\@HTS{3\gridunit}
 \fi
 
 \mode<presentation>
 
-\usepackage[orientation=landscape,size=custom,width=\@PWnum,height=\@PHnum,scale=1]{beamerposter}
+\RequirePackage[orientation=landscape,size=custom,width=\@PWnum,height=\@PHnum,scale=1]{beamerposter}
 \RequirePackage{tikz}
 \RequirePackage{graphicx}
 \RequirePackage{graphbox}
 \RequirePackage[export]{adjustbox}
 \RequirePackage{environ}
+\RequirePackage{fontawesome}
 
 \setbeamersize{
   text margin left=2\gridunit,
@@ -9173,16 +9208,83 @@ een b\'echamel saus:
 \useinnertheme{ugent}
 \useoutertheme{ugent}
 
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{blocks}[rounded][shadow=true]
+\setlength{\beamer@frametopskip}{0mm}
+\setlength{\beamer@framebottomskip}{0pt}
+\addtolength{\textheight}{-2\gridunit}
+
+% BEAMER PATCHES ---------------------------------------------------------------
+\begingroup
+\catcode`\@=11\relax
+\gdef\@AT{@}%
+\endgroup
+
+% Patch circle not working for OTF fonts
+\@ifundefined{beamer\@AT\@AT tmpop\@AT itemize item\@AT circle}{}{%
+  \expandafter\let\csname beamer\@AT\@AT tmpop\@AT itemize item\@AT circle\endcsname\relax
+  \expandafter\let\csname beamer\@AT\@AT tmpop\@AT itemize subitem\@AT circle\endcsname\relax
+  \expandafter\let\csname beamer\@AT\@AT tmpop\@AT itemize subsubitem\@AT circle\endcsname\relax
+}
+
+\defbeamertemplate{itemize item}{circle}{%
+  \usebeamercolor[fg]{itemize item}\tikz[baseline=-0.5ex]\fill[fg] (0,0) circle (0.4ex);%
+}
+\defbeamertemplate{itemize subitem}{circle}{%
+  \usebeamercolor[fg]{itemize subitem}\tikz[baseline=-0.5ex]\fill[fg] (0,0) circle (0.32ex);%
+}
+\defbeamertemplate{itemize subsubitem}{circle}{%
+  \usebeamercolor[fg]{itemize subsubitem}\tikz[baseline=-0.5ex]\fill[fg] (0,0) circle (0.28ex);%
+}
+
+% Patch support of differently-sized fonts in title and body of blocks
+\@ifundefined{beamer\@AT\@AT tmpop\@AT block begin\@AT default}{}{%
+  \expandafter\let\csname beamer\@AT\@AT tmpop\@AT block begin\@AT default\endcsname\relax
+  \expandafter\let\csname beamer\@AT\@AT tmpop\@AT block alerted begin\@AT default\endcsname\relax
+  \expandafter\let\csname beamer\@AT\@AT tmpop\@AT block example begin\@AT default\endcsname\relax
+}
+
+\newdimen\@blockcolsep
+{\usebeamerfont{block body}\global\@blockcolsep=.75ex} % Setting colsep once
+
+\defbeamertemplate*{block begin}{default}[1][]{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[colsep=\@blockcolsep,#1]{block title}
+    \usebeamerfont*{block title}\insertblocktitle%
+  \end{beamercolorbox}\noframebreak%
+  {\parskip0pt\par}%
+  \ifbeamercolorempty[bg]{block title}{}
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \begin{beamercolorbox}[colsep=\@blockcolsep,vmode,#1]{block body}%
+    \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+}
+\defbeamertemplate*{block alerted begin}{default}[1][]{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[colsep=\@blockcolsep,#1]{block title alerted}
+    \usebeamerfont*{block title alerted}\insertblocktitle%
+  \end{beamercolorbox}\noframebreak%
+  {\parskip0pt\par}%
+  \ifbeamercolorempty[bg]{block title alerted}{}{\ifbeamercolorempty[bg]{block body alerted}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body alerted}%
+  \begin{beamercolorbox}[colsep=\@blockcolsep,vmode,#1]{block body alerted}%
+    \ifbeamercolorempty[bg]{block body alerted}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+}
+\defbeamertemplate*{block example begin}{default}[1][]{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[colsep=\@blockcolsep,#1]{block title example}
+    \usebeamerfont*{block title example}\insertblocktitle%
+  \end{beamercolorbox}\noframebreak%
+  {\parskip0pt\par}%
+  \ifbeamercolorempty[bg]{block title example}{}{\ifbeamercolorempty[bg]{block body example}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body example}%
+  \begin{beamercolorbox}[colsep=\@blockcolsep,vmode,#1]{block body example}%
+    \ifbeamercolorempty[bg]{block body example}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+}
+
+% ------------------------------------------------------------------------------
 
 \mode
 <all>
 %</bmr>
-%    \end{macrocode}
-% \subsubsection{Beamer color theme}
-%
-%    \begin{macrocode}
 %<*bmrcolor>
 \mode<presentation>
 
@@ -9191,25 +9293,25 @@ een b\'echamel saus:
 %% define main color
 \setbeamercolor{palette primary}{fg=ugent@main}
 \setbeamercolor{palette secondary}{fg=ugent@accent}
-\setbeamercolor{palette tertiary}{fg=ugent@accent}
-\setbeamercolor{palette quaternary}{fg=ugent@main}
+\setbeamercolor{palette tertiary}{fg=ugent@faculty}
+%\setbeamercolor{palette quaternary}{fg=ugent@main}
 
-\setbeamercolor{normal text}{fg=ugent@faculty}
+\setbeamercolor{normal text}{fg=black}
 \setbeamercolor{inverse normal text}{fg=white!95!ugent@main}
-\setbeamercolor{alerted text}{fg=ugent@main}
-\setbeamercolor{example text}{}
+\setbeamercolor{alerted text}{fg=ugent@accent}
+\setbeamercolor{example text}{fg=ugent@faculty}
 
-\setbeamercolor{heading}{fg=ugent@faculty}
-\setbeamercolor{subheading}{fg=ugent@faculty}
+\setbeamercolor{heading}{fg=ugent@main}
+\setbeamercolor{subheading}{fg=white!25!ugent@main}
 \setbeamercolor{inverse heading}{fg=white}
 \setbeamercolor{inverse subheading}{fg=white!75!ugent@main}
 
-\setbeamercolor{block body}{bg=black!4}
-\setbeamercolor{block title}{bg=black!8,fg=ugent@main}
-\setbeamercolor{block body example}{bg=black!4}
-\setbeamercolor{block title example}{bg=black!8}
-\setbeamercolor{block body alerted}{bg=black!4}
-\setbeamercolor{block title alerted}{bg=black!8}
+\setbeamercolor{block body}{bg=ugent@main!10}
+\setbeamercolor{block title}{fg=white,bg=ugent@main}
+\setbeamercolor{block body example}{bg=ugent@faculty!10}
+\setbeamercolor{block title example}{fg=white,bg=ugent@faculty}
+\setbeamercolor{block body alerted}{bg=ugent@accent!10}
+\setbeamercolor{block title alerted}{fg=white,bg=ugent@accent}
 
 \setbeamercolor{itemize item}{parent=normal text}
 \setbeamercolor{enumerate item}{parent=normal text}
@@ -9219,48 +9321,46 @@ een b\'echamel saus:
 \setbeamercolor{enumerate subsubitem}{parent=normal text}
 
 \setbeamercolor{frametitle}{fg=ugent@main}
-\setbeamercolor{framesubtitle}{fg=ugent@faculty}
+\setbeamercolor{framesubtitle}{fg=ugent@main}
 \setbeamercolor{inverse frametitle}{fg=white}
 \setbeamercolor{inverse framesubtitle}{fg=white!80!ugent@main}
 
 \setbeamercolor{title in title page}{fg=ugent@main}
 \setbeamercolor{subtitle in title page}{fg=ugent@accent}
-\setbeamercolor{author in title page}{fg=ugent@main}
+\setbeamercolor{author in title page}{fg=ugent@accent}
 \setbeamercolor{date in title page}{fg=ugent@accent}
 \setbeamercolor{inverse title in title page}{fg=white}
-\setbeamercolor{inverse subtitle in title page}{fg=white!75!ugent@main}
-\setbeamercolor{inverse author in title page}{fg=white}
-\setbeamercolor{inverse date in title page}{fg=white!75!ugent@main}
+\setbeamercolor{inverse subtitle in title page}{fg=ugent@accent}
+\setbeamercolor{inverse author in title page}{fg=ugent@accent}
+\setbeamercolor{inverse date in title page}{fg=ugent@accent}
 
-\setbeamercolor{pageno in head/foot}{fg=ugent@faculty}
-\setbeamercolor{inverse pageno in head/foot}{fg=white}
+\setbeamercolor{pageno in head/foot}{fg=ugent@main}
+\setbeamercolor{inverse pageno in head/foot}{fg=ugent@main}
 
-\setbeamercolor{section in toc}{fg=ugent@faculty}
-\setbeamercolor{subsection in toc}{fg=ugent@faculty}
-\setbeamercolor{section number projected}{fg=white,bg=ugent@faculty}
-\setbeamercolor{subsection number projected}{fg=white,bg=ugent@faculty}
+\setbeamercolor{section in toc}{fg=black}
+\setbeamercolor{subsection in toc}{fg=black}
+\setbeamercolor{section number projected}{fg=white,bg=ugent@main}
+\setbeamercolor{subsection number projected}{fg=white,bg=ugent@main}
 
-\setbeamercolor{section title}{fg=ugent@main}
-\setbeamercolor{section name}{fg=ugent@main}
+\setbeamercolor{section title}{fg=ugent@faculty}
+\setbeamercolor{section name}{fg=ugent@faculty}
 \setbeamercolor{inverse section title}{fg=white}
 \setbeamercolor{inverse section name}{fg=white}
 
 \setbeamercolor{subsection title}{fg=ugent@accent}
 \setbeamercolor{subsection name}{fg=ugent@accent}
-\setbeamercolor{inverse subsection title}{fg=white!75!ugent@main}
-\setbeamercolor{inverse subsection name}{fg=white!75!ugent@main}
+\setbeamercolor{inverse subsection title}{fg=white!75!ugent@faculty}
+\setbeamercolor{inverse subsection name}{fg=white!75!ugent@faculty}
 \mode
 <all>
 %</bmrcolor>
-%    \end{macrocode}
-% \subsubsection{Beamer font theme}
-%
-%
-%    \begin{macrocode}
 %<*bmrfont>
 \usetikzlibrary{calc}
 
 \mode<presentation>
+
+\setlength\parskip{0.5\baselineskip}
+\setlength\parindent{0em}
 
 \setbeamerfont{normal text}{} % ignored currently
 \setbeamerfont{alerted text}{}
@@ -9367,118 +9467,322 @@ een b\'echamel saus:
 \mode
 <all>
 %</bmrfont>
-%    \end{macrocode}
-%
-% \subsubsection{Beamer inner theme}
-%
-%    \begin{macrocode}
 %<*bmrinner>
 \mode<presentation>
 
-\setlength\parskip{0.5\baselineskip}
-\setlength\parindent{0em}
-
-% use square (can also be circle or ball
-\setbeamertemplate{sections/subsections in toc}[square]
-\setbeamertemplate{itemize items}[square]
-
-%\setbeamertemplate{description item}[align left]
-
-\newif\if@noround
-\@noroundfalse
-
-\newcommand*\ugentleftshape[3][]{
-  \newcommand\mycradius{0.05*(\getlength{\paperheight}-1.6)}%
-  \coordinate (bl) at #2;
-  \coordinate (tr) at #3;
-  \if@noround
-  \path[#1] (bl) rectangle (tr);
-  \else
-  \path[#1] (bl|-tr) -- (tr) -- (bl-|tr) -- ($(bl)+({\mycradius},0)$)
-  arc(-90:-180:{\mycradius}) -- cycle;
-  \fi
-}
-\newcommand*\ugentrightshape[3][]{
-  \newcommand\mycradius{0.05*(\getlength{\paperheight}-1.6)}%
-  \coordinate (bl) at #2;
-  \coordinate (tr) at #3;
-  \if@noround
-  \path[#1] (bl) rectangle (tr);
-  \else
-  \path[#1] (bl|-tr) -- (tr) -- ($(bl-|tr)+(0,{\mycradius})$)
-  arc(0:-90:{\mycradius}) -- (bl) -- cycle;
-  \fi
+\newcommand*\@rect[3][]{
+	\coordinate (bl) at #2;
+	\coordinate (tr) at #3;
+	\path[#1] (bl) rectangle (tr);
 }
 
-\newcommand*\darken[2][0.5]{%
-  \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
+\DeclareRobustCommand\place{\@ifnextchar[{\@placeat}{\@placeat[align=left] }}
+\def\@placeat[#1] at (#2,#3)#4{
+  \begin{tikzpicture}[overlay,remember picture]
+  \coordinate (place@px)
+    at ($(current page.south west)!#2!(current page.south west-|current page.north east)$);
+  \coordinate (place@py)
+    at ($(current page.south west)!#3!(current page.south west|-current page.north east)$);
+  \node[inner sep=0pt,#1] at (place@px |- place@py) {#4};
+  \end{tikzpicture}
+}
+
+\ExplSyntaxOn
+\fp_new:N \l_@@_fillalpha_fp
+\tl_new:N \l_@@_fillcol_tl
+\newcommand*\brightness[2][-0.5]{%
+  \fp_compare:nNnTF {#1} > {0} {
+    \tl_set:Nn \l_@@_fillcol_tl {white}
+    \fp_set:Nn \l_@@_fillalpha_fp {#1}
+  }{
+    \tl_set:Nn \l_@@_fillcol_tl {black}
+    \fp_set:Nn \l_@@_fillalpha_fp {-(#1)}
+  }
+  \begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt]
     \node (a) {#2};
-    \fill[fill=black,opacity=#1] (a.south west) rectangle (a.north east);
+    \fill[fill=\l_@@_fillcol_tl, opacity=\fp_to_decimal:N\l_@@_fillalpha_fp]
+      (a.south~west) rectangle (a.north~east);
   \end{tikzpicture}
 }
 
-\newcommand\ugentcallout[4][]{
+
+\tl_new:N \l_@@_textbox_fillcolor_tl
+\tl_new:N \l_@@_textbox_fillalpha_tl
+\tl_new:N \l_@@_textbox_textcolor_tl
+\tl_new:N \l_@@_textbox_textalpha_tl
+\tl_new:N \l_@@_textbox_align_tl
+
+\keys_define:nn { ugentdocs/textbox } {
+  fill          .tl_set:N  = \l_@@_textbox_fillcolor_tl,
+  fill          .initial:n = ugent@faculty,
+  fill~opacity  .tl_set:N  = \l_@@_textbox_fillalpha_tl,
+  fill~opacity  .initial:n = 1,
+  text          .tl_set:N  = \l_@@_textbox_textcolor_tl,
+  text          .initial:n = white,
+  text~opacity  .tl_set:N  = \l_@@_textbox_textalpha_tl,
+  text~opacity  .initial:n = 1,
+  align         .tl_set:N  = \l_@@_textbox_align_tl,
+  align         .initial:n = left,
+}
+
+\NewDocumentCommand \textbox { O{} m m m } {
+  \keys_set:nn { ugentdocs/textbox } { #1 }
+  \dim_set:Nn \l_tmpa_dim{#2-2\gridunit} % width
+  \dim_set:Nn \l_tmpb_dim{#3-2\gridunit} % height
   \begin{tikzpicture}
-    \ugentleftshape[fill=black,fill opacity=0.0,text opacity=1,text=white,#1]
-                        {({-#2/2},-{#3/2})}{({#2/2},{#3/2})}
-    \node[align=left,anchor=center] at (0,0) { \callout\\ #4 };
+  \node[align=left,
+    text~width=\l_tmpa_dim,
+    inner~sep=\gridunit,
+    text=\l_@@_textbox_textcolor_tl,
+    text~opacity=\l_@@_textbox_textalpha_tl] (body)
+    {\parbox[t][\l_tmpb_dim][t]{\l_tmpa_dim}{#4}};
+  \begin{scope}[on~background~layer]
+    \node[fill=\l_@@_textbox_fillcolor_tl,
+      fill~opacity=\l_@@_textbox_fillalpha_tl, fit=(body), inner~sep=0mm] {};
+  \end{scope}
   \end{tikzpicture}
 }
 
-\newcommand\callout[1][scale=0.70711]{
-  \begin{tikzpicture}[#1]
-    \fill[ugent@main] (0.4,0) -- (0.5,0) -- (0.75,-0.15) -- (0.75,0) --
-    (0.9,0) arc(-90:0:0.1) -- (1,0.65) arc(0:90:0.1) -- (0.1,0.75) arc
-    (90:180:0.1) -- (0,0.1) arc(-180:-90:0.1) -- cycle;
-    \foreach \x in {0.35,0.7} {
-      \begin{scope}[shift={(\x,0.425)},scale=0.25]
-        \fill[white] (0,0) circle[radius=0.5];
-        \fill[white] (0.5,0) arc(0:-90:1) --
-        (-0.5,-0.725) arc(-90:0:0.725) -- cycle;
-      \end{scope}
-    }
+\ExplSyntaxOff
+
+\newcommand*{\@titlelogos}{}
+\newcommand*{\titlelogos}[1]{\renewcommand*{\@titlelogos}{#1}}
+
+\newcommand*{\@authorrole}{}
+\newcommand*{\authorrole}[1]{\renewcommand*{\@authorrole}{#1}}
+
+\NewDocumentCommand{\@printsocialitem}{mmm}{%
+  % FA icon command, label text, url
+  \raisebox{-0.25\gridunit}{%
+    \tikz[baseline]\node[fill=white,
+    minimum width=\gridunit, minimum height=\gridunit,
+    inner sep=0pt]{\color{ugent@main}\scalebox{0.75}{#1}};
+  }%
+  \hspace{0.25\gridunit}%
+  \@ifpackageloaded{hyperref}{%
+    \href{#3}{\uline{#2}}%
+  }{%
+    \uline{#2}%
+  }
+}
+
+\newcommand*{\closingpage}{
+  \begin{tikzpicture}
+  [overlay,remember picture, shift={(current page.south west)}]
+  \clip (0,0) rectangle (\@PW,\@PH);
+  \node[anchor=north west,
+  text width=\@PW-3\gridunit,
+  text=white,
+  align=left] at (3\gridunit,\@PH-4\gridunit) {
+    \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse title in title page}
+      \small
+      \textbf{\insertauthor}\\[0.5ex]
+      \ifx\@authorrole\@empty\else
+      \@authorrole\\[0.5ex]
+      \fi
+      \vspace{\gridunit}
+      \@department[uppercase]~\@team[uppercase]\\[0.5ex]
+      \vspace{\gridunit}
+      \ifseqempty{emails}{}{\printseq{emails}{}{}{}\\[0.5ex]}
+      \ifseqempty{phones}{}{\printseq{phones}{}{}{}\\[0.5ex]}
+      \ifseqempty{mobiles}{}{\printseq{mobiles}{}{}{}\\[0.5ex]}
+    \end{beamercolorbox}
+  };
+  \node[anchor=south west,
+  text width=9\gridunit,
+  text=white,
+  align=left] at (\@PW-9\gridunit,\@HBS+\gridunit) {
+    \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse title in title page}
+      \small
+      \@printsocialitem{\faFacebook}{Universiteit Gent}
+        {https://facebook.com/ugent/}\\[0.6ex]
+      \@printsocialitem{\faInstagram}{@ugent}
+        {https://instagram.com/ugent/}\\[0.6ex]
+      \@printsocialitem{\faLinkedin}{Ghent University}
+        {https://www.linkedin.com/school/ghent-university/}\\[0.6ex]
+      \@printsocialitem{\faYoutubePlay}{youtube.com/ugent}
+        {http://www.youtube.com/user/UniversiteitGent}\\%
+      \vspace{\gridunit}
+      \textcolor{ugent@accent}{
+        \normalsize
+        \@ifpackageloaded{hyperref}{%
+          \href{https://www.ugent.be/}{www.ugent.be}%
+        }{%
+          www.ugent.be%
+        }
+      }
+    \end{beamercolorbox}
+  };
   \end{tikzpicture}
 }
 
-%%\newcommand*\ugenticon[1][scale=1]{
-%%  \includegraphics[#1]{\iconfile}
-%%}
-
-\newcommand\heading[1]{\par{\usebeamercolor{\maybeinverse heading}\color{fg}{\small\bfseries #1~}}}
+\newcommand\heading[1]{\par{
+    \usebeamercolor{\maybeinverse
+      heading}\color{fg}{\small\textbf{#1}~}}}
 \newcommand\subheading[1]{\par{
     \usebeamercolor{\maybeinverse
-      subheading}\color{fg}{\footnotesize\it\bfseries #1~}}}
+      subheading}\color{fg}{\footnotesize\textbf{\textit{#1}}~}}}
 
 \mode
 <all>
 %</bmrinner>
-%    \end{macrocode}
-%
-% \subsubsection{Beamer outer theme}
-%
-%    \begin{macrocode}
 %<*bmrouter>
 \mode<presentation>
 
-\newcommand*\getlength[1]{\strip@pt#1/28.45274}
-\newcommand*\pw{\getlength{\paperwidth}}%
-\newcommand*\ph{\getlength{\paperheight}}%
+\setbeamertemplate{navigation symbols}{}
 
-\newif\if@rhtext
-\@rhtextfalse
-\newif\if@lhtext
-\@lhtextfalse
-\newif\if@rqtext
-\@rqtextfalse
-\newif\if@lqtext
-\@lqtextfalse
-\newif\if@bhtext
-\@bhtextfalse
+\ExplSyntaxOn
+% Declare vars for graphic frames and title frames
+\dim_new:N  \l_@@_graphdim_dim
+\tl_new:N   \l_@@_graphpos_tl
+\fp_new:N   \l_@@_graphprop_fp
+\bool_new:N \l_@@_graphgiven_bool
+\bool_new:N \l_@@_graphfill_bool
+\bool_new:N \g_@@_showlogo_bool
+\tl_new:N   \g_@@_logocolour_tl
+\tl_new:N   \l_@@_graphcontent_tl
+\tl_new:N   \l_@@_titlebgimg_tl
+\fp_new:N   \l_@@_bodyfrac_fp
+
+\newlength{\@titletextwidth}
+
+% HELPERS ---------------------------------------------------------------------
+% Helper CS for split graph frames
+\cs_new_protected:Npn \@IfGraphSplit #1#2 {
+  \bool_if:NTF \l_@@_graphfill_bool {
+    #2
+  }{
+    \tl_if_empty:NTF \l_@@_graphpos_tl {#2}{#1}
+  }
+}
+
+% Helper CS to compute graphic dimensions and position
+\cs_new_protected:Npn \@ComputeGraphDims {
+  \bool_if:NTF \l_@@_graphfill_bool {
+    \pgfmathsetmacro\@shx{0}
+    \pgfmathsetmacro\@shy{0}
+    \pgfmathsetmacro\@dx{\@PW/1cm}
+    \pgfmathsetmacro\@dy{\@PH/1cm}
+  }{
+    \pgfmathsetmacro\@shx{\gridunit/1cm}
+    \pgfmathsetmacro\@shy{4\gridunit/1cm}
+    \pgfmathsetmacro\@dx{(\@PW-\gridunit)/1cm}
+    \pgfmathsetmacro\@dy{(\@PH-4*\gridunit)/1cm}
+  }
+  \@IfGraphSplit{
+    \pgfmathsetmacro\@oy{\gridunit/1cm}
+    \pgfmathsetmacro\@prop{\fp_to_decimal:N\l_@@_graphprop_fp}
+    \str_case:VnF \l_@@_graphpos_tl {
+      { l } {
+        \pgfmathsetmacro\@dx{\@prop*(\@PW-\beamer@leftmargin-\beamer@rightmargin)/1cm}
+        \pgfmathsetmacro\@shx{\beamer@leftmargin/1cm}
+        \pgfmathsetmacro\@dy{\@PH/1cm-2*\@oy}
+        \pgfmathsetmacro\@shy{\@oy}
+      }
+      { r } {
+        \pgfmathsetmacro\@dx{\@prop*(\@PW-\beamer@leftmargin-\beamer@rightmargin)/1cm}
+        \pgfmathsetmacro\@shx{\@PW/1cm-\beamer@rightmargin/1cm-\@dx}
+        \pgfmathsetmacro\@dy{\@PH/1cm-2*\@oy}
+        \pgfmathsetmacro\@shy{\@oy}
+      }
+      { t } {
+        \pgfmathsetmacro\@dx{(\@PW-\beamer@leftmargin-\beamer@rightmargin)/1cm}
+        \pgfmathsetmacro\@shx{\beamer@leftmargin/1cm}
+        \pgfmathsetmacro\@dy{\@prop*(\@PH/1cm-2*\@oy)}
+        \pgfmathsetmacro\@shy{\@PH/1cm-\@oy-\@dy}
+      }
+      { b } {
+        \pgfmathsetmacro\@dx{(\@PW-\beamer@leftmargin-\beamer@rightmargin)/1cm}
+        \pgfmathsetmacro\@shx{\beamer@leftmargin/1cm}
+        \pgfmathsetmacro\@dy{\@prop*(\@PH/1cm-2*\@oy)}
+        \pgfmathsetmacro\@shy{\@oy}
+      }
+    }{ \msg_error:nnn { ugentdocs } { unknown~graphpos } { \l_@@_graphpos_tl } }
+  }{}
+}
+
+% Helper CS to determine title width
+\cs_new_protected:Npn \@ComputeTitleDims {
+  \fp_compare:nNnTF {\l_@@_graphprop_fp} > {0.5} {
+    \tl_clear:N \l_@@_graphpos_tl
+  }{
+    \tl_set:Nn \l_@@_graphpos_tl {r}
+  }
+  \tl_if_empty:NTF \l_@@_titlebgimg_tl {
+    \pgfmathsetlength{\@titletextwidth}{\@PW-3\gridunit}%
+  }{
+    \fp_compare:nNnTF {\l_@@_graphprop_fp} > {0.5} {
+      \pgfmathsetlength{\@titletextwidth}{\@PW-3\gridunit}%
+    }{
+      \pgfmathsetmacro\@titleprop{\fp_to_decimal:N\l_@@_graphprop_fp}%
+      \pgfmathsetlength{\@titletextwidth}{\@PW-\@titleprop*(\@PW-\gridunit)-3\gridunit}%
+    }
+  }
+}
+
+% Helper CS to set inverse or normal text for graphic frames
+\cs_new_protected:Npn \@SetInverse {
+  \@IfGraphSplit {
+    \gdef\maybeinverse{}\usebeamercolor[fg]{normal text}
+  }{
+    \gdef\maybeinverse{inverse }\usebeamercolor[fg]{inverse normal text}
+  }
+}
+
+% Helper CS to set frame title dimensions and position
+\dim_new:N \l_@@_tempdima_dim
+\dim_new:N \l_@@_tempdimb_dim
+\dim_new:N \l_@@_vskip_dim
+\bool_new:N \l_@@_dovskip_bool
+\cs_new_protected:Npn \@SetFrameTitleDims {
+  \bool_set_false:N \l_@@_dovskip_bool
+  \@IfGraphSplit {
+    \str_case:VnF \l_@@_graphpos_tl {
+      { l } {
+        \dim_set:Nn \l_@@_graphdim_dim { \fp_to_decimal:N \l_@@_graphprop_fp \textwidth }
+        \dim_set:Nn \l_@@_tempdima_dim { \l_@@_graphdim_dim + \gridunit }
+        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth - \l_@@_tempdima_dim }
+      }
+      { r } {
+        \dim_set:Nn \l_@@_graphdim_dim { \fp_to_decimal:N \l_@@_graphprop_fp \textwidth }
+        \dim_set:Nn \l_@@_tempdima_dim { 0em }
+        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth - \l_@@_graphdim_dim - \gridunit }
+      }
+      { t } {
+        \dim_set:Nn \l_@@_tempdima_dim { 0em }
+        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
+        \bool_set_true:N \l_@@_dovskip_bool
+        \dim_set:Nn \l_@@_vskip_dim { \fp_to_decimal:N \l_@@_graphprop_fp \textheight + \gridunit }
+      }
+      { b } {
+        \dim_set:Nn \l_@@_tempdima_dim { 0em }
+        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
+      }
+    }{
+      \dim_set:Nn \l_@@_tempdima_dim { 0em }
+      \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
+    }
+  }{
+    \dim_set:Nn \l_@@_tempdima_dim { 0em }
+    \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
+  }
+  \bool_if:NT \l_@@_dovskip_bool { \vskip \l_@@_vskip_dim }
+  \@tempdima=\l_@@_tempdima_dim
+  \@tempdimb=\l_@@_tempdimb_dim
+}
+
+% KEYS ------------------------------------------------------------------------
 \gdef\maybeinverse{}
 
-\define@key{beamerframe}{noround}[true]{
-  \expandafter\csname @noround#1\endcsname
+\define@key{beamerframe}{inversetext}[true]{%
+  \str_if_eq:nnTF {#1} {true} {%
+    \gdef\maybeinverse{inverse~}%
+  }{%
+    \gdef\maybeinverse{}%
+  }%
+  \usebeamercolor[fg]{\maybeinverse~normal~text}%
 }
+\ExplSyntaxOff
 
 \define@key{beamerframe}{normal}[true]{
   \setbeamertemplate{title page}[main]
@@ -9501,17 +9805,17 @@ een b\'echamel saus:
 
 \mode<beamer|second>
 
-\define@key{beamerframe}{negativefill}[true]{
-  \gdef\maybeinverse{inverse }%
+\define@key{beamerframe}{shaded}[true]{
+  \gdef\maybeinverse{}%
   \usebeamercolor[fg]{\maybeinverse normal text}%
-  \setbeamertemplate{title page}[negativefill]
-  \setbeamertemplate{section page}[negative]%
-  \setbeamertemplate{subsection page}[negative]%
-  \setbeamertemplate{background canvas}[negativefill]%
+  \setbeamertemplate{title page}[main]
+  \setbeamertemplate{section page}[main]%
+  \setbeamertemplate{subsection page}[main]%
+  \setbeamertemplate{background canvas}[shaded]%
 }
 
 \define@key{beamerframe}{negative}[true]{
-  \gdef\maybeinverse{inverse}%
+  \gdef\maybeinverse{inverse }%
   \usebeamercolor[fg]{\maybeinverse normal text}%
   \setbeamertemplate{title page}[negative]
   \setbeamertemplate{section page}[negative]%
@@ -9522,507 +9826,357 @@ een b\'echamel saus:
 \mode
 <all>
 
-\define@key{beamerframe}{graphicfill}
-  [{\includegraphics[scale=0.1,min
-    width=\paperwidth,min height=\paperheight]{example-image-a}}]{%UA1
-  \gdef\maybeinverse{inverse }%
-  \usebeamercolor[fg]{\maybeinverse normal text}%
-  \setbeamertemplate{background canvas}[graphicfill]{#1}
+\ExplSyntaxOn
+\define@key{beamerframe}{title}[{}]{%
+  \gdef\maybeinverse{inverse~}%
+  \usebeamercolor[fg]{\maybeinverse~normal~text}%
+  \setbeamertemplate{title~page}[main]%
+  \tl_set:Nn \l_@@_titlebgimg_tl {#1}%
+  \setbeamertemplate{background~canvas}[title]{#1}%
 }
 
-\define@key{beamerframe}{graphic}[{\includegraphics[scale=0.1,min
-  width=\textwidth,min height=\textheight]{example-image-a}}]{%UA2
-  \gdef\maybeinverse{inverse }%
-  \usebeamercolor[fg]{\maybeinverse normal text}%
-  \setbeamertemplate{background canvas}[graphic]{#1}
+\define@key{beamerframe}{section}[{}]{%
+  \gdef\maybeinverse{inverse~}%
+  \usebeamercolor[fg]{\maybeinverse~normal~text}%
+  \setbeamertemplate{subsection~page}[main]%
+  \tl_set:Nn \l_@@_titlebgimg_tl {#1}%
+  \setbeamertemplate{background~canvas}[section]{#1}%
 }
 
-\define@key{beamerframe}{lhgraphic}
-  [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{example-image-a}}]{%UA3
-  \gdef\maybeinverse{}%
-  \setbeamertemplate{background canvas}[lhgraphic]{#1}
-  \@rhtexttrue
+\define@key{beamerframe}{subsection}[{}]{%
+  \gdef\maybeinverse{inverse~}%
+  \usebeamercolor[fg]{\maybeinverse~normal~text}%
+  \setbeamertemplate{section~page}[main]%
+  \tl_set:Nn \l_@@_titlebgimg_tl {#1}%
+  \setbeamertemplate{background~canvas}[section]{#1}%
 }
 
-\define@key{beamerframe}{lqgraphic}
-  [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{example-image-a}}]{%UA4
-  \gdef\maybeinverse{}%
-  \setbeamertemplate{background canvas}[lqgraphic]{#1}
-  \@rqtexttrue
+\define@key{beamerframe}{graphicpos}{\tl_set:Nn \l_@@_graphpos_tl {#1}}
+\define@key{beamerframe}{graphicproportion}{\fp_set:Nn \l_@@_graphprop_fp {#1}}
+\define@key{beamerframe}{fill}[true]{\bool_set_true:N \l_@@_graphfill_bool}
+\define@key{beamerframe}{logo}[true]{\str_if_eq:nnTF {#1} {true} {
+    \bool_gset_true:N \g_@@_showlogo_bool
+  }{
+    \bool_gset_false:N \g_@@_showlogo_bool
+  }
 }
 
-\define@key{beamerframe}{rhgraphic}
-  [{\includegraphics[scale=0.1,min width=0.5\paperwidth,min
-    height=\textheight]{example-image-a}}]{%UA5
-  \gdef\maybeinverse{}%
-  \setbeamertemplate{background canvas}[rhgraphic]{#1}
-  \@lhtexttrue
+\define@key{beamerframe}{graphic}
+[{\includegraphics[scale=0.1,min~width=\paperwidth,min~height=\paperheight]{example-image-a}}]{%
+  \bool_set_true:N \l_@@_graphgiven_bool
+  \tl_set:Nn \l_@@_graphcontent_tl {#1}%
 }
 
-\define@key{beamerframe}{rqgraphic}
-  [{\includegraphics[scale=0.5,min width=0.5\paperwidth,min
-    height=\textheight]{example-image-a}}]{%UA5
-  \gdef\maybeinverse{}%
-  \setbeamertemplate{background canvas}[rqgraphic]{#1}
-  \@lqtexttrue
-}
-
-\define@key{beamerframe}{thgraphic}
-  [{\includegraphics[scale=0.5,min width=\paperwidth,min
-    height=0.5\textheight]{example-image-a}}]{%UA6
-  \gdef\maybeinverse{}%
-  \setbeamertemplate{background canvas}[thgraphic]{#1}
-  \@bhtexttrue
-}
-
-\define@key{beamerframe}{bhgraphic}
-  [{\includegraphics[scale=0.5,min width=\paperwidth,min
-    height=0.5\textheight]{example-image-a}}]{%UA7
-  \gdef\maybeinverse{}%
-  \setbeamertemplate{background canvas}[bhgraphic]{#1}
-}
-
+% Reset state at the beginning of a new frame:
 \BeforeBeginEnvironment{frame}{%
   \gdef\maybeinverse{}%
-  \setbeamertemplate{title page}[main]%
-  \setbeamertemplate{section page}[main]%
-  \setbeamertemplate{subsection page}[main]%
-  \setbeamertemplate{background canvas}[normal]%
-  \usebeamercolor[fg]{normal text}%
+  \tl_set:Nn \l_@@_graphpos_tl {}%
+  \fp_set:Nn \l_@@_graphprop_fp {0.5}%
+  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
+  \bool_set_false:N \l_@@_graphgiven_bool
+  \bool_set_false:N \l_@@_graphfill_bool
+  \bool_gset_true:N \g_@@_showlogo_bool
+  \tl_clear:N \l_@@_graphcontent_tl
+  \tl_clear:N \l_@@_titlebgimg_tl
+  \setbeamertemplate{title~page}[main]%
+  \setbeamertemplate{section~page}[main]%
+  \setbeamertemplate{subsection~page}[main]%
+  \setbeamertemplate{background~canvas}[normal]%
+  \usebeamercolor[fg]{normal~text}%
 }
 
-% The following does not work as \end{frame} is never executed by
-% beamer!
-% \AtEndEnvironment{frame}{\gdef\maybeinverse{}}
-
-\NewEnviron{rhframe}[3][]{%
+% GRAPHIC FRAME ---------------------------------------------------------------
+\NewEnviron{graphicframe}[3][]{%
   \begin{frame}[#1]{#2}{#3}
-    \begin{minipage}[t]{0.525\textwidth}
-      ~
-    \end{minipage}
-    \begin{minipage}[t]{0.465\textwidth}
+    \@IfGraphSplit {
+      \str_case:VnF \l_@@_graphpos_tl {
+        { l } {
+          \fp_set:Nn \l_@@_bodyfrac_fp
+          { 1 - \l_@@_graphprop_fp - \gridunit/\textwidth }
+          \begin{minipage}[t]{\fp_to_decimal:N\l_@@_graphprop_fp\textwidth}
+            \hspace{0pt}
+          \end{minipage}%
+          \hspace{\gridunit}%
+          \begin{minipage}[t]{\fp_to_decimal:N\l_@@_bodyfrac_fp\textwidth}
+            \BODY
+          \end{minipage}%
+        }
+        { r } {
+          \fp_set:Nn \l_@@_bodyfrac_fp
+          { 1 - \l_@@_graphprop_fp - \gridunit/\textwidth }
+          \begin{minipage}[t]{\fp_to_decimal:N\l_@@_bodyfrac_fp\textwidth}
+            \BODY
+          \end{minipage}%
+          \hspace{\gridunit}%
+          \begin{minipage}[t]{\fp_to_decimal:N\l_@@_graphprop_fp\textwidth}
+            \hspace{0pt}
+          \end{minipage}%
+        }
+        { t } {
+          \fp_set:Nn \l_@@_bodyfrac_fp
+          { 1 - \l_@@_graphprop_fp - \gridunit/\textheight }
+          \begin{minipage}[t][\fp_to_decimal:N\l_@@_bodyfrac_fp\textheight][t]{\textwidth}
+            \BODY
+          \end{minipage}%
+        }
+        { b } {
+          \fp_set:Nn \l_@@_bodyfrac_fp
+          { 1 - \l_@@_graphprop_fp - \gridunit/\textheight }
+          \begin{minipage}[t][\fp_to_decimal:N\l_@@_bodyfrac_fp\textheight][t]{\textwidth}
+            \BODY
+          \end{minipage}%
+        }
+      }
+      { \msg_error:nnn { ugentdocs } { unknown~graphpos } { \l_@@_graphpos_tl } }
+    }{
       \BODY
-    \end{minipage}
+    }
   \end{frame}
 }
 
-\NewEnviron{r3qframe}[3][]{%
-  \begin{frame}[#1]{#2}{#3}
-    \begin{minipage}[t]{0.23\textwidth}
-      ~
-    \end{minipage}
-    \begin{minipage}[t]{0.76\textwidth}
-      \BODY
-    \end{minipage}
-  \end{frame}
-}
 
-\NewEnviron{lhframe}[3][]{%
-  \begin{frame}[#1]{#2}{#3}
-    \begin{minipage}[t]{0.465\textwidth}
-      \BODY
-    \end{minipage}
-    \begin{minipage}[t]{0.525\textwidth}
-      ~
-    \end{minipage}
-  \end{frame}
-}
-
-\NewEnviron{l3qframe}[3][]{%
-  \begin{frame}[#1]{#2}{#3}
-    \begin{minipage}[t]{0.77\textwidth}
-      \BODY
-    \end{minipage}
-    \begin{minipage}[t]{0.22\textwidth}
-      ~
-    \end{minipage}
-  \end{frame}
-}
-
-\NewEnviron{bhframe}[3][]{%
-  \begin{frame}[#1]{#2}{#3}
-      \BODY
-  \end{frame}
-}
-
-\NewEnviron{thframe}[3][]{%
-  \begin{frame}[#1]{#2}{#3}
-      \BODY
-  \end{frame}
-}
-
-%%%%%%%%%%%%
-% Order:
-% 1. option is executed
-% 2. frametitle is typeset
-% 3. canvas is typeset
-% 4. frame is typeset
-%%%%%%%%%%%%
-
+% BACKGROUND CANVASES ---------------------------------------------------------
 \def\ps@ugent@titlepage{%
-  \setbeamercolor{title in title page}{parent=palette primary}
+  \setbeamercolor{title~in~title~page}{parent=palette~primary}
   \setbeamertemplate{footline}[empty]
   \@nameuse{ps@ugent}
 }
 
-\defbeamertemplate*{background canvas}{negativefill}[1]
+\defbeamertemplate*{background~canvas}{title}[1]
 {%
-  \gdef\appropriatelogo{}%\logomonowhite}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
+  \@ComputeTitleDims
+  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
+  \gdef\appropriateslidenumber{}%
+  \begin{tikzpicture}
+    \clip (0,0) rectangle (\@PW,\@PH);
+    \begin{scope}[shift={(0,\@PH-\@HTS)}]
+      \faclogo{\@HTS}{ugent@faculty}{0}
+    \end{scope}
+    \def\@titlebgimg{#1}%
+    \ifx\@titlebgimg\@empty
+      \@rect[fill=ugent@main]{(\gridunit,\@HBS)}{(\@PW,\@PH-\@HTS)}
+    \else
+      \tl_if_empty:NTF \l_@@_graphpos_tl {
+        \begin{scope}
+          \@rect[clip]{(\gridunit,\@HBS)}{(\@PW,\@PH-\@HTS)}
+          \node[align=center]
+          at (0.5*\gridunit+0.5*\@PW,0.5*\@HBS+0.5*\@PH-0.5*\@HTS) {#1};
+        \end{scope}
+      }{
+        \pgfmathsetmacro\@titlex{%
+          \@PW/1cm-(1-\fp_to_decimal:N\l_@@_graphprop_fp)*(\@PW/1cm-\gridunit/1cm)%
+        }%
+        \@rect[fill=ugent@main]{(\gridunit,\@HBS)}{(\@titlex cm,\@PH-\@HTS)}
+        \begin{scope}
+          \@rect[clip]{(\@titlex cm,\@HBS)}{(\@PW,\@PH-\@HTS)}
+          \node[align=center]
+          at (0.5*\@titlex cm+0.5*\@PW,0.5*\@HBS+0.5*\@PH-0.5*\@HTS) {#1};
+        \end{scope}
+      }
+    \fi
+    \ugentlogo{\@HBS}{ugent@main}{0}
+    \ifx\@titlelogos\@empty\else
+      \node[anchor=south~west, inner~sep=0pt,
+        text~width=\@PW-2\gridunit-\@ugenttextw/\@logounit*\gridunit,
+        minimum~height=2\gridunit, align=left]
+      at (2\gridunit+\@ugenttextw/\@logounit*\gridunit,\gridunit)
+        {\@titlelogos};
+    \fi
+  \end{tikzpicture}
+}
+
+\defbeamertemplate*{background~canvas}{section}[1]
+{%
+  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
+  \gdef\appropriateslidenumber{}%
+  \@ComputeTitleDims
+  \begin{tikzpicture}
+    \clip (0,0) rectangle (\@PW,\@PH);
+    \def\@titlebgimg{#1}%
+    \ifx\@titlebgimg\@empty
+      \@rect[fill=ugent@main]{(\gridunit,\@HBS)}{(\@PW,\@PH)}
+    \else
+      \tl_if_empty:NTF \l_@@_graphpos_tl {
+        \begin{scope}
+          \@rect[clip]{(\gridunit,\@HBS)}{(\@PW,\@PH)}
+          \node[align=center] at (0.5*\gridunit+0.5*\@PW,0.5*\@HBS+0.5*\@PH) {#1};
+        \end{scope}
+      }{
+        \pgfmathsetmacro\@titlex{%
+          \@PW/1cm-(1-\fp_to_decimal:N\l_@@_graphprop_fp)*(\@PW/1cm-\gridunit/1cm)%
+        }%
+        \@rect[fill=ugent@main]{(\gridunit,\@HBS)}{(\@titlex cm,\@PH)}
+        \begin{scope}
+          \@rect[clip]{(\@titlex cm,\@HBS)}{(\@PW,\@PH)}
+          \node[align=center] at (0.5*\@titlex cm+0.5*\@PW,0.5*\@HBS+0.5*\@PH) {#1};
+        \end{scope}
+      }
+    \fi
+  \end{tikzpicture}
+}
+
+\defbeamertemplate*{background~canvas}{negative}[1]
+{%
+  \tl_gset:Nn \g_@@_logocolour_tl {white}
+  \gdef\appropriateslidenumber{\usebeamercolor{pageno~in~head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \color{ugent@main}\vrule width\paperwidth height\paperheight
 }
 
-\defbeamertemplate*{background canvas}{negative}[1]
+\defbeamertemplate*{background~canvas}{shaded}[1]
 {%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \ugentleftshape[fill=ugent@main]{(0.8,0.8)}{(\pw-0.8,\ph-0.8)}
-  \end{tikzpicture}
-}
-
-\defbeamertemplate*{background canvas}{graphicfill}[1]
-{%
-  \gdef\appropriatelogo{}%\logoneg}%
-  \gdef\appropriateslidenumber{}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \node[align=center] at  (0.5*\pw,0.5*\ph) {#1};
-  \end{tikzpicture}%
-}
-
-\defbeamertemplate*{background canvas}{graphic}[1]
-{%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \begin{scope}
-      \ugentleftshape[clip]{(0.8,0.8)}{(\pw-0.8,\ph-0.8)}
-      \node[align=center] at  (0.5*\pw,0.5*\ph) {#1};
-    \end{scope}
-  \end{tikzpicture}%
-}
-
-\defbeamertemplate*{background canvas}{lhgraphic}[1]
-{%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
+  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
+  \gdef\appropriateslidenumber{\usebeamercolor{pageno~in~head/foot}%
     \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{0.5*\pw-1.2}%
-  \pgfmathsetmacro\dy{\ph-1.6}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \begin{scope}
-      \ugentleftshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
-      \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
-    \end{scope}
-  \end{tikzpicture}
-  \@tempswatrue
+  \color{ugent@main!10}\vrule width\paperwidth height\paperheight
 }
 
-\defbeamertemplate*{background canvas}{lqgraphic}[1]
+\defbeamertemplate*{background~canvas}{normal}
 {%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
+  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}%
+  \gdef\appropriateslidenumber{\usebeamercolor{pageno~in~head/foot}%
     \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{0.25*\pw-1.2}%
-  \pgfmathsetmacro\dy{\ph-1.6}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \begin{scope}
-      \ugentleftshape[clip]{(0.8,0.8)}{(0.8+\dx,0.8+\dy)}
-      \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy)
-      {#1};
-    \end{scope}
-  \end{tikzpicture}
-  \@tempswatrue
+  \bool_if:NTF \l_@@_graphgiven_bool {
+    \@ComputeGraphDims
+    \begin{tikzpicture}[
+      overlay, remember~picture, shift={(current~page.south~west)}]
+      \clip (0,0) rectangle (\@PW,\@PH);
+      \begin{scope}[shift={(\@shx,\@shy)}]
+        \@rect[clip]{(0,0)}{(\@dx,\@dy)}
+        \node[align=center] at (0.5*\@dx,0.5*\@dy) {\l_@@_graphcontent_tl};
+      \end{scope}
+    \end{tikzpicture}%
+  }{}%
 }
 
-\defbeamertemplate*{background canvas}{rhgraphic}[1]
-{%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{0.5*\pw-1.2}%
-  \pgfmathsetmacro\dy{\ph-1.6}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \begin{scope}[shift={(0.5*\pw,0)}]
-      \ugentrightshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
-      \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
-    \end{scope}
-  \end{tikzpicture}
-  \@tempswatrue
-}
-
-\defbeamertemplate*{background canvas}{rqgraphic}[1]
-{%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{0.25*\pw-1.2}%
-  \pgfmathsetmacro\dy{\ph-1.6}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \begin{scope}[shift={(0.75*\pw,0)}]
-      \ugentrightshape[clip]{(0.4,0.8)}{(0.4+\dx,0.8+\dy)}
-      \node[align=center] at  (0.8+0.5*\dx,0.8+0.5*\dy) {#1};
-    \end{scope}
-  \end{tikzpicture}
-  \@tempswatrue
-}
-
-\defbeamertemplate*{background canvas}{thgraphic}[1]
-{%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{\pw-1.6}%
-  \pgfmathsetmacro\dy{0.5*\ph-0.8}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \begin{scope}[shift={(0,0.5*\ph)}]
-      \ugentleftshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
-      \node[align=center] at  (0.8+0.5*\dx,0.5*\dy) {#1};
-    \end{scope}
-  \end{tikzpicture}
-  \@tempswatrue
-}
-
-\defbeamertemplate*{background canvas}{bhgraphic}[1]
-{%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
-  \pgfmathsetmacro\dx{\pw-1.6}%
-  \pgfmathsetmacro\dy{0.5*\ph-0.8}%
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\pw,\ph);
-    \begin{scope}[shift={(0,0.8)}]
-    \ugentleftshape[clip] {(0.8,0)}{(0.8+\dx,\dy)}
-    \node[align=center] at  (0.8+0.5*\dx,0.5*\dy) {#1};
-    \end{scope}
-  \end{tikzpicture}
-  \@tempswatrue
-}
-
-
-\defbeamertemplate*{background canvas}{normal}
-{%
-  \gdef\maybeinverse{}%
-  \gdef\appropriatelogo{}%\logopos}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno in
-      head/foot}\insertframenumber/\inserttotalframenumber}%
-}
-
-
-\defbeamertemplate*{title page}{main}[1][]
+% PAGES -----------------------------------------------------------------------
+\defbeamertemplate*{title~page}{main}[1][]
 {%
   \thispagestyle{ugent@titlepage}%
+  \@ComputeTitleDims
   \begin{tikzpicture}
+    [overlay,remember~picture, shift={(current~page.south~west)}]
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    %\node[anchor=center] at  (0.5*\textwidth,0.75*\ph)
-    %{\includegraphics[height=.9\@logounit]{\logopos}};
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.5*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{title in title page}
-        \LARGE\bfseries\inserttitle\\[1ex]
-        \usebeamercolor[fg]{subtitle in title page}
-        \color{fg}\large\bfseries\insertsubtitle
+    \node[anchor=north~west,
+      text~width=\@titletextwidth, text=white, align=left]
+    at (2\gridunit,\@PH-\@HTS-\gridunit) {
+      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~title~in~title~page}
+        \footnotesize\textbf{\@department[uppercase]}\\\@team[uppercase]
       \end{beamercolorbox}
     };
-    \node[
-    text width=0.98\textwidth,
-    color=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.25*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{author in title page}
-        \large\bfseries\insertauthor
-      \end{beamercolorbox}
-    };
-    \node[
-    text width=0.98\textwidth,
-    color=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.15*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{date in title page}
-        \normalsize\bfseries\insertdate
-      \end{beamercolorbox}
+    \node[anchor=south~west,
+      text~width=\@titletextwidth, text=white, align=left]
+    at (2\gridunit,\@HBS+\gridunit) {%
+      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~title~in~title~page}%
+        \Huge\bfseries\MakeUppercase{\inserttitle}%
+      \end{beamercolorbox}%
+      \par\nointerlineskip\Huge\bfseries\vspace{1ex}%
+      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~subtitle~in~title~page}%
+        \small\MakeUppercase{\insertsubtitle{}~\insertauthor{}~\insertdate}%
+      \end{beamercolorbox}%
     };
   \end{tikzpicture}
 }
 
-\defbeamertemplate*{title page}{negative}[1][]
-{
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    \node[
-    text width=0.98\textwidth,
-    align=center] at (0.5*\textwidth,0.5*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse title in title page}
-        \LARGE\bfseries\inserttitle\\[1ex]
-        \usebeamercolor[fg]{\maybeinverse subtitle in title page}
-        \color{fg}\large\bfseries\insertsubtitle
-      \end{beamercolorbox}
-    };
-    \node[
-    text width=0.98\textwidth,
-    align=center,] at (0.5*\textwidth,0.25*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse author in title page}
-        \large\bfseries\insertauthor
-      \end{beamercolorbox}
-    };
-    \node[
-    text width=0.98\textwidth,
-    color=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.15*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse date in title page}
-        \normalsize\bfseries\insertdate
-      \end{beamercolorbox}
-    };
-  \end{tikzpicture}
-}
-
-\defbeamertemplate*{title page}{negativefill}[1][]
-{
-  \thispagestyle{ugent@titlepage}
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    %\node[anchor=center] at  (0.5*\textwidth,0.75*\ph)
-    %{\includegraphics[height=.9\@logounit]{\logomonowhite}};
-    \node[
-    draw,rectangle,
-    text width=0.98\textwidth,
-    color=ugent@main,
-    align=center] at (0.5*\textwidth,0.5*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse title in title page}
-        \LARGE\bfseries\inserttitle\\[1ex]
-        \usebeamercolor[fg]{inverse subtitle in title page}
-        \color{fg}\large\bfseries\insertsubtitle
-      \end{beamercolorbox}
-    };
-    \node[
-    text width=0.98\textwidth,
-    color=ugent@main,
-    align=center] at (0.5*\textwidth,0.25*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse author in title page}
-        \large\bfseries\insertauthor
-      \end{beamercolorbox}
-    };
-    \node[
-    text width=0.98\textwidth,
-    color=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.15*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse date in title page}
-        \normalsize\bfseries\insertdate
-      \end{beamercolorbox}
-    };
-  \end{tikzpicture}
-}
-
-\defbeamertemplate*{section page}{main}[1][]
+\defbeamertemplate*{section~page}{main}[1][]
 {%
+  \@ComputeTitleDims
   \begin{tikzpicture}
-    \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.55*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{section title}
-        \Large\bfseries\insertsectionnumber.~\insertsection
-      \end{beamercolorbox}
-    };
+    [overlay,remember~picture, shift={(current~page.south~west)}]
+    \begin{scope}
+      \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-\gridunit,\@PH-\gridunit)}
+      \node[anchor=south~west,
+        text~width=\@titletextwidth, text=white, align=left]
+      at (2\gridunit,\@HBS+\gridunit) {
+        \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~section~title}
+          \Huge\bfseries
+          \bool_if:NTF {\l_@@_secnums_bool}{
+            \MakeUppercase{\insertsectionnumber.~\insertsection}
+          }{
+            \MakeUppercase{\insertsection}
+          }
+        \end{beamercolorbox}
+      };
+    \end{scope}
   \end{tikzpicture}
 }
 
-\defbeamertemplate*{subsection page}{main}[1][]
+\defbeamertemplate*{subsection~page}{main}[1][]
 {%
+  \@ComputeTitleDims
   \begin{tikzpicture}
-    \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.55*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{section title}
-        \Large\bfseries\insertsectionnumber.~\insertsection
-      \end{beamercolorbox}
-    };
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.45*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{subsection title}
-        \large\bfseries\insertsubsection
-      \end{beamercolorbox}
-    };
+  [overlay,remember~picture, shift={(current~page.south~west)}]
+    \begin{scope}
+      \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-\gridunit,\@PH-\gridunit)}
+      \node[anchor=south~west,
+        text~width=\@titletextwidth, text=white, align=left]
+      at (2\gridunit,\@HBS+\gridunit) {
+        \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~section~title}
+          \Huge\bfseries
+            \bool_if:NTF {\l_@@_secnums_bool}{
+              \MakeUppercase{\insertsectionnumber.~\insertsection\\}
+              \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~subsection~title}
+                \LARGE\bfseries\MakeUppercase{\insertsubsection}
+              \end{beamercolorbox}
+            }{
+              \MakeUppercase{\insertsection\\}
+              \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~subsection~title}
+                \LARGE\bfseries\MakeUppercase{\insertsubsection}
+              \end{beamercolorbox}
+            }
+        \end{beamercolorbox}
+      };
+    \end{scope}
   \end{tikzpicture}
 }
 
-\defbeamertemplate*{section page}{negative}[1][]
-{
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.55*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse section title}
-        \Large\bfseries\insertsectionnumber.~\insertsection
-      \end{beamercolorbox}
-    };
-  \end{tikzpicture}
+% TOC, FOOTLINE, FRAME TITLE --------------------------------------------------
+% secnums option: no section numbers in TOC
+\bool_if:NF \l_@@_secnums_bool {
+  \setbeamertemplate{section~in~toc}{%
+    % Based on beamer source, slightly smaller squares
+    \leavevmode
+    \leftskip=1.75ex
+    \llap{%
+      \usebeamerfont*{section~number~projected}%
+      \usebeamercolor[bg]{section~number~projected}%
+      %\vrule width2.25ex height1.85ex depth.4ex% original
+      \raisebox{0.24ex}{\vrule width1.35ex height1.11ex depth.24ex}%
+    }%
+    \kern1.25ex
+    \inserttocsection
+    \par
+  }
 }
+\ExplSyntaxOff
 
-\defbeamertemplate*{subsection page}{negative}[1][]
-{
-  \begin{tikzpicture}
-    \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.55*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse section title}
-        \Large\bfseries\insertsectionnumber.~\insertsection
-      \end{beamercolorbox}
-    };
-    \node[
-    text width=0.98\textwidth,
-    text=ugent@faculty,
-    align=center] at (0.5*\textwidth,0.45*\ph) {
-      \begin{beamercolorbox}[wd=\textwidth,center]{inverse subsection title}
-        \large\bfseries\insertsubsection
-      \end{beamercolorbox}
-    };
-  \end{tikzpicture}
-}
+% Use square for TOC and dash for itemize
+\setbeamertemplate{sections/subsections in toc}[square]
+\setbeamertemplate{itemize items}{\textendash}
+
 
 \defbeamertemplate*{footline}{empty}
 {
 }
 
+\ExplSyntaxOn
 \defbeamertemplate*{footline}{normal}
 {%
   \leavevmode%
   \hbox{\begin{beamercolorbox}
       [wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,left,leftskip=.8cm
-      plus1fill]{author in head/foot}%
-      %\includegraphics[height=0.35\@logounit]{\appropriatelogo}
+      plus1fill]{author~in~head/foot}%
+      \begin{tikzpicture}
+      [overlay,remember~picture, shift={(current~page.south~west)}]
+      \bool_if:NT \g_@@_showlogo_bool {
+        \ugentlogo{\@HBS}{\g_@@_logocolour_tl}{0}
+      }
+      \end{tikzpicture}
       \hskip0pt plus 1filll ~
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,
-    right,rightskip=.8cm plus1fill]{\maybeinverse pageno in head/foot}%
-    \usebeamerfont{pageno in head/foot}~\hskip0pt plus 1filll
+    right,rightskip=.8cm plus1fill]{\maybeinverse~pageno~in~head/foot}%
+    \usebeamerfont{pageno~in~head/foot}~\hskip0pt plus 1filll
     \appropriateslidenumber
   \end{beamercolorbox}}%
   \vskip0pt%
@@ -10034,78 +10188,30 @@ een b\'echamel saus:
 
 \defbeamertemplate*{frametitle}{normal}
 {%
-  \vskip0.75cm%
-  \if@rhtext%
-  \@tempdima=0.5\textwidth%
-  \@tempdimb=0.5\textwidth%
-  \advance\@tempdima by0.5\beamer@leftmargin%
-  \advance\@tempdimb by-0.5\beamer@leftmargin%
-  \else%
-  \if@rqtext%
-  \@tempdima=0.23\textwidth%
-  \@tempdimb=0.77\textwidth%
-  \else%
-  \if@lhtext%
-  \@tempdima=0em%
-  \@tempdimb=0.5\textwidth%
-  \advance\@tempdimb by-0.5\beamer@leftmargin%
-  \else%
-  \if@lqtext%
-  \@tempdima=0em%
-  \@tempdimb=0.77\textwidth%
-  \else%
-  \if@bhtext%
-  \@tempdima=0em%
-  \@tempdimb=\textwidth%
-  \vskip0.5\textheight%
-  \else%
-  \@tempdima=0em%
-  \@tempdimb=\textwidth%
-  \fi%
-  \fi%
-  \fi%
-  \fi%
-  \fi%
+  \bool_if:NTF \l_@@_graphgiven_bool {\@SetInverse}{}%
+  \vskip\gridunit%
+  \@SetFrameTitleDims
   \hskip\@tempdima%
-  \begin{beamercolorbox}[wd=\@tempdimb]{\maybeinverse frametitle}%
-    \usebeamerfont{frametitle}\insertframetitle\\[0.5ex]%
+  \begin{beamercolorbox}[wd=\@tempdimb]{\maybeinverse~frametitle}%
+    \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}\\[0.5ex]%
     \ifx\insertframesubtitle\@empty%
     {\usebeamerfont{framesubtitle}%
-      \usebeamercolor[fg]{\maybeinverse framesubtitle}~\strut\par}%
+      \usebeamercolor[fg]{\maybeinverse~framesubtitle}~\strut\par}%
     \vskip-1ex%
     \else%
     {\usebeamerfont{framesubtitle}%
-      \usebeamercolor[fg]{\maybeinverse framesubtitle}%
+      \usebeamercolor[fg]{\maybeinverse~framesubtitle}%
       \insertframesubtitle\strut\par}%
     \fi%
-    \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
+    \if@tempswa\else\vskip-.3cm\fi%
   \end{beamercolorbox}%
 }
-
-\newdimen\xloleft
-\newdimen\yloleft
-\newdimen\xupright
-\newdimen\yupright
-\newdimen\xcurrent
-\newdimen\ycurrent
-\newcommand*\extractloleftugentdocs[1]{\path  (#1);\pgfgetlastxy{\xloleft}{\yloleft};}
-\newcommand*\extractuprightugentdocs[1]{\path (#1);\pgfgetlastxy{\xupright}{\yupright};}
-\newcommand*\extractcurrentugentdocs[1]{\path (#1);\pgfgetlastxy{\xcurrent}{\ycurrent};}
-
-\DeclareRobustCommand\place{\@ifnextchar[{\@place}{\@place[align=left] }}
-\def\@place[#1] at (#2,#3)#4{
-  \begin{tikzpicture}[overlay,remember picture]
-    \extractloleftugentdocs{$(current page.south west)$}
-    \extractuprightugentdocs{$(current page.north east)$}
-    \node[#1] at
-    ({\xloleft*(1-#2)+\xupright*#2},{\yloleft*(1-#3)+\yupright*#3}) {#4};
-  \end{tikzpicture}
-}
+\ExplSyntaxOff
 
 \mode
 <all>
 %</bmrouter>
-%    \end{macrocode}
+% \fi
 %
 % \Finale
 \endinput

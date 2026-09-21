@@ -25,7 +25,7 @@ This package provides the following classes:
 - `ugentcourse`: Course notes
 - `ugentletter`: Letters
 - 🚧 `ugentexam`: Exams (WIP)
-- 🚧 `beamerthemeugent`: Presentation slides (WIP)
+- `beamerthemeugent`: Presentation slides
 
 The goal is also to transfer this repository to UGent one when complete (see the [ugentdocs 1.0 project](https://github.com/users/SeppeOngena/projects/1) for up-to-date progress towards v1.0), so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 
 
@@ -191,6 +191,10 @@ If you want a quick visual look at what the package provides, you can glance at 
         <img width="100%" alt="Course Data page"  src="https://github.com/user-attachments/assets/3ca00e30-f464-4240-8434-12c7bd301600" />
     </td>
 </table>
+
+### 5. `beamerthemeugent`
+- Used to typeset presentation slides
+
 </details>
 
 Copyright
