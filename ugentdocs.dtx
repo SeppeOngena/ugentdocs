@@ -9655,6 +9655,7 @@ een b\'echamel saus:
 \bool_new:N \g_@@_showlogo_bool
 \tl_new:N   \g_@@_logocolour_tl
 \tl_new:N   \l_@@_graphcontent_tl
+\tl_new:N   \l_@@_titlebgimg_tl
 \fp_new:N   \l_@@_bodyfrac_fp
 
 \newlength{\@titletextwidth}
@@ -9713,6 +9714,24 @@ een b\'echamel saus:
   }{}
 }
 
+% Helper CS to determine title width
+\cs_new_protected:Npn \@ComputeTitleDims {
+  \fp_compare:nNnTF {\l_@@_graphprop_fp} > {0.5} {
+    \tl_clear:N \l_@@_graphpos_tl
+  }{
+    \tl_set:Nn \l_@@_graphpos_tl {r}
+  }
+  \tl_if_empty:NTF \l_@@_titlebgimg_tl {
+    \pgfmathsetlength{\@titletextwidth}{\@PW-3\gridunit}%
+  }{
+    \fp_compare:nNnTF {\l_@@_graphprop_fp} > {0.5} {
+      \pgfmathsetlength{\@titletextwidth}{\@PW-3\gridunit}%
+    }{
+      \pgfmathsetmacro\@titleprop{\fp_to_decimal:N\l_@@_graphprop_fp}%
+      \pgfmathsetlength{\@titletextwidth}{\@PW-\@titleprop*(\@PW-\gridunit)-3\gridunit}%
+    }
+  }
+}
 
 % Helper CS to set inverse or normal text for graphic frames
 \cs_new_protected:Npn \@SetInverse {
@@ -9721,6 +9740,48 @@ een b\'echamel saus:
   }{
     \gdef\maybeinverse{inverse }\usebeamercolor[fg]{inverse normal text}
   }
+}
+
+% Helper CS to set frame title dimensions and position
+\dim_new:N \l_@@_tempdima_dim
+\dim_new:N \l_@@_tempdimb_dim
+\dim_new:N \l_@@_vskip_dim
+\bool_new:N \l_@@_dovskip_bool
+\cs_new_protected:Npn \@SetFrameTitleDims {
+  \bool_set_false:N \l_@@_dovskip_bool
+  \@IfGraphSplit {
+    \str_case:VnF \l_@@_graphpos_tl {
+      { l } {
+        \dim_set:Nn \l_@@_graphdim_dim { \fp_to_decimal:N \l_@@_graphprop_fp \textwidth }
+        \dim_set:Nn \l_@@_tempdima_dim { \l_@@_graphdim_dim + \gridunit }
+        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth - \l_@@_tempdima_dim }
+      }
+      { r } {
+        \dim_set:Nn \l_@@_graphdim_dim { \fp_to_decimal:N \l_@@_graphprop_fp \textwidth }
+        \dim_set:Nn \l_@@_tempdima_dim { 0em }
+        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth - \l_@@_graphdim_dim - \gridunit }
+      }
+      { t } {
+        \dim_set:Nn \l_@@_tempdima_dim { 0em }
+        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
+        \bool_set_true:N \l_@@_dovskip_bool
+        \dim_set:Nn \l_@@_vskip_dim { \fp_to_decimal:N \l_@@_graphprop_fp \textheight + \gridunit }
+      }
+      { b } {
+        \dim_set:Nn \l_@@_tempdima_dim { 0em }
+        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
+      }
+    }{
+      \dim_set:Nn \l_@@_tempdima_dim { 0em }
+      \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
+    }
+  }{
+    \dim_set:Nn \l_@@_tempdima_dim { 0em }
+    \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
+  }
+  \bool_if:NT \l_@@_dovskip_bool { \vskip \l_@@_vskip_dim }
+  \@tempdima=\l_@@_tempdima_dim
+  \@tempdimb=\l_@@_tempdimb_dim
 }
 \ExplSyntaxOff
 
@@ -9768,29 +9829,32 @@ een b\'echamel saus:
 \mode
 <all>
 
+\ExplSyntaxOn
 \define@key{beamerframe}{title}[{}]{%
-  \gdef\maybeinverse{inverse }%
-  \usebeamercolor[fg]{\maybeinverse normal text}%
-  \setbeamertemplate{title page}[main]%
-  \setbeamertemplate{background canvas}[title]{#1}%
+  \gdef\maybeinverse{inverse~}%
+  \usebeamercolor[fg]{\maybeinverse~normal~text}%
+  \setbeamertemplate{title~page}[main]%
+  \tl_set:Nn \l_@@_titlebgimg_tl {#1}%
+  \setbeamertemplate{background~canvas}[title]{#1}%
 }
 
 \define@key{beamerframe}{section}[{}]{%
-  \gdef\maybeinverse{inverse }%
-  \usebeamercolor[fg]{\maybeinverse normal text}%
-  \setbeamertemplate{subsection page}[main]%
-  \setbeamertemplate{background canvas}[section]{#1}%
+  \gdef\maybeinverse{inverse~}%
+  \usebeamercolor[fg]{\maybeinverse~normal~text}%
+  \setbeamertemplate{subsection~page}[main]%
+  \tl_set:Nn \l_@@_titlebgimg_tl {#1}%
+  \setbeamertemplate{background~canvas}[section]{#1}%
 }
 
 \define@key{beamerframe}{subsection}[{}]{%
-  \gdef\maybeinverse{inverse }%
-  \usebeamercolor[fg]{\maybeinverse normal text}%
-  \setbeamertemplate{section page}[main]%
-  \setbeamertemplate{background canvas}[section]{#1}%
+  \gdef\maybeinverse{inverse~}%
+  \usebeamercolor[fg]{\maybeinverse~normal~text}%
+  \setbeamertemplate{section~page}[main]%
+  \tl_set:Nn \l_@@_titlebgimg_tl {#1}%
+  \setbeamertemplate{background~canvas}[section]{#1}%
 }
 
 % Reset state at the beginning of a new frame:
-\ExplSyntaxOn
 \BeforeBeginEnvironment{frame}{%
   \gdef\maybeinverse{}%
   \tl_set:Nn \l_@@_graphpos_tl {}%
@@ -9800,6 +9864,7 @@ een b\'echamel saus:
   \bool_set_false:N \l_@@_graphfill_bool
   \bool_gset_true:N \g_@@_showlogo_bool
   \tl_clear:N \l_@@_graphcontent_tl
+  \tl_clear:N \l_@@_titlebgimg_tl
   \setbeamertemplate{title~page}[main]%
   \setbeamertemplate{section~page}[main]%
   \setbeamertemplate{subsection~page}[main]%
@@ -9870,7 +9935,6 @@ een b\'echamel saus:
     }
   \end{frame}
 }
-\ExplSyntaxOff
 
 %%%%%%%%%%%%
 % Order:
@@ -9881,14 +9945,14 @@ een b\'echamel saus:
 %%%%%%%%%%%%
 
 \def\ps@ugent@titlepage{%
-  \setbeamercolor{title in title page}{parent=palette primary}
+  \setbeamercolor{title~in~title~page}{parent=palette~primary}
   \setbeamertemplate{footline}[empty]
   \@nameuse{ps@ugent}
 }
 
-\ExplSyntaxOn
 \defbeamertemplate*{background~canvas}{title}[1]
 {%
+  \@ComputeTitleDims
   \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
@@ -9900,19 +9964,31 @@ een b\'echamel saus:
     \ifx\@titlebgimg\@empty
       \@rect[fill=ugent@main]{(\gridunit,\@HBS)}{(\@PW,\@PH-\@HTS)}
     \else
-      \begin{scope}
-        \@rect[clip]{(\gridunit,\@HBS)}{(\@PW,\@PH-\@HTS)}
-        \node[align=center] at (0.5*(\gridunit+\@PW),0.5*(\@HBS+\@PH-\@HTS)) {#1};
-      \end{scope}
+      \tl_if_empty:NTF \l_@@_graphpos_tl {
+        \begin{scope}
+          \@rect[clip]{(\gridunit,\@HBS)}{(\@PW,\@PH-\@HTS)}
+          \node[align=center]
+          at (0.5*\gridunit+0.5*\@PW,0.5*\@HBS+0.5*\@PH-0.5*\@HTS) {#1};
+        \end{scope}
+      }{
+        \pgfmathsetmacro\@titlex{%
+          \@PW/1cm-(1-\fp_to_decimal:N\l_@@_graphprop_fp)*(\@PW/1cm-\gridunit/1cm)%
+        }%
+        \@rect[fill=ugent@main]{(\gridunit,\@HBS)}{(\@titlex cm,\@PH-\@HTS)}
+        \begin{scope}
+          \@rect[clip]{(\@titlex cm,\@HBS)}{(\@PW,\@PH-\@HTS)}
+          \node[align=center]
+          at (0.5*\@titlex cm+0.5*\@PW,0.5*\@HBS+0.5*\@PH-0.5*\@HTS) {#1};
+        \end{scope}
+      }
     \fi
     \ugentlogo{\@HBS}{ugent@main}{0}
-    \pgfmathsetlength{\@tmplen}{(2+\@ugenttextw/\@logounit)*\gridunit}
     \ifx\@titlelogos\@empty\else
-    \node[anchor=south~west, inner~sep=0pt,
-    text~width=\@PW-\@tmplen,
-    minimum~height=2*\gridunit, align=left]
-    at (\@tmplen,\gridunit)
-    {\@titlelogos};
+      \node[anchor=south~west, inner~sep=0pt,
+        text~width=\@PW-2\gridunit-\@ugenttextw/\@logounit*\gridunit,
+        minimum~height=2\gridunit, align=left]
+      at (2\gridunit+\@ugenttextw/\@logounit*\gridunit,\gridunit)
+        {\@titlelogos};
     \fi
   \end{tikzpicture}
 }
@@ -9921,9 +9997,29 @@ een b\'echamel saus:
 {%
   \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
   \gdef\appropriateslidenumber{}%
+  \@ComputeTitleDims
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
-    \@rect[fill=ugent@main]{(\gridunit,\@HBS)}{(\@PW,\@PH)}
+    \def\@titlebgimg{#1}%
+    \ifx\@titlebgimg\@empty
+      \@rect[fill=ugent@main]{(\gridunit,\@HBS)}{(\@PW,\@PH)}
+    \else
+      \tl_if_empty:NTF \l_@@_graphpos_tl {
+        \begin{scope}
+          \@rect[clip]{(\gridunit,\@HBS)}{(\@PW,\@PH)}
+          \node[align=center] at (0.5*\gridunit+0.5*\@PW,0.5*\@HBS+0.5*\@PH) {#1};
+        \end{scope}
+      }{
+        \pgfmathsetmacro\@titlex{%
+          \@PW/1cm-(1-\fp_to_decimal:N\l_@@_graphprop_fp)*(\@PW/1cm-\gridunit/1cm)%
+        }%
+        \@rect[fill=ugent@main]{(\gridunit,\@HBS)}{(\@titlex cm,\@PH)}
+        \begin{scope}
+          \@rect[clip]{(\@titlex cm,\@HBS)}{(\@PW,\@PH)}
+          \node[align=center] at (0.5*\@titlex cm+0.5*\@PW,0.5*\@HBS+0.5*\@PH) {#1};
+        \end{scope}
+      }
+    \fi
   \end{tikzpicture}
 }
 
@@ -9943,47 +10039,6 @@ een b\'echamel saus:
   \color{ugent@main!10}\vrule width\paperwidth height\paperheight
 }
 
-\dim_new:N \l_@@_tempdima_dim
-\dim_new:N \l_@@_tempdimb_dim
-\dim_new:N \l_@@_vskip_dim
-\bool_new:N \l_@@_dovskip_bool
-\cs_new_protected:Npn \@SetFrameTitleDims {
-  \bool_set_false:N \l_@@_dovskip_bool
-  \@IfGraphSplit {
-    \str_case:VnF \l_@@_graphpos_tl {
-      { l } {
-        \dim_set:Nn \l_@@_graphdim_dim { \fp_to_decimal:N \l_@@_graphprop_fp \textwidth }
-        \dim_set:Nn \l_@@_tempdima_dim { \l_@@_graphdim_dim + \gridunit }
-        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth - \l_@@_tempdima_dim }
-      }
-      { r } {
-        \dim_set:Nn \l_@@_graphdim_dim { \fp_to_decimal:N \l_@@_graphprop_fp \textwidth }
-        \dim_set:Nn \l_@@_tempdima_dim { 0em }
-        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth - \l_@@_graphdim_dim - \gridunit }
-      }
-      { t } {
-        \dim_set:Nn \l_@@_tempdima_dim { 0em }
-        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
-        \bool_set_true:N \l_@@_dovskip_bool
-        \dim_set:Nn \l_@@_vskip_dim { \fp_to_decimal:N \l_@@_graphprop_fp \textheight + \gridunit }
-      }
-      { b } {
-        \dim_set:Nn \l_@@_tempdima_dim { 0em }
-        \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
-      }
-    }{
-      \dim_set:Nn \l_@@_tempdima_dim { 0em }
-      \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
-    }
-  }{
-    \dim_set:Nn \l_@@_tempdima_dim { 0em }
-    \dim_set:Nn \l_@@_tempdimb_dim { \textwidth }
-  }
-  \bool_if:NT \l_@@_dovskip_bool { \vskip \l_@@_vskip_dim }
-  \@tempdima=\l_@@_tempdima_dim
-  \@tempdimb=\l_@@_tempdimb_dim
-}
-
 \defbeamertemplate*{background~canvas}{normal}
 {%
   \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}%
@@ -9992,97 +10047,92 @@ een b\'echamel saus:
   \bool_if:NTF \l_@@_graphgiven_bool {
     \@ComputeGraphDims
     \begin{tikzpicture}[
-    overlay, remember~picture, shift={(current~page.south~west)}]
-    \clip (0,0) rectangle (\@PW,\@PH);
-    \begin{scope}[shift={(\@shx,\@shy)}]
-    \@rect[clip]{(0,0)}{(\@dx,\@dy)}
-    \node[align=center] at (0.5*\@dx,0.5*\@dy) {\l_@@_graphcontent_tl};
-    \end{scope}
+      overlay, remember~picture, shift={(current~page.south~west)}]
+      \clip (0,0) rectangle (\@PW,\@PH);
+      \begin{scope}[shift={(\@shx,\@shy)}]
+        \@rect[clip]{(0,0)}{(\@dx,\@dy)}
+        \node[align=center] at (0.5*\@dx,0.5*\@dy) {\l_@@_graphcontent_tl};
+      \end{scope}
     \end{tikzpicture}%
   }{}%
 }
 
-\ExplSyntaxOff
-
-\newlength{\@tmplen}
-
-\defbeamertemplate*{title page}{main}[1][]
+\defbeamertemplate*{title~page}{main}[1][]
 {%
   \thispagestyle{ugent@titlepage}%
+  \@ComputeTitleDims
   \begin{tikzpicture}
-  [overlay,remember picture, shift={(current page.south west)}]
+    [overlay,remember~picture, shift={(current~page.south~west)}]
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
-    \node[anchor=north west,
-    text width=\@PW-3\gridunit,
-    text=white,
-    align=left] at (2\gridunit,\@PH-\@HTS-\gridunit) {
-      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse title in title page}
-      \footnotesize\textbf{\@department[uppercase]}\\\@team[uppercase]
+    \node[anchor=north~west,
+      text~width=\@titletextwidth, text=white, align=left]
+    at (2\gridunit,\@PH-\@HTS-\gridunit) {
+      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~title~in~title~page}
+        \footnotesize\textbf{\@department[uppercase]}\\\@team[uppercase]
       \end{beamercolorbox}
     };
-    \node[anchor=south west,
-    text width=\@PW-3\gridunit,
-    text=white,
-    align=left] at (2\gridunit,\@HBS+\gridunit) {
-      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse title in title page}
-        \Huge\bfseries\MakeUppercase{\inserttitle\\[0.75ex]}
-      \end{beamercolorbox}
-      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse subtitle in title page}
-        \small\MakeUppercase{\insertsubtitle~\insertauthor~\insertdate}
-      \end{beamercolorbox}
+    \node[anchor=south~west,
+      text~width=\@titletextwidth, text=white, align=left]
+    at (2\gridunit,\@HBS+\gridunit) {%
+      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~title~in~title~page}%
+        \Huge\bfseries\MakeUppercase{\inserttitle}%
+      \end{beamercolorbox}%
+      \par\nointerlineskip\Huge\bfseries\vspace{1ex}%
+      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~subtitle~in~title~page}%
+        \small\MakeUppercase{\insertsubtitle{}~\insertauthor{}~\insertdate}%
+      \end{beamercolorbox}%
     };
   \end{tikzpicture}
 }
 
-\ExplSyntaxOn
 \defbeamertemplate*{section~page}{main}[1][]
 {%
+  \@ComputeTitleDims
   \begin{tikzpicture}
-  [overlay,remember~picture, shift={(current~page.south~west)}]
-  \begin{scope}
-  \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-2*\gridunit,\@PH-\gridunit)}
-  \node[anchor=south~west,
-  text~width=\@PW-3\gridunit,
-  text=white,
-  align=left] at (2\gridunit,\@HBS+\gridunit) {
-    \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~section~title}
-    \Huge\bfseries
-    \bool_if:NTF {\l_@@_secnums_bool}{
-      \MakeUppercase{\insertsectionnumber.~\insertsection}
-    }{
-      \MakeUppercase{\insertsection}
-    }
-    \end{beamercolorbox}
-  };
-  \end{scope}
+    [overlay,remember~picture, shift={(current~page.south~west)}]
+    \begin{scope}
+      \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-2*\gridunit,\@PH-\gridunit)}
+      \node[anchor=south~west,
+        text~width=\@titletextwidth, text=white, align=left]
+      at (2\gridunit,\@HBS+\gridunit) {
+        \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~section~title}
+          \Huge\bfseries
+          \bool_if:NTF {\l_@@_secnums_bool}{
+            \MakeUppercase{\insertsectionnumber.~\insertsection}
+          }{
+            \MakeUppercase{\insertsection}
+          }
+        \end{beamercolorbox}
+      };
+    \end{scope}
   \end{tikzpicture}
 }
 
 \defbeamertemplate*{subsection~page}{main}[1][]
 {%
+  \@ComputeTitleDims
   \begin{tikzpicture}
   [overlay,remember~picture, shift={(current~page.south~west)}]
     \begin{scope}
-    \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-2*\gridunit,\@PH-\gridunit)}
-    \node[anchor=south~west,
-    text~width=\@PW-3\gridunit,
-    text=white,
-    align=left] at (2\gridunit,\@HBS+\gridunit) {
-      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~section~title}
-        \Huge\bfseries
-          \bool_if:NTF {\l_@@_secnums_bool}{
-            \MakeUppercase{\insertsectionnumber.~\insertsection\\}
-            \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~subsection~title}
-            \LARGE\bfseries\MakeUppercase{\insertsubsection}
-            \end{beamercolorbox}
-          }{
-            \MakeUppercase{\insertsection\\}
-            \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~subsection~title}
-            \LARGE\bfseries\MakeUppercase{\insertsubsection}
-            \end{beamercolorbox}
-          }
-      \end{beamercolorbox}
-    };
+      \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-2*\gridunit,\@PH-\gridunit)}
+      \node[anchor=south~west,
+        text~width=\@titletextwidth, text=white, align=left]
+      at (2\gridunit,\@HBS+\gridunit) {
+        \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~section~title}
+          \Huge\bfseries
+            \bool_if:NTF {\l_@@_secnums_bool}{
+              \MakeUppercase{\insertsectionnumber.~\insertsection\\}
+              \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~subsection~title}
+                \LARGE\bfseries\MakeUppercase{\insertsubsection}
+              \end{beamercolorbox}
+            }{
+              \MakeUppercase{\insertsection\\}
+              \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~subsection~title}
+                \LARGE\bfseries\MakeUppercase{\insertsubsection}
+              \end{beamercolorbox}
+            }
+        \end{beamercolorbox}
+      };
     \end{scope}
   \end{tikzpicture}
 }
