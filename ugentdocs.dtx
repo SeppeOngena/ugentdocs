@@ -2414,6 +2414,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<crs>\tl_set:Nn \l_@@_covertype_tl {course}
 %<bama>\tl_set:Nn \l_@@_covertype_tl {bama}
 %<rp>\tl_set:Nn \l_@@_covertype_tl {report}
+%<ex>\tl_set:Nn \l_@@_covertype_tl {exam}
 %
 %
 % \DescribeOption[bmr]{secnums}
@@ -3122,10 +3123,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % }
 % \end{verbatim}
 % \iffalse
-%<*bama|rp|crs|phd|bkc>
+%<*bama|rp|crs|phd|bkc|ex>
 \newcommand*{\@frontcoverlogos}{}
 \newcommand*{\frontcoverlogos}[1]{\renewcommand*{\@frontcoverlogos}{#1}}
-%</bama|rp|crs|phd|bkc>
+%</bama|rp|crs|phd|bkc|ex>
 % \fi
 %
 % \DescribeMacro[phd-crs-bkc]{\backcoverlogos}
@@ -4569,17 +4570,17 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   A native \LaTeX{} macro, overridden to support the generation of
 %   cover pages, title pages, colophon pages, etc.
 %
-% For the |bama|, |phd|, |course|, and |report| classes,
+% For the |bama|, |phd|, |course|, |report|, and |exam| classes,
 % this generates the cover page using |\@frontcover|
 % (see Section \ref{S:style:covers}):
 %    \begin{macrocode}
-%<*bama|phd|rp|crs>
+%<*bama|phd|rp|crs|ex>
 \ExplSyntaxOn
 \renewcommand\maketitle{%
 \pagestyle{empty}
 %
 % Cover page
-%</bama|phd|rp|crs>
+%</bama|phd|rp|crs|ex>
 %<*phd|crs>
 % Do not print thumbs on the first pages
 \bool_if:NT \l_@@_thumbs_bool {
@@ -4590,7 +4591,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \begingroup
   \pagenumbering{gobble}
 %</phd|crs>
-%<*bama|phd|rp|crs>
+%<*bama|phd|rp|crs|ex>
 % Insert front cover
 \begin{titlepage}
   \setlength\parskip{0pt}%
@@ -4606,7 +4607,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   }%
   \null
 \end{titlepage}%
-%</bama|phd|rp|crs>
+%</bama|phd|rp|crs|ex>
 %<*phd|crs>
   \endgroup
 \setcounter{page}{0}%
@@ -4639,6 +4640,21 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \fi
 %</crs>
 %    \end{macrocode}
+% TODO DOCUMENTATION
+%    \begin{macrocode}
+%<*ex>
+~\par\relax
+\clearpage
+\lfoot[\small \@shorttitle]{\small \@shorttitle}
+\rfoot[\small
+\ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi~---
+{}~\@academicyear]
+{\small
+  \ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi
+  {}~---~\@academicyear}
+\renewcommand*{\footrulewidth}{1pt}
+\@extrainfo{}
+%</ex>
 %
 % For the |phd| class, this is a blank page,
 % the committee page, the title page, and the colophon page:
@@ -4716,7 +4732,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \@copyrightnotices
 %</phd>
 %
-%<*bama|phd|rp|crs>
+%<*bama|phd|rp|crs|ex>
 % Relax a bit
   \setcounter{footnote}{0}%
   \global\let\thanks\relax
@@ -4730,7 +4746,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \thispagestyle{empty}
 }
 \ExplSyntaxOff
-%</bama|phd|rp|crs>
+%</bama|phd|rp|crs|ex>
 %    \end{macrocode}
 %
 % The |letter| class also uses |\maketitle| to typeset the header,
@@ -4812,150 +4828,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</le>
-%    \end{macrocode}
-%
-% For the |exam|, the |\maketitle| macro simply sets the cover page:
-%    \begin{macrocode}
-%<*ex>
-\renewcommand\maketitle{%
-  \pagestyle{fancy}
-  \AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{%
-    \put(0,0){%
-      \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-      \clip (0,0) rectangle(\paperwidth,\paperheight);
-      \fill[lightgray]
-      (2.125,{\paperheight-7cm}) rectangle (\paperwidth,6);
-
-      \node
-      [anchor=west,text width={\paperwidth-5cm},align=left]
-      at (2.125,{\paperheight-3cm})
-      {%
-        \fontsize{18}{22}\selectfont%
-        \textsf{\textbf{\printseq{courses}{\\}{\\}{\\}}}\par
-        \ifx\@exampart\@empty
-        \else \textsf{\textbf{\@exampart}}\fi
-      };
-      \node
-      [anchor=west,text width={\paperwidth-5cm},align=left]
-      at (2.125,{\paperheight-4cm})
-      {%
-        \fontsize{12}{18}\selectfont%
-        \textsf{\printseq{coursecodes}{\\}{\\}{\\}}
-      };
-
-      \node
-      [anchor=west,text width={\paperwidth-5cm},align=left,font=\large]
-      at (2.125,{\paperheight-5cm})
-      {%
-        \fontsize{12}{18}\selectfont%
-        \textsf{
-          \ifx\@examseries\@empty{}~\else\translatekey{series}~\@examseries{}\fi
-          \hfill \@date{}}
-      };
-
-      \node[anchor=south west,align=left,inner sep=0pt] at (3,21)
-      {%
-        \fontsize{14}{19}\selectfont%
-        \textsf{\translatekey{exam}}
-      };
-
-      \node[anchor=south west,align=left,inner sep=0pt] at (3,19)
-      {%
-        \fontsize{12}{18}\selectfont%
-        \textsf{\translatekey{lastname}}
-      };
-      \foreach \nn in {0,1,...,33} {
-        \draw[fill=white] (3,18) ++({0.5*\nn},0) rectangle +(0.5,0.8);
-      }
-
-      \node[anchor=south west,align=left,inner sep=0pt] at (3,17)
-      {%
-        \fontsize{12}{18}\selectfont%
-        \textsf{\translatekey{firstname}}
-      };
-
-      \foreach \nn in {0,1,...,23} {
-        \draw[fill=white] (3,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
-      }
-
-      \node[anchor=south west,align=left,inner sep=0pt] at (16,17)
-      {%
-        \fontsize{12}{18}\selectfont%
-        \textsf{\translatekey{studentnr}}
-      };
-      \foreach \nn in {0,1,...,7} {
-        \draw[fill=white] (16,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
-      }
-
-      \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
-      at (3,14)
-      {%
-        \fontsize{12}{21}\selectfont%
-        \textsf{\translatekey{examduration}: \@examduration}
-      };
-      \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
-      at (3,11)
-      {%
-        \fontsize{12}{15}\selectfont%
-        \textsf{\begin{tabular}{@{}l@{}ll}%
-          \translatekey{examstart}& : & \@examstart\\
-          \translatekey{examend}  & : & \@examend
-          \end{tabular}}
-      };
-
-      \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
-      at (3,8)
-      {%
-        \fontsize{12}{21}\selectfont%
-        \textsf{\getseqcaption{rooms}{: \printseq{rooms}{~\&~}{,~}{\translatekey{andlist}~}}}
-      };
-
-      %\node
-      %[anchor=base west,ugent@main,
-      %text width={\paperwidth-5cm},align=left,font=\LARGE]
-      %at (2.125,{\paperheight-6.5cm})
-      %{\textsf{\textbf{\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}}};
-
-      \fill[gray] (2.125,6)
-      -- (\paperwidth,6)
-      -- (\paperwidth,2.625)
-      -- (2.55,2.625)
-      arc (-90:-180:0.425)
-      -- cycle;
-
-      \node[white,anchor=west,align=left,font=\large]
-      (SN) at (2.55,4.9)
-      {
-        \begin{tabular}{@{}l@{~\,}p{14.5cm}}
-        \textsf{\getseqcaption{lecturers}{}}
-        & \textsf{\textbf{\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}}}
-        \end{tabular}
-      };
-
-      \node[white,anchor=west,text width=17.5cm,align=left,font=\small]
-      at (2.55,3.7)
-      {\textsf{\printseq{degrees}{\\}{\\}{\\}}\\
-        \textsf{\textbf{\@faculty{}}}}; % TODO should handle empty
-
-      \begin{scope}[shift={(2.125,1.313)}]
-      \ugentlogo{4.75cm}{ugent@main}{0.0}
-      \end{scope}
-      \end{tikzpicture}
-    }
-  }
-  ~\par\relax
-  \clearpage
-  \lfoot[\small \@shorttitle]{\small \@shorttitle}
-  \rfoot[\small
-  \ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi~---
-  {}~\@academicyear]
-  {\small
-    \ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi
-    {}~---~\@academicyear}
-  \renewcommand*{\footrulewidth}{1pt}
-  \@extrainfo{}
-}
-%</ex>
 %    \end{macrocode}
 %
 % \DescribeMacro[phd-crs]{\makefinalpage}
@@ -5956,7 +5828,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Cover dimensions}
 % A few common dimensions are defined:
 %    \begin{macrocode}
-%<*phd|bkc|crs|bama|rp>
+%<*phd|bkc|crs|bama|rp|ex>
 \ExplSyntaxOn
 \newlength{\@B}     % Bleed outside crop / cameraready
 \newlength{\@HBS}   % Height bottom strip
@@ -5972,7 +5844,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newlength{\@HI}    % Height Image
 \newlength{\@WFI}   % Width Faculty Icon
 \ExplSyntaxOff
-%</phd|bkc|crs|bama|rp>
+%</phd|bkc|crs|bama|rp|ex>
 %    \end{macrocode}
 %
 % A scheme is given here as to what these dimensions represent
@@ -6016,7 +5888,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % Next, we set the lengths based on the Office templates:
 %    \begin{macrocode}
-%<*phd|bkc|crs|bama|rp>
+%<*phd|bkc|crs|bama|rp|ex>
 \ExplSyntaxOn
 \setlength\@B{3mm}
 \bool_if:NTF \l_@@_bwphdcover_bool {
@@ -6048,13 +5920,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \pgfmathsetlength{\@HT}{0.5*\@PH+0.5*\@HBS-0.5*\@HTS+0.5*\@HD}
 }
 \ExplSyntaxOff
-%</phd|bkc|crs|bama|rp>
+%</phd|bkc|crs|bama|rp|ex>
 %    \end{macrocode}
 %
-% For the |bama| and |report|,
+% For the |bama|, |report|, and |exam|,
 % the title position and text margin differ slightly:
 %    \begin{macrocode}
-%<*bama|rp>
+%<*bama|rp|ex>
 \ExplSyntaxOn
 \setlength\@HT{0.9\@PH}
 
@@ -6064,7 +5936,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \setlength\@MTLR{\gridunit}
 }
 \ExplSyntaxOff
-%</bama|rp>
+%</bama|rp|ex>
 %    \end{macrocode}
 %
 % And the |course| data area width is slightly narrower:
@@ -6186,7 +6058,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</bama>
-%<rp>\newcommand{\@coverbodybama}{}
+%<rp|ex>\newcommand{\@coverbodybama}{}
 %    \end{macrocode}
 %
 % \DescribeObject[custom]{\@coverbodyreport}
@@ -6261,7 +6133,117 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</rp>
-%<bama>\newcommand{\@coverbodyreport}{}
+%<bama|ex>\newcommand{\@coverbodyreport}{}
+%    \end{macrocode}
+%
+% \DescribeObject[custom]{\@coverbodyexam}
+%   The |exam| cover body consists of
+%   :
+%    \begin{macrocode}
+%<*ex>
+\ExplSyntaxOn
+\newcommand{\@coverbodyexam}{
+  \node
+  [anchor=west,text~width={\paperwidth-5cm},align=left]
+  at (2.125,{\paperheight-3cm})
+  {%
+    \fontsize{18}{22}\selectfont%
+    \textsf{\textbf{\printseq{courses}{\\}{\\}{\\}}}\par
+    \ifx\@exampart\@empty
+    \else \textsf{\textbf{\@exampart}}\fi
+  };
+  \node
+  [anchor=west,text~width={\paperwidth-5cm},align=left]
+  at (2.125,{\paperheight-4cm})
+  {%
+    \fontsize{12}{18}\selectfont%
+    \textsf{\printseq{coursecodes}{\\}{\\}{\\}}
+  };
+
+  \node
+  [anchor=west,text~width={\paperwidth-5cm},align=left,font=\large]
+  at (2.125,{\paperheight-5cm})
+  {%
+    \fontsize{12}{18}\selectfont%
+    \textsf{
+      \ifx\@examseries\@empty{}~\else\translatekey{series}~\@examseries{}\fi
+      \hfill \@date{}}
+  };
+
+  \node[anchor=south~west,align=left,inner~sep=0pt] at (3,21)
+  {%
+    \fontsize{14}{19}\selectfont%
+    \textsf{\translatekey{exam}}
+  };
+
+  \node[anchor=south~west,align=left,inner~sep=0pt] at (3,19)
+  {%
+    \fontsize{12}{18}\selectfont%
+    \textsf{\translatekey{lastname}}
+  };
+  \foreach \nn in {0,1,...,33} {
+    \draw[fill=white] (3,18) ++({0.5*\nn},0) rectangle +(0.5,0.8);
+  }
+
+  \node[anchor=south~west,align=left,inner~sep=0pt] at (3,17)
+  {%
+    \fontsize{12}{18}\selectfont%
+    \textsf{\translatekey{firstname}}
+  };
+
+  \foreach \nn in {0,1,...,23} {
+    \draw[fill=white] (3,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
+  }
+
+  \node[anchor=south~west,align=left,inner~sep=0pt] at (16,17)
+  {%
+    \fontsize{12}{18}\selectfont%
+    \textsf{\translatekey{studentnr}}
+  };
+  \foreach \nn in {0,1,...,7} {
+    \draw[fill=white] (16,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
+  }
+
+  \node[anchor=south~west,align=left,inner~sep=0pt,text~width=17cm]
+  at (3,14)
+  {%
+    \fontsize{12}{21}\selectfont%
+    \textsf{\translatekey{examduration}: \@examduration}
+  };
+  \node[anchor=south~west,align=left,inner~sep=0pt,text~width=17cm]
+  at (3,11)
+  {%
+    \fontsize{12}{15}\selectfont%
+    \textsf{\begin{tabular}{@{}l@{}ll}%
+      \translatekey{examstart}& : & \@examstart\\
+      \translatekey{examend}  & : & \@examend
+      \end{tabular}}
+  };
+
+  \node[anchor=south~west,align=left,inner~sep=0pt,text~width=17cm]
+  at (3,8)
+  {%
+    \fontsize{12}{21}\selectfont%
+    \textsf{\getseqcaption{rooms}{: \printseq{rooms}{~\&~}{,~}{\translatekey{andlist}~}}}
+  };
+
+  \node[anchor=west,align=left,font=\large]
+  (SN) at (2.55,4.9)
+  {
+    \begin{tabular}{@{}l@{~\,}p{14.5cm}}
+    \textsf{\getseqcaption{lecturers}{}}
+    & \textsf{\textbf{\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}}}
+    \end{tabular}
+  };
+
+  \node[anchor=west,text~width=17.5cm,align=left,font=\small]
+  at (2.55,3.7)
+  {\textsf{\printseq{degrees}{\\}{\\}{\\}}\\
+    \textsf{\textbf{\@faculty{}}}}; % TODO should handle empty
+}
+\ExplSyntaxOff
+%</ex>
+%<bama|rp>\newcommand{\@coverbodyexam}{}
 %    \end{macrocode}
 %
 % \DescribeObject[custom]{\@coverbodycourse}
@@ -6390,7 +6372,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeObject[custom]{\@coverbody}
 %   Finally, the appropriate cover body is selected:
 %    \begin{macrocode}
-%<*phd|bkc|crs|bama|rp>
+%<*phd|bkc|crs|bama|rp|ex>
 \ExplSyntaxOn
 \newcommand*\@coverbody{
   \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
@@ -6398,12 +6380,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     { course } { \@coverbodycourse }
     { bama }   { \@coverbodybama }
     { report } { \@coverbodyreport }
+    { exam }   { \@coverbodyexam }
   }{
     \msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
   }
 }
 \ExplSyntaxOff
-%</phd|bkc|crs|bama|rp>
+%</phd|bkc|crs|bama|rp|ex>
 %    \end{macrocode}
 %
 %
@@ -6420,7 +6403,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % the |\@coverbody|,
 % and frontcoverlogos:
 %    \begin{macrocode}
-%<*bama|rp>
+%<*bama|rp|ex>
 \ExplSyntaxOn
 \newcommand{\@frontcover}{
   \begin{tikzpicture}[inner~sep=0pt, outer~sep=0pt]
@@ -6461,7 +6444,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \end{tikzpicture}
 }
 \ExplSyntaxOff
-%</bama|rp>
+%</bama|rp|ex>
 %    \end{macrocode}
 %
 % For the |phd| and |course|, the layout is similar,
@@ -6558,11 +6541,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeObject[custom]{\@backcover}
 % The back cover of the documents.
 %
-% The |bama| and |report| classes don't use one:
+% The |bama|, |report|, and |exam| classes don't use one:
 %    \begin{macrocode}
-%<*bama|rp>
+%<*bama|rp|ex>
 \newcommand{\@backcover}{}
-%</bama|rp>
+%</bama|rp|ex>
 %    \end{macrocode}
 %
 % The |course| and |phd| classes share the same cover,
