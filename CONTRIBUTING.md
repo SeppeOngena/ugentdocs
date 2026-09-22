@@ -12,6 +12,8 @@ Guidelines for contribution:
   - Code should be of high quality (less is more) and follow the style below
   - Pull requests with AI-generated descriptions will be rejected
 - Style:
+  - Code is spelled following LaTeX conventions (i.e., American English)
+  - Documentation is spelled following Oxford English
   - Use two spaces for tabs
   - Use `\@macro` form for internal or customization usage
   - Use `\macro` form for commands that can be called in main.tex files by users

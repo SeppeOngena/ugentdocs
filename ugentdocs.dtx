@@ -8447,7 +8447,7 @@ een b\'echamel saus:
   \item The theme's default aspect ratio is $16\times 9$, but you might be able to override it by
     re-loading the \texttt{beamerposter} package with custom width and height, and
     redefining \cmd{@PW} (page width), \cmd{@PH} (page height), and \cmd{gridunit}.
-    This is not officially suported.
+    This is not officially supported.
   \item Only \texttt{dutch} and \texttt{english} are officially supported through the \texttt{language} option.
   \end{itemize}
 \end{frame}
@@ -8600,20 +8600,20 @@ You can turn off the logo in the bottom left corner using the
     such as \cmd{department\{\}}, \cmd{team\{\}}, and \cmd{titlelogos\{\}}
   \end{itemize}
 
-  \heading{Code} --- The titleslide is easily typeset as:\\
+  \heading{Code} --- The title slide is easily typeset as:\\
   \begin{codesnippet}
     \bframe[][title=<background image>, <options>]\\
     \ind\cmd{maketitle}\\
     \eframe
   \end{codesnippet}\\
-  The options are \texttt{graphicsproportion} (0--1, default 0.5) and
+  The options are \texttt{graphicproportion} (0--1, default 0.5) and
     the \texttt{inversetext} (true/false).\\
   The next slides use:
   \begin{itemize}
     \item Plain \texttt{title}, no image
     \item An image: \texttt{title=}\cmd{includegraphics\{example-image-a\}}
-    \item A darkened image (see later) with \texttt{graphicsproportion=1}
-    \item A lightened image with \texttt{graphicsproportion=1}
+    \item A darkened image (see later) with \texttt{graphicproportion=1}
+    \item A lightened image with \texttt{graphicproportion=1}
       and \texttt{inversetext=false}
   \end{itemize}
 \end{frame}
@@ -8771,7 +8771,7 @@ You can customize the content
   contents, using the options
   \begin{description}
   \item[\texttt{t}] for top
-  \item[\texttt{c}] for center
+  \item[\texttt{c}] for centre
   \item[\texttt{b}] for bottom
   \end{description}
 
@@ -8958,7 +8958,7 @@ graphicpos=b,logo=false,t]
   with
   \begin{itemize}
   \item $(x,y)$ the coordinates to insert the content, with the bottom left as origin $(0,0)$.
-    The coordinates can be relative (0--1) to the slide dimensions if unitless,
+    The coordinates can be relative (0--1) to the slide dimensions if unit-less,
     or absolute in cm, pt,\ldots
   \item \texttt{node options} any options you want to hand over to the
     tikz node that is used to position the material, e.g., \texttt{anchor = south east}.
@@ -9794,7 +9794,7 @@ That's all, folks!
 
 \mode<handout|trans>
 
-\define@key{beamerframe}{negativefill}[true]{
+\define@key{beamerframe}{shaded}[true]{
 }
 
 \define@key{beamerframe}{negative}[true]{
