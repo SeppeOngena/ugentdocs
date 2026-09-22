@@ -4154,29 +4154,85 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \iffalse
 %<*ex>
 \ExplSyntaxOn
+% Question counters
 \newcounter{question}
+\newcounter{subquestion}[question]
 \setcounter{question}{0}
-\renewcommand*\thequestion{\@arabic\c@question}
-\tl_new:N \l_@@_questionweight_tl
 
+\renewcommand*\thequestion{\@arabic\c@question}
+\renewcommand*\thesubquestion{\alph{subquestion}}
+
+% Vars
+\int_new:N \l_@@_qweight_int
+\bool_new:N \l_@@_qhasweight_bool
+\tl_new:N  \l_@@_pointlabel_tl
+\tl_new:N  \g_@@_pointlabel_default_tl
+\tl_gset:Nn \g_@@_pointlabel_default_tl { p }
+
+% Question arg keys
 \keys_define:nn { ugentdocs/question } {
-  weight .tl_set:N = \l_@@_questionweight_tl ,
+  weight     .code:n = {
+    \int_set:Nn \l_@@_qweight_int {#1}
+    \bool_set_true:N \l_@@_qhasweight_bool
+  } ,
+  pointlabel .tl_set:N = \l_@@_pointlabel_tl ,
 }
 
-\NewDocumentCommand{\question}{O{} m} {
-  \tl_clear:N \l_@@_questionweight_tl
-  \keys_set:nn { ugentdocs/question } { #1 }
-  \stepcounter{question}
-  \thequestion.~#2%
-  \tl_if_empty:NF \l_@@_questionweight_tl {
-    \hspace{\fill}
-    \begin{tabular}{|c|}
-      \hline
-      \small \translatekey{weight}:~\l_@@_questionweight_tl\\
-      \hline
-    \end{tabular}\\
+% Helper CS for margin label
+\cs_new_protected:Npn \@@_qmarginlabel: {
+  \leavevmode
+  \bool_if:NT \l_@@_qhasweight_bool {%
+    \kern -1cm
+    \llap{%
+      \int_use:N \l_@@_qweight_int \l_@@_pointlabel_tl%
+    }\kern 1cm%
   }
 }
+% Question label box
+\box_new:N \l_@@_qlabel_box
+
+\cs_new_protected:Npn \@@_hanginglabel:n #1 {
+  \hbox_set:Nn \l_@@_qlabel_box { #1 }
+  \hangindent = \wd\l_@@_qlabel_box
+  \hangafter  = 1
+  \box_use:N \l_@@_qlabel_box
+}
+
+% Question and subqestion
+\NewDocumentCommand{\question}{O{} +m} {
+  \par
+  \bool_set_false:N \l_@@_qhasweight_bool
+  \int_zero:N \l_@@_qweight_int
+  \tl_set_eq:NN \l_@@_pointlabel_tl \g_@@_pointlabel_default_tl
+  \keys_set:nn { ugentdocs/question } { #1 }
+  \stepcounter{question}
+  \begingroup
+    \noindent
+    \textbf{\@@_qmarginlabel:}
+    \textbf{\translatekey{question}~\thequestion{}:}~#2%
+    \par
+  \endgroup
+}
+
+\NewDocumentCommand{\subquestion}{O{} +m} {
+  \par
+  \bool_set_false:N \l_@@_qhasweight_bool
+  \int_zero:N \l_@@_qweight_int
+  \tl_set_eq:NN \l_@@_pointlabel_tl \g_@@_pointlabel_default_tl
+  \keys_set:nn { ugentdocs/question } { #1 }
+  \stepcounter{subquestion}
+  \begingroup
+    \noindent
+    \advance\leftskip by 0.25cm\relax
+    \parindent=0pt
+    \noindent
+    \@@_qmarginlabel:
+    \@@_hanginglabel:n { \thesubquestion)~ }
+    ~#2%
+    \par
+  \endgroup
+}
+
 \ExplSyntaxOff
 %</ex>
 % \fi
