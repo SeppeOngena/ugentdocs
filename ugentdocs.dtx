@@ -1205,7 +1205,7 @@
 %   \marg{alignment}\\
 %   When used within a tikzpicture, this prints the faculty icon. The height is a
 %   length, the alignment ranges from 0 (left edge) to 1 (right edge).
-%   The color can be set to, e.g., white to print on a dark background.\\
+%   The colour can be set to, e.g., white to print on a dark background.\\
 %   Usage:
 %
 %   |\begin{tikzpicture}\ficon{1cm}{ugent@faculty}{0}\end{tikzpicture}|\\
@@ -1235,7 +1235,7 @@
 %   \marg{alignment}\\
 %   When used within a tikzpicture, this prints the faculty logo. The height is a
 %   length, the alignment ranges from 0 (left edge) to 1 (right edge).
-%   The color can be set to, e.g., white to print on a dark background.\\
+%   The colour can be set to, e.g., white to print on a dark background.\\
 %   The logo text uses the current language.\\
 %   Usage (the rectangle is just to visualize the boundaries here):
 %
@@ -1375,7 +1375,7 @@
 %   \marg{alignment}\\
 %   When used within a tikzpicture, this prints the UGent icon.
 %   The height is a length, the alignment ranges from 0 (left edge) to 1 (right edge).
-%   The color can be set to, e.g., white to print on a dark background.\\
+%   The colour can be set to, e.g., white to print on a dark background.\\
 %   Usage:
 %
 % |\begin{tikzpicture}\ugenticon{1cm}{ugent@main}{0}\end{tikzpicture}|\\
@@ -1419,7 +1419,7 @@
 %   When used within a tikzpicture, this prints the UGent logo, dependent on
 %   the campus. The height is a length, the alignment ranges from 0 (left edge)
 %   to 1 (right edge).
-%   The color can be set to, e.g., white to print on a dark background.
+%   The colour can be set to, e.g., white to print on a dark background.
 %   The logo text uses the current language.\\
 %   Usage (the rectangle is just to visualize the boundaries here):
 %
@@ -2368,7 +2368,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeOption[bama-rp]{coverbg}
 %   \DescribeDefault{false}
 %   Options: |true|, |false|\\
-%   Sets a cover background with the relevant UGent or faculty color,
+%   Sets a cover background with the relevant UGent or faculty colour,
 %   depending on |faculty| and |neutralcolors| options.
 % \iffalse
 %<*bama|rp>
@@ -2703,8 +2703,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \renewcommand*{\@addthumb}{%
     \addthumb{\chaptername~\thechapter}% Full chapter name
       {\Large\bfseries\thechapter}% Chapter name in thumb (\thechapter = 1, 2, ...)
-      {white}% Chapter name color
-      {gray!50}% Thumb color
+      {white}% Chapter name colour
+      {gray!50}% Thumb colour
   }
 }
 \ExplSyntaxOff
@@ -6909,7 +6909,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % Common options ...............................................................
 %
 %<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2>
-%% neutralcolors      Uses ugent colour scheme instead of faculty colors
+%% neutralcolors      Uses ugent colour scheme instead of faculty colours
 %%                    Options: true, false*
 %% colormodel         Uses rgb (display) or cmyk (print) colouring
 %%                    Options: rgb*, cmyk
@@ -8483,10 +8483,10 @@ een b\'echamel saus:
   \item[\texttt{faculty}] to set your own faculty's colours and logos (can be empty)\\
   \item[\texttt{campus}] to set the campus for the UGent logo. One of \texttt{ugent},
     \texttt{gugc}, or \texttt{kortrijk}.
-  \item[\texttt{neutralcolors}] to disable your faculty colors and use the
-  standard UGent colors
+  \item[\texttt{neutralcolors}] to disable your faculty colours and use the
+  standard UGent colours
   \item[\texttt{colormodel}] to set the colour model. Select \texttt{rgb}
-    color encoding for projecting (default) or \texttt{cmyk} for printing.
+    colour encoding for projecting (default) or \texttt{cmyk} for printing.
   \item[\texttt{secnums}] to enable (\texttt{true}) or disable (\texttt{false})
     displaying of section numbers in the frames or TOC.
   \end{description}
@@ -8494,17 +8494,17 @@ een b\'echamel saus:
 \end{graphicframe}
 
 \begin{frame}[logo=false,t]
-{Colors}
+{Colours}
 {What a wonderful world}
 
-\heading{Standard colors}\\
-  You can select the theme colors using:\\
-  \textcolor{ugent@main}{Main color}:
-    can be specified as \textrm{\LaTeX}-color \emph{ugent@main}\\
-  \textcolor{ugent@accent}{Accent color}:
-    can be specified as \textrm{\LaTeX}-color \emph{ugent@accent}\\
-  \textcolor{ugent@faculty}{Faculty color}:
-    can be specified as \textrm{\LaTeX}-color
+\heading{Standard colours}\\
+  You can select the theme colours using:\\
+  \textcolor{ugent@main}{Main colour}:
+    can be specified as \textrm{\LaTeX}-colour \emph{ugent@main}\\
+  \textcolor{ugent@accent}{Accent colour}:
+    can be specified as \textrm{\LaTeX}-colour \emph{ugent@accent}\\
+  \textcolor{ugent@faculty}{Faculty colour}:
+    can be specified as \textrm{\LaTeX}-colour
     \emph{ugent@faculty}
 
 \heading{Alert}\\
@@ -9639,7 +9639,7 @@ That's all, folks!
 \bool_new:N \l_@@_graphgiven_bool
 \bool_new:N \l_@@_graphfill_bool
 \bool_new:N \g_@@_showlogo_bool
-\tl_new:N   \g_@@_logocolour_tl
+\tl_new:N   \g_@@_logocolor_tl
 \tl_new:N   \l_@@_graphcontent_tl
 \tl_new:N   \l_@@_titlebgimg_tl
 \fp_new:N   \l_@@_bodyfrac_fp
@@ -9872,7 +9872,7 @@ That's all, folks!
   \gdef\maybeinverse{}%
   \tl_set:Nn \l_@@_graphpos_tl {}%
   \fp_set:Nn \l_@@_graphprop_fp {0.5}%
-  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
+  \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}
   \bool_set_false:N \l_@@_graphgiven_bool
   \bool_set_false:N \l_@@_graphfill_bool
   \bool_gset_true:N \g_@@_showlogo_bool
@@ -9945,7 +9945,7 @@ That's all, folks!
 \defbeamertemplate*{background~canvas}{title}[1]
 {%
   \@ComputeTitleDims
-  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
+  \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}
   \gdef\appropriateslidenumber{}%
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
@@ -9987,7 +9987,7 @@ That's all, folks!
 
 \defbeamertemplate*{background~canvas}{section}[1]
 {%
-  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
+  \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}
   \gdef\appropriateslidenumber{}%
   \@ComputeTitleDims
   \begin{tikzpicture}
@@ -10017,7 +10017,7 @@ That's all, folks!
 
 \defbeamertemplate*{background~canvas}{negative}[1]
 {%
-  \tl_gset:Nn \g_@@_logocolour_tl {white}
+  \tl_gset:Nn \g_@@_logocolor_tl {white}
   \gdef\appropriateslidenumber{\usebeamercolor{pageno~in~head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \color{ugent@main}\vrule width\paperwidth height\paperheight
@@ -10025,7 +10025,7 @@ That's all, folks!
 
 \defbeamertemplate*{background~canvas}{shaded}[1]
 {%
-  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}
+  \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}
   \gdef\appropriateslidenumber{\usebeamercolor{pageno~in~head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \color{ugent@main!10}\vrule width\paperwidth height\paperheight
@@ -10033,7 +10033,7 @@ That's all, folks!
 
 \defbeamertemplate*{background~canvas}{normal}
 {%
-  \tl_gset:Nn \g_@@_logocolour_tl {ugent@main}%
+  \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}%
   \gdef\appropriateslidenumber{\usebeamercolor{pageno~in~head/foot}%
     \insertframenumber/\inserttotalframenumber}%
   \bool_if:NTF \l_@@_graphgiven_bool {
@@ -10169,7 +10169,7 @@ That's all, folks!
       \begin{tikzpicture}
       [overlay,remember~picture, shift={(current~page.south~west)}]
       \bool_if:NT \g_@@_showlogo_bool {
-        \ugentlogo{\@HBS}{\g_@@_logocolour_tl}{0}
+        \ugentlogo{\@HBS}{\g_@@_logocolor_tl}{0}
       }
       \end{tikzpicture}
       \hskip0pt plus 1filll ~
