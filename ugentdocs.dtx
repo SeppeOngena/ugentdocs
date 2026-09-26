@@ -611,7 +611,7 @@
 % \iffalse
 %<*col>
 \ExplSyntaxOn
-\exp_args:NnV \clist_if_in:nnT { bama, report } \l_@@_covertype_tl {
+\exp_args:NnV \clist_if_in:nnT { bama, report, exam } \l_@@_covertype_tl {
   \bool_if:NTF \l_@@_coverbg_bool {
     \colorlet{covertitlecolor}  {white}
     \colorlet{coverdatacolor}   {white}
@@ -1829,6 +1829,7 @@ examend      = End
 examduration = Exam duration
 question     = Question
 weight       = Weight
+total        = Total
 wordcount    = Word count
 page         = Page
 appendix     = Appendix
@@ -1951,6 +1952,7 @@ examend      = Einde
 examduration = Duur van het examen
 question     = Vraag
 weight       = Gewicht
+total        = Totaal
 wordcount    = Aantal woorden
 page         = Pagina
 appendix     = Bijlage
@@ -2369,18 +2371,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 % \fi
 %
-% \DescribeOption[bama-rp]{coverbg}
+% \DescribeOption[bama-rp-ex]{coverbg}
 %   \DescribeDefault{false}
 %   Options: |true|, |false|\\
 %   Sets a cover background with the relevant UGent or faculty colour,
 %   depending on |faculty| and |neutralcolors| options.
 % \iffalse
-%<*bama|rp>
+%<*bama|rp|ex>
 \keys_define:nn { ugentdocs } {
   coverbg .bool_set:N = \l_@@_coverbg_bool ,
   coverbg .default:n = true ,
 }
-%</bama|rp>
+%</bama|rp|ex>
 % \fi
 %
 % \DescribeOption[le]{foldline}
@@ -4147,11 +4149,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeMacro[ex]{\question}
 %   \oarg{weight}\marg{question}\\
 %   Adds a question to the exam, with automatic number counting.
-%   The |<question>| can be a short question (single line), empty,
-%   or a 'tag' or code used to reference to the question, e.g., |[EULER-1]|.
-%   You can write a longer question on the line following the macro.
-%   Using the optional argument (e.g., |weight=3|), adds a small box with
-%   the weight of the question on the current line (right aligned).
+%   The |<question>| can be any content.
+%   Using the optional argument (e.g., |weight=3|)
+%   adds the weight of the question in the left margin.
+% \DescribeMacro[ex]{\subquestion}
+%   \oarg{weight}\marg{question}\\
+%   Works entirely similar to the |\question|, but
+%   uses letters (e.g., ``a)'') and is indented slightly.
 % \iffalse
 %<*ex>
 \ExplSyntaxOn
@@ -4169,6 +4173,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \tl_new:N  \l_@@_pointlabel_tl
 \tl_new:N  \g_@@_pointlabel_default_tl
 \tl_gset:Nn \g_@@_pointlabel_default_tl { p }
+\int_new:N \l_@@_qoverviewtot_int
+\tl_new:N \l_@@_qoverviewrows_tl
 
 % Question arg keys
 \keys_define:nn { ugentdocs/question } {
@@ -4180,15 +4186,72 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 
 % Helper CS for margin label
-\cs_new_protected:Npn \@@_qmarginlabel: {
+\cs_new_protected:Npn \@@_qmarginlabel:n #1 {
   \leavevmode
-  \bool_if:NT \l_@@_qhasweight_bool {%
-    \kern -1cm
-    \llap{%
-      \int_use:N \l_@@_qweight_int \l_@@_pointlabel_tl%
-    }\kern 1cm%
+  \kern -1cm
+  \llap{ #1 }
+  \kern 1cm
+}
+
+% Question overview aux file
+\seq_new:N \g_@@_qoverview_seq
+\iow_new:N \g_@@_qoverview_iow
+
+\cs_new_protected:Npn \@@_qoverview_addq:nnn #1#2#3 {
+  \seq_gput_right:Nn \g_@@_qoverview_seq { {#1}{#2}{#3} }
+}
+
+\cs_new_protected:Npn \@@_qoverview_write:nnn #1#2#3 {
+  \iow_now:Nx \g_@@_qoverview_iow {
+    \exp_not:N \@@_qoverview_addq:nnn {#1}{#2}{#3}
   }
 }
+
+\cs_new_protected:Npn \@@_qoverview_procq:nnn #1#2#3 {
+  \int_compare:nNnT {#1} = {0} { \int_add:Nn \l_@@_qoverviewtot_int {#3} }
+  \tl_put_right:Nn \l_@@_qoverviewrows_tl {
+    \int_compare:nNnTF {#1} = {0}
+    { \textbf{~#2}   ~&~ #3 \\}
+    { \phantom{~0}#2 ~&~ \phantom{~0}#3 \\}
+
+  }
+}
+
+\ExplSyntaxOff
+
+% Open and close aux .exq file
+\ExplSyntaxOn
+\AddToHook{begindocument}{
+  \seq_gclear:N \g_@@_qoverview_seq
+  \ExplSyntaxOn
+  \InputIfFileExists{\jobname.exq}{}{}
+  \ExplSyntaxOff
+  \iow_open:Nn \g_@@_qoverview_iow { \jobname.exq }
+}
+\AddToHook{enddocument/afterlastpage}{
+  \iow_close:N \g_@@_qoverview_iow
+}
+\ExplSyntaxOff
+
+% Print point overview
+\ExplSyntaxOn
+\NewDocumentCommand{\pointoverview}{}{
+  \par
+  \group_begin:
+  \tl_clear:N \l_@@_qoverviewrows_tl
+  \int_zero:N \l_@@_qoverviewtot_int
+  \seq_map_inline:Nn \g_@@_qoverview_seq { \@@_qoverview_procq:nnn ##1 }
+  \begin{tabular}{@{}l@{\hspace{2em}}l@{}}
+    \textbf{\translatekey{question}} & \textbf{\translatekey{weight}}\\
+    \hline
+    \l_@@_qoverviewrows_tl
+    \hline
+    \textbf{\translatekey{total}} & \int_use:N \l_@@_qoverviewtot_int \\
+  \end{tabular}
+  \group_end:
+  \par
+}
+
 % Question label box
 \box_new:N \l_@@_qlabel_box
 
@@ -4209,8 +4272,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \stepcounter{question}
   \begingroup
     \noindent
-    \textbf{\@@_qmarginlabel:}
+    \bool_if:NT \l_@@_qhasweight_bool {
+      \textbf{\@@_qmarginlabel:n { \int_use:N \l_@@_qweight_int \l_@@_pointlabel_tl }}
+    }
     \textbf{\translatekey{question}~\thequestion{}:}~#2%
+    \bool_if:NT \l_@@_qhasweight_bool {
+      \@@_qoverview_write:nnn { 0 }
+        { \thequestion } { \int_use:N \l_@@_qweight_int }
+    }
     \par
   \endgroup
 }
@@ -4227,9 +4296,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     \advance\leftskip by 0.25cm\relax
     \parindent=0pt
     \noindent
-    \@@_qmarginlabel:
+    \bool_if:NT \l_@@_qhasweight_bool {
+      \@@_qmarginlabel:n { \int_use:N \l_@@_qweight_int \l_@@_pointlabel_tl }
+    }
     \@@_hanginglabel:n { \thesubquestion)~ }
     ~#2%
+    \bool_if:NT \l_@@_qhasweight_bool {
+      \@@_qoverview_write:nnn { 1 }
+        { \thequestion\thesubquestion } { \int_use:N \l_@@_qweight_int }
+    }
     \par
   \endgroup
 }
@@ -6397,7 +6472,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeObject[custom]{\@frontcover}
 %   The front cover of the document.
 %
-% For |bama| and |report|, this consists of
+% For |bama|, |report|, and |exam|, this consists of
 % the logo placements,
 % an optional background colour area,
 % the |\@coverbody|,
