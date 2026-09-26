@@ -2581,6 +2581,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %     |ulem|            & Line-breaking underline                           \\
 %     |unicode-math|    & Sans-serif math                                   \\
 %     |wasysym|         & Symbols                                           \\
+%     |zref-abspage|    & Absolute page positions                           \\
+%     |zref-savepos|    & Save page positions                               \\
 %     |zref-totpages|   & Page count                                        \\
 %     \bottomrule
 %   \end{tabular}
@@ -2607,6 +2609,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \usetikzlibrary{positioning,calc,fit,backgrounds}
 \RequirePackage{eso-pic}
 \RequirePackage{zref-totpages}
+\RequirePackage{zref-savepos}
+\RequirePackage{zref-abspage}
 \RequirePackage[normalem]{ulem}
 \renewcommand{\ULthickness}{1pt}
 \RequirePackage{setspace}
@@ -4376,68 +4380,214 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 % \fi
 %
-% \DescribeMacro[ex]{\insertsolutionspagepartial}
-%   \marg{height from bottom of page in cm}\\
-%   Fills the remainder of the page with 'fill-out' squares.
-%   As observing/controlling the current line position in \LaTeX{} is not easy,
-%   you have to provide the number of centimetres from the
-%   bottom of the page that you want to fill out.
+% \DescribeMacro[ex]{\gridpage}
+%   \marg{watermark}\\
+%   Creates a full page containing the |<watermark>| (can be empty),
+%   with a dotted grid wiith half a |\gridunit| spacing.
+%   Can be used for, e.g., scrap paper.
 % \iffalse
 %<*ex>
-\newcommand\insertsolutionspagepartial[1]{
-~\relax
-\AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{
-    \put(0,0){%
-      \begin{tikzpicture}
-      \clip (0,0) rectangle (21,#1);
-      % \draw[densely dotted, step=0.5cm,black!20] (0.999,0.990) grid (20,1.5);
-      \draw[densely dotted, step=0.5cm,black!20] (0.999,1.499) grid (2,2.5);
-      \draw[densely dotted, step=0.5cm,black!20] (18.999,1.499) grid (20,2.5);
+\newlength\@PD % Page diagonal
+\pgfmathsetlength\@PD{veclen(\@PW,\@PH)}
+\pgfmathsetmacro\@WMA{atan(\@PH/\@PW)}% Watermark angle
 
-      \draw[densely dotted, step=0.5cm,black!20] (0.999,2.499) grid (20,27);
-      \draw[densely dotted, step=0.5cm,black!20] (0.999,27) grid (16,28);
-      \draw[densely dotted, step=0.5cm,black!20] (19.499,27) grid (20,28);
-      \draw[densely dotted, step=0.5cm,black!20] (0.99,27.999) grid
-      (20,28.5);
-      \draw[ultra thick] (1,#1) -- (20,#1);
+\newcommand\gridpage[1]{
+  \clearpage
+  \AddToHookNext{shipout/foreground}{
+    \put(0,-\paperheight){%
+      \begin{tikzpicture}
+      \path (0,0) (\paperwidth,\paperheight);
+      \draw[densely dotted, step=0.5\gridunit,black!20] % Left of footer
+        (\gridunit,\gridunit) grid (2\gridunit,2\gridunit);
+      \draw[densely dotted, step=0.5\gridunit,black!20] % Right of footer
+        (\paperwidth-2\gridunit,\gridunit) grid (\paperwidth-\gridunit,2\gridunit);
+
+      \draw[densely dotted, step=0.5\gridunit,black!20] % Main grid
+        (\gridunit,2\gridunit) grid (\paperwidth-\gridunit,\paperheight-2\gridunit);
+      \draw[densely dotted, step=0.5\gridunit,black!20] % Left of header
+        (\gridunit,\paperheight-2\gridunit) grid (10\gridunit,\paperheight-\gridunit);
       \end{tikzpicture}
     }
+    \put(0.5\@PW,-0.5\@PH){\makebox(0,0){\rotatebox{\@WMA}{%
+          \parbox{\@PD}{\centering\color{watermarkcolor}%
+            \fontsize{105}{130}\selectfont\sffamily #1}}}}%
   }%
-  \clearpage
-  \relax
+  ~\relax
 }
 %</ex>
 % \fi
 %
-% \DescribeMacro[ex]{\insertsolutionspage}
-%   \marg{watermark text}\\
-%   Inserts a full solutions page, i.e. flushes the current page and
-%   inserts a full page with 'fill-out' squares.
-%   The argument allows for specifying a watermark text (e.g. 'Scrap
-%   paper').
+% \DescribeMacro[ex]{\answerspace}
+%   \oarg{style=grid/lines/none}
+%   \oarg{lines=number of lines}\\
+%   Creates an answer space with an outline box.
+%   If |lines| is not specified,
+%   it will fill the remainder of the page (or create a full page).
+%   If the number of |lines| exceeds the remaining page capacity,
+%   it continues on the next page.
+%   The line or grid spacing dimension can be set using
+%   |\answerspacing{<length>}|.
+%   Specifying no |style| optional argument just prints the outline box,
+%   whilst |style=grid| produces a |lightgray| dotted grid,
+%   and |style=lines| produces a |lightgray| lined box.
 % \iffalse
 %<*ex>
-\newcommand\insertsolutionspage[1]{
-\clearpage
-\AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{
-    \put(0,0){%
-      \begin{tikzpicture}
-        \clip (0,0) rectangle (21,29.5);
-        \draw[densely dotted, step=0.5cm,black!20] (0.999,1.499) grid (2,2.5);
-        \draw[densely dotted, step=0.5cm,black!20] (18.999,1.499) grid (20,2.5);
+\ExplSyntaxOn
+\NewDocumentCommand{\answerspacing}{m}{
+  \dim_set:Nn \l_@@_anslinestep_dim {#1}
+}
 
-        \draw[densely dotted, step=0.5cm,black!20] (0.999,2.499) grid (20,28);
-        \draw[densely dotted, step=0.5cm,black!20] (0.999,28) grid (16,28.5);
-        \draw[densely dotted, step=0.5cm,black!20] (19.499,28) grid (20,28.5);
+\zref@addprops{savepos}{abspage}
+\dim_new:N \l_@@_anslinestep_dim
+\dim_new:N \l_@@_ansytop_dim
+\dim_new:N \l_@@_ansybottom_dim
+
+\dim_new:N \l_@@_anstolerancesnap_dim
+\dim_set:Nn \l_@@_anstolerancesnap_dim {1cm}
+\dim_new:N \l_@@_ansgapstop_dim
+\dim_set:Nn \l_@@_ansgapstop_dim {0.2cm}
+\dim_new:N \l_@@_textleft_dim
+
+\int_new:N \g_@@_anscounter_int
+\int_new:N \l_@@_anstargetpage_int
+\dim_new:N \l_@@_cury_dim
+\dim_new:N \l_@@_needed_dim
+\dim_new:N \l_@@_available_dim
+\bool_new:N \l_@@_ansattop_bool
+\tl_new:N \l_@@_ansstyle_tl
+\int_new:N \l_@@_nlines_int
+
+
+% Set dimensions of linestep and where top starts and bottom ends
+\AtBeginDocument{
+  \dim_set:Nn \l_@@_anslinestep_dim {\baselineskip}
+  \dim_set:Nn \l_@@_ansytop_dim
+    { \paperheight - 1in - \voffset - \topmargin - \headheight - \headsep }
+  \group_begin:
+    \small
+    \dim_gset:Nn \g_tmpa_dim { \box_ht:N \strutbox }
+  \group_end:
+  \dim_set:Nn \l_@@_ansybottom_dim
+    { \l_@@_ansytop_dim - \textheight - \footskip + \g_tmpa_dim + \footruleskip }
+}
+
+% Set style of grid and lines
+\tikzset{
+  answer-grid/.style  =
+    { densely~dotted, lightgray, step = \l_@@_anslinestep_dim },
+  answer-lines/.style =
+    { densely~dotted, lightgray, xstep = \paperwidth, ystep = \l_@@_anslinestep_dim },
+  answer-/.style      =
+    { draw = none },
+}
+
+% Helper CS: #1 rounded down to a whole number of line steps
+\cs_new:Nn \_@@_trim_span:n {
+  \l_@@_anslinestep_dim *
+  \int_div_truncate:nn { \dim_to_decimal_in_sp:n {#1} }
+    { \dim_to_decimal_in_sp:n { \l_@@_anslinestep_dim } }
+}
+
+% Answer boxes 1: contained/inline box.
+% #1 = height, #2 = style
+\cs_new_protected:Nn \_@@_draw_inline_ansgrid:nn {
+  \par\noindent
+  \begin{tikzpicture}
+    \draw [answer-#2] (0,0) grid (\textwidth,#1);
+    \draw [thick] (0,0) rectangle (\textwidth,#1);
+  \end{tikzpicture}
+  \par
+}
+\cs_generate_variant:Nn \_@@_draw_inline_ansgrid:nn { nV }
+
+% Answer boxes 2: extending down to footer rule.
+% #1 = target abspage, #2 = y top, #3 = y pattern anchor, #4 = style
+\cs_new_protected:Nn \_@@_shipout_ansgrid:nnnn {
+  \int_compare:nNnT { \value{abspage} } = {#1} {
+    \dim_set:Nn \l_@@_textleft_dim
+    { 1in + \hoffset + \int_if_odd:nTF { \value{page} } { \oddsidemargin } { \evensidemargin } }
+    \put (0,-\paperheight) {
+      \begin{tikzpicture}
+        \path (0,0) (\paperwidth,\paperheight);
+        \begin{scope}
+          \clip (\l_@@_textleft_dim,\l_@@_ansybottom_dim)
+            rectangle (\l_@@_textleft_dim+\textwidth,#2);
+          \draw [answer-#4, shift={(\l_@@_textleft_dim,#3)}]
+            (0,-\textheight) grid (\textwidth,\textheight);
+        \end{scope}
+        \draw [thick] (\l_@@_textleft_dim,\l_@@_ansybottom_dim)
+        |- (\l_@@_textleft_dim+\textwidth,#2) -- ++(0,\l_@@_ansybottom_dim-#2);
       \end{tikzpicture}
     }
-    \put(120,150){\rotatebox{60}{\textcolor{watermarkcolor}{
-          \fontsize{105}{130}\selectfont\textsf{#1}}
-      }
-    }
-  }%
-  ~\relax
+  }
 }
+
+\keys_define:nn { ugentdocs/answerspace } {
+  style .tl_set:N  = \l_@@_ansstyle_tl ,
+  lines .int_set:N = \l_@@_nlines_int ,
+}
+
+\NewDocumentCommand{\answerspace}{O{}}{%
+  \keys_set:nn { ugentdocs/answerspace } { style = , lines = 0, #1 }
+  \par
+  \int_gincr:N \g_@@_anscounter_int
+  \zsavepos{answerspace-\int_use:N\g_@@_anscounter_int}%
+  \dim_set:Nn \l_@@_cury_dim { \zposy{answerspace-\int_use:N\g_@@_anscounter_int} sp }
+  \int_set:Nn \l_@@_anstargetpage_int {
+    \zref@extract{answerspace-\int_use:N\g_@@_anscounter_int}{abspage}
+  }
+  \bool_set:Nn \l_@@_ansattop_bool{
+    \dim_compare_p:nNn { \l_@@_ansytop_dim - \l_@@_cury_dim } < { 0.05cm }
+  }
+  \dim_sub:Nn \l_@@_cury_dim { \l_@@_ansgapstop_dim }
+  \dim_set:Nn \l_@@_needed_dim {
+    \int_if_zero:nTF { \l_@@_nlines_int }{
+      \_@@_trim_span:n { \l_@@_cury_dim - \l_@@_ansybottom_dim }
+    }{
+      \l_@@_anslinestep_dim * \l_@@_nlines_int
+    }
+  }
+
+  \bool_while_do:nn { \dim_compare_p:nNn { \l_@@_needed_dim } > { 0pt } } {
+    \dim_set:Nn \l_@@_available_dim
+      { \_@@_trim_span:n { \l_@@_cury_dim - \l_@@_ansybottom_dim } }
+    \dim_compare:nNnTF { \l_@@_available_dim - \l_@@_needed_dim } < { \l_@@_anstolerancesnap_dim }{
+      % Ansbox doesn't fit
+      \exp_args:Nnx \AddToHook {shipout/background} {
+        \_@@_shipout_ansgrid:nnnn
+        { \int_use:N \l_@@_anstargetpage_int } % target page
+        { \dim_eval:n { % y top
+            \bool_if:NTF \l_@@_ansattop_bool{
+              \l_@@_ansytop_dim
+            }{
+              \l_@@_ansybottom_dim + \l_@@_available_dim
+            }
+          }
+        }
+        { \dim_eval:n { % y pattern anchor
+            \bool_if:NTF \l_@@_ansattop_bool {
+              \l_@@_ansytop_dim
+            }{
+              \l_@@_ansybottom_dim
+            }
+          }
+        }
+        { \l_@@_ansstyle_tl } % pattern style (grid/lines)
+      }
+      \nointerlineskip\null
+      \clearpage
+      \int_incr:N \l_@@_anstargetpage_int
+      \dim_sub:Nn \l_@@_needed_dim { \l_@@_available_dim }
+      \dim_set_eq:NN \l_@@_cury_dim \l_@@_ansytop_dim
+      \bool_set_true:N \l_@@_ansattop_bool
+    }{
+      % Ansbox fits, just inline
+      \_@@_draw_inline_ansgrid:nV { \dim_use:N \l_@@_needed_dim } \l_@@_ansstyle_tl
+      \dim_zero:N \l_@@_needed_dim
+    }
+  }
+}
+\ExplSyntaxOff
 %</ex>
 % \fi
 %
@@ -5457,9 +5607,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \bool_if:NTF \l_@@_examiner_bool {
   \fancyhead[R]{\small EXAMINER~VERSION}
   \AddToHook{shipout/background}{
-    \put(0,-\@PH){%
-    \put(60,40){\rotatebox{60}{\textcolor{watermarkcolor}{
-          \fontsize{105}{130}\selectfont Examiner~Version}}}}}
+    \put(0.5\@PW,-0.5\@PH){\makebox(0,0){\rotatebox{\@WMA}{%
+          \parbox{\@PD}{\centering\color{watermarkcolor}%
+            \fontsize{105}{130}\selectfont Examiner~Version}}}}%
+  }
 }{
   \fancyhead[R]{\small \translatekey{studentnr}:
     {}~\phantom{\large 00000000}~\translatekey{name}:\hspace{3cm}}
