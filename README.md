@@ -24,7 +24,7 @@ This package provides the following classes:
 - `ugentreport`: Project reports, e.g. group assignments
 - `ugentcourse`: Course notes
 - `ugentletter`: Letters
-- 🚧 `ugentexam`: Exams (WIP)
+- `ugentexam`: Exams
 - `beamerthemeugent`: Presentation slides
 
 The goal is also to transfer this repository to UGent one when complete (see the [ugentdocs 1.0 project](https://github.com/users/SeppeOngena/projects/1) for up-to-date progress towards v1.0), so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 

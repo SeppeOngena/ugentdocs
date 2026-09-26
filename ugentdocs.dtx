@@ -611,7 +611,7 @@
 % \iffalse
 %<*col>
 \ExplSyntaxOn
-\exp_args:NnV \clist_if_in:nnT { bama, report } \l_@@_covertype_tl {
+\exp_args:NnV \clist_if_in:nnT { bama, report, exam } \l_@@_covertype_tl {
   \bool_if:NTF \l_@@_coverbg_bool {
     \colorlet{covertitlecolor}  {white}
     \colorlet{coverdatacolor}   {white}
@@ -1816,17 +1816,20 @@ dean           = Dean
 rector         = Rector
 coverdesigner  = Cover illustration designer
 
-exam         = Exam --- Examen
+exam         = Exam
 series       = Series
-lastname     = Last name --- Naam
-firstname    = First name --- Voornaam
+lastname     = Last name
+firstname    = First name
+name         = Name
 studentnr    = Student ID
-room         = Room --- Lokaal
-rooms        = Rooms --- Lokalen
-examstart    = Start --- Begin
-examend      = End --- Einde
-examduration = Exam duration --- Duur van het examen
+room         = Room
+rooms        = Rooms
+examstart    = Start
+examend      = End
+examduration = Exam duration
+question     = Question
 weight       = Weight
+total        = Total
 wordcount    = Word count
 page         = Page
 appendix     = Appendix
@@ -1940,13 +1943,16 @@ exam         = Examen
 series       = Reeks
 lastname     = Achternaam
 firstname    = Voornaam
+name         = Naam
 studentnr    = Student nr.
 room         = Lokaal
 rooms        = Lokalen
 examstart    = Begin
 examend      = Einde
 examduration = Duur van het examen
+question     = Vraag
 weight       = Gewicht
+total        = Totaal
 wordcount    = Aantal woorden
 page         = Pagina
 appendix     = Bijlage
@@ -2365,18 +2371,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 % \fi
 %
-% \DescribeOption[bama-rp]{coverbg}
+% \DescribeOption[bama-rp-ex]{coverbg}
 %   \DescribeDefault{false}
 %   Options: |true|, |false|\\
 %   Sets a cover background with the relevant UGent or faculty colour,
 %   depending on |faculty| and |neutralcolors| options.
 % \iffalse
-%<*bama|rp>
+%<*bama|rp|ex>
 \keys_define:nn { ugentdocs } {
   coverbg .bool_set:N = \l_@@_coverbg_bool ,
   coverbg .default:n = true ,
 }
-%</bama|rp>
+%</bama|rp|ex>
 % \fi
 %
 % \DescribeOption[le]{foldline}
@@ -2410,6 +2416,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<crs>\tl_set:Nn \l_@@_covertype_tl {course}
 %<bama>\tl_set:Nn \l_@@_covertype_tl {bama}
 %<rp>\tl_set:Nn \l_@@_covertype_tl {report}
+%<ex>\tl_set:Nn \l_@@_covertype_tl {exam}
 %
 %
 % \DescribeOption[bmr]{secnums}
@@ -2574,6 +2581,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %     |ulem|            & Line-breaking underline                           \\
 %     |unicode-math|    & Sans-serif math                                   \\
 %     |wasysym|         & Symbols                                           \\
+%     |zref-abspage|    & Absolute page positions                           \\
+%     |zref-savepos|    & Save page positions                               \\
 %     |zref-totpages|   & Page count                                        \\
 %     \bottomrule
 %   \end{tabular}
@@ -2600,6 +2609,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \usetikzlibrary{positioning,calc,fit,backgrounds}
 \RequirePackage{eso-pic}
 \RequirePackage{zref-totpages}
+\RequirePackage{zref-savepos}
+\RequirePackage{zref-abspage}
 \RequirePackage[normalem]{ulem}
 \renewcommand{\ULthickness}{1pt}
 \RequirePackage{setspace}
@@ -3118,10 +3129,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % }
 % \end{verbatim}
 % \iffalse
-%<*bama|rp|crs|phd|bkc>
+%<*bama|rp|crs|phd|bkc|ex>
 \newcommand*{\@frontcoverlogos}{}
 \newcommand*{\frontcoverlogos}[1]{\renewcommand*{\@frontcoverlogos}{#1}}
-%</bama|rp|crs|phd|bkc>
+%</bama|rp|crs|phd|bkc|ex>
 % \fi
 %
 % \DescribeMacro[phd-crs-bkc]{\backcoverlogos}
@@ -4109,69 +4120,189 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeMacro[ex]{\extrainfo}
-%   \oarg{separatepage $\vert$ firstpage}
 %   \marg{extra information text}
 %   \margintag{tag}\\
 %   Specifies the extra information to describe
 %   the materials that can be used during the examination
 %   and cautioning the students not to commit fraud.
-%   When the optional argument is |separatepage| (default),
-%   the extra info appears on the back of the cover page.
-%   For the |firstpage| optional argument,
-%   the extra info starts on the first page, below the title block.
-%   In that case the extra info will also not be terminated with a
-%   clearpage (as we assume you want to conserve space).
 % \iffalse
 %<*ex>
-\ExplSyntaxOn
 \newcommand{\@extrainfo}{}
-\NewDocumentCommand{\extrainfo}{O{separatepage} +m} {
-  \str_case:nnF { #1 } {
-    { separatepage } { \renewcommand{\@extrainfo}{\clearpage #2 \clearpage} }
-    { firstpage    } { \renewcommand{\@extrainfo}{#2} }
-  }{
-    \PackageError{ugentdocs}
-    { The~first~(optional)~argument~of~\protect\extrainfo~can~only~be~'separatepage'~or~'firstpage' }
-    { See~the~ugentdocs~manual. }
-  }
+\NewDocumentCommand{\extrainfo}{+m} {
+  \renewcommand{\@extrainfo}{#1}
 }
-\ExplSyntaxOff
 %</ex>
 % \fi
 %
 % \DescribeMacro[ex]{\question}
 %   \oarg{weight}\marg{question}\\
 %   Adds a question to the exam, with automatic number counting.
-%   The |<question>| can be a short question (single line), empty,
-%   or a 'tag' or code used to reference to the question, e.g., |[EULER-1]|.
-%   You can write a longer question on the line following the macro.
-%   Using the optional argument (e.g., |weight=3|), adds a small box with
-%   the weight of the question on the current line (right aligned).
+%   The |<question>| can be any content.
+%   Using the optional argument (e.g., |weight=3|)
+%   adds the weight of the question in the left margin.
+% \DescribeMacro[ex]{\subquestion}
+%   \oarg{weight}\marg{question}\\
+%   Works entirely similar to the |\question|, but
+%   uses letters (e.g., ``a)'') and is indented slightly.
 % \iffalse
 %<*ex>
 \ExplSyntaxOn
+% Question counters
 \newcounter{question}
+\newcounter{subquestion}[question]
 \setcounter{question}{0}
-\renewcommand*\thequestion{\@arabic\c@question}
-\tl_new:N \l_@@_questionweight_tl
 
+\renewcommand*\thequestion{\@arabic\c@question}
+\renewcommand*\thesubquestion{\alph{subquestion}}
+
+% Vars
+\int_new:N \l_@@_qweight_int
+\bool_new:N \l_@@_qhasweight_bool
+\tl_new:N  \l_@@_pointlabel_tl
+\tl_new:N  \g_@@_pointlabel_default_tl
+\tl_gset:Nn \g_@@_pointlabel_default_tl { p }
+\int_new:N \l_@@_qoverviewtot_int
+\tl_new:N \l_@@_qoverviewrows_tl
+
+% Question arg keys
 \keys_define:nn { ugentdocs/question } {
-  weight .tl_set:N = \l_@@_questionweight_tl ,
+  weight     .code:n = {
+    \int_set:Nn \l_@@_qweight_int {#1}
+    \bool_set_true:N \l_@@_qhasweight_bool
+  } ,
+  pointlabel .tl_set:N = \l_@@_pointlabel_tl ,
 }
 
-\NewDocumentCommand{\question}{O{} m} {
-  \tl_clear:N \l_@@_questionweight_tl
+% Helper CS for margin label
+\cs_new_protected:Npn \@@_qmarginlabel:n #1 {
+  \leavevmode
+  \kern -1cm
+  \llap{ #1 }
+  \kern 1cm
+}
+
+% Question label box
+\box_new:N \l_@@_qlabel_box
+
+\cs_new_protected:Npn \@@_hanginglabel:n #1 {
+  \hbox_set:Nn \l_@@_qlabel_box { #1 }
+  \hangindent = \wd\l_@@_qlabel_box
+  \hangafter  = 1
+  \box_use:N \l_@@_qlabel_box
+}
+
+% Question and subqestion
+\NewDocumentCommand{\question}{O{} +m} {
+  \par
+  \bool_set_false:N \l_@@_qhasweight_bool
+  \int_zero:N \l_@@_qweight_int
+  \tl_set_eq:NN \l_@@_pointlabel_tl \g_@@_pointlabel_default_tl
   \keys_set:nn { ugentdocs/question } { #1 }
   \stepcounter{question}
-  \thequestion.~#2%
-  \tl_if_empty:NF \l_@@_questionweight_tl {
-    \hspace{\fill}
-    \begin{tabular}{|c|}
-      \hline
-      \small \translatekey{weight}:~\l_@@_questionweight_tl\\
-      \hline
-    \end{tabular}\\
+  \begingroup
+    \noindent
+    \bool_if:NT \l_@@_qhasweight_bool {
+      \textbf{\@@_qmarginlabel:n { \int_use:N \l_@@_qweight_int \l_@@_pointlabel_tl }}
+    }
+    \textbf{\translatekey{question}~\thequestion{}:}~#2%
+    \bool_if:NT \l_@@_qhasweight_bool {
+      \@@_qoverview_write:nnn { 0 }
+        { \thequestion } { \int_use:N \l_@@_qweight_int }
+    }
+    \par
+  \endgroup
+}
+
+\NewDocumentCommand{\subquestion}{O{} +m} {
+  \par
+  \bool_set_false:N \l_@@_qhasweight_bool
+  \int_zero:N \l_@@_qweight_int
+  \tl_set_eq:NN \l_@@_pointlabel_tl \g_@@_pointlabel_default_tl
+  \keys_set:nn { ugentdocs/question } { #1 }
+  \stepcounter{subquestion}
+  \begingroup
+    \noindent
+    \advance\leftskip by 0.25cm\relax
+    \parindent=0pt
+    \noindent
+    \bool_if:NT \l_@@_qhasweight_bool {
+      \@@_qmarginlabel:n { \int_use:N \l_@@_qweight_int \l_@@_pointlabel_tl }
+    }
+    \@@_hanginglabel:n { \thesubquestion)~ }
+    ~#2%
+    \bool_if:NT \l_@@_qhasweight_bool {
+      \@@_qoverview_write:nnn { 1 }
+        { \thequestion\thesubquestion } { \int_use:N \l_@@_qweight_int }
+    }
+    \par
+  \endgroup
+}
+\ExplSyntaxOff
+%</ex>
+% \fi
+%
+% \DescribeMacro[ex]{\pointoverview}
+%   Prints the point overview table, including a total row.
+% \iffalse
+%<*ex>
+\ExplSyntaxOn
+% Question overview aux file
+\seq_new:N \g_@@_qoverview_seq
+\iow_new:N \g_@@_qoverview_iow
+
+\cs_new_protected:Npn \@@_qoverview_addq:nnn #1#2#3 {
+  \seq_gput_right:Nn \g_@@_qoverview_seq { {#1}{#2}{#3} }
+}
+
+\cs_new_protected:Npn \@@_qoverview_write:nnn #1#2#3 {
+  \iow_now:Nx \g_@@_qoverview_iow {
+    \exp_not:N \@@_qoverview_addq:nnn {#1}{#2}{#3}
   }
+}
+
+\cs_new_protected:Npn \@@_qoverview_procq:nnn #1#2#3 {
+  \int_compare:nNnT {#1} = {0} { \int_add:Nn \l_@@_qoverviewtot_int {#3} }
+  \tl_put_right:Nn \l_@@_qoverviewrows_tl {
+    \int_compare:nNnTF {#1} = {0}
+    { \textbf{~#2}   ~&~ #3 \\}
+    { \phantom{~0}#2 ~&~ \phantom{~0}#3 \\}
+
+  }
+}
+
+\ExplSyntaxOff
+
+% Open and close aux .exq file
+\ExplSyntaxOn
+\AddToHook{begindocument}{
+  \seq_gclear:N \g_@@_qoverview_seq
+  \ExplSyntaxOn
+  \InputIfFileExists{\jobname.exq}{}{}
+  \ExplSyntaxOff
+  \iow_open:Nn \g_@@_qoverview_iow { \jobname.exq }
+}
+\AddToHook{enddocument/afterlastpage}{
+  \iow_close:N \g_@@_qoverview_iow
+}
+\ExplSyntaxOff
+
+% Print point overview
+\ExplSyntaxOn
+\NewDocumentCommand{\pointoverview}{}{
+  \par
+  \group_begin:
+  \tl_clear:N \l_@@_qoverviewrows_tl
+  \int_zero:N \l_@@_qoverviewtot_int
+  \seq_map_inline:Nn \g_@@_qoverview_seq { \@@_qoverview_procq:nnn ##1 }
+  \begin{tabular}{@{}l@{\hspace{2em}}l@{}}
+    \textbf{\translatekey{question}} & \textbf{\translatekey{weight}}\\
+    \hline
+    \l_@@_qoverviewrows_tl
+    \hline
+    \textbf{\translatekey{total}} & \int_use:N \l_@@_qoverviewtot_int \\
+  \end{tabular}
+  \group_end:
+  \par
 }
 \ExplSyntaxOff
 %</ex>
@@ -4233,68 +4364,214 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex>
 % \fi
 %
-% \DescribeMacro[ex]{\insertsolutionspagepartial}
-%   \marg{height from bottom of page in cm}\\
-%   Fills the remainder of the page with 'fill-out' squares.
-%   As observing/controlling the current line position in \LaTeX{} is not easy,
-%   you have to provide the number of centimetres from the
-%   bottom of the page that you want to fill out.
+% \DescribeMacro[ex]{\gridpage}
+%   \marg{watermark}\\
+%   Creates a full page containing the |<watermark>| (can be empty),
+%   with a dotted grid wiith half a |\gridunit| spacing.
+%   Can be used for, e.g., scrap paper.
 % \iffalse
 %<*ex>
-\newcommand\insertsolutionspagepartial[1]{
-~\relax
-\AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{
-    \put(0,0){%
-      \begin{tikzpicture}
-      \clip (0,0) rectangle (21,#1);
-      % \draw[densely dotted, step=0.5cm,black!20] (0.999,0.990) grid (20,1.5);
-      \draw[densely dotted, step=0.5cm,black!20] (0.999,1.499) grid (2,2.5);
-      \draw[densely dotted, step=0.5cm,black!20] (18.999,1.499) grid (20,2.5);
+\newlength\@PD % Page diagonal
+\pgfmathsetlength\@PD{veclen(\@PW,\@PH)}
+\pgfmathsetmacro\@WMA{atan(\@PH/\@PW)}% Watermark angle
 
-      \draw[densely dotted, step=0.5cm,black!20] (0.999,2.499) grid (20,27);
-      \draw[densely dotted, step=0.5cm,black!20] (0.999,27) grid (16,28);
-      \draw[densely dotted, step=0.5cm,black!20] (19.499,27) grid (20,28);
-      \draw[densely dotted, step=0.5cm,black!20] (0.99,27.999) grid
-      (20,28.5);
-      \draw[ultra thick] (1,#1) -- (20,#1);
+\newcommand\gridpage[1]{
+  \clearpage
+  \AddToHookNext{shipout/foreground}{
+    \put(0,-\paperheight){%
+      \begin{tikzpicture}
+      \path (0,0) (\paperwidth,\paperheight);
+      \draw[densely dotted, step=0.5\gridunit,black!20] % Left of footer
+        (\gridunit,\gridunit) grid (2\gridunit,2\gridunit);
+      \draw[densely dotted, step=0.5\gridunit,black!20] % Right of footer
+        (\paperwidth-2\gridunit,\gridunit) grid (\paperwidth-\gridunit,2\gridunit);
+
+      \draw[densely dotted, step=0.5\gridunit,black!20] % Main grid
+        (\gridunit,2\gridunit) grid (\paperwidth-\gridunit,\paperheight-2\gridunit);
+      \draw[densely dotted, step=0.5\gridunit,black!20] % Left of header
+        (\gridunit,\paperheight-2\gridunit) grid (10\gridunit,\paperheight-\gridunit);
       \end{tikzpicture}
     }
+    \put(0.5\@PW,-0.5\@PH){\makebox(0,0){\rotatebox{\@WMA}{%
+          \parbox{\@PD}{\centering\color{watermarkcolor}%
+            \fontsize{105}{130}\selectfont\sffamily #1}}}}%
   }%
-  \clearpage
-  \relax
+  ~\relax
 }
 %</ex>
 % \fi
 %
-% \DescribeMacro[ex]{\insertsolutionspage}
-%   \marg{watermark text}\\
-%   Inserts a full solutions page, i.e. flushes the current page and
-%   inserts a full page with 'fill-out' squares.
-%   The argument allows for specifying a watermark text (e.g. 'Scrap
-%   paper').
+% \DescribeMacro[ex]{\answerspace}
+%   \oarg{style=grid/lines/none}
+%   \oarg{lines=number of lines}\\
+%   Creates an answer space with an outline box.
+%   If |lines| is not specified,
+%   it will fill the remainder of the page (or create a full page).
+%   If the number of |lines| exceeds the remaining page capacity,
+%   it continues on the next page.
+%   The line or grid spacing dimension can be set using
+%   |\answerspacing{<length>}|.
+%   Specifying no |style| optional argument just prints the outline box,
+%   whilst |style=grid| produces a |darkgray| dotted grid,
+%   and |style=lines| produces a |darkgray| lined box.
 % \iffalse
 %<*ex>
-\newcommand\insertsolutionspage[1]{
-\clearpage
-\AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{
-    \put(0,0){%
-      \begin{tikzpicture}
-        \clip (0,0) rectangle (21,29.5);
-        \draw[densely dotted, step=0.5cm,black!20] (0.999,1.499) grid (2,2.5);
-        \draw[densely dotted, step=0.5cm,black!20] (18.999,1.499) grid (20,2.5);
+\ExplSyntaxOn
+\NewDocumentCommand{\answerspacing}{m}{
+  \dim_set:Nn \l_@@_anslinestep_dim {#1}
+}
 
-        \draw[densely dotted, step=0.5cm,black!20] (0.999,2.499) grid (20,28);
-        \draw[densely dotted, step=0.5cm,black!20] (0.999,28) grid (16,28.5);
-        \draw[densely dotted, step=0.5cm,black!20] (19.499,28) grid (20,28.5);
+\zref@addprops{savepos}{abspage}
+\dim_new:N \l_@@_anslinestep_dim
+\dim_new:N \l_@@_ansytop_dim
+\dim_new:N \l_@@_ansybottom_dim
+
+\dim_new:N \l_@@_anstolerancesnap_dim
+\dim_set:Nn \l_@@_anstolerancesnap_dim {1cm}
+\dim_new:N \l_@@_ansgapstop_dim
+\dim_set:Nn \l_@@_ansgapstop_dim {0.2cm}
+\dim_new:N \l_@@_textleft_dim
+
+\int_new:N \g_@@_anscounter_int
+\int_new:N \l_@@_anstargetpage_int
+\dim_new:N \l_@@_cury_dim
+\dim_new:N \l_@@_needed_dim
+\dim_new:N \l_@@_available_dim
+\bool_new:N \l_@@_ansattop_bool
+\tl_new:N \l_@@_ansstyle_tl
+\int_new:N \l_@@_nlines_int
+
+
+% Set dimensions of linestep and where top starts and bottom ends
+\AtBeginDocument{
+  \dim_set:Nn \l_@@_anslinestep_dim {\baselineskip}
+  \dim_set:Nn \l_@@_ansytop_dim
+    { \paperheight - 1in - \voffset - \topmargin - \headheight - \headsep }
+  \group_begin:
+    \small
+    \dim_gset:Nn \g_tmpa_dim { \box_ht:N \strutbox }
+  \group_end:
+  \dim_set:Nn \l_@@_ansybottom_dim
+    { \l_@@_ansytop_dim - \textheight - \footskip + \g_tmpa_dim + \footruleskip }
+}
+
+% Set style of grid and lines
+\tikzset{
+  answer-grid/.style  =
+    { densely~dotted, darkgray, step = \l_@@_anslinestep_dim },
+  answer-lines/.style =
+    { densely~dotted, darkgray, xstep = \paperwidth, ystep = \l_@@_anslinestep_dim },
+  answer-/.style      =
+    { draw = none },
+}
+
+% Helper CS: #1 rounded down to a whole number of line steps
+\cs_new:Nn \_@@_trim_span:n {
+  \l_@@_anslinestep_dim *
+  \int_div_truncate:nn { \dim_to_decimal_in_sp:n {#1} }
+    { \dim_to_decimal_in_sp:n { \l_@@_anslinestep_dim } }
+}
+
+% Answer boxes 1: contained/inline box.
+% #1 = height, #2 = style
+\cs_new_protected:Nn \_@@_draw_inline_ansgrid:nn {
+  \par\noindent
+  \begin{tikzpicture}
+    \draw [answer-#2] (0,0) grid (\textwidth,#1);
+    \draw [thick] (0,0) rectangle (\textwidth,#1);
+  \end{tikzpicture}
+  \par
+}
+\cs_generate_variant:Nn \_@@_draw_inline_ansgrid:nn { nV }
+
+% Answer boxes 2: extending down to footer rule.
+% #1 = target abspage, #2 = y top, #3 = y pattern anchor, #4 = style
+\cs_new_protected:Nn \_@@_shipout_ansgrid:nnnn {
+  \int_compare:nNnT { \value{abspage} } = {#1} {
+    \dim_set:Nn \l_@@_textleft_dim
+    { 1in + \hoffset + \int_if_odd:nTF { \value{page} } { \oddsidemargin } { \evensidemargin } }
+    \put (0,-\paperheight) {
+      \begin{tikzpicture}
+        \path (0,0) (\paperwidth,\paperheight);
+        \begin{scope}
+          \clip (\l_@@_textleft_dim,\l_@@_ansybottom_dim)
+            rectangle (\l_@@_textleft_dim+\textwidth,#2);
+          \draw [answer-#4, shift={(\l_@@_textleft_dim,#3)}]
+            (0,-\textheight) grid (\textwidth,\textheight);
+        \end{scope}
+        \draw [thick] (\l_@@_textleft_dim,\l_@@_ansybottom_dim)
+        |- (\l_@@_textleft_dim+\textwidth,#2) -- ++(0,\l_@@_ansybottom_dim-#2);
       \end{tikzpicture}
     }
-    \put(120,150){\rotatebox{60}{\textcolor{watermarkcolor}{
-          \fontsize{105}{130}\selectfont\textsf{#1}}
-      }
-    }
-  }%
-  ~\relax
+  }
 }
+
+\keys_define:nn { ugentdocs/answerspace } {
+  style .tl_set:N  = \l_@@_ansstyle_tl ,
+  lines .int_set:N = \l_@@_nlines_int ,
+}
+
+\NewDocumentCommand{\answerspace}{O{}}{%
+  \keys_set:nn { ugentdocs/answerspace } { style = , lines = 0, #1 }
+  \par
+  \int_gincr:N \g_@@_anscounter_int
+  \zsavepos{answerspace-\int_use:N\g_@@_anscounter_int}%
+  \dim_set:Nn \l_@@_cury_dim { \zposy{answerspace-\int_use:N\g_@@_anscounter_int} sp }
+  \int_set:Nn \l_@@_anstargetpage_int {
+    \zref@extract{answerspace-\int_use:N\g_@@_anscounter_int}{abspage}
+  }
+  \bool_set:Nn \l_@@_ansattop_bool{
+    \dim_compare_p:nNn { \l_@@_ansytop_dim - \l_@@_cury_dim } < { 0.05cm }
+  }
+  \dim_sub:Nn \l_@@_cury_dim { \l_@@_ansgapstop_dim }
+  \dim_set:Nn \l_@@_needed_dim {
+    \int_if_zero:nTF { \l_@@_nlines_int }{
+      \_@@_trim_span:n { \l_@@_cury_dim - \l_@@_ansybottom_dim }
+    }{
+      \l_@@_anslinestep_dim * \l_@@_nlines_int
+    }
+  }
+
+  \bool_while_do:nn { \dim_compare_p:nNn { \l_@@_needed_dim } > { 0pt } } {
+    \dim_set:Nn \l_@@_available_dim
+      { \_@@_trim_span:n { \l_@@_cury_dim - \l_@@_ansybottom_dim } }
+    \dim_compare:nNnTF { \l_@@_available_dim - \l_@@_needed_dim } < { \l_@@_anstolerancesnap_dim }{
+      % Ansbox doesn't fit
+      \exp_args:Nnx \AddToHook {shipout/background} {
+        \_@@_shipout_ansgrid:nnnn
+        { \int_use:N \l_@@_anstargetpage_int } % target page
+        { \dim_eval:n { % y top
+            \bool_if:NTF \l_@@_ansattop_bool{
+              \l_@@_ansytop_dim
+            }{
+              \l_@@_ansybottom_dim + \l_@@_available_dim
+            }
+          }
+        }
+        { \dim_eval:n { % y pattern anchor
+            \bool_if:NTF \l_@@_ansattop_bool {
+              \l_@@_ansytop_dim
+            }{
+              \l_@@_ansybottom_dim
+            }
+          }
+        }
+        { \l_@@_ansstyle_tl } % pattern style (grid/lines)
+      }
+      \nointerlineskip\null
+      \clearpage
+      \int_incr:N \l_@@_anstargetpage_int
+      \dim_sub:Nn \l_@@_needed_dim { \l_@@_available_dim }
+      \dim_set_eq:NN \l_@@_cury_dim \l_@@_ansytop_dim
+      \bool_set_true:N \l_@@_ansattop_bool
+    }{
+      % Ansbox fits, just inline
+      \_@@_draw_inline_ansgrid:nV { \dim_use:N \l_@@_needed_dim } \l_@@_ansstyle_tl
+      \dim_zero:N \l_@@_needed_dim
+    }
+  }
+}
+\ExplSyntaxOff
 %</ex>
 % \fi
 %
@@ -4509,17 +4786,17 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   A native \LaTeX{} macro, overridden to support the generation of
 %   cover pages, title pages, colophon pages, etc.
 %
-% For the |bama|, |phd|, |course|, and |report| classes,
+% For the |bama|, |phd|, |course|, |report|, and |exam| classes,
 % this generates the cover page using |\@frontcover|
 % (see Section \ref{S:style:covers}):
 %    \begin{macrocode}
-%<*bama|phd|rp|crs>
+%<*bama|phd|rp|crs|ex>
 \ExplSyntaxOn
 \renewcommand\maketitle{%
 \pagestyle{empty}
 %
 % Cover page
-%</bama|phd|rp|crs>
+%</bama|phd|rp|crs|ex>
 %<*phd|crs>
 % Do not print thumbs on the first pages
 \bool_if:NT \l_@@_thumbs_bool {
@@ -4530,7 +4807,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \begingroup
   \pagenumbering{gobble}
 %</phd|crs>
-%<*bama|phd|rp|crs>
+%<*bama|phd|rp|crs|ex>
 % Insert front cover
 \begin{titlepage}
   \setlength\parskip{0pt}%
@@ -4546,7 +4823,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   }%
   \null
 \end{titlepage}%
-%</bama|phd|rp|crs>
+%</bama|phd|rp|crs|ex>
 %<*phd|crs>
   \endgroup
 \setcounter{page}{0}%
@@ -4579,6 +4856,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \fi
 %</crs>
 %    \end{macrocode}
+% For the |exam| class, this is simply the extra info.
+%    \begin{macrocode}
+%<*ex>
+~\par\relax
+\clearpage
+\@extrainfo{}
+%</ex>
 %
 % For the |phd| class, this is a blank page,
 % the committee page, the title page, and the colophon page:
@@ -4656,7 +4940,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \@copyrightnotices
 %</phd>
 %
-%<*bama|phd|rp|crs>
+%<*bama|phd|rp|crs|ex>
 % Relax a bit
   \setcounter{footnote}{0}%
   \global\let\thanks\relax
@@ -4670,7 +4954,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \thispagestyle{empty}
 }
 \ExplSyntaxOff
-%</bama|phd|rp|crs>
+%</bama|phd|rp|crs|ex>
 %    \end{macrocode}
 %
 % The |letter| class also uses |\maketitle| to typeset the header,
@@ -4752,150 +5036,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</le>
-%    \end{macrocode}
-%
-% For the |exam|, the |\maketitle| macro simply sets the cover page:
-%    \begin{macrocode}
-%<*ex>
-\renewcommand\maketitle{%
-  \pagestyle{fancy}
-  \AddToShipoutPicture*{% TODO change to \AddToHookNext{shipout/foreground}{%
-    \put(0,0){%
-      \begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
-      \clip (0,0) rectangle(\paperwidth,\paperheight);
-      \fill[lightgray]
-      (2.125,{\paperheight-7cm}) rectangle (\paperwidth,6);
-
-      \node
-      [anchor=west,text width={\paperwidth-5cm},align=left]
-      at (2.125,{\paperheight-3cm})
-      {%
-        \fontsize{18}{22}\selectfont%
-        \textsf{\textbf{\printseq{courses}{\\}{\\}{\\}}}\par
-        \ifx\@exampart\@empty
-        \else \textsf{\textbf{\@exampart}}\fi
-      };
-      \node
-      [anchor=west,text width={\paperwidth-5cm},align=left]
-      at (2.125,{\paperheight-4cm})
-      {%
-        \fontsize{12}{18}\selectfont%
-        \textsf{\printseq{coursecodes}{\\}{\\}{\\}}
-      };
-
-      \node
-      [anchor=west,text width={\paperwidth-5cm},align=left,font=\large]
-      at (2.125,{\paperheight-5cm})
-      {%
-        \fontsize{12}{18}\selectfont%
-        \textsf{
-          \ifx\@examseries\@empty{}~\else\translatekey{series}~\@examseries{}\fi
-          \hfill \@date{}}
-      };
-
-      \node[anchor=south west,align=left,inner sep=0pt] at (3,21)
-      {%
-        \fontsize{14}{19}\selectfont%
-        \textsf{\translatekey{exam}}
-      };
-
-      \node[anchor=south west,align=left,inner sep=0pt] at (3,19)
-      {%
-        \fontsize{12}{18}\selectfont%
-        \textsf{\translatekey{lastname}}
-      };
-      \foreach \nn in {0,1,...,33} {
-        \draw[fill=white] (3,18) ++({0.5*\nn},0) rectangle +(0.5,0.8);
-      }
-
-      \node[anchor=south west,align=left,inner sep=0pt] at (3,17)
-      {%
-        \fontsize{12}{18}\selectfont%
-        \textsf{\translatekey{firstname}}
-      };
-
-      \foreach \nn in {0,1,...,23} {
-        \draw[fill=white] (3,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
-      }
-
-      \node[anchor=south west,align=left,inner sep=0pt] at (16,17)
-      {%
-        \fontsize{12}{18}\selectfont%
-        \textsf{\translatekey{studentnr}}
-      };
-      \foreach \nn in {0,1,...,7} {
-        \draw[fill=white] (16,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
-      }
-
-      \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
-      at (3,14)
-      {%
-        \fontsize{12}{21}\selectfont%
-        \textsf{\translatekey{examduration}: \@examduration}
-      };
-      \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
-      at (3,11)
-      {%
-        \fontsize{12}{15}\selectfont%
-        \textsf{\begin{tabular}{@{}l@{}ll}%
-          \translatekey{examstart}& : & \@examstart\\
-          \translatekey{examend}  & : & \@examend
-          \end{tabular}}
-      };
-
-      \node[anchor=south west,align=left,inner sep=0pt,text width=17cm]
-      at (3,8)
-      {%
-        \fontsize{12}{21}\selectfont%
-        \textsf{\getseqcaption{rooms}{: \printseq{rooms}{~\&~}{,~}{\translatekey{andlist}~}}}
-      };
-
-      %\node
-      %[anchor=base west,ugent@main,
-      %text width={\paperwidth-5cm},align=left,font=\LARGE]
-      %at (2.125,{\paperheight-6.5cm})
-      %{\textsf{\textbf{\ifx\@authortitle\@empty\else\@authortitle~\fi\@formatname{\@author}}}};
-
-      \fill[gray] (2.125,6)
-      -- (\paperwidth,6)
-      -- (\paperwidth,2.625)
-      -- (2.55,2.625)
-      arc (-90:-180:0.425)
-      -- cycle;
-
-      \node[white,anchor=west,align=left,font=\large]
-      (SN) at (2.55,4.9)
-      {
-        \begin{tabular}{@{}l@{~\,}p{14.5cm}}
-        \textsf{\getseqcaption{lecturers}{}}
-        & \textsf{\textbf{\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}}}
-        \end{tabular}
-      };
-
-      \node[white,anchor=west,text width=17.5cm,align=left,font=\small]
-      at (2.55,3.7)
-      {\textsf{\printseq{degrees}{\\}{\\}{\\}}\\
-        \textsf{\textbf{\@faculty{}}}}; % TODO should handle empty
-
-      \begin{scope}[shift={(2.125,1.313)}]
-      \ugentlogo{4.75cm}{ugent@main}{0.0}
-      \end{scope}
-      \end{tikzpicture}
-    }
-  }
-  ~\par\relax
-  \clearpage
-  \lfoot[\small \@shorttitle]{\small \@shorttitle}
-  \rfoot[\small
-  \ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi~---
-  {}~\@academicyear]
-  {\small
-    \ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi
-    {}~---~\@academicyear}
-  \renewcommand*{\footrulewidth}{1pt}
-  \@extrainfo{}
-}
-%</ex>
 %    \end{macrocode}
 %
 % \DescribeMacro[phd-crs]{\makefinalpage}
@@ -5438,21 +5578,27 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*ex>
 \fancyhf{}
-\fancyfoot[C]{\small\thepage/\ztotpages}
 \ExplSyntaxOn
 \bool_if:NTF \l_@@_examiner_bool {
   \fancyhead[R]{\small EXAMINER~VERSION}
   \AddToHook{shipout/background}{
-    \put(0,-\@PH){%
-    \put(60,40){\rotatebox{60}{\textcolor{watermarkcolor}{
-          \fontsize{105}{130}\selectfont Examiner~Version}}}}}
+    \put(0.5\@PW,-0.5\@PH){\makebox(0,0){\rotatebox{\@WMA}{%
+          \parbox{\@PD}{\centering\color{watermarkcolor}%
+            \fontsize{105}{130}\selectfont Examiner~Version}}}}%
+  }
 }{
-  \fancyhead[R]{\small Student~nr.~\@studentnr}
+  \fancyhead[R]{\small \translatekey{studentnr}:
+    {}~\phantom{\large 00000000}~\translatekey{name}:\hspace{3cm}}
 }
+\fancyfoot[L]{\small \@shorttitle}
+\fancyfoot[R]{\small
+\ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi{}
+{}~---~\@academicyear}
 \ExplSyntaxOff
 
 \setlength{\headheight}{13.7pt}
 \renewcommand*{\headrulewidth}{0pt}
+\renewcommand*{\footrulewidth}{1pt}
 %</ex>
 %    \end{macrocode}
 %
@@ -5895,7 +6041,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{Cover dimensions}
 % A few common dimensions are defined:
 %    \begin{macrocode}
-%<*phd|bkc|crs|bama|rp>
+%<*phd|bkc|crs|bama|rp|ex>
 \ExplSyntaxOn
 \newlength{\@B}     % Bleed outside crop / cameraready
 \newlength{\@HBS}   % Height bottom strip
@@ -5911,7 +6057,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \newlength{\@HI}    % Height Image
 \newlength{\@WFI}   % Width Faculty Icon
 \ExplSyntaxOff
-%</phd|bkc|crs|bama|rp>
+%</phd|bkc|crs|bama|rp|ex>
 %    \end{macrocode}
 %
 % A scheme is given here as to what these dimensions represent
@@ -5955,7 +6101,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % Next, we set the lengths based on the Office templates:
 %    \begin{macrocode}
-%<*phd|bkc|crs|bama|rp>
+%<*phd|bkc|crs|bama|rp|ex>
 \ExplSyntaxOn
 \setlength\@B{3mm}
 \bool_if:NTF \l_@@_bwphdcover_bool {
@@ -5987,13 +6133,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \pgfmathsetlength{\@HT}{0.5*\@PH+0.5*\@HBS-0.5*\@HTS+0.5*\@HD}
 }
 \ExplSyntaxOff
-%</phd|bkc|crs|bama|rp>
+%</phd|bkc|crs|bama|rp|ex>
 %    \end{macrocode}
 %
-% For the |bama| and |report|,
+% For the |bama|, |report|, and |exam|,
 % the title position and text margin differ slightly:
 %    \begin{macrocode}
-%<*bama|rp>
+%<*bama|rp|ex>
 \ExplSyntaxOn
 \setlength\@HT{0.9\@PH}
 
@@ -6003,7 +6149,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \setlength\@MTLR{\gridunit}
 }
 \ExplSyntaxOff
-%</bama|rp>
+%</bama|rp|ex>
 %    \end{macrocode}
 %
 % And the |course| data area width is slightly narrower:
@@ -6125,7 +6271,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</bama>
-%<rp>\newcommand{\@coverbodybama}{}
+%<rp|ex>\newcommand{\@coverbodybama}{}
 %    \end{macrocode}
 %
 % \DescribeObject[custom]{\@coverbodyreport}
@@ -6200,7 +6346,100 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \ExplSyntaxOff
 %</rp>
-%<bama>\newcommand{\@coverbodyreport}{}
+%<bama|ex>\newcommand{\@coverbodyreport}{}
+%    \end{macrocode}
+%
+% \DescribeObject[custom]{\@coverbodyexam}
+%   The |exam| cover body consists of
+%   :
+%    \begin{macrocode}
+%<*ex>
+\ExplSyntaxOn
+\newcommand{\@coverbodyexam}{
+  % Top data
+  \node[anchor=north~west,text~width={\paperwidth-\@MTLR-\gridunit},align=left]
+  at (\@MTLR,{\paperheight-\@HTS-\gridunit}) {%
+    \color{covertitlecolor}{
+      \fontsize{18}{22}\selectfont%
+      \textsf{\textbf{\printseq{courses}{\\}{\\}{\\}}}\par
+      \ifx\@exampart\@empty\else
+        \textsf{\textbf{\@exampart}}\par
+      \fi
+      \fontsize{12}{18}\selectfont%
+      \textsf{\printseq{coursecodes}{\\}{\\}{\\}}
+    }
+    \color{coverdatacolor}{
+      \vskip 2em
+      \fontsize{12}{18}\selectfont%
+      \textsf{
+        \ifx\@examseries\@empty{}~\else\translatekey{series}~\@examseries{}\fi
+      }
+      \vskip 2em
+      \fontsize{14}{19}\selectfont%
+      \textsf{\translatekey{exam}~\@date{}}
+    }
+  };
+
+  % Fill-in of surname, name, and student ID
+  \node[anchor=south~west,align=left,inner~sep=0pt]
+  at (\@MTLR,18){%
+    \fontsize{12}{18}\selectfont%
+    \color{coverdatacolor}{%
+      \textsf{\translatekey{lastname}}
+    }
+  };
+  \foreach \nn in {0,1,...,33} {
+    \draw[fill=white] (\@MTLR,17) ++({0.5*\nn},0) rectangle +(0.5,0.8);
+  }
+
+  \node[anchor=south~west,align=left,inner~sep=0pt]
+  at (\@MTLR,16){%
+    \fontsize{12}{18}\selectfont%
+    \color{coverdatacolor}{%
+      \textsf{\translatekey{firstname}}
+    }
+  };
+  \foreach \nn in {0,1,...,23} {
+    \draw[fill=white] (\@MTLR,15) ++({0.5*\nn},0) rectangle +(0.5,0.8);
+  }
+
+  \node[anchor=south~west,align=left,inner~sep=0pt]
+  at (\@MTLR+26*0.5cm,16){%
+    \fontsize{12}{18}\selectfont%
+    \color{coverdatacolor}{%
+      \textsf{\translatekey{studentnr}}
+    }
+  };
+  \foreach \nn in {0,1,...,7} {
+    \draw[fill=white] (\@MTLR+26*0.5cm,15) ++({0.5*\nn},0) rectangle +(0.5,0.8);
+  }
+
+  % Bottom data
+  \node[anchor=south~west,align=left,inner~sep=0pt,text~width={\paperwidth-\@MTLR-\gridunit}]
+  at (\@MTLR,5\gridunit){%
+    \color{coverdatacolor}{
+      \fontsize{12}{21}\selectfont%
+      \textsf{\translatekey{examduration}:~\@examduration}\\
+      \textsf{\begin{tabular}{@{}rl}%
+        \translatekey{examstart}:~& \@examstart\\
+        \translatekey{examend}:~& \@examend
+        \end{tabular}}
+      \vskip 2em
+      \textsf{\getseqcaption{rooms}{:
+        {}~\printseq{rooms}{~\&~}{,~}{\translatekey{andlist}~}}}
+      \vskip 2em
+       \begin{tabular}{@{}l@{~\,}p{14.5cm}}
+        \textsf{\getseqcaption{lecturers}{}}
+        & \textsf{\textbf{\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}}}
+      \end{tabular}
+      \vskip 2em
+      \textsf{\printseq{degrees}{\\}{\\}{\\}}
+    }
+  };
+}
+\ExplSyntaxOff
+%</ex>
+%<bama|rp>\newcommand{\@coverbodyexam}{}
 %    \end{macrocode}
 %
 % \DescribeObject[custom]{\@coverbodycourse}
@@ -6329,7 +6568,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeObject[custom]{\@coverbody}
 %   Finally, the appropriate cover body is selected:
 %    \begin{macrocode}
-%<*phd|bkc|crs|bama|rp>
+%<*phd|bkc|crs|bama|rp|ex>
 \ExplSyntaxOn
 \newcommand*\@coverbody{
   \exp_args:Nx \str_case:nnF { \l_@@_covertype_tl } {
@@ -6337,12 +6576,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     { course } { \@coverbodycourse }
     { bama }   { \@coverbodybama }
     { report } { \@coverbodyreport }
+    { exam }   { \@coverbodyexam }
   }{
     \msg_error:nnx { ugentdocs } { cover~type~not~implemented } { \l_@@_covertype_tl }
   }
 }
 \ExplSyntaxOff
-%</phd|bkc|crs|bama|rp>
+%</phd|bkc|crs|bama|rp|ex>
 %    \end{macrocode}
 %
 %
@@ -6353,13 +6593,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeObject[custom]{\@frontcover}
 %   The front cover of the document.
 %
-% For |bama| and |report|, this consists of
+% For |bama|, |report|, and |exam|, this consists of
 % the logo placements,
 % an optional background colour area,
 % the |\@coverbody|,
 % and frontcoverlogos:
 %    \begin{macrocode}
-%<*bama|rp>
+%<*bama|rp|ex>
 \ExplSyntaxOn
 \newcommand{\@frontcover}{
   \begin{tikzpicture}[inner~sep=0pt, outer~sep=0pt]
@@ -6400,7 +6640,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \end{tikzpicture}
 }
 \ExplSyntaxOff
-%</bama|rp>
+%</bama|rp|ex>
 %    \end{macrocode}
 %
 % For the |phd| and |course|, the layout is similar,
@@ -6497,11 +6737,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeObject[custom]{\@backcover}
 % The back cover of the documents.
 %
-% The |bama| and |report| classes don't use one:
+% The |bama|, |report|, and |exam| classes don't use one:
 %    \begin{macrocode}
-%<*bama|rp>
+%<*bama|rp|ex>
 \newcommand{\@backcover}{}
-%</bama|rp>
+%</bama|rp|ex>
 %    \end{macrocode}
 %
 % The |course| and |phd| classes share the same cover,
@@ -6901,7 +7141,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<rp1>\documentclass[bw,10pt,twoside,openright,dutch,coverbg]{ugentreport}
 %<rp2>\documentclass[10pt,oneside,openany]{ugentreport}
 %<le1>\documentclass[bw]{ugentletter}
-%<ex1|ex2>\documentclass[bw,10pt, dutch]{ugentexam}
+%<ex1>\documentclass[bw,10pt, dutch]{ugentexam}
+%<ex2>\documentclass[bw,10pt, coverbg]{ugentexam}
 %
 %
 % Class options notes ----------------------------------------------------------
@@ -6971,10 +7212,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs1>
 %
 %
-%<*bama1|bama2|rp1|rp2>
+%<*bama1|bama2|rp1|rp2|ex1|ex2>
 %% coverbg            Adds a coloured background area to the cover page
 %%                    Options: true, false*
-%</bama1|bama2|rp1|rp2>
+%</bama1|bama2|rp1|rp2|ex1|ex2>
 %
 %
 %<*le1>
@@ -7026,6 +7267,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \usepackage[backend=biber, style=authoryear]{biblatex}
 \addbibresource{biblatex-examples.bib} %% Change this to your own bibliography
 
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|ex1|ex2>
 %% Use this package if you want uniform and clean quantities and units
 %% following SI conventions.
 \usepackage{siunitx}
@@ -7034,13 +7277,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %% Use this package if you want to easily typeset chemical equations.
 \usepackage{mhchem}
 
-%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
-%
-%
-%<*ex1|ex2>
-%% This package eases numbering of subquestions
-\usepackage{enumitem}
-%</ex1|ex2>
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|ex1|ex2>
 %
 %
 % Font override to Arial -------------------------------------------------------
@@ -7435,16 +7672,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd1|phd2>
 %
 %
-%<*ex2>
-%% If you make a copy per student, you can provide a number on the copy
-\studentnr{<studentnr>}
-%</ex2>
-%<*ex1>
-%% If you make a copy per student, you can provide a number on the copy
-%%\studentnr{<studentnr>}
-%</ex1>
-%
-%
 %<*phd1|phd2|rp2|le1>
 %% Contact ----------------------------------------------------------------------
 %</phd1|phd2|rp2|le1>
@@ -7554,7 +7781,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex1>
 %<*ex2>
 %% Course information
-\course{I009000}{Fieldwork Methods in Environmental and Hydrological Systems}
+\course{I009000}{Field Biology: Species Recognition and Habitat Assessment}
 
 %</ex2>
 %
@@ -7601,9 +7828,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %<*ex1>
 %% Instruct your students about important details.
-%% 'firstpage' puts in on the first page, if omitted the extra info is
-%% printed on the back of the first page
-\extrainfo[firstpage]{
+\extrainfo{
   Belangrijke informatie:\\\par
   Het volledige Onderwijs- en Examenregelement (OER) is van toepassing
   op dit examen.
@@ -7634,8 +7859,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %<*ex2>
 %% Instruct your students about important details.
-%% 'firstpage' puts in on the first page, if omitted the extra info is
-%% printed on the back of the first page
 \extrainfo{
   %% The bilingual command allows you to specify a left column in English
   %% and right column in Dutch
@@ -7724,18 +7947,23 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
       \item Hand in \emph{all} papers to the staff member on duty, at the
       end of the examination.
     \end{itemize}
-    Success!
   }{
     \begin{itemize}
       \item Op het einde van het examen geef je \emph{alle} bladen weer af
       aan de aanwezige docent.
     \end{itemize}
-    Succes!
   }
-  \clearpage
+
+  \bilingual{Succes!}{Succes!}
 }
 
+%% Adjust colours for better to print cover page with background
+\colorlet{coverbgcolor}{ugent@faculty!10}
+\colorlet{covertitlecolor}{ugent@main}
+\colorlet{coverdatacolor}{black}
+
 %</ex2>
+%
 %
 %
 %<*le1>
@@ -8137,138 +8365,169 @@ For all else, we trust you can find what you need with a bit of decent searching
 }
 %</le1>
 %
-%<*ex1>
-%% a first question (with an identifier that can help you remember which
-%% question it is out of your huge database)
-\question[weight=3]{[VLATOP-BISTRO]}
-
-Geef de eerste vijf laureaten van de VLATOP-bistro
-competitie.
-
-%% a second question
-\question[weight=7]{[BECHAMEL]}
-
-Welk van de onderstaande ingredi\"enten hoort niet thuis in
-een b\'echamel saus:
-
-%% this is how you specify the multiple choice answering options
-\mc{Melk}
-\mc{Boter}
-\mc{Bloem}
-\mc{Eieren}
-\mc{Suiker}
-
-%% you can insert some pages for the student to write his/her answers
-%% on.
-%% a. below the question, in this case for the remaining 11.5cm on the page
-\insertsolutionspagepartial{11.5}
-
-%% b. a full page
-\insertsolutionspage{}
+%<*ex1|ex2>
+%% Insert the point overview of the questions
+\vspace{3em}
+\pointoverview
 \clearpage
 
-%% a third question
-\question[weight=10]{[BISTROCULTURE-1]}
-
-%% the option of the enumerate environment is thanks to the enumitem package
-\begin{enumerate}[label=\alph*)]
-  \item Bespreek de evolutie van de Noord-Europese bistrocultuur
-  gedurende de laatste vijftig jaar.
-  \item Breng dit in relatie tot de
-  opkomst van de georganiseerde recensies zoals die van Michelin en
-  Gault-Millau.
-\end{enumerate}
-
-%% you can insert some pages for the student to write his/her answers
-%% on.
-%% a. below the question, in this case for the remaining 23cm on the page
-\insertsolutionspagepartial{23}
-
-%% b. full pages: 3 in this case
-\foreach \i in {1,2,3} {
-  \insertsolutionspage{}
+%</ex1|ex2>
+%<*ex1>
+%% Q1
+\question[weight=6]{%
+  Beschrijf het twee-periodensysteem van de Kommomaan.%
 }
 
-%% c. special 'scrap' pages with a watermark on them: two in this case
-\foreach \i in {1,2} {
-  \insertsolutionspage{Kladpapier}
+\answerspacing{2\baselineskip}
+\answerspace[lines=12,style=lines]
+
+%% Q2
+\question[weight=10]{%
+  Tijdens een populatieonderzoek werden 42 Kommomanen gevangen en gemerkt tijdens een A-periode.
+  Twee weken later, tijdens een tweede A-periode waarneming, werden 60 individuen gevangen,
+  waarvan er 15 reeds een merkteken droegen van de eerste vangst.
+}
+  \subquestion[weight = 4]{%
+    Bereken, met behulp van de Lincoln-Petersen methode,
+    de geschatte totale Kommomaanpopulatie in het onderzoeksgebied.
+
+    $\symbf{\hat{N}=}$
+
+    Berekeningsmethode:
+  }
+  \answerspacing{\baselineskip}
+  \answerspace[lines=6,style=grid]
+  \subquestion[weight=6]{
+    Bespreek één aanname van de merk-hervangstmethode die specifiek ondermijnd zou kunnen worden
+    door het twee-perioden-systeem van de Kommomaan, en verklaar waarom.
+  }
+  \answerspacing{2\baselineskip}
+  \answerspace[lines=15]
+
+%% Q3
+\question[weight=4]{%
+  De wetenschappelijke naam van de Kommomaan, \textit{Homo kommomanis},
+  suggereert een aparte soort binnen het genus \textit{Homo}.
+  De geobserveerde individuen zijn echter morfologisch volledig niet
+  te onderscheiden van gewone \textit{Homo sapiens}.
+  Waarom is de classificatie als aparte soort hierdoor problematisch?
+}
+%% This is how you specify the multiple choice answering options
+\mc{
+  Een aparte soortnaam vereist aantoonbare reproductieve isolatie
+  of onderscheidende erfelijke kenmerken, en die ontbreken hier volledig.
+}
+\mc{Het genus \textit{Homo} mag geen fictieve of hypothetische soorten bevatten.}
+\mc{Soortnamen mogen niet verwijzen naar menselijke eigenschappen of gedrag.}
+\mc{De naam is grammaticaal incorrect volgens de regels van de binominale nomenclatuur.}
+
+%% Special 'scrap' pages with a watermark on them: three in this case
+\foreach \i in {1,...,3} {
+  \gridpage{Kladpapier}
 }
 %</ex1>
 %<*ex2>
-%% a first question (with an identifier that can help you remember which
-%% question it is out of your huge database)
-\question[weight=3]{[VLATOP-BISTRO]}
-
-%% typeset the question in two columns
-\bilingual{
-  Write down the first five laureates of the VALTOP-bistro competition.
-}{
-  Geef de eerste vijf laureaten van de VLATOP-bistro
-  competitie.
+%% Q1
+\question[weight=6]{\par
+  \bilingual{
+    Describe the two-period system of the Homo Kommomanis.%
+  }{
+    Beschrijf het twee-periodensysteem van de Kommomaan.%
+  }
 }
+\answerspacing{2\baselineskip}
+\answerspace[lines=12,style=lines]
 
-%% a second question
-\question[weight=7]{[BECHAMEL]}
 
-\bilingual{
-  Which of the ingredients below does not belong in a b\'echamel
-  sauce:
-}{
-  Welk van de onderstaande ingredi\"enten hoort niet thuis in
-  een b\'echamel saus:
+%% Q2
+\question[weight=10]{\par
+  \bilingual{
+    During a population survey, researchers captured and tagged 42 \textit{Homo kommomanis} individuals
+    during an A-period. Two weeks later, during a second A-period survey,
+    they captured 60 individuals, of which 15 carried a tag from the first capture.
+  }{
+    Tijdens een populatieonderzoek werden 42 Kommomanen gevangen en gemerkt tijdens een A-periode.
+    Twee weken later, tijdens een tweede A-periode waarneming, werden 60 individuen gevangen,
+    waarvan er 15 reeds een merkteken droegen van de eerste vangst.
+  }
 }
+\subquestion[weight = 4]{\par
+  \bilingual{
+    Using the Lincoln-Petersen method,
+    estimate the total \textit{Homo kommomanis} population size in the study area.
+  }{
+    Bereken, met behulp van de Lincoln-Petersen methode,
+    de geschatte totale Kommomaanpopulatie in het onderzoeksgebied.
+  }
 
-%% this is how you specify multiple choice answering options in two languages
-\mc{\bilingual{Milk}{Melk}}
-\mc{\bilingual{Butter}{Boter}}
-\mc{\bilingual{Flower}{Bloem}}
-\mc{\bilingual{Eggs}{Eieren}}
-\mc{\bilingual{Sugar}{Suiker}}
+  \bilingual{$\symbf{\hat{N}=}$}{}
 
-%% you can insert some pages for the student to write his/her answers
-%% on.
-%% a. below the question, in this case for the remaining 19.5cm on the page
-\insertsolutionspagepartial{19.5}
-
-%% b. a full page
-\insertsolutionspage{}
-
-\clearpage
-
-%% a third question
-\question[weight=10]{[BISTROCULTURE-1]}
-
-\bilingual{
-  %% the option of the enumerate environment is thanks to the enumitem package
-  \begin{enumerate}[label=\alph*)]
-    \item Discuss the evolution of the Northern European bistro culture during
-    the latest fifty years.
-    \item Relate this to the rise of organized reviews
-    like the ones of Michelin and Gault-Millau.
-  \end{enumerate}
-}{
-  \begin{enumerate}[label=\alph*)]
-    \item Bespreek de evolutie van de Noord-Europese bistrocultuur
-    gedurende de laatste vijftig jaar.
-    \item Breng dit in relatie tot de
-    opkomst van de georganiseerde recensies zoals die van Michelin en
-    Gault-Millau.
-  \end{enumerate}
+  \bilingual{
+    Calculations:
+  }{
+    Berekeningsmethode:
+  }
 }
+\answerspacing{\baselineskip}
+\answerspace[lines=6,style=grid]
 
-%% you can insert some pages for the student to write his/her answers
-%% on.
-%% a. below the question, in this case for the remaining 22.5cm on the page
-\insertsolutionspagepartial{22.5}
-
-%% b. full pages: 3 in this case
-\foreach \i in {1,2,3} {
-  \insertsolutionspage{}
+\newpage
+\subquestion[weight=6]{\par
+  \bilingual{
+    Describe one assumption of the mark-recapture method that could specifically be undermined
+    by the Kommomaan's two-period system, and explain why.
+  }{
+    Bespreek één aanname van de merk-hervangstmethode die specifiek ondermijnd zou kunnen worden
+    door het twee-periodensysteem van de Kommomaan, en verklaar waarom.
+  }
 }
+\answerspacing{2\baselineskip}
+\answerspace[lines=15]
 
-%% c. special 'scrap' pages with a watermark on them: two in this case
-\foreach \i in {1,2} {
-  \insertsolutionspage{Scrap/Klad}
+%% Q3
+\question[weight=7]{\par
+  \bilingual{
+    The scientific name of the Komomaan, \textit{Homo kommomanis},
+    suggests a distinct species within the genus \textit{Homo}.
+    However, the observed individuals are morphologically completely
+    indistinguishable from ordinary \textit{Homo sapiens}.
+    Why is this classification as a separate species problematic?
+  }{
+    De wetenschappelijke naam van de Kommomaan, \textit{Homo kommomanis},
+    suggereert een aparte soort binnen het genus \textit{Homo}.
+    De geobserveerde individuen zijn echter morfologisch volledig niet
+    te onderscheiden van gewone \textit{Homo sapiens}.
+    Waarom is de classificatie als aparte soort hierdoor problematisch?
+  }
+}
+%% This is how you specify multiple choice answering options in two languages
+\mc{\bilingual{
+      A separate species designation requires demonstrable reproductive isolation
+      or distinct hereditary traits, and these are entirely absent here.
+    }{
+      Een aparte soortnaam vereist aantoonbare reproductieve isolatie
+      of onderscheidende erfelijke kenmerken, en die ontbreken hier volledig.
+    }}
+\mc{\bilingual{
+      The genus \textit{Homo} may not contain fictional or hypothetical species.
+    }{
+      Het genus \textit{Homo} mag geen fictieve of hypothetische soorten bevatten.
+    }}
+\mc{\bilingual{
+      Species names may not refer to human traits or behavior.
+    }{
+      Soortnamen mogen niet verwijzen naar menselijke eigenschappen of gedrag.
+    }}
+\mc{\bilingual{
+      The name is grammatically incorrect according to the rules of binomial nomenclature.
+    }{
+      De naam is grammaticaal incorrect volgens de regels van de binominale nomenclatuur.
+    }}
+
+
+%% Special 'scrap' pages with a watermark on them: three in this case
+\foreach \i in {1,...,3} {
+  \gridpage{Scrap/Klad}
 }
 %</ex2>
 %
@@ -8340,9 +8599,9 @@ een b\'echamel saus:
 %
 % \subsection{\texttt{ugentexam}}
 % \paragraph{Single column (single language)}
-% \VerbatimInput[firstline=46]{UNFINISHED-example-ugentexam-1.tex}
+% \VerbatimInput[firstline=46]{example-ugentexam-1.tex}
 % \paragraph{Double column (bilingual EN-NL)}
-% \VerbatimInput[firstline=46]{UNFINISHED-example-ugentexam-2.tex}
+% \VerbatimInput[firstline=46]{example-ugentexam-2.tex}
 %
 %
 % \StopEventually{\clearpage\PrintChanges\clearpage\PrintIndex}
