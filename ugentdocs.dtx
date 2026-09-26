@@ -6225,103 +6225,86 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*ex>
 \ExplSyntaxOn
 \newcommand{\@coverbodyexam}{
-  \node
-  [anchor=west,text~width={\paperwidth-5cm},align=left]
-  at (2.125,{\paperheight-3cm})
-  {%
-    \fontsize{18}{22}\selectfont%
-    \textsf{\textbf{\printseq{courses}{\\}{\\}{\\}}}\par
-    \ifx\@exampart\@empty
-    \else \textsf{\textbf{\@exampart}}\fi
-  };
-  \node
-  [anchor=west,text~width={\paperwidth-5cm},align=left]
-  at (2.125,{\paperheight-4cm})
-  {%
-    \fontsize{12}{18}\selectfont%
-    \textsf{\printseq{coursecodes}{\\}{\\}{\\}}
-  };
-
-  \node
-  [anchor=west,text~width={\paperwidth-5cm},align=left,font=\large]
-  at (2.125,{\paperheight-5cm})
-  {%
-    \fontsize{12}{18}\selectfont%
-    \textsf{
-      \ifx\@examseries\@empty{}~\else\translatekey{series}~\@examseries{}\fi
-      \hfill \@date{}}
+  % Top data
+  \node[anchor=north~west,text~width={\paperwidth-\@MTLR-\gridunit},align=left]
+  at (\@MTLR,{\paperheight-\@HTS-\gridunit}) {%
+    \color{covertitlecolor}{
+      \fontsize{18}{22}\selectfont%
+      \textsf{\textbf{\printseq{courses}{\\}{\\}{\\}}}\par
+      \ifx\@exampart\@empty\else
+        \textsf{\textbf{\@exampart}}\par
+      \fi
+      \fontsize{12}{18}\selectfont%
+      \textsf{\printseq{coursecodes}{\\}{\\}{\\}}
+    }
+    \color{coverdatacolor}{
+      \vskip 2em
+      \fontsize{12}{18}\selectfont%
+      \textsf{
+        \ifx\@examseries\@empty{}~\else\translatekey{series}~\@examseries{}\fi
+      }
+      \vskip 2em
+      \fontsize{14}{19}\selectfont%
+      \textsf{\translatekey{exam}~\@date{}}
+    }
   };
 
-  \node[anchor=south~west,align=left,inner~sep=0pt] at (3,21)
-  {%
-    \fontsize{14}{19}\selectfont%
-    \textsf{\translatekey{exam}}
-  };
-
-  \node[anchor=south~west,align=left,inner~sep=0pt] at (3,19)
-  {%
+  % Fill-in of surname, name, and student ID
+  \node[anchor=south~west,align=left,inner~sep=0pt]
+  at (\@MTLR,18){%
     \fontsize{12}{18}\selectfont%
-    \textsf{\translatekey{lastname}}
+    \color{coverdatacolor}{%
+      \textsf{\translatekey{lastname}}
+    }
   };
   \foreach \nn in {0,1,...,33} {
-    \draw[fill=white] (3,18) ++({0.5*\nn},0) rectangle +(0.5,0.8);
+    \draw[fill=white] (\@MTLR,17) ++({0.5*\nn},0) rectangle +(0.5,0.8);
   }
 
-  \node[anchor=south~west,align=left,inner~sep=0pt] at (3,17)
-  {%
+  \node[anchor=south~west,align=left,inner~sep=0pt]
+  at (\@MTLR,16){%
     \fontsize{12}{18}\selectfont%
-    \textsf{\translatekey{firstname}}
+    \color{coverdatacolor}{%
+      \textsf{\translatekey{firstname}}
+    }
   };
-
   \foreach \nn in {0,1,...,23} {
-    \draw[fill=white] (3,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
+    \draw[fill=white] (\@MTLR,15) ++({0.5*\nn},0) rectangle +(0.5,0.8);
   }
 
-  \node[anchor=south~west,align=left,inner~sep=0pt] at (16,17)
-  {%
+  \node[anchor=south~west,align=left,inner~sep=0pt]
+  at (\@MTLR+26*0.5cm,16){%
     \fontsize{12}{18}\selectfont%
-    \textsf{\translatekey{studentnr}}
+    \color{coverdatacolor}{%
+      \textsf{\translatekey{studentnr}}
+    }
   };
   \foreach \nn in {0,1,...,7} {
-    \draw[fill=white] (16,16) ++({0.5*\nn},0) rectangle +(0.5,0.8);
+    \draw[fill=white] (\@MTLR+26*0.5cm,15) ++({0.5*\nn},0) rectangle +(0.5,0.8);
   }
 
-  \node[anchor=south~west,align=left,inner~sep=0pt,text~width=17cm]
-  at (3,14)
-  {%
-    \fontsize{12}{21}\selectfont%
-    \textsf{\translatekey{examduration}: \@examduration}
+  % Bottom data
+  \node[anchor=south~west,align=left,inner~sep=0pt,text~width={\paperwidth-\@MTLR-\gridunit}]
+  at (\@MTLR,5\gridunit){%
+    \color{coverdatacolor}{
+      \fontsize{12}{21}\selectfont%
+      \textsf{\translatekey{examduration}:~\@examduration}\\
+      \textsf{\begin{tabular}{@{}rl}%
+        \translatekey{examstart}:~& \@examstart\\
+        \translatekey{examend}:~& \@examend
+        \end{tabular}}
+      \vskip 2em
+      \textsf{\getseqcaption{rooms}{:
+        {}~\printseq{rooms}{~\&~}{,~}{\translatekey{andlist}~}}}
+      \vskip 2em
+       \begin{tabular}{@{}l@{~\,}p{14.5cm}}
+        \textsf{\getseqcaption{lecturers}{}}
+        & \textsf{\textbf{\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}}}
+      \end{tabular}
+      \vskip 2em
+      \textsf{\printseq{degrees}{\\}{\\}{\\}}
+    }
   };
-  \node[anchor=south~west,align=left,inner~sep=0pt,text~width=17cm]
-  at (3,11)
-  {%
-    \fontsize{12}{15}\selectfont%
-    \textsf{\begin{tabular}{@{}l@{}ll}%
-      \translatekey{examstart}& : & \@examstart\\
-      \translatekey{examend}  & : & \@examend
-      \end{tabular}}
-  };
-
-  \node[anchor=south~west,align=left,inner~sep=0pt,text~width=17cm]
-  at (3,8)
-  {%
-    \fontsize{12}{21}\selectfont%
-    \textsf{\getseqcaption{rooms}{: \printseq{rooms}{~\&~}{,~}{\translatekey{andlist}~}}}
-  };
-
-  \node[anchor=west,align=left,font=\large]
-  (SN) at (2.55,4.9)
-  {
-    \begin{tabular}{@{}l@{~\,}p{14.5cm}}
-    \textsf{\getseqcaption{lecturers}{}}
-    & \textsf{\textbf{\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}}}
-    \end{tabular}
-  };
-
-  \node[anchor=west,text~width=17.5cm,align=left,font=\small]
-  at (2.55,3.7)
-  {\textsf{\printseq{degrees}{\\}{\\}{\\}}\\
-    \textsf{\textbf{\@faculty{}}}}; % TODO should handle empty
 }
 \ExplSyntaxOff
 %</ex>
@@ -7097,10 +7080,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs1>
 %
 %
-%<*bama1|bama2|rp1|rp2>
+%<*bama1|bama2|rp1|rp2|ex1|ex2>
 %% coverbg            Adds a coloured background area to the cover page
 %%                    Options: true, false*
-%</bama1|bama2|rp1|rp2>
+%</bama1|bama2|rp1|rp2|ex1|ex2>
 %
 %
 %<*le1>
