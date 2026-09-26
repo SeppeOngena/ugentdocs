@@ -4412,8 +4412,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   The line or grid spacing dimension can be set using
 %   |\answerspacing{<length>}|.
 %   Specifying no |style| optional argument just prints the outline box,
-%   whilst |style=grid| produces a |lightgray| dotted grid,
-%   and |style=lines| produces a |lightgray| lined box.
+%   whilst |style=grid| produces a |darkgray| dotted grid,
+%   and |style=lines| produces a |darkgray| lined box.
 % \iffalse
 %<*ex>
 \ExplSyntaxOn
@@ -4458,9 +4458,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % Set style of grid and lines
 \tikzset{
   answer-grid/.style  =
-    { densely~dotted, lightgray, step = \l_@@_anslinestep_dim },
+    { densely~dotted, darkgray, step = \l_@@_anslinestep_dim },
   answer-lines/.style =
-    { densely~dotted, lightgray, xstep = \paperwidth, ystep = \l_@@_anslinestep_dim },
+    { densely~dotted, darkgray, xstep = \paperwidth, ystep = \l_@@_anslinestep_dim },
   answer-/.style      =
     { draw = none },
 }
@@ -4856,19 +4856,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \fi
 %</crs>
 %    \end{macrocode}
-% TODO DOCUMENTATION
+% For the |exam| class, this is simply the extra info.
 %    \begin{macrocode}
 %<*ex>
 ~\par\relax
 \clearpage
-\lfoot[\small \@shorttitle]{\small \@shorttitle}
-\rfoot[\small
-\ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi~---
-{}~\@academicyear]
-{\small
-  \ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi
-  {}~---~\@academicyear}
-\renewcommand*{\footrulewidth}{1pt}
 \@extrainfo{}
 %</ex>
 %
@@ -5586,7 +5578,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %    \begin{macrocode}
 %<*ex>
 \fancyhf{}
-\fancyfoot[C]{\small\thepage/\ztotpages}
 \ExplSyntaxOn
 \bool_if:NTF \l_@@_examiner_bool {
   \fancyhead[R]{\small EXAMINER~VERSION}
@@ -5599,10 +5590,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \fancyhead[R]{\small \translatekey{studentnr}:
     {}~\phantom{\large 00000000}~\translatekey{name}:\hspace{3cm}}
 }
+\fancyfoot[L]{\small \@shorttitle}
+\fancyfoot[R]{\small
+\ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi{}
+{}~---~\@academicyear}
 \ExplSyntaxOff
 
 \setlength{\headheight}{13.7pt}
 \renewcommand*{\headrulewidth}{0pt}
+\renewcommand*{\footrulewidth}{1pt}
 %</ex>
 %    \end{macrocode}
 %
@@ -7145,7 +7141,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<rp1>\documentclass[bw,10pt,twoside,openright,dutch,coverbg]{ugentreport}
 %<rp2>\documentclass[10pt,oneside,openany]{ugentreport}
 %<le1>\documentclass[bw]{ugentletter}
-%<ex1|ex2>\documentclass[bw,10pt, dutch]{ugentexam}
+%<ex1>\documentclass[bw,10pt, dutch]{ugentexam}
+%<ex2>\documentclass[bw,10pt, coverbg]{ugentexam}
 %
 %
 % Class options notes ----------------------------------------------------------
@@ -7270,6 +7267,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \usepackage[backend=biber, style=authoryear]{biblatex}
 \addbibresource{biblatex-examples.bib} %% Change this to your own bibliography
 
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|ex1|ex2>
 %% Use this package if you want uniform and clean quantities and units
 %% following SI conventions.
 \usepackage{siunitx}
@@ -7278,13 +7277,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %% Use this package if you want to easily typeset chemical equations.
 \usepackage{mhchem}
 
-%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
-%
-%
-%<*ex1|ex2>
-%% This package eases numbering of subquestions
-\usepackage{enumitem}
-%</ex1|ex2>
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|ex1|ex2>
 %
 %
 % Font override to Arial -------------------------------------------------------
@@ -7679,16 +7672,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</phd1|phd2>
 %
 %
-%<*ex2>
-%% If you make a copy per student, you can provide a number on the copy
-\studentnr{<studentnr>}
-%</ex2>
-%<*ex1>
-%% If you make a copy per student, you can provide a number on the copy
-%%\studentnr{<studentnr>}
-%</ex1>
-%
-%
 %<*phd1|phd2|rp2|le1>
 %% Contact ----------------------------------------------------------------------
 %</phd1|phd2|rp2|le1>
@@ -7798,7 +7781,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</ex1>
 %<*ex2>
 %% Course information
-\course{I009000}{Fieldwork Methods in Environmental and Hydrological Systems}
+\course{I009000}{Field Biology: Species Recognition and Habitat Assessment}
 
 %</ex2>
 %
@@ -7845,9 +7828,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %<*ex1>
 %% Instruct your students about important details.
-%% 'firstpage' puts in on the first page, if omitted the extra info is
-%% printed on the back of the first page
-\extrainfo[firstpage]{
+\extrainfo{
   Belangrijke informatie:\\\par
   Het volledige Onderwijs- en Examenregelement (OER) is van toepassing
   op dit examen.
@@ -7878,8 +7859,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 %<*ex2>
 %% Instruct your students about important details.
-%% 'firstpage' puts in on the first page, if omitted the extra info is
-%% printed on the back of the first page
 \extrainfo{
   %% The bilingual command allows you to specify a left column in English
   %% and right column in Dutch
@@ -7968,18 +7947,23 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
       \item Hand in \emph{all} papers to the staff member on duty, at the
       end of the examination.
     \end{itemize}
-    Success!
   }{
     \begin{itemize}
       \item Op het einde van het examen geef je \emph{alle} bladen weer af
       aan de aanwezige docent.
     \end{itemize}
-    Succes!
   }
-  \clearpage
+
+  \bilingual{Succes!}{Succes!}
 }
 
+%% Adjust colours for better to print cover page with background
+\colorlet{coverbgcolor}{ugent@faculty!10}
+\colorlet{covertitlecolor}{ugent@main}
+\colorlet{coverdatacolor}{black}
+
 %</ex2>
+%
 %
 %
 %<*le1>
@@ -8381,138 +8365,169 @@ For all else, we trust you can find what you need with a bit of decent searching
 }
 %</le1>
 %
-%<*ex1>
-%% a first question (with an identifier that can help you remember which
-%% question it is out of your huge database)
-\question[weight=3]{[VLATOP-BISTRO]}
-
-Geef de eerste vijf laureaten van de VLATOP-bistro
-competitie.
-
-%% a second question
-\question[weight=7]{[BECHAMEL]}
-
-Welk van de onderstaande ingredi\"enten hoort niet thuis in
-een b\'echamel saus:
-
-%% this is how you specify the multiple choice answering options
-\mc{Melk}
-\mc{Boter}
-\mc{Bloem}
-\mc{Eieren}
-\mc{Suiker}
-
-%% you can insert some pages for the student to write his/her answers
-%% on.
-%% a. below the question, in this case for the remaining 11.5cm on the page
-\insertsolutionspagepartial{11.5}
-
-%% b. a full page
-\insertsolutionspage{}
+%<*ex1|ex2>
+%% Insert the point overview of the questions
+\vspace{3em}
+\pointoverview
 \clearpage
 
-%% a third question
-\question[weight=10]{[BISTROCULTURE-1]}
-
-%% the option of the enumerate environment is thanks to the enumitem package
-\begin{enumerate}[label=\alph*)]
-  \item Bespreek de evolutie van de Noord-Europese bistrocultuur
-  gedurende de laatste vijftig jaar.
-  \item Breng dit in relatie tot de
-  opkomst van de georganiseerde recensies zoals die van Michelin en
-  Gault-Millau.
-\end{enumerate}
-
-%% you can insert some pages for the student to write his/her answers
-%% on.
-%% a. below the question, in this case for the remaining 23cm on the page
-\insertsolutionspagepartial{23}
-
-%% b. full pages: 3 in this case
-\foreach \i in {1,2,3} {
-  \insertsolutionspage{}
+%</ex1|ex2>
+%<*ex1>
+%% Q1
+\question[weight=6]{%
+  Beschrijf het twee-periodensysteem van de Kommomaan.%
 }
 
-%% c. special 'scrap' pages with a watermark on them: two in this case
-\foreach \i in {1,2} {
-  \insertsolutionspage{Kladpapier}
+\answerspacing{2\baselineskip}
+\answerspace[lines=12,style=lines]
+
+%% Q2
+\question[weight=10]{%
+  Tijdens een populatieonderzoek werden 42 Kommomanen gevangen en gemerkt tijdens een A-periode.
+  Twee weken later, tijdens een tweede A-periode waarneming, werden 60 individuen gevangen,
+  waarvan er 15 reeds een merkteken droegen van de eerste vangst.
+}
+  \subquestion[weight = 4]{%
+    Bereken, met behulp van de Lincoln-Petersen methode,
+    de geschatte totale Kommomaanpopulatie in het onderzoeksgebied.
+
+    $\symbf{\hat{N}=}$
+
+    Berekeningsmethode:
+  }
+  \answerspacing{\baselineskip}
+  \answerspace[lines=6,style=grid]
+  \subquestion[weight=6]{
+    Bespreek één aanname van de merk-hervangstmethode die specifiek ondermijnd zou kunnen worden
+    door het twee-perioden-systeem van de Kommomaan, en verklaar waarom.
+  }
+  \answerspacing{2\baselineskip}
+  \answerspace[lines=15]
+
+%% Q3
+\question[weight=4]{%
+  De wetenschappelijke naam van de Kommomaan, \textit{Homo kommomanis},
+  suggereert een aparte soort binnen het genus \textit{Homo}.
+  De geobserveerde individuen zijn echter morfologisch volledig niet
+  te onderscheiden van gewone \textit{Homo sapiens}.
+  Waarom is de classificatie als aparte soort hierdoor problematisch?
+}
+%% This is how you specify the multiple choice answering options
+\mc{
+  Een aparte soortnaam vereist aantoonbare reproductieve isolatie
+  of onderscheidende erfelijke kenmerken, en die ontbreken hier volledig.
+}
+\mc{Het genus \textit{Homo} mag geen fictieve of hypothetische soorten bevatten.}
+\mc{Soortnamen mogen niet verwijzen naar menselijke eigenschappen of gedrag.}
+\mc{De naam is grammaticaal incorrect volgens de regels van de binominale nomenclatuur.}
+
+%% Special 'scrap' pages with a watermark on them: three in this case
+\foreach \i in {1,...,3} {
+  \gridpage{Kladpapier}
 }
 %</ex1>
 %<*ex2>
-%% a first question (with an identifier that can help you remember which
-%% question it is out of your huge database)
-\question[weight=3]{[VLATOP-BISTRO]}
-
-%% typeset the question in two columns
-\bilingual{
-  Write down the first five laureates of the VALTOP-bistro competition.
-}{
-  Geef de eerste vijf laureaten van de VLATOP-bistro
-  competitie.
+%% Q1
+\question[weight=6]{\par
+  \bilingual{
+    Describe the two-period system of the Homo Kommomanis.%
+  }{
+    Beschrijf het twee-periodensysteem van de Kommomaan.%
+  }
 }
+\answerspacing{2\baselineskip}
+\answerspace[lines=12,style=lines]
 
-%% a second question
-\question[weight=7]{[BECHAMEL]}
 
-\bilingual{
-  Which of the ingredients below does not belong in a b\'echamel
-  sauce:
-}{
-  Welk van de onderstaande ingredi\"enten hoort niet thuis in
-  een b\'echamel saus:
+%% Q2
+\question[weight=10]{\par
+  \bilingual{
+    During a population survey, researchers captured and tagged 42 \textit{Homo kommomanis} individuals
+    during an A-period. Two weeks later, during a second A-period survey,
+    they captured 60 individuals, of which 15 carried a tag from the first capture.
+  }{
+    Tijdens een populatieonderzoek werden 42 Kommomanen gevangen en gemerkt tijdens een A-periode.
+    Twee weken later, tijdens een tweede A-periode waarneming, werden 60 individuen gevangen,
+    waarvan er 15 reeds een merkteken droegen van de eerste vangst.
+  }
 }
+\subquestion[weight = 4]{\par
+  \bilingual{
+    Using the Lincoln-Petersen method,
+    estimate the total \textit{Homo kommomanis} population size in the study area.
+  }{
+    Bereken, met behulp van de Lincoln-Petersen methode,
+    de geschatte totale Kommomaanpopulatie in het onderzoeksgebied.
+  }
 
-%% this is how you specify multiple choice answering options in two languages
-\mc{\bilingual{Milk}{Melk}}
-\mc{\bilingual{Butter}{Boter}}
-\mc{\bilingual{Flower}{Bloem}}
-\mc{\bilingual{Eggs}{Eieren}}
-\mc{\bilingual{Sugar}{Suiker}}
+  \bilingual{$\symbf{\hat{N}=}$}{}
 
-%% you can insert some pages for the student to write his/her answers
-%% on.
-%% a. below the question, in this case for the remaining 19.5cm on the page
-\insertsolutionspagepartial{19.5}
-
-%% b. a full page
-\insertsolutionspage{}
-
-\clearpage
-
-%% a third question
-\question[weight=10]{[BISTROCULTURE-1]}
-
-\bilingual{
-  %% the option of the enumerate environment is thanks to the enumitem package
-  \begin{enumerate}[label=\alph*)]
-    \item Discuss the evolution of the Northern European bistro culture during
-    the latest fifty years.
-    \item Relate this to the rise of organized reviews
-    like the ones of Michelin and Gault-Millau.
-  \end{enumerate}
-}{
-  \begin{enumerate}[label=\alph*)]
-    \item Bespreek de evolutie van de Noord-Europese bistrocultuur
-    gedurende de laatste vijftig jaar.
-    \item Breng dit in relatie tot de
-    opkomst van de georganiseerde recensies zoals die van Michelin en
-    Gault-Millau.
-  \end{enumerate}
+  \bilingual{
+    Calculations:
+  }{
+    Berekeningsmethode:
+  }
 }
+\answerspacing{\baselineskip}
+\answerspace[lines=6,style=grid]
 
-%% you can insert some pages for the student to write his/her answers
-%% on.
-%% a. below the question, in this case for the remaining 22.5cm on the page
-\insertsolutionspagepartial{22.5}
-
-%% b. full pages: 3 in this case
-\foreach \i in {1,2,3} {
-  \insertsolutionspage{}
+\newpage
+\subquestion[weight=6]{\par
+  \bilingual{
+    Describe one assumption of the mark-recapture method that could specifically be undermined
+    by the Kommomaan's two-period system, and explain why.
+  }{
+    Bespreek één aanname van de merk-hervangstmethode die specifiek ondermijnd zou kunnen worden
+    door het twee-periodensysteem van de Kommomaan, en verklaar waarom.
+  }
 }
+\answerspacing{2\baselineskip}
+\answerspace[lines=15]
 
-%% c. special 'scrap' pages with a watermark on them: two in this case
-\foreach \i in {1,2} {
-  \insertsolutionspage{Scrap/Klad}
+%% Q3
+\question[weight=7]{\par
+  \bilingual{
+    The scientific name of the Komomaan, \textit{Homo kommomanis},
+    suggests a distinct species within the genus \textit{Homo}.
+    However, the observed individuals are morphologically completely
+    indistinguishable from ordinary \textit{Homo sapiens}.
+    Why is this classification as a separate species problematic?
+  }{
+    De wetenschappelijke naam van de Kommomaan, \textit{Homo kommomanis},
+    suggereert een aparte soort binnen het genus \textit{Homo}.
+    De geobserveerde individuen zijn echter morfologisch volledig niet
+    te onderscheiden van gewone \textit{Homo sapiens}.
+    Waarom is de classificatie als aparte soort hierdoor problematisch?
+  }
+}
+%% This is how you specify multiple choice answering options in two languages
+\mc{\bilingual{
+      A separate species designation requires demonstrable reproductive isolation
+      or distinct hereditary traits, and these are entirely absent here.
+    }{
+      Een aparte soortnaam vereist aantoonbare reproductieve isolatie
+      of onderscheidende erfelijke kenmerken, en die ontbreken hier volledig.
+    }}
+\mc{\bilingual{
+      The genus \textit{Homo} may not contain fictional or hypothetical species.
+    }{
+      Het genus \textit{Homo} mag geen fictieve of hypothetische soorten bevatten.
+    }}
+\mc{\bilingual{
+      Species names may not refer to human traits or behavior.
+    }{
+      Soortnamen mogen niet verwijzen naar menselijke eigenschappen of gedrag.
+    }}
+\mc{\bilingual{
+      The name is grammatically incorrect according to the rules of binomial nomenclature.
+    }{
+      De naam is grammaticaal incorrect volgens de regels van de binominale nomenclatuur.
+    }}
+
+
+%% Special 'scrap' pages with a watermark on them: three in this case
+\foreach \i in {1,...,3} {
+  \gridpage{Scrap/Klad}
 }
 %</ex2>
 %
