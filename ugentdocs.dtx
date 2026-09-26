@@ -4120,33 +4120,17 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeMacro[ex]{\extrainfo}
-%   \oarg{separatepage $\vert$ firstpage}
 %   \marg{extra information text}
 %   \margintag{tag}\\
 %   Specifies the extra information to describe
 %   the materials that can be used during the examination
 %   and cautioning the students not to commit fraud.
-%   When the optional argument is |separatepage| (default),
-%   the extra info appears on the back of the cover page.
-%   For the |firstpage| optional argument,
-%   the extra info starts on the first page, below the title block.
-%   In that case the extra info will also not be terminated with a
-%   clearpage (as we assume you want to conserve space).
 % \iffalse
 %<*ex>
-\ExplSyntaxOn
 \newcommand{\@extrainfo}{}
-\NewDocumentCommand{\extrainfo}{O{separatepage} +m} {
-  \str_case:nnF { #1 } {
-    { separatepage } { \renewcommand{\@extrainfo}{\clearpage #2 \clearpage} }
-    { firstpage    } { \renewcommand{\@extrainfo}{#2} }
-  }{
-    \PackageError{ugentdocs}
-    { The~first~(optional)~argument~of~\protect\extrainfo~can~only~be~'separatepage'~or~'firstpage' }
-    { See~the~ugentdocs~manual. }
-  }
+\NewDocumentCommand{\extrainfo}{+m} {
+  \renewcommand{\@extrainfo}{#1}
 }
-\ExplSyntaxOff
 %</ex>
 % \fi
 %
