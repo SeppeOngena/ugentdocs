@@ -4193,6 +4193,71 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \kern 1cm
 }
 
+% Question label box
+\box_new:N \l_@@_qlabel_box
+
+\cs_new_protected:Npn \@@_hanginglabel:n #1 {
+  \hbox_set:Nn \l_@@_qlabel_box { #1 }
+  \hangindent = \wd\l_@@_qlabel_box
+  \hangafter  = 1
+  \box_use:N \l_@@_qlabel_box
+}
+
+% Question and subqestion
+\NewDocumentCommand{\question}{O{} +m} {
+  \par
+  \bool_set_false:N \l_@@_qhasweight_bool
+  \int_zero:N \l_@@_qweight_int
+  \tl_set_eq:NN \l_@@_pointlabel_tl \g_@@_pointlabel_default_tl
+  \keys_set:nn { ugentdocs/question } { #1 }
+  \stepcounter{question}
+  \begingroup
+    \noindent
+    \bool_if:NT \l_@@_qhasweight_bool {
+      \textbf{\@@_qmarginlabel:n { \int_use:N \l_@@_qweight_int \l_@@_pointlabel_tl }}
+    }
+    \textbf{\translatekey{question}~\thequestion{}:}~#2%
+    \bool_if:NT \l_@@_qhasweight_bool {
+      \@@_qoverview_write:nnn { 0 }
+        { \thequestion } { \int_use:N \l_@@_qweight_int }
+    }
+    \par
+  \endgroup
+}
+
+\NewDocumentCommand{\subquestion}{O{} +m} {
+  \par
+  \bool_set_false:N \l_@@_qhasweight_bool
+  \int_zero:N \l_@@_qweight_int
+  \tl_set_eq:NN \l_@@_pointlabel_tl \g_@@_pointlabel_default_tl
+  \keys_set:nn { ugentdocs/question } { #1 }
+  \stepcounter{subquestion}
+  \begingroup
+    \noindent
+    \advance\leftskip by 0.25cm\relax
+    \parindent=0pt
+    \noindent
+    \bool_if:NT \l_@@_qhasweight_bool {
+      \@@_qmarginlabel:n { \int_use:N \l_@@_qweight_int \l_@@_pointlabel_tl }
+    }
+    \@@_hanginglabel:n { \thesubquestion)~ }
+    ~#2%
+    \bool_if:NT \l_@@_qhasweight_bool {
+      \@@_qoverview_write:nnn { 1 }
+        { \thequestion\thesubquestion } { \int_use:N \l_@@_qweight_int }
+    }
+    \par
+  \endgroup
+}
+\ExplSyntaxOff
+%</ex>
+% \fi
+%
+% \DescribeMacro[ex]{\pointoverview}
+%   Prints the point overview table, including a total row.
+% \iffalse
+%<*ex>
+\ExplSyntaxOn
 % Question overview aux file
 \seq_new:N \g_@@_qoverview_seq
 \iow_new:N \g_@@_qoverview_iow
@@ -4251,64 +4316,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \group_end:
   \par
 }
-
-% Question label box
-\box_new:N \l_@@_qlabel_box
-
-\cs_new_protected:Npn \@@_hanginglabel:n #1 {
-  \hbox_set:Nn \l_@@_qlabel_box { #1 }
-  \hangindent = \wd\l_@@_qlabel_box
-  \hangafter  = 1
-  \box_use:N \l_@@_qlabel_box
-}
-
-% Question and subqestion
-\NewDocumentCommand{\question}{O{} +m} {
-  \par
-  \bool_set_false:N \l_@@_qhasweight_bool
-  \int_zero:N \l_@@_qweight_int
-  \tl_set_eq:NN \l_@@_pointlabel_tl \g_@@_pointlabel_default_tl
-  \keys_set:nn { ugentdocs/question } { #1 }
-  \stepcounter{question}
-  \begingroup
-    \noindent
-    \bool_if:NT \l_@@_qhasweight_bool {
-      \textbf{\@@_qmarginlabel:n { \int_use:N \l_@@_qweight_int \l_@@_pointlabel_tl }}
-    }
-    \textbf{\translatekey{question}~\thequestion{}:}~#2%
-    \bool_if:NT \l_@@_qhasweight_bool {
-      \@@_qoverview_write:nnn { 0 }
-        { \thequestion } { \int_use:N \l_@@_qweight_int }
-    }
-    \par
-  \endgroup
-}
-
-\NewDocumentCommand{\subquestion}{O{} +m} {
-  \par
-  \bool_set_false:N \l_@@_qhasweight_bool
-  \int_zero:N \l_@@_qweight_int
-  \tl_set_eq:NN \l_@@_pointlabel_tl \g_@@_pointlabel_default_tl
-  \keys_set:nn { ugentdocs/question } { #1 }
-  \stepcounter{subquestion}
-  \begingroup
-    \noindent
-    \advance\leftskip by 0.25cm\relax
-    \parindent=0pt
-    \noindent
-    \bool_if:NT \l_@@_qhasweight_bool {
-      \@@_qmarginlabel:n { \int_use:N \l_@@_qweight_int \l_@@_pointlabel_tl }
-    }
-    \@@_hanginglabel:n { \thesubquestion)~ }
-    ~#2%
-    \bool_if:NT \l_@@_qhasweight_bool {
-      \@@_qoverview_write:nnn { 1 }
-        { \thequestion\thesubquestion } { \int_use:N \l_@@_qweight_int }
-    }
-    \par
-  \endgroup
-}
-
 \ExplSyntaxOff
 %</ex>
 % \fi
