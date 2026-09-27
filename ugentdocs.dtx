@@ -2174,6 +2174,25 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</clo>
 % \fi
 %
+% \DescribeOption[common]{affiliationformat}
+%   \DescribeDefault{alph}
+%   Options: |arabic|, |alph|\\
+%   Sets affiliation indexes to |arabic| (``1,2,3'') or |alph| (``a,b,c'').
+% \iffalse
+%<*clo>
+\ExplSyntaxOn
+\tl_new:N \l_@@_affformat_tl
+
+\keys_define:nn { ugentdocs } {
+  affiliationformat .choices:nn =
+  { arabic, alph }
+  { \tl_set_eq:NN \l_@@_affformat_tl \l_keys_choice_tl } ,
+  affiliationformat .initial:n = alph ,
+}
+\ExplSyntaxOff
+%</clo>
+% \fi
+%
 % Among other things such as email addresses or mobile numbers, names are stored
 % in \LaTeX{}3 sequences. Several macros are introduced here to work with those
 % sequences.
@@ -2433,7 +2452,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   secnums .default:n = true ,
 }
 %</bmr>
-%\fi
+% \fi
+%
 %
 %<*phd|bkc|crs|rp|le|ex|bama|bmr|art>
 \ExplSyntaxOff
@@ -3470,15 +3490,126 @@ top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
 % \subsubsection{People}
 % \label{S:usage:macros:people}
 %
+% \DescribeMacro[crs-bama-phd-rp-bkc-le-ex-art]{\affiliation}
+%   \marg{affiliation}
+%   \margintag{affiliations\_seq}
+%   \margintag{affidx\_seq}
+%   \margintag{affiliationscalls\_seq}\\
+%   Adds an affiliation to the sequence.
+%   It can then be used as, e.g., ``a'' or ``1''
+%   (depending on the affiliationformat option) in the |\author| macro.
+%   Specifying an affiliation in the |\author| macro
+%   not currently present in the sequence
+%   also adds that affiliation to the sequence.
+%   Any affiliation added is added as plain
+%   ``|\affiliation{<affiliation>}|'' to the |affiliationscalls| sequence.
+% \iffalse
+%<*phd|crs|bama|bkc|ex|le|rp|art>
+\ExplSyntaxOn
+\seq_new:N \g_@@_affiliations_seq
+\seq_new:N \l_@@_affidx_seq
+\seq_new:N \g_@@_affiliationscalls_seq
+
+\tl_new:N \l_@@_affiltext_tl
+\tl_new:N \l_@@_affsep_tl
+\tl_set:Nn \l_@@_affsep_tl { ,~ }
+\tl_new:N  \l_@@_nameaffsep_tl
+\tl_set:Nn \l_@@_nameaffsep_tl { \\ }
+\int_new:N \l_@@_affindex_int
+
+% Affiliation keys regex constant
+\regex_const:Nn \c_@@_affkeys_regex
+{ \A \s* (?: [a-zA-Z] | \d+ ) (?: \s* , \s* (?: [a-zA-Z] | \d+ ) )* \s* \Z }
+\regex_const:Nn \c_@@_affnum_regex { \A \d+ \Z }
+
+% Msg: Affiliation not found in sequence
+\msg_new:nnn { ugentdocs } { unknown-affiliation }
+{ Affiliation~key~'#1'~does~not~refer~to~a~declared~affiliation~
+  (#2~declared~so~far). }
+
+% Helper CS for adding affiliations and affiliation calls
+\cs_new_protected:Nn \@@_addaffiliation:n {
+  \int_zero:N \l_@@_affindex_int
+  \seq_map_indexed_inline:Nn \g_@@_affiliations_seq {
+    \tl_if_eq:nnT {##2} {#1} {
+      \seq_map_break:n { \int_set:Nn \l_@@_affindex_int {##1} }
+    }
+  }
+  \int_compare:nNnT \l_@@_affindex_int = 0 {
+    \seq_gput_right:Nn \g_@@_affiliations_seq {#1}
+    \seq_gput_right:Nn \g_@@_affiliationscalls_seq { \affiliation {#1} }
+    \int_set:Nn \l_@@_affindex_int { \seq_count:N \g_@@_affiliations_seq }
+  }
+}
+
+% Helper CS for I) adding affiliation indexes II) setting affiltext
+\cs_new_protected:Nn \@@_addaffindex: {
+  \seq_put_right:Nx \l_@@_affidx_seq {
+    \use:c { int_to_ \l_@@_affformat_tl :n } { \l_@@_affindex_int }
+  }
+  \tl_if_empty:NF \l_@@_affiltext_tl {
+    \tl_put_right:NV \l_@@_affiltext_tl \l_@@_affsep_tl
+  }
+  \tl_put_right:Nx \l_@@_affiltext_tl {
+    \seq_item:Nn \g_@@_affiliations_seq { \l_@@_affindex_int }
+  }
+}
+
+% General add to affiliations helper
+\cs_new_protected:Nn \@@_addto_affseq:n {
+  \seq_clear:N \l_@@_affidx_seq
+  \tl_clear:N \l_@@_affiltext_tl
+  \regex_match:NnTF \c_@@_affkeys_regex {#1} {
+    \clist_map_inline:nn {#1} {
+      \regex_match:NnTF \c_@@_affnum_regex {##1}{
+        \int_set:Nn \l_@@_affindex_int {##1}
+      }{
+        \int_set:Nn \l_@@_affindex_int { \int_from_alph:n {##1} }
+      }
+      \bool_lazy_or:nnTF
+      { \int_compare_p:nNn \l_@@_affindex_int < 1 }
+      { \int_compare_p:nNn \l_@@_affindex_int > { \seq_count:N \g_@@_affiliations_seq } }{
+        \msg_error:nnee { ugentdocs } { unknown-affiliation }
+        {##1} { \seq_count:N \g_@@_affiliations_seq }
+      }{
+        \@@_addaffindex:
+      }
+    }
+    \tl_if_empty:NF \l_@@_affiltext_tl{
+      \tl_put_left:Nn \l_@@_affiltext_tl { \l_@@_nameaffsep_tl }
+    }
+  }{
+    \tl_if_blank:nF {#1}{
+      \@@_addaffiliation:n {#1}
+      \@@_addaffindex:
+    }
+  }
+  \seq_gput_right:Nx \g_@@_authoraffs_seq { \seq_use:Nn \l_@@_affidx_seq {,} }
+}
+
+\NewDocumentCommand{\affiliation}{m}{
+  \@@_addaffiliation:n {#1}
+}
+\ExplSyntaxOff
+%</phd|crs|bama|bkc|ex|le|rp|art>
+% \fi
+%
 % \DescribeMacro[crs-bama-phd-rp-bkc-le-ex-art]{\author}
+%   \oarg{corresponding}
+%   \oarg{email}
+%   \oarg{orcid}
 %   \marg{title}
 %   \marg{Surname, Firstname}
 %   \marg{affiliation}
 %   \margintag{mandatory}
 %   \margintag{authors\_seq}
 %   \margintag{authorswaff\_seq}
+%   \margintag{authoraffs\_seq}
 %   \margintag{authorlist\_seq}
-%   \margintag{authorscalls\_seq}\\
+%   \margintag{authorscalls\_seq}
+%   \margintag{authorcorr\_seq}
+%   \margintag{authoremails\_seq}
+%   \margintag{authororcids\_seq}\\
 %   This macro adds an author to the document.
 %   The author name should be in BibTeX format (i.e., ``Surname, Firstname'').
 %   Use multiple calls for multiple authors.\\
@@ -3486,6 +3617,11 @@ top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
 %   start with a newline: '|\\|',
 %   start with '|, |' for regular inline,
 %   or even '|&|' for horizontal alignment in the |bama| \& |report| cover pages.
+%   Optional argument |corresponding| set the author as corresponding,
+%   |email| specifies the author email, and |orcid| the ORCID.
+%   These are stored in the |authorcorr|, |authoremails|,
+%   and |authororcids| sequences.
+%
 %   The authors are used in
 %   the |bama|, |report| (optional), and |phd| cover pages,
 %   the |bama| autograph / copyright page,
@@ -3514,40 +3650,73 @@ top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
 %<*phd|crs|bama|bkc|ex|le|rp|art>
 \ExplSyntaxOn
 % General add name helper
-\cs_new:Nn \@@_addto_nameseq:nnn {
+\cs_new_protected:Nn \@@_addto_nameseq:nnn {
   % args: seq, title, name
   \exp_args:Nc \seq_gput_right:Nn { g_@@_#1_seq } { #2~\@formatname{#3}\strut }
 }
 
 % General add name with affiliation helper
-\cs_new:Nn \@@_addto_nameaffiliationseq:nnnn {
+\cs_new_protected:Nn \@@_addto_nameaffiliationseq:nnnn {
   % args: seq, title, name, affiliation
   \exp_args:Nc \seq_gput_right:Nn { g_@@_#1waff_seq } {%
     \tl_if_blank:nF {#2} { #2~ }
-    \@formatname{#3}\strut#4\strut % User specifies sep themselves
+    \@formatname{#3}\strut
+    \tl_if_blank:nF {#4} { #4\strut }
   }
 }
+\cs_generate_variant:Nn \@@_addto_nameaffiliationseq:nnnn { nnnV }
 
 % General add call helper
-\cs_new:Nn \@@_addto_callseq:nnnn {
-  % args: seq, title, name, affiliation
+\cs_new_protected:Nn \@@_addto_callseq:nnnnn {
+  % args: seq, options, title, name, affiliation
   \exp_args:Ncx \seq_gput_right:Nn { g_@@_#1calls_seq } {
     \exp_not:c { \tl_range:nnn {#1} {1} {-2} }
+    \tl_if_blank:nF {#5} { [ \exp_not:n {#5} ] }
     { \exp_not:n{#2} } { \exp_not:n{#3} } { \exp_not:n{#4} }
   }
+}
+\cs_new_protected:Nn \@@_addto_callseq:nnnn {
+  \@@_addto_callseq:nnnnn {#1} {#2} {#3} {#4} {}
 }
 
 % Declare author sequences
 \seq_new:N \g_@@_authors_seq
 \seq_new:N \g_@@_authorswaff_seq
+\seq_new:N \g_@@_authoraffs_seq
 \seq_new:N \g_@@_authorlist_seq
 \seq_new:N \g_@@_authorscalls_seq
+\seq_new:N \g_@@_authoremails_seq
+\seq_new:N \g_@@_authororcids_seq
+\seq_new:N \g_@@_authorcorr_seq
+
+\bool_new:N \l_@@_author_iscorresponding_bool
+\tl_new:N   \l_@@_author_email_tl
+\tl_new:N   \l_@@_author_orcid_tl
 
 % Add author to sequences
-\cs_new:Nn \@@_addauthor:nnn {
+\cs_new:Nn \@@_addauthor:nnnn {
+  \tl_clear:N \l_@@_author_email_tl
+  \tl_clear:N \l_@@_author_orcid_tl
+  \bool_set_false:N \l_@@_author_iscorresponding_bool
+  \keys_set:nn { ugentdocs / author } {#4}
+
+  \@@_addto_affseq:n {#3} % must be before nameaffiliationseq
+
   \@@_addto_nameseq:nnn             {authors} {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {authors} {#1}{#2}{#3}
-  \@@_addto_callseq:nnnn            {authors} {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {authors} {#1}{#2}{\l_@@_affiltext_tl}
+  \@@_addto_callseq:nnnnn           {authors} {#1}{#2}{#3}{#4}
+
+  \tl_if_blank:VTF \l_@@_author_email_tl {
+    \seq_gput_right:Nn \g_@@_authoremails_seq {}
+  }{
+    \@@_formatemail:V \l_@@_author_email_tl
+    \seq_gput_right:NV \g_@@_authoremails_seq \l_@@_email_tl
+  }
+  \seq_gput_right:NV \g_@@_authororcids_seq \l_@@_author_orcid_tl
+  \bool_if:NT \l_@@_author_iscorresponding_bool{
+    \seq_gput_right:Nx \g_@@_correspondingauthors_seq
+    { \seq_count:N \g_@@_authors_seq }
+  }
 
   \@@_parsename:n {#2}
   \seq_gput_right:Nx \g_@@_authorlist_seq {
@@ -3555,8 +3724,15 @@ top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
   }
 }
 
-\RenewDocumentCommand{\author}{mmm}{
-  \@@_addauthor:nnn { #1 } { #2 } { #3 }
+\keys_define:nn { ugentdocs / author }{
+  corresponding .bool_set:N = \l_@@_author_iscorresponding_bool,
+  corresponding .default:n  = true,
+  email         .tl_set:N   = \l_@@_author_email_tl,
+  orcid         .tl_set:N   = \l_@@_author_orcid_tl,
+}
+
+\RenewDocumentCommand{\author}{O{} mmm}{
+  \@@_addauthor:nnnn { #2 } { #3 } { #4 } { #1 }
 }
 \ExplSyntaxOff
 %</phd|crs|bama|bkc|ex|le|rp|art>
@@ -3584,8 +3760,10 @@ top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
 \seq_new:N \g_@@_lecturerscalls_seq
 \seq_new:N \g_@@_lecturerswaff_seq
 \cs_new:Nn \@@_addlecturer:nnn {
+  \@@_addto_affseq:n {#3}
+
   \@@_addto_nameseq:nnn             {lecturers} {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {lecturers} {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {lecturers} {#1}{#2}{\l_@@_affiltext_tl}
   \@@_addto_callseq:nnnn            {lecturers} {#1}{#2}{#3}
 }
 \NewDocumentCommand{\lecturer}{mmm}{
@@ -3625,13 +3803,15 @@ top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
 \seq_new:N \g_@@_allsupervisorstutors_seq
 \seq_new:N \g_@@_allsupervisorswaff_seq
 \cs_new:Nn \@@_addsupervisor:nnn {
+  \@@_addto_affseq:n {#3}
+
   \@@_addto_nameseq:nnn             {supervisors} {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {supervisors} {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {supervisors} {#1}{#2}{\l_@@_affiltext_tl}
   \@@_addto_callseq:nnnn            {supervisors} {#1}{#2}{#3}
 
   \@@_addto_nameseq:nnn             {allsupervisors}        {#1}{#2}
   \@@_addto_nameseq:nnn             {allsupervisorstutors}  {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {allsupervisors}        {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {allsupervisors}        {#1}{#2}{\l_@@_affiltext_tl}
 }
 \NewDocumentCommand{\supervisor}{mmm}{
   \@@_addsupervisor:nnn { #1 } { #2 } { #3 }
@@ -3676,12 +3856,14 @@ top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
 \seq_new:N \g_@@_cosupervisors_seq
 \seq_new:N \g_@@_cosupervisorswaff_seq
 \cs_new:Nn \@@_addcosupervisor:nnn {
+  \@@_addto_affseq:n {#3}
+
   \@@_addto_nameseq:nnn             {cosupervisors} {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {cosupervisors} {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {cosupervisors} {#1}{#2}{\l_@@_affiltext_tl}
 
   \@@_addto_nameseq:nnn             {allsupervisors}        {#1}{#2}
   \@@_addto_nameseq:nnn             {allsupervisorstutors}  {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {allsupervisors}        {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {allsupervisors}        {#1}{#2}{\l_@@_affiltext_tl}
 }
 \NewDocumentCommand{\cosupervisor}{mmm}{
   \@@_addcosupervisor:nnn { #1 } { #2 } { #3 }
@@ -3690,12 +3872,14 @@ top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
 \seq_new:N \g_@@_extsupervisors_seq
 \seq_new:N \g_@@_extsupervisorswaff_seq
 \cs_new:Nn \@@_addextsupervisor:nnn {
+  \@@_addto_affseq:n {#3}
+
   \@@_addto_nameseq:nnn             {extsupervisors} {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {extsupervisors} {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {extsupervisors} {#1}{#2}{\l_@@_affiltext_tl}
 
   \@@_addto_nameseq:nnn             {allsupervisors}        {#1}{#2}
   \@@_addto_nameseq:nnn             {allsupervisorstutors}  {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {allsupervisors}        {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {allsupervisors}        {#1}{#2}{\l_@@_affiltext_tl}
 }
 \NewDocumentCommand{\extsupervisor}{mmm}{
   \@@_addextsupervisor:nnn { #1 } { #2 } { #3 }
@@ -3704,8 +3888,10 @@ top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
 \seq_new:N \g_@@_tutors_seq
 \seq_new:N \g_@@_tutorswaff_seq
 \cs_new:Nn \@@_addtutor:nnn {
+  \@@_addto_affseq:n {#3}
+
   \@@_addto_nameseq:nnn             {tutors} {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {tutors} {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {tutors} {#1}{#2}{\l_@@_affiltext_tl}
 
   \@@_addto_nameseq:nnn             {allsupervisorstutors} {#1}{#2}
 }
@@ -3731,7 +3917,9 @@ top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
 \ExplSyntaxOn
 \seq_new:N \g_@@_jurymemberswaff_seq
 \cs_new:Nn \@@_addjurymember:nnn {
-  \@@_addto_nameaffiliationseq:nnnn {jurymembers} {#1}{#2}{#3}
+  \@@_addto_affseq:n {#3}
+
+  \@@_addto_nameaffiliationseq:nnnV {jurymembers} {#1}{#2}{\l_@@_affiltext_tl}
 }
 \NewDocumentCommand{\jurymember}{mmm}{
   \@@_addjurymember:nnn { #1 } { #2 } { #3 }
@@ -3879,20 +4067,42 @@ top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
 \ExplSyntaxOn
 \seq_new:N \g_@@_emails_seq
 \tl_new:N \l_@@_domain_tl
-\cs_new:Nn \@@_addemail:nn {
+\tl_new:N  \l_@@_email_tl
+\seq_new:N \l_@@_emailparts_seq
+
+% Helper CS for email when both name and domain are given
+\cs_new_protected:Nn \@@_formatemail:nn {
   \tl_set:Nn \l_@@_domain_tl {#1}
   \tl_if_empty:NT \l_@@_domain_tl {
     \tl_set:Nx \l_@@_lookup_key_tl { \languagename {}: domain }
     \prop_if_in:NVTF \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl
-    { \tl_set:Nx \l_@@_domain_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl } }
-    { \tl_set:Nx \l_@@_domain_tl { \prop_item:Nn \g_@@_dict_keyvals_prop {english:domain} } }
+      { \tl_set:Nx \l_@@_domain_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl } }
+      { \tl_set:Nx \l_@@_domain_tl { \prop_item:Nn \g_@@_dict_keyvals_prop {english:domain} } }
   }
   \@ifpackageloaded{hyperref}{
-    \seq_gput_right:Nx \g_@@_emails_seq
-    { \exp_not:N \href{mailto:#2@\l_@@_domain_tl}{#2@\l_@@_domain_tl} \exp_not:N \strut }
+    \tl_set:Nx \l_@@_email_tl
+    { \exp_not:N \href{mailto:#2@\l_@@_domain_tl}{#2@\l_@@_domain_tl} }
   }{
-    \seq_gput_right:Nx \g_@@_emails_seq { #2@\l_@@_domain_tl \exp_not:N \strut }
+    \tl_set:Nx \l_@@_email_tl { #2@\l_@@_domain_tl }
   }
+}
+\cs_generate_variant:Nn \@@_formatemail:nn { ee }
+
+% Helper CS for email when either full email or only local part is given
+\cs_new_protected:Nn \@@_formatemail:n {
+  \regex_extract_once:nnNTF { \A (.*) @ (.*) \Z } {#1} \l_@@_emailparts_seq {
+    \@@_formatemail:ee
+      { \seq_item:Nn \l_@@_emailparts_seq {3} }
+      { \seq_item:Nn \l_@@_emailparts_seq {2} }
+  }{
+    \@@_formatemail:nn {} {#1}
+  }
+}
+\cs_generate_variant:Nn \@@_formatemail:n { V }
+
+\cs_new_protected:Nn \@@_addemail:nn {
+  \@@_formatemail:nn {#1} {#2}
+  \seq_gput_right:Nx \g_@@_emails_seq { \exp_not:V \l_@@_email_tl \exp_not:N \strut }
 }
 \NewDocumentCommand{\email}{O{} m}{
   \@@_addemail:nn { #1 } { #2 }
@@ -5189,6 +5399,10 @@ top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
   \tl_set:Nx \l_@@_year_tl            { \exp_not:n{\the\year} }
   \tl_set:Nx \l_@@_academicyear_tl    { \exp_not:n{\@academicyear} }
 
+  \tl_clear_new:N \l_@@_affiliationscalls_tl
+  \seq_map_inline:Nn \g_@@_affiliationscalls_seq
+  { \tl_put_right:Nn \l_@@_affiliationscalls_tl { ##1 \iow_newline: } }
+
   \tl_clear_new:N \l_@@_authorscalls_tl
   \seq_map_inline:Nn \g_@@_authorscalls_seq
   { \tl_put_right:Nn \l_@@_authorscalls_tl { ##1 \iow_newline: } }
@@ -5233,6 +5447,7 @@ top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
     \iow_newline:
     \exp_not:N\title            {\exp_not:V\l_@@_title_tl}            \iow_newline:
     \exp_not:N\subtitle         {\exp_not:V\l_@@_subtitle_tl}         \iow_newline:
+    \l_@@_affiliationscalls_tl                                        \iow_newline:
     \l_@@_authorscalls_tl                                             \iow_newline:
     \exp_not:N\isbn             {\exp_not:V\l_@@_isbn_tl}             \iow_newline:
     \exp_not:N\coverimage       {\exp_not:V\l_@@_coverimage_tl}       \iow_newline:
