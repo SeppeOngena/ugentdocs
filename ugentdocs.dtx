@@ -54,7 +54,8 @@
 %<ex>\ProvidesClass{ugentexam}
 %<bmr>\ProvidesPackage{beamerthemeugent}
 %<bkc>\ProvidesClass{ugentbookcover}
-%<col|crs|bama|phd|rp|le|ex|bmr|bkc>    [2026/07/03 v1.0.0 .dtx skeleton file]
+%<art>\ProvidesClass{ugentarticle}
+%<col|crs|bama|phd|rp|le|ex|bmr|bkc|art>    [2026/07/03 v1.0.0 .dtx skeleton file]
 %<*driver>
 \documentclass[a4paper,10pt]{ltxdoc}
 %
@@ -380,10 +381,10 @@
 % constructs are never exposed directly so this has no effect on the
 % user of the classes, unless you wish to customize parts (see above).
 % \iffalse
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr|art>
 \RequirePackage{expl3}
 %\RequirePackage[check-declarations]{expl3} % I use this during debug phase
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr|art>
 % \fi
 %
 %
@@ -2260,9 +2261,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % |language|, and |nameformat| were previously defined in the section
 % above, found in the file |ugentcommon.clo| which is loaded for each class.%
 % \iffalse
-%<*crs|bama|phd|rp|bkc|le|ex|bmr>
+%<*crs|bama|phd|rp|bkc|le|ex|bmr|art>
 \input{ugentcommon.clo}
-%</crs|bama|phd|rp|bkc|le|ex|bmr>
+%</crs|bama|phd|rp|bkc|le|ex|bmr|art>
 % \fi
 % A few of the document classes have specialized options, which will be
 % described in this section.
@@ -2277,9 +2278,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 { Cover~type~'#1'~is~not~implemented. }
 \ExplSyntaxOff
 %</clo>
-%<*phd|bkc|crs|rp|le|ex|bama|bmr>
+%<*phd|bkc|crs|rp|le|ex|bama|bmr|art>
 \ExplSyntaxOn
-%</phd|bkc|crs|rp|le|ex|bama|bmr>
+%</phd|bkc|crs|rp|le|ex|bama|bmr|art>
 % \fi
 %
 % \DescribeOption[phd-bkc]{cameraready}
@@ -2417,6 +2418,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<bama>\tl_set:Nn \l_@@_covertype_tl {bama}
 %<rp>\tl_set:Nn \l_@@_covertype_tl {report}
 %<ex>\tl_set:Nn \l_@@_covertype_tl {exam}
+%<art>\tl_set:Nn \l_@@_covertype_tl {article}
 %
 %
 % \DescribeOption[bmr]{secnums}
@@ -2433,15 +2435,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bmr>
 %\fi
 %
-%<*phd|bkc|crs|rp|le|ex|bama|bmr>
+%<*phd|bkc|crs|rp|le|ex|bama|bmr|art>
 \ExplSyntaxOff
-%</phd|bkc|crs|rp|le|ex|bama|bmr>
+%</phd|bkc|crs|rp|le|ex|bama|bmr|art>
 % \fi
 %
 % Class loading operates as follows. The standard options such as |11pt|,
 % |oneside|, or |openright| are passed to the relevant base classes. For courses,
 % BSc/MSc and PhD dissertations, and reports, this is the |book| class.
-% The |ugentletter| class expands |letter|, while exams are based on |article|.
+% The |ugentletter| class expands |letter|, while exams and articles are based on |article|.
 % \iffalse
 %<*crs|bama|phd|rp>
 \PassOptionsToClass{a4paper,11pt,final,oneside,openright}{book}
@@ -2454,19 +2456,19 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \PassOptionsToClass{a4paper,10pt,final,oneside}{letter}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{letter}}
 %</le>
-%<*ex>
+%<*ex|art>
 \PassOptionsToClass{a4paper,10pt,final,twoside}{article}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
-%</ex>
+%</ex|art>
 %\fi
 % Then, our custom options are processed,
 % \iffalse
-%<*crs|bama|phd|rp|bkc|le|ex>
+%<*crs|bama|phd|rp|bkc|le|ex|art>
 \ProcessOptions\relax
-%</crs|bama|phd|rp|bkc|le|ex>
-%<*crs|bama|phd|rp|bkc|le|ex|bmr>
+%</crs|bama|phd|rp|bkc|le|ex|art>
+%<*crs|bama|phd|rp|bkc|le|ex|bmr|art>
 \ProcessKeyOptions[ ugentdocs ]
-%</crs|bama|phd|rp|bkc|le|ex|bmr>
+%</crs|bama|phd|rp|bkc|le|ex|bmr|art>
 % \fi
 % and the base classes are loaded in.
 % \iffalse
@@ -2513,9 +2515,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*le>
 \LoadClass{letter}
 %</le>
-%<*ex>
+%<*ex|art>
 \LoadClass{article}
-%</ex>
+%</ex|art>
 %<*phd|bkc>
 % Check if BW bookcover should be set
 \ExplSyntaxOn
@@ -2530,15 +2532,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % Finally, the fonts are loaded and modern typesetting is applied: no
 % paragraph indentation and decent paragraph spacing.
 % \iffalse
-%<*crs|bama|phd|rp|bkc|le|ex|bmr>
+%<*crs|bama|phd|rp|bkc|le|ex|bmr|art>
 \@loadfonts
-%</crs|bama|phd|rp|bkc|le|ex|bmr>
-%<*crs|bama|phd|rp|le|ex>
+%</crs|bama|phd|rp|bkc|le|ex|bmr|art>
+%<*crs|bama|phd|rp|le|ex|art>
 % Modern typesetting
 \setlength{\parindent}{0pt}
 \addtolength{\parskip}{0.75\baselineskip}
 \setcounter{secnumdepth}{3}
-%</crs|bama|phd|rp|le|ex>
+%</crs|bama|phd|rp|le|ex|art>
 % \fi
 %
 %
@@ -2593,7 +2595,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % or can be made to auto-install for MikTeX.
 %
 % \iffalse
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr|art>
 \RequirePackage{etoolbox}
 \IfFileExists{shellesc.sty}{
   \RequirePackage{shellesc}}{}
@@ -2616,10 +2618,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \RequirePackage{setspace}
 \RequirePackage{wasysym}
 \RequirePackage{ugentcolor}
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
-%<*crs|bama|phd|rp|le|ex>
+%</crs|bama|phd|rp|le|ex|bkc|bmr|art>
+%<*crs|bama|phd|rp|le|ex|art>
 \RequirePackage{fancyhdr}
-%</crs|bama|phd|rp|le|ex>
+%</crs|bama|phd|rp|le|ex|art>
 %<*bkc|phd|crs>
 \RequirePackage{GS1}
 %</bkc|phd|crs>
@@ -2637,7 +2639,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %     again in your customization file, but make sure a dictionary is available for
 %     the |main| language (see Section \ref{S:usage:langdateloc:dict}).
 %    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr|art>
 \ExplSyntaxOn
 \str_if_eq:VnTF \l_@@_language_tl {dutch} {
   \PassOptionsToPackage{main=dutch}{babel}
@@ -2646,11 +2648,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \RequirePackage[dutch,english]{babel}
 \ExplSyntaxOff
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr|art>
 %    \end{macrocode}
 %   \item |datetime2|: sets the date format based on the |localizedates| option.
 %    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr|art>
 \ExplSyntaxOn
 \bool_if:NTF \l_@@_localizedates_bool {
   \RequirePackage[useregional]{datetime2}
@@ -2658,7 +2660,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \RequirePackage{datetime2}
 }
 \ExplSyntaxOff
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr|art>
 %    \end{macrocode}
 %   \item |background|: adds background watermark support for the courses and
 %     reports if the |copyright| option is |true|.
@@ -2758,12 +2760,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % although this is not recommended.
 %
 % \iffalse
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr|art>
 \newlength{\@PW}      % Paper width
 \newlength{\@PH}      % Paper height
 \newlength{\gridunit} % Grid unit layout
 \newcommand*{\@setgridunit}{\pgfmathsetlength{\gridunit}{max(\@PW,\@PH)/7/4}}
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr|art>
 % \fi
 % \newlength{\gridunit}
 % \pgfmathsetlength{\gridunit}{297mm/7/4}
@@ -2799,6 +2801,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \RequirePackage[a4paper, footskip=4\gridunit,
                 top=5\gridunit, bottom=4\gridunit, left=2\gridunit, right=4.07cm]{geometry}
 %</le>
+%<*art>
+\setlength\@PW{210mm}
+\setlength\@PH{297mm}
+\@setgridunit
+\RequirePackage[paperwidth=\@PW,paperheight=\@PH,
+top=2.54cm, bottom=2.54cm, left=\gridunit, right=\gridunit]{geometry}
+%</art>
 %    \end{macrocode}
 %
 % For the |bookcover| class, the dimensions are dependent on the cover type (phd or course):
@@ -3000,7 +3009,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \newpage
 % \subsubsection{Document data}
 % \label{S:usage:macros:data}
-% \DescribeMacro[crs-bama-phd-rp-bkc-bmr-ex]{\title}
+% \DescribeMacro[crs-bama-phd-rp-bkc-bmr-ex-art]{\title}
 %   \oarg{short title}
 %   \marg{title}
 %   \margintag{mandatory}
@@ -3011,7 +3020,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   It also sets the |pdftitle| tag of the hyperref package (if it is
 %   loaded), so that the PDF-document meta-information is correct.
 % \iffalse
-%<*crs|rp|bkc|phd|bmr|ex>
+%<*crs|rp|bkc|phd|bmr|ex|art>
 \ExplSyntaxOn
 \renewcommand{\@title}{<This~is~your~document~title>}
 \newcommand{\@shorttitle}{\@title}
@@ -3025,7 +3034,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
    \@ifundefined{shorttitle}{}{\gdef\shorttitle{#1}}}
 }
 \ExplSyntaxOff
-%</crs|rp|bkc|phd|bmr|ex>
+%</crs|rp|bkc|phd|bmr|ex|art>
 % \fi
 %
 % \DescribeMacro[phd]{\titel}
@@ -3263,32 +3272,32 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bama|phd|rp>
 %    \end{macrocode}
 %
-% \DescribeMacro[phd]{\grants}
+% \DescribeMacro[phd-art]{\grants} % TODO article documentation
 %   \marg{grant text}
 %   \margintag{tag}\\
 %   Specifies any grants that supported the PhD research.
 %   Used to print a message in the PhD colophon page:
 %   ``This research was supported by |<grant text>|''
 % \iffalse
-%<*phd>
+%<*phd|art>
 \newcommand*{\@grants}{}
 \newcommand*{\grants}[1]{
   \renewcommand*{\@grants}{#1}
 }
-%</phd>
+%</phd|art>
 % \fi
 %
-% \DescribeMacro[phd]{\doi}
+% \DescribeMacro[phd-art]{\doi}
 %   \marg{DOI}
-%   \margintag{tag}\\
+%   \margintag{tag}\\ % TODO article documentation
 %   Specify the correct Digital Object Identifier (without the https://doi.org/)
 %   of your PhD for display on the colophon page of the |phd| class.
 %   If the |hyperref| package is loaded, the full URL will be linked.
 % \iffalse
-%<*phd>
+%<*phd|art>
 \newcommand*{\@doi}{}
 \newcommand*{\doi}[1]{\renewcommand*{\@doi}{#1}}
-%</phd>
+%</phd|art>
 % \fi
 %
 % \DescribeMacro[crs-phd-bkc]{\isbn}
@@ -3461,7 +3470,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \subsubsection{People}
 % \label{S:usage:macros:people}
 %
-% \DescribeMacro[crs-bama-phd-rp-bkc-le-ex]{\author}
+% \DescribeMacro[crs-bama-phd-rp-bkc-le-ex-art]{\author}
 %   \marg{title}
 %   \marg{Surname, Firstname}
 %   \marg{affiliation}
@@ -3502,7 +3511,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   so that the PDF-document meta-information is correct.
 %
 % \iffalse
-%<*phd|crs|bama|bkc|ex|le|rp>
+%<*phd|crs|bama|bkc|ex|le|rp|art>
 \ExplSyntaxOn
 % General add name helper
 \cs_new:Nn \@@_addto_nameseq:nnn {
@@ -3550,7 +3559,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \@@_addauthor:nnn { #1 } { #2 } { #3 }
 }
 \ExplSyntaxOff
-%</phd|crs|bama|bkc|ex|le|rp>
+%</phd|crs|bama|bkc|ex|le|rp|art>
 % \fi
 %
 % \DescribeMacro[crs-rp-bkc-ex]{\lecturer}
