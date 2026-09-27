@@ -8308,16 +8308,13 @@ For all else, we trust you can find what you need with a bit of decent searching
 %</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 %
 %<*phd1|phd2>
-%% This has been temporarily commented out to increase build speed
-%% Remove comment if you want to see spine text in the auto-generated cover
-%%---------------------------------
-%%\foreach \i in {A,B,C,D,E} {
-%%  \chapter{Dummy chapter \i}
-%%  \foreach \j in {1,...,50} {
-%%    \kant[22-24]
-%%  }
-%%}
-%%---------------------------------
+%% Some dummy chapters to have enough spine width
+\foreach \i in {A,B,C,D,E} {
+  \chapter{Dummy chapter \i}
+  \foreach \j in {1,...,50} {
+    \kant[22-24]
+  }
+}
 %</phd1|phd2>
 %
 %<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
