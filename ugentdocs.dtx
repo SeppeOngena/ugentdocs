@@ -3766,6 +3766,18 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   \seq_gput_right:Nx \g_@@_authoraffs_seq { \seq_use:Nn \l_@@_affidx_seq {,} }
 }
 
+% Print affiliation list for articles
+\cs_new_protected:Nn \@@_printaffiliationlist: {
+  \seq_map_indexed_inline:Nn \g_@@_affiliations_seq {
+    \hbox_set:Nn \l_tmpa_box {
+      \textsuperscript { \use:c { int_to_ \l_@@_affformat_tl :n } {##1} } ~
+    }
+    \noindent
+    \hangindent = \box_wd:N \l_tmpa_box
+    \box_use:N \l_tmpa_box ##2 \par
+  }
+}
+
 \NewDocumentCommand{\affiliation}{m}{
   \@@_addaffiliation:n {#1}
 }
