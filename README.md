@@ -20,18 +20,22 @@ Overview
 This package provides the following classes:
 - `ugentbama`: Master/bachelor's dissertation
 - `ugentphd`: PhD dissertation
-- `ugentbookcover` class to create full covers (back/spine/front) for PhD dissertations and courses
+- `ugentbookcover`: Full covers (back/spine/front) for PhD dissertations and courses
+- `ugentarticle`: Research articles for uploading to Biblio
 - `ugentreport`: Project reports, e.g. group assignments
 - `ugentcourse`: Course notes
 - `ugentletter`: Letters
 - `ugentexam`: Exams
 - `beamerthemeugent`: Presentation slides
 
-The goal is also to transfer this repository to UGent one when complete (see the [ugentdocs 1.0 project](https://github.com/users/SeppeOngena/projects/1) for up-to-date progress towards v1.0), so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 
+The goal is also to transfer this repository to a UGent one when complete (see the [ugentdocs 1.0 project](https://github.com/users/SeppeOngena/projects/1) for up-to-date progress towards v1.0), so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 
 
 
 Installation
 --
+>[!WARNING]
+> Due to the use of `fontspec` for the official logos, your documents need to be compiled using LuaLaTeX or XeLaTeX (you can easily set this in your editor), and the UGent Panno Text Medium and SemiBold fonts need to be installed
+
 I plan to add the package to CTAN, so it would be present in most distributions by itself (in the `TEXMFDIST` directory).
 To use it currently:
 - Download the package from the [releases page](https://github.com/SeppeOngena/ugentdocs/releases). It's the `ugentdocs-<version>.zip` in the "Assets" section at the bottom of a release.
@@ -55,145 +59,160 @@ To use it currently:
 ```
 - Once it is installed (and in the future if it's on CTAN you can skip the previous steps), use the class as in the examples by setting e.g. `\documentclass[<options>]{ugentphd}`
 
->[!WARNING]
-> Due to the use of `fontspec` for the official logos, your documents need to be compiled using LuaLaTeX or XeTeX (you can easily set this in your editor), and the UGent Panno Text Medium and SemiBold fonts need to be installed
-
 Features
 -- 
-For a complete list of features, you can check the documentation (`ugentdocs.pdf`).
-If you want a quick visual look at what the package provides, you can glance at the preview images below and check the included example.tex files in the download .zip.
-
-<details>
+For a complete list of features, you can check the documentation included in the release .zip (`ugentdocs.pdf`).
+If you want a quick visual look at what the package provides, you can glance at the preview images of the cover and data pages below and check the included example.tex files in the download .zip.
     
-<summary> Click to expand </summary>
-    
-### 1. `ugentbama`
-- Implements bachelor's and master's dissertation. See the examples for all functionality and specific use.
-- Generates coverpage and copyright page with signature fields automatically based on your data input, e.g. `\author`, `\supervisor`, `\tutor`, `\title`, etc.
-- The copyright page sets a confidentiality notice automatically when you set `\embargo[startdate][enddate]` or just `\embargo`
-- You can change the copyright page to the signed one using `\copyrightnotices{\includepdf{copyright_signed.pdf}}`
-- Changes titles etc. to UGent-style
+#### 1. `ugentbama`
+<details>   
+<summary> Images </summary>
   
-  <table border="0" style="width: 100%;">
+  <table>
   <tr>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-bama-1</th>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-bama-2</th>
+    <th width="50%">example-ugentbama-1</th>
+    <th width="50%">example-ugentbama-2</th>
   </tr>
   <tr>
-    <td style="border: none; text-align: left;">Using options faculty=bw, coverbg, neutralcolors, and font is UGent Panno Text (default)</td>
-    <td style="border: none; text-align: left;">Using options faculty=bw, dutch, and font is overridden to Arial</td>
+    <td><img width="100%" src="https://github.com/user-attachments/assets/46c17ca1-39fd-42ab-9b0f-78a75ecc3811" /></td>
+    <td><img width="100%" src="https://github.com/user-attachments/assets/6ea0c6c7-6d59-4efa-bba3-7ddcb8ad1745"/></td>
   </tr>
-  <tr>
-    <td style="border: none;"><img width="100%" alt="Master's title page" src="https://github.com/user-attachments/assets/31580a54-1e4c-4316-bff4-8746d44cd523" /></td>
-    <td style="border: none;"><img width="100%" alt="Bachelor's title page" src="https://github.com/user-attachments/assets/1f2ef0d8-d2aa-4967-afad-6a315a414058"/></td>
-  </tr>
-    <td style="border: none;"><img width="100%" alt="Master's copyright page" src="https://github.com/user-attachments/assets/8be2b2a7-ee48-47b1-b6c1-44fa5d147280" /></td>
-    <td style="border: none;"><img width="100%" alt="Bachelor's copyright page" src="https://github.com/user-attachments/assets/0216ccc2-b5ac-4ae0-a6f5-51fc7e4cb84e" /></td>
+    <td><img width="100%" src="https://github.com/user-attachments/assets/50e63c10-3e51-4522-8d3a-c0728b6b794a" /></td>
+    <td><img width="100%" src="https://github.com/user-attachments/assets/ef69eaa1-2983-425e-bf83-24f6a0823425" /></td>
   </tr>
 </table>
+</details>
 
-### 2. `ugentphd` and `ugentbookcover` 
-- Implements PhD dissertation. See the examples for all functionality and specific use.
-- Generates a coverpage and automatically generates a `filename-cover.tex` file which includes the full cover (back/spine/front).
-- The data pages (title, examination committee, colophon) are automatically set based on your input.
-- A `bare` option that removes the cover from your dissertation for printing
-- A `cameraready` option that embeds your content and cover into a larger (for the content an A4) page for printing.
-<table border="0" style="width: 100%;">
+#### 2. `ugentphd` 
+<details>   
+<summary> Images </summary>
+<table>
   <tr>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-phd-1</th>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-phd-2</th>
-  </tr>
-  <tr>
-    <td style="border: none; text-align: left;">Using options faculty=we,surnamefirst, dutch, and font is overridden to Arial</td>
-    <td style="border: none; text-align: left;">Using options faculty=bw, cameraready, with a coverimage and ISBN added, and font is UGent Panno Text</td>
-  </tr>
-  <tr>
-    <td style="border: none;"><img width="100%" alt="Dissertation 1 Full Cover" src="https://github.com/user-attachments/assets/2fd3cf99-5775-47c9-b09a-7e0350c65d9f" /></td>
-    <td style="border: none;"><img width="100%" alt="Dissertation 2 Full Cover" src="https://github.com/user-attachments/assets/8628a638-ed65-4ee8-bdfc-1eba9ef5c705" /></td>
+    <th width="50%">example-ugentphd-1</th>
+    <th width="50%">example-ugentphd-2</th>
   </tr>
     <td style="border: none;">
-      (cover page and blank page not shown)
-      <img width="76%" alt="image" src="https://github.com/user-attachments/assets/4e95d26f-14c4-4072-a9c7-87a65558cff5" />
-      <img width="76%" alt="image" src="https://github.com/user-attachments/assets/6c3edb71-5ebe-4981-bd04-b0546c937bce" />
-      <img width="76%" alt="image" src="https://github.com/user-attachments/assets/20d83693-1f28-41e4-b680-c03df4b61bd1" />
+      <img width="76%" src="https://github.com/user-attachments/assets/ceba3cef-ba1c-4540-89ba-2c74e8165f3a" />
+      <img width="76%" src="https://github.com/user-attachments/assets/8f29b202-8ec0-4df9-ae13-221b32f51827" />
+      <img width="76%" src="https://github.com/user-attachments/assets/7f8f9946-2b0e-40a8-a482-fb9e7422485f" />
+      <img width="76%" src="https://github.com/user-attachments/assets/50e52484-4a41-4c73-9440-475c4c08d3d9" />
     </td>
     <td style="border: none;">
-      (cover page and blank page not shown)
-      <img width="100%" alt="image" src="https://github.com/user-attachments/assets/e60f32ed-3558-41c3-a17f-66720b77860c" />
-      <img width="100%" alt="image" src="https://github.com/user-attachments/assets/7135d6d8-3385-4d0f-b0b4-5688774d9e8b" />
-      <img width="100%" alt="image" src="https://github.com/user-attachments/assets/4fc128ef-6bd7-4dee-96ee-e4991c923553" />
+      <img width="100%" src="https://github.com/user-attachments/assets/7ef849d8-5d80-40b3-a964-abf91f90ec53" />
+      <img width="100%" src="https://github.com/user-attachments/assets/23b078a4-7579-4e62-9cf7-756f4d5ca36f" />
+      <img width="100%" src="https://github.com/user-attachments/assets/859e6468-6385-402e-ade1-0078f5dddf97" />
+      <img width="100%" src="https://github.com/user-attachments/assets/92eccc72-64df-4c9a-b460-8b15675634e0" />
     </td>
   </tr>
 </table>
+</details>
 
-### 3. `ugentreport`
-- Can be used to typeset project, assignment, or meeting reports.
-- Depending on the data passed, the titlepage can be adjusted as needed (e.g. no `\author` but `\address` is used).
-- Chapter titles etc. are typeset the same as the `ugentthesis` class (see images below)
-- Other than that, the report class doesn't do much.
-<table border="0" style="width: 100%;">
+#### 3. `ugentcourse`
+<details>   
+<summary> Images </summary>
+
+**example-ugentcourse**
+
+<img width="50%" src="https://github.com/user-attachments/assets/69b40804-eeb8-4f2c-a505-9188baf5f530" />
+<img width="50%" src="https://github.com/user-attachments/assets/9e29ae01-5a78-4946-a2e4-76c6d93be28a" />
+
+</details>
+
+#### 4. `ugentbookcover`
+<details>   
+<summary> Images </summary>
+
+**example-ugentphd1-cover**
+
+<img width="100%" src="https://github.com/user-attachments/assets/eccd802a-9714-4181-a9aa-03298a4b0a6c" />
+
+**example-ugentphd2-cover**
+
+<img width="100%" src="https://github.com/user-attachments/assets/841419db-59b3-40bd-a99d-f20722aff1d4" />
+
+
+**example-ugentcourse-cover**
+
+<img width="100%" src="https://github.com/user-attachments/assets/8065ff0a-92e3-4ca6-b1ca-8c1f7cf0596f" />
+
+
+</details>
+
+#### 5. `ugentarticle`
+
+<details>   
+<summary> Images </summary>
+
+**example-ugentarticle**
+
+<img width="50%" src="https://github.com/user-attachments/assets/5b23821e-eac7-41a4-b200-84e484aa3bea" />
+<img width="50%" src="https://github.com/user-attachments/assets/b30248e2-a2ae-46ce-8df9-2ec06c0367b3" />
+
+
+</details>
+
+#### 6. `ugentreport`
+<details>   
+<summary> Images </summary>
+<table>
   <tr>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-report-1</th>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-report-2</th>
+    <th width="50%">example-ugentreport-1</th>
+    <th width="50%">example-ugentreport-2</th>
   </tr>
   <tr>
-    <td style="border: none; text-align: left;">Using no faculty options, and font is overridden to Arial</td>
-    <td style="border: none; text-align: left;">Using options faculty=bw,coverbg, dutch, and font is UGent Panno Text</td>
-  </tr>
-  <tr>
-    <td style="border: none;">
-        <img width="100%" alt="Report 1 Cover" src="https://github.com/user-attachments/assets/2454c8ad-98a9-451b-855d-0425f3d80107" />
-        <img width="100%" alt="Report 1 Data page" src="https://github.com/user-attachments/assets/9b47d5f6-d222-4b1f-b8a1-b34aa6b7b083" />
-        <img width="100%" alt="Report 1 TOC" src="https://github.com/user-attachments/assets/f3d28308-23a2-445c-afc7-067600922ad8" />
+    <td>
+        <img width="100%" src="https://github.com/user-attachments/assets/35d4a44f-8db3-4794-971c-48149214f78b" />
+        <img width="100%" src="https://github.com/user-attachments/assets/5ddb8a33-ac5b-449a-93f0-80b13bd5a080" />
     </td>
-    <td style="border: none;">
-        <img width="100%" alt="Report 2 Cover" src="https://github.com/user-attachments/assets/1810c852-f670-4205-b09d-3acbbc53a983" />
-        <img width="100%" alt="Report 2 Copyright" src="https://github.com/user-attachments/assets/191abe1d-064f-4e59-b27b-00c195ff1d70" />
-        <img width="100%" alt="Report 2 TOC" src="https://github.com/user-attachments/assets/e8625b3e-36e3-4dac-9649-a443b5fcc369" />
-    </td>
-</table>
-
-### 3. `ugentcourse`
-- Can be used to typeset course notes.
-- Generates a coverpage and automatically generates a `filename-cover.tex` file which includes the full cover (back/spine/front).
-- On the cover page, the faculty icon is shown in large if no coverimage is added.
-- Chapter titles etc. are typeset the same as the `ugentdissertation` class
-- A copyright watermark can be added if needed.
-<table border="0" style="width: 50%;">
-  <tr>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-course</th>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;"></th>
-  </tr>
-  <tr>
-    <td style="border: none; text-align: left;">Using bw faculty option and dutch, and font is UGent Panno Text</td>
-  </tr>
-  <tr>
-    <td style="border: none;">
-        <img width="100%" alt="Course Cover" src="https://github.com/user-attachments/assets/eb83574d-ee7b-433e-8b32-0cd7770d38c8" />
-        <img width="100%" alt="Course Data page"  src="https://github.com/user-attachments/assets/b8f73469-f881-41c8-a169-1999c2fa4e31" />
-    </td>
-</table>
-
-
-### 3. `ugentletter`
-- Can be used to typeset letters.
-<table border="0" style="width: 50%;">
-  <tr>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;">example-letter</th>
-    <th width="50%"; style="border: none; text-align: left; font-weight: bold;"></th>
-  </tr>
-  <tr>
-    <td style="border: none; text-align: left;">Using bw faculty option, font is overridden to Arial</td>
-  </tr>
-  <tr>
-    <td style="border: none;">
-        <img width="100%" alt="Course Cover" src="https://github.com/user-attachments/assets/f8331b3f-e2f0-46de-ae81-43cc29528d21" />
-        <img width="100%" alt="Course Data page"  src="https://github.com/user-attachments/assets/3ca00e30-f464-4240-8434-12c7bd301600" />
+    <td>
+        <img width="100%" src="https://github.com/user-attachments/assets/9da0859e-6e9e-44f5-83c8-dc062f0af8d3" />
+        <img width="100%" src="https://github.com/user-attachments/assets/088a5690-fe4b-4f02-a7bb-93b1cd7dee74" />
     </td>
 </table>
+</details>
 
-### 5. `beamerthemeugent`
-- Used to typeset presentation slides
+
+
+
+#### 7. `ugentletter`
+<details>   
+<summary> Images </summary>
+
+**example-ugentletter**
+
+<img width="50%" src="https://github.com/user-attachments/assets/e652b8f8-acc4-4c0e-b3fe-4b4fd3396559" />
+<img width="50%" src="https://github.com/user-attachments/assets/4e897238-e4fb-4b59-9cab-51ba74019239" />
+
+</details>
+
+#### 8. `ugentexam`
+<details>   
+<summary> Images </summary>
+
+**example-ugentexam-1**
+
+<img width="50%" src="https://github.com/user-attachments/assets/1402a71c-e618-4c74-90cb-518727c3a379" />
+<img width="50%" src="https://github.com/user-attachments/assets/1c4e5522-be7e-4132-8cff-f3a7fa2a9b31" />
+<img width="50%" src="https://github.com/user-attachments/assets/1c227ee7-2d27-408a-88e6-b143df1b8fa2" />
+<img width="50%" src="https://github.com/user-attachments/assets/e3a47acd-5dbd-4cf8-af67-4056f2e17ed2" />
+
+
+</details>
+
+#### 9. `beamerthemeugent`
+<details>   
+<summary> Images </summary>
+
+**beamerthemeuserguide**
+
+<img width="60%" alt="beamerthemeugentuserguide-12" src="https://github.com/user-attachments/assets/0c0e0151-1ff6-4c48-8aa9-207a410274b7" />
+<img width="60%" alt="beamerthemeugentuserguide-14" src="https://github.com/user-attachments/assets/ada80c3d-1967-4d8f-99bb-d7b839869024" />
+<img width="60%" alt="beamerthemeugentuserguide-16" src="https://github.com/user-attachments/assets/227c5d09-bc09-46d2-9bc1-10e36d9bc694" />
+<img width="60%" alt="beamerthemeugentuserguide-22" src="https://github.com/user-attachments/assets/ea6902bd-515b-444c-a857-b09a02320af9" />
+<img width="60%" alt="beamerthemeugentuserguide-31" src="https://github.com/user-attachments/assets/7f9ea369-45f2-49b3-9d01-cf499c05ea2b" />
+<img width="60%" alt="beamerthemeugentuserguide-39" src="https://github.com/user-attachments/assets/db3918af-7555-4d0d-ab72-14b9c870cc36" />
+<img width="60%" alt="beamerthemeugentuserguide-18" src="https://github.com/user-attachments/assets/a154ceab-3034-46de-a61f-c2c8d50b7fa0" />
+
 
 </details>
 
