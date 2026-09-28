@@ -662,6 +662,11 @@
   \colorlet{spinetextcolor}     {ugent@main}
   \colorlet{spinetextcoloralt}  {ugent@faculty}
 }
+\str_if_eq:VnT \l_@@_covertype_tl {article} {
+  \colorlet{covertitlecolor}  {ugent@main}
+  \colorlet{coverdatacolor}   {black}
+  \colorlet{firstnamecolor}   {black!50}
+}
 \ExplSyntaxOff
 %</col>
 % \fi
@@ -3179,6 +3184,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   it is loaded),
 %   so that the PDF-document meta-information is correct.
 % \iffalse
+%<art>\newcommand{\@subtitle}{}
 %<*crs|phd|rp|bama|bkc>
 \ExplSyntaxOn
 \newcommand{\@subtitle}{}
@@ -5309,7 +5315,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % It also contains their implementation. If you do not wish to customize that,
 % you do not have to look into the code.
 %
-% \DescribeMacro[bama-phd-rp-crs-ex-le]{\maketitle}
+% \DescribeMacro[bama-phd-rp-crs-ex-le-art]{\maketitle}
 %   A native \LaTeX{} macro, overridden to support the generation of
 %   cover pages, title pages, colophon pages, etc.
 %
@@ -5564,6 +5570,132 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \ExplSyntaxOff
 %</le>
 %    \end{macrocode}
+%
+% The |article| class uses a simple title, no cover page is included.
+% It includes a ``cover'' page containing the graphical abstract and highlights
+% (if those are given).
+% The title page contains the title,
+% author names with affiliations and ORCID badges,
+% the affiliation list,
+% optional grant message, and
+% the article info and abstract table.
+% A footnote is included with the author emails and ORCIDs.
+%    \begin{macrocode}
+%<*art>
+\ExplSyntaxOn
+\renewcommand\maketitle{%
+  % First page (if applicable)
+  \bool_lazy_or:nnT
+    { ! \tl_if_empty_p:o { \@graphicalabstract } }
+    { ! \tl_if_empty_p:N \g_@@_highlights_tl }
+  { \thispagestyle{empty}
+    \color{covertitlecolor}{
+      \fontsize{20}{28}\selectfont\@title\par
+    }
+    \vskip 0.5\gridunit
+    \color{coverdatacolor}{
+      \fontsize{14}{17}\selectfont
+      \printseq{authorlist}{~\&~}{,~}{\translatekey{andlist}~}
+      \par
+    }
+
+    \tl_if_empty:oF { \@graphicalabstract }{
+      \color{covertitlecolor}{
+        \fontsize{20}{28}\selectfont
+        \vskip\gridunit
+        \translatekey{graphicalabstract}\par
+      }
+      \@graphicalabstract
+    }
+    \tl_if_empty:NF \g_@@_highlights_tl {
+      \vskip\gridunit
+      \color{covertitlecolor}{
+        \fontsize{20}{28}\selectfont
+        \translatekey{highlights}\par
+      }
+      \color{coverdatacolor}{
+        \fontsize{14}{17}\selectfont
+        \@@_printhighlights:
+      }
+    }
+  }
+  \newpage
+  \thispagestyle{titlepage}
+  % Title
+  \color{covertitlecolor}{\fontsize{20}{28}\selectfont\@title\par}
+  % Author and affiliation list
+  \vskip 0.5\gridunit
+  \color{coverdatacolor}{
+    \fontsize{14}{17}\selectfont
+    \@@_printauthorlist:
+    \par
+    \vskip 0.5\gridunit
+    \fontsize{10}{12}\selectfont
+    \@@_printaffiliationlist:
+    \ifx\@grants\@empty\else
+      \vskip 0.25\gridunit
+      {\translatekey{supportedby}~\@grants.}
+    \fi
+    \vskip 0.5\gridunit
+    \hrule \medskip
+    \noindent
+     % Article info
+    \begin{minipage}[t]{0.3\linewidth}
+      \raggedright
+      \fontsize{14}{17}\selectfont
+      \translatekey[uppercase]{articleinfo} \par
+      \smallskip \hrule \medskip
+      \normalsize
+      % keywords
+      \clist_if_empty:NF \g_@@_keywords_clist {
+        \textit{ \translatekey{keywords} } \par
+        \clist_map_inline:Nn \g_@@_keywords_clist { ##1 \par }
+        \medskip
+      }
+      % dates
+      \tl_if_empty:oF {\@submitteddate} {
+        \translatekey{submitted}~\@submitteddate \par
+      }
+      \tl_if_empty:oF {\@accepteddate} {
+        \translatekey{accepted}~\@accepteddate \par
+      }
+      \tl_if_empty:oF {\@publisheddate} {
+        \translatekey{published}~\@publisheddate \par
+      }
+      % journal
+      \tl_if_empty:oF { \@journal } {
+        \medskip
+        \translatekey{published}~\translatekey[lowercase]{in}:
+        {}~\textit{ \@journal } \par
+      }
+      % doi
+      \tl_if_empty:oF { \@doi }{
+        \medskip{DOI~
+          \@ifpackageloaded{hyperref}{
+            \href{https://doi.org/\@doi}{\@doi}
+          }{
+            \@doi
+          }
+        }
+      }
+    \end{minipage}
+    \hfill
+    % Abstract
+    \begin{minipage}[t]{0.65\linewidth}
+      \fontsize{14}{17}\selectfont
+      \translatekey[uppercase]{abstract} \par
+      \smallskip \hrule \medskip
+      \normalsize
+      \@abstract
+    \end{minipage}
+    \par \medskip \hrule
+  }
+  \@@_printauthorfootnote:
+}
+\ExplSyntaxOff
+%</art>
+%    \end{macrocode}
+%
 %
 % \DescribeMacro[phd-crs]{\makefinalpage}
 %   Inserts the final pages and cover
