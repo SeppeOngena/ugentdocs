@@ -504,6 +504,7 @@
   \definecolor{ugent@fw}      {cmyk}{0.16,0.83,0.00,0.00} % Pharmaceutical Sciences
   \definecolor{ugent@ps}      {cmyk}{0.71,0.00,1.00,0.00} % Political and Social Sciences
 
+  \definecolor{orcidcolor}    {cmyk}{0.40,0.00,1.00,0.00}
 }{
   %% UGent
   \definecolor{ugent@main}    {RGB}{30,100,200}   % UGent Blue
@@ -520,6 +521,8 @@
   \definecolor{ugent@bw}      {RGB}{39,171,173}   % Bioscience Engineering
   \definecolor{ugent@fw}      {RGB}{190,81,144}   % Pharmaceutical Sciences
   \definecolor{ugent@ps}      {RGB}{113,168,96}   % Political and Social Sciences
+
+  \definecolor{orcidcolor}    {RGB}{166,206,57}
 }
 \definecolor{lightgray}{cmyk}   {0.00,0.00,0.00,0.10}
 \definecolor{darkgray}{cmyk}    {0.00,0.00,0.00,0.80}
@@ -1552,6 +1555,50 @@
 }
 %</clo>
 % \fi
+%
+% \iffalse
+%<*clo>
+\newlength\@orcidiconunit
+\setlength\@orcidiconunit{32pt}
+
+
+\newcommand{\@orcidiconpath}{
+  \path[even odd rule]
+  % Circle
+  (32, 16) .. controls (32, 7.163) and (24.837, 0) .. (16, 0)
+  .. controls (7.162, 0) and (0, 7.163) .. (0, 16)
+  .. controls (0, 24.838) and (7.162, 32) .. (16, 32)
+  .. controls (24.837, 32) and (32, 24.838) .. (32, 16) -- cycle
+  % D
+  (18.813, 22.363) -- (13.363, 22.363) -- (13.363, 8.463) -- (18.837, 8.463)
+  .. controls (23.392, 8.463) and (26.187, 11.841) .. (26.187, 15.413)
+  .. controls (26.187, 17.048) and (25.625, 18.785) .. (24.417, 20.117)
+  .. controls (23.202, 21.453) and (21.352, 22.363) .. (18.813, 22.363) -- cycle
+  (18.600, 10.700) -- (15.787, 10.700) -- (15.787, 20.125) -- (18.500, 20.125)
+  .. controls (20.323, 20.125) and (21.620, 19.573) .. (22.460, 18.725)
+  .. controls (23.302, 17.876) and (23.712, 16.704) .. (23.712, 15.413)
+  .. controls (23.712, 14.629) and (23.473, 13.446) .. (22.719, 12.465)
+  .. controls (21.974, 11.496) and (20.709, 10.700) .. (18.600, 10.700) -- cycle
+  % i
+  (8.363, 22.325) -- (8.363, 8.438) -- (10.788, 8.438) -- (10.788, 22.325) -- cycle
+  (9.575, 23.350) .. controls (10.415, 23.350) and (11.088, 24.039) .. (11.088, 24.863)
+  .. controls (11.088, 25.686) and (10.415, 26.375) .. (9.575, 26.375)
+  .. controls (8.737, 26.375) and (8.063, 25.701) .. (8.063, 24.862)
+  .. controls (8.063, 24.039) and (8.735, 23.350) .. (9.575, 23.350) -- cycle;
+}
+
+\newcommand{\orcidicon}[3]{
+  \pgfmathsetmacro{\@orcidiconscale}{#1/\@orcidiconunit}
+  \pgfmathsetmacro{\@orcidiconxshift}{-#3*\@orcidiconunit*\@orcidiconscale}
+  \begin{scope}[ y=1pt, x=1pt, inner sep=0pt, outer sep=0pt,
+    shift={(\@orcidiconxshift, 0.0cm)}, yscale=\@orcidiconscale, xscale=\@orcidiconscale,
+    every path/.append style={fill=#2} ]
+    \@orcidiconpath
+  \end{scope}
+}
+%</clo>
+% \fi
+%
 %
 % \newpage
 % \subsection{Language, time, and location}
