@@ -54,7 +54,8 @@
 %<ex>\ProvidesClass{ugentexam}
 %<bmr>\ProvidesPackage{beamerthemeugent}
 %<bkc>\ProvidesClass{ugentbookcover}
-%<col|crs|bama|phd|rp|le|ex|bmr|bkc>    [2026/07/03 v1.0.0 .dtx skeleton file]
+%<art>\ProvidesClass{ugentarticle}
+%<col|crs|bama|phd|rp|le|ex|bmr|bkc|art>    [2026/07/03 v1.0.0 .dtx skeleton file]
 %<*driver>
 \documentclass[a4paper,10pt]{ltxdoc}
 %
@@ -380,10 +381,10 @@
 % constructs are never exposed directly so this has no effect on the
 % user of the classes, unless you wish to customize parts (see above).
 % \iffalse
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr|art>
 \RequirePackage{expl3}
 %\RequirePackage[check-declarations]{expl3} % I use this during debug phase
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr|art>
 % \fi
 %
 %
@@ -503,6 +504,7 @@
   \definecolor{ugent@fw}      {cmyk}{0.16,0.83,0.00,0.00} % Pharmaceutical Sciences
   \definecolor{ugent@ps}      {cmyk}{0.71,0.00,1.00,0.00} % Political and Social Sciences
 
+  \definecolor{orcidcolor}    {cmyk}{0.40,0.00,1.00,0.00}
 }{
   %% UGent
   \definecolor{ugent@main}    {RGB}{30,100,200}   % UGent Blue
@@ -519,6 +521,8 @@
   \definecolor{ugent@bw}      {RGB}{39,171,173}   % Bioscience Engineering
   \definecolor{ugent@fw}      {RGB}{190,81,144}   % Pharmaceutical Sciences
   \definecolor{ugent@ps}      {RGB}{113,168,96}   % Political and Social Sciences
+
+  \definecolor{orcidcolor}    {RGB}{166,206,57}
 }
 \definecolor{lightgray}{cmyk}   {0.00,0.00,0.00,0.10}
 \definecolor{darkgray}{cmyk}    {0.00,0.00,0.00,0.80}
@@ -657,6 +661,11 @@
   \colorlet{spinecolor}         {white}
   \colorlet{spinetextcolor}     {ugent@main}
   \colorlet{spinetextcoloralt}  {ugent@faculty}
+}
+\str_if_eq:VnT \l_@@_covertype_tl {article} {
+  \colorlet{covertitlecolor}  {ugent@main}
+  \colorlet{coverdatacolor}   {black}
+  \colorlet{firstnamecolor}   {black!50}
 }
 \ExplSyntaxOff
 %</col>
@@ -1552,6 +1561,50 @@
 %</clo>
 % \fi
 %
+% \iffalse
+%<*clo>
+\newlength\@orcidiconunit
+\setlength\@orcidiconunit{32pt}
+
+
+\newcommand{\@orcidiconpath}{
+  \path[even odd rule]
+  % Circle
+  (32, 16) .. controls (32, 7.163) and (24.837, 0) .. (16, 0)
+  .. controls (7.162, 0) and (0, 7.163) .. (0, 16)
+  .. controls (0, 24.838) and (7.162, 32) .. (16, 32)
+  .. controls (24.837, 32) and (32, 24.838) .. (32, 16) -- cycle
+  % D
+  (18.813, 22.363) -- (13.363, 22.363) -- (13.363, 8.463) -- (18.837, 8.463)
+  .. controls (23.392, 8.463) and (26.187, 11.841) .. (26.187, 15.413)
+  .. controls (26.187, 17.048) and (25.625, 18.785) .. (24.417, 20.117)
+  .. controls (23.202, 21.453) and (21.352, 22.363) .. (18.813, 22.363) -- cycle
+  (18.600, 10.700) -- (15.787, 10.700) -- (15.787, 20.125) -- (18.500, 20.125)
+  .. controls (20.323, 20.125) and (21.620, 19.573) .. (22.460, 18.725)
+  .. controls (23.302, 17.876) and (23.712, 16.704) .. (23.712, 15.413)
+  .. controls (23.712, 14.629) and (23.473, 13.446) .. (22.719, 12.465)
+  .. controls (21.974, 11.496) and (20.709, 10.700) .. (18.600, 10.700) -- cycle
+  % i
+  (8.363, 22.325) -- (8.363, 8.438) -- (10.788, 8.438) -- (10.788, 22.325) -- cycle
+  (9.575, 23.350) .. controls (10.415, 23.350) and (11.088, 24.039) .. (11.088, 24.863)
+  .. controls (11.088, 25.686) and (10.415, 26.375) .. (9.575, 26.375)
+  .. controls (8.737, 26.375) and (8.063, 25.701) .. (8.063, 24.862)
+  .. controls (8.063, 24.039) and (8.735, 23.350) .. (9.575, 23.350) -- cycle;
+}
+
+\newcommand{\orcidicon}[3]{
+  \pgfmathsetmacro{\@orcidiconscale}{#1/\@orcidiconunit}
+  \pgfmathsetmacro{\@orcidiconxshift}{-#3*\@orcidiconunit*\@orcidiconscale}
+  \begin{scope}[ y=1pt, x=1pt, inner sep=0pt, outer sep=0pt,
+    shift={(\@orcidiconxshift, 0.0cm)}, yscale=\@orcidiconscale, xscale=\@orcidiconscale,
+    every path/.append style={fill=#2} ]
+    \@orcidiconpath
+  \end{scope}
+}
+%</clo>
+% \fi
+%
+%
 % \newpage
 % \subsection{Language, time, and location}
 % \label{S:usage:langdateloc}
@@ -1770,6 +1823,7 @@ subject     = Subject
 of          = Of
 the-de      = The
 the-het     = The
+in          = In
 and         = And
 andlist     = , and
 version     = Version
@@ -1835,6 +1889,18 @@ page         = Page
 appendix     = Appendix
 package      = Package
 
+abstract          = Abstract
+graphicalabstract = Graphical abstract
+articleinfo       = Article info
+highlights        = Highlights
+keywords          = Keywords
+corrauthor        = Corresponding author
+submitted         = Submitted
+accepted          = Accepted
+published         = Published
+preprint          = Preprint
+emails            = Emails
+
 confidential    = Confidential
 confidentiality = Confidentiality
 arr             = All rights reserved
@@ -1893,6 +1959,7 @@ subject     = Onderwerp
 of          = Van
 the-de      = De
 the-het     = Het
+in          = In
 and         = En
 andlist     = ~en
 version     = Versie
@@ -1958,6 +2025,18 @@ page         = Pagina
 appendix     = Bijlage
 package      = Pakket
 
+abstract          = Abstract
+graphicalabstract = Grafisch abstract
+articleinfo       = Artikelinfo
+highlights        = Kernpunten
+keywords          = Trefwoorden
+corrauthor        = Corresponderende auteur
+submitted         = Ingediend
+accepted          = Aanvaard
+published         = Gepubliceerd
+preprint          = Preprint
+emails            = Emails
+
 confidential    = Confidentieel
 confidentiality = Confidentialiteit
 arr             = Alle rechten voorbehouden
@@ -2011,6 +2090,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeMacro[common]{\date}
+%   \oarg{type}
 %   \marg{new date}
 %   \DescribeDefault{\textbackslash today}
 %   \margintag{tag}\\
@@ -2019,13 +2099,32 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   based on the |localizedates| option. If not, the date is printed verbatim.
 %   Used in the |bama| copyright / autograph page, the |phd| title page, and
 %   the |letter| header.
+%   The article class uses the |type| option, which can be
+%   |submitted|, |accepted|, or |published| for the article info section.
 % \iffalse
 %<*clo>
 \ExplSyntaxOn
-\renewcommand{\date}[1]{
-  \regex_match:nnTF {^\d{4}-\d{2}-\d{2}$} {#1}%$
-  { \gdef\@date{\DTMdate{#1}} }
-  { \gdef\@date{#1} }
+\msg_new:nnn { ugentdocs } { unknown-date-type }
+{ Unknown~date~type~'#1'.~Use~submitted,~accepted~or~published. }
+
+\providecommand*{\@submitteddate}{}
+\providecommand*{\@accepteddate}{}
+\providecommand*{\@publisheddate}{}
+\cs_new_protected:Nn \@@_setdate:nn {
+  \regex_match:nnTF { \A \d{4} - \d{2} - \d{2} \Z } {#2}
+  { \cs_gset:cpn {#1} { \DTMdate{#2} } }
+  { \cs_gset:cpn {#1} {#2} }
+}
+\RenewDocumentCommand \date { o m } {
+  \IfNoValueTF {#1}{
+    \@@_setdate:nn { @date } {#2}
+  }{
+    \clist_if_in:nnTF { submitted, accepted, published } {#1} {
+      \@@_setdate:nn { @#1date } {#2}
+    }{
+      \msg_error:nnn { ugentdocs } { unknown-date-type } {#1}
+    }
+  }
 }
 \ExplSyntaxOff
 %</clo>
@@ -2100,8 +2199,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 { The~name~'#1'~is~not~formatted~as~'Surname,~Firstname'. }
 { Names~must~be~given~as~'Surname,~Firstname'~(BibTeX~style,~separated~by~a~comma). }
 
-\cs_new_protected:Npn \@@_parsename:n #1
-{
+\cs_new_protected:Npn \@@_parsename:n #1 {
   \tl_set:Nx \l_@@_nameinput_tl { #1 }
   \seq_set_split:NnV \l_@@_name_seq { , } \l_@@_nameinput_tl
   \int_compare:nNnTF { \seq_count:N \l_@@_name_seq } = { 2 } {
@@ -2116,17 +2214,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   }
 }
 
-\cs_new_protected:Npn \@@_buildformattedname:
-{
+\cs_new_protected:Npn \@@_buildformattedname: {
   \str_if_eq:VnTF \l_@@_nameformat_tl {surnamefirst} {
-    \tl_set:Nn \l_@@_formattedname_tl { \l_@@_surname_tl }
-    \tl_if_empty:NF \l_@@_firstname_tl
-    { \tl_put_right:Nn \l_@@_formattedname_tl { \space \l_@@_firstname_tl } }
+    \tl_set_eq:NN \l_@@_formattedname_tl \l_@@_surname_tl
+    \tl_if_empty:NF \l_@@_firstname_tl {
+      \tl_put_right:Nn \l_@@_formattedname_tl { \space }
+      \tl_put_right:NV \l_@@_formattedname_tl \l_@@_firstname_tl
+    }
   }{
-    \tl_clear:N \l_@@_formattedname_tl
+    \tl_set_eq:NN \l_@@_formattedname_tl \l_@@_firstname_tl
     \tl_if_empty:NF \l_@@_firstname_tl
-    { \tl_set:Nn \l_@@_formattedname_tl { \l_@@_firstname_tl \space } }
-    \tl_put_right:Nn \l_@@_formattedname_tl { \l_@@_surname_tl }
+    { \tl_put_right:Nn \l_@@_formattedname_tl { \space } }
+    \tl_put_right:NV \l_@@_formattedname_tl \l_@@_surname_tl
   }
 }
 
@@ -2168,6 +2267,25 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   nameformat .tl_set:N = \l_@@_nameformat_tl ,
   surnamefirst .code:n   = { \tl_set:Nn \l_@@_nameformat_tl {surnamefirst} } ,
   surnamelast  .code:n   = { \tl_set:Nn \l_@@_nameformat_tl {surnamelast} } ,
+}
+\ExplSyntaxOff
+%</clo>
+% \fi
+%
+% \DescribeOption[common]{affiliationformat}
+%   \DescribeDefault{alph}
+%   Options: |arabic|, |alph|\\
+%   Sets affiliation indexes to |arabic| (``1,2,3'') or |alph| (``a,b,c'').
+% \iffalse
+%<*clo>
+\ExplSyntaxOn
+\tl_new:N \l_@@_affformat_tl
+
+\keys_define:nn { ugentdocs } {
+  affiliationformat .choices:nn =
+  { arabic, alph }
+  { \tl_set_eq:NN \l_@@_affformat_tl \l_keys_choice_tl } ,
+  affiliationformat .initial:n = alph ,
 }
 \ExplSyntaxOff
 %</clo>
@@ -2260,9 +2378,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % |language|, and |nameformat| were previously defined in the section
 % above, found in the file |ugentcommon.clo| which is loaded for each class.%
 % \iffalse
-%<*crs|bama|phd|rp|bkc|le|ex|bmr>
+%<*crs|bama|phd|rp|bkc|le|ex|bmr|art>
 \input{ugentcommon.clo}
-%</crs|bama|phd|rp|bkc|le|ex|bmr>
+%</crs|bama|phd|rp|bkc|le|ex|bmr|art>
 % \fi
 % A few of the document classes have specialized options, which will be
 % described in this section.
@@ -2277,9 +2395,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 { Cover~type~'#1'~is~not~implemented. }
 \ExplSyntaxOff
 %</clo>
-%<*phd|bkc|crs|rp|le|ex|bama|bmr>
+%<*phd|bkc|crs|rp|le|ex|bama|bmr|art>
 \ExplSyntaxOn
-%</phd|bkc|crs|rp|le|ex|bama|bmr>
+%</phd|bkc|crs|rp|le|ex|bama|bmr|art>
 % \fi
 %
 % \DescribeOption[phd-bkc]{cameraready}
@@ -2417,6 +2535,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<bama>\tl_set:Nn \l_@@_covertype_tl {bama}
 %<rp>\tl_set:Nn \l_@@_covertype_tl {report}
 %<ex>\tl_set:Nn \l_@@_covertype_tl {exam}
+%<art>\tl_set:Nn \l_@@_covertype_tl {article}
 %
 %
 % \DescribeOption[bmr]{secnums}
@@ -2431,17 +2550,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   secnums .default:n = true ,
 }
 %</bmr>
-%\fi
+% \fi
 %
-%<*phd|bkc|crs|rp|le|ex|bama|bmr>
+%
+%<*phd|bkc|crs|rp|le|ex|bama|bmr|art>
 \ExplSyntaxOff
-%</phd|bkc|crs|rp|le|ex|bama|bmr>
+%</phd|bkc|crs|rp|le|ex|bama|bmr|art>
 % \fi
 %
 % Class loading operates as follows. The standard options such as |11pt|,
 % |oneside|, or |openright| are passed to the relevant base classes. For courses,
 % BSc/MSc and PhD dissertations, and reports, this is the |book| class.
-% The |ugentletter| class expands |letter|, while exams are based on |article|.
+% The |ugentletter| class expands |letter|, while exams and articles are based on |article|.
 % \iffalse
 %<*crs|bama|phd|rp>
 \PassOptionsToClass{a4paper,11pt,final,oneside,openright}{book}
@@ -2454,19 +2574,19 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \PassOptionsToClass{a4paper,10pt,final,oneside}{letter}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{letter}}
 %</le>
-%<*ex>
+%<*ex|art>
 \PassOptionsToClass{a4paper,10pt,final,twoside}{article}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
-%</ex>
+%</ex|art>
 %\fi
 % Then, our custom options are processed,
 % \iffalse
-%<*crs|bama|phd|rp|bkc|le|ex>
+%<*crs|bama|phd|rp|bkc|le|ex|art>
 \ProcessOptions\relax
-%</crs|bama|phd|rp|bkc|le|ex>
-%<*crs|bama|phd|rp|bkc|le|ex|bmr>
+%</crs|bama|phd|rp|bkc|le|ex|art>
+%<*crs|bama|phd|rp|bkc|le|ex|bmr|art>
 \ProcessKeyOptions[ ugentdocs ]
-%</crs|bama|phd|rp|bkc|le|ex|bmr>
+%</crs|bama|phd|rp|bkc|le|ex|bmr|art>
 % \fi
 % and the base classes are loaded in.
 % \iffalse
@@ -2513,9 +2633,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*le>
 \LoadClass{letter}
 %</le>
-%<*ex>
+%<*ex|art>
 \LoadClass{article}
-%</ex>
+%</ex|art>
 %<*phd|bkc>
 % Check if BW bookcover should be set
 \ExplSyntaxOn
@@ -2530,15 +2650,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % Finally, the fonts are loaded and modern typesetting is applied: no
 % paragraph indentation and decent paragraph spacing.
 % \iffalse
-%<*crs|bama|phd|rp|bkc|le|ex|bmr>
+%<*crs|bama|phd|rp|bkc|le|ex|bmr|art>
 \@loadfonts
-%</crs|bama|phd|rp|bkc|le|ex|bmr>
-%<*crs|bama|phd|rp|le|ex>
+%</crs|bama|phd|rp|bkc|le|ex|bmr|art>
+%<*crs|bama|phd|rp|le|ex|art>
 % Modern typesetting
 \setlength{\parindent}{0pt}
 \addtolength{\parskip}{0.75\baselineskip}
 \setcounter{secnumdepth}{3}
-%</crs|bama|phd|rp|le|ex>
+%</crs|bama|phd|rp|le|ex|art>
 % \fi
 %
 %
@@ -2593,7 +2713,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % or can be made to auto-install for MikTeX.
 %
 % \iffalse
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr|art>
 \RequirePackage{etoolbox}
 \IfFileExists{shellesc.sty}{
   \RequirePackage{shellesc}}{}
@@ -2616,10 +2736,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \RequirePackage{setspace}
 \RequirePackage{wasysym}
 \RequirePackage{ugentcolor}
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
-%<*crs|bama|phd|rp|le|ex>
+%</crs|bama|phd|rp|le|ex|bkc|bmr|art>
+%<*crs|bama|phd|rp|le|ex|art>
 \RequirePackage{fancyhdr}
-%</crs|bama|phd|rp|le|ex>
+%</crs|bama|phd|rp|le|ex|art>
 %<*bkc|phd|crs>
 \RequirePackage{GS1}
 %</bkc|phd|crs>
@@ -2637,7 +2757,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %     again in your customization file, but make sure a dictionary is available for
 %     the |main| language (see Section \ref{S:usage:langdateloc:dict}).
 %    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr|art>
 \ExplSyntaxOn
 \str_if_eq:VnTF \l_@@_language_tl {dutch} {
   \PassOptionsToPackage{main=dutch}{babel}
@@ -2646,11 +2766,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 \RequirePackage[dutch,english]{babel}
 \ExplSyntaxOff
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr|art>
 %    \end{macrocode}
 %   \item |datetime2|: sets the date format based on the |localizedates| option.
 %    \begin{macrocode}
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr|art>
 \ExplSyntaxOn
 \bool_if:NTF \l_@@_localizedates_bool {
   \RequirePackage[useregional]{datetime2}
@@ -2658,7 +2778,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \RequirePackage{datetime2}
 }
 \ExplSyntaxOff
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr|art>
 %    \end{macrocode}
 %   \item |background|: adds background watermark support for the courses and
 %     reports if the |copyright| option is |true|.
@@ -2758,12 +2878,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % although this is not recommended.
 %
 % \iffalse
-%<*crs|bama|phd|rp|le|ex|bkc|bmr>
+%<*crs|bama|phd|rp|le|ex|bkc|bmr|art>
 \newlength{\@PW}      % Paper width
 \newlength{\@PH}      % Paper height
 \newlength{\gridunit} % Grid unit layout
 \newcommand*{\@setgridunit}{\pgfmathsetlength{\gridunit}{max(\@PW,\@PH)/7/4}}
-%</crs|bama|phd|rp|le|ex|bkc|bmr>
+%</crs|bama|phd|rp|le|ex|bkc|bmr|art>
 % \fi
 % \newlength{\gridunit}
 % \pgfmathsetlength{\gridunit}{297mm/7/4}
@@ -2799,6 +2919,13 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \RequirePackage[a4paper, footskip=4\gridunit,
                 top=5\gridunit, bottom=4\gridunit, left=2\gridunit, right=4.07cm]{geometry}
 %</le>
+%<*art>
+\setlength\@PW{210mm}
+\setlength\@PH{297mm}
+\@setgridunit
+\RequirePackage[paperwidth=\@PW,paperheight=\@PH,
+top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
+%</art>
 %    \end{macrocode}
 %
 % For the |bookcover| class, the dimensions are dependent on the cover type (phd or course):
@@ -3000,7 +3127,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \newpage
 % \subsubsection{Document data}
 % \label{S:usage:macros:data}
-% \DescribeMacro[crs-bama-phd-rp-bkc-bmr-ex]{\title}
+% \DescribeMacro[crs-bama-phd-rp-bkc-bmr-ex-art]{\title}
 %   \oarg{short title}
 %   \marg{title}
 %   \margintag{mandatory}
@@ -3011,7 +3138,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   It also sets the |pdftitle| tag of the hyperref package (if it is
 %   loaded), so that the PDF-document meta-information is correct.
 % \iffalse
-%<*crs|rp|bkc|phd|bmr|ex>
+%<*crs|rp|bkc|phd|bmr|ex|art>
 \ExplSyntaxOn
 \renewcommand{\@title}{<This~is~your~document~title>}
 \newcommand{\@shorttitle}{\@title}
@@ -3025,7 +3152,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
    \@ifundefined{shorttitle}{}{\gdef\shorttitle{#1}}}
 }
 \ExplSyntaxOff
-%</crs|rp|bkc|phd|bmr|ex>
+%</crs|rp|bkc|phd|bmr|ex|art>
 % \fi
 %
 % \DescribeMacro[phd]{\titel}
@@ -3057,6 +3184,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   it is loaded),
 %   so that the PDF-document meta-information is correct.
 % \iffalse
+%<art>\newcommand{\@subtitle}{}
 %<*crs|phd|rp|bama|bkc>
 \ExplSyntaxOn
 \newcommand{\@subtitle}{}
@@ -3263,32 +3391,35 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bama|phd|rp>
 %    \end{macrocode}
 %
-% \DescribeMacro[phd]{\grants}
+% \DescribeMacro[phd-art]{\grants}
 %   \marg{grant text}
 %   \margintag{tag}\\
-%   Specifies any grants that supported the PhD research.
-%   Used to print a message in the PhD colophon page:
+%   Specifies any grants that supported the research.
+%   Used to print a message in the PhD colophon page
+%   and the article title page:
 %   ``This research was supported by |<grant text>|''
 % \iffalse
-%<*phd>
+%<*phd|art>
 \newcommand*{\@grants}{}
 \newcommand*{\grants}[1]{
   \renewcommand*{\@grants}{#1}
 }
-%</phd>
+%</phd|art>
 % \fi
 %
-% \DescribeMacro[phd]{\doi}
+% \DescribeMacro[phd-art]{\doi}
 %   \marg{DOI}
 %   \margintag{tag}\\
 %   Specify the correct Digital Object Identifier (without the https://doi.org/)
-%   of your PhD for display on the colophon page of the |phd| class.
+%   of your PhD for display on the colophon page of the |phd| class
+%   or your article for display in the article info and footer
+%   of the |article| class.
 %   If the |hyperref| package is loaded, the full URL will be linked.
 % \iffalse
-%<*phd>
+%<*phd|art>
 \newcommand*{\@doi}{}
 \newcommand*{\doi}[1]{\renewcommand*{\@doi}{#1}}
-%</phd>
+%</phd|art>
 % \fi
 %
 % \DescribeMacro[crs-phd-bkc]{\isbn}
@@ -3458,18 +3589,226 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs|rp>
 % \fi
 %
+% \DescribeMacro[art]{\abstract}
+%   \marg{abstract text}
+%   \margintag{mandatory}
+%   \margintag{tag}\\
+%   Specifies the abstract of the article.
+% \iffalse
+%<*art>
+\newcommand{\@abstract}{}
+\renewcommand{\abstract}[1]{\renewcommand{\@abstract}{#1}}
+%</art>
+% \fi
+%
+% \DescribeMacro[art]{\graphicalabstract}
+%   \marg{graphical abstract content}
+%   \margintag{tag}\\
+%   Specifies the graphical abstract of the article.
+%   Can be |\includegraphics[width=\textwidth]{GraphicalAbstractFile}|.
+% \iffalse
+%<*art>
+\newcommand{\@graphicalabstract}{}
+\newcommand{\graphicalabstract}[1]{\renewcommand{\@graphicalabstract}{#1}}
+%</art>
+% \fi
+%
+% \DescribeMacro[art]{\highlights}
+%   \marg{highlight items}\\
+%   Specifies the highlights of the article.
+%   Should be input as ``|\item highlight1 \item highlight2 ...|''
+% \iffalse
+%<*art>
+\ExplSyntaxOn
+\tl_new:N \g_@@_highlights_tl
+
+\NewDocumentCommand \highlights { +m } {
+  \tl_gset:Nn \g_@@_highlights_tl {#1}
+}
+
+\cs_new_protected:Nn \@@_printhighlights: {
+  \tl_if_empty:NF \g_@@_highlights_tl {
+    \begin{itemize} \g_@@_highlights_tl \end{itemize}
+  }
+}
+\ExplSyntaxOff
+%</art>
+% \fi
+%
+% \DescribeMacro[art]{\keywords}
+%   \marg{comma separated keywords}
+%   \margintag{mandatory}\\
+%   Specifies the keywords of the article.
+%   Should be input as ``|keyword1, keyword2, ...|''
+% \iffalse
+%<*art>
+\ExplSyntaxOn
+\clist_new:N \g_@@_keywords_clist
+
+\NewDocumentCommand \keywords { m }{
+  \clist_gput_right:Nn \g_@@_keywords_clist {#1}
+}
+
+\cs_new_protected:Nn \@@_printkeywords: {
+  \clist_if_empty:NF \g_@@_keywords_clist {
+    \noindent \textbf{ \translatekey{keywords}: }~
+    \clist_use:Nn \g_@@_keywords_clist { ;~ } \par
+  }
+}
+\ExplSyntaxOff
+%</art>
+% \fi
+%
+% \DescribeMacro[art]{\journal}
+%   \marg{journal title}
+%   \margintag{mandatory}
+%   \margintag{tag}\\
+%   Specifies the journal in which the article was published
+%   or to which it was submitted.
+% \iffalse
+%<*art>
+\newcommand{\@journal}{}
+\newcommand{\journal}[1]{\renewcommand{\@journal}{#1}}
+%</art>
+%
+%
 % \subsubsection{People}
 % \label{S:usage:macros:people}
 %
-% \DescribeMacro[crs-bama-phd-rp-bkc-le-ex]{\author}
+% \DescribeMacro[crs-bama-phd-rp-bkc-le-ex-art]{\affiliation}
+%   \marg{affiliation}
+%   \margintag{affiliations\_seq}
+%   \margintag{affidx\_seq}
+%   \margintag{affiliationscalls\_seq}\\
+%   Adds an affiliation to the sequence.
+%   It can then be used as, e.g., ``a'' or ``1''
+%   (depending on the affiliationformat option) in the |\author| macro.
+%   Specifying an affiliation in the |\author| macro
+%   not currently present in the sequence
+%   also adds that affiliation to the sequence.
+%   Any affiliation added is added as plain
+%   ``|\affiliation{<affiliation>}|'' to the |affiliationscalls| sequence.
+% \iffalse
+%<*phd|crs|bama|bkc|ex|le|rp|art>
+\ExplSyntaxOn
+\seq_new:N \g_@@_affiliations_seq
+\seq_new:N \l_@@_affidx_seq
+\seq_new:N \g_@@_affiliationscalls_seq
+
+\tl_new:N \l_@@_affiltext_tl
+\tl_new:N \l_@@_affsep_tl
+\tl_set:Nn \l_@@_affsep_tl { ,~ }
+\tl_new:N  \l_@@_nameaffsep_tl
+\tl_set:Nn \l_@@_nameaffsep_tl { \\ }
+\int_new:N \l_@@_affindex_int
+
+% Affiliation keys regex constant
+\regex_const:Nn \c_@@_affkeys_regex
+{ \A \s* (?: [a-zA-Z] | \d+ ) (?: \s* , \s* (?: [a-zA-Z] | \d+ ) )* \s* \Z }
+\regex_const:Nn \c_@@_affnum_regex { \A \d+ \Z }
+
+% Msg: Affiliation not found in sequence
+\msg_new:nnn { ugentdocs } { unknown-affiliation }
+{ Affiliation~key~'#1'~does~not~refer~to~a~declared~affiliation~
+  (#2~declared~so~far). }
+
+% Helper CS for adding affiliations and affiliation calls
+\cs_new_protected:Nn \@@_addaffiliation:n {
+  \int_zero:N \l_@@_affindex_int
+  \seq_map_indexed_inline:Nn \g_@@_affiliations_seq {
+    \tl_if_eq:nnT {##2} {#1} {
+      \seq_map_break:n { \int_set:Nn \l_@@_affindex_int {##1} }
+    }
+  }
+  \int_compare:nNnT \l_@@_affindex_int = 0 {
+    \seq_gput_right:Nn \g_@@_affiliations_seq {#1}
+    \seq_gput_right:Nn \g_@@_affiliationscalls_seq { \affiliation {#1} }
+    \int_set:Nn \l_@@_affindex_int { \seq_count:N \g_@@_affiliations_seq }
+  }
+}
+
+% Helper CS for I) adding affiliation indexes II) setting affiltext
+\cs_new_protected:Nn \@@_addaffindex: {
+  \seq_put_right:Nx \l_@@_affidx_seq {
+    \use:c { int_to_ \l_@@_affformat_tl :n } { \l_@@_affindex_int }
+  }
+  \tl_if_empty:NF \l_@@_affiltext_tl {
+    \tl_put_right:NV \l_@@_affiltext_tl \l_@@_affsep_tl
+  }
+  \tl_put_right:Nx \l_@@_affiltext_tl {
+    \seq_item:Nn \g_@@_affiliations_seq { \l_@@_affindex_int }
+  }
+}
+
+% General add to affiliations helper
+\cs_new_protected:Nn \@@_addto_affseq:n {
+  \seq_clear:N \l_@@_affidx_seq
+  \tl_clear:N \l_@@_affiltext_tl
+  \regex_match:NnTF \c_@@_affkeys_regex {#1} {
+    \clist_map_inline:nn {#1} {
+      \regex_match:NnTF \c_@@_affnum_regex {##1}{
+        \int_set:Nn \l_@@_affindex_int {##1}
+      }{
+        \int_set:Nn \l_@@_affindex_int { \int_from_alph:n {##1} }
+      }
+      \bool_lazy_or:nnTF
+      { \int_compare_p:nNn \l_@@_affindex_int < 1 }
+      { \int_compare_p:nNn \l_@@_affindex_int > { \seq_count:N \g_@@_affiliations_seq } }{
+        \msg_error:nnee { ugentdocs } { unknown-affiliation }
+        {##1} { \seq_count:N \g_@@_affiliations_seq }
+      }{
+        \@@_addaffindex:
+      }
+    }
+    \tl_if_empty:NF \l_@@_affiltext_tl{
+      \tl_put_left:Nn \l_@@_affiltext_tl { \l_@@_nameaffsep_tl }
+    }
+  }{
+    \tl_if_blank:nF {#1}{
+      \@@_addaffiliation:n {#1}
+      \@@_addaffindex:
+    }
+  }
+  \seq_gput_right:Nx \g_@@_authoraffs_seq { \seq_use:Nn \l_@@_affidx_seq {,} }
+}
+
+% Print affiliation list for articles
+\cs_new_protected:Nn \@@_printaffiliationlist: {
+  \seq_map_indexed_inline:Nn \g_@@_affiliations_seq {
+    \hbox_set:Nn \l_tmpa_box {
+      \textsuperscript { \use:c { int_to_ \l_@@_affformat_tl :n } {##1} } ~
+    }
+    \noindent
+    \hangindent = \box_wd:N \l_tmpa_box
+    \box_use:N \l_tmpa_box ##2 \par
+  }
+}
+
+\NewDocumentCommand{\affiliation}{m}{
+  \@@_addaffiliation:n {#1}
+}
+\ExplSyntaxOff
+%</phd|crs|bama|bkc|ex|le|rp|art>
+% \fi
+%
+% \DescribeMacro[crs-bama-phd-rp-bkc-le-ex-art]{\author}
+%   \oarg{corresponding}
+%   \oarg{email}
+%   \oarg{orcid}
 %   \marg{title}
 %   \marg{Surname, Firstname}
 %   \marg{affiliation}
 %   \margintag{mandatory}
 %   \margintag{authors\_seq}
 %   \margintag{authorswaff\_seq}
+%   \margintag{authoraffs\_seq}
 %   \margintag{authorlist\_seq}
-%   \margintag{authorscalls\_seq}\\
+%   \margintag{authorscalls\_seq}
+%   \margintag{authorcorr\_seq}
+%   \margintag{authoremails\_seq}
+%   \margintag{authororcids\_seq}
+%   \margintag{authorsurnames\_seq}
+%   \margintag{authorfirstnames\_seq}\\
 %   This macro adds an author to the document.
 %   The author name should be in BibTeX format (i.e., ``Surname, Firstname'').
 %   Use multiple calls for multiple authors.\\
@@ -3477,6 +3816,11 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   start with a newline: '|\\|',
 %   start with '|, |' for regular inline,
 %   or even '|&|' for horizontal alignment in the |bama| \& |report| cover pages.
+%   Optional argument |corresponding| set the author as corresponding,
+%   |email| specifies the author email, and |orcid| the ORCID.
+%   These are stored in the |authorcorr|, |authoremails|,
+%   and |authororcids| sequences.
+%
 %   The authors are used in
 %   the |bama|, |report| (optional), and |phd| cover pages,
 %   the |bama| autograph / copyright page,
@@ -3502,55 +3846,210 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   so that the PDF-document meta-information is correct.
 %
 % \iffalse
-%<*phd|crs|bama|bkc|ex|le|rp>
+%<*phd|crs|bama|bkc|ex|le|rp|art>
 \ExplSyntaxOn
 % General add name helper
-\cs_new:Nn \@@_addto_nameseq:nnn {
+\cs_new_protected:Nn \@@_addto_nameseq:nnn {
   % args: seq, title, name
   \exp_args:Nc \seq_gput_right:Nn { g_@@_#1_seq } { #2~\@formatname{#3}\strut }
 }
 
 % General add name with affiliation helper
-\cs_new:Nn \@@_addto_nameaffiliationseq:nnnn {
+\cs_new_protected:Nn \@@_addto_nameaffiliationseq:nnnn {
   % args: seq, title, name, affiliation
   \exp_args:Nc \seq_gput_right:Nn { g_@@_#1waff_seq } {%
     \tl_if_blank:nF {#2} { #2~ }
-    \@formatname{#3}\strut#4\strut % User specifies sep themselves
+    \@formatname{#3}\strut
+    \tl_if_blank:nF {#4} { #4\strut }
   }
 }
+\cs_generate_variant:Nn \@@_addto_nameaffiliationseq:nnnn { nnnV }
 
 % General add call helper
-\cs_new:Nn \@@_addto_callseq:nnnn {
-  % args: seq, title, name, affiliation
+\cs_new_protected:Nn \@@_addto_callseq:nnnnn {
+  % args: seq, options, title, name, affiliation
   \exp_args:Ncx \seq_gput_right:Nn { g_@@_#1calls_seq } {
     \exp_not:c { \tl_range:nnn {#1} {1} {-2} }
+    \tl_if_blank:nF {#5} { [ \exp_not:n {#5} ] }
     { \exp_not:n{#2} } { \exp_not:n{#3} } { \exp_not:n{#4} }
+  }
+}
+\cs_new_protected:Nn \@@_addto_callseq:nnnn {
+  \@@_addto_callseq:nnnnn {#1} {#2} {#3} {#4} {}
+}
+
+% Author printing for articles
+\seq_new:N \l_@@_authorentries_seq
+\tl_new:N  \l_@@_authorentry_tl
+\tl_new:N  \l_@@_authorfirst_tl
+\tl_new:N  \l_@@_authorsup_tl
+\tl_new:N \l_@@_authororcid_tl
+
+\cs_new_protected:Nn \@@_orcidlink:n {
+  \cs_if_exist:NTF \href {
+    \exp_args:Ne \href { \tl_to_str:n { https://orcid.org/#1 } }
+    { \XeTeXLinkBox { \tikz[baseline=0pt] \orcidicon {1.6ex} {orcidcolor} {0}; } }
+  }{
+    \tikz[baseline=0pt] \orcidicon {1.6ex} {orcidcolor} {0};
+  }
+}
+\cs_new_protected:Nn \@@_printauthorlist: {
+  \seq_clear:N \l_@@_authorentries_seq
+  \seq_map_indexed_inline:Nn \g_@@_authorsurnames_seq {
+    % Name
+    \tl_set:Nn \l_@@_surname_tl {##2}
+    \tl_set:Nx \l_@@_firstname_tl { \seq_item:Nn \g_@@_authorfirstnames_seq {##1} }
+    \tl_if_empty:NF \l_@@_firstname_tl {
+      \tl_set:Nx \l_@@_firstname_tl
+      { \exp_not:N \textcolor { firstnamecolor } { \exp_not:V \l_@@_firstname_tl } }
+    }
+    \@@_buildformattedname:
+    \tl_set_eq:NN \l_@@_authorentry_tl \l_@@_formattedname_tl
+
+     % Superscript
+    \tl_set:Nx \l_@@_authorsup_tl { \seq_item:Nn \g_@@_authoraffs_seq {##1} }
+    \seq_if_in:NnT \g_@@_authorcorr_seq {##1} {
+      \tl_if_empty:NF \l_@@_authorsup_tl { \tl_put_right:Nn \l_@@_authorsup_tl {,} }
+      \tl_put_right:Nn \l_@@_authorsup_tl { * }
+    }
+    \tl_if_empty:NF \l_@@_authorsup_tl {
+      \tl_put_right:Nx \l_@@_authorentry_tl
+      { \exp_not:N \textsuperscript { \exp_not:V \l_@@_authorsup_tl } }
+    }
+    % ORCID
+    \tl_set:Nx \l_@@_authororcid_tl { \seq_item:Nn \g_@@_authororcids_seq {##1} }
+    \tl_if_blank:VF \l_@@_authororcid_tl {
+      \tl_put_right:Nx \l_@@_authorentry_tl {
+        \exp_not:N \,
+        \exp_not:N \@@_orcidlink:n { \exp_not:V \l_@@_authororcid_tl }
+      }
+    }
+    \seq_put_right:NV \l_@@_authorentries_seq \l_@@_authorentry_tl
+  }
+  \seq_use:Nnnn \l_@@_authorentries_seq{~\&~}{,~}{\translatekey{andlist}~}
+}
+
+% Print author footnote
+\seq_new:N \l_@@_fnemails_seq
+\seq_new:N \l_@@_fnorcids_seq
+\tl_new:N  \l_@@_fnname_tl
+\str_new:N \l_@@_orcidurl_str
+
+\cs_new_protected:Nn \@@_printauthorfootnote: {
+  \seq_clear:N \l_@@_fnemails_seq
+  \seq_clear:N \l_@@_fnorcids_seq
+  \seq_map_indexed_inline:Nn \g_@@_authoremails_seq {
+    % name
+    \tl_set:Nx \l_@@_fnname_tl { \seq_item:Nn \g_@@_authorfirstnames_seq {##1} }
+    \tl_if_empty:NF \l_@@_fnname_tl {
+      \tl_set:Nx \l_@@_fnname_tl { \tl_head:N \l_@@_fnname_tl . ~ }
+    }
+    \tl_put_right:Nx \l_@@_fnname_tl { \seq_item:Nn \g_@@_authorsurnames_seq {##1} }
+    % email
+    \tl_if_blank:nF {##2} {
+      \seq_put_right:Nx \l_@@_fnemails_seq
+      { \exp_not:n {##2} ~ ( \exp_not:V \l_@@_fnname_tl ) }
+    }
+    % ORCID
+    \tl_set:Nx \l_tmpa_tl { \seq_item:Nn \g_@@_authororcids_seq {##1} }
+    \tl_if_blank:VF \l_tmpa_tl {
+      \str_set:Nx \l_@@_orcidurl_str { https://orcid.org/ \l_tmpa_tl }
+      \seq_put_right:Nx \l_@@_fnorcids_seq {
+        \cs_if_exist:NTF \href{
+          \exp_not:N \href { \l_@@_orcidurl_str } { \exp_not:V \l_tmpa_tl }
+        }{
+          \exp_not:V \l_tmpa_tl
+        }
+        {}~ ( \exp_not:V \l_@@_fnname_tl )
+      }
+    }
+  }
+  \bool_lazy_all:nF {
+    { \seq_if_empty_p:N \g_@@_authorcorr_seq }
+    { \seq_if_empty_p:N \l_@@_fnemails_seq }
+    { \seq_if_empty_p:N \l_@@_fnorcids_seq }
+  }{
+    \group_begin:
+    \cs_set_eq:NN \thefootnote \relax % unnumbered
+    \cs_set:Npn \@makefntext ##1
+    { \dim_zero:N \parindent \noindent ##1 }
+    \footnotetext {
+      \seq_if_empty:NF \g_@@_authorcorr_seq {
+        \textsuperscript{*} ~ \translatekey{corrauthor}. \par
+      }
+      \seq_if_empty:NF \l_@@_fnemails_seq {
+        \translatekey{emails}: ~
+        \seq_use:Nn \l_@@_fnemails_seq { , ~ } . \par
+      }
+      \seq_if_empty:NF \l_@@_fnorcids_seq {
+        ORCID: ~ \seq_use:Nn \l_@@_fnorcids_seq { , ~ } . \par
+      }
+    }
+    \group_end:
   }
 }
 
 % Declare author sequences
 \seq_new:N \g_@@_authors_seq
 \seq_new:N \g_@@_authorswaff_seq
+\seq_new:N \g_@@_authoraffs_seq
 \seq_new:N \g_@@_authorlist_seq
 \seq_new:N \g_@@_authorscalls_seq
+\seq_new:N \g_@@_authoremails_seq
+\seq_new:N \g_@@_authororcids_seq
+\seq_new:N \g_@@_authorcorr_seq
+\seq_new:N \g_@@_authorsurnames_seq
+\seq_new:N \g_@@_authorfirstnames_seq
+
+\bool_new:N \l_@@_author_iscorresponding_bool
+\tl_new:N   \l_@@_author_email_tl
+\tl_new:N   \l_@@_author_orcid_tl
 
 % Add author to sequences
-\cs_new:Nn \@@_addauthor:nnn {
+\cs_new:Nn \@@_addauthor:nnnn {
+  \tl_clear:N \l_@@_author_email_tl
+  \tl_clear:N \l_@@_author_orcid_tl
+  \bool_set_false:N \l_@@_author_iscorresponding_bool
+  \keys_set:nn { ugentdocs / author } {#4}
+
+  \@@_addto_affseq:n {#3} % must be before nameaffiliationseq
+
   \@@_addto_nameseq:nnn             {authors} {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {authors} {#1}{#2}{#3}
-  \@@_addto_callseq:nnnn            {authors} {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {authors} {#1}{#2}{\l_@@_affiltext_tl}
+  \@@_addto_callseq:nnnnn           {authors} {#1}{#2}{#3}{#4}
+
+  \tl_if_blank:VTF \l_@@_author_email_tl {
+    \seq_gput_right:Nn \g_@@_authoremails_seq {}
+  }{
+    \@@_formatemail:V \l_@@_author_email_tl
+    \seq_gput_right:NV \g_@@_authoremails_seq \l_@@_email_tl
+  }
+  \seq_gput_right:NV \g_@@_authororcids_seq \l_@@_author_orcid_tl
+  \bool_if:NT \l_@@_author_iscorresponding_bool{
+    \seq_gput_right:Nx \g_@@_authorcorr_seq
+    { \seq_count:N \g_@@_authors_seq }
+  }
 
   \@@_parsename:n {#2}
+  \seq_gput_right:NV \g_@@_authorsurnames_seq   \l_@@_surname_tl
+  \seq_gput_right:NV \g_@@_authorfirstnames_seq \l_@@_firstname_tl
   \seq_gput_right:Nx \g_@@_authorlist_seq {
     \exp_not:V \l_@@_surname_tl ,~\tl_head:N \l_@@_firstname_tl .
   }
 }
 
-\RenewDocumentCommand{\author}{mmm}{
-  \@@_addauthor:nnn { #1 } { #2 } { #3 }
+\keys_define:nn { ugentdocs / author }{
+  corresponding .bool_set:N = \l_@@_author_iscorresponding_bool,
+  corresponding .default:n  = true,
+  email         .tl_set:N   = \l_@@_author_email_tl,
+  orcid         .tl_set:N   = \l_@@_author_orcid_tl,
+}
+
+\RenewDocumentCommand{\author}{O{} mmm}{
+  \@@_addauthor:nnnn { #2 } { #3 } { #4 } { #1 }
 }
 \ExplSyntaxOff
-%</phd|crs|bama|bkc|ex|le|rp>
+%</phd|crs|bama|bkc|ex|le|rp|art>
 % \fi
 %
 % \DescribeMacro[crs-rp-bkc-ex]{\lecturer}
@@ -3575,8 +4074,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \seq_new:N \g_@@_lecturerscalls_seq
 \seq_new:N \g_@@_lecturerswaff_seq
 \cs_new:Nn \@@_addlecturer:nnn {
+  \@@_addto_affseq:n {#3}
+
   \@@_addto_nameseq:nnn             {lecturers} {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {lecturers} {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {lecturers} {#1}{#2}{\l_@@_affiltext_tl}
   \@@_addto_callseq:nnnn            {lecturers} {#1}{#2}{#3}
 }
 \NewDocumentCommand{\lecturer}{mmm}{
@@ -3616,13 +4117,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \seq_new:N \g_@@_allsupervisorstutors_seq
 \seq_new:N \g_@@_allsupervisorswaff_seq
 \cs_new:Nn \@@_addsupervisor:nnn {
+  \@@_addto_affseq:n {#3}
+
   \@@_addto_nameseq:nnn             {supervisors} {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {supervisors} {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {supervisors} {#1}{#2}{\l_@@_affiltext_tl}
   \@@_addto_callseq:nnnn            {supervisors} {#1}{#2}{#3}
 
   \@@_addto_nameseq:nnn             {allsupervisors}        {#1}{#2}
   \@@_addto_nameseq:nnn             {allsupervisorstutors}  {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {allsupervisors}        {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {allsupervisors}        {#1}{#2}{\l_@@_affiltext_tl}
 }
 \NewDocumentCommand{\supervisor}{mmm}{
   \@@_addsupervisor:nnn { #1 } { #2 } { #3 }
@@ -3667,12 +4170,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \seq_new:N \g_@@_cosupervisors_seq
 \seq_new:N \g_@@_cosupervisorswaff_seq
 \cs_new:Nn \@@_addcosupervisor:nnn {
+  \@@_addto_affseq:n {#3}
+
   \@@_addto_nameseq:nnn             {cosupervisors} {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {cosupervisors} {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {cosupervisors} {#1}{#2}{\l_@@_affiltext_tl}
 
   \@@_addto_nameseq:nnn             {allsupervisors}        {#1}{#2}
   \@@_addto_nameseq:nnn             {allsupervisorstutors}  {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {allsupervisors}        {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {allsupervisors}        {#1}{#2}{\l_@@_affiltext_tl}
 }
 \NewDocumentCommand{\cosupervisor}{mmm}{
   \@@_addcosupervisor:nnn { #1 } { #2 } { #3 }
@@ -3681,12 +4186,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \seq_new:N \g_@@_extsupervisors_seq
 \seq_new:N \g_@@_extsupervisorswaff_seq
 \cs_new:Nn \@@_addextsupervisor:nnn {
+  \@@_addto_affseq:n {#3}
+
   \@@_addto_nameseq:nnn             {extsupervisors} {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {extsupervisors} {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {extsupervisors} {#1}{#2}{\l_@@_affiltext_tl}
 
   \@@_addto_nameseq:nnn             {allsupervisors}        {#1}{#2}
   \@@_addto_nameseq:nnn             {allsupervisorstutors}  {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {allsupervisors}        {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {allsupervisors}        {#1}{#2}{\l_@@_affiltext_tl}
 }
 \NewDocumentCommand{\extsupervisor}{mmm}{
   \@@_addextsupervisor:nnn { #1 } { #2 } { #3 }
@@ -3695,8 +4202,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \seq_new:N \g_@@_tutors_seq
 \seq_new:N \g_@@_tutorswaff_seq
 \cs_new:Nn \@@_addtutor:nnn {
+  \@@_addto_affseq:n {#3}
+
   \@@_addto_nameseq:nnn             {tutors} {#1}{#2}
-  \@@_addto_nameaffiliationseq:nnnn {tutors} {#1}{#2}{#3}
+  \@@_addto_nameaffiliationseq:nnnV {tutors} {#1}{#2}{\l_@@_affiltext_tl}
 
   \@@_addto_nameseq:nnn             {allsupervisorstutors} {#1}{#2}
 }
@@ -3722,7 +4231,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \ExplSyntaxOn
 \seq_new:N \g_@@_jurymemberswaff_seq
 \cs_new:Nn \@@_addjurymember:nnn {
-  \@@_addto_nameaffiliationseq:nnnn {jurymembers} {#1}{#2}{#3}
+  \@@_addto_affseq:n {#3}
+
+  \@@_addto_nameaffiliationseq:nnnV {jurymembers} {#1}{#2}{\l_@@_affiltext_tl}
 }
 \NewDocumentCommand{\jurymember}{mmm}{
   \@@_addjurymember:nnn { #1 } { #2 } { #3 }
@@ -3856,7 +4367,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<le>\renewcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
 % \fi
 %
-% \DescribeMacro[le-rp]{\email}
+% \DescribeMacro[phd-crs-bama-bkc-ex-le-rp-art]{\email}
 %   \oarg{domain}
 %   \marg{local-part}
 %   \margintag{emails\_seq}\\
@@ -3866,30 +4377,52 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   You can specify multiple email addresses by using the command
 %   multiple times.
 % \iffalse
-%<*le|rp|bmr>
+%<*phd|crs|bama|bkc|ex|le|rp|art>
 \ExplSyntaxOn
 \seq_new:N \g_@@_emails_seq
 \tl_new:N \l_@@_domain_tl
-\cs_new:Nn \@@_addemail:nn {
+\tl_new:N  \l_@@_email_tl
+\seq_new:N \l_@@_emailparts_seq
+
+% Helper CS for email when both name and domain are given
+\cs_new_protected:Nn \@@_formatemail:nn {
   \tl_set:Nn \l_@@_domain_tl {#1}
   \tl_if_empty:NT \l_@@_domain_tl {
     \tl_set:Nx \l_@@_lookup_key_tl { \languagename {}: domain }
     \prop_if_in:NVTF \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl
-    { \tl_set:Nx \l_@@_domain_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl } }
-    { \tl_set:Nx \l_@@_domain_tl { \prop_item:Nn \g_@@_dict_keyvals_prop {english:domain} } }
+      { \tl_set:Nx \l_@@_domain_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl } }
+      { \tl_set:Nx \l_@@_domain_tl { \prop_item:Nn \g_@@_dict_keyvals_prop {english:domain} } }
   }
   \@ifpackageloaded{hyperref}{
-    \seq_gput_right:Nx \g_@@_emails_seq
-    { \exp_not:N \href{mailto:#2@\l_@@_domain_tl}{#2@\l_@@_domain_tl} \exp_not:N \strut }
+    \tl_set:Nx \l_@@_email_tl
+    { \exp_not:N \href{mailto:#2@\l_@@_domain_tl}{#2@\l_@@_domain_tl} }
   }{
-    \seq_gput_right:Nx \g_@@_emails_seq { #2@\l_@@_domain_tl \exp_not:N \strut }
+    \tl_set:Nx \l_@@_email_tl { #2@\l_@@_domain_tl }
   }
+}
+\cs_generate_variant:Nn \@@_formatemail:nn { ee }
+
+% Helper CS for email when either full email or only local part is given
+\cs_new_protected:Nn \@@_formatemail:n {
+  \regex_extract_once:nnNTF { \A (.*) @ (.*) \Z } {#1} \l_@@_emailparts_seq {
+    \@@_formatemail:ee
+      { \seq_item:Nn \l_@@_emailparts_seq {3} }
+      { \seq_item:Nn \l_@@_emailparts_seq {2} }
+  }{
+    \@@_formatemail:nn {} {#1}
+  }
+}
+\cs_generate_variant:Nn \@@_formatemail:n { V }
+
+\cs_new_protected:Nn \@@_addemail:nn {
+  \@@_formatemail:nn {#1} {#2}
+  \seq_gput_right:Nx \g_@@_emails_seq { \exp_not:V \l_@@_email_tl \exp_not:N \strut }
 }
 \NewDocumentCommand{\email}{O{} m}{
   \@@_addemail:nn { #1 } { #2 }
 }
 \ExplSyntaxOff
-%</le|rp|bmr>
+%</phd|crs|bama|bkc|ex|le|rp|art>
 % \fi
 %
 %
@@ -4782,7 +5315,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % It also contains their implementation. If you do not wish to customize that,
 % you do not have to look into the code.
 %
-% \DescribeMacro[bama-phd-rp-crs-ex-le]{\maketitle}
+% \DescribeMacro[bama-phd-rp-crs-ex-le-art]{\maketitle}
 %   A native \LaTeX{} macro, overridden to support the generation of
 %   cover pages, title pages, colophon pages, etc.
 %
@@ -5038,6 +5571,132 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</le>
 %    \end{macrocode}
 %
+% The |article| class uses a simple title, no cover page is included.
+% It includes a ``cover'' page containing the graphical abstract and highlights
+% (if those are given).
+% The title page contains the title,
+% author names with affiliations and ORCID badges,
+% the affiliation list,
+% optional grant message, and
+% the article info and abstract table.
+% A footnote is included with the author emails and ORCIDs.
+%    \begin{macrocode}
+%<*art>
+\ExplSyntaxOn
+\renewcommand\maketitle{%
+  % First page (if applicable)
+  \bool_lazy_or:nnT
+    { ! \tl_if_empty_p:o { \@graphicalabstract } }
+    { ! \tl_if_empty_p:N \g_@@_highlights_tl }
+  { \thispagestyle{empty}
+    \color{covertitlecolor}{
+      \fontsize{20}{28}\selectfont\@title\par
+    }
+    \vskip 0.5\gridunit
+    \color{coverdatacolor}{
+      \fontsize{14}{17}\selectfont
+      \printseq{authorlist}{~\&~}{,~}{\translatekey{andlist}~}
+      \par
+    }
+
+    \tl_if_empty:oF { \@graphicalabstract }{
+      \color{covertitlecolor}{
+        \fontsize{20}{28}\selectfont
+        \vskip\gridunit
+        \translatekey{graphicalabstract}\par
+      }
+      \@graphicalabstract
+    }
+    \tl_if_empty:NF \g_@@_highlights_tl {
+      \vskip\gridunit
+      \color{covertitlecolor}{
+        \fontsize{20}{28}\selectfont
+        \translatekey{highlights}\par
+      }
+      \color{coverdatacolor}{
+        \fontsize{14}{17}\selectfont
+        \@@_printhighlights:
+      }
+    }
+  }
+  \newpage
+  \thispagestyle{titlepage}
+  % Title
+  \color{covertitlecolor}{\fontsize{20}{28}\selectfont\@title\par}
+  % Author and affiliation list
+  \vskip 0.5\gridunit
+  \color{coverdatacolor}{
+    \fontsize{14}{17}\selectfont
+    \@@_printauthorlist:
+    \par
+    \vskip 0.5\gridunit
+    \fontsize{10}{12}\selectfont
+    \@@_printaffiliationlist:
+    \ifx\@grants\@empty\else
+      \vskip 0.25\gridunit
+      {\translatekey{supportedby}~\@grants.}
+    \fi
+    \vskip 0.5\gridunit
+    \hrule \medskip
+    \noindent
+     % Article info
+    \begin{minipage}[t]{0.3\linewidth}
+      \raggedright
+      \fontsize{14}{17}\selectfont
+      \translatekey[uppercase]{articleinfo} \par
+      \smallskip \hrule \medskip
+      \normalsize
+      % keywords
+      \clist_if_empty:NF \g_@@_keywords_clist {
+        \textit{ \translatekey{keywords} } \par
+        \clist_map_inline:Nn \g_@@_keywords_clist { ##1 \par }
+        \medskip
+      }
+      % dates
+      \tl_if_empty:oF {\@submitteddate} {
+        \translatekey{submitted}~\@submitteddate \par
+      }
+      \tl_if_empty:oF {\@accepteddate} {
+        \translatekey{accepted}~\@accepteddate \par
+      }
+      \tl_if_empty:oF {\@publisheddate} {
+        \translatekey{published}~\@publisheddate \par
+      }
+      % journal
+      \tl_if_empty:oF { \@journal } {
+        \medskip
+        \translatekey{published}~\translatekey[lowercase]{in}:
+        {}~\textit{ \@journal } \par
+      }
+      % doi
+      \tl_if_empty:oF { \@doi }{
+        \medskip{DOI~
+          \@ifpackageloaded{hyperref}{
+            \href{https://doi.org/\@doi}{\@doi}
+          }{
+            \@doi
+          }
+        }
+      }
+    \end{minipage}
+    \hfill
+    % Abstract
+    \begin{minipage}[t]{0.65\linewidth}
+      \fontsize{14}{17}\selectfont
+      \translatekey[uppercase]{abstract} \par
+      \smallskip \hrule \medskip
+      \normalsize
+      \@abstract
+    \end{minipage}
+    \par \medskip \hrule
+  }
+  \@@_printauthorfootnote:
+}
+\ExplSyntaxOff
+%</art>
+%    \end{macrocode}
+%
+%
 % \DescribeMacro[phd-crs]{\makefinalpage}
 %   Inserts the final pages and cover
 %   using |\@backcover| (see Section \ref{S:style:covers}).
@@ -5180,6 +5839,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \tl_set:Nx \l_@@_year_tl            { \exp_not:n{\the\year} }
   \tl_set:Nx \l_@@_academicyear_tl    { \exp_not:n{\@academicyear} }
 
+  \tl_clear_new:N \l_@@_affiliationscalls_tl
+  \seq_map_inline:Nn \g_@@_affiliationscalls_seq
+  { \tl_put_right:Nn \l_@@_affiliationscalls_tl { ##1 \iow_newline: } }
+
   \tl_clear_new:N \l_@@_authorscalls_tl
   \seq_map_inline:Nn \g_@@_authorscalls_seq
   { \tl_put_right:Nn \l_@@_authorscalls_tl { ##1 \iow_newline: } }
@@ -5224,6 +5887,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
     \iow_newline:
     \exp_not:N\title            {\exp_not:V\l_@@_title_tl}            \iow_newline:
     \exp_not:N\subtitle         {\exp_not:V\l_@@_subtitle_tl}         \iow_newline:
+    \l_@@_affiliationscalls_tl                                        \iow_newline:
     \l_@@_authorscalls_tl                                             \iow_newline:
     \exp_not:N\isbn             {\exp_not:V\l_@@_isbn_tl}             \iow_newline:
     \exp_not:N\coverimage       {\exp_not:V\l_@@_coverimage_tl}       \iow_newline:
@@ -5314,7 +5978,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % (see Section~\ref{S:usage:cffcl:colours}).
 % It additionally sets the |pdftitle|, |pdfsubject|, and |pdfauthor| metadata:
 %    \begin{macrocode}
-%<*crs|bama|phd|rp>
+%<*crs|bama|phd|rp|art>
 \ExplSyntaxOn
 \AtBeginDocument{
   \@ifpackageloaded{hyperref}{
@@ -5347,10 +6011,17 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
       pdfsubject=\@pdfsubtitle,
       pdfauthor=\@pdfauthor
     }
+%</crs|bama|phd|rp|art>
+%<*art>
+    \hypersetup{
+      pdfkeywords = { \clist_use:Nn \g_@@_keywords_clist { ,~ } }
+    }
+%</art>
+%<*crs|bama|phd|rp|art>
   }{}
 }
 \ExplSyntaxOff
-%</crs|bama|phd|rp>
+%</crs|bama|phd|rp|art>
 %    \end{macrocode}
 %
 %
@@ -5599,7 +6270,55 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \setlength{\headheight}{13.7pt}
 \renewcommand*{\headrulewidth}{0pt}
 \renewcommand*{\footrulewidth}{1pt}
+
+\fancypagestyle
 %</ex>
+%    \end{macrocode}
+%
+% For the |article| class, this is the short title in the centre header,
+% a left footer ``Published'' or ``Published in: journal'' (if journal is given)
+% when a publication % date is given,
+% else ``Preprint'' or ``Preprint submitted to journal'',
+% and the page count in the right footer
+%
+%<*art>
+\fancyhf{}
+\ExplSyntaxOn
+\fancyhead[C]{\small \@shorttitle}
+\fancyfoot[L]{
+  \tl_if_empty:oTF { \@publisheddate }{
+    \translatekey{preprint}
+    \bool_lazy_and:nnT
+    { ! \tl_if_empty_p:o { \@submitteddate } }
+    { ! \tl_if_empty_p:o { \@journal } }
+    { {}~\translatekey[lowercase]{submittedto}~\@journal }
+  }{
+    \translatekey{published}
+    \tl_if_empty:oF { \@journal }
+    { ~\translatekey[lowercase]{in}:~\@journal }
+    \tl_if_empty:oF { \@doi }{
+      .~{\small DOI~
+        \@ifpackageloaded{hyperref}{
+          \href{https://doi.org/\@doi}{\@doi}
+        }{
+          \@doi
+        }
+      }
+    }
+  }
+}
+\fancyfoot[R]{\small \thepage/\ztotpages}
+\ExplSyntaxOff
+
+\setlength{\headheight}{13.7pt}
+\renewcommand*{\headrulewidth}{0pt}
+\renewcommand*{\footrulewidth}{1pt}
+
+\pagestyle{fancy}
+\fancypagestyle{titlepage}[fancy]{
+  \fancyhead{}
+}
+%</art>
 %    \end{macrocode}
 %
 % For the |letter| class, we don't use the fancyhdr package.
@@ -5770,8 +6489,10 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % Implementation:
 %
 %    \begin{macrocode}
-%<*phd|crs|bama|rp>
+%<*phd|crs|bama|rp|art>
 \RequirePackage[explicit]{titlesec}
+%</phd|crs|bama|rp|art>
+%<*phd|crs|bama|rp>
 \ExplSyntaxOn
 \newcommand{\@titlestyleappendix}{}
 
@@ -5993,6 +6714,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 }
 %</phd|crs|bama|rp>
 %    \end{macrocode}
+% \iffalse
+%<*art>
+\newcommand{\@titlestylechapter}{}
+\newcommand{\@titlestyleappendix}{}
+%</art>
+% \fi
 %
 % The section style is the same for all documents:
 % \DescribeObject[custom]{\@titlestylesection}
@@ -6002,7 +6729,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   Implementation:
 %
 %    \begin{macrocode}
-%<*phd|crs|bama|rp>
+%<*phd|crs|bama|rp|art>
 \newcommand{\@titlestylesection}{
   \titleformat{\section}
   [block] % shape
@@ -6015,17 +6742,17 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   % Change the spacing above the chapter. This is left - above - below
   \titlespacing*{\section}{0pt}{6pt}{0pt}
 }
-%</phd|crs|bama|rp>
+%</phd|crs|bama|rp|art>
 %    \end{macrocode}
 %
 % \iffalse
-%<*phd|crs|bama|rp>
+%<*phd|crs|bama|rp|art>
 \AtBeginDocument{
   \@titlestylechapter
   \@titlestylesection
   \apptocmd{\appendix}{\@titlestyleappendix}{}{}
 }
-%</phd|crs|bama|rp>
+%</phd|crs|bama|rp|art>
 % \fi
 %
 %
@@ -7143,13 +7870,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<le1>\documentclass[bw]{ugentletter}
 %<ex1>\documentclass[bw,10pt, dutch]{ugentexam}
 %<ex2>\documentclass[bw,10pt, coverbg]{ugentexam}
+%<art1>\documentclass[10pt]{ugentarticle}
 %
 %
 % Class options notes ----------------------------------------------------------
 %
 % Common options ...............................................................
 %
-%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2>
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2|art1>
 %% neutralcolors      Uses ugent colour scheme instead of faculty colours
 %%                    Options: true, false*
 %% colormodel         Uses rgb (display) or cmyk (print) colouring
@@ -7169,20 +7897,23 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %% nameformat         Format all names as "surname firstname"
 %%                    or "firstname surname"
 %%                    Options: surnamefirst, surnamelast*
-%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2>
+%% affiliationformat  Format affiliation indexes as "a,b,c" (alph)
+%%                    or "1,2,3" (arabic)
+%%                    Options: alph*, arabic
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2|art1>
 %
 %
 % Base class options ...........................................................
 %
-%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2>
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2|art1>
 %% xxpt               Sets the font size to e.g. 10pt or 11pt
-%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2>
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2|art1>
 %
 %
-%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1>
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|art1>
 %% twoside            If you want a two-sided document, change to oneside if you
 %%                    want a recto only document
-%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1>
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|art1>
 %
 %
 %<*crs1|bama1|bama2|phd1|phd2|rp1|rp2>
@@ -7233,21 +7964,21 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %
 % Add default note .............................................................
 %
-%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2>
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2|art1>
 %% *default
 
-%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2>
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2|art1>
 %
 %
 % Packages ---------------------------------------------------------------------
 %
-%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1>
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|art1>
 %% This is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
 
-%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1>
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|art1>
 %
-%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
 %% This package allows to generate a PDF with clickable links
 \usepackage[hyperindex=true]{hyperref}
 %% You must load the hyperref package yourself, to allow putting it
@@ -7263,26 +7994,29 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %% Use this package if you want prettier tables
 \usepackage{booktabs}
 
+%% Use this package for exact float placements (e.g., in a multicols environment)
+\usepackage{float}
+
 %% Use biblatex for references
 \usepackage[backend=biber, style=authoryear]{biblatex}
 \addbibresource{biblatex-examples.bib} %% Change this to your own bibliography
 
-%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
-%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|ex1|ex2>
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|ex1|ex2|art1>
 %% Use this package if you want uniform and clean quantities and units
 %% following SI conventions.
 \usepackage{siunitx}
 \sisetup{mode = text}
 
 %% Use this package if you want to easily typeset chemical equations.
-\usepackage{mhchem}
+\usepackage[version=4]{mhchem}
 
-%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|ex1|ex2>
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|ex1|ex2|art1>
 %
 %
 % Font override to Arial -------------------------------------------------------
 %
-%<*crs1|bama1|phd2|rp1|ex1>
+%<*crs1|bama1|phd2|rp1|ex1|art1>
 %% You may want to use common fonts such as Arial (still within house style)
 %%\setsansfont{Arial}[
 %%  BoldFont           = {Arial},
@@ -7293,7 +8027,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %%  BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%]
 
-%</crs1|bama1|phd2|rp1|ex1>
+%</crs1|bama1|phd2|rp1|ex1|art1>
 %
 %
 %<*bama2|phd1|rp2|le1|ex2>
@@ -7327,6 +8061,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
 %</bama1|bama2|phd1|phd2|le1|ex1|ex2>
 %
+%<*art1>
+%% Optionally specify submission, acceptance, and publication date
+\date[submitted]{2026-05-19}
+\date[accepted]{2026-09-04}
+\date[published]{2026-10-05}
+
+%</art1>
+%
 %
 %<*crs1|bama1|bama2|phd1|phd2|rp1|rp2>
 %% Year defaults to the current year, override with:
@@ -7355,9 +8097,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
 %</bama1|bama2|phd1|phd2>
 %
-%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|ex1|ex2>
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|ex1|ex2|art1>
 %% Document data ---------------------------------------------------------------
-%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|ex1|ex2>
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|ex1|ex2|art1>
 %
 %
 % Titles .......................................................................
@@ -7405,6 +8147,12 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \extra{<additional text to title>}
 
 %</rp2>
+%<*art1>
+%% Set title
+\title{<This is the title of your article which is probably way too long
+  and you should generally avoid this>}
+
+%</art1>
 %
 %
 % Images and logos .............................................................
@@ -7463,6 +8211,16 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
 %</phd1|phd2>
 %
+%<*art1>
+%% Add the graphical abstract
+\graphicalabstract{%
+  \begin{center}%
+    \includegraphics[width=0.5\textwidth]{example-image-a}%
+  \end{center}%
+}
+
+%</art1>
+%
 %
 % Degree, doctype, wordcount ...................................................
 %
@@ -7511,16 +8269,31 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</rp1|rp2>
 %
 %
-% PhD information ..............................................................
+% PhD or article information ...................................................
 %
-%<*phd1|phd2>
-%% Specify your funding if any
+%<*art1>
+%% Optionally specify the journal
+\journal{Water Research}
+
+%% Optionally specify the keywords and highlights
+\keywords{keyword one, keyword two, keyword three}
+\highlights{
+  \item This is a first fine highlight
+  \item This is some finding highlighted
+  \item This is a key conclusion
+  \item Perhaps some perspective
+}
+
+%</art1>
+%
+%<*phd1|phd2|art1>
+%% Optionally specify your funding if any
 \grants{FWO PhD Fellowship strategic basic research 1SXXXXXXN}
 
-%% Specify your DOI
-%% \doi{10.1000/182}
+%% Specify your DOI if applicable
+\doi{10.1000/182}
 
-%</phd1|phd2>
+%</phd1|phd2|art1>
 %<*phd1|phd2|crs1>
 %% Specify your ISBN
 \isbn{978-92-95055-12-4}
@@ -7588,9 +8361,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</crs1>
 %
 %
-%<*phd1|phd2|crs1|bama1|bama2|rp1|ex1|ex2>
+%<*phd1|phd2|crs1|bama1|bama2|rp1|ex1|ex2|art1>
 %% People ----------------------------------------------------------------------
-%</phd1|phd2|crs1|bama1|bama2|rp1|ex1|ex2>
+%</phd1|phd2|crs1|bama1|bama2|rp1|ex1|ex2|art1>
 %
 %<*crs1|ex1>
 %% Authors
@@ -7605,7 +8378,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 
 %</bama1>
 %<*bama2|rp1>
-%% Set title, subtitle and author
+%% Specify the author and their title, and affiliation
 \author{}{Poppe, Ludo}{& (<studentnr>)}
 \author{}{Van Callenberghe, Palmyra}{& (<studentnr>)}
 \author{}{Van Hoebeecke, Cesar}{& (<studentnr>)}
@@ -7670,6 +8443,36 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \rector{prof. dr.}{De Sutter, Petra}
 
 %</phd1|phd2>
+%
+%
+%<*art1>
+%% Specify the author and their title, and affiliation
+\affiliation{%
+  Technologies for a Resource Agile Society Laboratory (TRASLAB), %
+  Ghent University, %
+  Frieda Saeysstraat 1, 9052 Ghent, %
+  East-Flanders, Belgium%
+}
+\affiliation{
+  Center for Advanced Process Technology for Urban Resource Recovery (CAPTURE), %
+  Frieda Saeysstraat 1, 9052 Ghent, %
+  East-Flanders, Belgium
+}
+\author
+  [email=Ludo.Poppe,
+  orcid=0000-00000-0000-0001]
+  {}{Poppe, Ludo}{a}
+\author
+  [email=Palmyra.VanCallenberghe,
+  orcid=0000-00000-0000-0002]
+  {}{Van Callenberghe, Palmyra}{a,b}
+\author
+  [corresponding,
+  email=Cesar.VanHoebeecke,
+  orcid=0000-00000-0000-0003]
+  {}{Van Hoebeecke, Cesar}{b}
+
+%</art1>
 %
 %
 %<*phd1|phd2|rp2|le1>
@@ -7992,14 +8795,22 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</le1>
 %
 %
-%<*bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2>
+%<*art1>
+%% Article abstract ------------------------------------------------------------
+\abstract{
+  \kant[1]
+}
+%</art1>
+%
+%
+%<*bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2|art1>
 %% Document --------------------------------------------------------------------
 \begin{document}
 
 %% Create the cover and title pages
 \maketitle
 
-%</bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2>
+%</bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2|art1>
 %
 %<*crs1|phd1|phd2>
 %% Creates a bookcover file \jobname-cover.tex
@@ -8195,46 +9006,109 @@ Indicate and describe the use case if one or multiple GAI tools have been used:
 \makeatother
 
 %</bama1|rp2|phd2>
+%<*art1>
+\begin{multicols}{2}
+\raggedcolumns
+
+\section*{<An unnumbered introduction>}
+\kant[5]
+
+%</art1>
 %
 %<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 \chapter*{<An unnumbered chapter>}
 \kant[5]
 
-\chapter{\textrm{\LaTeX} 101}
-\label{C:Tutorial}
-
+\chapter{Tutorial}
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+\section{\textrm{\LaTeX} 101}
+\label{S:Tutorial}
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 \insettext{Tutorial}{
-  In this small example chapter (Chapter \ref{C:Tutorial}),
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+  In this small example section (Section \ref{S:Tutorial}),
   we will show some of the functionality you will need most often.
   Online guides such as \href{https://www.overleaf.com/learn/latex/}{those from Overleaf}
   are more complete and useful, or a simple internet search, Stack Overflow or
   -- increasingly -- LLMs can be used to find answers to
-  ``How do I do this in \textrm{\LaTeX}?''\\
+  ``How do I do this in \textrm{\LaTeX}?''
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 }
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
 
 Still, some basics may be helpful. Adding a new paragraph is as simple as pressing enter twice:
 
 No need for multiple \verb!\\!, \verb!\newline!s, or \verb!\par!.
 You can adjust the indentation and spacing of the paragraph using\\
-\verb!\setlength{\parindent}{0pt}! and \verb!\setlength{\parskip}{0.75\baselineskip}!.
+\verb!\setlength{\parindent}{0pt}!\\
+and\\
+\verb!\setlength{\parskip}{0.75\baselineskip}!.
 
 Citations are input using BibLaTeX, e.g.,\\
 \verb!\textcite{sigfridsson}!: \textcite{sigfridsson}\\
 \verb!\autocite{aristotle:physics}!: \autocite{aristotle:physics}.\\
-The bibliography is printed at the end of this chapter using \verb!\printbibliography!.
+The bibliography is printed at the end of this section using \verb!\printbibliography!.
 
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 Figures such as Figure \ref{F:FigExample} are added as follows:
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
-  \includegraphics[width = 0.5\textwidth]{example-image-a} %% Your figure path
+  \includegraphics[width = 0.5\linewidth]{example-image-a} %% Your figure path
   \caption[<short figure caption>]{<This is the long caption of your figure.>}
   \label{F:FigExample}
 \end{figure}
 
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*art1>
+\textcolor{lightgray}{\kant[9]}
+
+Figures within a muticols column such as Figure \ref{F:FigExampleCol}
+are added as follows:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width = \linewidth]{example-image-a} %% Your figure path
+  \caption[<short figure caption>]{<This is the long caption of your figure.>}
+  \label{F:FigExampleCol}
+\end{figure}
+
+\textcolor{lightgray}{\kant[9-11]}
+
+Figures spanning the full width such as Figure \ref{F:FigExampleWdth}
+are added as follows:
+
+\end{multicols}
+\begin{figure}[H]
+\centering
+\includegraphics[width = \linewidth,max height=5cm]{example-image-a} %% Your figure path
+\caption[<short figure caption>]{<This is the long caption of your figure.>}
+\label{F:FigExampleWdth}
+\end{figure}
+\begin{multicols}{2}
+
+\textcolor{lightgray}{\kant[9-10]}
+
+You can also specify a figure such as Figure \ref{F:FigExamplePage}
+within the multicols environment, and place it at the top of the next page.
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width = \linewidth,max height=5cm]{example-image-a} %% Your figure path
+  \caption[<short figure caption>]{<This is the long caption of your figure.>}
+  \label{F:FigExamplePage}
+\end{figure*}
+
+%</art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
 Tables such as Table \ref{T:TabExample} are added as follows:
 
-\begin{table}[h]
+\begin{table}[H]
 \caption[<short table caption>]{<This is the long caption of your table.>}
 \label{T:TabExample}
 \centering
@@ -8292,10 +9166,19 @@ Chemical equations can be easily typeset using \verb!mhchem!, e.g.,\\
 
 For all else, we trust you can find what you need with a bit of decent searching.
 
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 \insetquote{Good luck!}{The ugentdocs devs}
 
-\printbibliography
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*art1>
+Good luck!
 
+%</art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+\printbibliography
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 \chapter{<Second chapter>}
 \kant[6]
 
@@ -8306,18 +9189,42 @@ For all else, we trust you can find what you need with a bit of decent searching
 \kant[8]
 
 %</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*art1>
+\section{<A second section>}
+\kant[6]
+
+\section{<A third section>}
+\kant[7]
+
+\subsection{<A subsection>}
+\kant[8]
+
+\section*{Data availability}
+Specify where you can find your data
+
+\section*{Declaration of competing interests}
+The authors declare that they have some interesting competitions.
+
+\section*{Acknowledgements}
+I'd like to thank\ldots
+
+\section*{CReDIT author statement}
+\textbf{Poppe, L.:} Methodology, Software, Formal analysis, Data Curation, Writing - Original Draft, Visualization.
+\textbf{Van Callenberghe, P:} Writing - Original Draft.
+\textbf{Van Hoebeecke, C.:} Conceptualization, Writing - Review \& Editing, Supervision, Project administration, Funding acquisition.
+
+\printbibliography
+\end{multicols}
+%</art1>
 %
 %<*phd1|phd2>
-%% This has been temporarily commented out to increase build speed
-%% Remove comment if you want to see spine text in the auto-generated cover
-%%---------------------------------
-%%\foreach \i in {A,B,C,D,E} {
-%%  \chapter{Dummy chapter \i}
-%%  \foreach \j in {1,...,50} {
-%%    \kant[22-24]
-%%  }
-%%}
-%%---------------------------------
+%% Some dummy chapters to have enough spine width
+\foreach \i in {A,B,C,D,E} {
+  \chapter{Dummy chapter \i}
+  \foreach \j in {1,...,50} {
+    \kant[22-24]
+  }
+}
 %</phd1|phd2>
 %
 %<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
@@ -8501,28 +9408,36 @@ For all else, we trust you can find what you need with a bit of decent searching
   }
 }
 %% This is how you specify multiple choice answering options in two languages
-\mc{\bilingual{
-      A separate species designation requires demonstrable reproductive isolation
-      or distinct hereditary traits, and these are entirely absent here.
-    }{
-      Een aparte soortnaam vereist aantoonbare reproductieve isolatie
-      of onderscheidende erfelijke kenmerken, en die ontbreken hier volledig.
-    }}
-\mc{\bilingual{
-      The genus \textit{Homo} may not contain fictional or hypothetical species.
-    }{
-      Het genus \textit{Homo} mag geen fictieve of hypothetische soorten bevatten.
-    }}
-\mc{\bilingual{
-      Species names may not refer to human traits or behavior.
-    }{
-      Soortnamen mogen niet verwijzen naar menselijke eigenschappen of gedrag.
-    }}
-\mc{\bilingual{
-      The name is grammatically incorrect according to the rules of binomial nomenclature.
-    }{
-      De naam is grammaticaal incorrect volgens de regels van de binominale nomenclatuur.
-    }}
+\mc{
+  \bilingual{
+    A separate species designation requires demonstrable reproductive isolation
+    or distinct hereditary traits, and these are entirely absent here.
+  }{
+    Een aparte soortnaam vereist aantoonbare reproductieve isolatie
+    of onderscheidende erfelijke kenmerken, en die ontbreken hier volledig.
+  }
+}
+\mc{
+  \bilingual{
+    The genus \textit{Homo} may not contain fictional or hypothetical species.
+  }{
+    Het genus \textit{Homo} mag geen fictieve of hypothetische soorten bevatten.
+  }
+}
+\mc{
+  \bilingual{
+    Species names may not refer to human traits or behavior.
+  }{
+    Soortnamen mogen niet verwijzen naar menselijke eigenschappen of gedrag.
+  }
+}
+\mc{
+  \bilingual{
+    The name is grammatically incorrect according to the rules of binomial nomenclature.
+  }{
+    De naam is grammaticaal incorrect volgens de regels van de binominale nomenclatuur.
+  }
+}
 
 
 %% Special 'scrap' pages with a watermark on them: three in this case
@@ -8531,9 +9446,9 @@ For all else, we trust you can find what you need with a bit of decent searching
 }
 %</ex2>
 %
-%<*bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2>
+%<*bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2|art1>
 \end{document}
-%</bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2>
+%</bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2|art1>
 % ==============================================================================
 % \fi
 %
@@ -8550,9 +9465,12 @@ For all else, we trust you can find what you need with a bit of decent searching
 % \paragraph{English}
 % \VerbatimInput[firstline=46]{example-ugentphd-2}
 %
+% \subsection{\texttt{ugentarticle}}
+% \VerbatimInput[firstline=46]{example-ugentarticle.tex}
+%
 % \subsection{\texttt{ugentreport}}
 % \VerbatimInput[firstline=46]{example-ugentreport-1.tex}
-% \VerbatimInput[firstline=46]{example-ugentbama-2.tex}
+% \VerbatimInput[firstline=46]{example-ugentreport-2.tex}
 %
 %
 % \subsection{\texttt{ugentletter}}
