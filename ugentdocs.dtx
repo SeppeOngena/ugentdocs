@@ -2536,6 +2536,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<rp>\tl_set:Nn \l_@@_covertype_tl {report}
 %<ex>\tl_set:Nn \l_@@_covertype_tl {exam}
 %<art>\tl_set:Nn \l_@@_covertype_tl {article}
+% \fi
 %
 %
 % \DescribeOption[bmr]{secnums}
@@ -2552,7 +2553,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</bmr>
 % \fi
 %
-%
+% \iffalse
 %<*phd|bkc|crs|rp|le|ex|bama|bmr|art>
 \ExplSyntaxOff
 %</phd|bkc|crs|rp|le|ex|bama|bmr|art>
@@ -3604,7 +3605,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % \DescribeMacro[art]{\graphicalabstract}
 %   \marg{graphical abstract content}
 %   \margintag{tag}\\
-%   Specifies the graphical abstract of the article.
+%   Specifies the graphical abstract of the article.\\
 %   Can be |\includegraphics[width=\textwidth]{GraphicalAbstractFile}|.
 % \iffalse
 %<*art>
@@ -3615,7 +3616,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 % \DescribeMacro[art]{\highlights}
 %   \marg{highlight items}\\
-%   Specifies the highlights of the article.
+%   Specifies the highlights of the article.\\
 %   Should be input as ``|\item highlight1 \item highlight2 ...|''
 % \iffalse
 %<*art>
@@ -3670,6 +3671,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \newcommand{\@journal}{}
 \newcommand{\journal}[1]{\renewcommand{\@journal}{#1}}
 %</art>
+% \fi
 %
 %
 % \subsubsection{People}
@@ -4367,7 +4369,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %<le>\renewcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
 % \fi
 %
-% \DescribeMacro[phd-crs-bama-bkc-ex-le-rp-art]{\email}
+% \DescribeMacro[phd-crs-bama-bkc-ex-le-rp-bmr-art]{\email}
 %   \oarg{domain}
 %   \marg{local-part}
 %   \margintag{emails\_seq}\\
@@ -4377,7 +4379,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   You can specify multiple email addresses by using the command
 %   multiple times.
 % \iffalse
-%<*phd|crs|bama|bkc|ex|le|rp|art>
+%<*phd|crs|bama|bkc|ex|le|rp|bmr|art>
 \ExplSyntaxOn
 \seq_new:N \g_@@_emails_seq
 \tl_new:N \l_@@_domain_tl
@@ -4422,7 +4424,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   \@@_addemail:nn { #1 } { #2 }
 }
 \ExplSyntaxOff
-%</phd|crs|bama|bkc|ex|le|rp|art>
+%</phd|crs|bama|bkc|ex|le|rp|bmr|art>
 % \fi
 %
 %
@@ -6270,8 +6272,6 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \setlength{\headheight}{13.7pt}
 \renewcommand*{\headrulewidth}{0pt}
 \renewcommand*{\footrulewidth}{1pt}
-
-\fancypagestyle
 %</ex>
 %    \end{macrocode}
 %
@@ -6281,6 +6281,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % else ``Preprint'' or ``Preprint submitted to journal'',
 % and the page count in the right footer
 %
+%    \begin{macrocode}
 %<*art>
 \fancyhf{}
 \ExplSyntaxOn
