@@ -7870,13 +7870,14 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %<le1>\documentclass[bw]{ugentletter}
 %<ex1>\documentclass[bw,10pt, dutch]{ugentexam}
 %<ex2>\documentclass[bw,10pt, coverbg]{ugentexam}
+%<art1>\documentclass[10pt]{ugentarticle}
 %
 %
 % Class options notes ----------------------------------------------------------
 %
 % Common options ...............................................................
 %
-%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2>
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2|art1>
 %% neutralcolors      Uses ugent colour scheme instead of faculty colours
 %%                    Options: true, false*
 %% colormodel         Uses rgb (display) or cmyk (print) colouring
@@ -7896,20 +7897,23 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %% nameformat         Format all names as "surname firstname"
 %%                    or "firstname surname"
 %%                    Options: surnamefirst, surnamelast*
-%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2>
+%% affiliationformat  Format affiliation indexes as "a,b,c" (alph)
+%%                    or "1,2,3" (arabic)
+%%                    Options: alph*, arabic
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2|art1>
 %
 %
 % Base class options ...........................................................
 %
-%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2>
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2|art1>
 %% xxpt               Sets the font size to e.g. 10pt or 11pt
-%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2>
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2|art1>
 %
 %
-%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1>
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|art1>
 %% twoside            If you want a two-sided document, change to oneside if you
 %%                    want a recto only document
-%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1>
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|art1>
 %
 %
 %<*crs1|bama1|bama2|phd1|phd2|rp1|rp2>
@@ -7960,21 +7964,21 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 % Add default note .............................................................
 %
-%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2>
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2|art1>
 %% *default
 
-%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2>
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|ex1|ex2|art1>
 %
 %
 % Packages ---------------------------------------------------------------------
 %
-%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1>
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|art1>
 %% This is just for some dummy text, please remove in your copy
 \usepackage{kantlipsum}
 
-%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1>
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|le1|art1>
 %
-%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
 %% This package allows to generate a PDF with clickable links
 \usepackage[hyperindex=true]{hyperref}
 %% You must load the hyperref package yourself, to allow putting it
@@ -7990,12 +7994,15 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %% Use this package if you want prettier tables
 \usepackage{booktabs}
 
+%% Use this package for exact float placements (e.g., in a multicols environment)
+\usepackage{float}
+
 %% Use biblatex for references
 \usepackage[backend=biber, style=authoryear]{biblatex}
 \addbibresource{biblatex-examples.bib} %% Change this to your own bibliography
 
-%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
-%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|ex1|ex2>
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|ex1|ex2|art1>
 %% Use this package if you want uniform and clean quantities and units
 %% following SI conventions.
 \usepackage{siunitx}
@@ -8004,12 +8011,12 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %% Use this package if you want to easily typeset chemical equations.
 \usepackage[version=4]{mhchem}
 
-%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|ex1|ex2>
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|ex1|ex2|art1>
 %
 %
 % Font override to Arial -------------------------------------------------------
 %
-%<*crs1|bama1|phd2|rp1|ex1>
+%<*crs1|bama1|phd2|rp1|ex1|art1>
 %% You may want to use common fonts such as Arial (still within house style)
 %%\setsansfont{Arial}[
 %%  BoldFont           = {Arial},
@@ -8020,7 +8027,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %%  BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%]
 
-%</crs1|bama1|phd2|rp1|ex1>
+%</crs1|bama1|phd2|rp1|ex1|art1>
 %
 %
 %<*bama2|phd1|rp2|le1|ex2>
@@ -8054,6 +8061,14 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 
 %</bama1|bama2|phd1|phd2|le1|ex1|ex2>
 %
+%<*art1>
+%% Optionally specify submission, acceptance, and publication date
+\date[submitted]{2026-05-19}
+\date[accepted]{2026-09-04}
+\date[published]{2026-10-05}
+
+%</art1>
+%
 %
 %<*crs1|bama1|bama2|phd1|phd2|rp1|rp2>
 %% Year defaults to the current year, override with:
@@ -8082,9 +8097,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 
 %</bama1|bama2|phd1|phd2>
 %
-%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|ex1|ex2>
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|ex1|ex2|art1>
 %% Document data ---------------------------------------------------------------
-%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|ex1|ex2>
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|ex1|ex2|art1>
 %
 %
 % Titles .......................................................................
@@ -8132,6 +8147,12 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \extra{<additional text to title>}
 
 %</rp2>
+%<*art1>
+%% Set title
+\title{<This is the title of your article which is probably way too long
+  and you should generally avoid this>}
+
+%</art1>
 %
 %
 % Images and logos .............................................................
@@ -8190,6 +8211,16 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 
 %</phd1|phd2>
 %
+%<*art1>
+%% Add the graphical abstract
+\graphicalabstract{%
+  \begin{center}%
+    \includegraphics[width=0.5\textwidth]{example-image-a}%
+  \end{center}%
+}
+
+%</art1>
+%
 %
 % Degree, doctype, wordcount ...................................................
 %
@@ -8238,16 +8269,31 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</rp1|rp2>
 %
 %
-% PhD information ..............................................................
+% PhD or article information ...................................................
 %
-%<*phd1|phd2>
-%% Specify your funding if any
+%<*art1>
+%% Optionally specify the journal
+\journal{Water Research}
+
+%% Optionally specify the keywords and highlights
+\keywords{keyword one, keyword two, keyword three}
+\highlights{
+  \item This is a first fine highlight
+  \item This is some finding highlighted
+  \item This is a key conclusion
+  \item Perhaps some perspective
+}
+
+%</art1>
+%
+%<*phd1|phd2|art1>
+%% Optionally specify your funding if any
 \grants{FWO PhD Fellowship strategic basic research 1SXXXXXXN}
 
-%% Specify your DOI
-%% \doi{10.1000/182}
+%% Specify your DOI if applicable
+\doi{10.1000/182}
 
-%</phd1|phd2>
+%</phd1|phd2|art1>
 %<*phd1|phd2|crs1>
 %% Specify your ISBN
 \isbn{978-92-95055-12-4}
@@ -8315,9 +8361,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</crs1>
 %
 %
-%<*phd1|phd2|crs1|bama1|bama2|rp1|ex1|ex2>
+%<*phd1|phd2|crs1|bama1|bama2|rp1|ex1|ex2|art1>
 %% People ----------------------------------------------------------------------
-%</phd1|phd2|crs1|bama1|bama2|rp1|ex1|ex2>
+%</phd1|phd2|crs1|bama1|bama2|rp1|ex1|ex2|art1>
 %
 %<*crs1|ex1>
 %% Authors
@@ -8332,7 +8378,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 
 %</bama1>
 %<*bama2|rp1>
-%% Set title, subtitle and author
+%% Specify the author and their title, and affiliation
 \author{}{Poppe, Ludo}{& (<studentnr>)}
 \author{}{Van Callenberghe, Palmyra}{& (<studentnr>)}
 \author{}{Van Hoebeecke, Cesar}{& (<studentnr>)}
@@ -8397,6 +8443,36 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \rector{prof. dr.}{De Sutter, Petra}
 
 %</phd1|phd2>
+%
+%
+%<*art1>
+%% Specify the author and their title, and affiliation
+\affiliation{%
+  Technologies for a Resource Agile Society Laboratory (TRASLAB), %
+  Ghent University, %
+  Frieda Saeysstraat 1, 9052 Ghent, %
+  East-Flanders, Belgium%
+}
+\affiliation{
+  Center for Advanced Process Technology for Urban Resource Recovery (CAPTURE), %
+  Frieda Saeysstraat 1, 9052 Ghent, %
+  East-Flanders, Belgium
+}
+\author
+  [email=Ludo.Poppe,
+  orcid=0000-00000-0000-0001]
+  {}{Poppe, Ludo}{a}
+\author
+  [email=Palmyra.VanCallenberghe,
+  orcid=0000-00000-0000-0002]
+  {}{Van Callenberghe, Palmyra}{a,b}
+\author
+  [corresponding,
+  email=Cesar.VanHoebeecke,
+  orcid=0000-00000-0000-0003]
+  {}{Van Hoebeecke, Cesar}{b}
+
+%</art1>
 %
 %
 %<*phd1|phd2|rp2|le1>
@@ -8719,14 +8795,22 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</le1>
 %
 %
-%<*bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2>
+%<*art1>
+%% Article abstract ------------------------------------------------------------
+\abstract{
+  \kant[1]
+}
+%</art1>
+%
+%
+%<*bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2|art1>
 %% Document --------------------------------------------------------------------
 \begin{document}
 
 %% Create the cover and title pages
 \maketitle
 
-%</bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2>
+%</bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2|art1>
 %
 %<*crs1|phd1|phd2>
 %% Creates a bookcover file \jobname-cover.tex
@@ -8922,46 +9006,109 @@ Indicate and describe the use case if one or multiple GAI tools have been used:
 \makeatother
 
 %</bama1|rp2|phd2>
+%<*art1>
+\begin{multicols}{2}
+\raggedcolumns
+
+\section*{<An unnumbered introduction>}
+\kant[5]
+
+%</art1>
 %
 %<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 \chapter*{<An unnumbered chapter>}
 \kant[5]
 
-\chapter{\textrm{\LaTeX} 101}
-\label{C:Tutorial}
-
+\chapter{Tutorial}
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+\section{\textrm{\LaTeX} 101}
+\label{S:Tutorial}
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 \insettext{Tutorial}{
-  In this small example chapter (Chapter \ref{C:Tutorial}),
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+  In this small example section (Section \ref{S:Tutorial}),
   we will show some of the functionality you will need most often.
   Online guides such as \href{https://www.overleaf.com/learn/latex/}{those from Overleaf}
   are more complete and useful, or a simple internet search, Stack Overflow or
   -- increasingly -- LLMs can be used to find answers to
-  ``How do I do this in \textrm{\LaTeX}?''\\
+  ``How do I do this in \textrm{\LaTeX}?''
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 }
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
 
 Still, some basics may be helpful. Adding a new paragraph is as simple as pressing enter twice:
 
 No need for multiple \verb!\\!, \verb!\newline!s, or \verb!\par!.
 You can adjust the indentation and spacing of the paragraph using\\
-\verb!\setlength{\parindent}{0pt}! and \verb!\setlength{\parskip}{0.75\baselineskip}!.
+\verb!\setlength{\parindent}{0pt}!\\
+and\\
+\verb!\setlength{\parskip}{0.75\baselineskip}!.
 
 Citations are input using BibLaTeX, e.g.,\\
 \verb!\textcite{sigfridsson}!: \textcite{sigfridsson}\\
 \verb!\autocite{aristotle:physics}!: \autocite{aristotle:physics}.\\
-The bibliography is printed at the end of this chapter using \verb!\printbibliography!.
+The bibliography is printed at the end of this section using \verb!\printbibliography!.
 
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 Figures such as Figure \ref{F:FigExample} are added as follows:
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
-  \includegraphics[width = 0.5\textwidth]{example-image-a} %% Your figure path
+  \includegraphics[width = 0.5\linewidth]{example-image-a} %% Your figure path
   \caption[<short figure caption>]{<This is the long caption of your figure.>}
   \label{F:FigExample}
 \end{figure}
 
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*art1>
+\textcolor{lightgray}{\kant[9]}
+
+Figures within a muticols column such as Figure \ref{F:FigExampleCol}
+are added as follows:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width = \linewidth]{example-image-a} %% Your figure path
+  \caption[<short figure caption>]{<This is the long caption of your figure.>}
+  \label{F:FigExampleCol}
+\end{figure}
+
+\textcolor{lightgray}{\kant[9-11]}
+
+Figures spanning the full width such as Figure \ref{F:FigExampleWdth}
+are added as follows:
+
+\end{multicols}
+\begin{figure}[H]
+\centering
+\includegraphics[width = \linewidth,max height=5cm]{example-image-a} %% Your figure path
+\caption[<short figure caption>]{<This is the long caption of your figure.>}
+\label{F:FigExampleWdth}
+\end{figure}
+\begin{multicols}{2}
+
+\textcolor{lightgray}{\kant[9-10]}
+
+You can also specify a figure such as Figure \ref{F:FigExamplePage}
+within the multicols environment, and place it at the top of the next page.
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width = \linewidth,max height=5cm]{example-image-a} %% Your figure path
+  \caption[<short figure caption>]{<This is the long caption of your figure.>}
+  \label{F:FigExamplePage}
+\end{figure*}
+
+%</art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
 Tables such as Table \ref{T:TabExample} are added as follows:
 
-\begin{table}[h]
+\begin{table}[H]
 \caption[<short table caption>]{<This is the long caption of your table.>}
 \label{T:TabExample}
 \centering
@@ -9019,10 +9166,19 @@ Chemical equations can be easily typeset using \verb!mhchem!, e.g.,\\
 
 For all else, we trust you can find what you need with a bit of decent searching.
 
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 \insetquote{Good luck!}{The ugentdocs devs}
 
-\printbibliography
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*art1>
+Good luck!
 
+%</art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+\printbibliography
+%</crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 \chapter{<Second chapter>}
 \kant[6]
 
@@ -9033,6 +9189,33 @@ For all else, we trust you can find what you need with a bit of decent searching
 \kant[8]
 
 %</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%<*art1>
+\section{<A second section>}
+\kant[6]
+
+\section{<A third section>}
+\kant[7]
+
+\subsection{<A subsection>}
+\kant[8]
+
+\section*{Data availability}
+Specify where you can find your data
+
+\section*{Declaration of competing interests}
+The authors declare that they have some interesting competitions.
+
+\section*{Acknowledgements}
+I'd like to thank\ldots
+
+\section*{CReDIT author statement}
+\textbf{Poppe, L.:} Methodology, Software, Formal analysis, Data Curation, Writing - Original Draft, Visualization.
+\textbf{Van Callenberghe, P:} Writing - Original Draft.
+\textbf{Van Hoebeecke, C.:} Conceptualization, Writing - Review \& Editing, Supervision, Project administration, Funding acquisition.
+
+\printbibliography
+\end{multicols}
+%</art1>
 %
 %<*phd1|phd2>
 %% Some dummy chapters to have enough spine width
@@ -9225,28 +9408,36 @@ For all else, we trust you can find what you need with a bit of decent searching
   }
 }
 %% This is how you specify multiple choice answering options in two languages
-\mc{\bilingual{
-      A separate species designation requires demonstrable reproductive isolation
-      or distinct hereditary traits, and these are entirely absent here.
-    }{
-      Een aparte soortnaam vereist aantoonbare reproductieve isolatie
-      of onderscheidende erfelijke kenmerken, en die ontbreken hier volledig.
-    }}
-\mc{\bilingual{
-      The genus \textit{Homo} may not contain fictional or hypothetical species.
-    }{
-      Het genus \textit{Homo} mag geen fictieve of hypothetische soorten bevatten.
-    }}
-\mc{\bilingual{
-      Species names may not refer to human traits or behavior.
-    }{
-      Soortnamen mogen niet verwijzen naar menselijke eigenschappen of gedrag.
-    }}
-\mc{\bilingual{
-      The name is grammatically incorrect according to the rules of binomial nomenclature.
-    }{
-      De naam is grammaticaal incorrect volgens de regels van de binominale nomenclatuur.
-    }}
+\mc{
+  \bilingual{
+    A separate species designation requires demonstrable reproductive isolation
+    or distinct hereditary traits, and these are entirely absent here.
+  }{
+    Een aparte soortnaam vereist aantoonbare reproductieve isolatie
+    of onderscheidende erfelijke kenmerken, en die ontbreken hier volledig.
+  }
+}
+\mc{
+  \bilingual{
+    The genus \textit{Homo} may not contain fictional or hypothetical species.
+  }{
+    Het genus \textit{Homo} mag geen fictieve of hypothetische soorten bevatten.
+  }
+}
+\mc{
+  \bilingual{
+    Species names may not refer to human traits or behavior.
+  }{
+    Soortnamen mogen niet verwijzen naar menselijke eigenschappen of gedrag.
+  }
+}
+\mc{
+  \bilingual{
+    The name is grammatically incorrect according to the rules of binomial nomenclature.
+  }{
+    De naam is grammaticaal incorrect volgens de regels van de binominale nomenclatuur.
+  }
+}
 
 
 %% Special 'scrap' pages with a watermark on them: three in this case
@@ -9255,9 +9446,9 @@ For all else, we trust you can find what you need with a bit of decent searching
 }
 %</ex2>
 %
-%<*bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2>
+%<*bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2|art1>
 \end{document}
-%</bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2>
+%</bama1|bama2|phd1|phd2|rp1|rp2|le1|crs1|ex1|ex2|art1>
 % ==============================================================================
 % \fi
 %
@@ -9274,9 +9465,12 @@ For all else, we trust you can find what you need with a bit of decent searching
 % \paragraph{English}
 % \VerbatimInput[firstline=46]{example-ugentphd-2}
 %
+% \subsection{\texttt{ugentarticle}}
+% \VerbatimInput[firstline=46]{example-ugentarticle.tex}
+%
 % \subsection{\texttt{ugentreport}}
 % \VerbatimInput[firstline=46]{example-ugentreport-1.tex}
-% \VerbatimInput[firstline=46]{example-ugentbama-2.tex}
+% \VerbatimInput[firstline=46]{example-ugentreport-2.tex}
 %
 %
 % \subsection{\texttt{ugentletter}}
