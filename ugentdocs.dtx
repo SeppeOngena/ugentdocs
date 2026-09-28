@@ -2085,6 +2085,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \fi
 %
 % \DescribeMacro[common]{\date}
+%   \oarg{type}
 %   \marg{new date}
 %   \DescribeDefault{\textbackslash today}
 %   \margintag{tag}\\
@@ -2093,13 +2094,32 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   based on the |localizedates| option. If not, the date is printed verbatim.
 %   Used in the |bama| copyright / autograph page, the |phd| title page, and
 %   the |letter| header.
+%   The article class uses the |type| option, which can be
+%   |submitted|, |accepted|, or |published| for the article info section.
 % \iffalse
 %<*clo>
 \ExplSyntaxOn
-\renewcommand{\date}[1]{
-  \regex_match:nnTF {^\d{4}-\d{2}-\d{2}$} {#1}%$
-  { \gdef\@date{\DTMdate{#1}} }
-  { \gdef\@date{#1} }
+\msg_new:nnn { ugentdocs } { unknown-date-type }
+{ Unknown~date~type~'#1'.~Use~submitted,~accepted~or~published. }
+
+\providecommand*{\@submitteddate}{}
+\providecommand*{\@accepteddate}{}
+\providecommand*{\@publisheddate}{}
+\cs_new_protected:Nn \@@_setdate:nn {
+  \regex_match:nnTF { \A \d{4} - \d{2} - \d{2} \Z } {#2}
+  { \cs_gset:cpn {#1} { \DTMdate{#2} } }
+  { \cs_gset:cpn {#1} {#2} }
+}
+\RenewDocumentCommand \date { o m } {
+  \IfNoValueTF {#1}{
+    \@@_setdate:nn { @date } {#2}
+  }{
+    \clist_if_in:nnTF { submitted, accepted, published } {#1} {
+      \@@_setdate:nn { @#1date } {#2}
+    }{
+      \msg_error:nnn { ugentdocs } { unknown-date-type } {#1}
+    }
+  }
 }
 \ExplSyntaxOff
 %</clo>
