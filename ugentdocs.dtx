@@ -2194,8 +2194,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 { The~name~'#1'~is~not~formatted~as~'Surname,~Firstname'. }
 { Names~must~be~given~as~'Surname,~Firstname'~(BibTeX~style,~separated~by~a~comma). }
 
-\cs_new_protected:Npn \@@_parsename:n #1
-{
+\cs_new_protected:Npn \@@_parsename:n #1 {
   \tl_set:Nx \l_@@_nameinput_tl { #1 }
   \seq_set_split:NnV \l_@@_name_seq { , } \l_@@_nameinput_tl
   \int_compare:nNnTF { \seq_count:N \l_@@_name_seq } = { 2 } {
@@ -2210,17 +2209,18 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   }
 }
 
-\cs_new_protected:Npn \@@_buildformattedname:
-{
+\cs_new_protected:Npn \@@_buildformattedname: {
   \str_if_eq:VnTF \l_@@_nameformat_tl {surnamefirst} {
-    \tl_set:Nn \l_@@_formattedname_tl { \l_@@_surname_tl }
-    \tl_if_empty:NF \l_@@_firstname_tl
-    { \tl_put_right:Nn \l_@@_formattedname_tl { \space \l_@@_firstname_tl } }
+    \tl_set_eq:NN \l_@@_formattedname_tl \l_@@_surname_tl
+    \tl_if_empty:NF \l_@@_firstname_tl {
+      \tl_put_right:Nn \l_@@_formattedname_tl { \space }
+      \tl_put_right:NV \l_@@_formattedname_tl \l_@@_firstname_tl
+    }
   }{
-    \tl_clear:N \l_@@_formattedname_tl
+    \tl_set_eq:NN \l_@@_formattedname_tl \l_@@_firstname_tl
     \tl_if_empty:NF \l_@@_firstname_tl
-    { \tl_set:Nn \l_@@_formattedname_tl { \l_@@_firstname_tl \space } }
-    \tl_put_right:Nn \l_@@_formattedname_tl { \l_@@_surname_tl }
+    { \tl_put_right:Nn \l_@@_formattedname_tl { \space } }
+    \tl_put_right:NV \l_@@_formattedname_tl \l_@@_surname_tl
   }
 }
 
@@ -3800,7 +3800,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   \margintag{authorscalls\_seq}
 %   \margintag{authorcorr\_seq}
 %   \margintag{authoremails\_seq}
-%   \margintag{authororcids\_seq}\\
+%   \margintag{authororcids\_seq}
+%   \margintag{authorsurnames\_seq}
+%   \margintag{authorfirstnames\_seq}\\
 %   This macro adds an author to the document.
 %   The author name should be in BibTeX format (i.e., ``Surname, Firstname'').
 %   Use multiple calls for multiple authors.\\
@@ -3870,6 +3872,57 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   \@@_addto_callseq:nnnnn {#1} {#2} {#3} {#4} {}
 }
 
+% Author printing for articles
+\seq_new:N \l_@@_authorentries_seq
+\tl_new:N  \l_@@_authorentry_tl
+\tl_new:N  \l_@@_authorfirst_tl
+\tl_new:N  \l_@@_authorsup_tl
+\tl_new:N \l_@@_authororcid_tl
+
+\cs_new_protected:Nn \@@_orcidlink:n {
+  \cs_if_exist:NTF \href {
+    \exp_args:Ne \href { \tl_to_str:n { https://orcid.org/#1 } }
+    { \XeTeXLinkBox { \tikz[baseline=0pt] \orcidicon {1.6ex} {orcidcolor} {0}; } }
+  }{
+    \tikz[baseline=0pt] \orcidicon {1.6ex} {orcidcolor} {0};
+  }
+}
+\cs_new_protected:Nn \@@_printauthorlist: {
+  \seq_clear:N \l_@@_authorentries_seq
+  \seq_map_indexed_inline:Nn \g_@@_authorsurnames_seq {
+    % Name
+    \tl_set:Nn \l_@@_surname_tl {##2}
+    \tl_set:Nx \l_@@_firstname_tl { \seq_item:Nn \g_@@_authorfirstnames_seq {##1} }
+    \tl_if_empty:NF \l_@@_firstname_tl {
+      \tl_set:Nx \l_@@_firstname_tl
+      { \exp_not:N \textcolor { firstnamecolor } { \exp_not:V \l_@@_firstname_tl } }
+    }
+    \@@_buildformattedname:
+    \tl_set_eq:NN \l_@@_authorentry_tl \l_@@_formattedname_tl
+
+     % Superscript
+    \tl_set:Nx \l_@@_authorsup_tl { \seq_item:Nn \g_@@_authoraffs_seq {##1} }
+    \seq_if_in:NnT \g_@@_authorcorr_seq {##1} {
+      \tl_if_empty:NF \l_@@_authorsup_tl { \tl_put_right:Nn \l_@@_authorsup_tl {,} }
+      \tl_put_right:Nn \l_@@_authorsup_tl { * }
+    }
+    \tl_if_empty:NF \l_@@_authorsup_tl {
+      \tl_put_right:Nx \l_@@_authorentry_tl
+      { \exp_not:N \textsuperscript { \exp_not:V \l_@@_authorsup_tl } }
+    }
+    % ORCID
+    \tl_set:Nx \l_@@_authororcid_tl { \seq_item:Nn \g_@@_authororcids_seq {##1} }
+    \tl_if_blank:VF \l_@@_authororcid_tl {
+      \tl_put_right:Nx \l_@@_authorentry_tl {
+        \exp_not:N \,
+        \exp_not:N \@@_orcidlink:n { \exp_not:V \l_@@_authororcid_tl }
+      }
+    }
+    \seq_put_right:NV \l_@@_authorentries_seq \l_@@_authorentry_tl
+  }
+  \seq_use:Nnnn \l_@@_authorentries_seq{~\&~}{,~}{\translatekey{andlist}~}
+}
+
 % Declare author sequences
 \seq_new:N \g_@@_authors_seq
 \seq_new:N \g_@@_authorswaff_seq
@@ -3879,6 +3932,8 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \seq_new:N \g_@@_authoremails_seq
 \seq_new:N \g_@@_authororcids_seq
 \seq_new:N \g_@@_authorcorr_seq
+\seq_new:N \g_@@_authorsurnames_seq
+\seq_new:N \g_@@_authorfirstnames_seq
 
 \bool_new:N \l_@@_author_iscorresponding_bool
 \tl_new:N   \l_@@_author_email_tl
@@ -3905,11 +3960,13 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   }
   \seq_gput_right:NV \g_@@_authororcids_seq \l_@@_author_orcid_tl
   \bool_if:NT \l_@@_author_iscorresponding_bool{
-    \seq_gput_right:Nx \g_@@_correspondingauthors_seq
+    \seq_gput_right:Nx \g_@@_authorcorr_seq
     { \seq_count:N \g_@@_authors_seq }
   }
 
   \@@_parsename:n {#2}
+  \seq_gput_right:NV \g_@@_authorsurnames_seq   \l_@@_surname_tl
+  \seq_gput_right:NV \g_@@_authorfirstnames_seq \l_@@_firstname_tl
   \seq_gput_right:Nx \g_@@_authorlist_seq {
     \exp_not:V \l_@@_surname_tl ,~\tl_head:N \l_@@_firstname_tl .
   }
