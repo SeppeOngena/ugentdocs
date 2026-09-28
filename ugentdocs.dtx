@@ -3385,11 +3385,12 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</bama|phd|rp>
 %    \end{macrocode}
 %
-% \DescribeMacro[phd-art]{\grants} % TODO article documentation
+% \DescribeMacro[phd-art]{\grants}
 %   \marg{grant text}
 %   \margintag{tag}\\
-%   Specifies any grants that supported the PhD research.
-%   Used to print a message in the PhD colophon page:
+%   Specifies any grants that supported the research.
+%   Used to print a message in the PhD colophon page
+%   and the article title page:
 %   ``This research was supported by |<grant text>|''
 % \iffalse
 %<*phd|art>
@@ -3402,9 +3403,11 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 % \DescribeMacro[phd-art]{\doi}
 %   \marg{DOI}
-%   \margintag{tag}\\ % TODO article documentation
+%   \margintag{tag}\\
 %   Specify the correct Digital Object Identifier (without the https://doi.org/)
-%   of your PhD for display on the colophon page of the |phd| class.
+%   of your PhD for display on the colophon page of the |phd| class
+%   or your article for display in the article info and footer
+%   of the |article| class.
 %   If the |hyperref| package is loaded, the full URL will be linked.
 % \iffalse
 %<*phd|art>
@@ -3579,6 +3582,89 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \newcommand{\extranotices}[1]{\renewcommand{\@extranotices}{#1}}
 %</crs|rp>
 % \fi
+%
+% \DescribeMacro[art]{\abstract}
+%   \marg{abstract text}
+%   \margintag{mandatory}
+%   \margintag{tag}\\
+%   Specifies the abstract of the article.
+% \iffalse
+%<*art>
+\newcommand{\@abstract}{}
+\renewcommand{\abstract}[1]{\renewcommand{\@abstract}{#1}}
+%</art>
+% \fi
+%
+% \DescribeMacro[art]{\graphicalabstract}
+%   \marg{graphical abstract content}
+%   \margintag{tag}\\
+%   Specifies the graphical abstract of the article.
+%   Can be |\includegraphics[width=\textwidth]{GraphicalAbstractFile}|.
+% \iffalse
+%<*art>
+\newcommand{\@graphicalabstract}{}
+\newcommand{\graphicalabstract}[1]{\renewcommand{\@graphicalabstract}{#1}}
+%</art>
+% \fi
+%
+% \DescribeMacro[art]{\highlights}
+%   \marg{highlight items}\\
+%   Specifies the highlights of the article.
+%   Should be input as ``|\item highlight1 \item highlight2 ...|''
+% \iffalse
+%<*art>
+\ExplSyntaxOn
+\tl_new:N \g_@@_highlights_tl
+
+\NewDocumentCommand \highlights { +m } {
+  \tl_gset:Nn \g_@@_highlights_tl {#1}
+}
+
+\cs_new_protected:Nn \@@_printhighlights: {
+  \tl_if_empty:NF \g_@@_highlights_tl {
+    \begin{itemize} \g_@@_highlights_tl \end{itemize}
+  }
+}
+\ExplSyntaxOff
+%</art>
+% \fi
+%
+% \DescribeMacro[art]{\keywords}
+%   \marg{comma separated keywords}
+%   \margintag{mandatory}\\
+%   Specifies the keywords of the article.
+%   Should be input as ``|keyword1, keyword2, ...|''
+% \iffalse
+%<*art>
+\ExplSyntaxOn
+\clist_new:N \g_@@_keywords_clist
+
+\NewDocumentCommand \keywords { m }{
+  \clist_gput_right:Nn \g_@@_keywords_clist {#1}
+}
+
+\cs_new_protected:Nn \@@_printkeywords: {
+  \clist_if_empty:NF \g_@@_keywords_clist {
+    \noindent \textbf{ \translatekey{keywords}: }~
+    \clist_use:Nn \g_@@_keywords_clist { ;~ } \par
+  }
+}
+\ExplSyntaxOff
+%</art>
+% \fi
+%
+% \DescribeMacro[art]{\journal}
+%   \marg{journal title}
+%   \margintag{mandatory}
+%   \margintag{tag}\\
+%   Specifies the journal in which the article was published
+%   or to which it was submitted.
+% \iffalse
+%<*art>
+\newcommand{\@journal}{}
+\newcommand{\journal}[1]{\renewcommand{\@journal}{#1}}
+%</art>
+%
 %
 % \subsubsection{People}
 % \label{S:usage:macros:people}
