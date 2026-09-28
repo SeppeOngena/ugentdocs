@@ -6489,8 +6489,10 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % Implementation:
 %
 %    \begin{macrocode}
-%<*phd|crs|bama|rp>
+%<*phd|crs|bama|rp|art>
 \RequirePackage[explicit]{titlesec}
+%</phd|crs|bama|rp|art>
+%<*phd|crs|bama|rp>
 \ExplSyntaxOn
 \newcommand{\@titlestyleappendix}{}
 
@@ -6712,6 +6714,12 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 }
 %</phd|crs|bama|rp>
 %    \end{macrocode}
+% \iffalse
+%<*art>
+\newcommand{\@titlestylechapter}{}
+\newcommand{\@titlestyleappendix}{}
+%</art>
+% \fi
 %
 % The section style is the same for all documents:
 % \DescribeObject[custom]{\@titlestylesection}
@@ -6721,7 +6729,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   Implementation:
 %
 %    \begin{macrocode}
-%<*phd|crs|bama|rp>
+%<*phd|crs|bama|rp|art>
 \newcommand{\@titlestylesection}{
   \titleformat{\section}
   [block] % shape
@@ -6734,17 +6742,17 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   % Change the spacing above the chapter. This is left - above - below
   \titlespacing*{\section}{0pt}{6pt}{0pt}
 }
-%</phd|crs|bama|rp>
+%</phd|crs|bama|rp|art>
 %    \end{macrocode}
 %
 % \iffalse
-%<*phd|crs|bama|rp>
+%<*phd|crs|bama|rp|art>
 \AtBeginDocument{
   \@titlestylechapter
   \@titlestylesection
   \apptocmd{\appendix}{\@titlestyleappendix}{}{}
 }
-%</phd|crs|bama|rp>
+%</phd|crs|bama|rp|art>
 % \fi
 %
 %
