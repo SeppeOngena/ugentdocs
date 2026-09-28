@@ -6270,7 +6270,55 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \setlength{\headheight}{13.7pt}
 \renewcommand*{\headrulewidth}{0pt}
 \renewcommand*{\footrulewidth}{1pt}
+
+\fancypagestyle
 %</ex>
+%    \end{macrocode}
+%
+% For the |article| class, this is the short title in the centre header,
+% a left footer ``Published'' or ``Published in: journal'' (if journal is given)
+% when a publication % date is given,
+% else ``Preprint'' or ``Preprint submitted to journal'',
+% and the page count in the right footer
+%
+%<*art>
+\fancyhf{}
+\ExplSyntaxOn
+\fancyhead[C]{\small \@shorttitle}
+\fancyfoot[L]{
+  \tl_if_empty:oTF { \@publisheddate }{
+    \translatekey{preprint}
+    \bool_lazy_and:nnT
+    { ! \tl_if_empty_p:o { \@submitteddate } }
+    { ! \tl_if_empty_p:o { \@journal } }
+    { {}~\translatekey[lowercase]{submittedto}~\@journal }
+  }{
+    \translatekey{published}
+    \tl_if_empty:oF { \@journal }
+    { ~\translatekey[lowercase]{in}:~\@journal }
+    \tl_if_empty:oF { \@doi }{
+      .~{\small DOI~
+        \@ifpackageloaded{hyperref}{
+          \href{https://doi.org/\@doi}{\@doi}
+        }{
+          \@doi
+        }
+      }
+    }
+  }
+}
+\fancyfoot[R]{\small \thepage/\ztotpages}
+\ExplSyntaxOff
+
+\setlength{\headheight}{13.7pt}
+\renewcommand*{\headrulewidth}{0pt}
+\renewcommand*{\footrulewidth}{1pt}
+
+\pagestyle{fancy}
+\fancypagestyle{titlepage}[fancy]{
+  \fancyhead{}
+}
+%</art>
 %    \end{macrocode}
 %
 % For the |letter| class, we don't use the fancyhdr package.
