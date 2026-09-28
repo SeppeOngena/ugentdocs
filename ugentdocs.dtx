@@ -3923,6 +3923,66 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   \seq_use:Nnnn \l_@@_authorentries_seq{~\&~}{,~}{\translatekey{andlist}~}
 }
 
+% Print author footnote
+\seq_new:N \l_@@_fnemails_seq
+\seq_new:N \l_@@_fnorcids_seq
+\tl_new:N  \l_@@_fnname_tl
+\str_new:N \l_@@_orcidurl_str
+
+\cs_new_protected:Nn \@@_printauthorfootnote: {
+  \seq_clear:N \l_@@_fnemails_seq
+  \seq_clear:N \l_@@_fnorcids_seq
+  \seq_map_indexed_inline:Nn \g_@@_authoremails_seq {
+    % name
+    \tl_set:Nx \l_@@_fnname_tl { \seq_item:Nn \g_@@_authorfirstnames_seq {##1} }
+    \tl_if_empty:NF \l_@@_fnname_tl {
+      \tl_set:Nx \l_@@_fnname_tl { \tl_head:N \l_@@_fnname_tl . ~ }
+    }
+    \tl_put_right:Nx \l_@@_fnname_tl { \seq_item:Nn \g_@@_authorsurnames_seq {##1} }
+    % email
+    \tl_if_blank:nF {##2} {
+      \seq_put_right:Nx \l_@@_fnemails_seq
+      { \exp_not:n {##2} ~ ( \exp_not:V \l_@@_fnname_tl ) }
+    }
+    % ORCID
+    \tl_set:Nx \l_tmpa_tl { \seq_item:Nn \g_@@_authororcids_seq {##1} }
+    \tl_if_blank:VF \l_tmpa_tl {
+      \str_set:Nx \l_@@_orcidurl_str { https://orcid.org/ \l_tmpa_tl }
+      \seq_put_right:Nx \l_@@_fnorcids_seq {
+        \cs_if_exist:NTF \href{
+          \exp_not:N \href { \l_@@_orcidurl_str } { \exp_not:V \l_tmpa_tl }
+        }{
+          \exp_not:V \l_tmpa_tl
+        }
+        {}~ ( \exp_not:V \l_@@_fnname_tl )
+      }
+    }
+  }
+  \bool_lazy_all:nF {
+    { \seq_if_empty_p:N \g_@@_authorcorr_seq }
+    { \seq_if_empty_p:N \l_@@_fnemails_seq }
+    { \seq_if_empty_p:N \l_@@_fnorcids_seq }
+  }{
+    \group_begin:
+    \cs_set_eq:NN \thefootnote \relax % unnumbered
+    \cs_set:Npn \@makefntext ##1
+    { \dim_zero:N \parindent \noindent ##1 }
+    \footnotetext {
+      \seq_if_empty:NF \g_@@_authorcorr_seq {
+        \textsuperscript{*} ~ \translatekey{corrauthor}. \par
+      }
+      \seq_if_empty:NF \l_@@_fnemails_seq {
+        \translatekey{emails}: ~
+        \seq_use:Nn \l_@@_fnemails_seq { , ~ } . \par
+      }
+      \seq_if_empty:NF \l_@@_fnorcids_seq {
+        ORCID: ~ \seq_use:Nn \l_@@_fnorcids_seq { , ~ } . \par
+      }
+    }
+    \group_end:
+  }
+}
+
 % Declare author sequences
 \seq_new:N \g_@@_authors_seq
 \seq_new:N \g_@@_authorswaff_seq
@@ -4301,7 +4361,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %<le>\renewcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
 % \fi
 %
-% \DescribeMacro[le-rp]{\email}
+% \DescribeMacro[phd-crs-bama-bkc-ex-le-rp-art]{\email}
 %   \oarg{domain}
 %   \marg{local-part}
 %   \margintag{emails\_seq}\\
@@ -4311,7 +4371,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   You can specify multiple email addresses by using the command
 %   multiple times.
 % \iffalse
-%<*le|rp|bmr>
+%<*phd|crs|bama|bkc|ex|le|rp|art>
 \ExplSyntaxOn
 \seq_new:N \g_@@_emails_seq
 \tl_new:N \l_@@_domain_tl
@@ -4356,7 +4416,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   \@@_addemail:nn { #1 } { #2 }
 }
 \ExplSyntaxOff
-%</le|rp|bmr>
+%</phd|crs|bama|bkc|ex|le|rp|art>
 % \fi
 %
 %
