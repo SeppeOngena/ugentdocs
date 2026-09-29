@@ -1332,14 +1332,14 @@
 
     \path (0,0) rectangle (3*\@logounit+\@ftextw,3*\@logounit);
 
-    \node[  anchor=south~west, align=left,
+    \node[  anchor=south~west, align=flush~left,
     text~width=\@ftextw+\@ftextmarginextra,
     font = \logotextface\fontsize{13.6pt}{12.4pt}\selectfont]
     at (\@logounit+\@ficonw+\@flogospace,\@logounit)
     {\spaceskip=0.0825cm%
       \nohyphens{\@flogotext}};
 
-    \node[  anchor=south~west, align=left,
+    \node[  anchor=south~west, align=flush~left,
     text~width=\@ftextw,
     font=\logosubtextface\fontsize{7.45pt}{8pt}\selectfont]
     at (\@logounit+\@ficonw+\@flogospace+0.019cm,\@logounit-0.34cm)
@@ -1554,7 +1554,7 @@
     \begin{scope}[shift={(\@logounit,2*\@logounit)},every path/.append style={fill=#2}]
       \@ugenticonpath
     \end{scope}
-    \node[anchor=south west, text width=\@ugenttextw+\@ugenttextmarginextra, align=left, font=\logotextface\fontsize{13.6pt}{12.5pt}\selectfont] at (\@logounit-0.03cm,\@logounit-0.005cm) {\spaceskip=0.0825cm%
+    \node[anchor=south west, text width=\@ugenttextw+\@ugenttextmarginextra, align=flush left, font=\logotextface\fontsize{13.6pt}{12.5pt}\selectfont] at (\@logounit-0.03cm,\@logounit-0.005cm) {\spaceskip=0.0825cm%
       \@ugentlogotext};
   \end{scope}
 }
@@ -1661,7 +1661,7 @@
     }
   }
   \regex_split:nVN { __NEWLINE__ } \l_@@_value_cased_tl \l_@@_value_paragraphs_seq
-  \seq_use:Nn \l_@@_value_paragraphs_seq { \newline\newline }
+  \seq_use:Nn \l_@@_value_paragraphs_seq { \newline\mbox{}\newline }
 }
 
 % Dictionaries: key-value parsing
@@ -2975,14 +2975,14 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
 \@setgridunit
-\RequirePackage[paperwidth=\@PW,paperheight=\@PH,
+\RequirePackage[heightrounded,paperwidth=\@PW,paperheight=\@PH,
                 top=2.54cm, bottom=2.54cm, left=2\gridunit, right=2.97cm]{geometry}
 %</crs|rp|ex>
 %<*phd>
 \setlength\@PW{160mm}
 \setlength\@PH{240mm}
 \@setgridunit
-\RequirePackage[paperwidth=\@PW,paperheight=\@PH,
+\RequirePackage[heightrounded,paperwidth=\@PW,paperheight=\@PH,
                 top=2.54cm,bottom=2.54cm,inner=2cm,outer=2cm,twoside]
                 {geometry}
 %</phd>
@@ -2990,21 +2990,21 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
 \@setgridunit
-\RequirePackage[paperwidth=\@PW,paperheight=\@PH,
+\RequirePackage[heightrounded,paperwidth=\@PW,paperheight=\@PH,
                 top=2.54cm, bottom=2.54cm, left=2\gridunit, right=2\gridunit]{geometry}
 %</bama>
 %<*le>
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
 \@setgridunit
-\RequirePackage[a4paper, footskip=4\gridunit,
+\RequirePackage[heightrounded,a4paper, footskip=4\gridunit,
                 top=5\gridunit, bottom=4\gridunit, left=2\gridunit, right=4.07cm]{geometry}
 %</le>
 %<*art>
 \setlength\@PW{210mm}
 \setlength\@PH{297mm}
 \@setgridunit
-\RequirePackage[paperwidth=\@PW,paperheight=\@PH,
+\RequirePackage[heightrounded,paperwidth=\@PW,paperheight=\@PH,
 top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</art>
 %    \end{macrocode}
@@ -3080,9 +3080,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % \newcommand{\insettext}[2]{
 % \begin{adjustbox}{center}
 %   \begin{tikzpicture}
-%   \node[align=left, text width=\linewidth-6mm, inner sep=3mm] (body) {#2};
+%   \node[align=fkush left, text width=\linewidth-6mm, inner sep=3mm] (body) {#2};
 %   \ifblank{#1}{}{%
-%     \node[align=left, text width=\linewidth-6mm, inner sep=3mm,
+%     \node[align=flush left, text width=\linewidth-6mm, inner sep=3mm,
 %     fill=insetboxcolor, text=white, font=\bfseries,
 %     above=0pt of body, anchor=south] (title) {#1};
 %   }%
@@ -3110,11 +3110,12 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %    \begin{macrocode}
 %<*bama|phd|crs|rp>
 \newcommand{\insettext}[2]{
-  \begin{adjustbox}{center}
-    \begin{tikzpicture}
-      \node[align=left, text width=\linewidth-6mm, inner sep=3mm] (body) {#2};
+  \par\noindent
+  \begin{adjustbox}{center}%
+    \begin{tikzpicture}%
+      \node[align=flush left, text width=\linewidth-6mm, inner sep=3mm] (body) {#2};
       \ifblank{#1}{}{%
-        \node[align=left, text width=\linewidth-6mm, inner sep=3mm,
+        \node[align=flush left, text width=\linewidth-6mm, inner sep=3mm,
         fill=insetboxcolor, text=white, font=\bfseries,
         above=0pt of body, anchor=south] (title) {#1};
       }%
@@ -3125,8 +3126,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
         \node[fill=insetboxcolor!10, fit=(body)(title), inner sep=0mm] {};
       }%
       \end{scope}
-    \end{tikzpicture}
-  \end{adjustbox}
+    \end{tikzpicture}%
+  \end{adjustbox}%
+  \par
 }
 %</bama|phd|crs|rp>
 %    \end{macrocode}
@@ -3987,9 +3989,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \cs_new_protected:Nn \@@_orcidlink:n {
   \cs_if_exist:NTF \href {
     \exp_args:Ne \href { \tl_to_str:n { https://orcid.org/#1 } }
-    { \XeTeXLinkBox { \tikz[baseline=0pt] \orcidicon {1.6ex} {orcidcolor} {0}; } }
+    { \XeTeXLinkBox { \tikz[baseline=0pt]{\orcidicon {1.6ex} {orcidcolor} {0}} } }
   }{
-    \tikz[baseline=0pt] \orcidicon {1.6ex} {orcidcolor} {0};
+    \tikz[baseline=0pt]{\orcidicon {1.6ex} {orcidcolor} {0}}
   }
 }
 \cs_new_protected:Nn \@@_printauthorlist: {
@@ -4993,15 +4995,15 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % \iffalse
 %<*ex>
 \NewDocumentCommand{\bilingual}{O{english} O{dutch} +m +m}{%
-  \begin{tabular}{ccc}
-    \begin{minipage}[t]{0.45\textwidth}
-      \foreignlanguage{#1}{#3}
-    \end{minipage}
-    &~~~&
-    \begin{minipage}[t]{0.45\textwidth}
-      \foreignlanguage{#2}{#4}
-    \end{minipage}
-  \end{tabular}%
+  \par\noindent
+  \begin{minipage}[t]{\dimexpr0.5\linewidth-1em\relax}%
+    \foreignlanguage{#1}{#3}%
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{\dimexpr0.5\linewidth-1em\relax}%
+    \foreignlanguage{#2}{#4}%
+  \end{minipage}%
+  \par
 }
 %</ex>
 % \fi
@@ -5148,6 +5150,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \cs_new_protected:Nn \_@@_draw_inline_ansgrid:nn {
   \par\noindent
   \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle (\textwidth,#1);
     \draw [answer-#2] (0,0) grid (\textwidth,#1);
     \draw [thick] (0,0) rectangle (\textwidth,#1);
   \end{tikzpicture}
@@ -5634,7 +5637,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 
 % Page 4: copyright page (verso, bottom-left)
 \clearpage\thispagestyle{empty}\null\vfill
-\@copyrightnotices
+\@copyrightnotices\par
 %</phd>
 %
 %<*bama|phd|rp|crs|ex>
@@ -5675,7 +5678,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
       \faclogo{3\gridunit}{ugent@\@fselector}{0}
     \end{scope}
     \path (\@PW-\gridunit,-\gridunit)
-    node[anchor=north~east,text~width=61.5mm,align=left] {
+    node[anchor=north~east,text~width=61.5mm,align=flush~left] {
       \small{\nohyphens{\bfseries\textcolor{ugent@main}{\@faculty[uppercase]}}}\\*
       \textcolor{ugent@main}{\MakeUppercase{\@team}}
     };
@@ -5697,7 +5700,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
     }
     %
     \path (2\gridunit,-44mm)
-    node[anchor=north~west,text~width=80mm,align=left] {
+    node[anchor=north~west,text~width=80mm,align=flush~left] {
       \scriptsize\textcolor{gray}{\uline{\@returnaddress}}\\*
       \normalsize\@to\\*
       \ifx\@toorganization\@empty\else\@toorganization\\*\fi%
@@ -5705,7 +5708,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
     };
 
     \path (\@PW-\gridunit,-3\gridunit)
-    node[anchor=north~east,text~width=61.5mm,align=left] {
+    node[anchor=north~east,text~width=61.5mm,align=flush~left] {
       \textcolor{ugent@main}{\textbf{\@sender}}
       \ifx\@senderrole\@empty\\[1.75ex]\else \\*\@senderrole\\[1.75ex]\fi
       \ifseqempty{emails} {}{E~\printseq{emails}
@@ -6599,7 +6602,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % \node[white, font=\bfseries\normalsize, rotate=90, anchor=center,
 % inner sep=2pt] at ([xshift=3.5\gridunit]numbox.west |- numbox.center) {\textsf{Chapter}};
 %
-% \node[titlecolor, font=\huge\bfseries, anchor=south east, align=right,
+% \node[titlecolor, font=\huge\bfseries, anchor=south east, align=flush right,
 % text width=0.85\textwidth] at ([xshift=-10pt,yshift=10pt]numbox.west |- numbox.south) {\textsf{An example title}};
 %
 % \draw[titlecolor, line width=1pt]
@@ -6632,7 +6635,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 % \makebox[0pt][r]{
 %    \begin{tikzpicture}[baseline=(o), overlay]
-%    \node[draw, text width=5cm, align=right, anchor=base east,
+%    \node[draw, text width=5cm, align=flush right, anchor=base east,
 %    white, fill=titlecolor] (n) at (-10pt, 0) {{\fontsize{16}{18}\selectfont\textbf{\textsf{1}}}};
 %    \node[inner sep=0, outer sep=0] (o) at (0,0) {};
 %    \end{tikzpicture}%
@@ -6766,7 +6769,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 
         % Chapter title
         \node[titlecolor, font=\huge\bfseries,
-        anchor=south~east, align=right, text~width=0.85\textwidth]
+        anchor=south~east, align=flush~right, text~width=0.85\textwidth]
         at ([xshift=-10pt,yshift=10pt]numbox.west |- numbox.south) {##1};
 
         % Rule
@@ -6833,7 +6836,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
       \newcommand*{\@legacychapshape}[3]{%
         % args: label text, text col, font style
         \begin{tikzpicture}[baseline=(o), overlay]
-        \node[draw, text~width=3cm, align=right, anchor=base~east,
+        \node[draw, text~width=3cm, align=flush~right, anchor=base~east,
         ##2, fill=titlecolor] (n) at (-10pt, 0) {{##3\textbf{##1}}};
         \node[inner~sep=0, outer~sep=0] (o) at (0,0) {};
         \end{tikzpicture}%
@@ -7084,7 +7087,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \ExplSyntaxOn
 \newcommand{\@coverbodybama}{
   \node[anchor=north~west, inner~sep=0pt, text~width=\@PW-\@MTLR-\gridunit,
-  minimum~height=22.05cm, align=left] at (\@MTLR,\@HT)
+  minimum~height=22.05cm, align=flush~left] at (\@MTLR,\@HT)
   {%
     \raggedright
     \begin{spacing}{2.5}
@@ -7179,7 +7182,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \ExplSyntaxOn
 \newcommand{\@coverbodyreport}{
   \node[anchor=north~west, inner~sep=0pt, text~width=\paperwidth-\@MTLR-\gridunit,
-  minimum~height=22.05cm, align=left] at (\@MTLR,\@HT)
+  minimum~height=22.05cm, align=flush~left] at (\@MTLR,\@HT)
   {%
     \raggedright
     \begin{spacing}{2.5}
@@ -7249,7 +7252,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \ExplSyntaxOn
 \newcommand{\@coverbodyexam}{
   % Top data
-  \node[anchor=north~west,text~width={\paperwidth-\@MTLR-\gridunit},align=left]
+  \node[anchor=north~west,text~width={\paperwidth-\@MTLR-\gridunit},align=flush~left]
   at (\@MTLR,{\paperheight-\@HTS-\gridunit}) {%
     \color{covertitlecolor}{
       \fontsize{18}{22}\selectfont%
@@ -7307,7 +7310,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   }
 
   % Bottom data
-  \node[anchor=south~west,align=left,inner~sep=0pt,text~width={\paperwidth-\@MTLR-\gridunit}]
+  \node[anchor=south~west,align=flush~left,inner~sep=0pt,text~width={\paperwidth-\@MTLR-\gridunit}]
   at (\@MTLR,5\gridunit){%
     \color{coverdatacolor}{
       \fontsize{12}{21}\selectfont%
@@ -7390,7 +7393,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \newcommand\@coverbodyphd{
   % Title, subtitle, author
   \bool_if:NTF \l_@@_bwphdcover_bool {
-    \node[anchor=south~east, text~width=\@PW-2*\@MTLR, align=right, text=covertitlecolor]
+    \node[anchor=south~east, text~width=\@PW-2*\@MTLR, align=flush~right, text=covertitlecolor]
     at (\@PW-\@MTLR, \@HT) {
       {\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
       \ifx\@subtitle\@empty\else\vspace{4pt}\hyphenpenalty=100000%
@@ -7399,7 +7402,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
       \vspace{30pt}\hyphenpenalty=100000%
       {\fontsize{20}{24}\selectfont\printseq{authors}{\\}{\\}{\\}}};
   }{
-    \node[anchor=west, text~width=\@PW-2*\@MTLR-\@MS, align=left, text=covertitlecolor]
+    \node[anchor=west, text~width=\@PW-2*\@MTLR-\@MS, align=flush~left, text=covertitlecolor]
     at (\@MS+\@MTLR, \@HT) {
       {\fontsize{28}{30}\selectfont\bfseries\nohyphens{\@title}\par}%
       \ifx\@subtitle\@empty\else\vspace{5pt}\hyphenpenalty=100000%
@@ -7407,7 +7410,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
       \fi
     };
 
-    \node[anchor=north~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
+    \node[anchor=north~west, text~width=\@WD-2*\@MTLR, align=flush~left, text=coverdatacolor]
     at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB) {
       {\fontsize{20}{24}\selectfont\bfseries\printseq{authors}{\\}{\\}{\\}}%
       \\[15pt]
@@ -7416,7 +7419,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
       \\[15pt]
       {\fontsize{11}{15}\selectfont\translatekey{acyear}~\@academicyear}};
 
-    \node[anchor=south~west, text~width=\@WD-2*\@MTLR, align=left, text=coverdatacolor]
+    \node[anchor=south~west, text~width=\@WD-2*\@MTLR, align=flush~left, text=coverdatacolor]
     at (\@MS+\@MTLR, \@HBS+\@MTTB){%
       \fontsize{11}{15}\selectfont\nohyphens{%
         \@doctype{}~\translatekey[lowercase]{submittedto}%
@@ -7521,7 +7524,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   \ifx\@frontcoverlogos\@empty\else
     \node[anchor=south~east, inner~sep=0pt,
       text~width=\paperwidth-(2+\@ugenttextw/\@logounit)*\gridunit,
-      minimum~height=2*\gridunit, align=right]
+      minimum~height=2*\gridunit, align=flush~right]
     at (\paperwidth-\gridunit,\gridunit)
       {\@frontcoverlogos};
   \fi
@@ -7571,7 +7574,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
       }%
     };%
     \end{scope}
-  \fi};
+  \fi}
 
   % Front cover data area
   \fill[coverareacolor] (\@MS,\@HBS) rectangle (\@MS+\@WD,\@HBS+\@HD);
@@ -7589,7 +7592,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   \ifx\@frontcoverlogos\@empty\else
     \node[anchor=south~east, inner~sep=0pt,
       text~width=\@PW-(2+\@ugenttextw/\@logounit)*\gridunit,
-      minimum~height=2*\gridunit, align=right]
+      minimum~height=2*\gridunit, align=flush~right]
     at (\@PW-\gridunit,\gridunit)
       {\@frontcoverlogos};
   \fi
@@ -7785,14 +7788,13 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
     \selectlanguage{dutch}
     \@bamadisclaimer
     \endgroup
-
-    \newline\newline
+    \\[\baselineskip]
     \selectlanguage{english}
     \@bamadisclaimer
   }
-  \newline\newline
+  \\[\baselineskip]
   \@location,~\@date
-  \newline\newline
+  \\[\baselineskip]
   \@@_autographpage:
 
   \vspace*{\stretch{1}}
@@ -8156,8 +8158,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %% Use this package if you want multi-row tables
 \usepackage{multirow}
 
-%% Use this package if you want prettier tables
+%% Use these packages if you want prettier tables
 \usepackage{booktabs}
+\usepackage{threeparttable}
 
 %% Use this package for exact float placements (e.g., in a multicols environment)
 \usepackage{float}
@@ -8799,7 +8802,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %<*ex1>
 %% Instruct your students about important details.
 \extrainfo{
-  Belangrijke informatie:\\\par
+  Belangrijke informatie:\par\medskip
   Het volledige Onderwijs- en Examenregelement (OER) is van toepassing
   op dit examen.
   Toch wil ik vooraf nog een aantal regels duidelijk stellen:
@@ -8834,12 +8837,12 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   %% and right column in Dutch
   %% use multiple bilingual-environments to keep the page flow synchronized
   \bilingual{
-    Important information:\\\par
+    Important information:\par\medskip
     The Education and Examination Regulations (EER) hold for this
     examination in full.
     However, before starting, I'd like to set some rules straight:
   }{
-    Belangrijke informatie:\\\par
+    Belangrijke informatie:\par\medskip
     Het volledige Onderwijs- en Examenregelement (OER) is van toepassing
     op dit examen.
     Toch wil ik vooraf nog een aantal regels duidelijk stellen:
@@ -9062,7 +9065,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 
 Duid aan en omschrijf in geval van gebruik van één of meerdere GAI-tools hoe je deze hebt gebruikt:
 
-\begin{tabular}{|p{0.02\linewidth}|p{0.26\linewidth}|p{0.4\linewidth}|p{0.22\linewidth}|}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\begin{tabularx}{\linewidth}{|c|L{0.24\linewidth}|Y|L{0.2\linewidth}|}
   \hline
   & GAI-tool gebruikt als & Omschrijving & Gebruikte tool(s) \\
   \hline
@@ -9082,7 +9087,7 @@ Duid aan en omschrijf in geval van gebruik van één of meerdere GAI-tools hoe j
   Bijvoorbeeld: samenvatten van bestaande teksten, bronnenlijst in BibTeX-stijl zetten, LaTeX tabellen genereren, enz. & (...) \\ \hline
   $\Box$        & Op een andere manier &
   Bijvoorbeeld: programmeercode genereren, tabellen en grafieken genereren van online data, enz. & (...) \\ \hline
-\end{tabular}
+\end{tabularx}
 
 %</bama2>
 %<*bama1>
@@ -9095,7 +9100,9 @@ Duid aan en omschrijf in geval van gebruik van één of meerdere GAI-tools hoe j
 
 Indicate and describe the use case if one or multiple GAI tools have been used:
 
-\begin{tabular}{|p{0.02\linewidth}|p{0.26\linewidth}|p{0.4\linewidth}|p{0.22\linewidth}|}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\begin{tabularx}{\linewidth}{|c|L{0.24\linewidth}|Y|L{0.2\linewidth}|}
   \hline
   & GAI-tool used as & Description & Used tool(s) \\
   \hline
@@ -9115,7 +9122,7 @@ Indicate and describe the use case if one or multiple GAI tools have been used:
   For example: summarize existing text, adjust reference list to BibTeX-style, generate LaTeX tables, etc. & (...) \\ \hline
   $\Box$        & Other &
   For example: generate program code, generate tables and graphs from online data, etc. & (...) \\ \hline
-\end{tabular}
+\end{tabularx}
 
 %</bama1>
 %
@@ -9226,17 +9233,39 @@ The bibliography is printed at the end of this section using\\
 %<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 Figures such as Figure \ref{F:FigExample} are added as follows:
 
-\begin{figure}[H]
+\begin{figure}[ht]
   \centering
   \includegraphics[width = 0.5\linewidth]{example-image-a} %% Your figure path
   \caption[<short figure caption>]{<This is the long caption of your figure.>}
   \label{F:FigExample}
 \end{figure}
 
+Tables such as Table \ref{T:TabExample} are added as follows:
+
+\begin{table}[htbp]
+  \centering
+  \begin{threeparttable}
+    \caption[<Short table caption>]{<This is the long caption of your table.>}
+    \label{T:TabExample}
+    \begin{tabular}{lrl}
+      \toprule
+      \multirow{2}{*}{Variable} & \multicolumn{2}{c}{Value}\\
+      \cmidrule(lr){2-3}
+      & Number\tnote{a} & Unit \\
+      \midrule
+      One & 1.01 & \unit{\gram\per\metre} \\
+      Two & 52.4 & \unit{\milli\gram\per\cubic\metre\per\hour} \\
+      \bottomrule
+    \end{tabular}
+    \begin{tablenotes}
+      \footnotesize\raggedright
+      \item[a] This is a footnote over multiple columns and rows
+    \end{tablenotes}
+  \end{threeparttable}
+\end{table}
 %</crs1|bama1|bama2|rp1|rp2|phd1|phd2>
 %<*art1>
-\textcolor{lightgray}{\kant[9]}
-
+\newpage
 Figures within a muticols column such as Figure \ref{F:FigExampleCol}
 are added as follows:
 
@@ -9272,26 +9301,31 @@ within the multicols environment, and place it at the top of the next page.
   \label{F:FigExamplePage}
 \end{figure*}
 
-%</art1>
-%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
-Tables such as Table \ref{T:TabExample} are added as follows:
+Tables such as Table \ref{T:TabExInline} are added as follows:
 
 \begin{table}[H]
-\caption[<short table caption>]{<This is the long caption of your table.>}
-\label{T:TabExample}
-\centering
-  \begin{tabular}{lrl}
-    \toprule
-    \multirow{2}{*}{Variable} & \multicolumn{2}{c}{Value}\\
-    \cline{2-3}
-    & Number\textsuperscript{a} & Unit \\
-    \midrule
-    One & 1.01 & \unit{\gram\per\metre} \\
-    Two & 52.4 & \unit{\milli\gram\per\cubic\metre\per\hour} \\
-    \bottomrule
-    \multicolumn{3}{p{5cm}}{\textsuperscript{a}This is a footnote over multiple columns and rows}
-  \end{tabular}
+  \centering
+  \begin{threeparttable}
+    \caption[<Short table caption>]{<This is the long caption of your table.>}
+    \label{T:TabExInline}
+    \begin{tabular}{lrl}
+      \toprule
+      \multirow{2}{*}{Variable} & \multicolumn{2}{c}{Value}\\
+      \cmidrule(lr){2-3}
+      & Number\tnote{a} & Unit \\
+      \midrule
+      One & 1.01 & \unit{\gram\per\metre} \\
+      Two & 52.4 & \unit{\milli\gram\per\cubic\metre\per\hour} \\
+      \bottomrule
+    \end{tabular}
+    \begin{tablenotes}
+      \footnotesize\raggedright
+      \item[a] This is a footnote over multiple columns and rows
+    \end{tablenotes}
+  \end{threeparttable}
 \end{table}
+%</art1>
+%<*crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
 
 You can use inline math such as \verb!$X_{sludge}$! ($X_{sludge}$)
 or have equations with a label, such as Equation \ref{E:EqExample}:
@@ -9347,6 +9381,10 @@ Good luck!
 \printbibliography
 %</crs1|bama1|bama2|rp1|rp2|phd1|phd2|art1>
 %<*crs1|bama1|bama2|rp1|rp2|phd1|phd2>
+%% Fix underfull vbox messages for these \kant chapters, but
+%% if you use this in your documentm the text will not fill rhe page fully
+\raggedbottom
+
 \chapter{<Second chapter>}
 \kant[6]
 
@@ -9715,17 +9753,16 @@ I'd like to thank\ldots
 
 %% Some stuff to typeset code, you can remove this if not needed
 \newcommand*\cmd[1]{{\ttfamily \textbackslash #1}}
-\NewEnviron{codesnippet}[1][0.8\textwidth]{
-  \scriptsize{
-  \qquad\framebox[#1][l]{
-  \texttt{
-      \setlength\textwidth{#1}
-      \begin{minipage}{0.9\textwidth}
-        \BODY
-      \end{minipage}
-    }
-  }
-  }
+\NewEnviron{codesnippet}[1][0.8\textwidth]{%
+  {\scriptsize
+  \qquad\framebox[#1][l]{%
+  \begin{minipage}{0.9\dimexpr#1\relax}%
+    \ttfamily\raggedright
+    \hyphenpenalty=10000 \exhyphenpenalty=10000
+    \BODY
+  \end{minipage}%
+  }}%
+  \ignorespacesafterend
 }
 \newcommand*\ind[1][2ex]{\hspace*{#1}}
 \newcommand*\bframe[1][]{\cmd{begin}\{#1frame\}}
@@ -10000,7 +10037,7 @@ Example:\\[1ex]
 \begin{codesnippet}[0.8\textwidth]
   \bframe[][section]\\
   \ind \cmd{sectionpage}\\
-  \eframe\\~\\
+  \eframe\\[\baselineskip]
   \bframe[][subsection]\\
   \ind \cmd{subsectionpage}\\
   \eframe
@@ -10158,8 +10195,8 @@ You can customize the content
   \begin{codesnippet}
   \bframe[graphicframe][graphic,logo=false]\\
   \ind \{\}\{\}\\
-  \eframe[graphicframe]\\
-  \\
+  \eframe[graphicframe]
+  \\[\baselineskip]
   \bframe[graphicframe][graphic,fill=true,logo=false]\\
   \ind \{\}\{\}\\
   \eframe[graphicframe]
@@ -10877,7 +10914,7 @@ That's all, folks!
   \dim_set:Nn \l_tmpa_dim{#2-2\gridunit} % width
   \dim_set:Nn \l_tmpb_dim{#3-2\gridunit} % height
   \begin{tikzpicture}
-  \node[align=left,
+  \node[align=flush~left,
     text~width=\l_tmpa_dim,
     inner~sep=\gridunit,
     text=\l_@@_textbox_textcolor_tl,
@@ -10920,7 +10957,7 @@ That's all, folks!
   \node[anchor=north west,
   text width=\@PW-3\gridunit,
   text=white,
-  align=left] at (3\gridunit,\@PH-4\gridunit) {
+  align=flush left] at (3\gridunit,\@PH-4\gridunit) {
     \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse title in title page}
       \small
       \textbf{\insertauthor}\\[0.5ex]
@@ -10938,7 +10975,7 @@ That's all, folks!
   \node[anchor=south west,
   text width=9\gridunit,
   text=white,
-  align=left] at (\@PW-9\gridunit,\@HBS+\gridunit) {
+  align=flush left] at (\@PW-9\gridunit,\@HBS+\gridunit) {
     \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse title in title page}
       \small
       \@printsocialitem{\faFacebook}{Universiteit Gent}
@@ -11260,16 +11297,12 @@ That's all, folks!
           \end{minipage}%
         }
         { t } {
-          \fp_set:Nn \l_@@_bodyfrac_fp
-          { 1 - \l_@@_graphprop_fp - \gridunit/\textheight }
-          \begin{minipage}[t][\fp_to_decimal:N\l_@@_bodyfrac_fp\textheight][t]{\textwidth}
+          \begin{minipage}[t]{\textwidth}
             \BODY
           \end{minipage}%
         }
         { b } {
-          \fp_set:Nn \l_@@_bodyfrac_fp
-          { 1 - \l_@@_graphprop_fp - \gridunit/\textheight }
-          \begin{minipage}[t][\fp_to_decimal:N\l_@@_bodyfrac_fp\textheight][t]{\textwidth}
+          \begin{minipage}[t]{\textwidth}
             \BODY
           \end{minipage}%
         }
@@ -11325,7 +11358,7 @@ That's all, folks!
     \ifx\@titlelogos\@empty\else
       \node[anchor=south~west, inner~sep=0pt,
         text~width=\@PW-2\gridunit-\@ugenttextw/\@logounit*\gridunit,
-        minimum~height=2\gridunit, align=left]
+        minimum~height=2\gridunit, align=flush~left]
       at (2\gridunit+\@ugenttextw/\@logounit*\gridunit,\gridunit)
         {\@titlelogos};
     \fi
@@ -11405,14 +11438,14 @@ That's all, folks!
     [overlay,remember~picture, shift={(current~page.south~west)}]
     \clip (0,0) rectangle (\textwidth,\paperheight-0.075cm);
     \node[anchor=north~west,
-      text~width=\@titletextwidth, text=white, align=left]
+      text~width=\@titletextwidth, text=white, align=flush~left]
     at (2\gridunit,\@PH-\@HTS-\gridunit) {
       \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~title~in~title~page}
         \footnotesize\textbf{\@department[uppercase]}\\\@team[uppercase]
       \end{beamercolorbox}
     };
     \node[anchor=south~west,
-      text~width=\@titletextwidth, text=white, align=left]
+      text~width=\@titletextwidth, text=white, align=flush~left]
     at (2\gridunit,\@HBS+\gridunit) {%
       \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~title~in~title~page}%
         \Huge\bfseries\MakeUppercase{\inserttitle}%
@@ -11433,7 +11466,7 @@ That's all, folks!
     \begin{scope}
       \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-\gridunit,\@PH-\gridunit)}
       \node[anchor=south~west,
-        text~width=\@titletextwidth, text=white, align=left]
+        text~width=\@titletextwidth, text=white, align=flush~left]
       at (2\gridunit,\@HBS+\gridunit) {
         \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~section~title}
           \Huge\bfseries
@@ -11456,7 +11489,7 @@ That's all, folks!
     \begin{scope}
       \@rect[clip]{(2\gridunit,\@HBS+\gridunit)}{(\@PW-\gridunit,\@PH-\gridunit)}
       \node[anchor=south~west,
-        text~width=\@titletextwidth, text=white, align=left]
+        text~width=\@titletextwidth, text=white, align=flush~left]
       at (2\gridunit,\@HBS+\gridunit) {
         \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~section~title}
           \Huge\bfseries
