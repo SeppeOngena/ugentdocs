@@ -2149,8 +2149,17 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   and the footer of the exam class.
 % \iffalse
 %<*clo>
-\newcommand*{\@academicyear}{YYYY--YYYY}
+\ExplSyntaxOn
+\msg_new:nnnn { ugentdocs } { mandatory-macro }
+{ The~macro~'#1'~is~mandatory~and~is~currently~unset. }
+{ A~placeholder~was~inserted~temporarily. }
+
+\newcommand*{\@academicyear}{%
+  YYYY--YYYY%
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\academicyear}%
+}
 \newcommand*{\academicyear}[1]{\renewcommand*{\@academicyear}{#1}}
+\ExplSyntaxOff
 %</clo>
 %<rp>\AtEndOfClass{\renewcommand*{\@academicyear}{}}
 % \fi
@@ -3141,7 +3150,10 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % \iffalse
 %<*crs|rp|bkc|phd|bmr|ex|art>
 \ExplSyntaxOn
-\renewcommand{\@title}{<This~is~your~document~title>}
+\renewcommand{\@title}{%
+  <This~is~your~document~title>%
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\title}
+}
 \newcommand{\@shorttitle}{\@title}
 \RenewDocumentCommand{\title}{o m}{
   \gdef\@title{#2}
@@ -3164,10 +3176,18 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   dissertation colophon page -- if the main document language is not Dutch.
 % \iffalse
 %<*phd>
-\newcommand*{\@titel}{<Dit is de nederlandse titel van het document>}
+\ExplSyntaxOn
+\newcommand*{\@titel}{%
+  <Dit~is~de~nederlandse~titel~van~het~document>%
+  \str_if_eq:VnF \l_@@_language_tl {dutch} {%
+    \msg_warning:nnn { ugentdocs }{ mandatory-macro }%
+      {\titel~for~non-dutch~PhDs}%
+  }%
+}
 \newcommand*{\titel}[1]{%
   \renewcommand*\@titel{#1}
 }
+\ExplSyntaxOff
 %</phd>
 % \fi
 %
@@ -3311,6 +3331,10 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 }
 \AtBeginDocument{
   \let\degree\relax
+  \ifseqempty{degrees}{
+    \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\degree}%
+  }{}
+
 }
 \ExplSyntaxOff
 %</crs|ex|bkc|phd|bama>
@@ -3328,14 +3352,14 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   probably.
 % \iffalse
 %<*bama|phd|bkc|rp>
+\ExplSyntaxOn
 \newcommand*\@doctype{
-  \PackageError{ugentdocs}
-  {Please, specify the official document type using
-    the '\protect\doctype{}'  macro in the preamble of your document.}
-  {See the ugentdocs manual}}
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\doctype}%
+}
 \newcommand*\doctype[1]{
   \renewcommand*\@doctype{\translatekey{#1}}
 }
+\ExplSyntaxOff
 %</bama|phd|bkc|rp>
 %<phd>\doctype{dissertation-phd}
 % \fi
@@ -3597,8 +3621,12 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   Specifies the abstract of the article.
 % \iffalse
 %<*art>
-\newcommand{\@abstract}{}
+\ExplSyntaxOn
+\newcommand{\@abstract}{%
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\abstract}%
+}
 \renewcommand{\abstract}[1]{\renewcommand{\@abstract}{#1}}
+\ExplSyntaxOff
 %</art>
 % \fi
 %
@@ -3637,8 +3665,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % \fi
 %
 % \DescribeMacro[art]{\keywords}
-%   \marg{comma separated keywords}
-%   \margintag{mandatory}\\
+%   \marg{comma separated keywords}\\
 %   Specifies the keywords of the article.
 %   Should be input as ``|keyword1, keyword2, ...|''
 % \iffalse
@@ -3662,7 +3689,6 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 % \DescribeMacro[art]{\journal}
 %   \marg{journal title}
-%   \margintag{mandatory}
 %   \margintag{tag}\\
 %   Specifies the journal in which the article was published
 %   or to which it was submitted.
@@ -4052,13 +4078,21 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 }
 \ExplSyntaxOff
 %</phd|crs|bama|bkc|ex|le|rp|art>
+%<*phd|bama|le|art>
+\ExplSyntaxOn
+\AtBeginDocument{
+  \ifseqempty{authors}{
+    \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\author}%
+  }{}
+}
+\ExplSyntaxOff
+%</phd|bama|le|art>
 % \fi
 %
 % \DescribeMacro[crs-rp-bkc-ex]{\lecturer}
 %   \marg{title}
 %   \marg{Surname, Firstname}
 %   \marg{affiliation}
-%   \margintag{mandatory}
 %   \margintag{lecturers\_seq}
 %   \margintag{lecturerswaff\_seq}
 %   \margintag{lecturerscalls\_seq}\\
@@ -4087,6 +4121,22 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 }
 \ExplSyntaxOff
 %</crs|ex|rp|bkc>
+%<*crs|bkc>
+\ExplSyntaxOn
+\AtBeginDocument{
+  \exp_args:Nx \str_case:nn { \l_@@_covertype_tl } {
+    { course }  {
+      \ifseqempty{lecturers}{
+
+      \ifseqempty{authors}{
+        \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\lecturer~or~\author}%
+      }{}
+      }{}
+    }
+  }
+}
+\ExplSyntaxOff
+%</crs|bkc>
 % \fi
 %
 % \DescribeMacro[bama-phd-bkc]{\supervisor}
@@ -4131,6 +4181,12 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 }
 \NewDocumentCommand{\supervisor}{mmm}{
   \@@_addsupervisor:nnn { #1 } { #2 } { #3 }
+}
+
+\AtBeginDocument{
+  \ifseqempty{supervisors}{
+    \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\supervisor}%
+  }{}
 }
 \ExplSyntaxOff
 %</bama|phd|bkc>
@@ -4240,6 +4296,11 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \NewDocumentCommand{\jurymember}{mmm}{
   \@@_addjurymember:nnn { #1 } { #2 } { #3 }
 }
+\AtBeginDocument{
+  \ifseqempty{jurymemberswaff}{
+    \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\jurymember}%
+  }{}
+}
 \ExplSyntaxOff
 %</phd>
 % \fi
@@ -4255,16 +4316,14 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   Sets the |\@jurychairaff| tag in addition to the |\@jurychair| tag.
 % \iffalse
 %<*phd>
+\ExplSyntaxOn
 \newcommand*{\@jurychair}{
-  \PackageError{ugentdocs}
-  {Please, define a chair of the jury using the
-    '\protect\jurychair{}' command in the preamble of your
-    document.}
-  {See the ugentdocs manual}
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\jurychair}%
 }
 \newcommand*{\@jurychairaff}{}
 \newcommand*{\jurychair}[3]{
   \renewcommand*{\@jurychair}{#1~\@formatname{#2}}\renewcommand*{\@jurychairaff}{#3}}
+\ExplSyntaxOff
 %</phd>
 % \fi
 %
@@ -4277,16 +4336,14 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   Used in the PhD examination committee page.
 % \iffalse
 %<*phd>
+\ExplSyntaxOn
 \newcommand*{\@dean}[2]{
-  \PackageError{ugentdocs}
-  {Please, define a dean of the faculty using the
-    '\protect\dean{}{}' command in the preamble of your
-    document.}
-  {See the ugentdocs manual}
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\dean}%
 }
 \newcommand*{\dean}[2]{
   \renewcommand*{\@dean}{#1~\@formatname{#2}}
 }
+\ExplSyntaxOff
 %</phd>
 % \fi
 %
@@ -4299,16 +4356,15 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   Used in the PhD examination committee page.
 % \iffalse
 %<*phd>
-\newcommand*{\@rector}[2]{
-  \PackageError{ugentdocs}
-  {Please, define a rector of Ghent University using the
-    '\protect\rector{}{}' command in the preamble of your
-    document.}
-  {See the ugentdocs manual}
+\ExplSyntaxOn
+\newcommand*{\@rector}[2]{%
+  prof.~dr.~\@formatname{De~Sutter, Petra}%
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\rector}%
 }
 \newcommand*{\rector}[2]{
   \renewcommand*{\@rector}{#1~\@formatname{#2}}
 }
+\ExplSyntaxOff
 %</phd>
 % \fi
 %
@@ -4357,12 +4413,11 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   and the PhD colophon page.
 % \iffalse
 %<*phd|le>
+\ExplSyntaxOn
 \newcommand*{\@address}{
-  \PackageError{ugentdocs}
-  {Please, set your multi-line address and contact details using the
-    '\protect\address{}' command in the preamble of your document}
-  {See the ugentdocs manual}
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\address}%
 }
+\ExplSyntaxOff
 %</phd|le>
 %<rp>\newcommand*{\@address}{}
 %<phd|rp>\newcommand*{\address}[1]{\renewcommand*{\@address}{#1}}
@@ -4522,6 +4577,12 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 }
 \NewDocumentCommand{\course}{mm}{
   \@@_addcourse:nn { #1 } { #2 }
+}
+
+\AtBeginDocument{
+  \ifseqempty{courses}{
+    \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\course}%
+  }{}
 }
 \ExplSyntaxOff
 %</crs|ex>
@@ -5125,10 +5186,14 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   Used in the letter's header and closing.
 % \iffalse
 %<*le>
-\newcommand*{\@sender}{< Specify sender using
-  \textbackslash{}sender\{name\}\{role\} >}
+\ExplSyntaxOn
+\newcommand*{\@sender}{%
+  <Sender>%
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\sender}%
+}
 \newcommand*{\@senderrole}{~}
 \newcommand*{\sender}[2]{\renewcommand*{\@sender}{#1}\renewcommand*{\@senderrole}{#2}}
+\ExplSyntaxOff
 %</le>
 % \fi
 %
@@ -5144,10 +5209,14 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % the person that can take action accordingly.
 % \iffalse
 %<*le>
-\newcommand*{\@returnaddress}
-{<specify return-address using \textbackslash\{single-line-return-address\}>}
+\ExplSyntaxOn
+\newcommand*{\@returnaddress}{%
+  <Return~address>%
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\returnaddress}%
+}
 \renewcommand*{\returnaddress}[1]
 {\renewcommand*{\@returnaddress}{#1}}
+\ExplSyntaxOff
 %</le>
 % \fi
 %
@@ -5160,8 +5229,13 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   (5 lines estate, including |\returnaddress| and the other 'to' macros).
 % \iffalse
 %<*le>
-\newcommand*{\@to}{}
+\ExplSyntaxOn
+\newcommand*{\@to}{%
+  <Addressee name>%
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\to}%
+}
 \renewcommand*{\to}[1]{\renewcommand*{\@to}{#1}}
+\ExplSyntaxOff
 %</le>
 % \fi
 %
@@ -5187,8 +5261,10 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   (5 lines estate, including |\returnaddress| and the other 'to' macros).
 % \iffalse
 %<*le>
-\newcommand*{\@toaddress}{
-  <Specify address using \textbackslash{}toaddress\{address\}>}
+\newcommand*{\@toaddress}{%
+  <Receiver~address>%
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\toaddress}%
+}
 \newcommand*{\toaddress}[1]{\renewcommand*{\@toaddress}{#1}}
 %</le>
 % \fi
@@ -5200,14 +5276,18 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   Short descriptive title that describes the contents of the letter.
 % \iffalse
 %<*le>
-\newcommand*{\@subject}{-}
+\ExplSyntaxOn
+\newcommand*{\@subject}{%
+  -%
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\subject}%
+}
 \newcommand*{\subject}[1]{\renewcommand*{\@subject}{#1}}
+\ExplSyntaxOff
 %</le>
 % \fi
 %
 % \DescribeMacro[le]{\reference}
 %   \marg{reference number}
-%   \margintag{mandatory}
 %   \margintag{tag}\\
 %   Sets the reference number to be used in the letter's heading text.
 % \iffalse
@@ -5218,8 +5298,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % \fi
 %
 % \DescribeMacro[le]{\opening}
-%   \marg{Dear prof. X,}
-%   \margintag{mandatory}\\
+%   \marg{Dear prof. X,}\\
 %   Opening address of the letter.
 % \iffalse
 %<*le>
@@ -5234,9 +5313,12 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   Closing clause of the letter.
 % \iffalse
 %<*le>
-\newcommand*{\@closing}{<specify a closing formula using
-  \textbackslash{}closing\{\}>}
+\ExplSyntaxOn
+\newcommand*{\@closing}{%
+  <Closing~formula>%
+  \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\opening~and~\closing}%
 \renewcommand*{\closing}[1]{\renewcommand*{\@closing}{#1}}
+\ExplSyntaxOff
 %</le>
 % \fi
 %
@@ -5413,26 +5495,30 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 \textbf{\getseqcaption{supervisors}{}}\hfill\break
 %
-\printseq{supervisorswaff}{\\}{\\}{\\}\\[2ex]
+\printseq{supervisorswaff}{\\}{\\}{\\}
+\vskip 2em
 %
 %
 \textbf{\translatekey{jury}}\hfill\\[1ex]
 %
 \textit{\translatekey{jurychair}}\hfill\break
-\@jurychair{}\ifdefvoid{\@jurychairaff}{}{\@jurychairaff}\\[1ex]
+\@jurychair{}\ifdefvoid{\@jurychairaff}{}{\@jurychairaff}
+\vskip 1em
 %
 \textit{\translatekey{jurymembers}}\hfill\break
-{\printseq{jurymemberswaff}{\\}{\\}{\\}}\\[2ex]%
+{\printseq{jurymemberswaff}{\\}{\\}{\\}}%
+\vskip 2em%
 %
 %
 \textbf{\translatekey{dean}\tl_if_empty:NF \l_@@_fselector_tl {%
     {}~\translatekey[lowercase]{of}~\translatekey[lowercase]{the-de}~\@faculty%
   }}\hfill\break
-\@dean\\[2ex]
+\@dean\phantom{.}%
+\vskip 2em
 %
 \textbf{\translatekey{rector}~\translatekey[lowercase]{of}
   {}~\translatekey{org-deugent}}\hfill\break
-\@rector
+\@rector\phantom{.}
 \end{minipage}%
 
 % Page 3: title
@@ -7157,8 +7243,8 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
         {}~\printseq{rooms}{~\&~}{,~}{\translatekey{andlist}~}}}
       \vskip 2em
        \begin{tabular}{@{}l@{~\,}p{14.5cm}}
-        \textsf{\getseqcaption{lecturers}{}}
-        & \textsf{\textbf{\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}}}
+        \getseqcaption{lecturers}{
+        & \textbf{\printseq{lecturers}{~\&~}{,~}{\translatekey{andlist}~}}}
       \end{tabular}
       \vskip 2em
       \textsf{\printseq{degrees}{\\}{\\}{\\}}
@@ -7247,7 +7333,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
     at (\@MS+\@MTLR, \@HBS+\@HD-\@MTTB) {
       {\fontsize{20}{24}\selectfont\bfseries\printseq{authors}{\\}{\\}{\\}}%
       \\[15pt]
-      {\fontsize{14}{17}\selectfont\getseqcaption{supervisors}{}:\newline
+      {\fontsize{14}{17}\selectfont\getseqcaption{supervisors}{:\newline}
         \printseq{supervisors}{\\}{\\}{\\}}%
       \\[15pt]
       {\fontsize{11}{15}\selectfont\translatekey{acyear}~\@academicyear}};
