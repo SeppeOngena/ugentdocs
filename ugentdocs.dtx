@@ -1648,15 +1648,15 @@
 \cs_new:Npn \_@@_translate:nn #1#2 {
   \tl_set:Nx \l_@@_lookup_key_tl { \languagename {} :#2 }
   \prop_if_in:NVTF \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl {
-    \tl_set:Nx \l_@@_value_cased_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+    \protected@edef \l_@@_value_cased_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
   }{
     \tl_set:Nx \l_@@_lookup_key_tl { english:#2 }
-    \tl_set:Nx \l_@@_value_cased_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
+    \protected@edef \l_@@_value_cased_tl { \prop_item:NV \g_@@_dict_keyvals_prop \l_@@_lookup_key_tl }
   }
   \tl_if_empty:nF {#1} {
     \str_case:nnF {#1}{
-      {uppercase}{\tl_set:Nx \l_@@_value_cased_tl{\text_uppercase:n{\l_@@_value_cased_tl}}}
-      {lowercase}{\tl_set:Nx \l_@@_value_cased_tl{\text_lowercase:n{\l_@@_value_cased_tl}}}
+      {uppercase}{\protected@edef \l_@@_value_cased_tl{\text_uppercase:n{\l_@@_value_cased_tl}}}
+      {lowercase}{\protected@edef \l_@@_value_cased_tl{\text_lowercase:n{\l_@@_value_cased_tl}}}
     }{
     }
   }
@@ -1676,7 +1676,7 @@
     \tl_trim_spaces:N \l_@@_value_tl
     \regex_replace_all:nnN {\x7E} {\c{nobreakspace}} \l_@@_value_tl
     \tl_set:Nx \l_@@_dictkey_tl { \l_@@_dictlang_tl {} :\l_@@_key_tl }
-    \prop_gput:NVx \g_@@_dict_keyvals_prop \l_@@_dictkey_tl { \l_@@_value_tl }
+    \prop_gput:NVV \g_@@_dict_keyvals_prop \l_@@_dictkey_tl \l_@@_value_tl
     \bool_set_false:N \l_@@_keyval_flushpending_bool
   }
 }
@@ -6153,11 +6153,13 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
     \setbox0=\hbox{
       \_@@_translate:nn {} {andlist}
       \tl_gset_eq:NN \g_@@_pdfandlist_tl \l_@@_value_cased_tl
+      \tl_log:N \g_@@_pdfandlist_tl
     }
     \protected@xdef\@pdfauthor{%
       \@@_printseq:nnnn{authorlist}{~\&~}{,~}{\exp_not:V\g_@@_pdfandlist_tl{}~}
     }%
     \endgroup
+    \pdfstringdefDisableCommands{\let\leavevmode\@empty}
     \hypersetup{
       breaklinks=true,
       colorlinks=true,
