@@ -4255,9 +4255,13 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 }
 
 \AtBeginDocument{
-  \ifseqempty{supervisors}{
-    \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\supervisor}%
-  }{}
+  \exp_args:Nx \str_case:nn { \l_@@_covertype_tl } {
+    { phd }    {
+      \ifseqempty{supervisors}{
+        \msg_warning:nnn { ugentdocs }{ mandatory-macro }{\supervisor}%
+      }{}
+    }
+  }
 }
 \ExplSyntaxOff
 %</bama|phd|bkc>
