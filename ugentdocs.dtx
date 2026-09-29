@@ -7642,24 +7642,24 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   \useasboundingbox (0,0) rectangle (\@PW,\@PH);
 
   % ISBN barcode
-  \pgfmathsetmacro{\@isbnscale}{0.6}
-  \pgfmathsetmacro{\@grpH}{\@isbnscale*25mm+15pt}% total group height: box+spacing+text
+  \pgfmathsetmacro{\@isbnscale}{0.81}% GS1 minimum scale
+  \pgfmathsetlengthmacro{\@isbnheight}{0.75*25.01mm}
+  \pgfmathsetlengthmacro{\@grpH}{\@isbnscale*\@isbnheight+15pt}% box+spacing+text
   \begin{scope}[shift={(10mm, 0.5*\@HBS - 0.5*\@grpH)}]
-    \ifx\@isbn\@empty% ISBN text and barcode placeholder
-      %\fill[coverareacolor] (0,0) rectangle (34.2mm, \@isbnscale*25mm);
-    \else
-      \edef\@isbnexpanded{ISBN \@isbn}
-      %\fill[coverareacolor] (0,0) rectangle (34.2mm, \@isbnscale*25mm);
-      \node[anchor=south] at (0.5*34.2mm,0)
-      {\edef\@@_isbnbarcodecall{\noexpand\EANBarcode[scale=\@isbnscale]{%
-            ISBN\space\@isbn%
-        }}
-      \@@_isbnbarcodecall};
-    \fi
+  \ifx\@isbn\@empty% ISBN text and barcode placeholder
+  %\fill[coverareacolor] (0,0) rectangle (34.2mm, \@isbnscale*\@isbnmoduleht);
+  \else
+  \node[anchor=south] at (0.5*34.2mm,0)
+  {\edef\@@_isbnbarcodecall{\noexpand\EANBarcode[%
+      scale=\@isbnscale,module_height=\@isbnheight]{%
+        ISBN\space\@isbn%
+    }}%
+    \@@_isbnbarcodecall};
+  \fi
 
     \node[anchor=south, font=\usefont{OT1}{ocrb}{m}{n}\fontsize{5}{5}\selectfont,
       text=black, inner sep=0pt]
-    at (0.5*34.2mm, \@isbnscale*25mm+ 10pt) {
+    at (0.5*34.2mm, \@isbnscale*\@isbnheight+ 10pt) {
       \ifx\@isbn\@empty% {ISBN: XXX-X-XXX-XXXXX-X}
       \else {ISBN:  \@isbn}
       \fi
