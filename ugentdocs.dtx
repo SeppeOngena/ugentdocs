@@ -2686,9 +2686,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %     |beamerposter|    & Custom slide dimensions for beamer                \\
 %     |color|           & Colour management                                 \\
 %     |crop|            & Camera-ready version of PhD dissertations         \\
+%     |csquotes|        & Context sensitive quotation facilities            \\
 %     |datetime2|       & Enhanced date parsing with language support       \\
 %     |environ|         & Custom environments for beamer template           \\
-%     |eso-pic|         & \textcolor{red}{replacement in progress}          \\
 %     |etoolbox|        & Toolbox for class definitions internally          \\
 %     |expl3|           & Use of \LaTeX{}3 code internally                  \\
 %     |fancyhdr|        & Headers and footers                               \\
@@ -2737,7 +2737,6 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \RequirePackage{tikz}
 \RequirePackage{tikzpagenodes}
 \usetikzlibrary{positioning,calc,fit,backgrounds}
-\RequirePackage{eso-pic}
 \RequirePackage{zref-totpages}
 \RequirePackage{zref-savepos}
 \RequirePackage{zref-abspage}
@@ -2775,6 +2774,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
   \PassOptionsToPackage{main=english}{babel}
 }
 \RequirePackage[dutch,english]{babel}
+\RequirePackage{csquotes}
 \ExplSyntaxOff
 %</crs|bama|phd|rp|le|ex|bkc|bmr|art>
 %    \end{macrocode}
