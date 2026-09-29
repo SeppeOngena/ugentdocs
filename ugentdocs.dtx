@@ -2813,6 +2813,15 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %<*bkc|phd|crs>
 \RequirePackage{GS1}
 %</bkc|phd|crs>
+%
+%<*crs|bama|phd|rp|le|ex|bkc|bmr|art>
+% Fix wasy font scaling
+\DeclareFontFamily{U}{wasy}{}
+\DeclareFontShape{U}{wasy}{m}{n}{
+  <-5.5> wasy5 <5.5-6.5> wasy6 <6.5-7.5> wasy7
+  <7.5-8.5> wasy8 <8.5-9.5> wasy9 <9.5-> wasy10}{}
+\DeclareFontShape{U}{wasy}{b}{n}{<-> wasyb10}{}
+%</crs|bama|phd|rp|le|ex|bkc|bmr|art>
 % \fi
 %
 % \newpage
