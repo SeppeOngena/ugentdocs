@@ -2573,30 +2573,91 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % BSc/MSc and PhD dissertations, and reports, this is the |book| class.
 % The |ugentletter| class expands |letter|, while exams and articles are based on |article|.
 % \iffalse
+%<*crs|bama|phd|rp|bkc|le|ex|art>
+\ExplSyntaxOn
+\clist_new:N \l_@@_optgroups_clist
+\clist_new:N \l_@@_tmp_clist
+\tl_new:N    \g_@@_baseclass_tl
+
+\cs_new_protected:Npn \@@_declare_option_group:nnn #1#2#3 {
+% Args: group name, options in the group, default
+  \tl_new:c { l_@@_opt_#1_tl }
+  \tl_set:cn { l_@@_opt_#1_tl } {#3}
+  \clist_put_right:Nn \l_@@_optgroups_clist {#1}
+  \clist_map_inline:nn {#2} {
+    \keys_define:nn { ugentdocs } {
+      ##1 .code:n = \tl_set:cn { l_@@_opt_#1_tl } {##1}
+    }
+  }
+}
+
+\cs_new_protected:Npn \@@_pass_option_groups: {
+  \clist_clear:N \l_@@_tmp_clist
+  \clist_map_inline:Nn \l_@@_optgroups_clist
+  { \clist_put_right:Nv \l_@@_tmp_clist { l_@@_opt_##1_tl } }
+  \exp_args:Nee \PassOptionsToClass
+  { \clist_use:Nn \l_@@_tmp_clist { , } }
+  { \g_@@_baseclass_tl }
+}
+
+\keys_define:nn { ugentdocs } {
+  unknown .code:n = {
+    \tl_if_blank:nTF {#1} {
+      \exp_args:Nee \PassOptionsToClass
+      { \l_keys_key_str } { \g_@@_baseclass_tl }
+    }{
+      \exp_args:Nee \PassOptionsToClass
+      { \l_keys_key_str = { \exp_not:n {#1} } }
+      { \g_@@_baseclass_tl }
+    }
+  }
+}
+\ExplSyntaxOff
+%</crs|bama|phd|rp|bkc|le|ex|art>
 %<*crs|bama|phd|rp>
-\PassOptionsToClass{a4paper,11pt,final,oneside,openright}{book}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption, a4paper}{book}}
+\ExplSyntaxOn
+\tl_gset:Nn \g_@@_baseclass_tl { book }
+\@@_declare_option_group:nnn { paper }
+  { a4paper, a5paper, b5paper, letterpaper, legalpaper, executivepaper } { a4paper }
+\@@_declare_option_group:nnn { size }  { 10pt, 11pt, 12pt }     { 11pt }
+\@@_declare_option_group:nnn { sides } { oneside, twoside }     { oneside }
+\@@_declare_option_group:nnn { open }  { openright, openany }   { openright }
+\ExplSyntaxOff
 %</crs|bama|phd|rp>
 %<*bkc>
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{bookcover}}
+\ExplSyntaxOn
+\tl_gset:Nn \g_@@_baseclass_tl { bookcover }
+\ExplSyntaxOff
 %</bkc>
 %<*le>
-\PassOptionsToClass{a4paper,10pt,final,oneside}{letter}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{letter}}
+\ExplSyntaxOn
+\tl_gset:Nn \g_@@_baseclass_tl { letter }
+\@@_declare_option_group:nnn { paper }
+  { a4paper, a5paper, b5paper, letterpaper, legalpaper, executivepaper } { a4paper }
+\@@_declare_option_group:nnn { size }  { 10pt, 11pt, 12pt }     { 10pt }
+\@@_declare_option_group:nnn { sides } { oneside, twoside }     { oneside }
+\ExplSyntaxOff
 %</le>
 %<*ex|art>
-\PassOptionsToClass{a4paper,10pt,final,twoside}{article}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\ExplSyntaxOn
+\tl_gset:Nn \g_@@_baseclass_tl { article }
+\@@_declare_option_group:nnn { paper }
+  { a4paper, a5paper, b5paper, letterpaper, legalpaper, executivepaper } { a4paper }
+\@@_declare_option_group:nnn { size }  { 10pt, 11pt, 12pt }     { 10pt }
+\@@_declare_option_group:nnn { sides } { oneside, twoside }     { oneside }
+\ExplSyntaxOff
 %</ex|art>
 %\fi
 % Then, our custom options are processed,
 % \iffalse
-%<*crs|bama|phd|rp|bkc|le|ex|art>
-\ProcessOptions\relax
-%</crs|bama|phd|rp|bkc|le|ex|art>
 %<*crs|bama|phd|rp|bkc|le|ex|bmr|art>
 \ProcessKeyOptions[ ugentdocs ]
 %</crs|bama|phd|rp|bkc|le|ex|bmr|art>
+%<*crs|bama|phd|rp|bkc|le|ex|art>
+\ExplSyntaxOn
+\@@_pass_option_groups:
+\ExplSyntaxOff
+%</crs|bama|phd|rp|bkc|le|ex|art>
 % \fi
 % and the base classes are loaded in.
 % \iffalse
