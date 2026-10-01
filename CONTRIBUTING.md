@@ -1,7 +1,8 @@
 Guidelines for contribution:
 --
 
-- If you want to start work on a very big change, discuss it first
+- If you want to start work on a very big change, 
+[discuss](https://github.com/SeppeOngena/ugentdocs/discussions) it first
 - Use [conventional commit](https://www.conventionalcommits.org) messages
 - Use pull requests to contribute code. Pull requests should:
   - Contain a finished, single feature or change
