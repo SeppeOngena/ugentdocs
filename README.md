@@ -1,5 +1,5 @@
 <h1 align="center">The ugentdocs $\LaTeX$ package</h1>
-<h3 align="center">An unofficial package providing the UGent house style for $\LaTeX$ documents</h3>
+<h3 align="center">The UGent house style for $\LaTeX$ documents, developed and maintained by volunteers</h3>
 
 
 <p align="center">
@@ -18,28 +18,60 @@ Overview
 --
 
 This package provides the following classes:
+
 - `ugentbama`: Master/bachelor's dissertation
 - `ugentphd`: PhD dissertation
 - `ugentbookcover`: Full covers (back/spine/front) for PhD dissertations and courses
 - `ugentarticle`: Research articles for uploading to Biblio
-- `ugentreport`: Project reports, e.g. group assignments
+- `ugentreport`: Project reports, e.g., group assignments
 - `ugentcourse`: Course notes
 - `ugentletter`: Letters
 - `ugentexam`: Exams
 - `beamerthemeugent`: Presentation slides
 
-The goal is also to transfer this repository to a UGent one when complete (see the [ugentdocs 1.0 project](https://github.com/users/SeppeOngena/projects/1) for up-to-date progress towards v1.0), so it becomes quasi-official, other UGent'ers can contribute, and maintenance is ensured if I would leave UGent. 
-
+Please submit issues, features, or bugs to the [issue page](https://github.com/SeppeOngena/ugentdocs/issues), and
+any other questions or help needed in the [discussions page](https://github.com/SeppeOngena/ugentdocs/discussions).
 
 Installation
 --
 >[!WARNING]
-> Due to the use of `fontspec` for the official logos, your documents need to be compiled using LuaLaTeX or XeLaTeX (you can easily set this in your editor), and the UGent Panno Text Medium and SemiBold fonts need to be installed
+> Due to the use of `fontspec` for the official logos, your documents need to be compiled using LuaLaTeX or XeLaTeX (you can easily set this in your editor), and the UGent Panno Text Medium and SemiBold fonts need to be installed. You can find these fonts [on the intranet](https://ugentbe.sharepoint.com/sites/intranet-communicatie/SitePages/en/corporate-design.aspx).
 
-I plan to add the package to CTAN, so it would be present in most distributions by itself (in the `TEXMFDIST` directory).
-To use it currently:
-- Download the package from the [releases page](https://github.com/SeppeOngena/ugentdocs/releases). It's the `ugentdocs-<version>.zip` in the "Assets" section at the bottom of a release.
-- Copy the contents of the `ugentdocs` folder from the .zip into your document folder, and any example from the `examples` folder should you wish, e.g.:
+### Through your TeX distribution (recommended)
+
+`ugentdocs` is available on [CTAN](https://ctan.org/pkg/ugentdocs) and is
+included in TeX Live and MiKTeX.
+
+- **TeX Live:** `tlmgr install ugentdocs` (or `tlmgr update ugentdocs`)
+- **MiKTeX:** install or update it through the MiKTeX Console. MiKTeX can
+  also install it automatically the first time a document uses it.
+- **Overleaf:** included in Overleaf's TeX Live image.
+
+To check which version you have, put `\listfiles` at the top of your
+document and look at the end of the `.log` file, or run, e.g.,
+`kpsewhich ugentreport.cls` to see which file is being used.
+
+### Getting the most recent version
+
+New versions reach CTAN first and TeX Live/MiKTeX a few days later.
+Some installations take longer:
+
+- **Linux distribution packages** (`texlive-*` from apt, dnf, pacman,
+  etc.) are snapshots and can be months out of date. `tlmgr` usually
+  cannot update them.
+- **Overleaf** updates its TeX Live once a year.
+
+If your version is older than what is listed on CTAN, or you need a fix
+from the repository that has not been released yet, use the manual method below.
+
+### Using it in a single document / Manual method
+
+- Download the package from the [releases page](https://github.com/SeppeOngena/ugentdocs/releases).
+ It's the `ugentdocs-<version>.zip` in the "Assets" section at the bottom of a release.
+- If you want truly bleeding-edge, you can build the package yourself using the `build.sh` scipt.
+Basic usage is `sh build.sh --test`, but more use options are described at the top of the script.
+- Copy the needed contents of the `ugentdocs` folder from the .zip into your document folder,
+ and any example from the `examples` folder should you wish, e.g.:
 ```
 └── MyThesis/
     ├── Figures/
@@ -57,13 +89,24 @@ To use it currently:
     ├── ugentdocs-english.dict                            <--
     └── ugentdocs-dutch.dict                              <--
 ```
-- Once it is installed (and in the future if it's on CTAN you can skip the previous steps), use the class as in the examples by setting e.g. `\documentclass[<options>]{ugentphd}`
 
-Features
+Files in the document folder take priority over the installed version,
+so this works even when an older copy is installed system-wide. It also
+keeps the project self-contained: a thesis compiled this way will still
+compile identically years from now.
+
+To go back to the distribution's version, delete these files again.
+
+Usage and features
 -- 
-For a complete list of features, you can check the documentation included in the release .zip (`ugentdocs.pdf`).
-If you want a quick visual look at what the package provides, you can glance at the preview images of the cover and data pages below and check the included example.tex files in the download .zip.
-    
+
+Once the package is installed, you can start using the class files with `\documentclass[<options>]{<ugentclass>}`,
+where the `ugentclass` is one of `ugentbama`, `ugentphd`,...
+For a complete list of features including options and macros, you can check the documentation included in the release .zip (`ugentdocs.pdf`).
+The example files included in release zips provide a quick overview of the functionality as well.
+
+Below, you can find a quick visual look at what the package provides.
+
 #### 1. `ugentbama`
 <details>   
 <summary> Images </summary>
@@ -170,8 +213,6 @@ If you want a quick visual look at what the package provides, you can glance at 
     </td>
 </table>
 </details>
-
-
 
 
 #### 7. `ugentletter`
