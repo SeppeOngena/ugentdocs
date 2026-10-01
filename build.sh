@@ -100,10 +100,85 @@ EOF
   } > "$output"
 }
 
+# CTAN readme generation
+generate_ctanreadme() {
+  local output="$1"
+  local br="  "
+
+  cat > "$output" <<EOF
+ugentdocs: House style document classes for Ghent University
+====================================================================
+
+Release $(date -I) v$VERSION
+
+Overview
+--------
+
+This package implements the house style of Ghent University (version 2025)
+for MSc/BSc/PhD dissertations, research articles, reports (meeting notes or
+course assignments), exams, letters, course notes, and slides (beamer).
+These class files allow you to make and keep most of your document needs
+compliant to this version and future versions of the UGent house style.
+
+If you think (1) there's an error in compliance with regards to the house
+style, (2) there's a feature missing in the classes or beamer theme, or
+(3) there's a bug in this package, please,
+[open an issue on GitHub](https://github.com/SeppeOngena/ugentdocs)
+or contact me via email
+( [seppe.ongena@ugent.be](mailto:seppe.ongena@ugent.be) )
+
+License
+-------
+
+This work is derived from uantwerpendocs v4.12 by Walter Daems,
+which was substantially modified and expanded for the UGent house style.
+A complete, unmodified copy of the original work is available at
+
+   https://ctan.org/tex-archive/macros/latex/contrib/uantwerpendocs
+
+Code for the styling and GAI disclaimer from Joris Meys' LaTeX at UGent
+was adapted with permission and used for the bama and report classes.
+In addition to renaming classes and updating everything to UGent style,
+changes include, but are not limited to: a move to LaTeX3 key-value
+options, rework of dictionary handling, complete rewrite of logo input,
+rework of bookcover generation, unified handling of authors and
+affiliations, new article and bookcover classes, and the restructuring,
+unification, and merging of large chunks of code.
+A complete and accurate development history is included in CHANGELOG.md.
+The underlying Git repository and full commit history are available at:
+
+  https://github.com/SeppeOngena/ugentdocs/
+
+This work may be distributed and/or modified under the conditions of
+the LaTeX Project Public License, either version 1.3 of this license
+or (at your option) any later version.  The latest version of this
+license is in:
+
+  http://www.latex-project.org/lppl.txt
+
+and version 1.3 or later is part of all distributions of LaTeX
+version 2005/12/01 or later.
+
+Developers
+----------------
+
+This package is developed and maintained by
+[Seppe Ongena](mailto:seppe.ongena@ugent.be).
+
+-----
+
+© 2013-2026 Walter Daems$br
+© 2017-2026 Joris Meys$br
+© 2026 Seppe Ongena$br
+All rights reserved.
+EOF
+}
+
 # 1. Argument parse and tmp folder setup
 
 TEST=false
 IMG=false
+CTAN=false
 COMPILER="lualatex"
 VERSION="dev"
 
@@ -113,6 +188,7 @@ for arg in "$@"; do
     --images) IMG=true ;;
     --lualatex) COMPILER="lualatex";;
     --xelatex) COMPILER="xelatex";;
+    --ctan) CTAN=true;;
     *) VERSION="$arg" ;;
   esac
 done
@@ -151,6 +227,7 @@ if [ "$TEST" = false ]; then
   "$COMPILER" -interaction=nonstopmode -halt-on-error "\def\ugentdocsversion{$VERSION}\input{ugentdocs.dtx}"
   "$COMPILER" -interaction=nonstopmode -halt-on-error "\def\ugentdocsversion{$VERSION}\input{ugentdocs.dtx}"
 
+  if [ "$CTAN" = false ]; then
   # 2.3 Build every example .tex file
   declare -A built
   while true; do # "dynamic" to support dissertation covers
@@ -169,6 +246,7 @@ if [ "$TEST" = false ]; then
     done
     [ "$found_new" = true ] || break
   done
+  fi
 fi
 
 popd >/dev/null
@@ -184,46 +262,62 @@ fi
 
 # 3.2 Full build: move results into release layout
 DIST="ugentdocs-${VERSION}"
-mkdir -p "./build/${DIST}/ugentdocs" "./build/${DIST}/examples"
-generate_changelog "./build/${DIST}/CHANGELOG.md"
+if [ "$CTAN" =  true ]; then
+DIST=$DIST"-ctan"
+mkdir -p "./build/ugentdocs"
+fi
 
+if [ "$CTAN" =  false ]; then
+mkdir -p "./build/ugentdocs/ugentdocs" "./build/ugentdocs/examples"
+mv "$TMP"/*.cls    "./build/ugentdocs/ugentdocs" 2>/dev/null || true
+mv "$TMP"/*.sty    "./build/ugentdocs/ugentdocs/" 2>/dev/null || true
+mv "$TMP"/*.dict   "./build/ugentdocs/ugentdocs/" 2>/dev/null || true
+mv "$TMP"/*.clo    "./build/ugentdocs/ugentdocs/" 2>/dev/null || true
+fi
+generate_changelog "./build/ugentdocs/CHANGELOG.md"
 
-mv "$TMP"/*.cls    "./build/${DIST}/ugentdocs/" 2>/dev/null || true
-mv "$TMP"/*.sty    "./build/${DIST}/ugentdocs/" 2>/dev/null || true
-mv "$TMP"/*.dict   "./build/${DIST}/ugentdocs/" 2>/dev/null || true
-mv "$TMP"/*.clo    "./build/${DIST}/ugentdocs/" 2>/dev/null || true
-mv "$TMP"/Images/  "./build/${DIST}/ugentdocs/" 2>/dev/null || true
+if [ "$CTAN" = false ]; then
+mv "$TMP"/Images/  "./build/ugentdocs/ugentdocs/" 2>/dev/null || true
+else
+mv "$TMP"/Images/  "./build/ugentdocs/" 2>/dev/null || true
+fi
 
-mv "$TMP/ugentdocs.pdf" "./build/${DIST}/" 2>/dev/null || true
+mv "$TMP/ugentdocs.pdf" "./build/ugentdocs/" 2>/dev/null || true
+
+if [ "$CTAN" =  true ]; then
+mv "$TMP/ugentdocs.dtx" "./build/ugentdocs/" 2>/dev/null || true
+mv "$TMP/ugentdocs.ins" "./build/ugentdocs/" 2>/dev/null || true
+generate_ctanreadme "./build/ugentdocs/README.md"
+fi
 
 for f in "$TMP"/*.pdf; do
   [ -f "$f" ] || continue
-  mv "$f" "./build/${DIST}/examples/"
+  mv "$f" "./build/ugentdocs/examples/"
 done
 
+if [ "$CTAN" =  false ]; then
 for f in "$TMP"/example-*.tex; do
   [ -f "$f" ] || continue
-  mv "$f" "./build/${DIST}/examples/"
+  mv "$f" "./build/ugentdocs/examples/"
 done
+mv "$TMP"/*.cfg "./build/ugentdocs/examples/" 2>/dev/null || true
 
-mv "$TMP"/*.cfg "./build/${DIST}/examples/" 2>/dev/null || true
+if [ "$IMG" = true ]; then
+  mkdir -p "./build/ugentdocs/examples/images"
+  for f in "./build/ugentdocs/examples/"*.pdf; do
+      [ -f "$f" ] || continue
+      base="$(basename "$f" .pdf)"
+      pdftoppm -png -r 300 "$f" "./build/ugentdocs/examples/images/${base}"
+  done
+fi
+fi
 
 # 3.3 Remove tmp dir
 rm -rf "$TMP"
 
-# 3.4
-if [ "$IMG" = true ]; then
-  mkdir -p "./build/${DIST}/examples/images"
-  for f in "./build/${DIST}/examples/"*.pdf; do
-      [ -f "$f" ] || continue
-      base="$(basename "$f" .pdf)"
-      pdftoppm -png -r 300 "$f" "./build/${DIST}/examples/images/${base}"
-  done
-fi
-
 # 4.0 Build zip for release attach
 cd ./build
-zip -r "${DIST}.zip" "${DIST}"
+ zip -r "${DIST}.zip" "ugentdocs"
 cd "$ROOT"
 
 echo "Built ./build/${DIST}.zip"
