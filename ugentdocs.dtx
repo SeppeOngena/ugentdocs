@@ -777,9 +777,14 @@
     {See the ugentdocs manual}
   }
   \IfFontExistsTF{Noto Sans Math}{
-    \RequirePackage{unicode-math}
+    \RequirePackage
+    [mathrm = sym,mathup = sym,mathbf = sym,mathit = sym, mathsf = sym]
+    {unicode-math}
     \setmathfont{Noto Sans Math}
   }{
+    \RequirePackage
+    [mathrm = sym,mathup = sym,mathbf = sym,mathit = sym, mathsf = sym]
+    {unicode-math}
     \setmathfont{DejaVu Math TeX Gyre}
   }
   \renewcommand{\familydefault}{\sfdefault}
@@ -6166,26 +6171,30 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %    \begin{macrocode}
 %<*crs|bama|phd|rp|art>
 \ExplSyntaxOn
+\tl_new:N \g_@@_pdfandlist_tl
+\tl_new:N \g_@@_pdfauthor_tl
+
 \AtBeginDocument{
   \@ifpackageloaded{hyperref}{
     \pretocmd{\tableofcontents}{\begingroup\hypersetup{linkcolor=toccolor}}{}{}
     \apptocmd{\tableofcontents}{\endgroup}{}{}
-    \begingroup
-    \def\\{ }%
-    \protected@xdef\@pdftitle{\@title}%
-    \protected@xdef\@pdfsubtitle{\@subtitle}%
 
-    \tl_new:N \g_@@_pdfandlist_tl
     \setbox0=\hbox{
       \_@@_translate:nn {} {andlist}
       \tl_gset_eq:NN \g_@@_pdfandlist_tl \l_@@_value_cased_tl
-      \tl_log:N \g_@@_pdfandlist_tl
     }
-    \protected@xdef\@pdfauthor{%
+    \begingroup
+    \def\\{~}
+    \protected@xdef\g_@@_pdfauthor_tl{
       \@@_printseq:nnnn{authorlist}{~\&~}{,~}{\exp_not:V\g_@@_pdfandlist_tl{}~}
-    }%
+    }
     \endgroup
-    \pdfstringdefDisableCommands{\let\leavevmode\@empty}
+
+    \pdfstringdefDisableCommands{
+      \let\leavevmode\@empty
+      \def\\{~}
+      \def\xspace{}
+    }
     \hypersetup{
       breaklinks=true,
       colorlinks=true,
@@ -6195,11 +6204,11 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
       pageanchor=true,
       pdfpagemode=UseOutlines,
       urlcolor=hypercolor,
-      pdftitle=\@pdftitle,
-      pdfsubject=\@pdfsubtitle,
-      pdfauthor=\@pdfauthor
+      pdftitle=\@title,
+      pdfsubject=\@subtitle,
+      pdfauthor=\g_@@_pdfauthor_tl
     }
-%</crs|bama|phd|rp|art>
+    %</crs|bama|phd|rp|art>
 %<*art>
     \hypersetup{
       pdfkeywords = { \clist_use:Nn \g_@@_keywords_clist { ,~ } }
