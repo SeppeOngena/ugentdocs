@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version label for  manual build'
+        description: 'Version for manual build (leave empty for dev-<hash>)'
         required: false
-        default: 'dev'
+        default: ''
 permissions:
   contents: write
 
@@ -19,18 +19,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
-      - name: Mark repo safe for changelog.md compilation
-        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          fetch-depth: 0   # full history and tags for CHANGELOG.md
 
       - name: Determine version string
         id: version
         run: |
+          # Empty means: let build.lua use the Git tag or dev-<hash>
           if [ "${{ github.event_name }}" = "release" ]; then
             echo "value=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
           else
-            echo "value=${{ github.event.inputs.version }}-$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+            echo "value=${{ github.event.inputs.version }}" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Decrypt fonts
@@ -43,28 +41,30 @@ jobs:
           tar -xJf fonts.tar.xz
           rm fonts.tar.xz
 
-      - name: Build with TeX Live (lualatex)
+      - name: Build with TeX Live (l3build)
         uses: xu-cheng/texlive-action@v3
         with:
           scheme: full
           run: |
-            apk add --no-cache zip
-            chmod +x build.sh
-            ./build.sh "${{ steps.version.outputs.value }}"
+            apk add --no-cache git
+            git config --global --add safe.directory "$PWD"
+            V="${{ steps.version.outputs.value }}"
+            l3build release $V
+            l3build ctan $V
 
       - name: Remove decrypted fonts
         if: always()
         run: rm -rf ./Fonts
 
-      - name: Attach zip to the release
+      - name: Attach zips to the release
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
-          files: build/ugentdocs-${{ steps.version.outputs.value }}.zip
+          files: ugentdocs-*.zip
 
-      - name: Upload build artifact
+      - name: Upload build artifacts
         if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
-          name: ugentdocs-${{ steps.version.outputs.value }}
-          path: build/ugentdocs-${{ steps.version.outputs.value }}.zip
+          name: ugentdocs-build
+          path: ugentdocs-*.zip
