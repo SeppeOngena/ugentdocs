@@ -45,7 +45,7 @@ included in TeX Live and MiKTeX.
 - **TeX Live:** `tlmgr install ugentdocs` (or `tlmgr update ugentdocs`)
 - **MiKTeX:** install or update it through the MiKTeX Console. MiKTeX can
   also install it automatically the first time a document uses it.
-- **Overleaf:** included in Overleaf's TeX Live image.
+- **Overleaf:** included in Overleaf's TeX Live image (can be outdated).
 
 To check which version you have, put `\listfiles` at the top of your
 document and look at the end of the `.log` file, or run, e.g.,
