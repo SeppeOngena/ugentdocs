@@ -56,7 +56,7 @@ document and look at the end of the `.log` file, or run, e.g.,
 New versions reach CTAN first and TeX Live/MiKTeX a few days later.
 Some installations take longer:
 
-- **Linux distribution packages** (`texlive-*` from apt, dnf, pacman,
+- **Linux distro packages** (`texlive-*` from pacman, apt, dnf,
   etc.) are snapshots and can be months out of date. `tlmgr` usually
   cannot update them.
 - **Overleaf** updates its TeX Live once a year.
@@ -64,14 +64,12 @@ Some installations take longer:
 If your version is older than what is listed on CTAN, or you need a fix
 from the repository that has not been released yet, use the manual method below.
 
-### Using it in a single document / Manual method
+### Using it in a single document (manual installation)
 
 - Download the package from the [releases page](https://github.com/SeppeOngena/ugentdocs/releases).
  It's the `ugentdocs-<version>.zip` in the "Assets" section at the bottom of a release.
-- If you want truly bleeding-edge, you can build the package yourself using the `build.sh` scipt.
-Basic usage is `sh build.sh --test`, but more use options are described at the top of the script.
-- Copy the needed contents of the `ugentdocs` folder from the .zip into your document folder,
- and any example from the `examples` folder should you wish, e.g.:
+- Copy the needed contents of the `ugentdocs` folder from the .zip into your document folder
+or Overleaf project root, and any example from the `examples` folder should you wish, e.g.:
 ```
 └── MyThesis/
     ├── Figures/
@@ -96,6 +94,20 @@ keeps the project self-contained: a thesis compiled this way will still
 compile identically years from now.
 
 To go back to the distribution's version, delete these files again.
+
+### Installing from source (testing unreleased changes)
+
+With the [l3build](https://ctan.org/pkg/l3build) package installed 
+(included in TeX Live and MiKTeX):
+
+    git clone https://github.com/SeppeOngena/ugentdocs.git
+    cd ugentdocs
+    l3build install
+
+This installs the current development version for your user account,
+overriding the version from your TeX distribution. Undo it with
+`l3build uninstall`, or later updates from your distribution will
+have no effect.
 
 Usage and features
 -- 
