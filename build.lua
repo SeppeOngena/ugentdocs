@@ -16,7 +16,7 @@ module = "ugentdocs"
 local lfs = require("lfs")
 
 local upstream_tag = "uantwerpendocs-v4.12-code"
-local repo_url     = "https://github.com/SeppeOngena/ugentdocs/"
+local repo_url     = "https://github.com/SeppeOngena/ugentdocs"
 
 -- Helpers ------------------------------------------------------------------
 
@@ -239,11 +239,18 @@ uploadconfig = {
   license     = "lppl1.3c",
   summary     = "House style document classes for Ghent University",
   description = "This package implements the house style of Ghent University "
-    .. "(version 2025) for MSc/BSc/PhD dissertations, research articles, "
-    .. "reports, exams, letters, course notes, and slides (beamer).",
+  .. "(version 2025, see the official style guide) for bachelor's, master's, "
+  .. "and PhD dissertations, research articles, reports (e.g., meeting minutes, "
+  .. "course assignments), exams, letters, course notes, and beamer slides, and "
+  .. "generates print-ready book covers for PhD dissertations and courses. "
+  .. "Dutch and English are oddicially supported. The package requires LuaLaTeX "
+  .. "or XeLaTeX due to the use of the official UGent fonts.",
   ctanPath    = "/macros/latex/contrib/ugentdocs",
-  repository  = "https://github.com/SeppeOngena/ugentdocs",
-  bugtracker  = "https://github.com/SeppeOngena/ugentdocs/issues",
+  home        = repo_url,
+  repository  = repo_url,
+  bugtracker  = repo_url .. "/issues",
+  support     = repo_url .. "/discussions",
+  development = repo_url .. "/blob/HEAD/CONTRIBUTING.md",
   update      = true,
 }
 
