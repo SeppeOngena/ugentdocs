@@ -5957,7 +5957,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
     \bookcovercomponent{color}{bg~spine}{spinecolor}
     \bool_if:NT \l_@@_printonspine_bool {
       \bookcovercomponent{logo}{spine}{spinetextcolor}
-      \bookcovercomponent{title}{spine}{\@title}
+      \bookcovercomponent{title}{spine}{{\renewcommand{\\}[1][]{~}\@title{}}}
       \bookcovercomponent{authoryear}{spine}{
         \exp_args:Nx \str_case:nn { \l_@@_covertype_tl } {
           { phd }    {
@@ -6266,7 +6266,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
     \fi
   }
   \fancyfoot[RO]{
-    \small\@title{}
+    \small{\renewcommand{\\}[1][]{~}\@title{}}
     \ifdefvoid{\@shortsubtitle}{}{ --- \@shortsubtitle}
   }
 \else
@@ -6281,7 +6281,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
     \small\translatekey{org-ugent}
     \ifx\@fselector\@empty\else -- \@facultyacronym\fi
   }
-  \fancyfoot[R]{\small\@title{}}
+  \fancyfoot[R]{
+    \small{\renewcommand{\\}[1][]{~}\@title{}}
+  }
 \fi
 \fancypagestyle{plain}{%
   \fancyhf{}
@@ -6458,7 +6460,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   \fancyhead[R]{\small \translatekey{studentnr}:
     {}~\phantom{\large 00000000}~\translatekey{name}:\hspace{3cm}}
 }
-\fancyfoot[L]{\small \@shorttitle}
+\fancyfoot[L]{\small{\renewcommand{\\}[1][]{~}\@shorttitle{}}}
 \fancyfoot[R]{\small
 \ifx\@examseries\@empty~\else\translatekey{series}~\@examseries\fi{}
 {}~---~\@academicyear}
@@ -6480,7 +6482,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %<*art>
 \fancyhf{}
 \ExplSyntaxOn
-\fancyhead[C]{\small \@shorttitle}
+\fancyhead[C]{\small {\renewcommand{\\}[1][]{~}\@shorttitle{}}}
 \fancyfoot[L]{
   \tl_if_empty:oTF { \@publisheddate }{
     \translatekey{preprint}
@@ -9172,7 +9174,7 @@ Indicate and describe the use case if one or multiple GAI tools have been used:
 \begin{multicols}{2}
   [
   \begin{center}
-    \textbf{
+    \textbf{\renewcommand{\\}[1][]{~}
       \Large\@title~\\[1ex]
       \large \@subtitle\\[0.5ex]}
     \printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
@@ -9196,7 +9198,7 @@ Indicate and describe the use case if one or multiple GAI tools have been used:
 \begin{multicols}{2}
   [
   \begin{center}
-    \textbf{
+    \textbf{\renewcommand{\\}[1][]{~}
       \Large\@title~\\[1ex]
       \large \@subtitle\\[0.5ex]}
     \printseq{authors}{~\&~}{,~}{\translatekey{andlist}~}
