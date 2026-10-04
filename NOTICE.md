@@ -14,7 +14,7 @@ The major changes include:
   - `uantwerpenexam` → `ugentexam`
   - `beamerthemeuantwerpen` → `beamerthemeugent`
   - new: `ugentbookcover` and `ugentarticle`
-- Migration of class options (key–value, e.g. `faculty=bw`, `campus=kortrijk`,
+- Migration of class options (now key-value, e.g., `faculty=bw`, `campus=kortrijk`,
   `colormodel=cmyk`) and most internals to LaTeX3 (expl3), dropping the
   xstring, xparse, and ifthen packages.
 - Reworked dictionary handling: `\translatekey` with casing and expansion
@@ -29,28 +29,32 @@ The major changes include:
   LuaLaTeX or XeLaTeX), with Arial as option. Noto Sans Math is used with
   TeX Gyre DejaVu Math as fallback. Fake small caps were implemented
   for fontspec fonts.
-- Unified handling of people and document data through generalised sequences
+- Unified handling of people and document data through generalised control sequences
   (authors, lecturers, supervisors, tutors, jury members, degrees, contact),
-  including indexed affiliations, corresponding authors, e-mail and
-  ORCID, a unified `\embargo` macro, localised dates via `localizedates`,
+  including indexed affiliations, corresponding authors, author e-mail and
+  ORCID, a unified `\embargo` macro, localized dates via `localizedates`,
   word counts via texcount, and warnings for missing mandatory macros.
 - Reworked book-cover generation. A separate `ugentbookcover` class prints
-  covers from command inputs instead of relying on PDF inputs, including an
+  covers from command inputs instead of relying on PDF page inputs, and includes an
   automatic ISBN barcode; `\generatebookcover` now creates a more
-  structured cover file directly from the main document.
+  structured / readable cover file directly from the main document.
 - Integration of UGent-specific covers and title pages following the official
-  grid, adding colophons, copyright, confidentiality and embargo notices with
-  signature fields, headers and footers, chapter thumbs, and five chapter
-  title styles.
-- New `ugentarticle` class; a reworked beamer theme (16:9 grid geometry,
-  a single configurable graphic frame, title and section graphics, title
-  logos, closing frame); and a reworked exam class (subquestions, point
-  overview, answer spaces with grid or line fills spilling to the next page).
-- Build and release tools: local build script, GitHub Actions workflow,
+  grid, adding colophons, headers and footers, chapter thumbs, four new chapter
+  title styles, and copyright, confidentiality and embargo notices with auto-generated
+  signature fields (for the `ugentbama` class).
+- New `ugentarticle` class, e.g., for uploading Author Accepted Manuscripts
+  to UGent Biblio or submitting to a journal where no template is available.
+- A reworked beamer theme: 16:9, grid-based geometry,
+  a single configurable graphic frame, title and section frames, title
+  logos, and a new closing frame.
+- A reworked exam class: added subquestions and point
+  overview. Reworked answer spaces with grid or line fills spilling to the next page.
+- Build and release tools: local build script using l3build, GitHub Actions workflow,
   encrypted fonts for CI builds, and an auto-generated changelog.
-- Extensive changes to documentation and examples, including an index,
-  copy-pasteable code blocks, customisation notes, deduplicated examples,
-  and a short LaTeX tutorial.
+- Extensive changes to documentation and examples, including major restructuring, an index,
+  demos of the logos, colours, and titles, copy-pasteable code blocks (line numbers not copied),
+  customisation and citation notes, deduplicated examples,
+  and a short LaTeX tutorial in the examples.
   
 Code was included with permission from Joris Meys' LaTeX at UGent (see below, LaTeXInfo internal UGent repository).
 
