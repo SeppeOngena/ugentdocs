@@ -6396,11 +6396,11 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   \fancyhead[L]{ \leftmark}
   \fancyfoot[R]{\thepage}
   \fancyfoot[L]{
-    \raisebox{-0.3\height}{
-      \begin{tikzpicture}
-        \ugentlogo{1.8cm}{ugent@main}{0.5}
+      \begin{tikzpicture}[overlay,remember picture]
+      \begin{scope}[shift={(current page.south west)}, xshift=2\gridunit-0.45cm]
+        \ugentlogo{1.8cm}{ugent@main}{0.0}
+      \end{scope}
       \end{tikzpicture}
-    }
   }
   \renewcommand{\headrulewidth}{0.15pt}
 }
@@ -6420,11 +6420,11 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   \fancyhf{}
   \fancyfoot[R]{\thepage}
   \fancyfoot[L]{
-    \raisebox{-0.3\height}{
-      \begin{tikzpicture}
-        \ugentlogo{1.8cm}{ugent@main}{0.5}
-      \end{tikzpicture}
-    }
+    \begin{tikzpicture}[overlay,remember picture]
+      \begin{scope}[shift={(current page.south west)}, xshift=2\gridunit-0.45cm]
+        \ugentlogo{1.8cm}{ugent@main}{0.0}
+      \end{scope}
+    \end{tikzpicture}
   }
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
