@@ -680,9 +680,11 @@
   \colorlet{spinetextcolor}     {ugent@main}
   \colorlet{spinetextcoloralt}  {ugent@faculty}
 }
-\str_if_eq:VnT \l_@@_covertype_tl {article} {
+\str_if_eq:VnTF \l_@@_covertype_tl {article} {
   \colorlet{covertitlecolor}  {ugent@main}
   \colorlet{coverdatacolor}   {black}
+  \colorlet{firstnamecolor}   {black!50}
+}{
   \colorlet{firstnamecolor}   {black!50}
 }
 \ExplSyntaxOff
