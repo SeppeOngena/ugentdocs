@@ -1740,6 +1740,35 @@
   \@@_flush_value:
   \ior_close:N \l_@@_dict_ior
 }
+
+% Dictionaries: manual entries
+\cs_new_protected:Npn \@@_dict_add:nnn #1#2#3 {
+  \tl_set:Nx \l_@@_dictkey_tl
+  { \tl_trim_spaces:n {#1} {} : \tl_trim_spaces:n {#2} }
+  \tl_set:Nn \l_@@_value_tl {#3}
+  \tl_trim_spaces:N \l_@@_value_tl
+  \prop_gput:NVV \g_@@_dict_keyvals_prop \l_@@_dictkey_tl \l_@@_value_tl
+}
+
+\msg_new:nnn { ugentdocs } { dict-missing-value }
+{ Dictionary~key~'#1'~has~no~value~and~was~ignored. }
+
+\cs_new_protected:Npn \@@_dict_add_keyvals:nn #1#2 {
+  \keyval_parse:nnn
+  { \msg_warning:nnn { ugentdocs } { dict-missing-value } }
+  { \@@_dict_add:nnn {#1} }
+  {#2}
+}
+
+% one entry
+\NewDocumentCommand \ugentdocsdictadd { m m +m } {
+  \@@_dict_add:nnn {#1} {#2} {#3}
+}
+
+% several entries for one language
+\NewDocumentCommand \ugentdocsdictset { m +m } {
+  \@@_dict_add_keyvals:nn {#1} {#2}
+}
 \ExplSyntaxOff
 %</clo>
 % \fi
