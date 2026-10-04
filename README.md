@@ -23,7 +23,7 @@ This package provides the following classes:
 - `ugentphd`: PhD dissertation
 - `ugentbookcover`: Full covers (back/spine/front) for PhD dissertations and courses
 - `ugentarticle`: Research articles for uploading Author Accepted Manuscripts to Biblio or submitting to journals that do not provide a template
-- `ugentreport`: Project reports, e.g., group assignments
+- `ugentreport`: Most general class. Used for project reports, group assignments, meeting notes, supplementary information,...
 - `ugentcourse`: Course notes
 - `ugentletter`: Letters
 - `ugentexam`: Exams
@@ -31,6 +31,8 @@ This package provides the following classes:
 
 Please submit issues, features, or bugs to the [issue page](https://github.com/SeppeOngena/ugentdocs/issues), and
 any other questions or help needed in the [discussions page](https://github.com/SeppeOngena/ugentdocs/discussions).
+
+The separate [`ugentdocs-contrib`](https://GitHub.com/SeppeOngena/ugentdocs-contrib) package provides some useful extensions or customizations not part of the UGent house style (e.g., BibLaTeX styling or Supplementary Information styling)
 
 Installation
 --
