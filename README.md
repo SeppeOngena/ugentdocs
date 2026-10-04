@@ -22,7 +22,7 @@ This package provides the following classes:
 - `ugentbama`: Master/bachelor's dissertation
 - `ugentphd`: PhD dissertation
 - `ugentbookcover`: Full covers (back/spine/front) for PhD dissertations and courses
-- `ugentarticle`: Research articles for uploading to Biblio
+- `ugentarticle`: Research articles for uploading Author Accepted Manuscripts to Biblio or submitting to journals that do not provide a template
 - `ugentreport`: Project reports, e.g., group assignments
 - `ugentcourse`: Course notes
 - `ugentletter`: Letters
