@@ -718,6 +718,7 @@
 %   BoldItalicFont      = {UGent Panno Text},
 %   BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
 % ]
+% \overridemathfont{UGent Panno Text}
 % \end{verbatim}
 %
 % \begin{verbatim}
@@ -729,17 +730,49 @@
 %   BoldItalicFont      = {Arial},
 %   BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
 % ]
+% \overridemathfont{Arial}
 % \end{verbatim}
 %
 % Since both the official fonts are sans-serif, we use the |unicode-math| package
 % with the Noto Sans Math font if available, and the DejaVu Math TeX Gyre
 % font otherwise. You can override these fonts by using |\setmathfont{<font>}|.
 %
+% If you want to set the letters and numbers of the math font to a different font,
+% use the |\overridemathfont{<Font Name>}| macro. This is executed by default
+% when loading the fonts at class load. Use |\overridemathfont{}|
+% to use the math font's own glyphs.
+%
 % \iffalse
 %<*clo>
 % Fonts
 \RequirePackage{iftex}
 \iftutex
+\ExplSyntaxOn
+\tl_new:N \g_@@_mathletter_font_tl
+
+% Override letters and numbers from math font with font #1
+\cs_new_protected:Npn \@@_math_letters:n #1 {
+  \tl_if_empty:nF {#1} {
+    \setmathfont {#1} [
+    range = { up/{latin,Latin,num}, sfup/{latin,Latin,num} } ]
+    \setmathfont {#1} [ FakeSlant = 0.15 ,
+    range = { it/{latin,Latin}, sfit/{latin,Latin} } ]
+    \setmathfont {#1} [ FakeBold = 2.5 ,
+    range = { bfup/{latin,Latin,num}, bfsfup/{latin,Latin,num} } ]
+    \setmathfont {#1} [ FakeBold = 2.5 , FakeSlant = 0.15 ,
+    range = { bfit/{latin,Latin}, bfsfit/{latin,Latin} } ]
+  }
+}
+\cs_generate_variant:Nn \@@_math_letters:n { V }
+
+% Override numbers/letters from math font with specified font
+\NewDocumentCommand \overridemathfont { m }
+{ \tl_gset:Nn \g_@@_mathletter_font_tl {#1} }
+\@onlypreamble \overridemathfont
+
+\AddToHook { begindocument / before }
+{ \@@_math_letters:V \g_@@_mathletter_font_tl }
+\ExplSyntaxOff
 \newcommand{\@loadfonts}{
   \RequirePackage{fontspec}
   \IfFontExistsTF{UGent Panno Text Medium}{
@@ -753,6 +786,7 @@
           BoldItalicFont      = {UGent Panno Text},
           BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
         ]
+        \overridemathfont{UGent Panno Text}
       }{
         \IfFontExistsTF{Arial}{
           \setsansfont{Arial}[
@@ -763,6 +797,7 @@
             BoldItalicFont      = {Arial},
             BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
           ]
+          \overridemathfont{Arial}
         }{
           \PackageWarning{ugentdocs}
           {Neither UGent Panno Text nor Arial are installed, no font set!}
@@ -8267,6 +8302,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %%  BoldItalicFont     = {Arial},
 %%  BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 %%]
+%%\overridemathfont{Arial}
 
 %</crs1|bama1|phd2|rp1|ex1|art1>
 %
@@ -8281,6 +8317,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   BoldItalicFont     = {Arial},
   BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 ]
+\overridemathfont{Arial}
 
 %</bama2|phd1|rp2|le1|ex2>
 %
@@ -9776,6 +9813,7 @@ I'd like to thank\ldots
   BoldItalicFont     = {Arial},
   BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
 ]
+\overridemathfont{Arial}
 
 %% Sender information
 \sender{ir.~Seppe Ongena}{PhD Student}
@@ -10036,6 +10074,7 @@ You can turn off the logo in the bottom left corner using the
   \ind BoldItalicFont     = \{Arial\},\\
   \ind BoldItalicFeatures = \{FakeBold=2.5, FakeSlant=0.15\},\\
   ]
+  \cmd{overridemathfont\{Arial\}}
   \end{codesnippet}
 
 \end{frame}
