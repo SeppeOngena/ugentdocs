@@ -6378,6 +6378,13 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % Mainmatter
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter. \ #1}{}}
   % Set chapter mark to e.g. 1. Chapter title
+\renewcommand{\sectionmark}[1]{%
+  \ifnum\c@chapter=\z@
+  \markboth{\thesection. \ #1}{}%
+  \else
+  \markright{\thesection. \ #1}%
+  \fi
+}
 \apptocmd{\mainmatter}{\pagestyle{mainmatter}}{}{}
   % Auto set when calling mainmatter
 
