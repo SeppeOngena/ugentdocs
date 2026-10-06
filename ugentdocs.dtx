@@ -6241,23 +6241,29 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %    \begin{macrocode}
 %<*crs|bama|phd|rp|art>
 \ExplSyntaxOn
-\tl_new:N \g_@@_pdfandlist_tl
 \tl_new:N \g_@@_pdfauthor_tl
+\seq_new:N \l_@@_pdfauthor_seq
+\tl_new:N  \l_@@_pdfauthor_item_tl
+\cs_new_protected:Npn \@@_pdfauthor_add:n #1{
+  \tl_set:Nn \l_@@_pdfauthor_item_tl {#1}
+  \tl_replace_all:Nnn \l_@@_pdfauthor_item_tl { , } { \xmpcomma }
+  \seq_put_right:NV \l_@@_pdfauthor_seq \l_@@_pdfauthor_item_tl
+}
 
 \AtBeginDocument{
   \@ifpackageloaded{hyperref}{
     \pretocmd{\tableofcontents}{\begingroup\hypersetup{linkcolor=toccolor}}{}{}
     \apptocmd{\tableofcontents}{\endgroup}{}{}
 
-    \setbox0=\hbox{
-      \_@@_translate:nn {} {andlist}
-      \tl_gset_eq:NN \g_@@_pdfandlist_tl \l_@@_value_cased_tl
-    }
     \begingroup
     \def\\{~}
-    \protected@xdef\g_@@_pdfauthor_tl{
-      \@@_printseq:nnnn{authorlist}{~\&~}{,~}{\exp_not:V\g_@@_pdfandlist_tl{}~}
+    \seq_clear:N \l_@@_pdfauthor_seq
+    \cs_if_exist:NTF \xmpcomma {
+      \seq_map_function:NN \g_@@_authorlist_seq \@@_pdfauthor_add:n
+    }{
+      \seq_set_eq:NN \l_@@_pdfauthor_seq \g_@@_authorlist_seq
     }
+    \tl_gset:Ne \g_@@_pdfauthor_tl { \seq_use:Nn \l_@@_pdfauthor_seq { ,~ } }
     \endgroup
 
     \pdfstringdefDisableCommands{
@@ -6288,6 +6294,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   }{}
 }
 \ExplSyntaxOff
+%</crs|bama|phd|rp|art>
+%<*crs|bama|phd|rp|art>
+\AddToHook{package/hyperxmp/after}{\hypersetup{keeppdfinfo}}
 %</crs|bama|phd|rp|art>
 %    \end{macrocode}
 %
