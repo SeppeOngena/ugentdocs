@@ -3739,7 +3739,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</phd|bkc|bama>
 % \fi
 %
-% \DescribeMacro[crs-rp-bama-phd]{\copyrightnotices}
+% \DescribeMacro[crs-rp-bama-phd-art]{\copyrightnotices}
 %   \marg{notice content}
 %   \margintag{tag}\\
 %   Used to override the default |\@copyrightnotices| content
@@ -3748,10 +3748,10 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   using the |pdfpages| package and:
 %   |\copyrightnotices{\includepdf[pages={1}]{copyright_signed.pdf}}|
 % \iffalse
-%<*crs|rp|bama|phd>
+%<*crs|rp|bama|phd|art>
 \newcommand{\@copyrightnotices}{}
 \newcommand{\copyrightnotices}[1]{\renewcommand{\@copyrightnotices}{#1}}
-%</crs|rp|bama|phd>
+%</crs|rp|bama|phd|art>
 % \fi
 %
 % \DescribeMacro[crs-rp]{\extranotices}
@@ -5827,8 +5827,8 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %    \end{macrocode}
 %
 % The |article| class uses a simple title, no cover page is included.
-% It includes a ``cover'' page containing the graphical abstract and highlights
-% (if those are given).
+% It includes a ``cover'' page containing the graphical abstract, highlights,
+% and copyright notice (if those are given).
 % The title page contains the title,
 % author names with affiliations and ORCID badges,
 % the affiliation list,
@@ -5873,6 +5873,10 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
         \@@_printhighlights:
       }
     }
+    \ifx\@copyrightnotices\@empty\else
+    \null\vfill
+    \@copyrightnotices
+    \fi
   }
   \newpage
   \thispagestyle{titlepage}
@@ -7804,7 +7808,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % \label{S:style:copyright}
 %
 % This section defines the copyright notices of
-% the |bama|, |phd|, |course|, and |report| classes.
+% the |bama|, |phd|, |course|, |report|, and |article| classes.
 % These can be overridden using the |\copyrightnotices| macro
 % (see Section \ref{S:usage:macros:data}).
 %
@@ -8288,7 +8292,11 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \usepackage[version=4]{mhchem}
 
 %</crs1|bama1|bama2|rp1|rp2|phd1|phd2|ex1|ex2|art1>
-%
+%<*art1>
+%% Use this package if you want a CC license notice
+\usepackage[type={CC},modifier={by-nc-nd},version={4.0},]{doclicense}
+
+%<*art1>
 %
 % Font override to Arial -------------------------------------------------------
 %
@@ -8348,11 +8356,11 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</art1>
 %
 %
-%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2>
+%<*crs1|bama1|bama2|phd1|phd2|rp1|rp2|art1>
 %% Year defaults to the current year, override with:
 \year=2026
 
-%</crs1|bama1|bama2|phd1|phd2|rp1|rp2>
+%</crs1|bama1|bama2|phd1|phd2|rp1|rp2|art1>
 %
 %
 %<*crs1|bama1|bama2|rp1|phd1|phd2|ex1|ex2>
@@ -8551,7 +8559,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 %<*art1>
 %% Optionally specify the journal
-\journal{Water Research}
+\journal{<The Journal>}
 
 %% Optionally specify the keywords and highlights
 \keywords{keyword one, keyword two, keyword three}
@@ -8614,6 +8622,26 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \copyrightnotices{}
 
 %</rp2>
+%<*art1>
+
+%% Print the notice from the doclicense package
+\makeatletter
+\newsavebox\cclogobox   % Save CC image box with
+\copyrightnotices{%
+  \sbox\cclogobox{\doclicenseImage}% License box
+  \usebox\cclogobox\hspace{1em}%
+  \begin{minipage}[b]{\dimexpr\linewidth-\wd\cclogobox-1em\relax}
+    \raggedright
+    \textcopyright\ <publisher> \the\year.
+    The definitive peer-reviewed and edited version of this article
+    is published in \@journal{} <issue information>,
+    \href{https://doi.org/\@doi}{DOI: \@doi}
+    and is available at \href{<publisherwebsite>.com}{<publisherwebsite>}
+  \end{minipage}
+}
+\makeatother
+
+%</art1>
 %
 %
 %<*rp1|rp2>
