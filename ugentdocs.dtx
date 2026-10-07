@@ -6833,12 +6833,17 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
           at ([xshift=3.5\gridunit]numbox.west |- numbox.center) {\chaptername};
 
           \end{tikzpicture}%
+          \group_begin:
+          \skip_set:Nn \topsep    { \dim_eval:n { \topsep } }
+          \skip_set:Nn \partopsep { \dim_eval:n { \partopsep } }
+          \skip_set:Nn \parskip   { \dim_eval:n { \parskip } }
           \vspace*{20pt}
           \begin{flushright}
             \color{titlecolor}\huge\bfseries##1%
           \end{flushright}%
           \vspace*{-10pt}%
           {\color{titlecolor}\rule{\textwidth}{1pt}}
+          \group_end:
         }
         [\@addthumb] %after code
 
