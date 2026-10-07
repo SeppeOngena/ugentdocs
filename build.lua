@@ -156,6 +156,7 @@ end
 -- Examples -----------------------------------------------------------------
 
 local exampledir = "./build/examples"
+local examplefiles = {"example-*.tex", "beamerthemeugentuserguide.tex", "*.cfg"}
 
 -- Typeset every .tex file until no new ones appear: \generatebookcover
 -- writes <jobname>-cover.tex during the first pass of its parent example.
@@ -163,9 +164,10 @@ local function examples()
   local errorlevel = unpack()
   if errorlevel ~= 0 then return errorlevel end
   cleandir(exampledir)
-  for _, glob in ipairs({"example-*.tex", "*.cfg", "Images"}) do
+  for _, glob in ipairs(examplefiles) do
     cp(glob, unpackdir, exampledir)
   end
+  cp("Images", unpackdir, exampledir)
   local done = {}
   repeat
     local found = false
@@ -210,9 +212,10 @@ local function release()
   cp("ugentdocs.pdf", typesetdir, pkg)
   cp("README.md", ".", pkg)
   cp("LICENSE*", ".", pkg)
-  for _, glob in ipairs({"example-*.tex", "*.pdf", "*.cfg"}) do
+  for _, glob in ipairs(examplefiles) do
     cp(glob, exampledir, pkg .. "/examples")
   end
+  cp("*.pdf", exampledir, pkg .. "/examples")
   generate_changelog(pkg .. "/CHANGELOG.md")
 
   local zipname = "./ugentdocs-" .. version .. ".zip"
