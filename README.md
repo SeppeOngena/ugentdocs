@@ -47,24 +47,19 @@ included in TeX Live and MiKTeX.
 - **TeX Live:** `tlmgr install ugentdocs` (or `tlmgr update ugentdocs`)
 - **MiKTeX:** install or update it through the MiKTeX Console. MiKTeX can
   also install it automatically the first time a document uses it.
-- **Overleaf:** included in Overleaf's TeX Live image (can be outdated).
 
 To check which version you have, put `\listfiles` at the top of your
 document and look at the end of the `.log` file, or run, e.g.,
 `kpsewhich ugentreport.cls` to see which file is being used.
 
-### Getting the most recent version
-
 New versions reach CTAN first and TeX Live/MiKTeX a few days later.
-Some installations take longer:
-
-- **Linux distro packages** (`texlive-*` from pacman, apt, dnf,
-  etc.) are snapshots and can be months out of date. `tlmgr` usually
-  cannot update them.
-- **Overleaf** updates its TeX Live once a year.
+Some installations take longer, e.g., linux distro packages 
+(`texlive-*` from pacman, apt, dnf, etc.)
+are snapshots and can be months out of date. `tlmgr` cannot update them.
 
 If your version is older than what is listed on CTAN, or you need a fix
-from the repository that has not been released yet, use the manual method below.
+from the GitHub repository that has not been released yet,
+use the manual method below.
 
 ### Using it in a single document (manual installation)
 
