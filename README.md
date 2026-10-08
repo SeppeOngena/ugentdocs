@@ -131,11 +131,11 @@ Below, you can find a quick visual look at what the package provides.
     <th width="50%">example-ugentbama-2</th>
   </tr>
   <tr>
-    <td><img width="100%" src="https://github.com/user-attachments/assets/46c17ca1-39fd-42ab-9b0f-78a75ecc3811" /></td>
-    <td><img width="100%" src="https://github.com/user-attachments/assets/6ea0c6c7-6d59-4efa-bba3-7ddcb8ad1745"/></td>
+    <td><img width="100%" alt="example-ugentbama-1-01" src="https://github.com/user-attachments/assets/7519f4be-a291-4cf3-a33f-87189a6ab7aa" /></td>
+    <td><img width="100%" alt="example-ugentbama-2-01" src="https://github.com/user-attachments/assets/64e5df60-d79c-4d17-b311-e162186a409f" /></td>
   </tr>
-    <td><img width="100%" src="https://github.com/user-attachments/assets/50e63c10-3e51-4522-8d3a-c0728b6b794a" /></td>
-    <td><img width="100%" src="https://github.com/user-attachments/assets/ef69eaa1-2983-425e-bf83-24f6a0823425" /></td>
+    <td><img width="100%" alt="example-ugentbama-1-03" src="https://github.com/user-attachments/assets/ab37f80e-6ba3-4ce3-a629-6f71d5f7c2b5" /></td>
+    <td><img width="100%" alt="example-ugentbama-2-03" src="https://github.com/user-attachments/assets/844ebff9-c742-4007-8134-604063135bf8" /></td>
   </tr>
 </table>
 </details>
@@ -149,16 +149,16 @@ Below, you can find a quick visual look at what the package provides.
     <th width="50%">example-ugentphd-2</th>
   </tr>
     <td style="border: none;">
-      <img width="76%" src="https://github.com/user-attachments/assets/ceba3cef-ba1c-4540-89ba-2c74e8165f3a" />
-      <img width="76%" src="https://github.com/user-attachments/assets/8f29b202-8ec0-4df9-ae13-221b32f51827" />
-      <img width="76%" src="https://github.com/user-attachments/assets/7f8f9946-2b0e-40a8-a482-fb9e7422485f" />
-      <img width="76%" src="https://github.com/user-attachments/assets/50e52484-4a41-4c73-9440-475c4c08d3d9" />
+      <img width="76%" alt="example-ugentphd-1-001" src="https://github.com/user-attachments/assets/58d4b0f0-98d7-407e-a5fa-9724ff439842" />
+      <img width="76%" alt="example-ugentphd-1-003" src="https://github.com/user-attachments/assets/a1c892f3-f423-43e4-832c-5fa86a73c646" />
+      <img width="76%" alt="example-ugentphd-1-004" src="https://github.com/user-attachments/assets/ba8e6c86-4881-4d64-b42d-3cb20c06263f" />
+      <img width="76%" alt="example-ugentphd-1-005" src="https://github.com/user-attachments/assets/35d3d60d-6d66-4e9e-b754-b00069977eea" />
     </td>
     <td style="border: none;">
-      <img width="100%" src="https://github.com/user-attachments/assets/7ef849d8-5d80-40b3-a964-abf91f90ec53" />
-      <img width="100%" src="https://github.com/user-attachments/assets/23b078a4-7579-4e62-9cf7-756f4d5ca36f" />
-      <img width="100%" src="https://github.com/user-attachments/assets/859e6468-6385-402e-ade1-0078f5dddf97" />
-      <img width="100%" src="https://github.com/user-attachments/assets/92eccc72-64df-4c9a-b460-8b15675634e0" />
+      <img width="100%" alt="example-ugentphd-2-001" src="https://github.com/user-attachments/assets/a6062088-3bb5-4fb4-82d6-a6b9ef00f594" />
+      <img width="100%" alt="example-ugentphd-2-003" src="https://github.com/user-attachments/assets/33cf47f6-37f1-4089-90e0-3fd7ea4712ec" />
+      <img width="100%" alt="example-ugentphd-2-004" src="https://github.com/user-attachments/assets/6cf14b62-3c2a-47f2-a57f-d19374ab7ad6" />
+      <img width="100%" alt="example-ugentphd-2-005" src="https://github.com/user-attachments/assets/9c81e314-c777-4160-bb38-dd23c37fc02c" />
     </td>
   </tr>
 </table>
@@ -170,8 +170,8 @@ Below, you can find a quick visual look at what the package provides.
 
 **example-ugentcourse**
 
-<img width="50%" src="https://github.com/user-attachments/assets/69b40804-eeb8-4f2c-a505-9188baf5f530" />
-<img width="50%" src="https://github.com/user-attachments/assets/9e29ae01-5a78-4946-a2e4-76c6d93be28a" />
+<img width="50%" alt="example-ugentcourse-01" src="https://github.com/user-attachments/assets/96ad6788-a7bb-48ac-af2f-50830c9a6ed0" />
+<img width="50%" alt="example-ugentcourse-02" src="https://github.com/user-attachments/assets/5c113910-745b-4259-aca8-31f347e0761f" />
 
 </details>
 
@@ -181,16 +181,16 @@ Below, you can find a quick visual look at what the package provides.
 
 **example-ugentphd1-cover**
 
-<img width="100%" src="https://github.com/user-attachments/assets/eccd802a-9714-4181-a9aa-03298a4b0a6c" />
+<img width="100%" alt="example-ugentphd-1-cover-1" src="https://github.com/user-attachments/assets/2e4d2962-1420-4996-95e0-16c08ead41fd" />
 
 **example-ugentphd2-cover**
 
-<img width="100%" src="https://github.com/user-attachments/assets/841419db-59b3-40bd-a99d-f20722aff1d4" />
+<img width="100%" alt="example-ugentphd-2-cover-1" src="https://github.com/user-attachments/assets/841419db-59b3-40bd-a99d-f20722aff1d4" />
 
 
 **example-ugentcourse-cover**
 
-<img width="100%" src="https://github.com/user-attachments/assets/8065ff0a-92e3-4ca6-b1ca-8c1f7cf0596f" />
+<img width="100%" alt="example-ugentcourse-cover-1" src="https://github.com/user-attachments/assets/9db89814-9a41-4fc9-bf4a-c7292ddbd41c" />
 
 
 </details>
@@ -202,8 +202,8 @@ Below, you can find a quick visual look at what the package provides.
 
 **example-ugentarticle**
 
-<img width="50%" src="https://github.com/user-attachments/assets/5b23821e-eac7-41a4-b200-84e484aa3bea" />
-<img width="50%" src="https://github.com/user-attachments/assets/b30248e2-a2ae-46ce-8df9-2ec06c0367b3" />
+<img width="50%" alt="example-ugentarticle-1" src="https://github.com/user-attachments/assets/a6989441-e050-4319-b0d2-44da15503e5b" />
+<img width="50%" alt="example-ugentarticle-2" src="https://github.com/user-attachments/assets/c5029ddf-9c40-4aec-8b45-b8685bbb4ccc" />
 
 
 </details>
@@ -218,12 +218,12 @@ Below, you can find a quick visual look at what the package provides.
   </tr>
   <tr>
     <td>
-        <img width="100%" src="https://github.com/user-attachments/assets/35d4a44f-8db3-4794-971c-48149214f78b" />
-        <img width="100%" src="https://github.com/user-attachments/assets/5ddb8a33-ac5b-449a-93f0-80b13bd5a080" />
+        <img width="100%" alt="example-ugentreport-1-01" src="https://github.com/user-attachments/assets/c741d2c0-a16c-4c69-b73b-abdee4c44f29" />
+        <img width="100%" alt="example-ugentreport-1-02" src="https://github.com/user-attachments/assets/90f7121a-9af2-4112-b033-4580a533e0ca" />
     </td>
     <td>
-        <img width="100%" src="https://github.com/user-attachments/assets/9da0859e-6e9e-44f5-83c8-dc062f0af8d3" />
-        <img width="100%" src="https://github.com/user-attachments/assets/088a5690-fe4b-4f02-a7bb-93b1cd7dee74" />
+        <img width="100%" alt="example-ugentreport-2-01" src="https://github.com/user-attachments/assets/2e9953af-0663-4794-9ddf-8906ed93ba97" />
+        <img width="100%" alt="example-ugentreport-2-02" src="https://github.com/user-attachments/assets/9bb8b41a-0afb-4615-b6e2-bc6190329ac4" />
     </td>
 </table>
 </details>
@@ -235,8 +235,8 @@ Below, you can find a quick visual look at what the package provides.
 
 **example-ugentletter**
 
-<img width="50%" src="https://github.com/user-attachments/assets/e652b8f8-acc4-4c0e-b3fe-4b4fd3396559" />
-<img width="50%" src="https://github.com/user-attachments/assets/4e897238-e4fb-4b59-9cab-51ba74019239" />
+<img width="50%" alt="example-ugentletter-1" src="https://github.com/user-attachments/assets/e652b8f8-acc4-4c0e-b3fe-4b4fd3396559" />
+<img width="50%" alt="example-ugentletter-2" src="https://github.com/user-attachments/assets/4e897238-e4fb-4b59-9cab-51ba74019239" />
 
 </details>
 
@@ -246,10 +246,10 @@ Below, you can find a quick visual look at what the package provides.
 
 **example-ugentexam-1**
 
-<img width="50%" src="https://github.com/user-attachments/assets/1402a71c-e618-4c74-90cb-518727c3a379" />
-<img width="50%" src="https://github.com/user-attachments/assets/1c4e5522-be7e-4132-8cff-f3a7fa2a9b31" />
-<img width="50%" src="https://github.com/user-attachments/assets/1c227ee7-2d27-408a-88e6-b143df1b8fa2" />
-<img width="50%" src="https://github.com/user-attachments/assets/e3a47acd-5dbd-4cf8-af67-4056f2e17ed2" />
+<img width="50%" alt="example-ugentexam-1-1" src="https://github.com/user-attachments/assets/fbbf9fc9-43d7-4261-9ee8-2d689ad74c8c" />
+<img width="50%" alt="example-ugentexam-1-2" src="https://github.com/user-attachments/assets/2b4cb738-463e-491e-bd24-f1939609bff5" />
+<img width="50%" alt="example-ugentexam-1-3" src="https://github.com/user-attachments/assets/e1a2a796-f14e-43a8-a1db-a12b151bb45f" />
+<img width="50%" alt="example-ugentexam-1-4" src="https://github.com/user-attachments/assets/8b23626f-741f-4d00-9488-172d68e8bc4d" />
 
 
 </details>
