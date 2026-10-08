@@ -7082,7 +7082,6 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \newlength{\@BT}    % Bleed Top
 \newlength{\@WI}    % Width Image
 \newlength{\@HI}    % Height Image
-\newlength{\@WFI}   % Width Faculty Icon
 \ExplSyntaxOff
 %</phd|bkc|crs|bama|rp|ex>
 %    \end{macrocode}
@@ -7754,9 +7753,12 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
     { phd } { }
     { course } {
       \bool_if:NF \l_@@_neutralcolors_bool {
+        \newlength{\@WFI}      % Width Faculty Icon
+        \newlength{\@FIoffset} % Faculty Icon offset
         \pgfmathsetlength{\@WFI}{\@PW-\@MS-4*\gridunit}
-        \begin{scope}[shift={(\@PW-\gridunit-\@WFI,\@PH-\@HTS-\gridunit-\@WFI)}]
-          \ficon{\@WFI}{coverbgcolor!60}{0.0}
+        \pgfmathsetlength{\@FIoffset}{0.5*(\@ficonw/\@logounit)}
+        \begin{scope}[shift={(\@PW-\gridunit-0.5*\@WFI,\@PH-\@HTS-\gridunit-\@WFI)}]
+          \ficon{\@WFI}{coverbgcolor!60}{\@FIoffset}
         \end{scope}
       }
     }
