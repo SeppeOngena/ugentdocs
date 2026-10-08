@@ -65,8 +65,8 @@ use the manual method below.
 
 - Download the package from the [releases page](https://github.com/SeppeOngena/ugentdocs/releases).
  It's the `ugentdocs-<version>.zip` in the "Assets" section at the bottom of a release.
-- Copy the needed contents of the `ugentdocs` folder from the .zip into your document folder
-or Overleaf project root, and any example from the `examples` folder should you wish, e.g.:
+- Copy the needed contents of the `ugentdocs` folder from the .zip into your document folder,
+  and any example from the `examples` folder should you wish, e.g.:
 ```
 └── MyThesis/
     ├── Figures/
