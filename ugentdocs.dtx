@@ -290,7 +290,7 @@
 %     \\[\baselineskip]
 %     Some |\@macros| or |\@tags| are for internal usage, but
 %     they can be retrieved or executed by wrapping them in
-%     |\makeatletter| and |\makeatother| (required due to the @
+%     |\makeatletter| and |\makeatother| (required due to the |@|
 %     sign). Some of these are also meant to be sections of code you can
 %     customize (see ``A note on customization'' below). If so, their
 %     implementation code is shown in this docs for copy-pasting to your
@@ -318,7 +318,8 @@
 %     so they are an absolute requirement. If the Normal variant is installed,
 %     it is used by default for all class files. You can download it
 %     \href{https://ugentbe.sharepoint.com/sites/intranet-communicatie/SitePages/en/corporate-design.aspx}
-%     {from the intranet}.
+%     {from the intranet}. The font files can also be put in the document's
+%     working directory or in a |fonts/| subdirectory (for Inscrive or Overleaf).
 %   \item Secondary font: Arial. This is normally used for office templates
 %     distributed outside of Ghent University. Since \LaTeX{} usually outputs
 %     PDFs with fonts embedded, this is not a concern.
@@ -699,9 +700,9 @@
 % -- as they are used in the logo's.
 % For the document itself, it is recommended to use UGent Panno Text as well,
 % which is why it is set by default through
-% the |\setsansfont{UGent Panno Text}[...]| block
+% the |\trysetsansfont[UGentPannoText-Normal]{UGent Panno Text}[...]{}| block
 % below. However, Arial is also a valid official alternative and can override
-% UGent Panno Text by adding the |\setsansfont{Arial}[...]| block below to the
+% UGent Panno Text by adding the |\trysetsansfont[Arial]{Arial}[...]{}| block below to the
 % beginning of your document or your customization file.
 % UGent uses Arial as default for Word and PowerPoint templates
 % as these are distributed outside Ghent University.
@@ -718,7 +719,7 @@
 %   BoldItalicFont      = *,
 %   BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
 % ]{}
-% \tryoverridemathfont[UGentPannoText-Normal]{UGent Panno Text}{}
+% \tryoverridemathfont[UGentPannoText-Normal]{UGent Panno Text}{>}
 % \end{verbatim}
 %
 % \begin{verbatim}
@@ -733,14 +734,32 @@
 % \tryoverridemathfont[Arial]{Arial}{}
 % \end{verbatim}
 %
+% To support automatically loading fonts from file or by name (whichever is found first),
+% the fontspec functions are extended here with a |try| prefix.
+%
+% For example:\\
+% |\trysetsansfont[<Font File>]{<Font Name>}[<Font Features>]{<False Code>}|\\
+% first tries to find the font by a |<Font File>|, which can be, e.g.,
+% |Arial| (searches for |.ttf| or |.otf|) or |Arial.ttf|.
+% It searches in the main document root directory or working directory first,
+% then a |fonts/| subdirectory,
+% then it searches the system installed fonts by |<Font Name>|.
+% If it doesn't find the font in either of those places, the |<False Code>| is run.
+% The |<Font Features>| are the same you would normally use in
+% |\setsansfont{<Font>}[<Font Features>]|.
+% These set of functions enable the use of online editors such as Inscrive or Overleaf
+% with uploaded font files.
+%
 % Since both the official fonts are sans-serif, we use the |unicode-math| package
 % with the Noto Sans Math font if available, and the DejaVu Math TeX Gyre
-% font otherwise. You can override these fonts by using |\setmathfont{<font>}|.
+% font otherwise. You can override these fonts by using:\\
+% |\trysetmathfont[<Font File>]{<Font Name>}[<Font Features>]{<False Code>}|.
 %
 % If you want to set the letters and numbers of the math font to a different font,
-% use the |\overridemathfont{<Font Name>}| macro. This is executed by default
-% when loading the fonts at class load. Use |\overridemathfont{}|
-% to use the math font's own glyphs.
+% use the\\
+% |\tryoverridemathfont[<Font File>]{<Font Name>}[<Font Features>]{<False Code>}|\\
+% macro. This is executed by default when loading the fonts at class load.\\
+% Use |\tryoverridemathfont{}{}| to use the math font's own glyphs.
 %
 % \iffalse
 %<*clo>
@@ -1259,7 +1278,7 @@
 %
 % When the faculty is specified, the |\@faculty| and |\@facultyacronym|
 % tags are set. You can retrieve these similar to the \LaTeX{}-native |\@title| tag by
-% wrapping it in |\makeatletter| and |\makeatother| (required due to the @ sign).
+% wrapping it in |\makeatletter| and |\makeatother| (required due to the |@| sign).
 % For example:
 % \begin{itemize}
 %   \item |\makeatletter\@faculty\makeatother|:
