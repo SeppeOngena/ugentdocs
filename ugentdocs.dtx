@@ -3611,8 +3611,14 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   If the |hyperref| package is loaded, the full URL will be linked.
 % \iffalse
 %<*phd|art>
+\ExplSyntaxOn
+\str_new:N \l_@@_doiurl_str
 \newcommand*{\@doi}{}
-\newcommand*{\doi}[1]{\renewcommand*{\@doi}{#1}}
+\newcommand*{\doi}[1]{
+  \renewcommand*{\@doi}{#1}
+  \str_set:Ne \l_@@_doiurl_str { https://doi.org/ \@doi }
+}
+\ExplSyntaxOff
 %</phd|art>
 % \fi
 %
@@ -5932,7 +5938,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
       \tl_if_empty:oF { \@doi }{
         \medskip{DOI~
           \@ifpackageloaded{hyperref}{
-            \href{https://doi.org/\@doi}{\@doi}
+            \exp_args:NV \href \l_@@_doiurl_str {\@doi}
           }{
             \@doi
           }
@@ -6584,7 +6590,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
     \tl_if_empty:oF { \@doi }{
       .~{\small DOI~
         \@ifpackageloaded{hyperref}{
-          \href{https://doi.org/\@doi}{\@doi}
+          \exp_args:NV \href \l_@@_doiurl_str {\@doi}
         }{
           \@doi
         }
@@ -8018,7 +8024,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
       \ifx\@isbn\@empty\\[\baselineskip]\else\\\fi
       {\small DOI~
         \@ifpackageloaded{hyperref}{
-          \href{https://doi.org/\@doi}{\@doi}
+          \exp_args:NV \href \l_@@_doiurl_str {\@doi}
           }{
           \@doi
           }
