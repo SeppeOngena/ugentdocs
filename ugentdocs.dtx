@@ -8172,16 +8172,16 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 % Document classes and options -------------------------------------------------
 %
-%<crs1>\documentclass[bw,11pt,twoside,openright,dutch]{ugentcourse}
-%<bama1>\documentclass[bw,11pt,twoside,openright,coverbg,neutralcolors]{ugentbama}
-%<bama2>\documentclass[bw,11pt,twoside,openright,dutch,surnamefirst]{ugentbama}
-%<phd1>\documentclass[we,10pt,twoside,openright,dutch,surnamefirst]{ugentphd}
+%<crs1>\documentclass[lw,11pt,twoside,openright,dutch]{ugentcourse}
+%<bama1>\documentclass[pp,11pt,twoside,openright,coverbg]{ugentbama}
+%<bama2>\documentclass[ea,kortrijk,11pt,twoside,openright,dutch,surnamefirst]{ugentbama}
+%<phd1>\documentclass[ps,10pt,twoside,openright,dutch,surnamefirst]{ugentphd}
 %<phd2>\documentclass[bw,10pt,twoside,openright,cameraready]{ugentphd}
-%<rp1>\documentclass[bw,10pt,twoside,openright,dutch,coverbg]{ugentreport}
-%<rp2>\documentclass[10pt,oneside,openany]{ugentreport}
+%<rp1>\documentclass[eb,10pt,twoside,openright,dutch]{ugentreport}
+%<rp2>\documentclass[10pt,oneside,openany,coverbg]{ugentreport}
 %<le1>\documentclass[bw]{ugentletter}
-%<ex1>\documentclass[bw,10pt, dutch]{ugentexam}
-%<ex2>\documentclass[bw,10pt, coverbg]{ugentexam}
+%<ex1>\documentclass[we,10pt, dutch]{ugentexam}
+%<ex2>\documentclass[we,10pt, coverbg]{ugentexam}
 %<art1>\documentclass[10pt]{ugentarticle}
 %
 %
@@ -8543,29 +8543,40 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 % Degree, doctype, wordcount ...................................................
 %
-%<*crs1|ex1|ex2>
+%<*crs1>
 %% Specify the degree(s):
-\degree{Master of Science in de Bio-ingenieurswetenschappen: Milieutechnologie}
+\degree{Master of Arts in de wijsbegeerte}
 
-%</crs1|ex1|ex2>
+%</crs1>
+%<*ex1|ex2>
+%% Specify the degree(s):
+\degree{Master of Science in Biology}
+
+%</ex1|ex2>
 %<*bama1>
 %% Specify your degree and doctype (dissertation-ma/dissertation-ba)
-\degree{Master Of Science in Bioscience Engineering: Environmental Technology}
+\degree{Master of Science in Psychology}
 \doctype{dissertation-ma}
 
 %</bama1>
 %<*bama2>
 %% Specify your degree and doctype (dissertation-ma/dissertation-ba)
-\degree{Bachelor of Science in de Bio-ingenieurswetenschappen}
+\degree{Bachelor of Science in de industriële wetenschappen}
 \doctype{dissertation-ba}
 
 %</bama2>
-%<*phd1|phd2>
+%<*phd1>
+%% Specify your degree and doctype (dissertation-phd)
+\degree{Doctor in Political Sciences}
+\doctype{dissertation-phd}
+
+%</phd1>
+%<*phd2>
 %% Specify your degree and doctype (dissertation-phd)
 \degree{Doctor in Bioscience Engineering}
 \doctype{dissertation-phd}
 
-%</phd1|phd2>
+%</phd2>
 %
 %
 %<*bama1|bama2>
@@ -8726,8 +8737,8 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %<*phd1>
 %% Specify the author and their title, and affiliation
 \author{Ir.}{De Bruyne, Henri}{\\Universiteit Gent\\
-  Faculteit Wetenschappen\\
-  Vakgroep Plantenbiotechnologie en Bio-informatica}
+  Faculteit Politieke en Sociale Wetenschappen\\
+  Vakgroep Politieke Wetenschappen}
 
 %</phd1>
 %<*phd2>
@@ -8819,8 +8830,8 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</phd1|phd2|rp2|le1>
 %<*phd1>
 %% Set author's address
-\address{K.L. Ledeganckstraat 35, 9000 Gent, Belgi\"e\\
-  M: theofiel.hoekaff@ugent.be\\
+\address{Sint-Pietersnieuwstraat 41, 9000 Gent, Belgi\"e\\
+  M: henri.debruyne@ugent.be\\
   T: +32 9 264 51 19
 }
 
@@ -8828,7 +8839,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %<*phd2>
 %% Set author's address
 \address{Frieda Saeysstraat 1, 9052 Gent, Belgi\"e\\
-  M: theofiel.hoekaff@ugent.be\\
+  M: gerrit.callewaert@ugent.be\\
   T: +32 9 264 51 19
 }
 
