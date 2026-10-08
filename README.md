@@ -37,7 +37,7 @@ The separate [`ugentdocs-contrib`](https://GitHub.com/SeppeOngena/ugentdocs-cont
 Installation
 --
 >[!WARNING]
-> Due to the use of `fontspec` for the official logos, your documents need to be compiled using LuaLaTeX or XeLaTeX (you can easily set this in your editor), and the UGent Panno Text Medium and SemiBold fonts need to be installed. You can find these fonts [on the intranet](https://ugentbe.sharepoint.com/sites/intranet-communicatie/SitePages/en/corporate-design.aspx).
+> Due to the use of `fontspec` for the official logos, your documents need to be compiled using LuaLaTeX or XeLaTeX (you can easily set this in your editor), and the UGent Panno Text Medium and SemiBold fonts need to be installed. You can find these fonts [on the intranet](https://ugentbe.sharepoint.com/sites/intranet-communicatie/SitePages/en/corporate-design.aspx). For online editors, upload these fonts into a `fonts/` subdirectory.
 
 ### Through your TeX distribution (recommended)
 
@@ -53,9 +53,9 @@ document and look at the end of the `.log` file, or run, e.g.,
 `kpsewhich ugentreport.cls` to see which file is being used.
 
 New versions reach CTAN first and TeX Live/MiKTeX a few days later.
-Some installations take longer, e.g., linux distro packages 
-(`texlive-*` from pacman, apt, dnf, etc.)
-are snapshots and can be months out of date. `tlmgr` cannot update them.
+Some installations take longer, e.g., online editors (Inscrive or Overleaf)
+or linux distro packages (`texlive-*` from pacman, apt, dnf, etc.)
+are snapshots and can be months out of date.
 
 If your version is older than what is listed on CTAN, or you need a fix
 from the GitHub repository that has not been released yet,
