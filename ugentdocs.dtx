@@ -710,27 +710,27 @@
 % Thus, UGent Panno Text is the default everywhere.
 %
 % \begin{verbatim}
-% \setsansfont{UGent Panno Text}[
-%   BoldFont            = {UGent Panno Text},
+% \trysetsansfont[UGentPannoText-Normal]{UGent Panno Text}[
+%   BoldFont            = *,
 %   BoldFeatures        = {FakeBold=2.5},
-%   ItalicFont          = {UGent Panno Text},
+%   ItalicFont          = *,
 %   ItalicFeatures      = {FakeSlant=0.15},
-%   BoldItalicFont      = {UGent Panno Text},
+%   BoldItalicFont      = *,
 %   BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
-% ]
-% \overridemathfont{UGent Panno Text}
+% ]{}
+% \tryoverridemathfont[UGentPannoText-Normal]{UGent Panno Text}{}
 % \end{verbatim}
 %
 % \begin{verbatim}
-% \setsansfont{Arial}[
-%   BoldFont            = {Arial},
+% \trysetsansfont[Arial]{Arial}[
+%   BoldFont            = *,
 %   BoldFeatures        = {FakeBold=2.5},
-%   ItalicFont          = {Arial},
+%   ItalicFont          = *,
 %   ItalicFeatures      = {FakeSlant=0.15},
-%   BoldItalicFont      = {Arial},
+%   BoldItalicFont      = *,
 %   BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
-% ]
-% \overridemathfont{Arial}
+% ]{}
+% \tryoverridemathfont[Arial]{Arial}{}
 % \end{verbatim}
 %
 % Since both the official fonts are sans-serif, we use the |unicode-math| package
@@ -749,83 +749,156 @@
 \iftutex
 \ExplSyntaxOn
 \tl_new:N \g_@@_mathletter_font_tl
+\tl_new:N \g_@@_mathletter_opts_tl
+\tl_new:N \l_@@_try_name_tl
+\tl_new:N \l_@@_try_opts_tl
+\bool_new:N \l_@@_try_found_bool
 
 % Override letters and numbers from math font with font #1
-\cs_new_protected:Npn \@@_math_letters:n #1 {
+\cs_new_protected:Npn \@@_math_letters:nn #1#2 {
   \tl_if_empty:nF {#1} {
-    \setmathfont {#1} [
+    \setmathfont {#1} [ #2
     range = { up/{latin,Latin,num}, sfup/{latin,Latin,num} } ]
-    \setmathfont {#1} [ FakeSlant = 0.15 ,
+    \setmathfont {#1} [ #2 FakeSlant = 0.15 ,
     range = { it/{latin,Latin}, sfit/{latin,Latin} } ]
-    \setmathfont {#1} [ FakeBold = 2.5 ,
+    \setmathfont {#1} [ #2 FakeBold = 2.5 ,
     range = { bfup/{latin,Latin,num}, bfsfup/{latin,Latin,num} } ]
-    \setmathfont {#1} [ FakeBold = 2.5 , FakeSlant = 0.15 ,
+    \setmathfont {#1} [ #2 FakeBold = 2.5 , FakeSlant = 0.15 ,
     range = { bfit/{latin,Latin}, bfsfit/{latin,Latin} } ]
   }
 }
-\cs_generate_variant:Nn \@@_math_letters:n { V }
+\cs_generate_variant:Nn \@@_math_letters:nn { VV }
+
+
+% Probe directory #1 for file #2, as given or with a font extension
+\cs_new_protected:Npn \@@_try_file:nn #1#2 {
+  \tl_map_inline:nn { {} {.otf} {.ttf} {.OTF} {.TTF} } {
+    \bool_if:NF \l_@@_try_found_bool {
+      \file_if_exist:nT { #1 #2 ##1 } {
+        \tl_set:Nn \l_@@_try_name_tl { #2 ##1 }
+        \tl_if_empty:nF {#1} { \tl_set:Nn \l_@@_try_opts_tl { Path = #1 , } }
+        \bool_set_true:N \l_@@_try_found_bool
+      }
+    }
+  }
+}
+\cs_generate_variant:Nn \@@_try_file:nn { ne }
+
+% Find a font: file #1 in the doc dir or fonts/, else system font #2
+\cs_new_protected:Npn \@@_try_font:nn #1#2 {
+  \bool_set_false:N \l_@@_try_found_bool
+  \tl_clear:N \l_@@_try_opts_tl
+  \tl_if_blank:nF {#1} {
+    \tl_map_inline:nn { {} {fonts/} } {
+      \@@_try_file:nn {##1} {#1}
+      \@@_try_file:ne {##1} { \str_lowercase:n {#1} }
+      \@@_try_file:ne {##1} { \str_uppercase:n {#1} }
+    }
+  }
+  \bool_if:NF \l_@@_try_found_bool {
+    \IfFontExistsTF {#2} {
+      \tl_set:Nn \l_@@_try_name_tl {#2}
+      \bool_set_true:N \l_@@_try_found_bool
+    } { }
+  }
+}
+
+% #1 load command, #2 file, #3 name, #4 fontspec options, #5 false code
+\cs_new_protected:Npn \@@_load:nnnn #1#2#3#4 { #1 {#2} [ #3 #4 ] }
+\cs_generate_variant:Nn \@@_load:nnnn { nVVn }
+\cs_new_protected:Npn \@@_try_load:nnnnn #1#2#3#4#5 {
+  \@@_try_font:nn {#2} {#3}
+  \bool_if:NTF \l_@@_try_found_bool {
+    \@@_load:nVVn {#1} \l_@@_try_name_tl \l_@@_try_opts_tl {#4}
+  }{
+    #5
+  }
+}
+
+% \trysetsansfont[<file>]{<name>}[<fontspec options>]{<false code>}
+\NewDocumentCommand \trysetsansfont { O{} m O{} m }
+{ \@@_try_load:nnnnn { \setsansfont } {#1} {#2} {#3} {#4} }
+% \trynewfontfamily<cs>[<file>]{<name>}[<fontspec options>]{<false code>}
+\NewDocumentCommand \trynewfontfamily { m O{} m O{} m }
+{ \@@_try_load:nnnnn { \newfontfamily #1 } {#2} {#3} {#4} {#5} }
+% \trynewfontface<cs>[<file>]{<name>}[<fontspec options>]{<false code>}
+\NewDocumentCommand \trynewfontface { m O{} m O{} m }
+{ \@@_try_load:nnnnn { \newfontface #1 } {#2} {#3} {#4} {#5} }
+% \trysetmathfont[<file>]{<name>}[<fontspec options>]{<false code>}
+\NewDocumentCommand \trysetmathfont { O{} m O{} m }
+{ \@@_try_load:nnnnn { \setmathfont } {#1} {#2} {#3} {#4} }
 
 % Override numbers/letters from math font with specified font
-\NewDocumentCommand \overridemathfont { m }
-{ \tl_gset:Nn \g_@@_mathletter_font_tl {#1} }
+\NewDocumentCommand \overridemathfont { m } {
+  \tl_gset:Nn \g_@@_mathletter_font_tl {#1}
+  \tl_gclear:N \g_@@_mathletter_opts_tl
+}
+% \tryoverridemathfont[<file>]{<name>}{<false code>}
+\NewDocumentCommand \tryoverridemathfont { O{} m m } {
+  \@@_try_font:nn {#1} {#2}
+  \bool_if:NTF \l_@@_try_found_bool {
+    \tl_gset_eq:NN \g_@@_mathletter_font_tl \l_@@_try_name_tl
+    \tl_gset_eq:NN \g_@@_mathletter_opts_tl \l_@@_try_opts_tl
+  } {#3}
+}
 \@onlypreamble \overridemathfont
+\@onlypreamble \tryoverridemathfont
 
-\AddToHook { begindocument / before }
-{ \@@_math_letters:V \g_@@_mathletter_font_tl }
+\AddToHook { begindocument / before } {
+  \@@_math_letters:VV \g_@@_mathletter_font_tl \g_@@_mathletter_opts_tl
+}
 \ExplSyntaxOff
+
 \newcommand{\@loadfonts}{
   \RequirePackage{fontspec}
-  \IfFontExistsTF{UGent Panno Text Medium}{
-    \IfFontExistsTF{UGent Panno Text SemiLight}{
-      \IfFontExistsTF{UGent Panno Text}{
-        \setsansfont{UGent Panno Text}[
-          BoldFont            = {UGent Panno Text},
-          BoldFeatures        = {FakeBold=2.5},
-          ItalicFont          = {UGent Panno Text},
-          ItalicFeatures      = {FakeSlant=0.15},
-          BoldItalicFont      = {UGent Panno Text},
-          BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
-        ]
-        \overridemathfont{UGent Panno Text}
-      }{
-        \IfFontExistsTF{Arial}{
-          \setsansfont{Arial}[
-            BoldFont            = {Arial},
-            BoldFeatures        = {FakeBold=2.5},
-            ItalicFont          = {Arial},
-            ItalicFeatures      = {FakeSlant=0.15},
-            BoldItalicFont      = {Arial},
-            BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
-          ]
-          \overridemathfont{Arial}
-        }{
-          \PackageWarning{ugentdocs}
-          {Neither UGent Panno Text nor Arial are installed, no font set!}
-        }
-      }
-    }{
-      \PackageError{ugentdocs}
-      {UGent Panno Text Medium and SemiLight font variants are required for logo typesetting}
-      {See the ugentdocs manual}
-    }
-  }{
+  \trysetsansfont[UGentPannoText-Normal]{UGent Panno Text}[
+    BoldFont            = *,
+    BoldFeatures        = {FakeBold=2.5},
+    ItalicFont          = *,
+    ItalicFeatures      = {FakeSlant=0.15},
+    BoldItalicFont      = *,
+    BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
+  ]{%
+    \trysetsansfont[Arial]{Arial}[
+      BoldFont            = *,
+      BoldFeatures        = {FakeBold=2.5},
+      ItalicFont          = *,
+      ItalicFeatures      = {FakeSlant=0.15},
+      BoldItalicFont      = *,
+     BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
+    ]{%
+      \PackageWarning{ugentdocs}
+      {Neither UGent Panno Text nor Arial are installed, no font set!}%
+    }%
+  }
+  \tryoverridemathfont[UGentPannoText-Normal]{UGent Panno Text}{%
+    \tryoverridemathfont[Arial]{Arial}{}%
+  }
+
+  \RequirePackage
+  [mathrm = sym,mathup = sym,mathbf = sym,mathit = sym, mathsf = sym]
+  {unicode-math}
+  \trysetmathfont[NotoSansMath-Regular]{Noto Sans Math}[Scale = 0.9]{%
+    \trysetmathfont{DejaVuMathTeXGyre}[DejaVu Math TeX Gyre]{}%
+  }
+
+  \renewcommand{\familydefault}{\sfdefault}
+}
+
+\AtBeginDocument{
+  \trynewfontface\logotextface
+  [UGentPannoText-Medium]{UGent Panno Text Medium}[LetterSpace=-0.75]{%
     \PackageError{ugentdocs}
-    {UGent Panno Text Medium and SemiLight font variants are required for logo typesetting}
+    {UGent Panno Text Medium is required for logo typesetting}
     {See the ugentdocs manual}
   }
-  \IfFontExistsTF{Noto Sans Math}{
-    \RequirePackage
-    [mathrm = sym,mathup = sym,mathbf = sym,mathit = sym, mathsf = sym]
-    {unicode-math}
-    \setmathfont{Noto Sans Math}[Scale = 0.9]
-  }{
-    \RequirePackage
-    [mathrm = sym,mathup = sym,mathbf = sym,mathit = sym, mathsf = sym]
-    {unicode-math}
-    \setmathfont{DejaVu Math TeX Gyre}
+  \trynewfontface\logosubtextface
+  [UGentPannoText-SemiLight]{UGent Panno Text SemiLight}[LetterSpace=0.1]{%
+    \PackageError{ugentdocs}
+    {UGent Panno Text SemiLight is required for logo typesetting}
+    {See the ugentdocs manual}
   }
-  \renewcommand{\familydefault}{\sfdefault}
-  }
+}
 \else
 \PackageError{ugentdocs}{Only LuaLaTeX or XeLaTeX is supported for compilation}
 {See the ugentdocs manual}
@@ -865,55 +938,55 @@
 % \begingroup\renewcommand{\familydefault}{\sfdefault}
 % \begin{itemize}
 %   \item {
-%     \setsansfont{UGent Panno Text}[
+%     \trysetsansfont[UGentPannoText-Normal]{UGent Panno Text}[
 %       BoldFont            = {UGent Panno Text},
 %       BoldFeatures        = {FakeBold=2.5},
 %       ItalicFont          = {UGent Panno Text},
 %       ItalicFeatures      = {FakeSlant=0.15},
 %       BoldItalicFont      = {UGent Panno Text},
 %       BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
-%     ]
+%     ]{}
 %     UGent Panno Text: \textbf{bold}, \textit{italic}, \textbf{\textit{bolditalic}}, and \fakesc{Fake Small Caps}
 %   }
 %   \item {
-%     \setsansfont{UGent Panno Text Medium}[
-%       BoldFont            = {UGent Panno Text Medium},
+%     \trysetsansfont[UGentPannoText-Medium]{UGent Panno Text Medium}[
+%       BoldFont            = *,
 %       BoldFeatures        = {FakeBold=2.5},
-%       ItalicFont          = {UGent Panno Text Medium},
+%       ItalicFont          = *,
 %       ItalicFeatures      = {FakeSlant=0.15},
-%       BoldItalicFont      = {UGent Panno Text Medium},
+%       BoldItalicFont      = *,
 %       BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
-%     ]
+%     ]{}
 %     UGent Panno Text Medium: \textbf{bold}, \textit{italic}, \textbf{\textit{bolditalic}}, and \fakesc{Fake Small Caps}
 %   }
 %   \item {
-%     \setsansfont{UGent Panno Text SemiLight}[
-%       BoldFont            = {UGent Panno Text SemiLight},
+%     \trysetsansfont[UGentPannoText-SemiLight]{UGent Panno Text SemiLight}[
+%       BoldFont            = *,
 %       BoldFeatures        = {FakeBold=2.5},
-%       ItalicFont          = {UGent Panno Text SemiLight},
+%       ItalicFont          = *,
 %       ItalicFeatures      = {FakeSlant=0.15},
-%       BoldItalicFont      = {UGent Panno Text SemiLight},
+%       BoldItalicFont      = *,
 %       BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
-%     ]
+%     ]{}
 %     UGent Panno Text SemiLight: \textbf{bold}, \textit{italic}, \textbf{\textit{bolditalic}}, and \fakesc{Fake Small Caps}
 %   }
 %   \item {
-%     \setsansfont{Arial}[
-%       BoldFont            = {Arial},
+%     \trysetsansfont[Arial]{Arial}[
+%       BoldFont            = *,
 %       BoldFeatures        = {FakeBold=2.5},
-%       ItalicFont          = {Arial},
+%       ItalicFont          = *,
 %       ItalicFeatures      = {FakeSlant=0.15},
-%       BoldItalicFont      = {Arial},
+%       BoldItalicFont      = *,
 %       BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
-%     ]
+%     ]{}
 %     Arial: \textbf{bold}, \textit{italic}, \textbf{\textit{bolditalic}}, and \textsc{Small Caps}
 %   }
 %   \item {
-%     \setmathfont{Noto Sans Math}
+%     \trysetmathfont[NotoSansMath-Regular]{Noto Sans Math}[Scale=0.9]{}
 %     Noto Sans Math:\\ \samplemath
 %   }
 %   \item {
-%     \setmathfont{DejaVu Math TeX Gyre}
+%     \trysetmathfont[DejaVuMathTeXGyre]{DejaVu Math TeX Gyre}{}
 %     DejaVu Math TeX Gyre:\\ \samplemath
 %   }
 % \end{itemize}
@@ -1366,11 +1439,6 @@
 %
 % \iffalse
 %<*clo>
-% Logo fonts
-\AtBeginDocument{
-  \newfontface\logotextface{UGent Panno Text Medium}[LetterSpace=-0.75]
-  \newfontface\logosubtextface{UGent Panno Text SemiLight}[LetterSpace=0.1]
-}
 % Faculty: set text width
 \newlength{\@ftextw}
 \ExplSyntaxOn
@@ -8335,30 +8403,36 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 %<*crs1|bama1|phd2|rp1|ex1|art1>
 %% You may want to use common fonts such as Arial (still within house style)
-%%\setsansfont{Arial}[
-%%  BoldFont           = {Arial},
-%%  BoldFeatures       = {FakeBold=2.5},
-%%  ItalicFont         = {Arial},
-%%  ItalicFeatures     = {FakeSlant=0.15},
-%%  BoldItalicFont     = {Arial},
-%%  BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-%%]
-%%\overridemathfont{Arial}
+%% Works with installed fonts, and with font files placed
+%% next to the document or in a fonts/ folder (e.g., on Overleaf).
+%% Use * to refer to the font itself in the options.
+%%\trysetsansfont[Arial]{Arial}[
+%%  BoldFont            = *,
+%%  BoldFeatures        = {FakeBold=2.5},
+%%  ItalicFont          = *,
+%%  ItalicFeatures      = {FakeSlant=0.15},
+%%  BoldItalicFont      = *,
+%%  BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
+%%]{}
+%%\tryoverridemathfont[Arial]{Arial}{}
 
 %</crs1|bama1|phd2|rp1|ex1|art1>
 %
 %
 %<*bama2|phd1|rp2|le1|ex2>
 %% You may want to use common fonts such as Arial (still within house style)
-\setsansfont{Arial}[
-  BoldFont           = {Arial},
-  BoldFeatures       = {FakeBold=2.5},
-  ItalicFont         = {Arial},
-  ItalicFeatures     = {FakeSlant=0.15},
-  BoldItalicFont     = {Arial},
-  BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-]
-\overridemathfont{Arial}
+%% Works with installed fonts, and with font files placed
+%% next to the document or in a fonts/ folder (e.g., on Overleaf).
+%% Use * to refer to the font itself in the options.
+\trysetsansfont[Arial]{Arial}[
+  BoldFont            = *,
+  BoldFeatures        = {FakeBold=2.5},
+  ItalicFont          = *,
+  ItalicFeatures      = {FakeSlant=0.15},
+  BoldItalicFont      = *,
+  BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
+]{}
+\tryoverridemathfont[Arial]{Arial}{}
 
 %</bama2|phd1|rp2|le1|ex2>
 %
@@ -9877,15 +9951,15 @@ I'd like to thank\ldots
 %% Configuration file for ugentletter class
 
 %% Font setup
-\setsansfont{Arial}[
-  BoldFont           = {Arial},
+\trysetsansfont[Arial]{Arial}[
+  BoldFont           = *,
   BoldFeatures       = {FakeBold=2.5},
-  ItalicFont         = {Arial},
+  ItalicFont         = *,
   ItalicFeatures     = {FakeSlant=0.15},
-  BoldItalicFont     = {Arial},
+  BoldItalicFont     = *,
   BoldItalicFeatures = {FakeBold=2.5, FakeSlant=0.15},
-]
-\overridemathfont{Arial}
+]{}
+\tryoverridemathfont[Arial]{Arial}{}
 
 %% Sender information
 \sender{ir.~Seppe Ongena}{PhD Student}
