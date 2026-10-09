@@ -249,6 +249,18 @@ uploadconfig = {
   .. "Dictionaries / lexicons for Dutch and English are included, "
   .. "users can add their own for other languages. "
   .. "The package requires LuaLaTeX or XeLaTeX for the official UGent fonts.",
+  topic = {
+    "class",          -- document classes
+    "dissertation",   -- ugentbama, ugentphd
+    "letter",         -- ugentletter
+    "exam",           -- ugentexam
+    "presentation",   -- the beamer theme
+    "report-like",    -- ugentreport
+    "article-like",   -- ugentarticle
+    "course-material",-- ugentcourse
+    "use-luatex",     -- requires LuaLaTeX ...
+    "use-xetex",      -- ... or XeLaTeX
+  },
   ctanPath    = "/macros/latex/contrib/ugentdocs",
   home        = repo_url,
   repository  = repo_url,
