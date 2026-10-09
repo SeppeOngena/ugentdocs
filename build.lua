@@ -242,12 +242,13 @@ uploadconfig = {
   license     = "lppl1.3c",
   summary     = "House style document classes for Ghent University",
   description = "This package implements the house style of Ghent University "
-  .. "(version 2025, see the official style guide) for bachelor's, master's, "
-  .. "and PhD dissertations, research articles, reports (e.g., meeting minutes, "
-  .. "course assignments), exams, letters, course notes, and beamer slides, and "
-  .. "generates print-ready book covers for PhD dissertations and courses. "
-  .. "Dutch and English are oddicially supported. The package requires LuaLaTeX "
-  .. "or XeLaTeX due to the use of the official UGent fonts.",
+  .. "(version 2025, following the official style guide) for bachelor's, "
+  .. "master's, and PhD dissertations, research articles, reports, exams, "
+  .. "letters, course notes, and beamer slides, and generates print-ready "
+  .. "book covers for PhD dissertations and courses. "
+  .. "Dictionaries / lexicons for Dutch and English are included, "
+  .. "users can add their own for other languages. "
+  .. "The package requires LuaLaTeX or XeLaTeX for the official UGent fonts.",
   ctanPath    = "/macros/latex/contrib/ugentdocs",
   home        = repo_url,
   repository  = repo_url,
