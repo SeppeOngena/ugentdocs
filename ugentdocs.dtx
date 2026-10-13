@@ -10826,13 +10826,6 @@ That's all, folks!
 %
 % \iffalse
 %<*bmr>
-\AtBeginDocument{
-  \def\appropriatelogo{\ugentlogo{\@HBS}{ugent@main}{0}}
-  \def\appropriateslidenumber{%
-    \usebeamercolor{pageno in head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
-}
-
 \setlength\@PW{33.87cm}
 \setlength\@PH{19.05cm}
 
@@ -11016,120 +11009,28 @@ That's all, folks!
 <all>
 %</bmrcolor>
 %<*bmrfont>
+\mode<presentation>
+
+\setbeamerfont{title}{size=\large}
+\setbeamerfont{subtitle}{size=\small}
+\setbeamerfont{frametitle}
+  {size=\renewcommand*{\baselinestretch}{0.85}\LARGE\bfseries}
+\setbeamerfont{framesubtitle}{size=\normalsize\bfseries}
+\setbeamerfont{block body}{size=\scriptsize}
+\setbeamerfont{block body alerted}{parent=block body}
+\setbeamerfont{block body example}{parent=block body}
+\setbeamerfont{block title}{size=\small,series=\bfseries}
+\setbeamerfont{pageno in head/foot}{size=\tiny}
+
+\mode<all>
+%</bmrfont>
+%<*bmrinner>
 \usetikzlibrary{calc}
 
 \mode<presentation>
 
 \setlength\parskip{0.5\baselineskip}
 \setlength\parindent{0em}
-
-\setbeamerfont{normal text}{} % ignored currently
-\setbeamerfont{alerted text}{}
-\setbeamerfont{example text}{}
-
-\setbeamerfont{structure}{}
-\setbeamerfont{tiny structure}{size=\tiny}
-
-\setbeamerfont{title}{size=\large,parent=structure}
-\setbeamerfont{title in head/foot}{}
-\setbeamerfont{title in sidebar}{size=\tiny}
-
-\setbeamerfont{pageno in head/foot}{size=\tiny}
-
-\setbeamerfont{subtitle}{size=\small,parent=title}
-
-\setbeamerfont{author}{}
-\setbeamerfont{author in head/foot}{}
-\setbeamerfont{author in sidebar}{size=\tiny}
-
-\setbeamerfont{date}{}
-\setbeamerfont{date in head/foot}{}
-\setbeamerfont{date in sidebar}{}
-
-\setbeamerfont{part name}{size=\LARGE}
-\setbeamerfont{part title}{size=\LARGE,parent=title}
-
-\setbeamerfont{section name}{size=\Large}
-\setbeamerfont{section title}{size=\Large,parent=title}
-
-\setbeamerfont{section in toc}{parent=structure}
-\setbeamerfont{section in toc shaded}{parent=section in toc}
-\setbeamerfont{section in head/foot}{}
-\setbeamerfont{section in sidebar}{size=\tiny}
-\setbeamerfont{section number projected}
-  {size=\small,parent={section in toc,projected text}}
-
-\setbeamerfont{subsection name}{size=\large}
-\setbeamerfont{subsection title}{size=\large,parent=title}
-
-\setbeamerfont{subsection in toc}{}
-\setbeamerfont{subsection in toc shaded}{parent=subsection in toc}
-\setbeamerfont{subsection in head/foot}{}
-\setbeamerfont{subsection in sidebar}{}
-
-\setbeamerfont{subsubsection in toc}{size=\footnotesize}
-\setbeamerfont{subsubsection in toc shaded}{parent=subsubsection in toc}
-\setbeamerfont{subsubsection in head/foot}{}
-\setbeamerfont{subsubsection in sidebar}{}
-
-\setbeamerfont{headline}{parent={tiny structure}}
-\setbeamerfont{footline}{parent={tiny structure}}
-
-\setbeamerfont{frametitle}
-  {parent=structure,size=\renewcommand*{\baselinestretch}{0.85}\LARGE\bfseries}
-\setbeamerfont{framesubtitle}{parent=frametitle,size=\normalsize\bfseries}
-
-\setbeamerfont{caption}{size=\small}
-\setbeamerfont{caption name}{parent={structure,caption}}
-
-\setbeamerfont{button}{size=\tiny}
-
-\setbeamerfont{block body}{size=\scriptsize}
-\setbeamerfont{block body alerted}{parent={block body}}
-\setbeamerfont{block body example}{parent={block body}}
-\setbeamerfont{block title}{size=\small,series=\bfseries,parent={structure,block body}}
-\setbeamerfont{block title alerted}{parent={block title,alerted text}}
-\setbeamerfont{block title example}{parent={block title,example text}}
-
-\setbeamerfont{item}{parent=structure}
-\setbeamerfont{subitem}{parent=item}
-\setbeamerfont{subsubitem}{parent=subitem}
-
-\setbeamerfont{item projected}{size=\tiny,parent={item,projected text}}
-\setbeamerfont{subitem projected}{parent=item projected}
-\setbeamerfont{subsubitem projected}{parent=subitem projected}
-
-\setbeamerfont{itemize item}{parent=item}
-\setbeamerfont{itemize subitem}{parent=subitem}
-\setbeamerfont{itemize subsubitem}{parent=subsubitem}
-
-\setbeamerfont{enumerate item}{parent=item}
-\setbeamerfont{enumerate subitem}{parent=subitem}
-\setbeamerfont{enumerate subsubitem}{parent=subsubitem}
-
-\setbeamerfont{itemize/enumerate body}{}
-\setbeamerfont{itemize/enumerate subbody}{size=\small}
-\setbeamerfont{itemize/enumerate subsubbody}{size=\footnotesize}
-
-\setbeamerfont{description item}{parent=item}
-
-\setbeamerfont{projected text}{parent={tiny structure}}
-
-\setbeamerfont{abstract}{size=\small}
-\setbeamerfont{abstract title}{parent={abstract,structure},size=\normalsize}
-
-\setbeamerfont{verse}{family=\rmfamily,shape=\itshape}
-
-\setbeamerfont{quotation}{shape=\itshape}
-\setbeamerfont{quote}{parent=quotation}
-
-\setbeamerfont{note page}{size=\small}
-
-\mode
-<all>
-%</bmrfont>
-%<*bmrinner>
-\mode<presentation>
 
 \newcommand*\@rect[3][]{
 	\coordinate (bl) at #2;
@@ -11235,7 +11136,7 @@ That's all, folks!
   text width=\@PW-3\gridunit,
   text=white,
   align=flush left] at (3\gridunit,\@PH-4\gridunit) {
-    \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse title in title page}
+    \begin{beamercolorbox}[wd=\linewidth,left]{\@ugentbeamercolor{title in title page}}
       \small
       \textbf{\insertauthor}\\[0.5ex]
       \ifx\@authorrole\@empty\else
@@ -11253,7 +11154,7 @@ That's all, folks!
   text width=9\gridunit,
   text=white,
   align=flush left] at (\@PW-9\gridunit,\@HBS+\gridunit) {
-    \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse title in title page}
+    \begin{beamercolorbox}[wd=\linewidth,left]{\@ugentbeamercolor{title in title page}}
       \small
       \@printsocialitem{\faFacebook}{Universiteit Gent}
         {https://facebook.com/ugent/}\\[0.6ex]
@@ -11277,12 +11178,18 @@ That's all, folks!
   \end{tikzpicture}
 }
 
-\newcommand\heading[1]{\par{
-    \usebeamercolor{\maybeinverse
-      heading}\color{fg}{\small\textbf{#1}~}}}
-\newcommand\subheading[1]{\par{
-    \usebeamercolor{\maybeinverse
-      subheading}\color{fg}{\footnotesize\textbf{\textit{#1}}~}}}
+\newcommand\heading[1]{
+  \par{
+    \usebeamercolor{\@ugentbeamercolor{heading}}
+    \color{fg}{\small\textbf{#1}~}
+  }
+}
+\newcommand\subheading[1]{
+  \par{
+    \usebeamercolor{\@ugentbeamercolor{subheading}}
+    \color{fg}{\footnotesize\textbf{\textit{#1}}~}
+  }
+}
 
 \mode
 <all>
@@ -11304,10 +11211,35 @@ That's all, folks!
 \tl_new:N   \l_@@_graphcontent_tl
 \tl_new:N   \l_@@_titlebgimg_tl
 \fp_new:N   \l_@@_bodyfrac_fp
+\bool_new:N \g_@@_inverse_bool
+\bool_new:N \g_@@_framenumber_bool
 
 \newlength{\@titletextwidth}
 
 % HELPERS ---------------------------------------------------------------------
+% Helper CS for colour names, prefixed with "inverse " on inverted frames
+\cs_new:Npn \@@_beamercolor:n #1 { \bool_if:NT \g_@@_inverse_bool { inverse~ } #1 }
+
+% Helper CS to set inversion and switch text colour
+\cs_new_protected:Npn \@@_setinverse:n #1 {
+  \bool_gset_eq:Nc \g_@@_inverse_bool { c_#1_bool }
+  \usebeamercolor[fg]{ \@@_beamercolor:n { normal~text } }
+}
+
+% Helper CS to set frame style
+% Args: background canvas, inverse text (true/false)
+\cs_new_protected:Npn \@@_framestyle:nn #1#2 {
+  \@@_setinverse:n {#2}
+  \clist_map_inline:nn { title~page, section~page, subsection~page }
+  { \setbeamertemplate{##1}[main] }
+  \setbeamertemplate{background~canvas}[#1]
+}
+
+% LaTeX2e aliases
+\cs_new_eq:NN \@ugentbeamercolor \@@_beamercolor:n
+\cs_new_eq:NN \@setinverse       \@@_setinverse:n
+\cs_new_eq:NN \@framestyle       \@@_framestyle:nn
+
 % Helper CS for split graph frames
 \cs_new_protected:Npn \@IfGraphSplit #1#2 {
   \bool_if:NTF \l_@@_graphfill_bool {
@@ -11383,11 +11315,7 @@ That's all, folks!
 
 % Helper CS to set inverse or normal text for graphic frames
 \cs_new_protected:Npn \@SetInverse {
-  \@IfGraphSplit {
-    \gdef\maybeinverse{}\usebeamercolor[fg]{normal text}
-  }{
-    \gdef\maybeinverse{inverse }\usebeamercolor[fg]{inverse normal text}
-  }
+  \@IfGraphSplit { \@@_setinverse:n {false} } { \@@_setinverse:n {true} }
 }
 
 % Helper CS to set frame title dimensions and position
@@ -11433,80 +11361,44 @@ That's all, folks!
 }
 
 % KEYS ------------------------------------------------------------------------
-\gdef\maybeinverse{}
-
-\define@key{beamerframe}{inversetext}[true]{%
-  \str_if_eq:nnTF {#1} {true} {%
-    \gdef\maybeinverse{inverse~}%
-  }{%
-    \gdef\maybeinverse{}%
-  }%
-  \usebeamercolor[fg]{\maybeinverse~normal~text}%
-}
+\define@key{beamerframe}{inversetext}[true]{ \@@_setinverse:n {#1} }
 \ExplSyntaxOff
 
-\define@key{beamerframe}{normal}[true]{
-  \setbeamertemplate{title page}[main]
-  \setbeamertemplate{section page}[main]%
-  \setbeamertemplate{subsection page}[main]%
-  \setbeamertemplate{background canvas}[normal]
-  \gdef\maybeinverse{}
-}
+\define@key{beamerframe}{normal}[true]{\@framestyle{normal}{false}}
 
 \mode<handout|trans>
 
-\define@key{beamerframe}{shaded}[true]{
-}
-
-\define@key{beamerframe}{negative}[true]{
-}
+\define@key{beamerframe}{shaded}[true]{}
+\define@key{beamerframe}{negative}[true]{}
 
 \mode
 <all>
 
 \mode<beamer|second>
 
-\define@key{beamerframe}{shaded}[true]{
-  \gdef\maybeinverse{}%
-  \usebeamercolor[fg]{\maybeinverse normal text}%
-  \setbeamertemplate{title page}[main]
-  \setbeamertemplate{section page}[main]%
-  \setbeamertemplate{subsection page}[main]%
-  \setbeamertemplate{background canvas}[shaded]%
-}
-
-\define@key{beamerframe}{negative}[true]{
-  \gdef\maybeinverse{inverse }%
-  \usebeamercolor[fg]{\maybeinverse normal text}%
-  \setbeamertemplate{title page}[negative]
-  \setbeamertemplate{section page}[negative]%
-  \setbeamertemplate{subsection page}[negative]%
-  \setbeamertemplate{background canvas}[negative]%
-}
+\define@key{beamerframe}{shaded}[true]{\@framestyle{shaded}{false}}
+\define@key{beamerframe}{negative}[true]{\@framestyle{negative}{true}}
 
 \mode
 <all>
 
 \ExplSyntaxOn
 \define@key{beamerframe}{title}[{}]{%
-  \gdef\maybeinverse{inverse~}%
-  \usebeamercolor[fg]{\maybeinverse~normal~text}%
+  \@@_setinverse:n {true}
   \setbeamertemplate{title~page}[main]%
   \tl_set:Nn \l_@@_titlebgimg_tl {#1}%
   \setbeamertemplate{background~canvas}[title]{#1}%
 }
 
 \define@key{beamerframe}{section}[{}]{%
-  \gdef\maybeinverse{inverse~}%
-  \usebeamercolor[fg]{\maybeinverse~normal~text}%
+  \@@_setinverse:n {true}
   \setbeamertemplate{subsection~page}[main]%
   \tl_set:Nn \l_@@_titlebgimg_tl {#1}%
   \setbeamertemplate{background~canvas}[section]{#1}%
 }
 
 \define@key{beamerframe}{subsection}[{}]{%
-  \gdef\maybeinverse{inverse~}%
-  \usebeamercolor[fg]{\maybeinverse~normal~text}%
+  \@@_setinverse:n {true}
   \setbeamertemplate{section~page}[main]%
   \tl_set:Nn \l_@@_titlebgimg_tl {#1}%
   \setbeamertemplate{background~canvas}[section]{#1}%
@@ -11530,7 +11422,7 @@ That's all, folks!
 
 % Reset state at the beginning of a new frame:
 \BeforeBeginEnvironment{frame}{%
-  \gdef\maybeinverse{}%
+  \@@_setinverse:n {false}
   \tl_set:Nn \l_@@_graphpos_tl {}%
   \fp_set:Nn \l_@@_graphprop_fp {0.5}%
   \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}
@@ -11543,7 +11435,6 @@ That's all, folks!
   \setbeamertemplate{section~page}[main]%
   \setbeamertemplate{subsection~page}[main]%
   \setbeamertemplate{background~canvas}[normal]%
-  \usebeamercolor[fg]{normal~text}%
 }
 
 % GRAPHIC FRAME ---------------------------------------------------------------
@@ -11599,11 +11490,10 @@ That's all, folks!
   \@nameuse{ps@ugent}
 }
 
-\defbeamertemplate*{background~canvas}{title}[1]
-{%
+\defbeamertemplate*{background~canvas}{title}[1] {%
   \@ComputeTitleDims
   \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}
-  \gdef\appropriateslidenumber{}%
+  \bool_gset_false:N \g_@@_framenumber_bool
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}[shift={(0,\@PH-\@HTS)}]
@@ -11642,10 +11532,9 @@ That's all, folks!
   \end{tikzpicture}
 }
 
-\defbeamertemplate*{background~canvas}{section}[1]
-{%
+\defbeamertemplate*{background~canvas}{section}[1] {%
   \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}
-  \gdef\appropriateslidenumber{}%
+  \bool_gset_false:N \g_@@_framenumber_bool
   \@ComputeTitleDims
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
@@ -11672,27 +11561,21 @@ That's all, folks!
   \end{tikzpicture}
 }
 
-\defbeamertemplate*{background~canvas}{negative}[1]
-{%
+\defbeamertemplate*{background~canvas}{negative}[1] {%
   \tl_gset:Nn \g_@@_logocolor_tl {white}
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno~in~head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
+  \bool_gset_true:N \g_@@_framenumber_bool
   \color{ugent@main}\vrule width\paperwidth height\paperheight
 }
 
-\defbeamertemplate*{background~canvas}{shaded}[1]
-{%
+\defbeamertemplate*{background~canvas}{shaded}[1] {%
   \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno~in~head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
+  \bool_gset_true:N \g_@@_framenumber_bool
   \color{ugent@main!10}\vrule width\paperwidth height\paperheight
 }
 
-\defbeamertemplate*{background~canvas}{normal}
-{%
+\defbeamertemplate*{background~canvas}{normal} {%
   \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}%
-  \gdef\appropriateslidenumber{\usebeamercolor{pageno~in~head/foot}%
-    \insertframenumber/\inserttotalframenumber}%
+  \bool_gset_true:N \g_@@_framenumber_bool
   \bool_if:NTF \l_@@_graphgiven_bool {
     \@ComputeGraphDims
     \begin{tikzpicture}[
@@ -11707,8 +11590,7 @@ That's all, folks!
 }
 
 % PAGES -----------------------------------------------------------------------
-\defbeamertemplate*{title~page}{main}[1][]
-{%
+\defbeamertemplate*{title~page}{main}[1][] {%
   \thispagestyle{ugent@titlepage}%
   \@ComputeTitleDims
   \begin{tikzpicture}
@@ -11717,26 +11599,25 @@ That's all, folks!
     \node[anchor=north~west,
       text~width=\@titletextwidth, text=white, align=flush~left]
     at (2\gridunit,\@PH-\@HTS-\gridunit) {
-      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~title~in~title~page}
+      \begin{beamercolorbox}[wd=\linewidth,left]{\@@_beamercolor:n {title~in~title~page}}
         \footnotesize\textbf{\@department[uppercase]}\\\@team[uppercase]
       \end{beamercolorbox}
     };
     \node[anchor=south~west,
       text~width=\@titletextwidth, text=white, align=flush~left]
     at (2\gridunit,\@HBS+\gridunit) {%
-      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~title~in~title~page}%
+      \begin{beamercolorbox}[wd=\linewidth,left]{\@@_beamercolor:n {title~in~title~page}}%
         \Huge\bfseries\MakeUppercase{\inserttitle}%
       \end{beamercolorbox}%
       \par\nointerlineskip\Huge\bfseries\vspace{1ex}%
-      \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~subtitle~in~title~page}%
+      \begin{beamercolorbox}[wd=\linewidth,left]{\@@_beamercolor:n {subtitle~in~title~page}}%
         \small\MakeUppercase{\insertsubtitle{}~\insertauthor{}~\insertdate}%
       \end{beamercolorbox}%
     };
   \end{tikzpicture}
 }
 
-\defbeamertemplate*{section~page}{main}[1][]
-{%
+\defbeamertemplate*{section~page}{main}[1][] {%
   \@ComputeTitleDims
   \begin{tikzpicture}
     [overlay,remember~picture, shift={(current~page.south~west)}]
@@ -11745,7 +11626,7 @@ That's all, folks!
       \node[anchor=south~west,
         text~width=\@titletextwidth, text=white, align=flush~left]
       at (2\gridunit,\@HBS+\gridunit) {
-        \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~section~title}
+        \begin{beamercolorbox}[wd=\linewidth,left]{\@@_beamercolor:n {section~title}}
           \Huge\bfseries
           \bool_if:NTF {\l_@@_secnums_bool}{
             \MakeUppercase{\insertsectionnumber.~\insertsection}
@@ -11758,8 +11639,7 @@ That's all, folks!
   \end{tikzpicture}
 }
 
-\defbeamertemplate*{subsection~page}{main}[1][]
-{%
+\defbeamertemplate*{subsection~page}{main}[1][] {%
   \@ComputeTitleDims
   \begin{tikzpicture}
   [overlay,remember~picture, shift={(current~page.south~west)}]
@@ -11768,16 +11648,16 @@ That's all, folks!
       \node[anchor=south~west,
         text~width=\@titletextwidth, text=white, align=flush~left]
       at (2\gridunit,\@HBS+\gridunit) {
-        \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~section~title}
+        \begin{beamercolorbox}[wd=\linewidth,left]{\@@_beamercolor:n {section~title}}
           \Huge\bfseries
             \bool_if:NTF {\l_@@_secnums_bool}{
               \MakeUppercase{\insertsectionnumber.~\insertsection\\}
-              \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~subsection~title}
+              \begin{beamercolorbox}[wd=\linewidth,left]{\@@_beamercolor:n {subsection~title}}
                 \LARGE\bfseries\MakeUppercase{\insertsubsection}
               \end{beamercolorbox}
             }{
               \MakeUppercase{\insertsection\\}
-              \begin{beamercolorbox}[wd=\linewidth,left]{\maybeinverse~subsection~title}
+              \begin{beamercolorbox}[wd=\linewidth,left]{\@@_beamercolor:n {subsection~title}}
                 \LARGE\bfseries\MakeUppercase{\insertsubsection}
               \end{beamercolorbox}
             }
@@ -11812,52 +11692,43 @@ That's all, folks!
 \setbeamertemplate{itemize items}{\textendash}
 
 
-\defbeamertemplate*{footline}{empty}
-{
-}
+\defbeamertemplate*{footline}{empty}{}
 
 \ExplSyntaxOn
-\defbeamertemplate*{footline}{normal}
-{%
-  \leavevmode%
-  \hbox{\begin{beamercolorbox}
-      [wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,left,leftskip=.8cm
-      plus1fill]{author~in~head/foot}%
-      \begin{tikzpicture}
-      [overlay,remember~picture, shift={(current~page.south~west)}]
+\defbeamertemplate*{footline}{normal} {%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.55cm,dp=0.25cm]
+    {\@@_beamercolor:n {pageno~in~head/foot}}%
+    \begin{tikzpicture}
+      [overlay,remember~picture,shift={(current~page.south~west)}]
       \bool_if:NT \g_@@_showlogo_bool {
-        \ugentlogo{\@HBS}{\g_@@_logocolor_tl}{0}
+         \ugentlogo{\@HBS}{\g_@@_logocolor_tl}{0}
       }
-      \end{tikzpicture}
-      \hskip0pt plus 1filll ~
+      \bool_if:NT \g_@@_framenumber_bool {
+        \node[anchor=south~east, inner~sep=0pt, text=fg,
+          font=\usebeamerfont{pageno~in~head/foot}]
+        at (\@PW-\gridunit,\gridunit)
+          {\insertframenumber/\inserttotalframenumber};
+      }
+    \end{tikzpicture}%
   \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.5\paperwidth,ht=0.55cm,dp=0.25cm,
-    right,rightskip=.8cm plus1fill]{\maybeinverse~pageno~in~head/foot}%
-    \usebeamerfont{pageno~in~head/foot}~\hskip0pt plus 1filll
-    \appropriateslidenumber
-  \end{beamercolorbox}}%
-  \vskip0pt%
 }
 
-\defbeamertemplate*{frametitle}{empty}
-{
-}
+\defbeamertemplate*{frametitle}{empty} {}
 
-\defbeamertemplate*{frametitle}{normal}
-{%
+\defbeamertemplate*{frametitle}{normal} {%
   \bool_if:NTF \l_@@_graphgiven_bool {\@SetInverse}{}%
   \vskip\gridunit%
   \@SetFrameTitleDims
   \hskip\@tempdima%
-  \begin{beamercolorbox}[wd=\@tempdimb]{\maybeinverse~frametitle}%
+  \begin{beamercolorbox}[wd=\@tempdimb]{\@@_beamercolor:n {frametitle}}%
     \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}\\[0.5ex]%
     \ifx\insertframesubtitle\@empty%
     {\usebeamerfont{framesubtitle}%
-      \usebeamercolor[fg]{\maybeinverse~framesubtitle}~\strut\par}%
+      \usebeamercolor[fg]{\@@_beamercolor:n {framesubtitle}}~\strut\par}%
     \vskip-1ex%
     \else%
     {\usebeamerfont{framesubtitle}%
-      \usebeamercolor[fg]{\maybeinverse~framesubtitle}%
+      \usebeamercolor[fg]{\@@_beamercolor:n {framesubtitle}}%
       \insertframesubtitle\strut\par}%
     \fi%
     \if@tempswa\else\vskip-.3cm\fi%
