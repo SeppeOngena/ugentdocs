@@ -10689,12 +10689,12 @@ graphic={
   \end{codesnippet}
 \end{frame}
 
-\begin{graphicframe}[graphic]{}{}
+\begin{graphicframe}[framenumber=false,graphic]{}{}
   \place [anchor=south east] at (\paperwidth-\gridunit,\gridunit) {
     \textbox{16cm}{10cm}{Some example text}
   }
 \end{graphicframe}
-\begin{graphicframe}[logo=false,graphic]{}{}
+\begin{graphicframe}[logo=false,framenumber=false,graphic]{}{}
   \place [anchor=north west] at (\gridunit,\paperheight-\gridunit) {
     \textbox[fill=white,text=ugent@main]{10cm}{6cm}{\textbf{All}}
   }
@@ -11207,6 +11207,7 @@ That's all, folks!
 \bool_new:N \l_@@_graphgiven_bool
 \bool_new:N \l_@@_graphfill_bool
 \bool_new:N \g_@@_showlogo_bool
+\tl_new:N   \g_@@_framenumberkey_tl
 \tl_new:N   \g_@@_logocolor_tl
 \tl_new:N   \l_@@_graphcontent_tl
 \tl_new:N   \l_@@_titlebgimg_tl
@@ -11216,6 +11217,9 @@ That's all, folks!
 
 \newlength{\@titletextwidth}
 
+\msg_new:nnn { ugentdocs } { unknown-framenumber }
+{ Unknown~value~'#1'~for~framenumber.~Use~true~or~false. }
+
 % HELPERS ---------------------------------------------------------------------
 % Helper CS for colour names, prefixed with "inverse " on inverted frames
 \cs_new:Npn \@@_beamercolor:n #1 { \bool_if:NT \g_@@_inverse_bool { inverse~ } #1 }
@@ -11224,6 +11228,15 @@ That's all, folks!
 \cs_new_protected:Npn \@@_setinverse:n #1 {
   \bool_gset_eq:Nc \g_@@_inverse_bool { c_#1_bool }
   \usebeamercolor[fg]{ \@@_beamercolor:n { normal~text } }
+}
+
+% Helper CS to set framenumber unless the user set the framenumber key
+\cs_new_protected:Npn \@@_setframenumber:n #1 {
+  \tl_if_empty:NTF \g_@@_framenumberkey_tl {
+    \bool_gset_eq:Nc \g_@@_framenumber_bool { c_#1_bool }
+  }{
+    \bool_gset_eq:Nc \g_@@_framenumber_bool { c_ \g_@@_framenumberkey_tl _bool }
+  }
 }
 
 % Helper CS to set frame style
@@ -11413,6 +11426,15 @@ That's all, folks!
     \bool_gset_false:N \g_@@_showlogo_bool
   }
 }
+\define@key{beamerframe}{framenumber}[true]{
+  \str_case:nnF {#1} {
+    {true}{}
+    {false}{}
+  }{
+    \msg_error:nnn { ugentdocs } { unknown-framenumber } {#1}
+  }
+  \tl_gset:Nn \g_@@_framenumberkey_tl {#1}
+}
 
 \define@key{beamerframe}{graphic}
 [{\includegraphics[scale=0.1,min~width=\paperwidth,min~height=\paperheight]{example-image-a}}]{%
@@ -11429,6 +11451,7 @@ That's all, folks!
   \bool_set_false:N \l_@@_graphgiven_bool
   \bool_set_false:N \l_@@_graphfill_bool
   \bool_gset_true:N \g_@@_showlogo_bool
+  \tl_gclear:N \g_@@_framenumberkey_tl
   \tl_clear:N \l_@@_graphcontent_tl
   \tl_clear:N \l_@@_titlebgimg_tl
   \setbeamertemplate{title~page}[main]%
@@ -11493,7 +11516,7 @@ That's all, folks!
 \defbeamertemplate*{background~canvas}{title}[1] {%
   \@ComputeTitleDims
   \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}
-  \bool_gset_false:N \g_@@_framenumber_bool
+  \@@_setframenumber:n {false}
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
     \begin{scope}[shift={(0,\@PH-\@HTS)}]
@@ -11534,7 +11557,7 @@ That's all, folks!
 
 \defbeamertemplate*{background~canvas}{section}[1] {%
   \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}
-  \bool_gset_false:N \g_@@_framenumber_bool
+  \@@_setframenumber:n {false}
   \@ComputeTitleDims
   \begin{tikzpicture}
     \clip (0,0) rectangle (\@PW,\@PH);
@@ -11563,19 +11586,19 @@ That's all, folks!
 
 \defbeamertemplate*{background~canvas}{negative}[1] {%
   \tl_gset:Nn \g_@@_logocolor_tl {white}
-  \bool_gset_true:N \g_@@_framenumber_bool
+  \@@_setframenumber:n {true}
   \color{ugent@main}\vrule width\paperwidth height\paperheight
 }
 
 \defbeamertemplate*{background~canvas}{shaded}[1] {%
   \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}
-  \bool_gset_true:N \g_@@_framenumber_bool
+  \@@_setframenumber:n {true}
   \color{ugent@main!10}\vrule width\paperwidth height\paperheight
 }
 
 \defbeamertemplate*{background~canvas}{normal} {%
   \tl_gset:Nn \g_@@_logocolor_tl {ugent@main}%
-  \bool_gset_true:N \g_@@_framenumber_bool
+  \@@_setframenumber:n {true}
   \bool_if:NTF \l_@@_graphgiven_bool {
     \@ComputeGraphDims
     \begin{tikzpicture}[
