@@ -22,22 +22,12 @@ or contact me via email
 License
 -------
 
-This work is derived from uantwerpendocs v4.12 by Walter Daems,
-which was substantially modified and expanded for the UGent house style.
-A complete, unmodified copy of the original work is available at
-
-   https://ctan.org/tex-archive/macros/latex/contrib/uantwerpendocs
-
-Code for the styling and GAI disclaimer from Joris Meys' LaTeX at UGent
-was adapted with permission and used for the bama and report classes.
-In addition to renaming classes and updating everything to UGent style,
-changes include, but are not limited to: a move to LaTeX3 key-value
-options, rework of dictionary handling, complete rewrite of logo input,
-rework of bookcover generation, unified handling of authors and
-affiliations, new article and bookcover classes, and the restructuring,
-unification, and merging of large chunks of code.
-A complete and accurate development history is included in CHANGELOG.md.
-The underlying Git repository and full commit history are available at:
+This work is derived from uantwerpendocs v4.12 by Walter Daems
+(https://ctan.org/pkg/uantwerpendocs), substantially rewritten and
+expanded for the Ghent University house style. Code for the styling
+and GAI disclaimer from Joris Meys' LaTeX at UGent was adapted with
+permission and used for the bama and report classes.
+The full development history can be found in the CHANGELOG.md and at:
 
   https://github.com/SeppeOngena/ugentdocs/
 
@@ -46,7 +36,7 @@ the LaTeX Project Public License, either version 1.3 of this license
 or (at your option) any later version.  The latest version of this
 license is in:
 
-  http://www.latex-project.org/lppl.txt
+  https://www.latex-project.org/lppl.txt
 
 and version 1.3 or later is part of all distributions of LaTeX
 version 2005/12/01 or later.
@@ -59,7 +49,7 @@ This package is developed and maintained by
 
 -----
 
-© 2013-2026 Walter Daems  
-© 2017-2026 Joris Meys  
 © 2026 Seppe Ongena  
+Portions © 2013-2026 Walter Daems (uantwerpendocs)  
+Portions © 2017-2026 Joris Meys, used with permission  
 Licensed under the LPPL 1.3c or later
