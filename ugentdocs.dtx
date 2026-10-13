@@ -1,25 +1,15 @@
 % \iffalse meta-comment
 %
-% Copyright (C) 2013-2026 by Walter Daems <walter.daems@uantwerpen.be>
-% Copyright (C) 2017-2026 by Joris Meys <joris.meys@ugent.be>
-% Copyright (C) 2026 by Seppe Ongena <seppe.ongena@ugent.be>
+% Copyright (C) 2026 Seppe Ongena <seppe.ongena@ugent.be>
+% Portions Copyright (C) 2013-2026 Walter Daems (uantwerpendocs v4.12)
+% Portions Copyright (C) 2017-2026 Joris Meys, adapted with permission
 %
-% This work is derived from uantwerpendocs v4.12 by Walter Daems,
-% which was substantially modified and expanded for the UGent house style.
-% A complete, unmodified copy of the original work is available at
-%
-%   https://ctan.org/tex-archive/macros/latex/contrib/uantwerpendocs
-%
-% Code for the styling and GAI disclaimer from Joris Meys' LaTeX at UGent
-% was adapted with permission and used for the bama and report classes.
-% In addition to renaming classes and updating everything to UGent style,
-% changes include, but are not limited to: a move to LaTeX3 key-value
-% options, rework of dictionary handling, complete rewrite of logo input,
-% rework of bookcover generation, unified handling of authors and
-% affiliations, new article and bookcover classes, and the restructuring,
-% unification, and merging of large chunks of code.
-% A complete and accurate development history is included in CHANGELOG.md.
-% The underlying Git repository and full commit history are available at:
+% This work is derived from uantwerpendocs v4.12 by Walter Daems
+% (https://ctan.org/pkg/uantwerpendocs), substantially rewritten and
+% expanded for the Ghent University house style. Code for the styling and
+% GAI disclaimer from Joris Meys' LaTeX at UGent was adapted with permission
+% and used for the bama and report classes. The full development history
+% can be found in the CHANGELOG.md and at:
 %
 %   https://github.com/SeppeOngena/ugentdocs/
 %
@@ -28,7 +18,7 @@
 % or (at your option) any later version.  The latest version of this
 % license is in:
 %
-%   http://www.latex-project.org/lppl.txt
+%   https://www.latex-project.org/lppl.txt
 %
 % and version 1.3 or later is part of all distributions of LaTeX
 % version 2005/12/01 or later.
@@ -409,7 +399,7 @@
 % Walter Daems, Paul Levrie, and Lukas Leitner
 % (\href{https://ctan.org/pkg/uantwerpendocs}{available on CTAN}).
 % Version 4.12 was used as the starting point, and as such, many similarities
-% can be found between the two packages, although a lot of stuff has been
+% can be found between the two packages, although most of the code has been
 % reworked. For a complete changelog, please see the CHANGELOG.md file, or
 % for even more in-depth analysis, you can browse the
 % \href{\githubmain}{GitHub repository}.
@@ -5873,6 +5863,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
   }
 
   \AddToHookNext{shipout/foreground}{%
+    % Adapted from uantwerpendocs v4.12, (C) Walter Daems, LPPL 1.3c
     \begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt,overlay]
     \clip (0,0) rectangle(\paperwidth,-\paperheight);
     %
@@ -7026,6 +7017,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
       }
     }
     { uantwerpen } {
+      % Adapted from uantwerpendocs v4.12, (C) Walter Daems, LPPL 1.3c
       \def\@makechapterhead##1{%
         \vspace*{1ex}%
         \begin{flushright}
@@ -7095,6 +7087,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 }
 
 \ExplSyntaxOff
+%% Adapted from uantwerpendocs v4.12, (C) Walter Daems, LPPL 1.3c
 \newcommand*{\@UAChapNum}{%
   \begin{tikzpicture}
   \foreach \theta in {0,5,...,355} {
@@ -9075,6 +9068,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 %
 %<*ex1>
+%% Exam rules text adapted from uantwerpendocs v4.12, (C) Walter Daems, LPPL 1.3c
 %% Instruct your students about important details.
 \extrainfo{
   Belangrijke informatie:\par\medskip
@@ -9106,6 +9100,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 %
 %<*ex2>
+%% Exam rules text adapted from uantwerpendocs v4.12, (C) Walter Daems, LPPL 1.3c
 %% Instruct your students about important details.
 \extrainfo{
   %% The bilingual command allows you to specify a left column in English
@@ -10012,7 +10007,7 @@ I'd like to thank\ldots
 % \part{The beamer theme}
 % \label{P:II}
 % \setcounter{section}{0}
-% The user guide:
+% The user guide (adapted from uantwerpendocs v4.12, \textcopyright Walter Daems, LPPL 1.3c)
 %
 % \begin{Verbatim}
 %<*bmrug>

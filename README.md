@@ -268,9 +268,10 @@ Below, you can find a quick visual look at what the package provides.
 
 Copyright
 --
-This work is derived from `uantwerpendocs` v4.12 by Walter Daems. See the [NOTICE.md](NOTICE.md) or the class files copyright notices for further information.
+This work is derived from `uantwerpendocs` v4.12 by Walter Daems, with bama and report styling and GAI disclaimer code adapted from Joris Meys' LaTeX at UGent.
+See the [NOTICE.md](NOTICE.md) or the class files copyright notices for further information.
 
-:copyright: 2013-2026 by Walter Daems  
-:copyright: 2017-2026 by Joris Meys  
-:copyright: 2026 by Seppe Ongena
-
+:copyright: 2026 Seppe Ongena  
+Portions :copyright: 2013-2026 Walter Daems (uantwerpendocs)  
+Portions :copyright: 2017-2026 Joris Meys, used with permission  
+Licensed under the [LPPL 1.3c](LICENSE) or later

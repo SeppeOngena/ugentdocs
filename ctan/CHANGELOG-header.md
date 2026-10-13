@@ -5,7 +5,7 @@
 This work was derived from the `uantwerpendocs` v4.12 code,
 preserved at the Git tag `uantwerpendocs-v4.12-code`.
 
-The original source was substantially modified and expanded
+The original source was substantially rewritten and expanded
 for the UGent house style. The major changes include:
 
 - Renaming, restructuring, and merging of the classes and large portions of
