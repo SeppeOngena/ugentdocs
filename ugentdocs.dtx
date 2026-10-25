@@ -244,10 +244,10 @@
 % \newpage
 % \section*{How to read this documentation}
 % \begin{itemize}
-%   \item The classes are shown without the |ugent| prefix. In some cases,
-%     even shorter forms are used: |crs=course|, |rp=report|, |le=letter|,
-%     |ex=exam|, |bkc=bookcover|, |art=article| and |bmr=beamer|.
-%     |bama| remains |bama| and |phd| remains |phd|.
+%   \item The classes are sometimes abbreviated:
+%     |crs=ugentcourse|, |rp=ugentreport|, |le=ugentletter|, |ex=ugentexam|,
+%     |bkc=ugentbookcover|, |art=ugentarticle|, |bmr=beamerthemeugent|,
+%     |bama=ugentbama|, and |phd=ugentphd|.
 %   \item Common macros or options are defined in |ugentcommon.clo| and are
 %     denoted in the descriptions below using |common| or the shorthand |clo|.
 %   \item When an option or macro (command) is being described, its name
@@ -2265,8 +2265,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   \DescribeDefault{\textbackslash today}
 %   \margintag{tag}\\
 %   Sets the document date. Interacts with the |localizedates| option.
-%   Used in the |bama| copyright / autograph page, the |phd| title page, and
-%   the |letter| header.
+%   Used in the |ugentbama| copyright / autograph page, the |ugentphd| title page, and
+%   the |ugentletter| header.
 %   The article class uses the |type| option, which can be
 %   |submitted|, |accepted|, or |published| for the article info section.
 % \iffalse
@@ -2313,8 +2313,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %   \margintag{tag}\\
 %   Specifies the academic year.
 %   Not mandatory for report class.
-%   Used in title page of the |report|, |bama|, |course|, and |phd| classes,
-%   and the footer of the |exam| class.
+%   Used in title page of
+%   the |ugentreport|, |ugentbama|, |ugentcourse|, and |ugentphd| classes,
+%   and the footer of the |ugentexam| class.
 % \iffalse
 %<*clo>
 \ExplSyntaxOn
@@ -2773,7 +2774,8 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % Class loading operates as follows. The standard options such as |11pt|,
 % |oneside|, or |openright| are passed to the relevant base classes. For courses,
 % BSc/MSc and PhD dissertations, and reports, this is the |book| class.
-% The |ugentletter| class expands |letter|, while exams and articles are based on |article|.
+% The |ugentletter| class expands |ugentletter|,
+% while exams and articles are based on |article|.
 % \iffalse
 %<*crs|bama|phd|rp|bkc|le|ex|art>
 \ExplSyntaxOn
@@ -3588,8 +3590,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   \href{https://www.hogeronderwijsregister.be}{in Dutch})
 %   for correct bachelor and master degree titles.
 %   Consult the Doctoral bylaws of the university for PhD degree titles.\\
-%   The degree(s) are used on the cover pages of the |bama|, |phd|, |course|,
-%   and |exam| classes, and on the title page of the |phd| class.
+%   The degree(s) are used on the cover pages of
+%   the |ugentbama|, |ugentphd|, |ugentcourse|, and |ugentexam| classes,
+%   and on the title page of the |ugentphd| class.
 % \iffalse
 %<*crs|ex|bkc|phd|bama>
 \ExplSyntaxOn
@@ -3619,10 +3622,10 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   \marg{document type}
 %   \margintag{mandatory}
 %   \margintag{tag}\\
-%   Sets the document type for use in the |phd| and |bama| cover pages.
+%   Sets the document type for use in the |ugentphd| and |ugentbama| cover pages.
 %   Should be one of the doctype dictionary keys, being
 %   |dissertation-ba|, |dissertation-ma|, or |dissertation-phd|.
-%   The |report| class currently doesn't use this macro or tag,
+%   The |ugentreport| class currently doesn't use this macro or tag,
 %   although you could set |\extra{\@doctype}| and |\doctype{projreport}|,
 %   probably.
 % \iffalse
@@ -3642,8 +3645,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % \DescribeMacro[bama-phd-rp]{\wordcount}
 %   \marg{word count}
 %   \margintag{tag}\\
-%   Sets the word count of your document for printing on the cover page of the
-%   |bama| and |report| classes. The |phd| class doesn't use it currently.
+%   Sets the word count of your document for printing on
+%   the cover page of the |ugentbama| and |ugentreport| classes.
+%   The |ugentphd| class doesn't use it currently.
 %   If not called or set empty, the word count is not printed out.
 %   The |<word count>| can also be set to |\runwordcount|,
 %   which counts the words automatically (see below).
@@ -3713,9 +3717,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   \marg{DOI}
 %   \margintag{tag}\\
 %   Specify the correct Digital Object Identifier (without the https://doi.org/)
-%   of your PhD for display on the colophon page of the |phd| class
+%   of your PhD for display on the colophon page of the |ugentphd| class
 %   or your article for display in the article info and footer
-%   of the |article| class.
+%   of the |ugentarticle| class.
 %   If the |hyperref| package is loaded, the full URL will be linked.
 % \iffalse
 %<*phd|art>
@@ -3859,7 +3863,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   \margintag{tag}\\
 %   Used to override the default |\@copyrightnotices| content
 %   (see Section~\ref{S:style:copyright}).
-%   Can be used to load a signed copyright page for the |bama| class
+%   Can be used to load a signed copyright page for the |ugentbama| class
 %   using the |pdfpages| package and:
 %   |\copyrightnotices{\includepdf[pages={1}]{copyright_signed.pdf}}|
 % \iffalse
@@ -4118,18 +4122,19 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   The affiliation can have multiple formats, e.g.,
 %   start with a newline: '|\\|',
 %   start with '|, |' for regular inline,
-%   or even '|&|' for horizontal alignment in the |bama| \& |report| cover pages.
+%   or even '|&|' for horizontal alignment
+%   in the |ugentbama| \& |ugentreport| cover pages.
 %   Optional argument |corresponding| sets the author as corresponding,
 %   |email| specifies the author email, and |orcid| the ORCID.
 %   These are stored in the |authorcorr|, |authoremails|,
 %   and |authororcids| sequences.
 %
 %   The authors are used in
-%   the |bama|, |report| (optional), and |phd| cover pages,
-%   the |bama| autograph / copyright page,
-%   the |article| graphical abstract and title page,
-%   the |course| (optional) and |phd| colophon,
-%   the |phd| title page, and the |bookcover| spine.
+%   the |ugentbama|, |ugentreport| (optional), and |ugentphd| cover pages,
+%   the |ugentbama| autograph / copyright page,
+%   the |ugentarticle| graphical abstract and title page,
+%   the |ugentcourse| (optional) and |ugentphd| colophon,
+%   the |ugentphd| title page, and the |ugentbookcover| spine.
 %   The |pdfauthor| tag of the hyperref package (if it is loaded),
 %   is set using the |authorlist|
 %   so that the PDF-document meta-information is correct.
@@ -4376,9 +4381,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   The lecturers can be the same or independent
 %   from the authors of, e.g., a course text.
 %   The lecturers are used in
-%   the |report| cover page (optional),
-%   the |course| and |exam| cover pages, and
-%   the |bookcover| spine (precedence over authors).
+%   the |ugentreport| cover page (optional),
+%   the |ugentcourse| and |ugentexam| cover pages, and
+%   the |ugentbookcover| spine (precedence over authors).
 % \iffalse
 %<*crs|ex|rp|bkc>
 \ExplSyntaxOn
@@ -4429,12 +4434,12 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   Adds a person supervising the dissertation.
 %   Usage similar to |\author|.
 %   The supervisors are used in
-%   the |bama|, |report| (optional), and |phd| cover pages,
-%   and the |phd| examination committee page.
+%   the |ugentbama|, |ugentreport| (optional), and |ugentphd| cover pages,
+%   and the |ugentphd| examination committee page.
 %   The |allsupervisors| sequence additionally stores the
 %   co-supervisors and external supervisors (see below), and the
 %   |allsupervisorstutors| additionally includes |tutors| (see below).
-%   Both are used in the |bama| autograph / copyright page.
+%   Both are used in the |ugentbama| autograph / copyright page.
 % \iffalse
 %<*bama|phd|bkc>
 \ExplSyntaxOn
@@ -4480,7 +4485,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   \margintag{cosupervisors\_seq}
 %   \margintag{cosupervisorswaff\_seq}\\
 %   Adds a person co-supervising the Ba/Ma dissertation (optional).
-%   Used in the |bama| cover page and autograph / copyright page.
+%   Used in the |ugentbama| cover page and autograph / copyright page.
 %   See also |\supervisor|.
 %
 % \DescribeMacro[bama]{\extsupervisor}
@@ -4490,7 +4495,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   \margintag{extsupervisors\_seq}
 %   \margintag{extsupervisorswaff\_seq}\\
 %   Adds an external supervisor of the Ba/Ma dissertation (optional).
-%   Used in the |bama| cover page and autograph / copyright page.
+%   Used in the |ugentbama| cover page and autograph / copyright page.
 %   See also |\supervisor|.
 %
 % \DescribeMacro[bama]{\tutor}
@@ -4500,7 +4505,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   \margintag{tutors\_seq}
 %   \margintag{tutorswaff\_seq}\\
 %   Adds a tutor or mentor of the Ba/Ma dissertation (optional).
-%   Used in the |bama| cover page and autograph / copyright page.
+%   Used in the |ugentbama| cover page and autograph / copyright page.
 %   See also |\supervisor|.
 % \iffalse
 %<*bama>
@@ -4686,7 +4691,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   \marg{address lines}
 %   \margintag{mandatory}
 %   \margintag{tag}\\
-%   Address of the author(s) of the |letter|, |report|, or |phd|.
+%   Address of the author(s) of the |ugentletter|, |ugentreport|, or |ugentphd|.
 %   Newlines are allowed and encouraged.
 %   Used in the letter's header, the report cover page (optional),
 %   and the PhD colophon page.
@@ -4709,7 +4714,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   \margintag{emails\_seq}\\
 %   E-mail address of the sending person, or the administrative person
 %   tracking the letter or report.
-%   Used in the |letter| header and |report| cover page (optional).
+%   Used in the |ugentletter| header and |ugentreport| cover page (optional).
 %   You can specify multiple email addresses by using the command
 %   multiple times.
 % \iffalse
@@ -4767,7 +4772,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   \margintag{phones\_seq}\\
 %   \def\Phone {{\wasyfamily\char7}}
 %   Add phone numbers.
-%   Used in the |letter| header and |report| cover page (optional).
+%   Used in the |ugentletter| header and |ugentreport| cover page (optional).
 %   The |wasysym| package's |\phone| macro is redefined to |\Phone|: \Phone
 % \iffalse
 %<*bkc|le|rp|ex|crs|phd|bama>
@@ -4794,7 +4799,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   \marg{fax number}
 %   \margintag{faxes\_seq}\\
 %   Add fax numbers.
-%   Used in the |letter| header.
+%   Used in the |ugentletter| header.
 % \iffalse
 %<*le>
 \ExplSyntaxOn
@@ -4814,7 +4819,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   \marg{mobile number}
 %   \margintag{mobiles\_seq}\\
 %   Add mobile numbers.
-%   Used in the |letter| header and |report| cover page (optional).
+%   Used in the |ugentletter| header and |ugentreport| cover page (optional).
 % \iffalse
 %<*le|rp|bmr>
 \ExplSyntaxOn
@@ -5685,7 +5690,8 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %   A native \LaTeX{} macro, overridden to support the generation of
 %   cover pages, title pages, colophon pages, etc.
 %
-% For the |bama|, |phd|, |course|, |report|, and |exam| classes,
+% For the |ugentbama|, |ugentphd|, |ugentcourse|, |ugentreport|,
+% and |ugentexam| classes,
 % this generates the cover page using |\@frontcover|
 % (see Section \ref{S:style:covers}):
 %    \begin{macrocode}
@@ -5732,7 +5738,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %    \end{macrocode}
 %
 % Then, the remaining front pages are added.
-% For the |bama|, |report|, and |course| classes,
+% For the |ugentbama|, |ugentreport|, and |ugentcourse| classes,
 % this is just a copyright page using
 % |\@copyrightnotices| (See Section \ref{S:style:copyright}):
 %    \begin{macrocode}
@@ -5755,7 +5761,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \fi
 %</crs>
 %    \end{macrocode}
-% For the |exam| class, this is simply the extra info.
+% For the |ugentexam| class, this is simply the extra info.
 %    \begin{macrocode}
 %<*ex>
 ~\par\relax
@@ -5764,7 +5770,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</ex>
 %    \end{macrocode}
 %
-% For the |phd| class, this is a blank page,
+% For the |ugentphd| class, this is a blank page,
 % the committee page, the title page, and the colophon page:
 %    \begin{macrocode}
 %<*phd>
@@ -5861,7 +5867,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</bama|phd|rp|crs|ex>
 %    \end{macrocode}
 %
-% The |letter| class also uses |\maketitle| to typeset the header,
+% The |ugentletter| class also uses |\maketitle| to typeset the header,
 % including the logos, the faculty and team header,
 % and the info ribbon (|\@letterheader|, see Section \ref{S:usage:macros:letter}).
 % It also typesets the first page, with the foldline, punchline,
@@ -5958,7 +5964,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</le>
 %    \end{macrocode}
 %
-% The |article| class uses a simple title, no cover page is included.
+% The |ugentarticle| class uses a simple title, no cover page is included.
 % It includes a ``cover'' page containing the graphical abstract, highlights,
 % and copyright notice (if those are given).
 % The title page contains the title,
@@ -6364,7 +6370,8 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % The |hyperref| package is used for creating links within documents, such as
 % table of contents (TOC), citations, URLs,\ldots{}
 % If this package is loaded for
-% the |crs|, |bama|, |phd|, |article|, or |report| classes,
+% the |ugentcrs|, |ugentbama|, |ugentphd|, |ugentarticle|,
+% or |ugentreport| classes,
 % the style sets the TOC colour to |toccolor|
 % and any other link colour to |hypercolor|
 % (see Section~\ref{S:usage:cffcl:colours}).
@@ -6438,7 +6445,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % The |fancyhdr| package is used to make the headers and footers.
 % Using this, we can set left/centre/right (L/C/R) areas of the headers and footers.
 %
-% For the |course| class, we define separate headers and footers
+% For the |ugentcourse| class, we define separate headers and footers
 % for two-sided and one-sided documents.
 % For two-sided even pages, we put the page number in the left header,
 % the chapter title in the right header, and ``Ghent University'' (translated)
@@ -6510,8 +6517,9 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %    \end{macrocode}
 %
 %
-% For the |bama| and |report| classes, the frontmatter -- e.g., copyright page,
-% summary, abbreviations list, or AI use disclaimer -- uses a different style.
+% For the |ugentbama| and |ugentreport| classes, the frontmatter --
+% e.g., copyright page, summary, abbreviations list, or AI use disclaimer --
+% uses a different style.
 % For the frontmatter of a two-sided document,
 % the even pages show the page number in the left header,
 % and the odd pages show it in the left footer.
@@ -6623,7 +6631,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</bama|rp>
 %    \end{macrocode}
 %
-% The |phd| class uses simpler headers and footers.
+% The |ugentphd| class uses simpler headers and footers.
 % For regular pages, only headers are used.
 % For two-sided documents, the page numbers are shown on the outer header corners.
 % The chapter is shown in the right header on even pages,
@@ -6657,7 +6665,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</phd>
 %    \end{macrocode}
 %
-% The footer of the |exam| class is simply the page number and
+% The footer of the |ugentexam| class is simply the page number and
 % total page count in the centre.
 % The right header displays ``EXAMINER VERSION'' for the |examiner=true| option,
 % and the student number for |examiner=false| (default).
@@ -6690,7 +6698,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</ex>
 %    \end{macrocode}
 %
-% For the |article| class, this is the short title in the centre header,
+% For the |ugentarticle| class, this is the short title in the centre header,
 % a left footer ``Published'' or ``Published in: journal'' (if journal is given)
 % when a publication % date is given,
 % else ``Preprint'' or ``Preprint submitted to journal'',
@@ -6737,7 +6745,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</art>
 %    \end{macrocode}
 %
-% For the |letter| class, we don't use the fancyhdr package.
+% For the |ugentletter| class, we don't use the fancyhdr package.
 % Instead, we define a custom header using TikZ:
 %
 % \DescribeObject[custom]{\@letterheader}
@@ -6791,7 +6799,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %       BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
 % ]
 %
-% The |plain| style (default for |report| and |bama|):
+% The |plain| style (default for |ugentreport| and |ugentbama|):
 % \iffalse
 %<*bama|rp>
 \ExplSyntaxOn
@@ -6802,7 +6810,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 % {\fontsize{16}{19}\selectfont \color{titlecolor} \bfseries \textsf{\uline{1. AN EXAMPLE TITLE}}}
 %
-% The |fancy| style (default for |phd|):
+% The |fancy| style (default for |ugentphd|):
 % \iffalse
 %<*phd>
 \ExplSyntaxOn
@@ -6830,7 +6838,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % \vspace*{-10pt}%
 % {\color{titlecolor}\rule{\textwidth}{1pt}}
 %
-% The |fancycompact| style (default for |course|):
+% The |fancycompact| style (default for |ugentcourse|):
 % \iffalse
 %<*crs>
 \ExplSyntaxOn
@@ -7295,7 +7303,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</phd|bkc|crs|bama|rp|ex>
 %    \end{macrocode}
 %
-% For the |bama|, |report|, and |exam|,
+% For the |ugentbama|, |ugentreport|, and |ugentexam|,
 % the title position and text margin differ slightly:
 %    \begin{macrocode}
 %<*bama|rp|ex>
@@ -7311,7 +7319,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</bama|rp|ex>
 %    \end{macrocode}
 %
-% And the |course| data area width is slightly narrower:
+% And the |ugentcourse| data area width is slightly narrower:
 %    \begin{macrocode}
 %<*phd|bkc|crs>
 \ExplSyntaxOn
@@ -7330,11 +7338,11 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 % \subsubsection{Cover bodies}
 % The cover body text itself differs between all classes,
-% so we set it here. For the |bama| and |report| classes,
+% so we set it here. For the |ugentbama| and |ugentreport| classes,
 % the code was adapted from Joris Meys' LaTeX at UGent.
 %
 % \DescribeObject[custom]{\@coverbodybama}
-%   The |bama| cover body consists of
+%   The |ugentbama| cover body consists of
 %   the title, subtitle (if present),
 %   word count (if given), confidentiality (if applicable),
 %   author name(s), student nr. (one, if given),
@@ -7434,7 +7442,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %    \end{macrocode}
 %
 % \DescribeObject[custom]{\@coverbodyreport}
-%   The |report| cover body consists of
+%   The |ugentreport| cover body consists of
 %   the title, subtitle, and extra title (if present),
 %   word count (if given),
 %   author name(s), student nr. (one, if given),
@@ -7509,7 +7517,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %    \end{macrocode}
 %
 % \DescribeObject[custom]{\@coverbodyexam}
-%   The |exam| cover body consists of
+%   The |ugentexam| cover body consists of
 %   the course titles,
 %   the exam part,
 %   the course codes,
@@ -7609,7 +7617,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %    \end{macrocode}
 %
 % \DescribeObject[custom]{\@coverbodycourse}
-%   The |course| cover body consists of
+%   The |ugentcourse| cover body consists of
 %   the title, subtitle (if present),
 %   lecturers (if given),
 %   degrees (if given),
@@ -7652,7 +7660,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %    \end{macrocode}
 %
 % \DescribeObject[custom]{\@coverbodyphd}
-%   The |phd| cover body consists of
+%   The |ugentphd| cover body consists of
 %   the title, subtitle (if present),
 %   author(s), supervisors, academic year,
 %   and the ``Submitted to\ldots'' text.
@@ -7759,7 +7767,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % \DescribeObject[custom]{\@frontcover}
 %   The front cover of the document.
 %
-% For |bama|, |report|, and |exam|, this consists of
+% For |ugentbama|, |ugentreport|, and |ugentexam|, this consists of
 % the logo placements,
 % an optional background colour area,
 % the |\@coverbody|,
@@ -7809,7 +7817,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</bama|rp|ex>
 %    \end{macrocode}
 %
-% For the |phd| and |course|, the layout is similar,
+% For the |ugentphd| and |ugentcourse|, the layout is similar,
 % but a faintly coloured area is always included,
 % and a coloured data area is present:
 %    \begin{macrocode}
@@ -7875,7 +7883,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %    \end{macrocode}
 %
 % \DescribeObject[custom]{\@coverblankimage}
-% When no cover image is provided for the |course| or |phd| classes,
+% When no cover image is provided for the |ugentcourse| or |ugentphd| classes,
 % |\@coverblankimage| is executed.
 % For |phds|, it's just blank. For |courses|, it's the faculty icon:
 %    \begin{macrocode}
@@ -7906,14 +7914,14 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % \DescribeObject[custom]{\@backcover}
 % The back cover of the documents.
 %
-% The |bama|, |report|, and |exam| classes don't use one:
+% The |ugentbama|, |ugentreport|, and |ugentexam| classes don't use one:
 %    \begin{macrocode}
 %<*bama|rp|ex>
 \newcommand{\@backcover}{}
 %</bama|rp|ex>
 %    \end{macrocode}
 %
-% The |course| and |phd| classes share the same cover,
+% The |ugentcourse| and |ugentphd| classes share the same cover,
 % which includes an auto-generated ISBN barcode,
 % and optional backcoverlogos:
 %    \begin{macrocode}
@@ -7968,11 +7976,12 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % \label{S:style:copyright}
 %
 % This section defines the copyright notices of
-% the |bama|, |phd|, |course|, |report|, and |article| classes.
+% the |ugentbama|, |ugentphd|, |ugentcourse|, |ugentreport|,
+% and |ugentarticle| classes.
 % These can be overridden using the |\copyrightnotices| macro
 % (see Section \ref{S:usage:macros:data}).
 %
-% For the |bama| class, the autograph fields code is not shown here,
+% For the |ugentbama| class, the autograph fields code is not shown here,
 % since it is too complex to customize.
 % \iffalse
 %<*bama>
@@ -8047,7 +8056,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 \ExplSyntaxOff
 %</bama>
 % \fi
-% The copyright notices of the |bama| class include
+% The copyright notices of the |ugentbama| class include
 % the |\@bamadisclaimer| in both English and Dutch for an English dissertation,
 % a line with the location and date, and the autograph page:
 %    \begin{macrocode}
@@ -8091,7 +8100,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</bama>
 %    \end{macrocode}
 %
-% For a |phd|, it contains the colophon page, which consists of
+% For a |ugentphd|, it contains the colophon page, which consists of
 % the author contact information,
 % the title of the dissertation in Dutch (for English dissertations),
 % the cover image designer,
@@ -8199,7 +8208,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %</crs>
 %    \end{macrocode}
 %
-% For a |report|, the copyright simply contains
+% For a |ugentreport|, the copyright simply contains
 % the ``typeset using \LaTeX{} and the |ugentdocs| package'' notice,
 % user-defined |\@extranotices| (see Section \ref{S:usage:macros:data}),
 % and a general copyright notice:
@@ -9979,28 +9988,28 @@ I'd like to thank\ldots
 % ==============================================================================
 % \fi
 %
-% \subsection{\texttt{ugentcourse}}
+% \subsection{\texttt{example-ugentcourse}}
 % \VerbatimInput[firstline=48]{example-ugentcourse.tex}
 %
-% \subsection{\texttt{ugentbama}}
+% \subsection{\texttt{example-ugentbama}}
 % \VerbatimInput[firstline=48]{example-ugentbama-1.tex}
 % \VerbatimInput[firstline=48]{example-ugentbama-2.tex}
 %
-% \subsection{\texttt{ugentphd}}
+% \subsection{\texttt{example-ugentphd}}
 % \paragraph{Dutch}
 % \VerbatimInput[firstline=48]{example-ugentphd-1}
 % \paragraph{English}
 % \VerbatimInput[firstline=48]{example-ugentphd-2}
 %
-% \subsection{\texttt{ugentarticle}}
+% \subsection{\texttt{example-ugentarticle}}
 % \VerbatimInput[firstline=48]{example-ugentarticle.tex}
 %
-% \subsection{\texttt{ugentreport}}
+% \subsection{\texttt{example-ugentreport}}
 % \VerbatimInput[firstline=48]{example-ugentreport-1.tex}
 % \VerbatimInput[firstline=48]{example-ugentreport-2.tex}
 %
 %
-% \subsection{\texttt{ugentletter}}
+% \subsection{\texttt{example-ugentletter}}
 % \paragraph{Plain example}
 % \VerbatimInput[firstline=48]{example-ugentletter.tex}
 %
@@ -10043,7 +10052,7 @@ I'd like to thank\ldots
 % \end{Verbatim}
 %
 %
-% \subsection{\texttt{ugentexam}}
+% \subsection{\texttt{example-ugentexam}}
 % \paragraph{Single column (single language)}
 % \VerbatimInput[firstline=48]{example-ugentexam-1.tex}
 % \paragraph{Double column (bilingual EN-NL)}
