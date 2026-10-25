@@ -479,12 +479,10 @@
 %   \ugentdrawswatch{\i}{ugent@\fac}{\@faculty}
 % }
 %
-% \foreach \key/\name [count=\i from 13] in {
-%   lightgray/{Light gray},
-%   darkgray/{Dark gray}
-% }{
-%   \ugentdrawswatch{\i}{\key}{\name}
-% }
+% \begin{scope}[swatchtext/.append style={text=black}]
+%   \ugentdrawswatch{13}{lightgray}{Light gray}
+% \end{scope}
+% \ugentdrawswatch{14}{darkgray}{Dark gray}
 % \end{tikzpicture}%
 % }
 % \makeatother
