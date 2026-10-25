@@ -258,11 +258,13 @@ uploadconfig = {
     "report-like",    -- ugentreport
     "article-like",   -- ugentarticle
     "course-material",-- ugentcourse
+    "notes",          -- course notes
+    "dutch",          -- Dutch localisation / lexicon
+    "std-conform",    -- follows the official UGent style guide
     "use-luatex",     -- requires LuaLaTeX ...
     "use-xetex",      -- ... or XeLaTeX
   },
   ctanPath    = "/macros/latex/contrib/ugentdocs",
-  home        = repo_url,
   repository  = repo_url,
   bugtracker  = repo_url .. "/issues",
   support     = repo_url .. "/discussions",
