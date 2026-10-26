@@ -85,9 +85,11 @@ end
 
 -- Files --------------------------------------------------------------------
 
-sourcefiles  = {"ugentdocs.dtx", "ugentdocs.ins", "Images"}
-installfiles = {"*.cls", "*.sty", "*.clo", "*.dict", "Images"}
+sourcefiles  = {"ugentdocs.dtx", "ugentdocs.ins"}
+installfiles = {"*.cls", "*.sty", "*.clo", "*.dict"}
+docfiles = {"example-*.tex","beamerthemeugentuserguide.tex","Images","*.cfg"}
 typesetfiles = {"ugentdocs.dtx"}
+packtdszip   = true
 
 typesetexe   = "lualatex"
 typesetcmds  = "\\def\\ugentdocsversion{" .. version .. "}"
@@ -96,7 +98,8 @@ typesetcmds  = "\\def\\ugentdocsversion{" .. version .. "}"
 textfiledir  = "./build/text"
 textfiles    = {"README-ctan.md", "CHANGELOG.md"}
 ctanreadme   = "README-ctan.md"   -- renamed to README.md in the CTAN zip
-cleanfiles   = {"*.log", "*.pdf", "*.zip", "*.curlopt"}
+cleanfiles = {"*.log", "*.pdf", "*.zip", "*.curlopt",
+  "example-*.tex", "beamerthemeugentuserguide.tex", "*.cfg"}
 ctanzip      = "ugentdocs-" .. version .. "-ctan"
 
 -- Generated text files -------------------------------------------------------
@@ -240,7 +243,7 @@ uploadconfig = {
   author      = "Seppe Ongena",
   -- uploader and email are left out on purpose: l3build asks for them
   license     = "lppl1.3c",
-  summary     = "House style document classes for Ghent University",
+--   summary     = "House style document classes for Ghent University",
   description = "This package implements the house style of Ghent University "
   .. "(version 2025, following the official style guide) for bachelor's, "
   .. "master's, and PhD dissertations, research articles, reports, exams, "
@@ -264,7 +267,7 @@ uploadconfig = {
     "use-luatex",     -- requires LuaLaTeX ...
     "use-xetex",      -- ... or XeLaTeX
   },
-  ctanPath    = "/macros/latex/contrib/ugentdocs",
+  ctanPath = "/macros/unicodetex/latex/ugentdocs",
   repository  = repo_url,
   bugtracker  = repo_url .. "/issues",
   support     = repo_url .. "/discussions",
@@ -282,7 +285,20 @@ target_list.release = {
   desc = "Builds the GitHub release zip",
   func = release,
 }
-target_list.ctan.pre = generate_textfiles
+
+local generatedocfiles = {"example-*.tex", "beamerthemeugentuserguide.tex", "*.cfg"}
+
+local function prepare_ctan()
+  local errorlevel = unpack()
+  if errorlevel ~= 0 then return errorlevel end
+  -- docstrip writes these to unpackdir; docfiles are taken from docfiledir
+  for _, glob in ipairs(generatedocfiles) do
+    cp(glob, unpackdir, docfiledir)
+  end
+  return generate_textfiles()
+end
+    
+target_list.ctan.pre = prepare_ctan
 
 -- The standard clean only empties l3build's own folders and leaves
 -- subfolders (Images/) and the folders created above; remove ./build entirely
