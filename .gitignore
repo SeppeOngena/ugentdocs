@@ -7,3 +7,5 @@ fonts.txt
 *.zip
 *.pdf
 *.curlopt
+*.tex
+*.cfg
