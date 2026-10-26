@@ -2684,7 +2684,9 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 % \DescribeOption[le]{foldline}
 %   \DescribeDefault{true}
 %   Options: |true|, |false|\\
-%   Adds a little fold line to the letter margin, 1/3 of the page height from the top.
+%   Adds two little fold lines to the letter margin,
+%   one 87 mm from the top of the page
+%   and one 106 mm from the bottom (DIN 5008 Form A).
 % \iffalse
 %<*le>
 \bool_new:N \l_@@_foldline_bool
@@ -5865,16 +5867,23 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
     % Adapted from uantwerpendocs v4.12, (C) Walter Daems, LPPL 1.3c
     \begin{tikzpicture}[inner~sep=0pt,outer~sep=0pt,overlay]
     \clip (0,0) rectangle(\paperwidth,-\paperheight);
-    %
 
     \bool_if:NT \l_@@_foldline_bool {
-      \draw (1cm,-98mm) -- (1.5cm,-98mm);
+      \draw (0.5cm,-87mm) -- (1cm,-87mm);
+      \draw (0.5cm,-193mm) -- (1cm,-193mm);
     }
-    %
-    \path (2\gridunit,-44mm)
-    node[anchor=north~west,text~width=80mm,align=flush~left] {
-      \scriptsize\textcolor{gray}{\uline{\@returnaddress}}\\*
-      \normalsize\@to\\*
+
+    \path (2\gridunit,-44.7mm)
+    node[anchor=south~west, inner~sep=0pt, yshift=1.5mm,
+      text~width=83.5mm,align=flush~left] {
+      \fontsize{7pt}{8.4pt}\selectfont
+      \textcolor{gray}{\uline{\@returnaddress}}
+    };
+    \path (2\gridunit,-44.7mm)
+    node[anchor=north~west, inner~sep=0pt, yshift=-1.5mm,
+      text~width=83.5mm,align=flush~left] {
+      \fontsize{10pt}{12pt}\selectfont
+      \@to\\*
       \ifx\@toorganization\@empty\else\@toorganization\\*\fi%
       \@toaddress
     };
@@ -5902,7 +5911,7 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
     \end{tikzpicture}
   }
   \null
-  \vspace{4\gridunit}
+  \vspace{31.46mm}
   \@letterheader\\[\gridunit]
   {\bfseries\@subject}
 }
