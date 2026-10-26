@@ -180,50 +180,14 @@
 % style, (2) there's a feature missing in the classes or beamer theme, or
 % (3) there's a bug in this package, please,
 % \href{\githubmain/issues}{open an issue on GitHub} or contact me via
-% email (\href{mailto:seppe.ongena@ugent.be}{seppe.ongena@ugent.be}).%
-%
-% \vfill
-% \newpage
-% \section*{Synopsis}
-% The |course| and |phd| classes\footnote{For readability the class names
-% have been abbreviated by omitting the |ugent| prefix} are an extension
-% of the standard \LaTeX{} |book| class. They are intended to be used for
-% writing course texts and PhD dissertations and provide a cover page compliant
-% to the UGent house style. They also typeset the data pages automatically
-% (e.g., examination committee, title page, colophon)
-% and style the rest of the document appropriately.
-% These two classes additionally enable the generation of
-% a full book cover (back/spine/front) with auto-generated ISBN barcode.
-%
-% The |bama| and |report| classes are also derived from the standard \LaTeX{}
-% |book| class. These are intended for writing BSc/MSc dissertations and
-% generic reports (e.g. research reports, course assignments, meeting notes).
-% The |bama| class additionally populates a copyright page with signature fields
-% based on the authors, supervisors, and tutors added.
-%
-% The |letter| class is derived from the standard \LaTeX{} |letter| class.
-% It is intended to be used for writing business letters compliant to the house
-% style and allows for using left-aligned windowed envelopes of the DL format.
-%
-% The |exam| and |article| classes are derived from the standard \LaTeX{}
-% |article| class.
-% THey allows typesetting bilingual exams and research articles for submission
-% to journals or UGent Biblio.
-%
-% The slides come under the form of a beamer theme. The beamer theme is based
-% on the modern 2025 UGent Panno Text one (with support for Arial), \emph{not}
-% the 2016 Arial theme as that does not adhere to, e.g., grid spacing and feels
-% less refined / more ``loud'' in general (large font size of slide titles,
-% in both caps and underline).
+% email (\href{mailto:seppe.ongena@ugent.be}{seppe.ongena@ugent.be}).
 %
 % \begin{center}
 %   \framebox[0.95\textwidth]{
 %     \begin{minipage}{0.92\textwidth}
 %       The documentation of the class files for PhD dissertations,
-%       MSc/BSc dissertations,articles, letters, course texts, reports,
+%       MSc/BSc dissertations, articles, letters, course texts, reports,
 %       and exams can be found in this document (Part~\ref{P:I}).
-%       \\[\baselineskip]
-%
 %       Template files for all of the classes can be found below in
 %       Part~I Section~\ref{S:examples}.
 %       \\[\baselineskip]
@@ -241,6 +205,7 @@
 % available to your \LaTeX{} compiler. Most of these should be installed by
 % default in TeXLive distributions or can be made to auto-install for MikTeX.
 %
+% \vfill
 % \newpage
 % \section*{How to read this documentation}
 % \begin{itemize}
@@ -419,12 +384,16 @@
 % \part{The paper classes}
 % \label{P:I}
 %
-% In the following sections, we will describe the usage of the classes
-% (Section~\ref{S:usage}), show the style implementation (Section~\ref{S:style})
+% In the following sections, we will
+% give a quick overview of the classes (Section~\ref{S:Overview}),
+% describe the usage of the classes (Section~\ref{S:usage}),
+% show the style implementation (Section~\ref{S:style})
 % and show some example documents (Section~\ref{S:examples}).
+%
 % You can skip straight to the examples if you prefer and just copy-paste
 % a specific class example and start using and adjusting them to your needs,
 % as most functionality is explained within.
+%
 % The full package source code will \emph{not} be given here in the documentation.
 % For that, you can inspect the .dtx file where this documentation
 % is interwoven with the source code. The exception is any code for which
@@ -432,9 +401,175 @@
 % See the customization note on page \pageref{S:customization} for more
 % information.
 %
+% \section{Overview of the classes}
+% \label{S:Overview}
+%
+% \newenvironment{classinfo}
+% {\list{}{%
+%     \renewcommand\makelabel[1]{\textbf{##1}\hfil}%
+%     \setlength\labelwidth{5em}%
+%     \setlength\labelsep{1em}%
+%     \setlength\leftmargin{\dimexpr\labelwidth+\labelsep\relax}%
+%     \setlength\itemsep{2pt}%
+%     \setlength\parsep{0pt}}}
+% {\endlist}
+%
+% \subsection{\texttt{ugentphd}}
+% The |ugentphd| class is intended for writing PhD dissertations.
+% \begin{classinfo}
+%   \item[Extends]    the |book| class.
+%   \item[Provides]   a cover page following the UGent house style,
+%                     automatically typeset data pages (examination
+%                     committee, title page, colophon), and styling for
+%                     the rest of the document.
+%   \item[Bookcover]  a full cover (back, spine, front) with an
+%                     auto-generated ISBN barcode: the class writes a
+%                     |cover.tex| file for use with |ugentbookcover|.
+%   \item[Loading]    |\documentclass[<options>]{ugentphd}|
+%   \item[Usage]      every macro or option tagged |phd| or |common|
+%                     (Section~\ref{S:usage}). See the
+%                     \hyperref[S:index]{\indexname} on
+%                     page~\pageref{S:index} for an overview.
+%   \item[Example]    \nameref{S:examples:ugentphd}
+% \end{classinfo}
+%
+%
+% \subsection{\texttt{ugentcourse}}
+% The |ugentphd| class is intended for writing course texts.
+% \begin{classinfo}
+%   \item[Extends]    the |book| class.
+%   \item[Provides]   a cover page following the UGent house style,
+%                     automatically typeset copyright / colophon pages,
+%                     and styling for the rest of the document.
+%   \item[Bookcover]  a full cover (back, spine, front) with an
+%                     auto-generated ISBN barcode: the class writes a
+%                     |cover.tex| file for use with |ugentbookcover|.
+%   \item[Loading]    |\documentclass[<options>]{ugentcourse}|
+%   \item[Usage]      every macro or option tagged |crs| or |common|
+%                     (Section~\ref{S:usage}). See the
+%                     \hyperref[S:index]{\indexname} on
+%                     page~\pageref{S:index} for an overview.
+%   \item[Example]    \nameref{S:examples:ugentcourse}
+% \end{classinfo}
+%
+%
+% \subsection{\texttt{ugentbookcover}}
+% The |ugentbookcover| class is intended for generating full covers
+% (back/spine/front) for PhD dissertations and course texts.
+% \begin{classinfo}
+%   \item[Extends]    the |bookcover| class.
+%   \item[Provides]   a full cover (back, spine, front) with an
+%                     auto-generated ISBN barcode.
+%   \item[Loading]    |\documentclass[<options>]{ugentbookcover}|
+%   \item[Usage]      every macro or option tagged |bkc| or |common|
+%                     (Section~\ref{S:usage}). See the
+%                     \hyperref[S:index]{\indexname} on
+%                     page~\pageref{S:index} for an overview.
+%   \item[Example]    generated by \nameref{S:examples:ugentphd}
+%                     or \nameref{S:examples:ugentcourse}
+% \end{classinfo}
+%
+%
+% \subsection{\texttt{ugentbama}}
+% The |ugentbama| class is intended for writing BSc/MSc dissertations.
+% \begin{classinfo}
+%   \item[Extends]    the |book| class.
+%   \item[Provides]   a cover page following the UGent house style,
+%                     automatically typeset copyright / colophon pages
+%                     with generated autograph fields based on
+%                     the author, supervisors, and tutors specified,
+%                     and styling for the rest of the document.
+%   \item[Loading]    |\documentclass[<options>]{ugentbama}|
+%   \item[Usage]      every macro or option tagged |bama| or |common|
+%                     (Section~\ref{S:usage}). See the
+%                     \hyperref[S:index]{\indexname} on
+%                     page~\pageref{S:index} for an overview.
+%   \item[Example]    \nameref{S:examples:ugentbama}
+% \end{classinfo}
+%
+%
+% \subsection{\texttt{ugenreport}}
+% The |ugentreport| is the most generalist or flexible class.
+% It can be used for, e.g., research reports, course assignments,
+% meeting notes, or supplementary information.
+% \begin{classinfo}
+%   \item[Extends]    the |book| class.
+%   \item[Provides]   a flexible cover page following the UGent house style
+%                     only displaying the information provided, a copyright page,
+%                     and styling for the rest of the document.
+%   \item[Loading]    |\documentclass[<options>]{ugentreport}|
+%   \item[Usage]      every macro or option tagged |rp| or |common|
+%                     (Section~\ref{S:usage}). See the
+%                     \hyperref[S:index]{\indexname} on
+%                     page~\pageref{S:index} for an overview.
+%   \item[Example]    \nameref{S:examples:ugentreport}
+% \end{classinfo}
+%
+%
+% \subsection{\texttt{ugentletter}}
+% The |ugentletter| class is intented for writing letters.
+% \begin{classinfo}
+%   \item[Extends]    the |letter| class.
+%   \item[Provides]   a letter header following the UGent house style.
+%                     The address zone is designed for
+%                     left-aligned windowed envelopes of DIN 5008 Form A.
+%                     Letter .cfg files can be loaded
+%                     to re-use the sender information.
+%                     Fold and punch marks can be drawn.
+%   \item[Loading]    |\documentclass[<options>]{ugentletter}|
+%   \item[Usage]      every macro or option tagged |le| or |common|
+%                     (Section~\ref{S:usage}). See the
+%                     \hyperref[S:index]{\indexname} on
+%                     page~\pageref{S:index} for an overview.
+%   \item[Example]    \nameref{S:examples:ugentletter}
+% \end{classinfo}
+%
+%
+% \subsection{\texttt{ugentexam}}
+% The |ugentexam| class is intended for typesetting (bilingual) exams.
+% \begin{classinfo}
+%   \item[Extends]    the |article| class.
+%   \item[Provides]   a UGent-styled cover page,
+%                     with fillout areas for student information.
+%                     Supports bilingual question formatting,
+%                     subquestions, multiple-choice questions,
+%                     and an automatic point overview.
+%                     Answer spaces can specified with a number of lines
+%                     and spill over to the next page.
+%                     The answer spaces can be blank, the writing lines
+%                     can be drawn, or a grid can be drawn.
+%   \item[Loading]    |\documentclass[<options>]{ugentexam}|
+%   \item[Usage]      every macro or option tagged |ex| or |common|
+%                     (Section~\ref{S:usage}). See the
+%                     \hyperref[S:index]{\indexname} on
+%                     page~\pageref{S:index} for an overview.
+%   \item[Example]    \nameref{S:examples:ugentexam}
+% \end{classinfo}
+
+%%
+% \subsection{\texttt{ugentarticle}}
+% The |ugentarticle| class is intended for writing research articles,
+% e.g., for uploading author's accepted manuscripts to UGent Biblio or
+% for submission to journals not providing a \LaTeX{} template.
+% \begin{classinfo}
+%   \item[Extends]    the |article| class.
+%   \item[Provides]   a UGent-styled cover page: title, authors,
+%                     graphical abstract, and highlights.
+%                     A UGent-styled title page: title, authors (with ORCID badges),
+%                     affiliations, and article info block (abstract, keywords,
+%                     submitted/accepted/published date).
+%   \item[Loading]    |\documentclass[<options>]{ugentarticle}|
+%   \item[Usage]      every macro or option tagged |art| or |common|
+%                     (Section~\ref{S:usage}). See the
+%                     \hyperref[S:index]{\indexname} on
+%                     page~\pageref{S:index} for an overview.
+%   \item[Example]    \nameref{S:examples:ugentarticle}
+% \end{classinfo}
+%
+%
+% \newpage
 % \section{Usage}
 % \label{S:usage}
-%
 %
 % \subsection{Colours, fonts, faculties, campuses, and logos}
 % \label{S:usage:cffcl}
@@ -534,7 +669,6 @@
 %</col>
 % \fi
 %
-% \newpage
 % Some class options change colour handling:
 %
 % \DescribeOption[common]{neutralcolors}
@@ -3202,7 +3336,7 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 \setlength\@PH{297mm}
 \@setgridunit
 \RequirePackage[heightrounded,a4paper, footskip=4\gridunit,
-                top=5\gridunit, bottom=4\gridunit, left=2\gridunit, right=4.07cm]{geometry}
+                top=5\gridunit, bottom=4\gridunit, left=2.5cm, right=4.0cm]{geometry}
 %</le>
 %<*art>
 \setlength\@PW{210mm}
@@ -9989,27 +10123,33 @@ I'd like to thank\ldots
 % \fi
 %
 % \subsection{\texttt{example-ugentcourse}}
+% \label{S:examples:ugentcourse}
 % \VerbatimInput[firstline=48]{example-ugentcourse.tex}
 %
 % \subsection{\texttt{example-ugentbama}}
+% \label{S:examples:ugentbama}
 % \VerbatimInput[firstline=48]{example-ugentbama-1.tex}
 % \VerbatimInput[firstline=48]{example-ugentbama-2.tex}
 %
 % \subsection{\texttt{example-ugentphd}}
+% \label{S:examples:ugentphd}
 % \paragraph{Dutch}
 % \VerbatimInput[firstline=48]{example-ugentphd-1}
 % \paragraph{English}
 % \VerbatimInput[firstline=48]{example-ugentphd-2}
 %
 % \subsection{\texttt{example-ugentarticle}}
+% \label{S:examples:ugentarticle}
 % \VerbatimInput[firstline=48]{example-ugentarticle.tex}
 %
 % \subsection{\texttt{example-ugentreport}}
+% \label{S:examples:ugentreport}
 % \VerbatimInput[firstline=48]{example-ugentreport-1.tex}
 % \VerbatimInput[firstline=48]{example-ugentreport-2.tex}
 %
 %
 % \subsection{\texttt{example-ugentletter}}
+% \label{S:examples:ugentletter}
 % \paragraph{Plain example}
 % \VerbatimInput[firstline=48]{example-ugentletter.tex}
 %
@@ -10053,13 +10193,14 @@ I'd like to thank\ldots
 %
 %
 % \subsection{\texttt{example-ugentexam}}
+% \label{S:examples:ugentexam}
 % \paragraph{Single column (single language)}
 % \VerbatimInput[firstline=48]{example-ugentexam-1.tex}
 % \paragraph{Double column (bilingual EN-NL)}
 % \VerbatimInput[firstline=48]{example-ugentexam-2.tex}
 %
 %
-% \StopEventually{\clearpage\PrintChanges\clearpage\PrintIndex}
+% \StopEventually{\clearpage\PrintChanges\clearpage\phantomsection\label{S:index}\PrintIndex}
 %
 %
 %
@@ -10067,7 +10208,14 @@ I'd like to thank\ldots
 % \part{The beamer theme}
 % \label{P:II}
 % \setcounter{section}{0}
-% The user guide (adapted from uantwerpendocs v4.12, \textcopyright Walter Daems, LPPL 1.3c)
+% The slides come under the form of a beamer theme. The beamer theme is based
+% on the modern 2025 UGent Panno Text one (with support for Arial), \emph{not}
+% the 2016 Arial theme as that does not adhere to, e.g., grid spacing and feels
+% less refined / more ``loud'' in general (large font size of slide titles,
+% in both caps and underline).
+%
+% We refer to the user guide for more information on how to use |beamerthemeugent|
+% (adapted from uantwerpendocs v4.12, \textcopyright Walter Daems, LPPL 1.3c):
 %
 % \begin{Verbatim}
 %<*bmrug>
