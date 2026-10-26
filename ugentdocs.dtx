@@ -2699,6 +2699,37 @@ embargotempbama = van dit proefschrift verklaren dat dit document confidentieel 
 %</le>
 % \fi
 %
+% \DescribeOption[le]{punchline}
+%   \DescribeDefault{true}
+%   Options: |true|, |false|\\
+%   Adds a little punch line to the letter margin,
+%   at half the page height.
+% \iffalse
+%<*le>
+\bool_new:N \l_@@_punchline_bool
+
+\keys_define:nn { ugentdocs } {
+  punchline .bool_set:N = \l_@@_punchline_bool ,
+  punchline .default:n = true ,
+}
+%</le>
+% \fi
+%
+% \DescribeOption[le]{letterwindow}
+%   \DescribeDefault{true}
+%   Options: |true|, |false|\\
+%   Draws the DIN 5008 Form A letter window outline on the page.
+% \iffalse
+%<*le>
+\bool_new:N \l_@@_letterwindow_bool
+
+\keys_define:nn { ugentdocs } {
+  letterwindow .bool_set:N = \l_@@_letterwindow_bool ,
+  letterwindow .default:n = true ,
+}
+%</le>
+% \fi
+%
 % \DescribeOption[bkc]{covertype}
 %   Options: |phd|, |course|\\
 %   Passes the cover type to construct to the |bookcover| class.
@@ -5833,8 +5864,8 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 % The |letter| class also uses |\maketitle| to typeset the header,
 % including the logos, the faculty and team header,
 % and the info ribbon (|\@letterheader|, see Section \ref{S:usage:macros:letter}).
-% It also typesets the first page, with the foldline, the from and to address,
-% and the sender information:
+% It also typesets the first page, with the foldline, punchline,
+% the from and to address, and the sender information:
 %    \begin{macrocode}
 %<*le>
 \ExplSyntaxOn
@@ -5871,6 +5902,14 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
     \bool_if:NT \l_@@_foldline_bool {
       \draw (0.5cm,-87mm) -- (1cm,-87mm);
       \draw (0.5cm,-193mm) -- (1cm,-193mm);
+    }
+
+    \bool_if:NT \l_@@_punchline_bool {
+      \draw (0.5cm,-148.5mm) -- (1cm,-148.5mm);
+    }
+
+    \bool_if:NT \l_@@_letterwindow_bool {
+      \draw (20mm,-27mm) rectangle (115mm,-72mm);
     }
 
     \path (2\gridunit,-44.7mm)
@@ -8351,6 +8390,10 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 %<*le1>
 %% foldline           Prints a fold line at 2/3 page height
+%%                    Options: true*, false
+%% punchline          Prints a punch line at 1/2 page height
+%%                    Options: true*, false
+%% letterwindow       Prints the letter window (DIN 5008 Form A)
 %%                    Options: true*, false
 %</le1>
 %
