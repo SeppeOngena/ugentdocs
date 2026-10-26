@@ -3,9 +3,9 @@
 
 
 <p align="center">
-<a href="https://github.com/SeppeOngena/ugentdocs"><img alt="LPPL-1.3c License" src="https://img.shields.io/github/license/SeppeOngena/ugentdocs.svg"/></a>
-<a href="https://github.com/SeppeOngena/ugentdocs/releases"><img alt="Current Release" src="https://img.shields.io/github/release/SeppeOngena/ugentdocs.svg?include_prereleases"/></a>
-<a href="https://github.com/SeppeOngena/ugentdocs/releases"><img alt="Download Count" src="https://img.shields.io/github/downloads/SeppeOngena/ugentdocs/total"/></a>
+<a href="https://github.com/SeppeOngena/ugentdocs/blob/main/LICENSE"><img alt="LPPL-1.3c License" src="https://img.shields.io/github/license/SeppeOngena/ugentdocs"/></a>
+<a href="https://github.com/SeppeOngena/ugentdocs/releases"><img alt="Current Release" src="https://img.shields.io/github/v/release/SeppeOngena/ugentdocs?include_prereleases&label=GitHub%20release"/></a>
+<a href="https://ctan.org/pkg/ugentdocs"><img alt="CTAN version" src="https://img.shields.io/ctan/v/ugentdocs?label=CTAN%20version"/></a>
 <a href="https://github.com/SeppeOngena/ugentdocs/commits"><img alt="Commits since Latest Release" src="https://img.shields.io/github/commits-since/SeppeOngena/ugentdocs/latest?include_prereleases"/></a>
 
     
