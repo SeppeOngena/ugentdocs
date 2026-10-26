@@ -406,10 +406,12 @@
 %
 % \newenvironment{classinfo}
 % {\list{}{%
-%     \renewcommand\makelabel[1]{\textbf{##1}\hfil}%
+%     \renewcommand\makelabel[1]{\hfil\textit{##1}}%
 %     \setlength\labelwidth{5em}%
-%     \setlength\labelsep{1em}%
+%     \setlength\labelsep{0.5em}%
 %     \setlength\leftmargin{\dimexpr\labelwidth+\labelsep\relax}%
+%     \setlength\topsep{4pt}%
+%     \setlength\partopsep{0pt}%
 %     \setlength\itemsep{2pt}%
 %     \setlength\parsep{0pt}}}
 % {\endlist}
@@ -426,7 +428,7 @@
 %                     auto-generated ISBN barcode: the class writes a
 %                     |cover.tex| file for use with |ugentbookcover|.
 %   \item[Loading]    |\documentclass[<options>]{ugentphd}|
-%   \item[Usage]      every macro or option tagged |phd| or |common|
+%   \item[Use]        every macro or option tagged |phd| or |common|
 %                     (Section~\ref{S:usage}). See the
 %                     \hyperref[S:index]{\indexname} on
 %                     page~\pageref{S:index} for an overview.
@@ -435,7 +437,7 @@
 %
 %
 % \subsection{\texttt{ugentcourse}}
-% The |ugentphd| class is intended for writing course texts.
+% The |ugentcourse| class is intended for writing course texts.
 % \begin{classinfo}
 %   \item[Extends]    the |book| class.
 %   \item[Provides]   a cover page following the UGent house style,
@@ -445,7 +447,7 @@
 %                     auto-generated ISBN barcode: the class writes a
 %                     |cover.tex| file for use with |ugentbookcover|.
 %   \item[Loading]    |\documentclass[<options>]{ugentcourse}|
-%   \item[Usage]      every macro or option tagged |crs| or |common|
+%   \item[Use]        every macro or option tagged |crs| or |common|
 %                     (Section~\ref{S:usage}). See the
 %                     \hyperref[S:index]{\indexname} on
 %                     page~\pageref{S:index} for an overview.
@@ -461,7 +463,7 @@
 %   \item[Provides]   a full cover (back, spine, front) with an
 %                     auto-generated ISBN barcode.
 %   \item[Loading]    |\documentclass[<options>]{ugentbookcover}|
-%   \item[Usage]      every macro or option tagged |bkc| or |common|
+%   \item[Use]        every macro or option tagged |bkc| or |common|
 %                     (Section~\ref{S:usage}). See the
 %                     \hyperref[S:index]{\indexname} on
 %                     page~\pageref{S:index} for an overview.
@@ -480,7 +482,7 @@
 %                     the author, supervisors, and tutors specified,
 %                     and styling for the rest of the document.
 %   \item[Loading]    |\documentclass[<options>]{ugentbama}|
-%   \item[Usage]      every macro or option tagged |bama| or |common|
+%   \item[Use]        every macro or option tagged |bama| or |common|
 %                     (Section~\ref{S:usage}). See the
 %                     \hyperref[S:index]{\indexname} on
 %                     page~\pageref{S:index} for an overview.
@@ -498,7 +500,7 @@
 %                     only displaying the information provided, a copyright page,
 %                     and styling for the rest of the document.
 %   \item[Loading]    |\documentclass[<options>]{ugentreport}|
-%   \item[Usage]      every macro or option tagged |rp| or |common|
+%   \item[Use]        every macro or option tagged |rp| or |common|
 %                     (Section~\ref{S:usage}). See the
 %                     \hyperref[S:index]{\indexname} on
 %                     page~\pageref{S:index} for an overview.
@@ -517,7 +519,7 @@
 %                     to re-use the sender information.
 %                     Fold and punch marks can be drawn.
 %   \item[Loading]    |\documentclass[<options>]{ugentletter}|
-%   \item[Usage]      every macro or option tagged |le| or |common|
+%   \item[Use]        every macro or option tagged |le| or |common|
 %                     (Section~\ref{S:usage}). See the
 %                     \hyperref[S:index]{\indexname} on
 %                     page~\pageref{S:index} for an overview.
@@ -539,7 +541,7 @@
 %                     The answer spaces can be blank, the writing lines
 %                     can be drawn, or a grid can be drawn.
 %   \item[Loading]    |\documentclass[<options>]{ugentexam}|
-%   \item[Usage]      every macro or option tagged |ex| or |common|
+%   \item[Use]        every macro or option tagged |ex| or |common|
 %                     (Section~\ref{S:usage}). See the
 %                     \hyperref[S:index]{\indexname} on
 %                     page~\pageref{S:index} for an overview.
@@ -559,7 +561,7 @@
 %                     affiliations, and article info block (abstract, keywords,
 %                     submitted/accepted/published date).
 %   \item[Loading]    |\documentclass[<options>]{ugentarticle}|
-%   \item[Usage]      every macro or option tagged |art| or |common|
+%   \item[Use]        every macro or option tagged |art| or |common|
 %                     (Section~\ref{S:usage}). See the
 %                     \hyperref[S:index]{\indexname} on
 %                     page~\pageref{S:index} for an overview.
