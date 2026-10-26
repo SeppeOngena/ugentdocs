@@ -170,7 +170,7 @@ local function examples()
   for _, glob in ipairs(examplefiles) do
     cp(glob, unpackdir, exampledir)
   end
-  cp("Images", unpackdir, exampledir)
+  cp("Images", docfiledir, exampledir)
   local done = {}
   repeat
     local found = false
