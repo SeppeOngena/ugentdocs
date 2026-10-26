@@ -297,6 +297,16 @@ local function prepare_ctan()
   end
   return generate_textfiles()
 end
+
+local basecopyctan = copyctan
+function copyctan()
+  local errorlevel = basecopyctan()
+  local pkgdir = ctandir .. "/" .. ctanpkg
+  for _, glob in ipairs(generatedocfiles) do
+    rm(pkgdir, glob)
+  end
+  return errorlevel
+end
     
 target_list.ctan.pre = prepare_ctan
 
