@@ -35,7 +35,7 @@
 \ProvidesFile{ugentdocs.dtx}
 %</driver>
 %<@@=ugentdocs>
-%<crs|bama|phd|rp|le|ex|bmr|bkc>\NeedsTeXFormat{LaTeX2e}
+%<col|crs|bama|phd|rp|le|ex|bkc|art|bmr|bmrcolor|bmrfont|bmrinner|bmrouter>\NeedsTeXFormat{LaTeX2e}
 %<clo>\ProvidesFile{ugentcommon.clo}
 %<col>\ProvidesPackage{ugentcolor}
 %<crs>\ProvidesClass{ugentcourse}
@@ -47,12 +47,17 @@
 %<bmr>\ProvidesPackage{beamerthemeugent}
 %<bkc>\ProvidesClass{ugentbookcover}
 %<art>\ProvidesClass{ugentarticle}
-%<col|crs|bama|phd|rp|le|ex|bmr|bkc|art>    [2026/07/03 v1.0.0 .dtx skeleton file]
+%<bmrcolor>\ProvidesPackage{beamercolorthemeugent}
+%<bmrfont>\ProvidesPackage{beamerfontthemeugent}
+%<bmrinner>\ProvidesPackage{beamerinnerthemeugent}
+%<bmrouter>\ProvidesPackage{beamerouterthemeugent}
+% Date and version are set by l3build (stamp_version, build.lua). Do not edit.
+%<clo|col|crs|bama|phd|rp|le|ex|bmr|bkc|art|bmrcolor|bmrfont|bmrinner|bmrouter>[0000/00/00 vdev UGent house style (ugentdocs)]
 %<*driver>
 \documentclass[a4paper,10pt]{ltxdoc}
 %
 \providecommand{\ugentdocsdate}{\the\year-\the\month-\the\day}
-\providecommand{\ugentdocsversion}{v1.0.0}
+\providecommand{\ugentdocsversion}{dev}
 %
 \usepackage{geometry}
 \usepackage[dutch,main=english]{babel}
