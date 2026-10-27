@@ -67,6 +67,9 @@ if version == "" and has_git then
 end
 if version == "" then
   local hash = has_git and git("rev-parse --short HEAD") or ""
+  if hash ~= "" and git("status --porcelain --untracked-files=no") ~= "" then
+    hash = hash .. "-dirty"
+  end
   version = hash ~= "" and ("dev-" .. hash) or "dev"
 end
 
@@ -93,6 +96,38 @@ packtdszip   = true
 
 typesetexe   = "lualatex"
 typesetcmds  = "\\def\\ugentdocsversion{" .. version .. "}"
+  .. "\\def\\ugentdocsdate{" .. os.date("%Y-%m-%d") .. "}"
+
+-- Version stamping -------------------------------------------------------------
+-- The .dtx carries a placeholder in the \Provides... optional argument:
+--   [0000/00/00 vdev UGent house style (ugentdocs)]
+-- Every unpack (and so doc, examples, install, release and ctan) rewrites it
+-- in the generated files, and the ctan target also stamps the shipped .dtx.
+-- Nothing has to be bumped by hand.
+
+local provides_date    = os.date("%Y/%m/%d")
+local provides_version = version:match("^%d") and ("v" .. version) or version
+
+local function stamp_version(dir, glob)
+  for _, f in ipairs(filelist(dir, glob)) do
+    local path = dir .. "/" .. f
+    local s = readfile(path)
+    local new, n = s:gsub(
+      "%[%d%d%d%d/%d%d/%d%d %S+( UGent house style %(ugentdocs%)%])",
+      "[" .. provides_date .. " " .. provides_version .. "%1")
+    if n > 0 then writefile(path, new) end
+  end
+end
+
+local basebundleunpack = bundleunpack
+function bundleunpack(...)
+  local errorlevel = basebundleunpack(...)
+  if errorlevel ~= 0 then return errorlevel end
+  for _, glob in ipairs(installfiles) do
+    stamp_version(unpackdir, glob)
+  end
+  return 0
+end
 
 -- README and CHANGELOG are generated (see ctan pre-hook below)
 textfiledir  = "./build/text"
@@ -305,6 +340,8 @@ function copyctan()
   for _, glob in ipairs(generatedocfiles) do
     rm(pkgdir, glob)
   end
+  stamp_version(pkgdir, "*.dtx")
+  stamp_version(tdsdir .. "/source/" .. moduledir, "*.dtx")
   return errorlevel
 end
     
