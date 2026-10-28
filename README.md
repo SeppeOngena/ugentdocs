@@ -5,9 +5,11 @@
 <p align="center">
 <a href="https://github.com/SeppeOngena/ugentdocs/blob/main/LICENSE"><img alt="LPPL-1.3c License" src="https://img.shields.io/github/license/SeppeOngena/ugentdocs"/></a>
 <a href="https://github.com/SeppeOngena/ugentdocs/releases"><img alt="Current Release" src="https://img.shields.io/github/v/release/SeppeOngena/ugentdocs?include_prereleases&label=GitHub%20release"/></a>
+<a href="https://github.com/SeppeOngena/ugentdocs/commits"><img alt="Commits since Latest Release" src="https://img.shields.io/github/commits-since/SeppeOngena/ugentdocs/latest?include_prereleases&label=new%20commits"/></a>
+<br>
 <a href="https://ctan.org/pkg/ugentdocs"><img alt="CTAN version" src="https://img.shields.io/ctan/v/ugentdocs?label=CTAN%20version"/></a>
-<a href="https://github.com/SeppeOngena/ugentdocs/commits"><img alt="Commits since Latest Release" src="https://img.shields.io/github/commits-since/SeppeOngena/ugentdocs/latest?include_prereleases"/></a>
-
+<a href="https://tug.org/texlive/"><img alt="Included in TeX Live" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fctan.org%2Fjson%2F2.0%2Fpkg%2Fugentdocs&prefix=ugentdocs%20v&query=%24.version.number&label=in%20TeX%20Live%20as"/></a>
+<a href="https://miktex.org/packages/ugentdocs"><img alt="Included in MiKTeX" src="https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fmiktex.org%2Fpackages%2Fugentdocs&prefix=ugentdocs%20v&query=%2F%2Fdt%5Bnormalize-space()%3D'Version%3A'%5D%2Ffollowing-sibling%3A%3Add%5B1%5D&label=in%20MiKTeX%20as"/></a>
     
 
 </p>
