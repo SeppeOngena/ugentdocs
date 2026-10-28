@@ -1,5 +1,19 @@
-<h1 align="center">The ugentdocs $\LaTeX$ package</h1>
-<h3 align="center">The UGent house style for $\LaTeX$ documents, developed and maintained by volunteers</h3>
+<h1 align="center">
+  The ugentdocs 
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SeppeOngena/ugentdocs/main/.github/assets/latex-logo-dark.svg">
+    <img alt="LaTeX" src="https://raw.githubusercontent.com/SeppeOngena/ugentdocs/main/.github/assets/latex-logo-light.svg" height="29" align="absmiddle">
+  </picture>
+  package
+</h1>
+<h3 align="center">
+  The UGent house style for
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SeppeOngena/ugentdocs/main/.github/assets/latex-logo-dark.svg">
+    <img alt="LaTeX" src="https://raw.githubusercontent.com/SeppeOngena/ugentdocs/main/.github/assets/latex-logo-light.svg" height="18" align="absmiddle">
+  </picture>
+  documents, developed and maintained by volunteers
+</h3>
 
 
 <p align="center">
