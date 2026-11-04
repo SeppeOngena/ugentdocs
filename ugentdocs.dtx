@@ -937,7 +937,7 @@
   \bool_set_false:N \l_@@_try_found_bool
   \tl_clear:N \l_@@_try_opts_tl
   \tl_if_blank:nF {#1} {
-    \tl_map_inline:nn { {} {fonts/} } {
+    \tl_map_inline:nn { {} {fonts/} {Fonts/}} {
       \@@_try_file:nn {##1} {#1}
       \@@_try_file:ne {##1} { \str_lowercase:n {#1} }
       \@@_try_file:ne {##1} { \str_uppercase:n {#1} }
