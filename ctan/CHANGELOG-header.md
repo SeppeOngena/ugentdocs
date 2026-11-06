@@ -29,8 +29,8 @@ for the UGent house style. The major changes include:
   the official EPS files) and text, for the UGent logo, all faculty logos,
   GUGC, and campus Kortrijk, plus standalone UGent and faculty icons. The
   faculty may be omitted entirely.
-- UGent font handling: UGent Panno Text is required for the logos (and hence
-  LuaLaTeX or XeLaTeX), with Arial as option. Noto Sans Math is used with
+- UGent font handling: UGent Panno Text is loaded by default under
+  LuaLaTeX or XeLaTeX, with Arial as option. Noto Sans Math is used with
   TeX Gyre DejaVu Math as fallback. Fake small caps were implemented
   for fontspec fonts.
 - Unified handling of people and document data through generalised sequences

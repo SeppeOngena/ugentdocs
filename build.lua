@@ -285,8 +285,7 @@ uploadconfig = {
   .. "letters, course notes, and beamer slides, and generates print-ready "
   .. "book covers for PhD dissertations and courses. "
   .. "Dictionaries / lexicons for Dutch and English are included, users can "
-  .. "add their own for other languages. The package requires LuaLaTeX or "
-  .. "XeLaTeX for loading the official UGent fonts used in the logos.",
+  .. "add their own for other languages.",
   topic = {
     "class",          -- document classes
     "dissertation",   -- ugentbama, ugentphd
