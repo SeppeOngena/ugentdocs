@@ -1082,8 +1082,37 @@
   \renewcommand{\familydefault}{\sfdefault}
 }
 \else
-\PackageError{ugentdocs}{Only LuaLaTeX or XeLaTeX is supported for compilation}
-{See the ugentdocs manual}
+\PackageWarning{ugentdocs}{%
+  UGent Panno Text and Arial need LuaLaTeX or XeLaTeX.\MessageBreak
+  Falling back to Arimo with sans-serif math.\MessageBreak
+  Compile with LuaLaTeX or XeLaTeX for the exact house style
+}
+% The font selection commands need fontspec: only run their <false code>
+\NewDocumentCommand \trysetsansfont { O{} m O{} m } {#4}
+\NewDocumentCommand \trynewfontfamily { m O{} m O{} m } {#5}
+\NewDocumentCommand \trynewfontface { m O{} m O{} m } {#5}
+\NewDocumentCommand \trysetmathfont { O{} m O{} m } {#4}
+\NewDocumentCommand \overridemathfont { m } {}
+\NewDocumentCommand \tryoverridemathfont { O{} m m } {#3}
+\@onlypreamble \overridemathfont
+\@onlypreamble \tryoverridemathfont
+
+\newcommand{\@loadfonts}{
+  \RequirePackage[T1]{fontenc}
+  \IfFileExists{arimo.sty}{%
+    \RequirePackage[sfdefault]{arimo}%
+  }{%
+    \PackageWarning{ugentdocs}{Arimo (TeX Live package arimo) not found,\MessageBreak
+      using the default sans-serif font}%
+    \renewcommand{\familydefault}{\sfdefault}%
+  }
+
+  \IfFileExists{newtxsf.sty}{%
+    \RequirePackage{newtxsf}%
+  }{%
+    \PackageWarning{ugentdocs}{newtxsf not found, using the default math fonts}%
+  }
+}
 \fi
 
 % Small caps for fontspec fonts
