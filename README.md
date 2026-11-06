@@ -52,8 +52,6 @@ The separate [`ugentdocs-contrib`](https://GitHub.com/SeppeOngena/ugentdocs-cont
 
 Installation
 --
->[!WARNING]
-> Due to the use of `fontspec` for the official logos, your documents need to be compiled using LuaLaTeX or XeLaTeX (you can easily set this in your editor), and the UGent Panno Text Medium and SemiBold fonts need to be installed. You can find these fonts [on the intranet](https://ugentbe.sharepoint.com/sites/intranet-communicatie/SitePages/en/corporate-design.aspx). For online editors, upload these fonts into a `fonts/` subdirectory.
 
 ### Through your TeX distribution (recommended)
 

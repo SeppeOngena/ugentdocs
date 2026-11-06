@@ -274,9 +274,8 @@
 %   \item Primary font: UGent Panno Text. ``This font does justice to
 %     the historical values of Ghent University and is simultaneously
 %     modern, distinctive and charismatic.''
-%     \watchout The Medium and SemiLight variants are needed for the logos,
-%     so they are an absolute requirement. If the Normal variant is installed,
-%     it is used by default for all class files. You can download it
+%     This font is loaded by default if the document is compiled with
+%     \LuaLaTeX{} or \XeLaTeX{}. You can download it
 %     \href{https://ugentbe.sharepoint.com/sites/intranet-communicatie/SitePages/en/corporate-design.aspx}
 %     {from the intranet}. The font files can also be put in the document's
 %     working directory or in a |fonts/| subdirectory (for Inscrive or Overleaf).
@@ -290,16 +289,16 @@
 % As both official fonts are sans-serif styled, a similar
 % math font is preferred. For this, we load the Noto Sans Math font (if it is
 % installed), with a DejaVu Math TeX Gyre fallback.
+% Compiling with \pdfLaTeX{} will load the Arimo font, which is close to Arial.
 %
 %
 % \section*{A note on compilers}
-% These \watchout class files should be ready to use with modern
+% These class files should be ready to use with modern
 % \LaTeX{} compilers \XeLaTeX{} or \LuaLaTeX{}, and \LaTeX{}2e kernel
 % versions newer than October 2020 from the major \TeX{}-distributions
 % (TeTeX, TexLive, MikTeX).
-% Using an old \LaTeX{} + dvips setup or PDF\LaTeX{} is
-% not supported due to the logo implementation. So ditch the route via DVI
-% and abandon the old PDF\LaTeX{} compiler.
+% Using \pdfLaTeX{} is supported, but this will not follow the official
+% house style as UGent Panno Text or Arial can't be loaded.
 % If you experience other problems, please inform the author.
 %
 % \section*{A note on customization}
@@ -598,7 +597,7 @@
 %         minimum width=\ugentswsize, minimum height=\ugentswsize]
 %     (sw-#1) at
 %     (\swcol*\ugentswsize+\swcol*3mm, -\swrow*\ugentswsize-\swrow*3mm) {};
-%   \node[swatchtext, font=\normalsize,
+%   \node[swatchtext, font=\sffamily\normalsize,
 %         text width=\ugentswsize-4mm, anchor=north west]
 %     at ([xshift=2mm,yshift=-2mm]sw-#1.north west) {\nohyphens{#3}};
 %   \node[swatchtext, font=\ttfamily\small, anchor=south west]
@@ -824,11 +823,8 @@
 %
 % \subsubsection{Fonts}
 % \label{S:usage:cffcl:fonts}
-% UGent Panno Text and its Medium and SemiLight variants should always be
-% installed\watchout -- and the document compiled using \LuaLaTeX{} or \XeLaTeX{}
-% -- as they are used in the logo's.
-% For the document itself, it is recommended to use UGent Panno Text as well,
-% which is why it is set by default through
+% UGent Panno Text is loaded by default when compiling with
+% \LuaLaTeX{} or \XeLaTeX{} through
 % the |\trysetsansfont[UGentPannoText-Normal]{UGent Panno Text}[...]{}| block
 % below. However, Arial is also a valid official alternative and can override
 % UGent Panno Text by adding the |\trysetsansfont[Arial]{Arial}[...]{}| block below to the
@@ -838,6 +834,8 @@
 % This is not applicable for \LaTeX{} however, as PDFs are always generated,
 % usually with fonts embedded.
 % Thus, UGent Panno Text is the default everywhere.
+% If neither are available (or the document is compiled using \pdfLaTeX{}), the
+% Arimo font is loaded instead, which is metric-compatible with Arial.
 %
 % \begin{verbatim}
 % \trysetsansfont[UGentPannoText-Normal]{UGent Panno Text}[
@@ -1150,36 +1148,14 @@
 % \begin{itemize}
 %   \item {
 %     \trysetsansfont[UGentPannoText-Normal]{UGent Panno Text}[
-%       BoldFont            = {UGent Panno Text},
+%       BoldFont            = *,
 %       BoldFeatures        = {FakeBold=2.5},
-%       ItalicFont          = {UGent Panno Text},
+%       ItalicFont          = *,
 %       ItalicFeatures      = {FakeSlant=0.15},
-%       BoldItalicFont      = {UGent Panno Text},
+%       BoldItalicFont      = *,
 %       BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
 %     ]{}
 %     UGent Panno Text: \textbf{bold}, \textit{italic}, \textbf{\textit{bolditalic}}, and \fakesc{Fake Small Caps}
-%   }
-%   \item {
-%     \trysetsansfont[UGentPannoText-Medium]{UGent Panno Text Medium}[
-%       BoldFont            = *,
-%       BoldFeatures        = {FakeBold=2.5},
-%       ItalicFont          = *,
-%       ItalicFeatures      = {FakeSlant=0.15},
-%       BoldItalicFont      = *,
-%       BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
-%     ]{}
-%     UGent Panno Text Medium: \textbf{bold}, \textit{italic}, \textbf{\textit{bolditalic}}, and \fakesc{Fake Small Caps}
-%   }
-%   \item {
-%     \trysetsansfont[UGentPannoText-SemiLight]{UGent Panno Text SemiLight}[
-%       BoldFont            = *,
-%       BoldFeatures        = {FakeBold=2.5},
-%       ItalicFont          = *,
-%       ItalicFeatures      = {FakeSlant=0.15},
-%       BoldItalicFont      = *,
-%       BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
-%     ]{}
-%     UGent Panno Text SemiLight: \textbf{bold}, \textit{italic}, \textbf{\textit{bolditalic}}, and \fakesc{Fake Small Caps}
 %   }
 %   \item {
 %     \trysetsansfont[Arial]{Arial}[
@@ -1193,6 +1169,23 @@
 %     Arial: \textbf{bold}, \textit{italic}, \textbf{\textit{bolditalic}}, and \textsc{Small Caps}
 %   }
 %   \item {
+%     \trysetsansfont[Arimo-Regular]{Arimo}[
+%       BoldFont            = *,
+%       BoldFeatures        = {FakeBold=2.5},
+%       ItalicFont          = *,
+%       ItalicFeatures      = {FakeSlant=0.15},
+%       BoldItalicFont      = *,
+%       BoldItalicFeatures  = {FakeBold=2.5, FakeSlant=0.15},
+%     ]{}
+%     Arimo (fallback for Arial, also used with \pdfLaTeX{}): \textbf{bold}, \textit{italic},
+%     \textbf{\textit{bolditalic}}, and \fakesc{Fake Small Caps}
+%   }
+%   \item {
+%     \trysetsansfont[lmsans10-regular]{Latin Modern Sans}{}
+%     Latin Modern Sans (as \pdfLaTeX{}'s Computer Modern Sans if Arimo is not installed):
+%     \textbf{bold}, \textit{italic}, \textbf{\textit{bolditalic}}
+%   }
+%   \item {
 %     \trysetmathfont[NotoSansMath-Regular]{Noto Sans Math}[Scale=0.9]{}
 %     Noto Sans Math:\\ \samplemath
 %   }
@@ -1200,6 +1193,12 @@
 %     \trysetmathfont[DejaVuMathTeXGyre]{DejaVu Math TeX Gyre}{}
 %     DejaVu Math TeX Gyre:\\ \samplemath
 %   }
+%   \item {
+%     \trysetmathfont[latinmodern-math]{Latin Modern Math}{}
+%     Latin Modern Math (last fallback):\\ \samplemath
+%   }
+%   \item \pdfLaTeX{} only: |newtxsf| sans-serif math, cannot be shown in this
+%     \LuaLaTeX{}-compiled manual.
 % \end{itemize}
 % \endgroup
 %
@@ -2211,6 +2210,7 @@
 %</clo>
 % \fi
 %
+% \newpage
 % \subsubsection{Faculty}
 % \label{S:usage:cffcl:faculty}
 %
@@ -2788,6 +2788,7 @@
 %</clo>
 % \fi
 %
+% \newpage
 % \subsubsection{Campus}
 % \label{S:usage:cffcl:campus}
 %
@@ -9595,8 +9596,8 @@ top=2\gridunit, bottom=2\gridunit, left=2\gridunit, right=2\gridunit]{geometry}
 %
 % Remember to
 % \begin{itemize}
-% \item Use a modern compiler: no pdf\LaTeX{},
-%    use \LuaLaTeX{} or \XeLaTeX{} instead!
+% \item Use a modern compiler: \LuaLaTeX{} or \XeLaTeX{} recommended,
+%    \pdfLaTeX{} as last resort.
 % \item Compile your source file twice or thrice. Most modern editors do this
 %    automatically
 % \end{itemize}
@@ -11589,9 +11590,9 @@ You can turn off the logo in the bottom left corner using the
 \begin{frame}[t]
   {Compilers and fonts}
 
-  The logos require UGent Panno Text to be installed, and an OTF/TTF compatible compiler:
+  An OTF/TTF compatible compiler is recommended for loading UGent Panno Text or Arial:
   \begin{description}
-  \item[\textrm{\LaTeX} and \textrm{pdf\LaTeX}] --- Old compilers -
+  \item[\textrm{\LaTeX} and \textrm{\pdfLaTeX}] --- Old compilers -
    don't support OTF/TTF. \textbf{Don't use!}
   \item[\textrm{\XeLaTeX} and \textrm{\LuaLaTeX}] --- more modern compilers -
    either works\\
