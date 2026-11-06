@@ -973,8 +973,31 @@
 \NewDocumentCommand \trynewfontface { m O{} m O{} m }
 { \@@_try_load:nnnnn { \newfontface #1 } {#2} {#3} {#4} {#5} }
 % \trysetmathfont[<file>]{<name>}[<fontspec options>]{<false code>}
-\NewDocumentCommand \trysetmathfont { O{} m O{} m }
-{ \@@_try_load:nnnnn { \setmathfont } {#1} {#2} {#3} {#4} }
+% Reject a found font that lacks OpenType math support
+\bool_new:N \g_@@_try_math_bool
+\tl_new:N \l_@@_try_family_tl
+\cs_new_protected:Npn \@@_try_check_math: {
+  \bool_if:NT \l_@@_try_found_bool {
+    \group_begin:
+      \exp_args:NNVV \fontspec_set_family:Nnn \l_@@_try_family_tl
+        \l_@@_try_opts_tl \l_@@_try_name_tl
+      \fontfamily { \l_@@_try_family_tl } \selectfont
+      \fontspec_if_script:nTF { math } {
+        \bool_gset_true:N \g_@@_try_math_bool
+      }{
+        \bool_gset_false:N \g_@@_try_math_bool
+      }
+    \group_end:
+    \bool_set_eq:NN \l_@@_try_found_bool \g_@@_try_math_bool
+  }
+}
+\NewDocumentCommand \trysetmathfont { O{} m O{} m } {
+  \@@_try_font:nn {#1} {#2}
+  \@@_try_check_math:
+  \bool_if:NTF \l_@@_try_found_bool {
+    \@@_load:nVVn { \setmathfont } \l_@@_try_name_tl \l_@@_try_opts_tl {#3}
+  } {#4}
+}
 
 % Override numbers/letters from math font with specified font
 \NewDocumentCommand \overridemathfont { m } {
@@ -1027,7 +1050,9 @@
   [mathrm = sym,mathup = sym,mathbf = sym,mathit = sym, mathsf = sym]
   {unicode-math}
   \trysetmathfont[NotoSansMath-Regular]{Noto Sans Math}[Scale = 0.9]{%
-    \trysetmathfont{DejaVuMathTeXGyre}[DejaVu Math TeX Gyre]{}%
+    \trysetmathfont[DejaVuMathTeXGyre]{DejaVu Math TeX Gyre}{
+      \setmathfont{latinmodern-math.otf}
+    }%
   }
 
   \renewcommand{\familydefault}{\sfdefault}
