@@ -49,7 +49,8 @@ end
 -- 3. Git tag on HEAD
 -- 4. dev-<short hash>, or "dev" without Git
 -- The version is used as given (v1.2.0) everywhere except the CTAN upload
--- form, where the leading "v" is dropped (1.2.0), as is usual on CTAN.
+-- form, where the leading "v" is dropped and the date is appended
+-- (1.1.0 2026-11-06), as is usual on CTAN.
 
 local function git(args)
   return trim(capture("git " .. args .. " 2>" .. os_null))
@@ -73,7 +74,7 @@ if version == "" then
   version = hash ~= "" and ("dev-" .. hash) or "dev"
 end
 
-local ctanversion = (version:gsub("^v", ""))
+local ctanversion = (version:gsub("^v", "")) .. " " .. os.date("%Y-%m-%d")
 -- upload takes the CTAN version from the command line
 if cli and options.target == "upload" then options.names[1] = ctanversion end
 
@@ -278,7 +279,7 @@ uploadconfig = {
   author      = "Seppe Ongena",
   -- uploader and email are left out on purpose: l3build asks for them
   license     = "lppl1.3c",
---   summary     = "House style document classes for Ghent University",
+  summary     = "House style document classes for Ghent University",
   description = "This package implements the house style of Ghent University "
   .. "(version 2025, following the official style guide) for bachelor's, "
   .. "master's, and PhD dissertations, research articles, reports, exams, "
@@ -298,10 +299,8 @@ uploadconfig = {
     "notes",          -- course notes
     "dutch",          -- Dutch localisation / lexicon
     "std-conform",    -- follows the official UGent style guide
-    "use-luatex",     -- requires LuaLaTeX ...
-    "use-xetex",      -- ... or XeLaTeX
   },
-  ctanPath = "/macros/unicodetex/latex/ugentdocs",
+  ctanPath = "/macros/latex/contrib/ugentdocs",
   repository  = repo_url,
   bugtracker  = repo_url .. "/issues",
   support     = repo_url .. "/discussions",
